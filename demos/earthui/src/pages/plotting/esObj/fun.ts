@@ -60,7 +60,7 @@ export const executePos = (xbsjEarthUi: XbsjEarthUi, pos: (position: [number, nu
  * @returns 返回值是一个ue的执行函数，外部需要循环调用一下，结束点击事件
  */
 export const ueActorResult = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => void) => {
-    const viewer = xbsjEarthUi.activeViewer
+    const viewer = xbsjEarthUi.activeViewer as unknown as ESUeViewer
     if (!viewer) return
     let disposeUe = viewer.clickEvent.don(async e => { // ue中没有pointerDown，但是ue的click相当于pointerDown
         if (!e.screenPosition) return;

@@ -58,7 +58,7 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
                     uri: origin,
                     app: appid
                 } as ESJSwitchToUEViewerOptionType
-                const viewer = xbsjEarthUi.switchToUEViewer(options) as ESUeViewer
+                const viewer = xbsjEarthUi.switchToUEViewer(options) as unknown as ESUeViewer
                 viewer.statusChanged.don((newValue) => {
                     if (newValue === 'Error') {
                         xbsjEarthUi.switchToCesiumViewer('viewersContainer')

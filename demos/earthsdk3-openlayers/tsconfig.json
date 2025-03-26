@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "ES6",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "downlevelIteration": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "strict": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "declaration": true,
+        "paths": {
+            "@olSrc/*": [
+                "src/*"
+            ],
+        },
+        "outDir": "dist",
+        "rootDir": "src",
+        "composite": false,
+        "declarationDir": "./dist/types",
+        "declarationMap": false,
+        "noImplicitOverride": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+    },
+    "lib": [
+        "es2015"
+    ],
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

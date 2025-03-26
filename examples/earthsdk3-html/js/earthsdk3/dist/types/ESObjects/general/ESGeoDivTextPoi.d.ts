@@ -1,0 +1,101 @@
+import { ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
+import { ESObjectWithLocation } from "../base";
+export declare class ESGeoDivTextPoi extends ESObjectWithLocation {
+    static readonly type: string;
+    get typeName(): string;
+    get defaultProps(): {
+        position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        minVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
+        maxVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
+        show: boolean;
+        collision: boolean;
+        allowPicking: boolean;
+        flyToParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyToParam | undefined>;
+        flyInParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyInParam | undefined>;
+        name: string;
+        ref: string | undefined;
+        extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        devTags: import("xbsj-base").ReactiveVariable<string[] | undefined>;
+        execOnceFuncStr: string | undefined;
+        updateFuncStr: string | undefined;
+        toDestroyFuncStr: string | undefined;
+        text: string | undefined;
+        width: number | undefined;
+        textEditingInteraction: boolean;
+        textEditing: boolean;
+        originRatioAndOffset: import("xbsj-base").ReactiveVariable<[leftRatio: number, topRatio: number, leftOffset: number, topOffset: number]>;
+        opacity: number;
+        fontSize: number;
+        textAlign: string;
+        color: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        backgroundColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        padding: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderRadius: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderWidth: number;
+        borderColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderStyle: string;
+    };
+    static defaults: {
+        allowTextEditing: boolean;
+        width: number;
+        text: string;
+        originRatioAndOffset: [number, number, number, number];
+        opacity: number;
+        fontSize: number;
+        color: [number, number, number, number];
+        backgroundColor: [number, number, number, number];
+        padding: [number, number, number, number];
+        borderRadius: [number, number, number, number];
+        borderColor: [number, number, number, number];
+        borderWidth: number;
+        textAlign: string;
+        borderStyle: string;
+        show: boolean;
+        collision: boolean;
+        allowPicking: boolean;
+        flyToParam: import("../../ESJTypes").ESJFlyToParam;
+        flyInParam: import("../../ESJTypes").ESJFlyInParam;
+    };
+    constructor(id?: SceneObjectKey);
+    getProperties(language?: string): import("../../ESJTypes").Property[];
+}
+export declare namespace ESGeoDivTextPoi {
+    const createDefaultProps: () => {
+        position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        minVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
+        maxVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
+        show: boolean;
+        collision: boolean;
+        allowPicking: boolean;
+        flyToParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyToParam | undefined>;
+        flyInParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyInParam | undefined>;
+        name: string;
+        ref: string | undefined;
+        extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        devTags: import("xbsj-base").ReactiveVariable<string[] | undefined>;
+        execOnceFuncStr: string | undefined;
+        updateFuncStr: string | undefined;
+        toDestroyFuncStr: string | undefined;
+        text: string | undefined;
+        width: number | undefined;
+        textEditingInteraction: boolean;
+        textEditing: boolean;
+        originRatioAndOffset: import("xbsj-base").ReactiveVariable<[leftRatio: number, topRatio: number, leftOffset: number, topOffset: number]>;
+        opacity: number;
+        fontSize: number;
+        textAlign: string;
+        color: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        backgroundColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        padding: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderRadius: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderWidth: number;
+        borderColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
+        borderStyle: string;
+    };
+}
+export interface ESGeoDivTextPoi extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof ESGeoDivTextPoi.createDefaultProps>> {
+}

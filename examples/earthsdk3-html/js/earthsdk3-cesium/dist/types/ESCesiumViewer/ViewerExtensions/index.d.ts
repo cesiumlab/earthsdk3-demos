@@ -1,0 +1,34 @@
+import { TerrainManager } from "./TerrainManager";
+import { LabelManager } from "./LabelManager";
+import { ImageriesManager } from "./ImageriesManager";
+import { Destroyable } from "xbsj-base";
+import * as Cesium from "cesium";
+import { PickingManager } from "./PickingManager";
+import { CzmPoisContext } from "../../CzmObjects";
+import { ESCesiumViewer } from "..";
+import { CursorPositionInfo } from "./CursorPositionInfo";
+export * from './TerrainManager';
+export * from './LabelManager';
+export * from './ImageriesManager';
+export * from './PickingManager';
+export declare function getViewerExtensions(viewer: Cesium.Viewer): ViewerExtensions | undefined;
+export declare function setViewerExtensions(viewer: Cesium.Viewer, viewerExtensions: ViewerExtensions | undefined): void;
+export declare class ViewerExtensions extends Destroyable {
+    protected _viewer: Cesium.Viewer;
+    protected _czmViewer: ESCesiumViewer;
+    get viewer(): Cesium.Viewer;
+    get czmViewer(): ESCesiumViewer;
+    private _imageriesManager;
+    get imageriesManager(): ImageriesManager;
+    private _terrainManager;
+    get terrainManager(): TerrainManager;
+    private _labelManager;
+    get labelManager(): LabelManager;
+    private _pickingManager;
+    get pickingManager(): PickingManager;
+    private _poiContext;
+    get poiContext(): CzmPoisContext;
+    private _cursorPositionInfo;
+    get cursorPositionInfo(): CursorPositionInfo;
+    constructor(_viewer: Cesium.Viewer, _czmViewer: ESCesiumViewer);
+}

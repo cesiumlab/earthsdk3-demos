@@ -1,0 +1,33 @@
+import { Destroyable } from "xbsj-base";
+import { GeoPolylineEditorImpl } from "..";
+import { AddingEditingProcessing } from "./AddingEditingProcessing";
+import { EditingStatusType } from "./EditingStatusType";
+import { ModifyingEditingProcessing } from "./ModifyingEditingProcessing";
+import { PolylinePositionEditor } from "../PolylinePositionEditor";
+import { GeoCoordinatesEditor } from "../../../CoordinateDisplay";
+import { GeoCoordinatesPicker } from "../../../CoordinatesEditorAndPicker";
+import { CursorFloatDiv, CursorInfo } from "../../../../../../CzmObjects";
+export declare class EditingProcessing extends Destroyable {
+    private _impl;
+    private _status;
+    get status(): EditingStatusType;
+    get statusChanged(): import("xbsj-base").Listener<[EditingStatusType, EditingStatusType]>;
+    set status(value: EditingStatusType);
+    private _cursorInfo;
+    get cursorInfo(): CursorInfo<CursorFloatDiv> | undefined;
+    private _geoCoordinatesPicker;
+    get geoCoordinatesPicker(): GeoCoordinatesPicker;
+    private _geoCoordinatesEditor;
+    get geoCoordinatesEditor(): GeoCoordinatesEditor;
+    private _deletePreviousPointWhileAddingEvent;
+    deletePreviousPointWhileAdding(): void;
+    private _cancelEvent;
+    cancel(): void;
+    private _forceModifyPosEditorEvent;
+    modify(posEditor: PolylinePositionEditor): void;
+    private _innerProcessing;
+    get innerProcessing(): AddingEditingProcessing | ModifyingEditingProcessing | undefined;
+    get innerProcessingChanged(): import("xbsj-base").Listener<[AddingEditingProcessing | ModifyingEditingProcessing | undefined, AddingEditingProcessing | ModifyingEditingProcessing | undefined]>;
+    get impl(): GeoPolylineEditorImpl;
+    constructor(_impl: GeoPolylineEditorImpl);
+}

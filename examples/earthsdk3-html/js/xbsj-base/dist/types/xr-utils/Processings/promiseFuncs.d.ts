@@ -1,0 +1,10 @@
+import { CancelError, CancelFuncType } from './types';
+import { Event } from '../base';
+export declare function setPromiseCancel(promise: Promise<any>, cancelFunc?: (cancelError: CancelError) => void): void;
+export declare function getPromiseCancel(promise: Promise<any>): CancelFuncType | undefined;
+export declare function isPromiseCancelable(promise: Promise<any>): boolean;
+export declare function cancelPromise(promise: Promise<any>, cancelError?: CancelError): boolean;
+export declare function pairToPromise<T>(pair: [cancaleFunc: CancelFuncType, promise: Promise<T>]): Promise<T>;
+export declare function createCancelablePromise<T>(promise: Promise<T>): Promise<T>;
+export declare function getPromiseFromEvent<T extends any[]>(event: Event<T>): [CancelFuncType, Promise<T>];
+export declare function getEventFromPromise<T>(promise: Promise<T>): [Event<[T]>, Event<[any]>];

@@ -1,0 +1,11 @@
+import { Processing } from "../Processings";
+export declare function createNextAnimateFrame(): Processing<void, [func?: (() => void) | undefined]>;
+export declare function createNextAnimateFrameWithStartValues(func?: () => void): Processing<void, []>;
+export declare function createNextMicroTask(): Processing<void, [func?: (() => void) | undefined]>;
+export declare function createNextMicroTaskWithStartValues(func?: () => void): Processing<void, []>;
+export declare function createTimeout(): Processing<void, [func?: (() => void) | undefined, time?: number | undefined]>;
+export declare function createTimeoutWithStartValues(func?: () => void, time?: number): Processing<void, []>;
+export declare function createInterval(): Processing<void, [func: () => void, time?: number | undefined]>;
+export declare function createIntervalWithStartValues(func: (() => void), time?: number): Processing<void, []>;
+export declare function createAnimateFrame(): Processing<void, [func: (timeStamp: number) => void]>;
+export declare function createAnimateFrameWithStartValues(func: ((timeStamp: number) => void)): Processing<void, []>;

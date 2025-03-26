@@ -1,0 +1,1 @@
+export { BackGroundImage } from './BackGroundImage';

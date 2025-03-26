@@ -1,0 +1,3 @@
+import { ReactParamsType } from "./bindAndTrack";
+export declare function withoutUndefined<T>(reactVar: ReactParamsType<T, any>, defaultValue: Exclude<T, undefined>, equalsFunc?: (a: Exclude<T, undefined>, b: Exclude<T, undefined>) => boolean, assignFunc?: (newValue: Exclude<T, undefined>, target?: Exclude<T, undefined>) => Exclude<T, undefined>): import("./ReactiveVariable").ReactiveVariable<Exclude<T, undefined>>;
+export declare function withoutUndefinedArray<T>(reactVar: ReactParamsType<T[] | undefined, any>, defaultValue: T[], elementEqualsFunc?: (a: T, b: T) => boolean, elementAssignFunc?: (s: T, t?: T) => T): import("./ReactiveVariable").ReactiveVariable<T[]>;

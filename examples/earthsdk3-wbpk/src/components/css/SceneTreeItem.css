@@ -1,0 +1,137 @@
+.eye {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.cancel {
+    /* display: inline-block; */
+    float: right;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+    background: url(../img/cancel.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.eye-show {
+    background: url(../img/show.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.eye-hide {
+    background: url(../img/hide.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.collapse {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.collapse-box {
+    background: rgb(0, 0, 0, 0);
+    background-size: 100% 100%;
+}
+
+.collapse-right {
+    background: url(../img/right.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.collapse-bottom {
+    background: url(../img/bottom.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.scene-tree-item-type {
+    display: inline-block;
+    margin-left: 2px;
+    width: 16px;
+    height: 16px;
+}
+
+.folder-type {
+    background: url(../img/folder.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.file-type {
+    background: url(../img/obj.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.treeItem-name {
+    margin-left: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file_name>input {
+    width: 100%;
+    background: #003847;
+    border: 1px solid #384b50;
+    outline: 1px solid #384b50;
+    border-radius: 2px;
+    font-size: 12px;
+    height: 16px;
+    color: #fff;
+}
+
+.check_box {
+    width: 18px;
+    font-size: 18px;
+    text-align: center;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.top_style {
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    color: #ccc;
+    transition: background .3s;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    width: calc(100% - 50px);
+}
+
+.file_name>input:focus {
+    outline: 1px solid #384b50;
+}
+
+
+.node-type {
+    background: url(../img/tile_node.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.element-type {
+    background: url(../img/tile_element.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.tile_item {
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.tile_item:hover {
+    background: #003847;
+}

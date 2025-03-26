@@ -1,0 +1,1 @@
+export declare const indexTypeArrayReadMe = "### \u9ED8\u8BA4\u7684\u7D22\u5F15\u6570\u7EC4\n```\n{\n    \"type\": \"Uint16Array\",\n    \"array\": [0, 1, 2, 3, 4, 5]\n}\n```\n\n### \u7D22\u5F15\u7C7B\u578B\u89C4\u683C\u8BF4\u660E\n```\nexport type IndexJsonType = {\n    type: 'Uint8Array' | 'Uint16Array' | 'Uint32Array';\n    array: number[];\n}\n```\n";

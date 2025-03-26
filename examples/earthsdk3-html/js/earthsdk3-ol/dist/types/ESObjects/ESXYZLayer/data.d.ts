@@ -1,0 +1,63 @@
+export declare const description: {
+    colorLevel: string;
+    colorHSL: string;
+    curve: string;
+    brightness: string;
+    contrast: string;
+    url: string;
+    urls: string;
+    attributions: string;
+    attributionsCollapsible: string;
+    cacheSize: string;
+    crossOrigin: string;
+    interpolate: string;
+    opaque: string;
+    tileGrid: string;
+    projection: string;
+    reprojectionErrorThreshold: string;
+    maxZoom: string;
+    minZoom: string;
+    maxResolution: string;
+    tilePixelRatio: string;
+    tileLoadFunction: string;
+    wrapX: string;
+    tileSize: string;
+    gutter: string;
+    tileUrlFunction: string;
+    transition: string;
+    zDirection: string;
+};
+export declare const defaults: {
+    colorLevel: {
+        shadow: number;
+        midtones: number;
+        highlight: number;
+        outputShadow: number;
+        outputHighlight: number;
+    };
+    colorHSL: {
+        hue: number;
+        saturation: number;
+        lightness: number;
+    };
+    curve: {
+        controlPoints: number[][];
+        points: number[][];
+        density: number;
+    };
+    brightness: number;
+    contrast: number;
+    maxZoom: number;
+    minZoom: number;
+    opaque: boolean;
+    tileSize: number;
+    gutter: number;
+    interpolate: boolean;
+    attributionsCollapsible: boolean;
+    reprojectionErrorThreshold: number;
+    tilePixelRatio: number;
+    tileLoadFunction: string;
+    wrapX: boolean;
+    transition: number;
+    zDirection: number;
+};

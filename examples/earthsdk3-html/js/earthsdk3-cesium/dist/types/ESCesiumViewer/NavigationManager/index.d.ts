@@ -1,0 +1,31 @@
+import { ESJVector3D } from "earthsdk3";
+import { Destroyable } from "xbsj-base";
+import { ESCesiumViewer } from "../index";
+import { FirstPersonController } from "./FirstPersonController";
+import { GeoPolylinePathCameraController } from './GeoPolylinePathCameraController';
+import { GeoSceneObjectCameraController } from "./GeoSceneObjectCameraController";
+import { RotateGlobe } from "./RotateGlobe";
+import { RotatePoint } from "./RotatePoint";
+export declare class NavigationManager extends Destroyable {
+    private _viewer;
+    private _firstPersonController;
+    get firstPersonController(): FirstPersonController;
+    private _rotateGlobe;
+    get rotateGlobe(): RotateGlobe;
+    private _rotatePoint;
+    get rotatePoint(): RotatePoint;
+    private _followController;
+    get followController(): GeoSceneObjectCameraController;
+    private _pathCameraController;
+    get pathCameraController(): GeoPolylinePathCameraController;
+    private _handler?;
+    resetNavigation(): void;
+    changeToMap(): void;
+    changeToWalk(position: ESJVector3D): void;
+    changeToRotateGlobe(latitude?: number, height?: number, cycleTime?: number): void;
+    changeToRotatePoint(position: ESJVector3D, distance?: number, orbitPeriod?: number, heading?: number, pitch?: number): void;
+    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number): void;
+    changeToLine(geoLineStringId: string, speed?: number, heightOffset?: number, loop?: boolean, turnRateDPS?: number, lineMode?: "auto" | "manual"): void;
+    constructor(_viewer: ESCesiumViewer);
+    private _changedMouseEvent;
+}

@@ -1,0 +1,2 @@
+export type CzmPixelFormatType = 'DEPTH_COMPONENT' | 'DEPTH_STENCIL' | 'ALPHA' | 'RED' | 'RG' | 'RGB' | 'RGBA' | 'LUMINANCE' | 'LUMINANCE_ALPHA' | 'RGB_DXT1' | 'RGBA_DXT1' | 'RGBA_DXT3' | 'RGBA_DXT5' | 'RGB_PVRTC_4BPPV1' | 'RGB_PVRTC_2BPPV1' | 'RGBA_PVRTC_4BPPV1' | 'RGBA_PVRTC_2BPPV1' | 'RGBA_ASTC' | 'RGB_ETC1' | 'RGB8_ETC2' | 'RGBA8_ETC2_EAC' | 'RGBA_BC7';
+export declare const czmPixelFormats: string[];

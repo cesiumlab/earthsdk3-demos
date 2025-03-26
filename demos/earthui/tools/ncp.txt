@@ -1,0 +1,11 @@
+调试xbsj-renderer
+rimraf D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\node_modules\xbsj-renderer\dist-node
+ncp D:\vtxf\2021\Projects\xbsj\xbsj_renderer_202202\dist-node-unminified D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\node_modules\xbsj-renderer\dist-node
+
+调试guoheng-sdk-202204
+rimraf D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\src\libs\guoheng-sdk\dist-node
+ncp D:\vtxf\2021\Projects\vtxf\guoheng-sdk-202204\dist-node-unminified D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\src\libs\guoheng-sdk\dist-node
+
+发布guoheng-sdk-202204
+rimraf D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\src\libs\guoheng-sdk\dist-node
+ncp D:\vtxf\2021\Projects\vtxf\guoheng-sdk-202204\dist-node D:\vtxf\2021\Projects\vtxf\guoheng-sdk-demos-202204\demo1\src\libs\guoheng-sdk\dist-node

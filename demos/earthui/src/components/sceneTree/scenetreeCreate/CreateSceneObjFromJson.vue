@@ -11,12 +11,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref ,inject} from "vue";
+import { ref, inject } from "vue";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
 import { Message } from "earthsdk-ui"
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import {createSceneObjTreeItemFromJson} from "../../../pages/plotting/esObj/fun"
+import { createSceneObjTreeItemFromJson } from "../../../pages/plotting/esObj/fun"
 
 const emits = defineEmits(["changeShow"]);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
@@ -34,21 +34,21 @@ const copyClipboard = async (text: string) => {//复制
             Message.error(`复制失败!error:${e}`);
         });
 }
-const iframeSrc = './monaco-editor/js-editor.html';
+const iframeSrc = './monaco-editor/json-editor.html';
 const loadIframe = async () => {
-    await setJson('{}')
+    await setJson(JSON.stringify({}, undefined, '    '))
 }
 const changeOk = async () => {
     const str = await getJson()
     try {
         const json = JSON.parse(str);
         if (json) {
-           createSceneObjTreeItemFromJson(xbsjEarthUi,json)
+            createSceneObjTreeItemFromJson(xbsjEarthUi, json)
         }
         changeCancel()
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error( `JSON格式错误！ error: ${error}`);
+        Message.error(`JSON格式错误！ error: ${error}`);
         return
     }
 }

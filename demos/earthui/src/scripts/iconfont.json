@@ -6,11 +6,116 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "22430167",
-      "name": "三维坐标-01",
-      "font_class": "sanweizuobiao-01",
+      "icon_id": "43804268",
+      "name": "rotation",
+      "font_class": "rotation",
+      "unicode": "e71b",
+      "unicode_decimal": 59163
+    },
+    {
+      "icon_id": "43804266",
+      "name": "Circular append",
+      "font_class": "a-Circularappend",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "43804267",
+      "name": "place",
+      "font_class": "place",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "43804264",
+      "name": "circle",
+      "font_class": "circle",
+      "unicode": "e71e",
+      "unicode_decimal": 59166
+    },
+    {
+      "icon_id": "43804278",
+      "name": "visibility modify",
+      "font_class": "a-visibilitymodify",
+      "unicode": "e70e",
+      "unicode_decimal": 59150
+    },
+    {
+      "icon_id": "43804277",
+      "name": "scale",
+      "font_class": "scale",
       "unicode": "e70f",
       "unicode_decimal": 59151
+    },
+    {
+      "icon_id": "43804276",
+      "name": "Scatter modify",
+      "font_class": "a-Scattermodify",
+      "unicode": "e710",
+      "unicode_decimal": 59152
+    },
+    {
+      "icon_id": "43804275",
+      "name": "Circular Insert",
+      "font_class": "a-CircularInsert",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "43804263",
+      "name": "Double points append",
+      "font_class": "a-Doublepointsappend",
+      "unicode": "e712",
+      "unicode_decimal": 59154
+    },
+    {
+      "icon_id": "43804274",
+      "name": "Double points modify",
+      "font_class": "a-Doublepointsmodify",
+      "unicode": "e713",
+      "unicode_decimal": 59155
+    },
+    {
+      "icon_id": "43804273",
+      "name": "visibility append",
+      "font_class": "a-visibilityappend",
+      "unicode": "e714",
+      "unicode_decimal": 59156
+    },
+    {
+      "icon_id": "43804272",
+      "name": "translation",
+      "font_class": "translation",
+      "unicode": "e715",
+      "unicode_decimal": 59157
+    },
+    {
+      "icon_id": "43804271",
+      "name": "Linestring append",
+      "font_class": "a-Linestringappend",
+      "unicode": "e716",
+      "unicode_decimal": 59158
+    },
+    {
+      "icon_id": "43804270",
+      "name": "Height modify",
+      "font_class": "a-Heightmodify",
+      "unicode": "e717",
+      "unicode_decimal": 59159
+    },
+    {
+      "icon_id": "43804265",
+      "name": "Linestring Insert",
+      "font_class": "a-LinestringInsert",
+      "unicode": "e719",
+      "unicode_decimal": 59161
+    },
+    {
+      "icon_id": "43804269",
+      "name": "Scatter append",
+      "font_class": "a-Scatterappend",
+      "unicode": "e71a",
+      "unicode_decimal": 59162
     },
     {
       "icon_id": "23370638",
@@ -18,13 +123,6 @@
       "font_class": "sanweizuobiao",
       "unicode": "e70d",
       "unicode_decimal": 59149
-    },
-    {
-      "icon_id": "33832008",
-      "name": "三维坐标系",
-      "font_class": "sanweizuobiaoxi",
-      "unicode": "e70e",
-      "unicode_decimal": 59150
     },
     {
       "icon_id": "42996515",

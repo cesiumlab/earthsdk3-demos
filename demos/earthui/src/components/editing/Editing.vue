@@ -116,11 +116,20 @@ onMounted(() => {
             };
         });
     }
+    xbsjEarthUi.activeViewer?.editStatusEvent.disposableOn((val) => {
+        if (val) {
+            if (val.editing === false) {
+                currentMode.value=''
+            }
+
+        }
+    })
+
 })
 const checkColor = {
     default: "#FFFFFF",
     checked: "#5788FF",
-    indeterminate: "#97999A",
+    indeterminate: "#525252",
 }
 const hoverIndex = ref(-1)
 const iconColor = (item: any, index: number) => {
@@ -141,8 +150,8 @@ const changeCurrentMode = (item: any) => {
     const lastSelectedItem = sceneTree.lastSelectedItem
     if (lastSelectedItem && lastSelectedItem.sceneObject) {
         const sceneObject = lastSelectedItem.sceneObject as ESVisualObject
-        const viewer=xbsjEarthUi.activeViewer
-        if(viewer){
+        const viewer = xbsjEarthUi.activeViewer
+        if (viewer) {
             viewer.startEditing(sceneObject, [item.type])
         }
     }
@@ -197,7 +206,7 @@ const changeCurrentMode = (item: any) => {
     transform: translateY(-50%);
     height: 30%;
     width: 1px;
-    background-color: #a4a4a4c3;
+    background-color: #525252;
 }
 
 .disabled-element {

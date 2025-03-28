@@ -1,0 +1,12 @@
+{
+  "name": "earthsdk3-workspace",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "dev-earthui": "pnpm --F earth-ui serve",
+    "clean_node_modules": "pnpm recursive exec -- rimraf node_modules"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.10"
+  }
+}

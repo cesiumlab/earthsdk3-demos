@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "ol": "^7.1.0",
-    "xbsj-base": "0.0.1-beta.0.11"
+    "xbsj-base": "0.0.1-beta.0.11",
+    "earthsdk3": "0.0.1-beta.0.59"
   }
 }

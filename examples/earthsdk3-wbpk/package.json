@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "cesium": "1.123.1",
-    "earthsdk3-ol": "0.0.1-beta.0.2"
+    "earthsdk3-ol": "0.0.1-beta.0.2",
+    "earthsdk3-assets": "0.0.1-beta.0.12",
+    "earthsdk3-cesium": "0.0.1-beta.0.74",
+    "earthsdk3-ue": "0.0.1-beta.0.39",
+    "earthsdk3": "0.0.1-beta.0.59"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

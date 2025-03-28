@@ -3416,10 +3416,10 @@ earthsdk-icon@0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@0.0.49-beta.0.28:
-  version "0.0.49-beta.0.28"
-  resolved "https://registry.npmjs.org/earthsdk-ui/-/earthsdk-ui-0.0.49-beta.0.28.tgz#434efe876cb4356b9a9a7d97e0ed821a397ce02b"
-  integrity sha512-/776W70NTvu/a/xdTMGgCSMMfMSJjHYO2qVAOssOop4tQlcwtPTxcUb1bAjXffp74llHapxSPBHve1hAYLWEAw==
+earthsdk-ui@0.0.49-beta.0.30:
+  version "0.0.49-beta.0.30"
+  resolved "https://registry.npmjs.org/earthsdk-ui/-/earthsdk-ui-0.0.49-beta.0.30.tgz#2c9cd1b5db528bc3947a3f54b4f3a9b9e45f5238"
+  integrity sha512-xNc7dfYW0L+z24CapSSej8RfpganNjSlgGHK49qDYxrETF9hWSxd2esABR9s5AcymQjF5iosIMNeJe9s+y2r9g==
   dependencies:
     earthsdk-icon "0.0.10"
     earthsdk3 "0.0.1-beta.0.28"

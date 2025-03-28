@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import { ReactVarProperty } from 'earthsdk3';
+import { ESSceneObject, ReactVarProperty } from 'earthsdk3';
 import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi';
 const props = withDefaults(defineProps<{ properties: ReactVarProperty<any>[], type?: string; treeItem?: any, lonLatFormat: string }>(), {});
-import { propComps } from 'earthsdk-ui'
-import { inject } from 'vue';
+import { Message, propComps } from 'earthsdk-ui'
+import { inject, onBeforeUnmount, onMounted } from 'vue';
 // import { propComps } from '../../index'
 const emtis = defineEmits<{
     (e: 'callback', params: any & { treeItem: any }): void;
@@ -14,8 +14,27 @@ const callback = (params: any): void => {
     emtis('callback', {
         treeItem,
         ...params,
-    });
+    }); ``
 };
+let dispose: any
+onMounted(() => {
+    const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
+    dispose = sceneObject.editingChanged.disposableOn((res: boolean) => {
+        if (res) {
+            Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击键盘退出（ESC）键可退出编辑模式。2. 对象提供多种编辑方式，可使用键盘空格（Space）键进行编辑方式的切换。' })
+        } else {
+            Message.remove('xxx')
+        }
+    })
+})
+onBeforeUnmount(() => {
+    if (dispose) {
+        dispose()
+        dispose=undefined
+    }
+})
+
+
 </script>
 
 <template>

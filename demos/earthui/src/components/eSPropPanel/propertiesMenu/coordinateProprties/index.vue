@@ -1,14 +1,14 @@
 <script setup lang='ts'>
 import { ReactVarProperty } from 'earthsdk3';
-import { propComps } from 'earthsdk-ui'
+import { Message, propComps } from 'earthsdk-ui'
 import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi';
-import { inject } from 'vue';
+import { inject, onBeforeUnmount, onMounted } from 'vue';
 // import { propComps } from '../../index'
 const props = withDefaults(defineProps<{ properties: ReactVarProperty<any>[], type?: string, currentMenu?: string, treeItem?: any, lonLatFormat?: string, panelStyle?: string }>(), { type: '', currentMenu: '' });
 const emtis = defineEmits<{
     (e: 'callback', params: any & { treeItem: any }): void;
 }>();
-const xbsjEarthUi=inject('xbsjEarthUi') as XbsjEarthUi
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const { treeItem } = props;
 const callback = (params: any): void => {
     emtis('callback', {
@@ -16,13 +16,33 @@ const callback = (params: any): void => {
         ...params,
     });
 };
+let dispose: any
+onMounted(() => {
+    const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
+    dispose = sceneObject.editingChanged.disposableOn((res: boolean) => {
+        if (res) {
+            Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击键盘退出（ESC）键可退出编辑模式。2. 对象提供多种编辑方式，可使用键盘空格（Space）键进行编辑方式的切换。' })
+        } else {
+            Message.remove('xxx')
+        }
+    })
+})
+onBeforeUnmount(() => {
+    if (dispose) {
+        dispose()
+        dispose = undefined
+    }
+})
+
+
 </script>
 <template>
     <div v-for="item in properties" :key="item.memId" class="item" v-if="properties.length > 0">
         <div class="item_type" :style="{ paddingLeft: panelStyle === 'style' ? '10px' : '0px' }"
             v-if="item.type !== 'GroupProperty'">
             <component :is="propComps[item.type]" :property="item" :type="type" @callback="callback"
-                :lonLatFormat="lonLatFormat" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree"></component>
+                :lonLatFormat="lonLatFormat" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree">
+            </component>
         </div>
         <div class="item_nameProperty_name" v-else>
             <div class="item_type_nameProperty_name">{{ item.name }}</div>

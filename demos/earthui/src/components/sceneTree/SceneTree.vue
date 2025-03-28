@@ -362,19 +362,19 @@ const whiteSpaceContexMenuEvent = () => {//空白右键
   }
   menuContent.value = baseItems
 }
-const saveFlyParms = async(sceneObject: any) => {
+const saveFlyParms = async (sceneObject: any) => {
   let position: [number, number, number];
-    let rotation: [number, number, number];
-    const res = await xbsjEarthUi.activeViewer?.getCurrentCameraInfo()
-    if (!res) {
-      Message.warning('无法获取视角')
-      return
-    }
-    position = res.position
-    rotation = res.rotation
-    //@ts-ignore
-    sceneObject.flyInParam = { position, rotation, flyDuration: 1 }
-    Message.success('保存视角成功')
+  let rotation: [number, number, number];
+  const res = await xbsjEarthUi.activeViewer?.getCurrentCameraInfo()
+  if (!res) {
+    Message.warning('无法获取视角')
+    return
+  }
+  position = res.position
+  rotation = res.rotation
+  //@ts-ignore
+  sceneObject.flyInParam = { position, rotation, flyDuration: 1 }
+  Message.success('保存视角成功')
 }
 const saveParms = async (treeItem: SceneTreeItem) => {
   const { sceneObject } = treeItem
@@ -726,9 +726,19 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
     text: "编辑",
     keys: "",
     func: () => {
+      let dispose: any
       if (treeItem.sceneObject) {
         if ('editing' in treeItem.sceneObject) {
           treeItem.sceneObject.editing = true
+          Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击键盘退出（ESC）键可退出编辑模式。2. 对象提供多种编辑方式，可使用键盘空格（Space）键进行编辑方式的切换。' })
+          //@ts-ignore
+          dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
+            if (!res) {
+              Message.remove('xxx')
+              dispose()
+              dispose = undefined
+            }
+          })
         }
       }
     },

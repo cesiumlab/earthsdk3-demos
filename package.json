@@ -4,7 +4,13 @@
   "private": false,
   "scripts": {
     "dev-earthui": "pnpm --F earth-ui serve",
-    "clean_node_modules": "pnpm recursive exec -- rimraf node_modules"
+    "clean_node_modules": "pnpm recursive exec -- rimraf node_modules && rimraf node_modules && rimraf node_modules"
+  },
+  "dependencies": {
+    "earthsdk3-assets": "0.0.1-beta.0.12",
+    "earthsdk3-cesium": "0.0.1-beta.0.74",
+    "earthsdk3-ue": "0.0.1-beta.0.39",
+    "earthsdk3": "0.0.1-beta.0.59"
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

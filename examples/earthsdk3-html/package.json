@@ -1,0 +1,14 @@
+{
+  "name": "earthsdk3-html",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "rimraf": "^5.0.10"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}

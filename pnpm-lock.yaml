@@ -7,6 +7,19 @@ settings:
 importers:
 
   .:
+    dependencies:
+      earthsdk3:
+        specifier: 0.0.1-beta.0.59
+        version: 0.0.1-beta.0.59
+      earthsdk3-assets:
+        specifier: 0.0.1-beta.0.12
+        version: 0.0.1-beta.0.12
+      earthsdk3-cesium:
+        specifier: 0.0.1-beta.0.74
+        version: 0.0.1-beta.0.74
+      earthsdk3-ue:
+        specifier: 0.0.1-beta.0.39
+        version: 0.0.1-beta.0.39
     devDependencies:
       rimraf:
         specifier: ^5.0.10
@@ -14,9 +27,6 @@ importers:
 
   demos/earthsdk3-openlayers:
     dependencies:
-      earthsdk3:
-        specifier: 0.0.1-beta.0.55
-        version: 0.0.1-beta.0.55
       ol:
         specifier: ^7.1.0
         version: 7.5.2
@@ -63,18 +73,6 @@ importers:
       earthsdk-ui:
         specifier: 0.0.49-beta.0.30
         version: 0.0.49-beta.0.30(typescript@5.8.2)
-      earthsdk3:
-        specifier: 0.0.1-beta.0.59
-        version: 0.0.1-beta.0.59
-      earthsdk3-assets:
-        specifier: 0.0.1-beta.0.12
-        version: 0.0.1-beta.0.12
-      earthsdk3-cesium:
-        specifier: 0.0.1-beta.0.74
-        version: 0.0.1-beta.0.74
-      earthsdk3-ue:
-        specifier: 0.0.1-beta.0.39
-        version: 0.0.1-beta.0.39
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -128,26 +126,20 @@ importers:
         specifier: ^5.6.2
         version: 5.8.2
 
+  examples/earthsdk3-html:
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.10
+        version: 5.0.10
+
   examples/earthsdk3-vite:
     dependencies:
       cesium:
         specifier: 1.123.1
         version: 1.123.1
-      earthsdk3:
-        specifier: 0.0.1-beta.0.55
-        version: 0.0.1-beta.0.55
-      earthsdk3-assets:
-        specifier: 0.0.1-beta.0.12
-        version: 0.0.1-beta.0.12
-      earthsdk3-cesium:
-        specifier: 0.0.1-beta.0.68
-        version: 0.0.1-beta.0.68
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.2
         version: link:../../demos/earthsdk3-openlayers
-      earthsdk3-ue:
-        specifier: 0.0.1-beta.0.34
-        version: 0.0.1-beta.0.34
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -176,21 +168,9 @@ importers:
       cesium:
         specifier: 1.123.1
         version: 1.123.1
-      earthsdk3:
-        specifier: 0.0.1-beta.0.55
-        version: 0.0.1-beta.0.55
-      earthsdk3-assets:
-        specifier: 0.0.1-beta.0.12
-        version: 0.0.1-beta.0.12
-      earthsdk3-cesium:
-        specifier: 0.0.1-beta.0.68
-        version: 0.0.1-beta.0.68
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.2
         version: link:../../demos/earthsdk3-openlayers
-      earthsdk3-ue:
-        specifier: 0.0.1-beta.0.34
-        version: 0.0.1-beta.0.34
     devDependencies:
       '@vue/cli-plugin-babel':
         specifier: ~5.0.0
@@ -5723,16 +5703,6 @@ packages:
     resolution: {integrity: sha512-hzpPuhtm6WliuzIcfbx3yw2E8Ll/QLdcSYa2veunrnlJaG9C1jKV9CtFr7pI9skdYa+Ftg6jPosBrmaGNi3lOQ==}
     dev: false
 
-  /earthsdk3-cesium@0.0.1-beta.0.68:
-    resolution: {integrity: sha512-i7PVGLCbtIQOiHTf+hZHABRJe3KNd1FsirzuCemOq9KO/wjmq0EBxHL1uqg+BWWqXgPaCDHyyHn/liTmqfvyQw==}
-    dependencies:
-      cesium: 1.123.1
-      delaunator: 5.0.1
-      earcut: 2.2.4
-      html2canvas: 1.4.1
-      xbsj-base: 0.0.1-beta.0.11
-    dev: false
-
   /earthsdk3-cesium@0.0.1-beta.0.74:
     resolution: {integrity: sha512-037GPPJ2zozbOofrlxlyRTB8uH+eOXatbt6hso0zjGrzz5V3mGo4VpR4q6QfBrhbqrkP6yEjHTWqU9Xhxnm9Og==}
     dependencies:
@@ -5741,14 +5711,6 @@ packages:
       earcut: 2.2.4
       html2canvas: 1.4.1
       xbsj-base: 0.0.1-beta.0.14
-    dev: false
-
-  /earthsdk3-ue@0.0.1-beta.0.34:
-    resolution: {integrity: sha512-G4FtSsPERGPUrWJQPRnsHY1gfuwHZqlLrtAA+aeOurpSxg6lF97B4W8T+Hf42RZ89KUQnxcEgqINtOgBYbRETA==}
-    dependencies:
-      '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
-      html2canvas: 1.4.1
-      xbsj-base: 0.0.1-beta.0.11
     dev: false
 
   /earthsdk3-ue@0.0.1-beta.0.39:
@@ -5761,14 +5723,6 @@ packages:
 
   /earthsdk3@0.0.1-beta.0.28:
     resolution: {integrity: sha512-Vr8z2ptobF3RaH73nywvBs209GO0FiF96OgmecQiZti7eLWKPy0gTU7CTJ9h8epdv0dnZfKPJLE09Yf0Ba3i/w==}
-    dependencies:
-      '@turf/turf': 6.5.0
-      proj4: 2.15.0
-      xbsj-base: 0.0.1-beta.0.11
-    dev: false
-
-  /earthsdk3@0.0.1-beta.0.55:
-    resolution: {integrity: sha512-eR6n33+nPptAwFaLsYH9hNxWRI+SHNnZsaSDI/OXE6V+hLGvbk3Zyt9Oup0BmzpCKaKqwmRl/YP0fkJCR7kc3Q==}
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0

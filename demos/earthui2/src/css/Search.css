@@ -1,0 +1,138 @@
+.search {
+    width: 100%;
+    height: 100%;
+}
+
+.search_search {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.search_search_input {
+    width: 100%;
+    height: 32px;
+    background: rgba(28, 28, 29, 0.6);
+    border: 1px solid #3b3c40;
+    position: relative;
+}
+
+.search_search_input>input {
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 30px 0 10px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    background: none;
+    color: rgba(230, 230, 230, 1);
+
+}
+.search_search_input>span{
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.title_name{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.search_search>ul {
+    width: 250px;
+    flex: 1;
+    overflow-y: auto;
+    border-radius: 4px;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.search_search>ul>li {
+    width: 250px;
+    height: 45px;
+    display: flex;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.location_img{
+    width: 45px;
+    height: 100%;
+    border-radius: 30px;
+    background: #3b3f4e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.location_img>img{
+    width: 30px;
+    height: 30px;
+}
+.location_info{
+    flex: 1;
+    overflow: hidden;
+    font-size: 14px;
+}
+.location_info>div{
+    width: 100%;
+    height: 50%;
+    white-space: nowrap;
+}
+.add_scene{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: rgba(28, 28, 29, 0.6);
+    border-radius: 4px;
+    border: 1px solid #3b3c40;
+    cursor: pointer;
+    color: rgba(230, 230, 230, 1);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.add_scene:hover{
+    border: 1px solid rgba(44, 104, 247, 1);;
+}
+.search_search>ul>li:hover {
+    background: #37393e;
+}
+.search_search>ul>.active {
+    background: #37393e;
+}
+.search_search>ul::-webkit-scrollbar {
+    width: 3px;
+    background-color: rgba(41, 42, 46, 1);
+    border-radius: 2px;
+}
+
+.search_search>ul::-webkit-scrollbar-thumb {
+    background-color: rgba(183, 183, 183, 1);
+    border-radius: 2px;
+} 
+
+
+
+
+
+
+
+
+
+
+

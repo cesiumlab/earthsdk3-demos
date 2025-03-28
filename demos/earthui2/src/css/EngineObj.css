@@ -1,0 +1,9 @@
+.engine_title{
+    width: 100%;
+    margin: 0 15px 15px 15px;
+    color: rgba(230, 230, 230, 1);
+    font-size: 14px;
+}
+.engine_title>a{
+    color:rgba(44, 104, 247, 1);
+}

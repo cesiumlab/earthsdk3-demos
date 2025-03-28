@@ -1,0 +1,223 @@
+.model_debug_list {
+  color: rgba(230, 230, 230, 1);
+  font-size: 14px;
+  margin-left: 15px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.model_debug_list>div {
+  width: 100%;
+  height: 26px;
+  display: flex;
+}
+
+.model_debug_list>div>span {
+  width: 100%;
+  text-align: left;
+}
+
+.model_style_box_content {
+  width: 100%;
+  height: auto;
+  transition: all 0.5s linear;
+}
+
+.model_content_top {
+  width: 100%;
+}
+
+.model_style_textarea {
+  width: 250px;
+  height: 165px;
+  background: rgba(28, 28, 29, 0.80);
+  border: none;
+  color: rgba(230, 230, 230, 1);
+  margin-top: 5px;
+  padding: 10px;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.model_style_textarea>textarea {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  resize: none;
+  outline: none;
+  color: rgba(230, 230, 230, 1);
+  outline: none;
+  border: 1px solid #3b3c40;
+}
+
+.model_style_textarea>textarea:focus {
+  border: 1px solid #2c68f7;
+}
+
+.model_style_textarea>textarea:hover {
+  border: 1px solid #2c68f7;
+}
+
+.model_style_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+  /* flex-direction: column; */
+}
+
+.model_style_footer>a,
+.model_style_footer>button {
+  height: 32px;
+  background: rgba(28, 28, 29, 0.6);
+  border-radius: 4px;
+  border: 1px solid #3b3c40;
+  cursor: pointer;
+  color: rgba(230, 230, 230, 1);
+  padding: 0 10px;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 32px;
+}
+
+.model_style_footer>a:hover {
+  border: 1px solid rgba(44, 104, 247, 1);
+}
+
+.model_style_footer>button:hover {
+  border: 1px solid rgba(44, 104, 247, 1);
+}
+
+.checkedactive {
+  border: 2px solid aqua;
+}
+
+.mergemodel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mergemodel_top {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.mergemodel_bottom {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.mergemodel_top>div {
+  flex: 1;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.mergemodel_list {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #4a4545;
+}
+
+
+.mergemodel_list_head {
+  width: 100%;
+  background-color: rgba(28, 28, 29, 0.6);
+  border-radius: 4px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  display: flex;
+  font-size: 14px;
+}
+
+.mergemodel_list_data {
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+}
+
+.mergemodel_list_data_input {
+  display: flex;
+  padding: 5px 0 10px 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.mergemodel_list_head_tip {
+  position: absolute;
+  font-size: 12px;
+  top: 30px;
+  right: 50px;
+  color: red;
+  height: 12px;
+  overflow: hidden;
+}
+
+
+.mergemodel_list_head_url>input {
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 28, 29, 0.6);
+  border-radius: 4px;
+  border: 1px solid #3b3c40;
+  outline: 0;
+  font-size: 14px;
+  color: #fff;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.mergemodel_list_head_index {
+  width: 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mergemodel_list_head_url {
+  flex: 1;
+  height: 26px;
+  box-sizing: border-box;
+}
+
+.mergemodel_list_head_change {
+  width: 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mergemodel_bottom>button {
+  height: 32px;
+  background: rgba(28, 28, 29, 0.6);
+  border-radius: 4px;
+  border: 1px solid #3b3c40;
+  cursor: pointer;
+  color: rgba(230, 230, 230, 1);
+  padding: 0 10px;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 32px;
+  margin-right: 60px;
+}
+
+.mergemodel_bottom>button:hover {
+  border: 1px solid rgba(44, 104, 247, 1);
+}

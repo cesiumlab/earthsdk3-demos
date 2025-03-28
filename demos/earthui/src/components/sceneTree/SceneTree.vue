@@ -730,7 +730,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
       if (treeItem.sceneObject) {
         if ('editing' in treeItem.sceneObject) {
           treeItem.sceneObject.editing = true
-          Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击键盘退出（ESC）键可退出编辑模式。2. 对象提供多种编辑方式，可使用键盘空格（Space）键进行编辑方式的切换。' })
+          Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
           //@ts-ignore
           dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
             if (!res) {

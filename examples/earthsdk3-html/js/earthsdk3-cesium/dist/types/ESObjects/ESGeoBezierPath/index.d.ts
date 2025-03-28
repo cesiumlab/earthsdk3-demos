@@ -51,6 +51,7 @@ export declare class ESGeoBezierPath extends ESGeoVector {
     get currentDistance(): number;
     set currentDistance(value: number);
     get currentDistanceChanged(): import("xbsj-base").Listener<[number, number]>;
+    static supportEditingModes: string[];
     constructor(id?: SceneObjectKey);
     static defaults: {
         currentPoiShow: boolean;

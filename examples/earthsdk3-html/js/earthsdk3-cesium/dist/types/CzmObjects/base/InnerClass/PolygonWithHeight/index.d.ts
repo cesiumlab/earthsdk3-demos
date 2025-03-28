@@ -1,22 +1,15 @@
-import { PointEditing, PositionsCenter, PositionsEditing } from "../../../../CzmObjects";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { Destroyable, Listener, ObjResettingWithEvent, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { GroundPolygon } from "./GroundPolygon";
 import { DepthPolygon } from "./DepthPolygon";
 import { Polygon } from "./Polygon";
-import { CzmViewDistanceRangeControl } from "../../../../utils";
+import { CurrentPositionsCenter, CzmViewDistanceRangeControl } from "../../../../utils";
 export * from './CzmPolygonPrimitiveWithHeight';
 export * from './CzmPolygonGroundPrimitiveWithHeight';
 export declare class CzmPolygonWithHeight extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _sPointEditing;
-    get sPointEditing(): PointEditing;
-    private _positionsCenter;
-    get positionsCenter(): PositionsCenter;
     private _polygonOrGroundPolygonResetting;
     get polygonOrGroundPolygonResetting(): ObjResettingWithEvent<GroundPolygon | Polygon | DepthPolygon, Listener<[boolean | undefined, boolean | undefined]>>;
     private _czmViewVisibleDistanceRangeControl;
@@ -27,6 +20,8 @@ export declare class CzmPolygonWithHeight extends Destroyable {
     get id(): SceneObjectKey;
     set id(value: SceneObjectKey);
     get idChanged(): Listener<[string, string]>;
+    private _positionsCenter;
+    get positionsCenter(): CurrentPositionsCenter;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
     static defaults: {
         positions: never[];

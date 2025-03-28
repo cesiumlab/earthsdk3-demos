@@ -1,6 +1,6 @@
 import { UniteChanged } from "xbsj-base";
 import { ESVisualObject } from "../base";
-import { ESJVector4D } from "../../ESJTypes";
+import { ESJResource, ESJVector4D } from "../../ESJTypes";
 /**
  * https://www.wolai.com/earthsdk/mrRQPHx2hww6BgzBwEdPaV
  */
@@ -8,7 +8,7 @@ export declare class ESTerrainLayer extends ESVisualObject {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         rectangle: import("xbsj-base").ReactiveVariable<ESJVector4D>;
         zIndex: number;
         czmMaxzoom: number | undefined;
@@ -50,7 +50,7 @@ export declare class ESTerrainLayer extends ESVisualObject {
 }
 export declare namespace ESTerrainLayer {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         rectangle: import("xbsj-base").ReactiveVariable<ESJVector4D>;
         zIndex: number;
         czmMaxzoom: number | undefined;

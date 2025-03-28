@@ -28,7 +28,6 @@ export declare namespace GeoDistanceMeasurement {
         dashPattern: number;
         hasArrow: boolean;
         arcType: string;
-        editing: boolean;
         depthTest: boolean;
         shadowDom: boolean;
         cssAllInitial: boolean;

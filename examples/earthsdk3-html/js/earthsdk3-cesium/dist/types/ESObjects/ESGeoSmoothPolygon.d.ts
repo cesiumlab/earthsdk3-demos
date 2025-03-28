@@ -29,6 +29,7 @@ export declare class ESGeoSmoothPolygon extends ESGeoVector {
     _deprecated: string[];
     private _deprecatedWarningFunc;
     constructor(id?: SceneObjectKey);
+    static supportEditingModes: string[];
     static defaults: {
         fillStyle: ESJFillStyle;
         points: import("earthsdk3").ESJVector3DArray;

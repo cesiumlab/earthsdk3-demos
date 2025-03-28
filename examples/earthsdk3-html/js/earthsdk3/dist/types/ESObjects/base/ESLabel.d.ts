@@ -1,4 +1,4 @@
-import { ESJVector2D, ESJWidgetEventInfo } from "../../ESJTypes";
+import { ESJVector2D, ESJVector3D, ESJWidgetEventInfo } from "../../ESJTypes";
 import { Event, UniteChanged } from "xbsj-base";
 import { ESObjectWithLocation } from "./ESObjectWithLocation";
 export declare abstract class ESLabel extends ESObjectWithLocation {
@@ -33,14 +33,18 @@ export declare namespace ESLabel {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
-        position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
-        rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
-        scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<ESJVector3D>;
+        position: import("xbsj-base").ReactiveVariable<ESJVector3D>;
+        rotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
+        scale: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         minVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
         maxVisibleDistance: import("xbsj-base").ReactiveVariable<number>;
         show: boolean;

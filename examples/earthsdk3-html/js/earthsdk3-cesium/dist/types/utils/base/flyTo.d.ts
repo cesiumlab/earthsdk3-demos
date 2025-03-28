@@ -49,3 +49,7 @@ export declare function flyWithPosition(czmViewer: ESCesiumViewer, sceneObject: 
 export declare function flyWithPositions(czmViewer: ESCesiumViewer, sceneObject: ESVisualObject, id: number, positions: [number, number, number][], duration: number | undefined, useSceneObjectHeading?: boolean): Promise<boolean>;
 export declare function flyWithPrimitive(czmViewer: ESCesiumViewer, sceneObject: ESVisualObject, id: number, duration: number | undefined, czmPrimitive: CzmCustomPrimitive | CzmModelPrimitive, useSceneObjectHeading?: boolean): Promise<boolean>;
 export declare function getCenterAndViewDistance(czmViewer: ESCesiumViewer, boundingVolume: Cesium.BoundingSphere | Cesium.BoundingRectangle | Cesium.OrientedBoundingBox): [center: [number, number, number], viewDistance: number] | undefined;
+export declare function getFlyToCenterAndRotation(targetPoint: [number, number, number], targetRotation: [number, number, number], viewDistance: number): {
+    position: [number, number, number];
+    rotation: [number, number, number];
+};

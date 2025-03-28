@@ -1,4 +1,4 @@
-import { CzmCustomPrimitive, PointEditing, PositionsEditing } from "../../../CzmObjects";
+import { CzmCustomPrimitive } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 export declare class CzmPolygonFence extends Destroyable {
@@ -17,23 +17,17 @@ export declare class CzmPolygonFence extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _pointEditor;
-    get pointEditor(): PointEditing;
     private _czmCustomPrimitive;
     get czmCustomPrimitive(): CzmCustomPrimitive;
     private _geoBoundingSphere;
-    get geoBoundingSphere(): import("earthsdk3").GeoBoundingSphereType | undefined;
-    get geoBoundingSphereChanged(): Listener<[import("earthsdk3").GeoBoundingSphereType | undefined, import("earthsdk3").GeoBoundingSphereType | undefined]>;
+    get geoBoundingSphere(): import("../../../utils").GeoBoundingSphereType | undefined;
+    get geoBoundingSphereChanged(): Listener<[import("../../../utils").GeoBoundingSphereType | undefined, import("../../../utils").GeoBoundingSphereType | undefined]>;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
 export declare namespace CzmPolygonFence {
     const createDefaultProps: () => {
         show: boolean | undefined;
         allowPicking: boolean | undefined;
-        editing: boolean | undefined;
-        pointEditing: boolean | undefined;
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         height: number | undefined;
         textureSizeInMeters: import("xbsj-base").ReactiveVariable<[number, number] | undefined>;

@@ -1,5 +1,6 @@
+import { ESJResource } from "../../../ESJTypes";
 export type ESJImageStyle = {
-    url: string;
+    url: string | ESJResource;
     size: [number, number];
     anchor: [number, number];
     offset: [number, number];

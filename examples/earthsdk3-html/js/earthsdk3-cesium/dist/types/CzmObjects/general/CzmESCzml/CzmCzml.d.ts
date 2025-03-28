@@ -1,5 +1,5 @@
 import { ESJClockRangeType, ESJClockStepType } from "earthsdk3";
-import { CzmClock } from "../../../CzmObjects";
+import { CzmClock, ESJResource } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, Event, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import * as Cesium from 'cesium';
@@ -115,7 +115,7 @@ export declare class CzmCzml extends Destroyable {
 export declare namespace CzmCzml {
     const createDefaultProps: () => {
         show: boolean | undefined;
-        uri: string | undefined;
+        uri: string | ESJResource | undefined;
         allowPicking: boolean | undefined;
         data: import("xbsj-base").ReactiveVariable<undefined>;
         autoResetClock: boolean | undefined;

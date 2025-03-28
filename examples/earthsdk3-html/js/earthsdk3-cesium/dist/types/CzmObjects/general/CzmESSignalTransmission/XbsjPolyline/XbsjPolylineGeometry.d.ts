@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference path="../../../../ESCesiumViewer/initCesiumViewer/fixCameraFlight.d.ts" />
+/// <reference types="@czmSrc/__declares/cesium" />
 export default PolylineGeometry;
 /**
  * A description of a polyline modeled as a line strip; the first two positions define a line segment,

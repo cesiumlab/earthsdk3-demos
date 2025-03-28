@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference types="@czmSrc/__declares/cesium" />
+/// <reference types="earthsdk/earthsdk3-cesium/dist/types/escesiumviewer/initcesiumviewer/fixcameraflight" />
 /**
  * A description of a polyline modeled as a line strip; the first two positions define a line segment,
  * and each additional position defines a line segment from the previous position. The polyline is capable of

@@ -1,4 +1,4 @@
-import { ESJClockRangeType, ESJClockStepType, ESSceneObject, Property } from "earthsdk3";
+import { ESJClockRangeType, ESJClockStepType, ESJResource, ESSceneObject, Property } from "earthsdk3";
 import { Listener, Event, ReactivePropsToNativePropsAndChanged } from "xbsj-base";
 export declare class ESKml extends ESSceneObject {
     static readonly type: string;
@@ -12,7 +12,7 @@ export declare class ESKml extends ESSceneObject {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         show: boolean;
-        uri: string;
+        uri: string | ESJResource | undefined;
         allowPicking: boolean;
         loadFuncStr: string | undefined;
         data: string | undefined;
@@ -73,7 +73,7 @@ export declare namespace ESKml {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         show: boolean;
-        uri: string;
+        uri: string | ESJResource | undefined;
         allowPicking: boolean;
         loadFuncStr: string | undefined;
         data: string | undefined;

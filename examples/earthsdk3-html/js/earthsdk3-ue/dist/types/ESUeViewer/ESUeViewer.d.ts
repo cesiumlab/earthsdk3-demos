@@ -1,4 +1,4 @@
-import { ESJFlyToParam, ESJsonObjectType, ESJVector2D, ESJVector2DArray, ESJVector3D, ESJVector4D, ESViewer, ESVOption } from "earthsdk3";
+import { ESJFlyToParam, ESJsonObjectType, ESJVector2D, ESJVector2DArray, ESJVector3D, ESJVector4D, ESSceneObject, ESViewer, ESVOption } from "earthsdk3";
 import { Event, UniteChanged } from 'xbsj-base';
 import { UeCloudViewerBase } from './uemsg/UeCloudViewerBase';
 import { NavigationModeCallFuncParam } from './uemsg/UeFuncsType';
@@ -12,6 +12,7 @@ export declare class ESUeViewer extends ESViewer {
         widgetEventListening: boolean | undefined;
         speechRecognitionListening: boolean | undefined;
         customMessageListening: boolean | undefined;
+        editStatusListening: boolean | undefined;
         apiKey: string;
         apiUrl: string;
         secretKey: string;
@@ -32,7 +33,6 @@ export declare class ESUeViewer extends ESViewer {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -50,6 +50,8 @@ export declare class ESUeViewer extends ESViewer {
         editingLineColor: import("xbsj-base").ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;
@@ -82,6 +84,13 @@ export declare class ESUeViewer extends ESViewer {
     private _viewer;
     set viewer(value: UeCloudViewerBase | undefined);
     get viewer(): UeCloudViewerBase | undefined;
+    private _esssResponse;
+    get esssResponse(): {
+        [key: string]: any;
+    } | undefined;
+    set esssResponse(value: {
+        [key: string]: any;
+    } | undefined);
     private _speechRecognition;
     get speechRecognition(): Event<[{
         et: "speechRecognition";
@@ -145,7 +154,7 @@ export declare class ESUeViewer extends ESViewer {
         error: string | undefined;
     } | undefined>;
     getAllSocketNamesByActorTag(ActorTag: string): Promise<string[] | undefined>;
-    getgetBoundSphere(id: string): Promise<{
+    getBoundSphere(id: string): Promise<{
         center?: [number, number, number] | undefined;
         radius?: number | undefined;
         tips?: string | undefined;
@@ -188,6 +197,9 @@ export declare class ESUeViewer extends ESViewer {
         [k: string]: any;
     } | undefined>;
     stopVoice(): Promise<{
+        [k: string]: any;
+    } | undefined>;
+    mountPakFiles(pakArr: any[]): Promise<{
         [k: string]: any;
     } | undefined>;
     generateMemReport(): Promise<{
@@ -364,7 +376,7 @@ export declare class ESUeViewer extends ESViewer {
      * @param pitch - 初始的环绕俯仰角，默认-30。
      * @param distance - 距离点的距离，默认0米 ，单位米 传入0会自行计算距离为包围盒半径*3
      */
-    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number): Promise<{
+    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number, relativeRotation?: boolean): Promise<{
         error: string | undefined;
     } | undefined>;
     getFPS(): number;
@@ -374,6 +386,12 @@ export declare class ESUeViewer extends ESViewer {
     capture(resx?: number, resy?: number): Promise<string | undefined>;
     lonLatAltToScreenPosition(position: ESJVector3D): Promise<ESJVector2D | undefined>;
     setGlobalProperty(params: ESJsonObjectType): Promise<{
+        error: string | undefined;
+    } | undefined>;
+    startEditing(sceneObject: ESSceneObject, modes: string[] | string, useTabToSwitch?: boolean): Promise<{
+        error: string | undefined;
+    } | undefined>;
+    moveObjects(sceneObjects: ESSceneObject[]): Promise<{
         error: string | undefined;
     } | undefined>;
     constructor(option: ESVOption);
@@ -421,6 +439,7 @@ export declare namespace ESUeViewer {
         widgetEventListening: boolean | undefined;
         speechRecognitionListening: boolean | undefined;
         customMessageListening: boolean | undefined;
+        editStatusListening: boolean | undefined;
         apiKey: string;
         apiUrl: string;
         secretKey: string;
@@ -441,7 +460,6 @@ export declare namespace ESUeViewer {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -459,6 +477,8 @@ export declare namespace ESUeViewer {
         editingLineColor: import("xbsj-base").ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;

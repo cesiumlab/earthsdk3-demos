@@ -19,7 +19,6 @@ export declare class GeoAreaMeasurement extends Destroyable {
     get distancesChanged(): Listener<[number[], number[]]>;
     private _geoPolyline;
     get geoPolyline(): CzmPolyline;
-    get sPositionsEditing(): import("../../../CzmObjects").PositionsEditing;
     static defaults: {
         positions: never[];
     };

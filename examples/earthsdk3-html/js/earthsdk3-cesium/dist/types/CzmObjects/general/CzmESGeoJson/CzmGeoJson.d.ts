@@ -1,3 +1,4 @@
+import { ESJResource } from "earthsdk3";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import * as Cesium from 'cesium';
@@ -96,7 +97,7 @@ export declare namespace CzmGeoJson {
         fillMaterialParams: import("xbsj-base").ReactiveVariable<any>;
         fillGround: boolean | undefined;
         imageShow: boolean | undefined;
-        imageUrl: string | undefined;
+        imageUrl: string | ESJResource | undefined;
         imageSize: import("xbsj-base").ReactiveVariable<[number, number] | undefined>;
         imageAnchor: import("xbsj-base").ReactiveVariable<[number, number] | undefined>;
         imageOffset: import("xbsj-base").ReactiveVariable<[number, number] | undefined>;

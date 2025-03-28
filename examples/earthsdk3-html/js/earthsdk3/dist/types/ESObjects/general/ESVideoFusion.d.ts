@@ -1,5 +1,6 @@
 import { ReactivePropsToNativePropsAndChanged, SceneObjectKey, Event } from "xbsj-base";
 import { ESObjectWithLocation } from "../base";
+import { ESJResource } from "../../ESJTypes";
 /**
  * https://www.wolai.com/earthsdk/fpxkCB8cdbHSnuVBtsSREL
  */
@@ -11,7 +12,7 @@ export declare class ESVideoFusion extends ESObjectWithLocation {
         aspectRatio: number;
         far: number;
         near: number;
-        videoStreamUrl: string;
+        videoStreamUrl: string | ESJResource;
         zIndex: number;
         showFrustum: boolean;
         looping: boolean;
@@ -37,12 +38,13 @@ export declare class ESVideoFusion extends ESObjectWithLocation {
     private _resetWithCameraInfoEvent;
     get resetWithCameraInfoEvent(): Event<[]>;
     resetWithCameraInfo(): void;
+    static supportEditingModes: string[];
     static defaults: {
         fov: number;
         aspectRatio: number;
         far: number;
         near: number;
-        videoStreamUrl: string;
+        videoStreamUrl: string | ESJResource;
         zIndex: number;
         showFrustum: boolean;
         looping: boolean;
@@ -71,7 +73,7 @@ export declare namespace ESVideoFusion {
         aspectRatio: number;
         far: number;
         near: number;
-        videoStreamUrl: string;
+        videoStreamUrl: string | ESJResource;
         zIndex: number;
         showFrustum: boolean;
         looping: boolean;

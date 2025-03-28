@@ -1,8 +1,9 @@
-import { ESPipeFence } from "earthsdk3";
+import { ESJEditingBindModeType, ESPipeFence } from "earthsdk3";
 import { CzmCustomPrimitive, CzmESGeoVector, CzmPolyline, CzmTexture } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 export declare class CzmESPipeFence<T extends ESPipeFence = ESPipeFence> extends CzmESGeoVector<T> {
     static readonly type: void;
+    editingBindMode: ESJEditingBindModeType;
     private _line;
     get line(): CzmPolyline;
     private _czmTexture;

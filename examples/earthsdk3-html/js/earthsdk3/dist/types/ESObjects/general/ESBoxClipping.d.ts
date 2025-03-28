@@ -34,6 +34,7 @@ export declare class ESBoxClipping extends ESObjectWithLocation {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
         reverse: boolean;
         edgeColor: ESJColor;

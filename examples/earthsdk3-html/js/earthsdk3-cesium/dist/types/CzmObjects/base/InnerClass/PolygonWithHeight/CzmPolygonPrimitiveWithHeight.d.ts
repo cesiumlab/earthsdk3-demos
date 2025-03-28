@@ -1,4 +1,3 @@
-import { PositionsEditing } from "../../../../CzmObjects";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { CzmMaterialJsonType, PolygonHierarchyType } from "../../../../ESJTypesCzm";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
@@ -14,8 +13,6 @@ export declare class CzmPolygonPrimitiveWithHeight extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
     private _primitive?;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
@@ -34,7 +31,6 @@ export declare namespace CzmPolygonPrimitiveWithHeight {
         perPositionHeight: boolean | undefined;
         closeTop: boolean | undefined;
         closeBottom: boolean | undefined;
-        editing: boolean | undefined;
     };
 }
 export interface CzmPolygonPrimitiveWithHeight extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof CzmPolygonPrimitiveWithHeight.createDefaultProps>> {

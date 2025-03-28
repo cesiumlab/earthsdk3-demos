@@ -1,4 +1,3 @@
-import { PositionsEditing } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { CzmSignalTransmissionCollection } from "./CzmSignalTransmissionCollection";
@@ -6,11 +5,9 @@ export declare class CzmSignalTransmission extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
     private _collection;
     get collection(): CzmSignalTransmissionCollection;
-    get player(): import("earthsdk3").Player;
+    get player(): import("../../../utils").Player;
     get ratio(): number;
     set ratio(value: number);
     get ratioChanged(): Listener<[number, number]>;
@@ -31,7 +28,7 @@ export declare namespace CzmSignalTransmission {
         show: boolean;
         imageUrl: string | undefined;
         repeat: number;
-        bidirectional: 0 | 1 | 2 | 3;
+        bidirectional: 0 | 2 | 3 | 1;
         startTime: number;
         transmissionTime: number | undefined;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
@@ -44,7 +41,6 @@ export declare namespace CzmSignalTransmission {
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         heightRatio: number;
         allowPicking: boolean;
-        editing: boolean;
         loop: boolean | undefined;
         currentTime: number | undefined;
         duration: number | undefined;

@@ -31,6 +31,7 @@ export declare class ESGeoLineString extends ESGeoVector {
     private _distance;
     get distance(): number;
     get distanceChanged(): import("xbsj-base").Listener<[number, number]>;
+    static supportEditingModes: string[];
     static defaults: {
         strokeStyle: ESJStrokeStyle;
         stroked: boolean;

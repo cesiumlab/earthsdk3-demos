@@ -6,5 +6,6 @@ export declare class CzmESLocalLineStringZ extends CzmESObjectWithLocation<ESLoc
     private _czmGeoPolyline;
     get czmGeoPolyline(): CzmPolyline;
     constructor(sceneObject: ESLocalLineStringZ, czmViewer: ESCesiumViewer);
+    visibleDistance(sceneObject: ESLocalLineStringZ, czmViewer: ESCesiumViewer): void;
     flyTo(duration: number | undefined, id: number): boolean;
 }

@@ -1,7 +1,9 @@
 import { ESCesiumViewer } from "../../ESCesiumViewer";
-import { EngineObject, ESVisualObject } from "earthsdk3";
+import { EngineObject, ESJEditingBindModeType, ESVisualObject } from "earthsdk3";
 export declare class CzmESVisualObject<T extends ESVisualObject = ESVisualObject, V extends ESCesiumViewer = ESCesiumViewer> extends EngineObject<T, V> {
+    editingBindMode: ESJEditingBindModeType;
     constructor(sceneObject: T, czmViewer: V);
+    updateEditing(): void;
     /**
      *
      * @param id

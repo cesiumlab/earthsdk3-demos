@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference path="../initCesiumViewer/fixCameraFlight.d.ts" />
+/// <reference types="@czmSrc/__declares/cesium" />
 export default SkyAtmosphere;
 /**
  * An atmosphere drawn around the limb of the provided ellipsoid. Based on

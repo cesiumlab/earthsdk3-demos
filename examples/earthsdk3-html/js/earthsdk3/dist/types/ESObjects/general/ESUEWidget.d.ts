@@ -11,11 +11,15 @@ export declare class ESUEWidget extends ESLabel {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
@@ -34,11 +38,7 @@ export declare class ESUEWidget extends ESLabel {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         widgetClass: string;
-        socketName: string;
-        positionOffset: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         info: import("xbsj-base").ReactiveVariable<ESUEWidgetInfoType | undefined>;
-        actorTag: string;
-        rotationOffset: import("xbsj-base").ReactiveVariable<[number, number, number]>;
     };
     private _callFunctionEvent;
     get callFunctionEvent(): Event<[string, {
@@ -83,11 +83,15 @@ export declare namespace ESUEWidget {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
@@ -106,11 +110,7 @@ export declare namespace ESUEWidget {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         widgetClass: string;
-        socketName: string;
-        positionOffset: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         info: import("xbsj-base").ReactiveVariable<ESUEWidgetInfoType | undefined>;
-        actorTag: string;
-        rotationOffset: import("xbsj-base").ReactiveVariable<[number, number, number]>;
     };
 }
 export interface ESUEWidget extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof ESUEWidget.createDefaultProps>> {

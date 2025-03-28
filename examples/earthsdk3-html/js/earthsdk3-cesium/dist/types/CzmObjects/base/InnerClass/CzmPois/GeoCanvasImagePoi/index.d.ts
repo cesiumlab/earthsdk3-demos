@@ -27,7 +27,6 @@ export declare class GeoCanvasImagePoi extends Destroyable {
     };
     private _geoCanvasPoi;
     get geoCanvasPoi(): GeoCanvasPoi;
-    get sPositionEditing(): import("../../../Editing/EditingImpl/PositionEditing").PositionEditing | undefined;
     constructor(czmViewer: ESCesiumViewer);
 }
 export declare namespace GeoCanvasImagePoi {

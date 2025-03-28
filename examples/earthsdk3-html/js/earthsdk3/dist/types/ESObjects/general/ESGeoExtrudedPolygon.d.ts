@@ -1,5 +1,6 @@
 import { ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { ESGeoPolygon } from "./ESGeoPolygon";
+import { BooleanProperty, ColorProperty, EnumProperty, GroupProperty, NumberProperty } from "../../ESJTypes";
 /**
  * 挤压多边形体
  */
@@ -7,9 +8,9 @@ export declare class ESGeoExtrudedPolygon extends ESGeoPolygon {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        height: number | undefined;
-        extrudedHeight: number | undefined;
-        perPositionHeight: boolean | undefined;
+        height: number;
+        extrudedHeight: number;
+        perPositionHeight: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;
@@ -30,7 +31,10 @@ export declare class ESGeoExtrudedPolygon extends ESGeoPolygon {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
+        height: number;
+        extrudedHeight: number;
         perPositionHeight: boolean;
         fillStyle: import("../../ESJTypes").ESJFillStyle;
         strokeStyle: import("../../ESJTypes").ESJStrokeStyle;
@@ -48,8 +52,8 @@ export declare class ESGeoExtrudedPolygon extends ESGeoPolygon {
     constructor(id?: SceneObjectKey);
     getESProperties(): {
         coordinate: import("../../ESJTypes").Property[];
+        style: (GroupProperty | NumberProperty | BooleanProperty | EnumProperty<string> | ColorProperty)[];
         defaultMenu: string;
-        style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         basic: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];
@@ -59,9 +63,9 @@ export declare class ESGeoExtrudedPolygon extends ESGeoPolygon {
 }
 export declare namespace ESGeoExtrudedPolygon {
     const createDefaultProps: () => {
-        height: number | undefined;
-        extrudedHeight: number | undefined;
-        perPositionHeight: boolean | undefined;
+        height: number;
+        extrudedHeight: number;
+        perPositionHeight: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;

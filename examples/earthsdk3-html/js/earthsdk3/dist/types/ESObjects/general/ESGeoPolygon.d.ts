@@ -25,6 +25,7 @@ export declare class ESGeoPolygon extends ESGeoVector {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
         fillStyle: ESJFillStyle;
         strokeStyle: ESJStrokeStyle;
@@ -40,6 +41,15 @@ export declare class ESGeoPolygon extends ESGeoVector {
         flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
     constructor(id?: string);
+    getESProperties(): {
+        coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
+        style: import("../../ESJTypes").Property[];
+        general: import("../../ESJTypes").Property[];
+        basic: import("../../ESJTypes").Property[];
+        dataSource: import("../../ESJTypes").Property[];
+        location: import("../../ESJTypes").Property[];
+    };
     getProperties(language: string): import("../../ESJTypes").Property[];
 }
 export declare namespace ESGeoPolygon {

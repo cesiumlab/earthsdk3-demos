@@ -47,6 +47,7 @@ export declare class ESSignalTransmission extends ESGeoVector {
     set ratio(value: number);
     get ratioChanged(): import("xbsj-base").Listener<[number, number]>;
     constructor(id?: SceneObjectKey);
+    static supportEditingModes: string[];
     static defaults: {
         loop: boolean;
         currentTime: number;

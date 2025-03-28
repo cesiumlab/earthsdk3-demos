@@ -1,4 +1,4 @@
-import { CzmPolylinesPrimitive, GeoAxis, PositionEditing, PrsEditing, RotationEditing } from '../../../CzmObjects';
+import { CzmPolyline, CzmPolylinesPrimitive } from '../../../CzmObjects';
 import { ESCesiumViewer } from '../../../ESCesiumViewer';
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged } from 'xbsj-base';
 export declare class CzmPlane extends Destroyable {
@@ -12,16 +12,10 @@ export declare class CzmPlane extends Destroyable {
     static defaults: {
         position: [number, number, number];
     };
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
-    private _sRotationEditing;
-    get sRotationEditing(): RotationEditing;
-    private _sPrsEditing;
-    get sPrsEditing(): PrsEditing;
     private _polylines;
     get polylines(): CzmPolylinesPrimitive;
     private _axis;
-    get axis(): GeoAxis;
+    get axis(): CzmPolyline;
     constructor(czmViewer: ESCesiumViewer, id?: string);
 }
 export declare namespace CzmPlane {

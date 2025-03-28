@@ -1,4 +1,3 @@
-import { PointEditing, PositionsCenter, PositionsEditing } from "../../../../CzmObjects";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { CzmArcType } from "../../../../ESJTypesCzm";
 import { Destroyable, Listener, ObjResettingWithEvent, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
@@ -9,12 +8,6 @@ export declare class CzmPolyline extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _sPointEditing;
-    get sPointEditing(): PointEditing;
-    private _positionsCenter;
-    get positionsCenter(): PositionsCenter;
     private _polylineOrGroundPolylineResetting;
     get polylineOrGroundPolylineResetting(): ObjResettingWithEvent<GroundPolyline | Polyline, Listener<[boolean | undefined, boolean | undefined]>>;
     private _czmViewVisibleDistanceRangeControl;
@@ -25,6 +18,7 @@ export declare class CzmPolyline extends Destroyable {
     get id(): SceneObjectKey;
     set id(value: SceneObjectKey);
     get idChanged(): Listener<[string, string]>;
+    private _positionsCenter;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
     static defaults: {
         positions: never[];

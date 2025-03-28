@@ -16,6 +16,8 @@ export * from './PointStyleType';
 export * from './ESJResource';
 export * from './ClockType';
 export * from './ESJArcType';
+export * from './ESJInstances';
+export * from './ESJEditingMode';
 /**
  * @description pick拾取信息体
  */

@@ -1,9 +1,10 @@
-import { ESGeoPolygon, ESPolygonFence } from "earthsdk3";
-import { CzmESVisualObject } from "../../base";
+import { ESGeoPolygon, ESJEditingBindModeType, ESPolygonFence } from "earthsdk3";
+import { CzmESGeoVector } from "../../base";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { CzmPolygonFence } from "./CzmPolygonFence";
-export declare class CzmESPolygonFence extends CzmESVisualObject<ESPolygonFence> {
+export declare class CzmESPolygonFence extends CzmESGeoVector<ESPolygonFence> {
     static readonly type: void;
+    editingBindMode: ESJEditingBindModeType;
     private _czmPolygonFence;
     get czmPolygonFence(): CzmPolygonFence;
     private _czmPolygon;

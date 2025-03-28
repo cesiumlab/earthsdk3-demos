@@ -20,7 +20,6 @@ export declare namespace GeoSmoothPolygon {
         outlineColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
         outlineWidth: number;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
-        editing: boolean;
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         depth: number;
     };

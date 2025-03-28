@@ -1,6 +1,7 @@
 import { ESJVector2D } from "../../ESJTypes";
 import { UniteChanged } from "xbsj-base";
 import { ESHuman } from "./ESHuman";
+import { ESPoi2D } from "./ESPoi2D";
 /**
  * https://www.wolai.com/earthsdk/3BJMp3dWPNFrGjcTC7junh
  */
@@ -42,7 +43,9 @@ export declare class ESHumanPoi extends ESHuman {
         zOrder: number;
     };
     private _human;
+    get human(): ESHuman;
     private _poi;
+    get poi(): ESPoi2D;
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
         defaultMenu: string;

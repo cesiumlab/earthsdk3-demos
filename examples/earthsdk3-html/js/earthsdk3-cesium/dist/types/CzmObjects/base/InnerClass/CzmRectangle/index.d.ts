@@ -27,8 +27,6 @@ export declare namespace CzmRectangle {
         rectangle: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
         rotation: number;
         stRotation: number;
-        editing: boolean;
-        pointEditing: boolean;
     };
 }
 export interface CzmRectangle extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof CzmRectangle.createDefaultProps>> {

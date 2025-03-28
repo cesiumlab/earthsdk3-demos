@@ -19,7 +19,11 @@ export declare class ES3DTileset extends ESVisualObject {
         offset: import("xbsj-base").ReactiveVariable<ESJVector3D | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<ESJVector2D>;
+        /**
+         * @deprecated czmLuminanceAtZenith已弃用，请使用atmosphereScatteringIntensity代替
+         */
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
         czmStyleJson: import("xbsj-base").ReactiveVariable<JsonValue>;
@@ -47,14 +51,7 @@ export declare class ES3DTileset extends ESVisualObject {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
-    private _editing;
-    get editing(): boolean;
-    set editing(value: boolean);
-    get editingChanged(): import("xbsj-base").Listener<[boolean, boolean]>;
-    private _rotationEditing;
-    get rotationEditing(): boolean;
-    set rotationEditing(value: boolean);
-    get rotationEditingChanged(): import("xbsj-base").Listener<[boolean, boolean]>;
+    static supportEditingModes: string[];
     private _refreshTilesetEvent;
     get refreshTilesetEvent(): Event<[]>;
     refreshTileset(): void;
@@ -251,7 +248,11 @@ export declare namespace ES3DTileset {
         offset: import("xbsj-base").ReactiveVariable<ESJVector3D | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<ESJVector2D>;
+        /**
+         * @deprecated czmLuminanceAtZenith已弃用，请使用atmosphereScatteringIntensity代替
+         */
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
         czmStyleJson: import("xbsj-base").ReactiveVariable<JsonValue>;

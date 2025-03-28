@@ -6,6 +6,7 @@ import { DragStartDataManager, PropUiTreeManager, SceneTree } from "../utils";
 import { PathAnimationManager } from "./PathAnimationManager";
 import { propTreeCallbackParamsType } from "./propTreeCallback";
 import { SceneObjectsManager } from "./SceneObjectsManager";
+import { SceneObjectEditingManager } from "./SceneObjectEditingManager";
 export declare class ESObjectsManager extends Destroyable {
     static getSceneObjById: (id: string) => ESSceneObject | undefined;
     static getEnv: (varName: string) => string | undefined;
@@ -13,7 +14,14 @@ export declare class ESObjectsManager extends Destroyable {
     static get envs(): {
         [k: string]: string | undefined;
     };
+    /**
+     * @deprecated 请使用getSceneObject代替
+     * 获取场景对象
+     * @param id 对象id
+     * @returns
+     */
     getSceneObjectById(id: string): ESSceneObject | undefined;
+    getSceneObject(option?: string): ESSceneObject | ESSceneObject[] | undefined;
     get $refs(): {
         [k: string]: ESSceneObject | undefined;
     };
@@ -24,6 +32,8 @@ export declare class ESObjectsManager extends Destroyable {
     get sceneObjectsManager(): SceneObjectsManager;
     get viewers(): Readonly<Set<ESViewer>>;
     getViewers(): readonly ESViewer[];
+    private _sceneObjectEditingManager;
+    get sceneObjectEditingManager(): SceneObjectEditingManager;
     private _activeViewer;
     get activeViewer(): ESViewer | undefined;
     set activeViewer(value: ESViewer | undefined);

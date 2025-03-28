@@ -1,4 +1,4 @@
-import { ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
+import { Event, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { ESLabel } from "../base";
 export declare class ESPoi2D extends ESLabel {
     static readonly type: string;
@@ -12,11 +12,15 @@ export declare class ESPoi2D extends ESLabel {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
@@ -37,7 +41,7 @@ export declare class ESPoi2D extends ESLabel {
     };
     static defaults: {
         modes: [name: string, value: string][];
-        mode: "SquareH01" | "SquareH02" | "SquareV01" | "SquareV02" | "SquareV03" | "SquareV04" | "Flag01" | "Flag02" | "Linear01" | "Linear02" | "Linear03" | "CircularH01" | "CircularH02" | "CircularV01" | "CircularV02" | "CircularV03" | "CircularV04" | "CircularV05" | "P3D01" | "P3D02" | "P3D03" | "P3D04" | "P3D05" | "P3D06" | "P3D07" | "Diamond01" | "Diamond02";
+        mode: "SquareH01" | "SquareH02" | "SquareV01" | "SquareV02" | "SquareV03" | "SquareV04" | "Flag01" | "Flag02" | "Linear01" | "Linear02" | "Linear03" | "CircularH01" | "CircularH02" | "CircularV01" | "CircularV02" | "CircularV03" | "CircularV04" | "CircularV05" | "P3D01" | "P3D02" | "P3D03" | "P3D04" | "P3D05" | "P3D06" | "P3D07" | "Diamond01" | "Diamond02" | "Stranger" | "ManNormal" | "ManAbnormal" | "WomanNormal" | "WomanAbnormal" | "Camera" | "UCVertical";
         style: {
             [xx: string]: any;
         };
@@ -55,6 +59,12 @@ export declare class ESPoi2D extends ESLabel {
         flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
     constructor(id?: SceneObjectKey);
+    initialStyle: import("xbsj-base").ReactiveVariable<undefined>;
+    private _getInitialStyleEvent;
+    get getInitialStyleEvent(): Event<[]>;
+    getInitialStyle(): Promise<{
+        [key: string]: any;
+    } | undefined>;
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
         defaultMenu: string;
@@ -76,11 +86,15 @@ export declare namespace ESPoi2D {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;

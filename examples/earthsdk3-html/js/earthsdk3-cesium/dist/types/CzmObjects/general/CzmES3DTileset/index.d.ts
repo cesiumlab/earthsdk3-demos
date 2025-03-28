@@ -32,6 +32,7 @@ export declare class CzmES3DTileset<T extends ES3DTileset = ES3DTileset> extends
     setFeatureColor(conditionss: [string, string][]): void;
     setFeatureVisable(conditionss: [string, string][]): void;
     resetFeatureStyle(): void;
+    updateEditing(): void;
     constructor(sceneObject: T, czmViewer: ESCesiumViewer);
     flyTo(duration: number | undefined, id: number): boolean;
     flyIn(duration: number | undefined, id: number): boolean;

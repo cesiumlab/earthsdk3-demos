@@ -1,5 +1,8 @@
 import { ESJColor } from "earthsdk3";
 export type WaterAttribute = {
+    waterImage?: {
+        [xx: string]: any;
+    };
     waterColor?: ESJColor;
     frequency?: number;
     waveVelocity?: number;

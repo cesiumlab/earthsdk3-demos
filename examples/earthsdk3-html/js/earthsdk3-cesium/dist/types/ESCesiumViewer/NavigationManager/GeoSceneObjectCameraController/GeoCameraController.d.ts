@@ -9,6 +9,7 @@ export declare class GeoCameraController extends Destroyable {
         position: ESJVector3D;
         rotation: ESJVector3D;
         offsetRotation: ESJVector3D;
+        relativeRotation: boolean;
     };
     constructor(czmViewer: ESCesiumViewer);
 }
@@ -25,6 +26,7 @@ export declare namespace GeoCameraController {
         offsetRotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         enabledRotationInput: boolean;
         enabledScaleInput: boolean;
+        relativeRotation: boolean;
     };
 }
 export interface GeoCameraController extends UniteChanged<ReturnType<typeof GeoCameraController.createDefaultProps>> {

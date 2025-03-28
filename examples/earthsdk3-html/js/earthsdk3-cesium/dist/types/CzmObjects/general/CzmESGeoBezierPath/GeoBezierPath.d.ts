@@ -1,15 +1,14 @@
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, ReactivePropsToNativePropsAndChanged, Event, Listener, SceneObjectKey } from "xbsj-base";
 import { GeoPolylinePath } from "./GeoPolylinePath";
-import { PointEditing, PositionsEditing } from "../../../CzmObjects";
 export declare class GeoBezierPath extends Destroyable {
     private _geoPolylinePath;
     get geoPolylinePath(): GeoPolylinePath;
-    get geoPath(): import("earthsdk3").ESPathImpl;
+    get geoPath(): import("../../../ESObjects").ESPathImpl;
     get ratio(): number;
     set ratio(value: number);
     get ratioChanged(): Listener<[number, number]>;
-    get player(): import("earthsdk3").Player;
+    get player(): import("../../../utils").Player;
     get currentInfo(): import("@sdkSrc/ESObjects/general/ESPath/ESPathImpl/CurrentInfoType").CurrentInfoType | undefined;
     get currentInfoChanged(): Listener<[import("@sdkSrc/ESObjects/general/ESPath/ESPathImpl/CurrentInfoType").CurrentInfoType | undefined, import("@sdkSrc/ESObjects/general/ESPath/ESPathImpl/CurrentInfoType").CurrentInfoType | undefined]>;
     get currentIndex(): number | undefined;
@@ -29,12 +28,8 @@ export declare class GeoBezierPath extends Destroyable {
     get currentDistance(): number;
     set currentDistance(value: number);
     get currentDistanceChanged(): Listener<[number, number]>;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _pointEditor;
-    get pointEditor(): PointEditing;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
-    get timePosRots(): import("earthsdk3").TimePosRotType[] | undefined;
+    get timePosRots(): import("../../../ESObjects").TimePosRotType[] | undefined;
 }
 export declare namespace GeoBezierPath {
     const createDefaultProps: () => {
@@ -52,8 +47,6 @@ export declare namespace GeoBezierPath {
         dashPattern: number;
         hasArrow: boolean;
         arcType: string;
-        editing: boolean;
-        pointEditing: boolean;
         loop: boolean;
         currentTime: number;
         duration: number;

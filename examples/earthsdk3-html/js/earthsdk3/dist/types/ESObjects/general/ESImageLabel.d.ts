@@ -1,6 +1,6 @@
 import { ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { ESLabel } from "../base";
-import { ESJVector2D } from "../../ESJTypes";
+import { ESJResource, ESJVector2D } from "../../ESJTypes";
 /**
  * https://www.wolai.com/earthsdk/nQC5LdV6sHdtLxve1bnbLz
  */
@@ -8,15 +8,19 @@ export declare class ESImageLabel extends ESLabel {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
@@ -63,15 +67,19 @@ export declare class ESImageLabel extends ESLabel {
 }
 export declare namespace ESImageLabel {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
         zOrder: number;
+        actorTag: string;
+        socketName: string;
+        positionOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
+        rotationOffset: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;

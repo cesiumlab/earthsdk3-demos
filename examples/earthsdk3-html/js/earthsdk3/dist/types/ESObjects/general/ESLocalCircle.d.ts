@@ -1,5 +1,5 @@
 import { UniteChanged } from "xbsj-base";
-import { BooleanProperty, ESJFillStyle, Number2Property, NumberProperty } from "../../ESJTypes";
+import { BooleanProperty, ESJFillStyle, NumberProperty, PositionProperty } from "../../ESJTypes";
 import { ESLocalVector2D } from "../base";
 export declare class ESLocalCircle extends ESLocalVector2D {
     static readonly type: string;
@@ -37,6 +37,7 @@ export declare class ESLocalCircle extends ESLocalVector2D {
     get perimeter(): number;
     get perimeterChanged(): import("xbsj-base").Listener<[number, number]>;
     toPolygon(steps?: number, units?: string): [number, number, number][];
+    static supportEditingModes: string[];
     static defaults: {
         fillStyle: ESJFillStyle;
         pointStyle: import("../../ESJTypes").ESJPointStyle;
@@ -57,7 +58,7 @@ export declare class ESLocalCircle extends ESLocalVector2D {
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];
         location: never[];
-        coordinate: (NumberProperty | BooleanProperty | Number2Property)[];
+        coordinate: (NumberProperty | BooleanProperty | PositionProperty)[];
         style: import("../../ESJTypes").Property[];
     };
     getProperties(language?: string): import("../../ESJTypes").Property[];

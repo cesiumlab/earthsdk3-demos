@@ -70,7 +70,7 @@ export declare namespace CzmSignalTransmissionCollection {
         show: boolean;
         imageUrl: string | undefined;
         repeat: number;
-        bidirectional: 0 | 1 | 2 | 3;
+        bidirectional: 0 | 2 | 3 | 1;
         startTime: number;
         transmissionTime: number | undefined;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;

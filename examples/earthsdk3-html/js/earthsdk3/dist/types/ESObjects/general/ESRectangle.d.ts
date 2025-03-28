@@ -36,6 +36,7 @@ export declare class ESRectangle extends ESGeoVector {
     _deprecated: string[];
     private _deprecatedWarningFunc;
     constructor(id?: string);
+    static supportEditingModes: string[];
     static defaults: {
         ground: boolean;
         outlineTranslucent: boolean;

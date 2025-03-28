@@ -1,5 +1,4 @@
 import { PickedInfo } from "earthsdk3";
-import { PositionEditing } from "../../../../../CzmObjects";
 import { ESCesiumViewer } from "../../../../../ESCesiumViewer";
 import { CzmViewDistanceRangeControl } from "../../../../../utils";
 import { CanvasPoi, CanvasPrimitivesContext, Destroyable, Event, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
@@ -15,8 +14,6 @@ export declare class GeoCanvasPoi extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing | undefined;
     private _clickEvent;
     get clickEvent(): Event<[PointerEvent]>;
     private _clickOutEvent;

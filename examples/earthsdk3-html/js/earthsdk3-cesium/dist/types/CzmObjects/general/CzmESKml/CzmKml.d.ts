@@ -1,4 +1,4 @@
-import { ESJClockRangeType, ESJClockStepType } from "earthsdk3";
+import { ESJClockRangeType, ESJClockStepType, ESJResource } from "earthsdk3";
 import { CzmClock } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, Event, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
@@ -42,7 +42,7 @@ export declare class CzmKml extends Destroyable {
 export declare namespace CzmKml {
     const createDefaultProps: () => {
         show: boolean;
-        uri: string | undefined;
+        uri: string | ESJResource | undefined;
         allowPicking: boolean | undefined;
         loadFuncStr: string | undefined;
         data: string | undefined;

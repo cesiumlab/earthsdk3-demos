@@ -31,6 +31,7 @@ export declare class ESVisibilityAnalysis extends ESGeoVector {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
         visibleColor: ESJVector4D;
         invisibleColor: ESJVector4D;

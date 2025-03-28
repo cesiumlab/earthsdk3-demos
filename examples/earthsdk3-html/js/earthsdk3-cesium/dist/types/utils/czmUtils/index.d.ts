@@ -20,3 +20,7 @@ export * from './todo';
 export * from './getIncludedAngleFromPositions';
 export * from './getPolygonPointsFromHierarchy';
 export * from './getResource';
+export * from './CurrentScale';
+export * from './merge3dTilesServer';
+export * from './CurrentPositionsCenter';
+export * from './xbsjWaterMaterial';

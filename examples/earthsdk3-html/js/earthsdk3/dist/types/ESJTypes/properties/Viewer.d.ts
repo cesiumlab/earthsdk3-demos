@@ -50,6 +50,16 @@ export type ESVOptionUeWs = {
     options: {
         ws: string;
         esmsg?: string;
+        uselnternalSignallingServer?: boolean;
+    };
+};
+export type ESVOptionUeHTML5 = {
+    type: 'ESUeViewer';
+    container: HTMLDivElement | string;
+    id?: string;
+    options: {
+        project: string;
+        baseUrl?: string;
     };
 };
 type ESVOptionCzm = {
@@ -58,5 +68,5 @@ type ESVOptionCzm = {
     container: HTMLDivElement | string;
     options?: JsonValue;
 };
-type ESVOptionUe = ESVOptionUeUri | ESVOptionUeWs;
+type ESVOptionUe = ESVOptionUeUri | ESVOptionUeWs | ESVOptionUeHTML5;
 export { ESVOption, ESVOptionCzm, ESVOptionUe };

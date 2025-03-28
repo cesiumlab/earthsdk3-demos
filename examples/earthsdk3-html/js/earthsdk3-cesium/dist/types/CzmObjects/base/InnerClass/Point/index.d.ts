@@ -1,6 +1,5 @@
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
-import { PositionEditing } from "../../../../CzmObjects";
 export declare class CzmPoint extends Destroyable {
     static defaults: {
         pixelSize: number;
@@ -11,14 +10,11 @@ export declare class CzmPoint extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
     private _updateObjectsToExcludeWrapper;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
 export declare namespace CzmPoint {
     const createDefaultProps: () => {
-        editing: boolean;
         show: boolean | undefined;
         allowPicking: boolean;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;

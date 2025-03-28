@@ -33,6 +33,7 @@ export declare class ESObjectsContext extends Destroyable {
     }): T | undefined;
     destroySceneObject(sceneObject: ESSceneObject): boolean;
     getSceneObjectById(id: string): ESSceneObject | undefined;
+    getSceneObject(option?: string): ESSceneObject | ESSceneObject[] | undefined;
     private _getSceneObjConstructor;
     getProps(typeName: string): {
         [k: string]: any;

@@ -1,5 +1,5 @@
 import * as Cesium from 'cesium';
-import { ESJFlyToParam, ESJLonLatFormatType, ESJVector2D, ESJVector2DArray, ESJVector3D, ESJVector4D, ESSceneObject, ESViewer, ESVOption } from "earthsdk3";
+import { ESJFlyToParam, ESJLonLatFormatType, ESJVector2D, ESJVector2DArray, ESJVector3D, ESJVector4D, ESSceneObject, ESViewer, ESVisualObject, ESVOption } from 'earthsdk3';
 import { Event, ObjResettingWithEvent, UniteChanged } from 'xbsj-base';
 import { CzmClippingPlaneCollectionJsonType, CzmClippingPolygonCollectionJsonType, CzmSceneGlobeShadowsType, CzmSceneSkyBoxSourcesType } from '../ESJTypesCzm';
 import { ObjectsToExcludeWrapper } from './ObjectsToExcludeWrapper';
@@ -117,19 +117,28 @@ export declare class ESCesiumViewer extends ESViewer {
         rotation: [number, number, number];
     } | undefined;
     getLengthInPixel(): number;
-    changeToWalk(position: ESJVector3D): void;
+    changeToWalk(position: ESJVector3D, jumpZVelocity?: number): void;
     changeToMap(): void;
     changeToRotateGlobe(latitude?: number, height?: number, cycleTime?: number): void;
     changeToLine(geoLineStringId: string, speed?: number, heightOffset?: number, loop?: boolean, turnRateDPS?: number, lineMode?: "auto" | "manual"): void;
     changeToUserDefined(userDefinedPawn: string): void;
     changeToRotatePoint(position: ESJVector3D, distance?: number, orbitPeriod?: number, heading?: number, pitch?: number): void;
-    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number): void;
+    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number, changeToFollow?: boolean): void;
     getFPS(): number;
+    getBoundSphere(id: string): Promise<undefined>;
     getVersion(): Promise<any>;
     getHeightByLonLat(lon: number, lat: number, channel?: string): Promise<number | null>;
     getHeightsByLonLats(lonLats: ESJVector2DArray, channel?: string): Promise<(number | null)[]>;
     capture(resx?: number, resy?: number): Promise<string | undefined>;
     lonLatAltToScreenPosition(position: ESJVector3D): Promise<ESJVector2D | undefined>;
+    private _notSupportEditingCount;
+    get notSupportEditingCount(): number;
+    set notSupportEditingCount(value: number);
+    get notSupportEditingCountChanged(): import("xbsj-base").Listener<[number, number]>;
+    private _editingSystem;
+    startEditing(sceneObject: ESVisualObject, modes: string[] | string, useTabToSwitch?: boolean): void;
+    private _moveObjectsProcess;
+    moveObjects(sceneObjects: ESSceneObject[]): void;
     getCzmObject(sceneObject: ESSceneObject): import("earthsdk3").EngineObject<ESSceneObject, ESViewer> | undefined;
     setCurrentDefaultAccessToken(): void;
     setLatestDefaultAccessToken(): void;
@@ -214,7 +223,6 @@ export declare namespace ESCesiumViewer {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -232,6 +240,8 @@ export declare namespace ESCesiumViewer {
         editingLineColor: import("xbsj-base").ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;

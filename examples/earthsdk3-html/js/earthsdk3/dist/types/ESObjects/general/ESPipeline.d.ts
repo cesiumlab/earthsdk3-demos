@@ -41,13 +41,13 @@ export declare class ESPipeline extends ESGeoLineString {
     static defaults: {
         radius: number;
         sides: number;
-        materialModes: [xx: string, value: string][];
         materialImage: {
             url: string | ESJResource;
             uDis: number;
             vDis: number;
         };
         speed: number;
+        materialModes: [name: string, value: string][];
         strokeStyle: import("../../ESJTypes").ESJStrokeStyle;
         stroked: boolean;
         points: import("../../ESJTypes").ESJVector3DArray;
@@ -61,6 +61,13 @@ export declare class ESPipeline extends ESGeoLineString {
         flyToParam: import("../../ESJTypes").ESJFlyToParam;
         flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
+    _deprecated: (string | {
+        materialMode: {
+            blue: string;
+            purple: string;
+        };
+    })[];
+    private _deprecatedWarningFunc;
     constructor(id?: string);
     getESProperties(): {
         defaultMenu: string;

@@ -5,6 +5,9 @@ export declare class ESDynamicWater extends ESLocalPolygon {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
+        waterImage: import("xbsj-base").ReactiveVariable<{
+            [xx: string]: any;
+        } | undefined>;
         waterColor: ESJColor;
         frequency: number;
         waveVelocity: number;
@@ -59,6 +62,7 @@ export declare class ESDynamicWater extends ESLocalPolygon {
         waterType: string;
         flowDirection: number;
         flowSpeed: number;
+        waterImage: undefined;
         points: import("../../ESJTypes").ESJVector2DArray;
         filled: boolean;
         pointStyle: import("../../ESJTypes").ESJPointStyle;
@@ -86,6 +90,9 @@ export declare class ESDynamicWater extends ESLocalPolygon {
 }
 export declare namespace ESDynamicWater {
     const createDefaultProps: () => {
+        waterImage: import("xbsj-base").ReactiveVariable<{
+            [xx: string]: any;
+        } | undefined>;
         waterColor: ESJColor;
         frequency: number;
         waveVelocity: number;

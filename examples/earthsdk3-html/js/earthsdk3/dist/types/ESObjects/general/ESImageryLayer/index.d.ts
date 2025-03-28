@@ -17,6 +17,8 @@ export declare class ESImageryLayer extends ESVisualObject {
         componentTag: string;
         maximumLevel: number;
         minimumLevel: number;
+        targetID: string | undefined;
+        opacity: number;
         czmSplitDirection: CzmSplitDirectionType;
         czmAlpha: number;
         czmBrightness: number;
@@ -46,6 +48,8 @@ export declare class ESImageryLayer extends ESVisualObject {
         componentTag: string;
         minimumLevel: number;
         maximumLevel: number;
+        targetID: string;
+        opacity: number;
         czmSplitDirection: CzmSplitDirectionType;
         czmSplitDirectionEnum: [name: string, value: string][];
         czmAlpha: number;
@@ -83,6 +87,8 @@ export declare namespace ESImageryLayer {
         componentTag: string;
         maximumLevel: number;
         minimumLevel: number;
+        targetID: string | undefined;
+        opacity: number;
         czmSplitDirection: CzmSplitDirectionType;
         czmAlpha: number;
         czmBrightness: number;

@@ -1,6 +1,6 @@
 import { Listener, Event, ReactivePropsToNativePropsAndChanged } from "xbsj-base";
 import { ESSceneObject } from "../base";
-import { ESJClockStepType, Property } from "../../ESJTypes";
+import { ESJClockStepType, ESJResource, Property } from "../../ESJTypes";
 export declare class ESCzml extends ESSceneObject {
     static readonly type: string;
     get typeName(): string;
@@ -13,7 +13,7 @@ export declare class ESCzml extends ESSceneObject {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         show: boolean;
-        uri: string;
+        uri: string | ESJResource;
         allowPicking: boolean;
         data: import("xbsj-base").ReactiveVariable<undefined>;
         autoResetClock: boolean;
@@ -147,7 +147,7 @@ export declare namespace ESCzml {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
         show: boolean;
-        uri: string;
+        uri: string | ESJResource;
         allowPicking: boolean;
         data: import("xbsj-base").ReactiveVariable<undefined>;
         autoResetClock: boolean;

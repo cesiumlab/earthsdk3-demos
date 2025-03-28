@@ -1,4 +1,4 @@
-import { BooleanProperty, ColorProperty, EnumProperty, ESJFillStyle, ESJFlyInParam, ESJRenderType, ESJStrokeStyle, ESJVector2D, ESJVector4D, FunctionProperty, GroupProperty, JsonProperty, Number2Property, NumberProperty, Property, StringProperty } from "../../../ESJTypes";
+import { BooleanProperty, ColorProperty, EnumProperty, ESJFillStyle, ESJFlyInParam, ESJRenderType, ESJResource, ESJStrokeStyle, ESJVector2D, ESJVector4D, FunctionProperty, GroupProperty, JsonProperty, Number2Property, NumberProperty, Property, StringProperty } from "../../../ESJTypes";
 import { ESVisualObject } from "../../../ESObjects/base";
 import { JsonValue, Listener, UniteChanged } from "xbsj-base";
 import { ESJImageStyle, ESJTextStyle } from "./type";
@@ -126,7 +126,7 @@ export declare class ESGeoJson extends ESVisualObject {
         dataSource: (NumberProperty | EnumProperty<string> | JsonProperty<string>)[];
         location: never[];
         coordinate: never[];
-        style: (GroupProperty | StringProperty | NumberProperty | BooleanProperty | EnumProperty<string> | ColorProperty | Number2Property | JsonProperty<{}>)[];
+        style: (GroupProperty | StringProperty | NumberProperty | BooleanProperty | EnumProperty<string> | ColorProperty | Number2Property | JsonProperty<string> | JsonProperty<{}>)[];
     };
     getProperties(language?: string): Property[];
     get strokeWidth(): number;
@@ -189,8 +189,8 @@ export declare class ESGeoJson extends ESVisualObject {
     get textOffset(): ESJVector2D;
     set textOffset(value: ESJVector2D);
     get textOffsetChanged(): Listener<[ESJTextStyle, ESJTextStyle]>;
-    get imageUrl(): string;
-    set imageUrl(value: string);
+    get imageUrl(): string | ESJResource;
+    set imageUrl(value: string | ESJResource);
     get imageUrlChanged(): Listener<[ESJImageStyle, ESJImageStyle]>;
     get imageSize(): ESJVector2D;
     set imageSize(value: ESJVector2D);

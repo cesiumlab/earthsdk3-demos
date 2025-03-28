@@ -1,9 +1,11 @@
-import { CzmESVisualObject } from "../../base";
+import { CzmESGeoVector } from "../../base";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { ESRoad } from "../../../ESObjects";
 import { CzmRoad } from "./CzmRoad";
-export declare class CzmESRoad extends CzmESVisualObject<ESRoad> {
+import { ESJEditingBindModeType } from "earthsdk3";
+export declare class CzmESRoad extends CzmESGeoVector<ESRoad> {
     static readonly type: void;
+    editingBindMode: ESJEditingBindModeType;
     private _czmESRoad;
     get czmESRoad(): CzmRoad;
     constructor(sceneObject: ESRoad, czmViewer: ESCesiumViewer);

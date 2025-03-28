@@ -1,5 +1,4 @@
 import { PickedInfo } from "earthsdk3";
-import { PositionsEditing } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, Event, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 export type GeoDirectionMeasurementAngleMode = '-180~180' | '0~360';
@@ -10,8 +9,6 @@ export declare class GeoDirectionMeasurement extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
     private _heading;
     get heading(): number;
     get headingChanged(): Listener<[number, number]>;
@@ -40,7 +37,6 @@ export declare namespace GeoDirectionMeasurement {
         dashPattern: number;
         hasArrow: boolean;
         arcType: string;
-        editing: boolean;
         depthTest: boolean;
         shadowDom: boolean;
         cssAllInitial: boolean;

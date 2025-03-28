@@ -1,4 +1,3 @@
-import { PositionsEditing } from "../../../../CzmObjects";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { CzmArcType, CzmMaterialJsonType } from "../../../../ESJTypesCzm";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
@@ -6,8 +5,6 @@ export declare class CzmPolylineGroundPrimitive extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
 export declare namespace CzmPolylineGroundPrimitive {
@@ -18,7 +15,6 @@ export declare namespace CzmPolylineGroundPrimitive {
         width: number | undefined;
         arcType: CzmArcType | undefined;
         material: import("xbsj-base").ReactiveVariable<CzmMaterialJsonType>;
-        editing: boolean | undefined;
         depthTest: boolean | undefined;
     };
 }

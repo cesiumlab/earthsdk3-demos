@@ -29,6 +29,7 @@ export declare class ESGeoRectangle extends ESGeoVector {
         toDestroyFuncStr: string | undefined;
     };
     toPolygon(): ESJVector3DArray | undefined;
+    static supportEditingModes: string[];
     _updateArea(): void;
     _updatePerimeter(): void;
     constructor(id?: string);
@@ -47,8 +48,8 @@ export declare class ESGeoRectangle extends ESGeoVector {
         flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
     getESProperties(): {
-        defaultMenu: string;
         coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
         style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         basic: import("../../ESJTypes").Property[];

@@ -26,7 +26,7 @@ export type ESJStrConditionItem = {
     op: "==" | "!=" | "contain" | "empty";
     value: string;
 };
-export type ESJConditionItem = ESJNumConditionItem | ESJStrConditionItem;
+export type ESJConditionItem = ESJNumConditionItem | ESJStrConditionItem | boolean;
 export type ESJFeatureStyleConditionItemType = {
     condition: ESJConditionItem | ESJConditionItem[];
     color?: [number, number, number, number];

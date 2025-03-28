@@ -1,5 +1,5 @@
 import { ESGeoPolygon, ESSceneObjectWithId } from "earthsdk3";
-import { CzmTexture, PointEditing, PositionsCenter, PositionsEditing } from '../../../CzmObjects';
+import { CzmTexture } from '../../../CzmObjects';
 import { ESCesiumViewer } from '../../../ESCesiumViewer';
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, ObjResettingWithEvent } from 'xbsj-base';
 import { GeoPolygonCanvas } from './GeoPolygonCanvas';
@@ -17,12 +17,6 @@ export declare class CzmPolygonFlattenedPlane extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _sPointEditing;
-    get sPointEditing(): PointEditing;
-    private _positionsCenter;
-    get positionsCenter(): PositionsCenter;
     private _czmTexture;
     get czmTexture(): CzmTexture;
     private _polygon;
@@ -39,8 +33,6 @@ export declare namespace CzmPolygonFlattenedPlane {
     const createDefaultProps: () => {
         enabled: boolean;
         show: boolean;
-        editing: boolean;
-        pointEditing: boolean;
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         allowPicking: boolean;
         czmFlattenedPlaneId: string;

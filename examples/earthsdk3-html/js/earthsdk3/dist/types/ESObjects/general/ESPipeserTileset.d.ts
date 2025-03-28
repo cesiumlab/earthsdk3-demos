@@ -18,6 +18,7 @@ export declare class ESPipeserTileset extends ES3DTileset {
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
         czmStyleJson: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
@@ -79,6 +80,7 @@ export declare namespace ESPipeserTileset {
         rotation: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector2D>;
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
         czmStyleJson: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;

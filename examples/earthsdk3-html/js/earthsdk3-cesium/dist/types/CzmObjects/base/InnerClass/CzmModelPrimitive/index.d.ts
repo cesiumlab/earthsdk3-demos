@@ -1,5 +1,5 @@
 import * as Cesium from 'cesium';
-import { ESJNativeNumber16 } from "earthsdk3";
+import { ESJNativeNumber16, ESJInstances } from "earthsdk3";
 import { ESCesiumViewer } from '../../../../ESCesiumViewer';
 import { CzmModelAnimationJsonType, CzmModelAnimationType, CzmModelNodeTransformations, CzmModelPrimitiveCustomShaderClassType, CzmModelPrimitiveCustomShaderInstanceClassType, CzmPassType } from '../../../../ESJTypesCzm';
 import { Destroyable, Event, Listener, ReactivePropsToNativePropsAndChanged } from 'xbsj-base';
@@ -100,17 +100,17 @@ export declare namespace CzmModelPrimitive {
         localScale: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         localModelMatrix: import("xbsj-base").ReactiveVariable<ESJNativeNumber16 | undefined>;
         modelMatrix: import("xbsj-base").ReactiveVariable<ESJNativeNumber16 | undefined>;
-        forwardAxis: 0 | 1 | 2 | undefined;
-        upAxis: 0 | 1 | 2 | undefined;
+        forwardAxis: 0 | 2 | 1 | undefined;
+        upAxis: 0 | 2 | 1 | undefined;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
         silhouetteColor: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
         shadows: "DISABLED" | "ENABLED" | "CAST_ONLY" | "RECEIVE_ONLY" | undefined;
         credit: string | undefined;
         basePath: string | undefined;
         gltfJson: import("xbsj-base").ReactiveVariable<undefined>;
-        heightReference: "NONE" | "RELATIVE_TO_GROUND" | "CLAMP_TO_GROUND" | undefined;
+        heightReference: "NONE" | "CLAMP_TO_GROUND" | "RELATIVE_TO_GROUND" | undefined;
         distanceDisplayCondition: [number, number] | undefined;
-        colorBlendMode: "HIGHLIGHT" | "REPLACE" | "MIX" | undefined;
+        colorBlendMode: "REPLACE" | "HIGHLIGHT" | "MIX" | undefined;
         incrementallyLoadTextures: boolean | undefined;
         asynchronous: boolean | undefined;
         clampAnimations: boolean | undefined;
@@ -136,6 +136,7 @@ export declare namespace CzmModelPrimitive {
         nativeMaximumScale: number | undefined;
         nativeScale: number;
         opaquePass: CzmPassType;
+        instances: import("xbsj-base").ReactiveVariable<ESJInstances | undefined>;
     };
 }
 export interface CzmModelPrimitive extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof CzmModelPrimitive.createDefaultProps>> {

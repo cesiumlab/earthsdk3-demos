@@ -83,6 +83,7 @@ export type NavigationModeCallFuncParam = {
     distance: number;
     heading: number;
     pitch: number;
+    relativeRotation: boolean;
 };
 export type UeVisualObject = {
     show: boolean;
@@ -865,6 +866,24 @@ export type UeFuncsType = {
             re: {
                 length: number;
             };
+            error: string | undefined;
+        };
+    };
+    startEditing: {
+        params: {
+            sceneObjectID: string;
+            modes: string[] | string;
+            useTabToSwitch?: boolean;
+        };
+        result: {
+            error: string | undefined;
+        };
+    };
+    moveObjects: {
+        params: {
+            sceneObjectIDs: string[];
+        };
+        result: {
             error: string | undefined;
         };
     };

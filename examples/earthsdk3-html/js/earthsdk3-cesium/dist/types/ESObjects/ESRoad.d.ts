@@ -28,6 +28,7 @@ export declare class ESRoad extends ESGeoVector {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
         width: number;
         arcType: string;

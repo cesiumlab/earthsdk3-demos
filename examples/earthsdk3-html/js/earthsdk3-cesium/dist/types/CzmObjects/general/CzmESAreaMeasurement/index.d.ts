@@ -1,8 +1,8 @@
 import { ESAreaMeasurement } from "earthsdk3";
-import { CzmESGeoVector } from "../..";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { GeoAreaMeasurement } from "./GeoAreaMeasurement";
-export declare class CzmESAreaMeasurement<T extends ESAreaMeasurement = ESAreaMeasurement> extends CzmESGeoVector<T> {
+import { CzmESGeoPolygon } from "../CzmESGeoPolygon";
+export declare class CzmESAreaMeasurement<T extends ESAreaMeasurement = ESAreaMeasurement> extends CzmESGeoPolygon<T> {
     static readonly type: void;
     private _czmAreaMeasurement;
     get czmAreaMeasurement(): GeoAreaMeasurement;

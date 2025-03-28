@@ -3,7 +3,7 @@ import { ESJNativeNumber16, ESSceneObject, ESSceneObjectWithId } from "earthsdk3
 import { ESCesiumViewer } from '../../../../ESCesiumViewer';
 import { CzmAxis, CzmClassificationType, CzmClippingPlaneCollectionJsonType, CzmClippingPolygonCollectionJsonType, CzmImageBasedLightingJsonType, CzmPointCloudShadingJsonType, CzmShadowMode, CzmSplitDirection } from '../../../../ESJTypesCzm';
 import { Destroyable, Listener, Event, JsonValue, ReactivePropsToNativePropsAndChanged, ObjResettingWithEvent, SceneObjectKey } from 'xbsj-base';
-import { CzmES3DTileset, PositionEditing, RotationEditing } from '../../../../CzmObjects';
+import { CzmES3DTileset } from '../../../../CzmObjects';
 import { NativeTilesetResetting } from './NativeTilesetResetting';
 export type FoveatedInterpolationCallbackType = (p: number, q: number, time: number) => number;
 export type ESJResource = {
@@ -36,6 +36,9 @@ export declare class Czm3DTiles extends Destroyable {
     private _supportEdit;
     get supportEdit(): boolean;
     set supportEdit(value: boolean);
+    /**
+    * @deprecated 均支持编辑，该属性后期会删除
+    */
     get supportEditChanged(): Listener<[boolean, boolean]>;
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
@@ -75,14 +78,10 @@ export declare class Czm3DTiles extends Destroyable {
     private _czmTilesetReadyEvent;
     get czmTilesetReadyEvent(): Event<[tileset: Cesium.Cesium3DTileset, czmObj: Czm3DTiles]>;
     notifyCzmTilesetReady(tileset: Cesium.Cesium3DTileset, czmObj: Czm3DTiles): void;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
     private _czmFlattenedPlaneWithId;
     get czmFlattenedPlaneWithId(): ESSceneObjectWithId<ESSceneObject>;
     private _clippingPlanesSceneObjectWithId;
     get clippingPlanesSceneObjectWithId(): ESSceneObjectWithId<ESSceneObject>;
-    private _sRotationEditing;
-    get sRotationEditing(): RotationEditing;
     private _customShaderInstance;
     get customShaderInstance(): Czm3DTilesCustomShaderClassType | undefined;
     get customShaderInstanceChanged(): Listener<[Czm3DTilesCustomShaderClassType | undefined, Czm3DTilesCustomShaderClassType | undefined]>;
@@ -108,7 +107,7 @@ export declare class Czm3DTiles extends Destroyable {
     static defaults: {
         url: string;
         show: boolean;
-        colorBlendMode: "HIGHLIGHT" | "REPLACE" | "MIX";
+        colorBlendMode: "REPLACE" | "HIGHLIGHT" | "MIX";
         modelMatrix: ESJNativeNumber16;
         modelUpAxis: CzmAxis;
         modelForwardAxis: CzmAxis;
@@ -162,12 +161,12 @@ export declare class Czm3DTiles extends Destroyable {
             backFaceCulling: boolean;
             normalShading: boolean;
         };
-        lightColor: [number, number, number];
+        lightColor: undefined;
         imageBasedLighting: CzmImageBasedLightingJsonType;
         backFaceCulling: boolean;
         enableShowOutline: boolean;
         showOutline: boolean;
-        outlineColor: number[];
+        outlineColor: [number, number, number, number];
         vectorClassificationOnly: boolean;
         vectorKeepDecodedPositions: boolean;
         featureIdLabel: string;
@@ -199,14 +198,12 @@ export declare class Czm3DTiles extends Destroyable {
 export declare namespace Czm3DTiles {
     const createDefaultProps: () => {
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
-        positionEditing: import("xbsj-base").ReactiveVariable<boolean>;
         rotation: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
-        rotationEditing: import("xbsj-base").ReactiveVariable<boolean>;
         allowPicking: boolean;
         czmFlattenedPlaneId: string;
         url: string | ESJResource | undefined;
         show: boolean | undefined;
-        colorBlendMode: "HIGHLIGHT" | "REPLACE" | "MIX" | undefined;
+        colorBlendMode: "REPLACE" | "HIGHLIGHT" | "MIX" | undefined;
         modelMatrix: import("xbsj-base").ReactiveVariable<ESJNativeNumber16 | undefined>;
         modelUpAxis: CzmAxis | undefined;
         modelForwardAxis: CzmAxis | undefined;

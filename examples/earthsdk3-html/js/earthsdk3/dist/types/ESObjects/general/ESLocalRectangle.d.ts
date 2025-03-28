@@ -30,6 +30,7 @@ export declare class ESLocalRectangle extends ESLocalVector2D {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     static defaults: {
         width: number;
         height: number;

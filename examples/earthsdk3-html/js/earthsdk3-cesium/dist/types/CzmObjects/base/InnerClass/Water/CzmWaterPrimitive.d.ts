@@ -20,6 +20,10 @@ export declare namespace CzmWaterPrimitive {
         waveVelocity: number;
         amplitude: number;
         specularIntensity: number;
+        baseWaterImage: import("xbsj-base").ReactiveVariable<{
+            [xx: string]: any;
+        } | undefined>;
+        flowSpeed: number;
     };
 }
 export interface CzmWaterPrimitive extends UniteChanged<ReturnType<typeof CzmWaterPrimitive.createDefaultProps>> {

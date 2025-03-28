@@ -1,5 +1,4 @@
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
-import { PositionEditing } from "../../Editing";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { Player, ESJParticleEmitterJsonType } from "earthsdk3";
 import * as Cesium from 'cesium';
@@ -18,8 +17,6 @@ export declare class CzmParticleSystemPrimitive extends Destroyable {
     get ratio(): number;
     set ratio(value: number);
     get ratioChanged(): Listener<[number, number]>;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
     private _primitive?;
     get primitive(): Cesium.ParticleSystem | undefined;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
@@ -45,7 +42,6 @@ export declare namespace CzmParticleSystemPrimitive {
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         translation: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
-        positionEditing: boolean;
         image: string | undefined;
         imageSize: [number, number] | undefined;
         minimumImageSize: [number, number] | undefined;

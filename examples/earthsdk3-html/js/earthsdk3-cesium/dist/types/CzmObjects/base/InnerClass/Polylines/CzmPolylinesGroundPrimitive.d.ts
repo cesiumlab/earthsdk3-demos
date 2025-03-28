@@ -22,6 +22,7 @@ export declare namespace CzmPolylinesGroundPrimitive {
         hasArrow: boolean | undefined;
         arcType: "GEODESIC" | "NONE" | "RHUMB" | undefined;
         depthTest: boolean | undefined;
+        topOrBottom: "none" | "top" | "bottom";
     };
 }
 export interface CzmPolylinesGroundPrimitive extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof CzmPolylinesGroundPrimitive.createDefaultProps>> {

@@ -1,8 +1,7 @@
 {
   "name": "earthsdk3",
-  "version": "0.0.1-beta.0.19",
+  "version": "0.0.1-beta.0.55",
   "description": "地球可视化实验室 (EarthSDK&CesiumLab) https://www.bjxbsj.cn",
-  "main1": "./src/index.ts",
   "main": "dist/earthsdk3.js",
   "module": "dist/earthsdk3.esm.js",
   "types": "dist/types/index.d.ts",
@@ -12,13 +11,11 @@
     "README.md"
   ],
   "scripts": {
-    "build": "webpack --mode=development --config ./tools/webpack-scripts/webpack.config.js && tsc-alias",
-    "build:release": "webpack --mode=production --config ./tools/webpack-scripts/webpack.config.js && tsc-alias",
+    "build:dev": "rimraf dist && webpack --config ./tools/webpack-scripts/webpack.dev.js && tsc-alias",
+    "build:prod": "rimraf dist && webpack --config ./tools/webpack-scripts/webpack.prod.js && tsc-alias",
     "login": "npm login --registry https://registry.npmjs.org",
     "push:beta": "npm publish --registry https://registry.npmjs.org --tag beta",
-    "push": "npm publish --registry https://registry.npmjs.org",
-    "build:dev": "webpack --config ./tools/webpack-scripts/webpack.dev.js && tsc-alias",
-    "build:prod": "webpack --config ./tools/webpack-scripts/webpack.prod.js && tsc-alias"
+    "push": "npm publish --registry https://registry.npmjs.org"
   },
   "author": "suplyang",
   "owner": "北京西部世界科技有限公司",
@@ -27,7 +24,6 @@
   "devDependencies": {
     "@types/proj4": "^2.5.2",
     "compression-webpack-plugin": "^11.1.0",
-    "clean-webpack-plugin": "^3.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^4.6.2",
     "webpack": "^5.37.0",

@@ -8,7 +8,7 @@ export declare class RefsManager extends Destroyable {
     get refs(): {
         [k: string]: ESSceneObject | undefined;
     };
-    private _refsChagned;
+    private _refsChanged;
     get refsChanged(): Listener<[ESSceneObject | undefined, ESSceneObject | undefined]>;
     getLastSceneObject(ref: string): ESSceneObject | undefined;
     getSceneObjects(ref: string): ESSceneObject[] | undefined;

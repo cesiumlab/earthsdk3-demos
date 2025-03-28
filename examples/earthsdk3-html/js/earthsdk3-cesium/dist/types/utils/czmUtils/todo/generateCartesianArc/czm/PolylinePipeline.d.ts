@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference types="@czmSrc/__declares/cesium" />
+/// <reference types="earthsdk/earthsdk3-cesium/dist/types/escesiumviewer/initcesiumviewer/fixcameraflight" />
 export default PolylinePipeline;
 declare namespace PolylinePipeline {
     function numberOfPoints(p0: any, p1: any, minDistance: any): number;

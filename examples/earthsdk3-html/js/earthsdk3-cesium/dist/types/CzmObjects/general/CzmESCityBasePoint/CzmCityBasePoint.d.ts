@@ -18,7 +18,7 @@ export declare namespace CzmCityBasePoint {
     const createDefaultProps: () => {
         show: boolean | undefined;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
-        positionEditing: boolean | undefined;
+        rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         scale: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
         allowPicking: boolean | undefined;

@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference path="../../../../ESCesiumViewer/initCesiumViewer/fixCameraFlight.d.ts" />
+/// <reference types="@czmSrc/__declares/cesium" />
 /**
  * 视域分析类
  */

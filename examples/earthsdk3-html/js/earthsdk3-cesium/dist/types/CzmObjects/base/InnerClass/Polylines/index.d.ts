@@ -1,3 +1,4 @@
+import { ESJArcType } from "earthsdk3";
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 export * from './CzmPolylinesGroundPrimitive';
@@ -21,8 +22,9 @@ export declare namespace CzmPolylines {
         dashLength: number;
         dashPattern: number;
         hasArrow: boolean;
-        arcType: string;
+        arcType: ESJArcType;
         depthTest: boolean;
+        topOrBottom: "none" | "top" | "bottom";
         loop: boolean;
     };
 }

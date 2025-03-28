@@ -58,11 +58,11 @@ export declare abstract class ESObjectWithLocation extends ESVisualObject {
     private _smoothMoveRelativelyWithRotationEvent;
     get smoothMoveRelativelyWithRotationEvent(): Event<[ESJVector3D, ESJVector3D, number]>;
     smoothMoveRelativelyWithRotation(RelativePosition: ESJVector3D, NewRotation: ESJVector3D, Time: number): void;
-    private _editing;
-    get editing(): boolean;
-    set editing(value: boolean);
-    get editingChanged(): Listener<[boolean, boolean]>;
+    static supportEditingModes: string[];
     static defaults: {
+        /**
+       * 是否使用ESObjectWithLocation类中的calcFlyToParam
+       */
         show: boolean;
         collision: boolean;
         allowPicking: boolean;

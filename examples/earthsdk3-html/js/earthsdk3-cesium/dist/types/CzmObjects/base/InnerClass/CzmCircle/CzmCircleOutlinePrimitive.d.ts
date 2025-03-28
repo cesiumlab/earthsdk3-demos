@@ -27,6 +27,7 @@ export declare namespace CzmCircleOutlinePrimitive {
         allowPicking: boolean | undefined;
         outlineColor: import("xbsj-base").ReactiveVariable<[number, number, number, number] | undefined>;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
+        rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         height: number | undefined;
         extrudedHeight: number | undefined;
         radius: number | undefined;

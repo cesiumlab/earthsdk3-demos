@@ -1,6 +1,7 @@
 import { Event, SceneObjectKey, ReactivePropsToNativePropsAndChanged } from "xbsj-base";
 import { ESObjectWithLocation } from "../base";
-import { ESJColor, ESJVector3D } from "../../ESJTypes";
+import { ESJColor, ESJResource, ESJVector3D } from "../../ESJTypes";
+import { ESJInstances } from "../../ESJTypes/properties/ESJInstances";
 type ModelNodeTransformation = {
     translationX: number;
     translationY: number;
@@ -19,12 +20,13 @@ export declare class ESGltfModel extends ESObjectWithLocation {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         czmMaximumScale: number | undefined;
         czmMinimumPixelSize: number;
         czmNativeScale: number;
         czmColor: import("xbsj-base").ReactiveVariable<ESJColor>;
         allowPicking: boolean;
+        instances: import("xbsj-base").ReactiveVariable<ESJInstances | undefined>;
         position: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<ESJVector3D>;
@@ -74,6 +76,7 @@ export declare class ESGltfModel extends ESObjectWithLocation {
     printDebugInfo(): void;
     static defaults: {
         url: string;
+        instances: never[];
         show: boolean;
         collision: boolean;
         allowPicking: boolean;
@@ -94,12 +97,13 @@ export declare class ESGltfModel extends ESObjectWithLocation {
 }
 export declare namespace ESGltfModel {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         czmMaximumScale: number | undefined;
         czmMinimumPixelSize: number;
         czmNativeScale: number;
         czmColor: import("xbsj-base").ReactiveVariable<ESJColor>;
         allowPicking: boolean;
+        instances: import("xbsj-base").ReactiveVariable<ESJInstances | undefined>;
         position: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         rotation: import("xbsj-base").ReactiveVariable<ESJVector3D>;
         scale: import("xbsj-base").ReactiveVariable<ESJVector3D>;

@@ -18,6 +18,13 @@ export declare abstract class ESViewer extends Destroyable {
     get containerSize(): ESJVector2D | undefined;
     set containerSize(value: ESJVector2D | undefined);
     get containerSizeChanged(): import("xbsj-base").Listener<[ESJVector2D | undefined, ESJVector2D | undefined]>;
+    private _editStatusEvent;
+    get editStatusEvent(): Event<[{
+        sceneObjectID: string[];
+        editing: boolean;
+        et?: string | undefined;
+        eid?: string | undefined;
+    }]>;
     private _status;
     get status(): ViewerStatus;
     get statusChanged(): import("xbsj-base").Listener<[ViewerStatus, ViewerStatus]>;
@@ -66,7 +73,6 @@ export declare abstract class ESViewer extends Destroyable {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -84,6 +90,8 @@ export declare abstract class ESViewer extends Destroyable {
         editingLineColor: ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;
@@ -178,19 +186,26 @@ export declare abstract class ESViewer extends Destroyable {
         rotation: ESJVector3D;
     } | undefined;
     abstract getLengthInPixel(): number | undefined;
-    abstract changeToWalk(position: ESJVector3D): void;
+    abstract changeToWalk(position: ESJVector3D, jumpZVelocity: number): void;
     abstract changeToMap(): void;
     abstract changeToRotateGlobe(latitude?: number, height?: number, cycleTime?: number): void;
     abstract changeToLine(geoLineStringId: string, speed?: number, heightOffset?: number, loop?: boolean, turnRateDPS?: number, lineMode?: "auto" | "manual"): void;
     abstract changeToUserDefined(userDefinedPawn: string): void;
     abstract changeToRotatePoint(position: ESJVector3D, distance?: number, orbitPeriod?: number, heading?: number, pitch?: number): void;
-    abstract changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number): void;
+    abstract changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number, relativeRotation?: boolean): void;
     abstract getFPS(): number;
+    abstract getBoundSphere(id: string): Promise<{
+        center?: [number, number, number];
+        radius?: number;
+        tips?: string;
+    } | undefined>;
     getVersion(): Promise<any>;
     abstract getHeightByLonLat(lon: number, lat: number, channel?: string): Promise<number | null>;
     abstract getHeightsByLonLats(lonLats: ESJVector2DArray, channel?: string): Promise<(number | null)[] | undefined>;
     abstract capture(resx?: number, resy?: number): Promise<string | undefined>;
     abstract lonLatAltToScreenPosition(position: ESJVector3D): Promise<ESJVector2D | undefined>;
+    abstract startEditing(sceneObject: ESSceneObject, modes: string[] | string, useTabToSwitch?: boolean): void;
+    abstract moveObjects(sceneObjects: ESSceneObject[]): void;
     /**
      * 鼠标悬停事件 悬停时长可由hoverTime属性控制
      */
@@ -267,7 +282,6 @@ export declare namespace ESViewer {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -285,6 +299,8 @@ export declare namespace ESViewer {
         editingLineColor: ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;
@@ -310,7 +326,6 @@ export declare namespace ESViewer {
         fov: number;
         textAvoidance: boolean;
         flyToBoundingSize: number | undefined;
-        editingHeightOffset: number | undefined;
         hoverTime: number;
         currentTime: number;
         simulationTime: number;
@@ -328,6 +343,8 @@ export declare namespace ESViewer {
         editingLineColor: ReactiveVariable<ESJVector4D | undefined>;
         editingAxisSize: number | undefined;
         editingAuxiliaryPointSize: number | undefined;
+        editingHeightOffset: number | undefined;
+        editingLineShow: boolean;
         terrainShader: {
             slope: {
                 show: boolean;

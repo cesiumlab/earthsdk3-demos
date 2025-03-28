@@ -45,8 +45,8 @@ export declare class ESPolygonWithHole extends ESGeoPolygon {
     };
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
-        defaultMenu: string;
         coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
         style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];

@@ -1,7 +1,7 @@
-import { Event, UniteChanged } from "xbsj-base";
+import { Event, JsonValue, PartialWithUndefinedReactivePropsToNativeProps, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
+import { LayerType } from "./types";
+import { ESRtsFeatureEditing } from "../ESRtsFeatureEditing";
 import { ES3DTileset } from "../ES3DTileset";
-import { ESDSFeature } from "./ESDSFeature";
-import { FeatureItem, LayerType } from "./types";
 export declare class ESRtsTileset extends ES3DTileset {
     static readonly type: string;
     get typeName(): string;
@@ -17,9 +17,10 @@ export declare class ESRtsTileset extends ES3DTileset {
         rotation: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJVector2D>;
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
-        czmStyleJson: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        czmStyleJson: import("xbsj-base").ReactiveVariable<JsonValue>;
         czmBackFaceCulling: boolean;
         czmDebugShowBoundingVolume: boolean;
         czmDebugShowContentBoundingVolume: boolean;
@@ -38,76 +39,33 @@ export declare class ESRtsTileset extends ES3DTileset {
         flyInParam: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJFlyInParam | undefined>;
         name: string;
         ref: string | undefined;
-        extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        extras: import("xbsj-base").ReactiveVariable<JsonValue>;
         devTags: import("xbsj-base").ReactiveVariable<string[] | undefined>;
         execOnceFuncStr: string | undefined;
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
-        layerConfig: import("xbsj-base").ReactiveVariable<LayerType | undefined>;
+        layerConfig: import("xbsj-base").ReactiveVariable<JsonValue[] | undefined>;
     };
+    get json(): JsonType;
+    set json(value: JsonType);
     private _es3DTileset;
     get es3DTileset(): ES3DTileset;
-    private _featureMap;
-    get featureMap(): Map<string, FeatureItem>;
-    getEditing(): FeatureItem[];
-    getFeatureItem(id: string): FeatureItem | undefined;
-    /**
-     * 获取已创建的或者创建一个返回
-     * @param featureId 要素id
-     * @returns FeatureItem
-     */
-    _getCurrentFeatureItem(featureId: string): Promise<FeatureItem>;
-    private _currentESDSFeature;
-    get currentESDSFeature(): ESDSFeature | undefined;
-    get currentESDSFeatureChanged(): import("xbsj-base").Listener<[ESDSFeature | undefined, ESDSFeature | undefined]>;
-    set currentESDSFeature(value: ESDSFeature | undefined);
-    setCurrentESDSFeature(value: ESDSFeature): void;
-    getLayerConfig(): Promise<LayerType>;
-    saveLayerConfig(): Promise<string>;
-    _createESDSFeatureItem(id: string): Promise<FeatureItem>;
-    showOnlyFeature(id: string): Promise<void>;
-    findDatasetById(featureId: string): Promise<string>;
-    getFeatureProperty(featureId: string): Promise<any>;
-    flyToFeature(id: string): Promise<void>;
+    getFeatureProperty(featureId: string): Promise<{
+        [k: string]: any;
+    } | undefined>;
+    getLayerConfig(): Promise<LayerType[] | undefined>;
+    saveLayerConfig(): Promise<any>;
     private _highlightInner3DtilesetEvent;
-    get highlightInner3DtilesetEvent(): Event<[sceneObject: ES3DTileset]>;
-    _highlightInner3Dtileset(sceneObject: ES3DTileset): void;
-    highlightDSFeature(id: string): Promise<void>;
+    get highlightInner3DtilesetEvent(): Event<[sceneObject: ESRtsFeatureEditing]>;
+    _highlightInner3Dtileset(sceneObject: ESRtsFeatureEditing): void;
+    highlightDSFeature(sceneObject: ESRtsFeatureEditing): Promise<void>;
     private _removeHighlightInner3DtilesetEvent;
-    get removeHighlightInner3DtilesetEvent(): Event<[sceneObject: ES3DTileset]>;
-    _removeHighlightInner3Dtileset(sceneObject: ES3DTileset): void;
-    reamoveHighlightDSFeature(id: string): Promise<void>;
+    get removeHighlightInner3DtilesetEvent(): Event<[sceneObject: ESRtsFeatureEditing]>;
+    _removeHighlightInner3Dtileset(sceneObject: ESRtsFeatureEditing): void;
+    removeHighlightDSFeature(sceneObject: ESRtsFeatureEditing): Promise<void>;
     pickFeature(viewer: any, screenPosition: [number, number]): Promise<{
         featureId: any;
         pickInnerFields: any;
-    } | undefined>;
-    moveFeature(id: string): Promise<void>;
-    rotateFeature(id: string): Promise<void>;
-    setFeatureOffset(id: string, offset: [number, number, number]): Promise<void>;
-    setFeatureHpr(id: string, hpr: [number, number, number]): Promise<void>;
-    setFeatureScale(id: string, scale: number): Promise<void>;
-    /**
-    * 重置单个编辑操作，不移除Map中的FeatureItem,只恢复dsFeature到初始位置;
-    */
-    undoEditing(id: string): void;
-    /**
-     * 模拟移除feature show = false
-     */
-    removeFeature(id: string): Promise<void>;
-    /**
-     * 模拟恢复feature show=true
-     */
-    resetFeature(id: string): Promise<void>;
-    /**
-     * 撤销单个编辑操作,移除Map中的FeatureItem,恢复原始tileset中的tile块;
-     */
-    cancelFeature(id: string): void;
-    /**
-     * 撤销所有编辑操作,移除Map中的所有FeatureItem
-     */
-    clearEditing(): void;
-    commitEditings(): Promise<{
-        [k: string]: any;
     } | undefined>;
     private _tilesetServePort;
     get tilesetServePort(): string;
@@ -116,12 +74,12 @@ export declare class ESRtsTileset extends ES3DTileset {
     getport(): Promise<string>;
     refresh(): Promise<void>;
     /**
-     * 获取当前服务的ip和port http://localhost:9009/ts/info/ts01
+     * 获取当前服务的ip和port http://localhost:9009/tileservice/service/info/sv1
      * 从this.url中获取http://localhost:9009 ,作为请求地址
      */
     get baseUrl(): string;
     /**
-     * 图层服务名称 http://localhost:9009/ts/info/ts01
+     * 图层服务名称 http://localhost:9009/tileservice/service/info/sv1
      * 从this.url中获取sv1
      */
     get tileServiceName(): string;
@@ -130,9 +88,9 @@ export declare class ESRtsTileset extends ES3DTileset {
    * 从this.url中获取http://localhost
    */
     get tileServiceIp(): string;
-    constructor(id?: string);
+    constructor(id?: SceneObjectKey);
     static defaults: {
-        layerConfig: LayerType;
+        layerConfig: JsonValue[];
         url: string;
         actorTag: string;
         materialMode: string;
@@ -163,9 +121,10 @@ export declare namespace ESRtsTileset {
         rotation: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJVector3D>;
         czmImageBasedLightingFactor: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJVector2D>;
         czmLuminanceAtZenith: number;
+        czmAtmosphereScatteringIntensity: number;
         czmMaximumMemoryUsage: number;
         czmClassificationType: string;
-        czmStyleJson: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        czmStyleJson: import("xbsj-base").ReactiveVariable<JsonValue>;
         czmBackFaceCulling: boolean;
         czmDebugShowBoundingVolume: boolean;
         czmDebugShowContentBoundingVolume: boolean;
@@ -184,13 +143,17 @@ export declare namespace ESRtsTileset {
         flyInParam: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJFlyInParam | undefined>;
         name: string;
         ref: string | undefined;
-        extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
+        extras: import("xbsj-base").ReactiveVariable<JsonValue>;
         devTags: import("xbsj-base").ReactiveVariable<string[] | undefined>;
         execOnceFuncStr: string | undefined;
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
-        layerConfig: import("xbsj-base").ReactiveVariable<LayerType | undefined>;
+        layerConfig: import("xbsj-base").ReactiveVariable<JsonValue[] | undefined>;
     };
 }
-export interface ESRtsTileset extends UniteChanged<ReturnType<typeof ESRtsTileset.createDefaultProps>> {
+export interface ESRtsTileset extends ReactivePropsToNativePropsAndChanged<ReturnType<typeof ESRtsTileset.createDefaultProps>> {
 }
+type JsonType = PartialWithUndefinedReactivePropsToNativeProps<ReturnType<typeof ESRtsTileset.createDefaultProps> & {
+    type: string;
+}>;
+export {};

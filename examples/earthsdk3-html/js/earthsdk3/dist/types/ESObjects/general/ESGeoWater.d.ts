@@ -8,6 +8,9 @@ export declare class ESGeoWater extends ESGeoPolygon {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
+        waterImage: import("xbsj-base").ReactiveVariable<{
+            [xx: string]: any;
+        } | undefined>;
         waterColor: ESJColor;
         frequency: number;
         waveVelocity: number;
@@ -57,6 +60,7 @@ export declare class ESGeoWater extends ESGeoPolygon {
         waterType: "river" | "ocean" | "lake" | "custom";
         flowDirection: number;
         flowSpeed: number;
+        waterImage: undefined;
         fillStyle: import("../../ESJTypes").ESJFillStyle;
         strokeStyle: import("../../ESJTypes").ESJStrokeStyle;
         filled: boolean;
@@ -84,6 +88,9 @@ export declare class ESGeoWater extends ESGeoPolygon {
 }
 export declare namespace ESGeoWater {
     const createDefaultProps: () => {
+        waterImage: import("xbsj-base").ReactiveVariable<{
+            [xx: string]: any;
+        } | undefined>;
         waterColor: ESJColor;
         frequency: number;
         waveVelocity: number;

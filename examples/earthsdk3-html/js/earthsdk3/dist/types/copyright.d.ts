@@ -1,3 +1,9 @@
+declare function getSystemAndArch(): {
+    os: string;
+    arch: string;
+};
+declare const startRunningTime: number;
+declare function sendProductUsageInfo(copyright: any): void;
 declare let copyright: {
     readonly owner: any;
     readonly ownerlink: any;
@@ -8,6 +14,5 @@ declare let copyright: {
     readonly version: any;
     readonly name: any;
     readonly commitId: any;
-    print(force?: boolean): void;
+    print(): void;
 } | undefined;
-export { copyright };

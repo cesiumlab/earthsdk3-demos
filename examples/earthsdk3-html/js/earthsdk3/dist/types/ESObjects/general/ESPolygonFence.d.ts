@@ -27,10 +27,10 @@ export declare class ESPolygonFence extends ESGeoVector {
         execOnceFuncStr: string | undefined;
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
-        pointEditing: boolean;
         height: number;
         materialMode: string;
     };
+    static supportEditingModes: string[];
     static defaults: {
         fillStyle: ESJFillStyle;
         filled: boolean;
@@ -49,8 +49,8 @@ export declare class ESPolygonFence extends ESGeoVector {
     constructor(id?: string);
     getESProperties(): {
         defaultMenu: string;
-        basic: import("../../ESJTypes").Property[];
         coordinate: import("../../ESJTypes").Property[];
+        basic: import("../../ESJTypes").Property[];
         style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];
@@ -79,7 +79,6 @@ export declare namespace ESPolygonFence {
         execOnceFuncStr: string | undefined;
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
-        pointEditing: boolean;
         height: number;
         materialMode: string;
     };

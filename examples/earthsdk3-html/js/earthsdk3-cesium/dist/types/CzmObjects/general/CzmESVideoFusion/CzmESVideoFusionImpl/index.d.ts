@@ -1,4 +1,4 @@
-import { CzmTexture, RayEditing } from "../../../../CzmObjects";
+import { CzmTexture } from "../../../../CzmObjects";
 import { Destroyable, Event, Listener, ObjResettingWithEvent, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { ESCesiumViewer } from "./../../../../ESCesiumViewer";
 import { XbsjCameraVideo } from "../XbsjCameraVideo";
@@ -13,8 +13,6 @@ export declare class CzmCameraVideo extends Destroyable {
         position: [number, number, number];
         czmTextureId: string;
     };
-    private _rayEditing;
-    get rayEditing(): RayEditing;
     private _sharedCzmTexture;
     get sharedCzmTexture(): CzmTexture | undefined;
     getCurrentCzmTexture(): CzmTexture | undefined;
@@ -42,7 +40,6 @@ export declare class CzmCameraVideo extends Destroyable {
 export declare namespace CzmCameraVideo {
     const createDefaultProps: () => {
         show: boolean;
-        editing: boolean;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         fov: number;

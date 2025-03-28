@@ -24,6 +24,7 @@ export type CzmMaterialJsonType = {
     type: 'Image';
     image?: string;
     repeat?: [number, number];
+    color?: [number, number, number, number];
 } | {
     type: 'DiffuseMap';
     image?: string;

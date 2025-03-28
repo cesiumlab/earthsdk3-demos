@@ -13,7 +13,9 @@ export declare abstract class ESSceneObject extends Destroyable {
         [k: string]: any;
         type: string;
     }) => T | undefined;
+    static readonly destroySceneObject: (sceneObject: ESSceneObject) => boolean;
     static getSceneObjById: (id: string) => ESSceneObject | undefined;
+    static getSceneObj: (option?: string | undefined) => ESSceneObject | ESSceneObject[] | undefined;
     static getEnv: (varName: string) => string | undefined;
     static setEnv: (varName: string, value: string | undefined) => void;
     static get envs(): {
@@ -36,7 +38,14 @@ export declare abstract class ESSceneObject extends Destroyable {
     registerAttachedObject(createViewerPropSceneObject: (viewer: ESViewer) => Destroyable | undefined): void;
     createAttachedObject(createViewerPropSceneObject: (viewer: ESViewer) => Destroyable | undefined): () => void;
     registerAttachedObjectForContainer(createContainerPropSceneObject: (viewer: ESViewer, container: HTMLDivElement) => Destroyable | undefined): void;
+    /**
+     * @deprecated 请使用getSceneObject代替
+     * 获取场景对象
+     * @param id 对象id
+     * @returns
+     */
     static readonly getSceneObjectById: (id: string) => ESSceneObject | undefined;
+    static readonly getSceneObject: (option?: string | undefined) => ESSceneObject | ESSceneObject[] | undefined;
     private _createdEvent;
     /**
      * 对象创建事件,由实现类决定何时触发

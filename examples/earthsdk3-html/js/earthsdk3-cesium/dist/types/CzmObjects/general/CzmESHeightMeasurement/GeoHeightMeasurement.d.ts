@@ -1,5 +1,4 @@
 import { PickedInfo } from "earthsdk3";
-import { PositionsEditing } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, Event, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 export declare class GeoHeightMeasurement extends Destroyable {
@@ -8,8 +7,6 @@ export declare class GeoHeightMeasurement extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
     private _distance;
     get distance(): number;
     get distanceChanged(): Listener<[number, number]>;
@@ -40,7 +37,6 @@ export declare namespace GeoHeightMeasurement {
         dashPattern: number;
         hasArrow: boolean;
         arcType: string;
-        editing: boolean;
         depthTest: boolean;
         shadowDom: boolean;
         cssAllInitial: boolean;

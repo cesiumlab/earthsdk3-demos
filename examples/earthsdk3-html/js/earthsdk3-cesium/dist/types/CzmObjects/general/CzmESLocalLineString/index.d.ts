@@ -6,5 +6,6 @@ export declare class CzmESLocalLineString extends CzmESObjectWithLocation<ESLoca
     private _czmESLocalLineStringZ;
     get czmESLocalLineStringZ(): ESLocalLineStringZ;
     constructor(sceneObject: ESLocalLineString, czmViewer: ESCesiumViewer);
+    visibleDistance(sceneObject: ESLocalLineString, czmViewer: ESCesiumViewer): void;
     flyTo(duration: number | undefined, id: number): boolean;
 }

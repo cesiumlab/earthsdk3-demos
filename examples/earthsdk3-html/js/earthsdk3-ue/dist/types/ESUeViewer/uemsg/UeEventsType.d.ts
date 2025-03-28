@@ -89,4 +89,10 @@ export type UeEventsType = {
         position: [number, number, number];
         rotation: [number, number, number];
     };
+    editStatus: {
+        et: "editStatus";
+        eid: string;
+        sceneObjectID: string[];
+        editing: boolean;
+    };
 };

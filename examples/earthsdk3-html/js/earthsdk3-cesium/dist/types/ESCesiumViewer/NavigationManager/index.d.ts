@@ -21,10 +21,10 @@ export declare class NavigationManager extends Destroyable {
     private _handler?;
     resetNavigation(): void;
     changeToMap(): void;
-    changeToWalk(position: ESJVector3D): void;
+    changeToWalk(position: ESJVector3D, jumpZVelocity?: number): void;
     changeToRotateGlobe(latitude?: number, height?: number, cycleTime?: number): void;
     changeToRotatePoint(position: ESJVector3D, distance?: number, orbitPeriod?: number, heading?: number, pitch?: number): void;
-    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number): void;
+    changeToFollow(objectId: string, distance?: number, heading?: number, pitch?: number, relativeRotation?: boolean): void;
     changeToLine(geoLineStringId: string, speed?: number, heightOffset?: number, loop?: boolean, turnRateDPS?: number, lineMode?: "auto" | "manual"): void;
     constructor(_viewer: ESCesiumViewer);
     private _changedMouseEvent;

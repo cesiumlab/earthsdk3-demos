@@ -5,10 +5,7 @@ import { ESVisualObject } from "./ESVisualObject";
  * https://www.wolai.com/earthsdk/u1Uc89HHrBjiGGB67BdFLc
  */
 export declare abstract class ESGeoVector extends ESVisualObject {
-    private _editing;
-    get editing(): boolean;
-    set editing(value: boolean);
-    get editingChanged(): import("xbsj-base").Listener<[boolean, boolean]>;
+    static supportEditingModes: string[];
     protected _area: import("xbsj-base").ReactiveVariable<number>;
     get area(): number;
     get areaChanged(): import("xbsj-base").Listener<[number, number]>;

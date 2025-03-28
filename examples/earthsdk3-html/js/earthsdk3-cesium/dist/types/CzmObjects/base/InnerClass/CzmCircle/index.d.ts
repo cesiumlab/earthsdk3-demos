@@ -1,6 +1,9 @@
 import { ESCesiumViewer } from "../../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 import { CzmMaterialJsonType } from "../../../../ESJTypesCzm";
+export * from './CzmCircleGroundPrimitive';
+export * from './CzmCircleOutlinePrimitive';
+export * from './CzmCirclePrimitive';
 export declare class CzmCircle extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
@@ -21,7 +24,7 @@ export declare namespace CzmCircle {
         outlineColor: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
         material: import("xbsj-base").ReactiveVariable<CzmMaterialJsonType>;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
-        editing: import("xbsj-base").ReactiveVariable<boolean>;
+        rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         radius: number;
         stRotation: number;
         ellipsoid: import("xbsj-base").ReactiveVariable<[number, number, number]>;

@@ -8,11 +8,11 @@ export declare class ESPolygonFlattenedPlane extends ESGeoPolygon {
     get typeName(): string;
     get defaultProps(): {
         targetID: string;
-        filled: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;
         strokeStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJStrokeStyle>;
+        filled: boolean;
         fillStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;
@@ -49,8 +49,8 @@ export declare class ESPolygonFlattenedPlane extends ESGeoPolygon {
     };
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
-        defaultMenu: string;
         coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
         style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];
@@ -61,11 +61,11 @@ export declare class ESPolygonFlattenedPlane extends ESGeoPolygon {
 export declare namespace ESPolygonFlattenedPlane {
     const createDefaultProps: () => {
         targetID: string;
-        filled: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;
         strokeStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJStrokeStyle>;
+        filled: boolean;
         fillStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;

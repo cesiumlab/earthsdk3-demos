@@ -14,11 +14,11 @@ export declare class ESSunshineAnalysis extends ESGeoPolygon {
         endTime: number;
         spanTime: number;
         progress: number;
-        filled: boolean;
-        stroked: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJPointStyle>;
+        stroked: boolean;
         strokeStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJStrokeStyle>;
+        filled: boolean;
         fillStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;
@@ -34,6 +34,7 @@ export declare class ESSunshineAnalysis extends ESGeoPolygon {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     private _startEvent;
     get startEvent(): Event<[]>;
     start(): void;
@@ -68,11 +69,11 @@ export declare namespace ESSunshineAnalysis {
         endTime: number;
         spanTime: number;
         progress: number;
-        filled: boolean;
-        stroked: boolean;
         pointed: boolean;
         pointStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJPointStyle>;
+        stroked: boolean;
         strokeStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJStrokeStyle>;
+        filled: boolean;
         fillStyle: import("xbsj-base").ReactiveVariable<import("../../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;

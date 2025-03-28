@@ -1,10 +1,11 @@
 import { JsonValue, UniteChanged } from "xbsj-base";
+import { ESJResource } from "../../ESJTypes";
 import { ESObjectWithLocation } from "../base";
 export declare class ESDatasmithRuntimeModel extends ESObjectWithLocation {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         importOptions: import("xbsj-base").ReactiveVariable<JsonValue>;
         downloadProgress: number;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;
@@ -53,7 +54,7 @@ export declare class ESDatasmithRuntimeModel extends ESObjectWithLocation {
 }
 export declare namespace ESDatasmithRuntimeModel {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         importOptions: import("xbsj-base").ReactiveVariable<JsonValue>;
         downloadProgress: number;
         position: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJVector3D>;

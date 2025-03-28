@@ -31,6 +31,10 @@ export declare class ESPipeFence extends ESGeoVector {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
+    private _distance;
+    get distance(): number;
+    get distanceChanged(): import("xbsj-base").Listener<[number, number]>;
     static defaults: {
         strokeStyle: ESJStrokeStyle;
         fillStyle: ESJFillStyle;
@@ -46,6 +50,13 @@ export declare class ESPipeFence extends ESGeoVector {
         flyToParam: import("../../ESJTypes").ESJFlyToParam;
         flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
+    _deprecated: (string | {
+        materialMode: {
+            blue: string;
+            purple: string;
+        };
+    })[];
+    private _deprecatedWarningFunc;
     constructor(id?: string);
     getESProperties(): {
         defaultMenu: string;

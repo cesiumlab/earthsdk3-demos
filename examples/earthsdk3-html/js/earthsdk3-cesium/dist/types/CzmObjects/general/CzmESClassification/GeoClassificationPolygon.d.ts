@@ -1,4 +1,4 @@
-import { CzmPolygonWithHeight, PointEditing, PositionsEditing } from "../../../CzmObjects";
+import { CzmPolygonWithHeight } from "../../../CzmObjects";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from "xbsj-base";
 export type GeoClassificationType = 'TERRAIN' | 'CESIUM_3D_TILE' | 'BOTH';
@@ -6,10 +6,6 @@ export declare class GeoClassificationPolygon extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Listener<[number | undefined]>;
     flyTo(duration?: number): void;
-    private _sPositionsEditing;
-    get sPositionsEditing(): PositionsEditing;
-    private _pointEditor;
-    get pointEditor(): PointEditing;
     private _helperPolygon;
     get helperPolygon(): CzmPolygonWithHeight;
     private _id;
@@ -32,8 +28,6 @@ export declare namespace GeoClassificationPolygon {
         outlineWidth: number;
         fill: boolean;
         color: import("xbsj-base").ReactiveVariable<[number, number, number, number]>;
-        editing: boolean;
-        pointEditing: boolean;
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         depth: number;
         zIndex: number;

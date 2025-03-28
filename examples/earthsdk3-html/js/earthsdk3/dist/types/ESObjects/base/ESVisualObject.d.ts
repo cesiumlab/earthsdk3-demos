@@ -1,8 +1,14 @@
-import { ESJFlyInParam, ESJFlyToParam, ESJPickedInfo } from "../../ESJTypes";
+import { ESJEditingModeType, ESJFlyInParam, ESJFlyToParam, ESJPickedInfo } from "../../ESJTypes";
 import { Event, Listener, UniteChanged } from "xbsj-base";
 import { ESSceneObject } from "./ESSceneObject";
 import { ESViewer } from "../../ESViewer";
 export declare abstract class ESVisualObject extends ESSceneObject {
+    static supportEditingModes: Array<string | ESJEditingModeType>;
+    supportEditingModes(): any;
+    private _editing;
+    get editing(): boolean;
+    set editing(value: boolean);
+    get editingChanged(): Listener<[boolean, boolean]>;
     /**
          * 弃用变量管理器
          * 请勿使用该属性
@@ -39,6 +45,11 @@ export declare abstract class ESVisualObject extends ESSceneObject {
      * 是否使用ESObjectWithLocation类中的calcFlyToParam
      */
     useCalcFlyToParamInESObjectWithLocation: boolean;
+    getBoundSphere(viewer: ESViewer): Promise<{
+        center?: [number, number, number] | undefined;
+        radius?: number | undefined;
+        tips?: string | undefined;
+    } | undefined>;
     static defaults: {
         show: boolean;
         collision: boolean;

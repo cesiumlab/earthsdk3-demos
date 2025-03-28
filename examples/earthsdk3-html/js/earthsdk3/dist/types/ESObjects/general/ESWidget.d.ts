@@ -20,7 +20,7 @@ export declare class ESWidget extends ESLabel {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;
@@ -88,7 +88,7 @@ export declare namespace ESWidget {
         screenRender: boolean;
         size: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
         anchor: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
-        offset: import("xbsj-base").ReactiveVariable<[number, number]>;
+        offset: import("xbsj-base").ReactiveVariable<import("./../../ESJTypes").ESJVector2D>;
         sizeByContent: boolean;
         renderMode: number;
         rotationType: number;

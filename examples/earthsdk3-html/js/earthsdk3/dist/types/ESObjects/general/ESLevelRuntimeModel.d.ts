@@ -1,11 +1,11 @@
 import { UniteChanged } from "xbsj-base";
-import { ESJVector3D } from "../../ESJTypes";
+import { ESJResource, ESJVector3D } from "../../ESJTypes";
 import { ESObjectWithLocation } from "../base";
 export declare class ESLevelRuntimeModel extends ESObjectWithLocation {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         downloadProgress: number;
         levelName: string;
         levelOffset: import("xbsj-base").ReactiveVariable<ESJVector3D>;
@@ -50,7 +50,7 @@ export declare class ESLevelRuntimeModel extends ESObjectWithLocation {
 }
 export declare namespace ESLevelRuntimeModel {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         downloadProgress: number;
         levelName: string;
         levelOffset: import("xbsj-base").ReactiveVariable<ESJVector3D>;

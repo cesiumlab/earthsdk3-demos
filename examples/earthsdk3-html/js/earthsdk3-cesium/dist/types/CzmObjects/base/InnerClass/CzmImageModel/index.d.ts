@@ -23,9 +23,6 @@ export declare namespace CzmImageModel {
         czmTextureId: string;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
-        positionEditing: boolean;
-        rotationEditing: boolean;
-        editing: boolean;
         /**
          * @deprecated rotationWithCamera属性已废弃，请使用rotationMode！
          */

@@ -1,5 +1,5 @@
 import { UniteChanged } from "xbsj-base";
-import { ESJVector2D } from "../../ESJTypes";
+import { ESJResource, ESJVector2D } from "../../ESJTypes";
 import { ESVisualObject } from "../base";
 export type ESPoiType = {
     type: string;
@@ -12,7 +12,7 @@ export declare class ESPoiTileset extends ESVisualObject {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         poiTypes: import("xbsj-base").ReactiveVariable<ESPoiType[] | undefined>;
         heightOffset: number;
         show: boolean;
@@ -47,7 +47,7 @@ export declare class ESPoiTileset extends ESVisualObject {
 }
 export declare namespace ESPoiTileset {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         poiTypes: import("xbsj-base").ReactiveVariable<ESPoiType[] | undefined>;
         heightOffset: number;
         show: boolean;

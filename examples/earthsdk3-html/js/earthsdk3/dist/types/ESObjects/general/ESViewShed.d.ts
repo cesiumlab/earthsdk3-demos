@@ -32,6 +32,7 @@ export declare class ESViewShed extends ESObjectWithLocation {
         toDestroyFuncStr: string | undefined;
     };
     constructor(id?: SceneObjectKey);
+    static supportEditingModes: string[];
     static defaults: {
         fov: number;
         aspectRatio: number;

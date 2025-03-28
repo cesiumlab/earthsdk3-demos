@@ -8,17 +8,17 @@ export declare class ESDirectionMeasurement extends ESGeoVector {
     get typeName(): string;
     get defaultProps(): {
         pointed: boolean;
-        pointStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJPointStyle>;
+        pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;
-        strokeStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJStrokeStyle>;
+        strokeStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJStrokeStyle>;
         filled: boolean;
-        fillStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJFillStyle>;
+        fillStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;
         collision: boolean;
         allowPicking: boolean;
-        flyToParam: import("xbsj-base").ReactiveVariable<import("../..").ESJFlyToParam | undefined>;
-        flyInParam: import("xbsj-base").ReactiveVariable<import("../..").ESJFlyInParam | undefined>;
+        flyToParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyToParam | undefined>;
+        flyInParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyInParam | undefined>;
         name: string;
         ref: string | undefined;
         extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;
@@ -29,37 +29,38 @@ export declare class ESDirectionMeasurement extends ESGeoVector {
     };
     get strokeWidth(): number;
     set strokeWidth(value: number);
+    static supportEditingModes: string[];
     constructor(id?: string);
     static defaults: {
-        points: import("../..").ESJVector3DArray;
-        pointStyle: import("../..").ESJPointStyle;
-        strokeStyle: import("../..").ESJStrokeStyle;
-        fillStyle: import("../..").ESJFillStyle;
+        points: import("../../ESJTypes").ESJVector3DArray;
+        pointStyle: import("../../ESJTypes").ESJPointStyle;
+        strokeStyle: import("../../ESJTypes").ESJStrokeStyle;
+        fillStyle: import("../../ESJTypes").ESJFillStyle;
         pointed: boolean;
         stroked: boolean;
         filled: boolean;
         show: boolean;
         collision: boolean;
         allowPicking: boolean;
-        flyToParam: import("../..").ESJFlyToParam;
-        flyInParam: import("../..").ESJFlyInParam;
+        flyToParam: import("../../ESJTypes").ESJFlyToParam;
+        flyInParam: import("../../ESJTypes").ESJFlyInParam;
     };
-    getProperties(language?: string): import("../..").Property[];
+    getProperties(language?: string): import("../../ESJTypes").Property[];
 }
 export declare namespace ESDirectionMeasurement {
     const createDefaultProps: () => {
         pointed: boolean;
-        pointStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJPointStyle>;
+        pointStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJPointStyle>;
         stroked: boolean;
-        strokeStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJStrokeStyle>;
+        strokeStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJStrokeStyle>;
         filled: boolean;
-        fillStyle: import("xbsj-base").ReactiveVariable<import("../..").ESJFillStyle>;
+        fillStyle: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFillStyle>;
         points: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
         show: boolean;
         collision: boolean;
         allowPicking: boolean;
-        flyToParam: import("xbsj-base").ReactiveVariable<import("../..").ESJFlyToParam | undefined>;
-        flyInParam: import("xbsj-base").ReactiveVariable<import("../..").ESJFlyInParam | undefined>;
+        flyToParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyToParam | undefined>;
+        flyInParam: import("xbsj-base").ReactiveVariable<import("../../ESJTypes").ESJFlyInParam | undefined>;
         name: string;
         ref: string | undefined;
         extras: import("xbsj-base").ReactiveVariable<import("xbsj-base").JsonValue>;

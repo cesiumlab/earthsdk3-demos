@@ -1,5 +1,5 @@
 import { ESJNativeNumber16 } from "earthsdk3";
-import { CzmPolylinesPrimitive, PositionEditing } from '../../../CzmObjects';
+import { CzmPolylinesPrimitive } from '../../../CzmObjects';
 import { ESCesiumViewer } from '../../../ESCesiumViewer';
 import { CzmClippingPlaneCollectionJsonType } from '../../../ESJTypesCzm';
 import { Destroyable, Listener, ReactivePropsToNativePropsAndChanged, SceneObjectKey } from 'xbsj-base';
@@ -18,8 +18,6 @@ export declare class CzmBoxClippingPlanes extends Destroyable {
     get computedClippingPlanes(): CzmClippingPlaneCollectionJsonType | undefined;
     set computedClippingPlanes(value: CzmClippingPlaneCollectionJsonType | undefined);
     get computedClippingPlanesChanged(): Listener<[CzmClippingPlaneCollectionJsonType | undefined, CzmClippingPlaneCollectionJsonType | undefined]>;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
     private _polylines;
     get polylines(): CzmPolylinesPrimitive;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);

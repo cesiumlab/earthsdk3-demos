@@ -58,8 +58,8 @@ export declare class ESPit extends ESGeoPolygon {
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
         style: (GroupProperty | NumberProperty | BooleanProperty | EnumProperty<string> | ColorProperty)[];
-        defaultMenu: string;
         coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];
         location: import("../../ESJTypes").Property[];

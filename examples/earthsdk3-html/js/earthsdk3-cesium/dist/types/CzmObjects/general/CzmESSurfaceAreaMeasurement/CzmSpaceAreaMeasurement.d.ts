@@ -22,7 +22,6 @@ export declare class CzmSpaceAreaMeasurement extends Destroyable {
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
     static defaults: {
         positions: never[];
-        editing: boolean;
         totalArea: number;
         interpolation: boolean;
         interpolationDistance: number;
@@ -35,7 +34,6 @@ export declare class CzmSpaceAreaMeasurement extends Destroyable {
 export declare namespace CzmSpaceAreaMeasurement {
     const createDefaultProps: () => {
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
-        editing: boolean;
         show: boolean | undefined;
         totalArea: number | undefined;
         interpolationDistance: number | undefined;

@@ -31,6 +31,7 @@ export declare class ESClippingPlane extends ESObjectWithLocation {
         updateFuncStr: string | undefined;
         toDestroyFuncStr: string | undefined;
     };
+    static supportEditingModes: string[];
     constructor(id?: SceneObjectKey);
     static defaults: {
         show: boolean;

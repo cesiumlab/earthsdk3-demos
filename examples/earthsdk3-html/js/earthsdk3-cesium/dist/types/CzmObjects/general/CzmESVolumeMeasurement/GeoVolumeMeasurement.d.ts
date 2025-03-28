@@ -1,7 +1,7 @@
 import { ESJVector3DArray } from "earthsdk3";
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Destroyable, Event, SceneObjectKey, UniteChanged } from "xbsj-base";
-import { CzmPolylinesPrimitive, PositionsEditing } from "../../../CzmObjects";
+import { CzmPolylinesPrimitive } from "../../../CzmObjects";
 export declare class GeoVolumeMeasurement extends Destroyable {
     private _flyToEvent;
     get flyToEvent(): Event<[number | undefined]>;
@@ -18,7 +18,6 @@ export declare class GeoVolumeMeasurement extends Destroyable {
     get gridPointsChanged(): import("xbsj-base").Listener<[ESJVector3DArray, ESJVector3DArray]>;
     excavationPolylines: CzmPolylinesPrimitive | undefined;
     fillPolylines: CzmPolylinesPrimitive | undefined;
-    sPositionsEditing: PositionsEditing | undefined;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
 export declare namespace GeoVolumeMeasurement {
@@ -26,7 +25,6 @@ export declare namespace GeoVolumeMeasurement {
         show: boolean;
         allowPicking: boolean;
         positions: import("xbsj-base").ReactiveVariable<[number, number, number][] | undefined>;
-        editing: boolean;
         planeHeight: import("xbsj-base").ReactiveVariable<number | undefined>;
         gridWidth: number;
         area: number;

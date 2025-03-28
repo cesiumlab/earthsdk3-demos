@@ -21,7 +21,6 @@ declare const createReactProps: () => {
     fov: number;
     textAvoidance: boolean;
     flyToBoundingSize: number | undefined;
-    editingHeightOffset: number | undefined;
     hoverTime: number;
     currentTime: number;
     simulationTime: number;
@@ -39,6 +38,8 @@ declare const createReactProps: () => {
     editingLineColor: import("xbsj-base").ReactiveVariable<import("earthsdk3").ESJVector4D | undefined>;
     editingAxisSize: number | undefined;
     editingAuxiliaryPointSize: number | undefined;
+    editingHeightOffset: number | undefined;
+    editingLineShow: boolean;
     terrainShader: {
         slope: {
             show: boolean;

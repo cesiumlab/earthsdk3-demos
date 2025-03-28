@@ -22,7 +22,7 @@ module.exports = defineConfig({
           { from: path.join(cesiumSource, "ThirdParty"), to: `${cesiumBaseUrl}/ThirdParty`, },
           { from: path.join(cesiumSource, "Assets"), to: `${cesiumBaseUrl}/Assets`, },
           { from: path.join(cesiumSource, "Widgets"), to: `${cesiumBaseUrl}/Widgets`, },
-          { from: path.join('node_modules/earthsdk3-assets', 'dist-web'), to: 'js/earthsdk3-assets/dist-web' },
+          { from: path.join('node_modules/earthsdk3-assets'), to: 'js/earthsdk3-assets' },
         ],
       }),
       new webpack.DefinePlugin({

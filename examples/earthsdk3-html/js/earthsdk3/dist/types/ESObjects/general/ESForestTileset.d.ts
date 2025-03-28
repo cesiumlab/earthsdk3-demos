@@ -1,4 +1,4 @@
-import { ESJVector2D } from "../../ESJTypes";
+import { ESJResource, ESJVector2D } from "../../ESJTypes";
 import { ESVisualObject } from "../base";
 import { UniteChanged } from "xbsj-base";
 export type ESTreeType = {
@@ -16,7 +16,7 @@ export declare class ESForestTileset extends ESVisualObject {
     static readonly type: string;
     get typeName(): string;
     get defaultProps(): {
-        url: string;
+        url: string | ESJResource;
         treeTypes: import("xbsj-base").ReactiveVariable<ESTreeType[] | undefined>;
         xiaoBanWidget: import("xbsj-base").ReactiveVariable<ESXiaoBanWidget | undefined>;
         youShiSZ: string;
@@ -63,7 +63,7 @@ export declare class ESForestTileset extends ESVisualObject {
 }
 export declare namespace ESForestTileset {
     const createDefaultProps: () => {
-        url: string;
+        url: string | ESJResource;
         treeTypes: import("xbsj-base").ReactiveVariable<ESTreeType[] | undefined>;
         xiaoBanWidget: import("xbsj-base").ReactiveVariable<ESXiaoBanWidget | undefined>;
         youShiSZ: string;

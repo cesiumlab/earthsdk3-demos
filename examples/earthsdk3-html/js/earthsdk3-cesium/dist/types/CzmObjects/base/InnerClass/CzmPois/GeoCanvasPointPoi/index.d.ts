@@ -17,7 +17,6 @@ export declare class GeoCanvasPointPoi extends Destroyable {
     get dbclickEvent(): Event<[PointerEvent]>;
     private _geoCanvasPoi;
     get geoCanvasPoi(): GeoCanvasPoi;
-    get sPositionEditing(): import("../../..").PositionEditing | undefined;
     constructor(czmViewer: ESCesiumViewer, id?: SceneObjectKey);
 }
 export declare namespace GeoCanvasPointPoi {

@@ -1,5 +1,5 @@
 import { ESLocationMeasurement } from "earthsdk3";
-import { CzmESEditing, CzmESObjectWithLocation, GeoCustomDivPoi } from "../../base";
+import { CzmESObjectWithLocation, GeoCustomDivPoi } from "../../base";
 import { ESCesiumViewer } from "./../../../ESCesiumViewer";
 export type GeoLocationMeasurementTextFuncType = (position: [number, number, number]) => string;
 export declare class CzmESLocationMeasurement extends CzmESObjectWithLocation<ESLocationMeasurement> {
@@ -8,8 +8,6 @@ export declare class CzmESLocationMeasurement extends CzmESObjectWithLocation<ES
     get geoCustomDivPoi(): GeoCustomDivPoi<{
         destroy(): undefined;
     }>;
-    private _sEditing;
-    get sEditing(): CzmESEditing;
     static defaultTextFunc_度格式: (position: [number, number, number]) => string;
     static defaultTextFunc_度分格式: (position: [number, number, number]) => string;
     static defaultTextFunc_度分秒格式: (position: [number, number, number]) => string;

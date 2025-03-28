@@ -1,4 +1,5 @@
-/// <reference types="@czmSrc/__declares/__cesium" />
+/// <reference path="../../../../ESCesiumViewer/initCesiumViewer/fixCameraFlight.d.ts" />
+/// <reference types="@czmSrc/__declares/cesium" />
 export default xbsjCreateODLinesPrimitive;
 /**
  * OD线回调函数，用来指定OD线的进度

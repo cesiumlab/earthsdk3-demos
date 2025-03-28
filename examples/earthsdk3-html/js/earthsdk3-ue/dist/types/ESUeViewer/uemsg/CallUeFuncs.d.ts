@@ -21,6 +21,9 @@ declare const startVoiceCallFunc: (viewer: UeCloudViewerBase) => Promise<{
 declare const stopVoiceCallFunc: (viewer: UeCloudViewerBase) => Promise<{
     [k: string]: any;
 } | undefined>;
+declare const mountPakFiles: (viewer: UeCloudViewerBase, pakArr: any[]) => Promise<{
+    [k: string]: any;
+} | undefined>;
 declare const generateMemReportCallFunc: (viewer: UeCloudViewerBase) => Promise<{
     [k: string]: any;
 } | undefined>;
@@ -66,7 +69,7 @@ export declare const getLonLatAltToScreenPositionCallFunc: (viewer: UeCloudViewe
 export declare const uePositionToLonLatAltCallFunc: (viewer: UeCloudViewerBase, UEPosition: ESJVector3D) => Promise<ESJVector3D | undefined>;
 export declare const getAllSocketNamesByActorTagCallFunc: (viewer: UeCloudViewerBase, ActorTag: string) => Promise<string[] | undefined>;
 export declare const getVersionCallFunc: (viewer: UeCloudViewerBase) => Promise<string | undefined>;
-export declare const getgetBoundSphereCallFunc: (viewer: UeCloudViewerBase, id: string) => Promise<{
+export declare const getBoundSphereCallFunc: (viewer: UeCloudViewerBase, id: string) => Promise<{
     center?: [number, number, number] | undefined;
     radius?: number | undefined;
     tips?: string | undefined;
@@ -174,4 +177,10 @@ export declare const getStatusCallFunc: (viewer: UeCloudViewerBase) => Promise<{
     rotation: [number, number, number];
     length: number;
 } | undefined>;
-export { generateMemReportCallFunc, startVoiceCallFunc, pickCallFunc, stopVoiceCallFunc, HighlightFeatureAndFlyToCallFunc, HighlightFeatureCallFunc, SetLayerColorCallFunc, SetLayerVisibleCallFunc, calcFlyToParamCallFunc, callFunctionCallFunc, changeNavigationModeCallFunc, destroyCallFunc, flyInCallFunc, flyInDefaultCameraCallFunc, flyToCallFunc, pickPositionCallFunc, quitCallFunc, refreshTilesetCallFunc, resetWithCurrentCameraCallFunc, setGlobalPropertyCallFunc, setNodePositionCallFunc, setNodeRotationCallFunc, setNodeScaleCallFunc, smoothMoveCallFunc, smoothMoveOnGroundCallFunc, smoothMoveWithRotationCallFunc, smoothMoveWithRotationOnGroundCallFunc };
+export declare const startEditingCallFunc: (viewer: UeCloudViewerBase, sceneObjectID: string, modes: string[] | string, useTabToSwitch?: boolean) => Promise<{
+    error: string | undefined;
+} | undefined>;
+export declare const moveObjectsCallFunc: (viewer: UeCloudViewerBase, sceneObjectIDs: string[]) => Promise<{
+    error: string | undefined;
+} | undefined>;
+export { generateMemReportCallFunc, startVoiceCallFunc, pickCallFunc, stopVoiceCallFunc, HighlightFeatureAndFlyToCallFunc, HighlightFeatureCallFunc, SetLayerColorCallFunc, SetLayerVisibleCallFunc, calcFlyToParamCallFunc, callFunctionCallFunc, changeNavigationModeCallFunc, destroyCallFunc, flyInCallFunc, flyInDefaultCameraCallFunc, flyToCallFunc, pickPositionCallFunc, quitCallFunc, refreshTilesetCallFunc, resetWithCurrentCameraCallFunc, setGlobalPropertyCallFunc, setNodePositionCallFunc, setNodeRotationCallFunc, setNodeScaleCallFunc, smoothMoveCallFunc, smoothMoveOnGroundCallFunc, smoothMoveWithRotationCallFunc, smoothMoveWithRotationOnGroundCallFunc, mountPakFiles };

@@ -3,7 +3,7 @@ import * as Cesium from 'cesium';
 import { ESCesiumViewer } from "../../../ESCesiumViewer";
 import { Czm3DTilesCustomShaderInstanceClassType } from "../CzmES3DTileset";
 import { ESJNativeNumber16, ESSceneObjectWithId } from "earthsdk3";
-import { CzmPolylinesPrimitive, PositionEditing } from "../../../CzmObjects";
+import { CzmPolylinesPrimitive } from "../../../CzmObjects";
 export declare class CzmFlattenedPlane extends Destroyable {
     private _id;
     get id(): SceneObjectKey;
@@ -19,8 +19,6 @@ export declare class CzmFlattenedPlane extends Destroyable {
     get computedCustomShader(): Czm3DTilesCustomShaderInstanceClassType | undefined;
     set computedCustomShader(value: Czm3DTilesCustomShaderInstanceClassType | undefined);
     get computedCustomShaderChanged(): Listener<[Czm3DTilesCustomShaderInstanceClassType | undefined, Czm3DTilesCustomShaderInstanceClassType | undefined]>;
-    private _sPositionEditing;
-    get sPositionEditing(): PositionEditing;
     private _polylines;
     get polylines(): CzmPolylinesPrimitive;
     private _finalMatrix;
@@ -35,7 +33,6 @@ export declare namespace CzmFlattenedPlane {
     const createDefaultProps: () => {
         enabled: boolean;
         showHelper: boolean;
-        positionEditing: boolean;
         position: import("xbsj-base").ReactiveVariable<[number, number, number] | undefined>;
         rotation: import("xbsj-base").ReactiveVariable<[number, number, number]>;
         modelMatrix: import("xbsj-base").ReactiveVariable<ESJNativeNumber16>;

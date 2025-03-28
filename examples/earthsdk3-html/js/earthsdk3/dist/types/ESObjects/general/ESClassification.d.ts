@@ -27,6 +27,7 @@ export declare class ESClassification extends ESGeoVector {
         toDestroyFuncStr: string | undefined;
     };
     constructor(id?: string);
+    static supportEditingModes: string[];
     static defaults: {
         fillStyle: ESJFillStyle;
         filled: boolean;
@@ -43,8 +44,8 @@ export declare class ESClassification extends ESGeoVector {
     };
     getESProperties(): {
         basic: import("../../ESJTypes").Property[];
-        defaultMenu: string;
         coordinate: import("../../ESJTypes").Property[];
+        defaultMenu: string;
         style: import("../../ESJTypes").Property[];
         general: import("../../ESJTypes").Property[];
         dataSource: import("../../ESJTypes").Property[];

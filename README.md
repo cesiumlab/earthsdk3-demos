@@ -9,5 +9,5 @@
 # 使用
 ```
  pnpm install
- pnpm run dev
+ pnpm run dev-earthui
 ```

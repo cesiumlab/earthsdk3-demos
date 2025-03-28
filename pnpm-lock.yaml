@@ -64,17 +64,17 @@ importers:
         specifier: 0.0.49-beta.0.30
         version: 0.0.49-beta.0.30(typescript@5.8.2)
       earthsdk3:
-        specifier: 0.0.1-beta.0.55
-        version: 0.0.1-beta.0.55
+        specifier: 0.0.1-beta.0.59
+        version: 0.0.1-beta.0.59
       earthsdk3-assets:
         specifier: 0.0.1-beta.0.12
         version: 0.0.1-beta.0.12
       earthsdk3-cesium:
-        specifier: 0.0.1-beta.0.68
-        version: 0.0.1-beta.0.68
+        specifier: 0.0.1-beta.0.74
+        version: 0.0.1-beta.0.74
       earthsdk3-ue:
-        specifier: 0.0.1-beta.0.34
-        version: 0.0.1-beta.0.34
+        specifier: 0.0.1-beta.0.39
+        version: 0.0.1-beta.0.39
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -5733,12 +5733,30 @@ packages:
       xbsj-base: 0.0.1-beta.0.11
     dev: false
 
+  /earthsdk3-cesium@0.0.1-beta.0.74:
+    resolution: {integrity: sha512-037GPPJ2zozbOofrlxlyRTB8uH+eOXatbt6hso0zjGrzz5V3mGo4VpR4q6QfBrhbqrkP6yEjHTWqU9Xhxnm9Og==}
+    dependencies:
+      cesium: 1.123.1
+      delaunator: 5.0.1
+      earcut: 2.2.4
+      html2canvas: 1.4.1
+      xbsj-base: 0.0.1-beta.0.14
+    dev: false
+
   /earthsdk3-ue@0.0.1-beta.0.34:
     resolution: {integrity: sha512-G4FtSsPERGPUrWJQPRnsHY1gfuwHZqlLrtAA+aeOurpSxg6lF97B4W8T+Hf42RZ89KUQnxcEgqINtOgBYbRETA==}
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
       xbsj-base: 0.0.1-beta.0.11
+    dev: false
+
+  /earthsdk3-ue@0.0.1-beta.0.39:
+    resolution: {integrity: sha512-qenqIL4P6VPn7QKJAvLmvKD50HMubxc4XIA8LiMhWT3JmmYA2HeTDzGnZC1ASz4GTzQnNRsk1W1e6JRQaGjB3w==}
+    dependencies:
+      '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
+      html2canvas: 1.4.1
+      xbsj-base: 0.0.1-beta.0.14
     dev: false
 
   /earthsdk3@0.0.1-beta.0.28:
@@ -5755,6 +5773,14 @@ packages:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
       xbsj-base: 0.0.1-beta.0.11
+    dev: false
+
+  /earthsdk3@0.0.1-beta.0.59:
+    resolution: {integrity: sha512-LAT+41ZkBDZAdqFPBKoCfsQT176VDNo+56S1YzvA2GCN+XPOBrljFpzchabUL1E51+4ym6FstWhD+OpyNN+CFw==}
+    dependencies:
+      '@turf/turf': 6.5.0
+      proj4: 2.15.0
+      xbsj-base: 0.0.1-beta.0.14
     dev: false
 
   /eastasianwidth@0.2.0:
@@ -10376,6 +10402,12 @@ packages:
 
   /xbsj-base@0.0.1-beta.0.11:
     resolution: {integrity: sha512-3U85w8prrnh56jzMaWfQdv8BWCEfj1H/qEddamYh+WxWRKvHwGb1O6aIke/YOGKfPQu38P10KJFWqYeVQhIo7Q==}
+    dependencies:
+      js-binary-schema-parser: 2.0.3
+    dev: false
+
+  /xbsj-base@0.0.1-beta.0.14:
+    resolution: {integrity: sha512-kIk41ZEGbUZa5Ow+KLrdMSg5h+2BG4FeOz9ZSI8tf6PbGSEZXF8uTUKcbLcr65UrBZUBSQjeWRQT4sZuHda4lg==}
     dependencies:
       js-binary-schema-parser: 2.0.3
     dev: false

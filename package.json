@@ -1,9 +1,23 @@
 {
-  "name": "earthsdk3-workspace",
+  "name": "earthsdk3-demos-workspace",
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "clean_node_modules": "rimraf node_modules & rimraf demos/earthui/node_modules & rimraf demos/earthsdk3-openlayers/node_modules & rimraf examples/earthsdk3-vite/node_modules & rimraf examples/earthsdk3-wbpk/node_modules"
+    "dev:earthui": "pnpm -F earthui serve",
+    "clean_node_modules": "pnpm run cnm && pnpm run ce && pnpm run ceo && pnpm run cev && pnpm run cew",
+    "cnm": "rimraf node_modules",
+    "ce": "rimraf demos/earthui/node_modules",
+    "ceo": "rimraf demos/earthsdk3-openlayers/node_modules",
+    "cev": "rimraf examples/earthsdk3-vite/node_modules",
+    "cew": "rimraf examples/earthsdk3-wbpk/node_modules"
+  },
+  "dependencies": {
+    "earthsdk3-cesium": "0.0.1-beta.0.75",
+    "earthsdk3-ue": "0.0.1-beta.0.40",
+    "earthsdk3": "0.0.1-beta.0.60",
+    "earthsdk3-ol": "0.0.1-beta.0.2",
+    "earthsdk3-assets": "0.0.1-beta.0.12",
+    "xbsj-base": "0.0.1-beta.0.15"
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

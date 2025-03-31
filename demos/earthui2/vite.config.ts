@@ -17,7 +17,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: normalizePath(path.resolve(__dirname, './node_modules/earthsdk3-assets')),
+          src: normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3-assets')),
           dest: './js'
         }
       ]

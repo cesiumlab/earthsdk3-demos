@@ -39,12 +39,12 @@ const inputIndex = ref(-1)
 const modes = [//多选模式类型
     {
         mode: 'triangle',
-        img: require('../../../assets/plotting/triangle.png'),
+        img: new URL('../../../assets/plotting/triangle.png',import.meta.url).href,
         name: '三角形poi'
     },
     {
         mode: 'diamond',
-        img: require('../../../assets/plotting/diamond.png'),
+        img: new URL('../../../assets/plotting/diamond.png',import.meta.url).href,
         name: '菱形poi'
     }
 ]

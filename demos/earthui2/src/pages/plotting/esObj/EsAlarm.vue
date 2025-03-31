@@ -34,12 +34,12 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'cylinder',
-        img: require('../../../assets/plotting/cylinder.png'),
+        img: new URL('../../../assets/plotting/cylinder.png',import.meta.url).href,
         name: '柱状警告'
     },
     {
         mode: 'circle',
-        img: require('../../../assets/plotting/circle1.png'),
+        img: new URL('../../../assets/plotting/circle1.png',import.meta.url).href,
         name: '圆形警告'
     }
 ]

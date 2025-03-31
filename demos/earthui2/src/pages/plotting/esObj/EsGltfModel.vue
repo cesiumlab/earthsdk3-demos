@@ -34,27 +34,27 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         type: '${earthsdk3-assets-script-dir}/assets/glb/building.glb',
-        img: require('../../../assets/plotting/building.png'),
+        img: new URL('../../../assets/plotting/building.png',import.meta.url).href,
         name: '大楼'
     },
     {
         type: '${earthsdk3-assets-script-dir}/assets/glb/plotting/jiankongqi.glb',
-        img: require('../../../assets/plotting/monitor.png'),
+        img: new URL('../../../assets/plotting/monitor.png',import.meta.url).href,
         name: '监控探头'
     },
     {
         type: '${earthsdk3-assets-script-dir}/assets/glb/plotting/denggan.glb',
-        img: require('../../../assets/plotting/streetLight.png'),
+        img: new URL('../../../assets/plotting/streetLight.png',import.meta.url).href,
         name: '路灯'
     },
     {
         type: '${earthsdk3-assets-script-dir}/assets/glb/plotting/fenxianxiang.glb',
-        img: require('../../../assets/plotting/switchBox.png'),
+        img: new URL('../../../assets/plotting/switchBox.png',import.meta.url).href,
         name: '配电箱'
     },
     {
         type: '${earthsdk3-assets-script-dir}/assets/glb/plotting/xiangan.glb',
-        img: require('../../../assets/plotting/wire.png'),
+        img: new URL('../../../assets/plotting/wire.png',import.meta.url).href,
         name: '线杆'
     },
 ]

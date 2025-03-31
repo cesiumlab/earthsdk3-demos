@@ -34,32 +34,32 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'worker',
-        img: require('../../../assets/plotting/worker.png'),
+        img: new URL('../../../assets/plotting/worker.png',import.meta.url).href,
         name: '工人'
     },
     {
         mode: 'police',
-        img: require('../../../assets/plotting/police.png'),
+        img: new URL('../../../assets/plotting/police.png',import.meta.url).href,
         name: '警察'
     },
     {
         mode: 'pedestrian',
-        img: require('../../../assets/plotting/pedestrian.png'),
+        img: new URL('../../../assets/plotting/pedestrian.png',import.meta.url).href,
         name: '路人'
     },
     {
         mode: 'stranger',
-        img: require('../../../assets/plotting/stranger.png'),
+        img: new URL('../../../assets/plotting/stranger.png',import.meta.url).href,
         name: '陌生人'
     },
     {
         mode: 'suitMan',
-        img: require('../../../assets/plotting/suitMan.png'),
+        img: new URL('../../../assets/plotting/suitMan.png',import.meta.url).href,
         name: '男士'
     },
     {
         mode: 'suitWoman',
-        img: require('../../../assets/plotting/suitWoman.png'),
+        img: new URL('../../../assets/plotting/suitWoman.png',import.meta.url).href,
         name: '女士'
     }
 ]

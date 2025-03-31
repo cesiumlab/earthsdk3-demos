@@ -25,12 +25,12 @@ import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/singleArrow.png'),
+        img: new URL('../../../assets/plotting/singleArrow.png',import.meta.url).href,
         name: '单箭头管线',
         materialMode: 'singleArrow'
     },
     {
-        img: require('../../../assets/plotting/multipleArrows.png'),
+        img: new URL('../../../assets/plotting/multipleArrows.png',import.meta.url).href,
         name: '多箭头管线',
         materialMode: 'multipleArrows'
     }

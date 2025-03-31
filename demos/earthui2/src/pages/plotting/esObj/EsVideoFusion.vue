@@ -24,7 +24,7 @@ import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/videoFusion.png'),
+        img: new URL('../../../assets/plotting/videoFusion.png',import.meta.url).href,
         name: '视频融合',
         mode: 90
 

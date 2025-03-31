@@ -34,12 +34,12 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: false,
-        img: require('../../../assets/plotting/3D.png'),
+        img: new URL('../../../assets/plotting/3D.png',import.meta.url).href,
         name: '3D部件'
     },
     {
         mode: true,
-        img: require('../../../assets/plotting/2D.png'),
+        img: new URL('../../../assets/plotting/2D.png',import.meta.url).href,
         name: '2D部件'
     }
 ]

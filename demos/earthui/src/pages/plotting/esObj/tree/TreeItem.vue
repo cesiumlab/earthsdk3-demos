@@ -22,7 +22,7 @@ export default {
     data() {
         return {
             showEditorIcon: false,
-            checkedIcon: require("../../../../assets/common/tree/unselect.png"),
+            checkedIcon: new URL("../../../../assets/common/tree/unselect.png",import.meta.url).href,
             mydisPosableOn: []
         };
     },
@@ -34,7 +34,7 @@ export default {
     watch: {
         item: {
             handler(val) {
-                this.checkedIcon = val.checked ? require("../../../../assets/common/tree/select.png") : require("../../../../assets/common/tree/unselect.png")
+                this.checkedIcon = val.checked ? new URL("../../../../assets/common/tree/select.png",import.meta.url).href : new URL("../../../../assets/common/tree/unselect.png",import.meta.url).href
                 if (val.editing) {
                     this.$nextTick(() => {
                         this.$refs.input.focus()
@@ -57,7 +57,7 @@ export default {
             let url = undefined
             switch (this.item.type) {
                 case 'folder':
-                    url = require('../../../../assets/common/tree/folder.png')
+                    url = new URL('../../../../assets/common/tree/folder.png',import.meta.url).href
                     break;
                 default:
                     break;

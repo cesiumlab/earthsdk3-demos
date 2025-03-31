@@ -25,7 +25,7 @@ import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/pit.png'),
+        img: new URL('../../../assets/plotting/pit.png',import.meta.url).href,
         name: '坑',
         fillStyle: {
             color: [

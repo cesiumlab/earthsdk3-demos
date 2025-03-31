@@ -25,13 +25,13 @@ import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/w_polygon.png'),
+        img: new URL('../../../assets/plotting/w_polygon.png',import.meta.url).href,
         name: '白色多边形',
         fillColor: [1, 1, 1, 1]
 
     },
     {
-        img: require('../../../assets/plotting/r_polygon.png'),
+        img: new URL('../../../assets/plotting/r_polygon.png',import.meta.url).href,
         name: '红色多边形',
         fillColor: [1, 0, 0, 1]
     }

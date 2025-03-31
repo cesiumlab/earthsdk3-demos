@@ -38,7 +38,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 
 const d = createVueDisposer(onBeforeUnmount);
-const imageUrl = require('../../../assets/images/labimages/cesiumterrain.jpg')
+const imageUrl = new URL('../../../assets/images/labimages/cesiumterrain.jpg',import.meta.url).href
 const ionAccessToken = toVR<string>(d, [xbsjEarthUi.activeViewer, 'ionAccessToken']);//token
 const serveUrl = ref()
 const checkedactive = ref()

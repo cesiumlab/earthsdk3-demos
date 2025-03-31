@@ -8,7 +8,7 @@
 </template>
 <script>
 
-import TreeItem from "./TreeItem";
+import TreeItem from "./TreeItem.vue";
 export default {
     name: "",
     components: { TreeItem },

@@ -26,7 +26,7 @@ import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/esGeoExtrudedPolygon.png'),
+        img: new URL('../../../assets/plotting/esGeoExtrudedPolygon.png',import.meta.url).href,
         name: '挤压多边形',
         height:0
     }

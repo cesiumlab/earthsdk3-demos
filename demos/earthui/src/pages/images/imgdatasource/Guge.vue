@@ -37,7 +37,7 @@ const imagelist = ref([{
 }])
 const checkedactive = ref()
 const iconIsShow = ref()
-const emptyImg = require('../../../assets/common/images.png')
+const emptyImg = new URL('../../../assets/common/images.png',import.meta.url).href
 const emits = defineEmits(['close']);
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer');

@@ -25,17 +25,17 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
         mode: 'singleArrow',
-        img: require('../../../assets/plotting/singleArrow.png'),
+        img: new URL('../../../assets/plotting/singleArrow.png',import.meta.url).href,
         name: '单箭头路径'
     },
     {
         mode: 'multipleArrows',
-        img: require('../../../assets/plotting/multipleArrows.png'),
+        img: new URL('../../../assets/plotting/multipleArrows.png',import.meta.url).href,
         name: '多箭头路径'
     },
     {
         mode: 'pureColor',
-        img: require('../../../assets/plotting/pureColor.png'),
+        img: new URL('../../../assets/plotting/pureColor.png',import.meta.url).href,
         name: '纯色路径'
     }
 ]

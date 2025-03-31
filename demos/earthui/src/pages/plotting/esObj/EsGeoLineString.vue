@@ -25,7 +25,7 @@ import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/w_line.png'),
+        img: new URL('../../../assets/plotting/w_line.png',import.meta.url).href,
         name: '白色折线',
         type: {
             strokeWidth: 1,
@@ -33,7 +33,7 @@ const modes = [
         }
     },
     {
-        img: require('../../../assets/plotting/r_line.png'),
+        img: new URL('../../../assets/plotting/r_line.png',import.meta.url).href,
         name: '红色折线',
         type: {
             strokeWidth: 3,

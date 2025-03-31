@@ -24,7 +24,7 @@ import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: require('../../../assets/plotting/cameraVisibleRange.png'),
+        img: new URL('../../../assets/plotting/cameraVisibleRange.png',import.meta.url).href,
         name: '摄像头',
         mode: 90
 

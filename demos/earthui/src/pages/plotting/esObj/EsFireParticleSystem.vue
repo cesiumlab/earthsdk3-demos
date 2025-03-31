@@ -34,7 +34,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         imgUrl: '${earthsdk3-assets-script-dir}/assets/img/smoke.png',
-        img: require('../../../assets/plotting/fire.png'),
+        img: new URL('../../../assets/plotting/fire.png',import.meta.url).href,
         name: '粒子烟火'
     }
 ]

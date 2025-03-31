@@ -26,7 +26,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
         mode: 'DynamicWater',
-        img: require('../../../assets/plotting/dynamicWater.png'),
+        img: new URL('../../../assets/plotting/dynamicWater.png',import.meta.url).href,
         name: '组合挖坑',
     }
 ]

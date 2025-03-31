@@ -34,12 +34,12 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 1,
-        img: require('../../../assets/plotting/l_ApertureEffect.png'),
+        img: new URL('../../../assets/plotting/l_ApertureEffect.png',import.meta.url).href,
         name: '光圈特效'
     },
     {
         mode: 5,
-        img: require('../../../assets/plotting/b_ApertureEffect.png'),
+        img: new URL('../../../assets/plotting/b_ApertureEffect.png',import.meta.url).href,
         name: '光圈特效'
     }
 ]

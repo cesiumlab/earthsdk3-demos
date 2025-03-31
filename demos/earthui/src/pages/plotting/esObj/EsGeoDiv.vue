@@ -30,7 +30,7 @@ const inputIndex = ref(-1)
 const modes = [//多选模式类型
     {
         mode: 'DIV',
-        img: require('../../../assets/plotting/geodiv.png'),
+        img: new URL('../../../assets/plotting/geodiv.png',import.meta.url).href,
         name: '自定义DIV'
     },
 ]

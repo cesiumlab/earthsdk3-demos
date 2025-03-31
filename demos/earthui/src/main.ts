@@ -5,7 +5,7 @@ import './scripts/iconfont.js';
 import 'earthsdk-ui/lib/style.css';
 // import { copyright } from './copyright';
 import { $config } from "./scripts/getConfig"
-import "cesiumWidgets/widgets.css";
+// import "cesiumWidgets/widgets.css";
 //@ts-ignore
 window.__VUE_PROD_HYDRATION_MISMATCH_DETAILS__ = true;
 const app = createApp(App)

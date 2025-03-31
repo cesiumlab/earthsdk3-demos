@@ -25,7 +25,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 1,
-        img: require('../../../assets/plotting/l_circle.png'),
+        img: new URL('../../../assets/plotting/l_circle.png',import.meta.url).href,
         name: '圆'
     }
 ]

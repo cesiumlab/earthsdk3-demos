@@ -11,9 +11,9 @@
   "dependencies": {
     "cesium": "1.123.1",
     "earthsdk3-assets": "0.0.1-beta.0.12",
-    "earthsdk3-cesium": "0.0.1-beta.0.68",
-    "earthsdk3-ue": "0.0.1-beta.0.34",
-    "earthsdk3": "0.0.1-beta.0.55",
+    "earthsdk3-cesium": "0.0.1-beta.0.77",
+    "earthsdk3-ue": "0.0.1-beta.0.42",
+    "earthsdk3": "0.0.1-beta.0.62",
     "axios": "^1.4.0",
     "dayjs": "^1.10.3",
     "earthsdk-ui": "0.0.49-beta.0.30",

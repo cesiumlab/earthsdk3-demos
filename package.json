@@ -12,12 +12,12 @@
     "cew": "rimraf examples/earthsdk3-wbpk/node_modules"
   },
   "dependencies": {
-    "earthsdk3-cesium": "0.0.1-beta.0.75",
-    "earthsdk3-ue": "0.0.1-beta.0.40",
-    "earthsdk3": "0.0.1-beta.0.60",
+    "earthsdk3-cesium": "0.0.1-beta.0.77",
+    "earthsdk3-ue": "0.0.1-beta.0.42",
+    "earthsdk3": "0.0.1-beta.0.62",
     "earthsdk3-ol": "0.0.1-beta.0.2",
     "earthsdk3-assets": "0.0.1-beta.0.12",
-    "xbsj-base": "0.0.1-beta.0.15"
+    "xbsj-base": "0.0.1-beta.0.16"
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

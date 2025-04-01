@@ -116,9 +116,9 @@ onMounted(() => {
             };
         });
     }
-    xbsjEarthUi.activeViewer?.editStatusEvent.disposableOn((val) => {
+    xbsjEarthUi.activeViewer?.editingEvent.disposableOn((val) => {
         if (val) {
-            if (val.editing === false) {
+            if (val.type === 'end') {
                 currentMode.value=''
             }
 

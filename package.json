@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "dev:earthui": "pnpm -F earthui serve",
-    "clean_node_modules": "pnpm run cnm && pnpm run ce && pnpm run ceo && pnpm run cev && pnpm run cew",
+    "dev:earthui": "pnpm -F earthui dev",
+    "clean_node_modules": "pnpm run ce & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cnm",
     "cnm": "rimraf node_modules",
     "ce": "rimraf demos/earthui/node_modules",
     "ceo": "rimraf demos/earthsdk3-openlayers/node_modules",

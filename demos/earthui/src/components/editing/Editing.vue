@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
+import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { ESJEditingMode, ESVisualObject, SceneTree } from "earthsdk3";
 import { inject, onMounted, ref } from "vue";
 const sceneTree = inject('sceneTree') as SceneTree

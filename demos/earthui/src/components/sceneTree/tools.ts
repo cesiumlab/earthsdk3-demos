@@ -2,8 +2,7 @@ import { messageBox } from "earthsdk-ui";
 import { getsceneObjNumfromSceneTree } from "../../scripts/general";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESObjectWithLocation, ESPath, ESTextLabel, ESVOptionUe, SceneTreeItem } from 'earthsdk3';
-
-const topojson = require('topojson-client');
+import * as topojson from "topojson-client";
 
 
 function createSceneObjByJson(obj: { [key: string]: any }, xbsjEarthUi: XbsjEarthUi) {

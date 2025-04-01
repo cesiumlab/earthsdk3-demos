@@ -34,7 +34,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'policeCar',
-        img: require('../../../assets/plotting/policecar.png'),
+        img: new URL('../../../assets/plotting/policecar.png',import.meta.url).href,
         name: '警车'
     },
 ]

@@ -25,7 +25,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'DynamicWater',
-        img: require('../../../assets/plotting/dynamicWater.png'),
+        img: new URL('../../../assets/plotting/dynamicWater.png',import.meta.url).href,
         name: '水面'
     }
 ]

@@ -26,37 +26,37 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'baiyun',
-        img: require('../../../assets/plotting/baiyun.png'),
+        img: new URL('../../../assets/plotting/baiyun.png',import.meta.url).href,
         name: '白云朵朵'
     },
     {
         mode: 'blueSky',
-        img: require('../../../assets/plotting/blueSky.png'),
+        img: new URL('../../../assets/plotting/blueSky.png',import.meta.url).href,
         name: '碧海蓝天'
     },
     {
         mode: 'clearSky',
-        img: require('../../../assets/plotting/clearSky.png'),
+        img: new URL('../../../assets/plotting/clearSky.png',import.meta.url).href,
         name: '晴空万里'
     },
     {
         mode: 'dream',
-        img: require('../../../assets/plotting/dream.png'),
+        img: new URL('../../../assets/plotting/dream.png',import.meta.url).href,
         name: '梦幻'
     },
     {
         mode: 'starrySky',
-        img: require('../../../assets/plotting/starrySky.png'),
+        img: new URL('../../../assets/plotting/starrySky.png',import.meta.url).href,
         name: '浪漫星空'
     },
     {
         mode: 'sunnySky',
-        img: require('../../../assets/plotting/sunnySky.png'),
+        img: new URL('../../../assets/plotting/sunnySky.png',import.meta.url).href,
         name: '风和日丽'
     },
     {
         mode: 'sunSets',
-        img: require('../../../assets/plotting/sunSets.png'),
+        img: new URL('../../../assets/plotting/sunSets.png',import.meta.url).href,
         name: '落霞'
     },
 ]

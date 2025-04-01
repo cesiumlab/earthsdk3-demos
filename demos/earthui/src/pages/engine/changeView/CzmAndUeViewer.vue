@@ -16,7 +16,7 @@ const serveIdList = ref<{ id: string, name: string, thumbnail: string }[]>([])
 const load = ref(false)
 const checkedactive = ref()
 const iconIsShow = ref()
-const emptyImg = require('../../../assets/view/emptyEarth.png')
+const emptyImg = new URL('../../../assets/view/emptyEarth.png', import.meta.url).href
 const emits = defineEmits(['close'])
 const changeServeIdList = () => {
     checkedactive.value = null

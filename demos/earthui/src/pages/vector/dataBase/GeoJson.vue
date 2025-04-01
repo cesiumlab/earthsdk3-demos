@@ -9,16 +9,13 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message, messageBox } from "earthsdk-ui";
-import { ESGeoJson } from "earthsdk3";
+import { Message } from "earthsdk-ui";
+import { ESGeoJson, SceneTree } from "earthsdk3";
 import { inject, ref } from 'vue';
-import { SceneTree, SceneTreeItem } from 'earthsdk3';
 import PopList from "../../../components/PopList.vue";
-import { createLines, createpoints, createpolygons, geojsonToPointsLinesPolygons } from "../../../components/sceneTree/tools";
+import { getsceneObjNumfromSceneTree } from "../../../scripts/general";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const topojson = require('topojson-client');
 const sceneTree = inject('sceneTree') as SceneTree
 const serveUrl = ref()
 const emits = defineEmits(['close']);

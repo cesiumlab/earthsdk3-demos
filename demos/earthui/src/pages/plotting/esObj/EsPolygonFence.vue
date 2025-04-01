@@ -25,37 +25,37 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
         mode: 'danger',
-        img: require('../../../assets/plotting/danger.png'),
+        img: new URL('../../../assets/plotting/danger.png',import.meta.url).href,
         name: '电子围栏1'
     },
     {
         mode: 'checkerboard',
-        img: require('../../../assets/plotting/checkerboard.png'),
+        img: new URL('../../../assets/plotting/checkerboard.png',import.meta.url).href,
         name: '电子围栏2'
     },
     {
         mode: 'warning',
-        img: require('../../../assets/plotting/warning.png'),
+        img: new URL('../../../assets/plotting/warning.png',import.meta.url).href,
         name: '电子围栏3'
     },
     {
         mode: 'cord',
-        img: require('../../../assets/plotting/cord.png'),
+        img: new URL('../../../assets/plotting/cord.png',import.meta.url).href,
         name: '电子围栏4'
     },
     {
         mode: 'scanline',
-        img: require('../../../assets/plotting/scanline.png'),
+        img: new URL('../../../assets/plotting/scanline.png',import.meta.url).href,
         name: '电子围栏5'
     },
     {
         mode: 'honeycomb',
-        img: require('../../../assets/plotting/honeycomb.png'),
+        img: new URL('../../../assets/plotting/honeycomb.png',import.meta.url).href,
         name: '电子围栏6'
     },
     {
         mode: 'gradientColor',
-        img: require('../../../assets/plotting/dianziweilan.png'),
+        img: new URL('../../../assets/plotting/dianziweilan.png',import.meta.url).href,
         name: '电子围栏7'
     }
 ]

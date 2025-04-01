@@ -17,7 +17,7 @@
     "earthsdk3": "0.0.1-beta.0.62",
     "earthsdk3-ol": "0.0.1-beta.0.2",
     "earthsdk3-assets": "0.0.1-beta.0.12",
-    "xbsj-base": "0.0.1-beta.0.16"
+    "xbsj-base": "0.0.1-beta.0.15"
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

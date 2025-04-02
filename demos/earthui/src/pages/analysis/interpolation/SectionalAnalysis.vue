@@ -64,27 +64,17 @@ const restart = () => {
 }
 let dispose: any
 onMounted(() => {
-    // PositionsEditing.defaultConfig.noModifingAfterAdding = true;
     if (esGeoLineString) {
         esGeoLineString.editing = true
         Message.warning('点击两个点结束编辑之后请点击开始分析')
     }
     dispose = esGeoLineString.pointsChanged.disposableOn(() => {
-        const length = xbsjEarthUi.activeViewer instanceof ESCesiumViewer ? 3 : 2
-        // console.log(esGeoLineString.points.length);
-
-        if (esGeoLineString.points.length === length) {
+        if (esGeoLineString.points.length === 3) {
             esGeoLineString.editing = false
-            // if (esGeoLineString.points.length === length) {
-            //     const p = [...esGeoLineString.points]
-            //     p.pop()
-            //     esGeoLineString.points = p
-            // }
         }
     })
 })
 onBeforeUnmount(() => {
-    // PositionsEditing.defaultConfig.noModifingAfterAdding = false;
     if (esGeoLineString) {
         esGeoLineString.editing = false
         xbsjEarthUi.destroySceneObject(esGeoLineString)

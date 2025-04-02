@@ -1,0 +1,488 @@
+{
+    "SquareH01": {
+        "imageSize": [
+            133,
+            50
+        ],
+        "imagePixelOffset": [
+            5,
+            438
+        ],
+        "textPixelOffset": [
+            22,
+            23
+        ],
+        "anchorPixelOffset": [
+            -46,
+            0
+        ]
+    },
+    "SquareH02": {
+        "imageSize": [
+            133,
+            50
+        ],
+        "imagePixelOffset": [
+            5,
+            383
+        ],
+        "textPixelOffset": [
+            22,
+            23
+        ],
+        "anchorPixelOffset": [
+            -46,
+            0
+        ]
+    },
+    "SquareV01": {
+        "imageSize": [
+            101,
+            89
+        ],
+        "imagePixelOffset": [
+            5,
+            289
+        ],
+        "textPixelOffset": [
+            0,
+            64
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "SquareV02": {
+        "imageSize": [
+            101,
+            89
+        ],
+        "imagePixelOffset": [
+            5,
+            195
+        ],
+        "textPixelOffset": [
+            0,
+            64
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "SquareV03": {
+        "imageSize": [
+            101,
+            88
+        ],
+        "imagePixelOffset": [
+            5,
+            102
+        ],
+        "textPixelOffset": [
+            0,
+            64
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "SquareV04": {
+        "imageSize": [
+            90,
+            80
+        ],
+        "imagePixelOffset": [
+            5,
+            17
+        ],
+        "textPixelOffset": [
+            0,
+            61
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "Flag01": {
+        "imageSize": [
+            105,
+            84
+        ],
+        "imagePixelOffset": [
+            484,
+            15
+        ],
+        "textPixelOffset": [
+            8,
+            62
+        ],
+        "anchorPixelOffset": [
+            -40,
+            10
+        ]
+    },
+    "Flag02": {
+        "imageSize": [
+            103,
+            89
+        ],
+        "imagePixelOffset": [
+            484,
+            104
+        ],
+        "textPixelOffset": [
+            0,
+            66
+        ],
+        "anchorPixelOffset": [
+            -48,
+            0
+        ]
+    },
+    "Linear01": {
+        "imageSize": [
+            93,
+            131
+        ],
+        "imagePixelOffset": [
+            674,
+            225
+        ],
+        "textPixelOffset": [
+            0,
+            112
+        ],
+        "anchorPixelOffset": [
+            -35,
+            0
+        ]
+    },
+    "Linear02": {
+        "imageSize": [
+            110,
+            127
+        ],
+        "imagePixelOffset": [
+            659,
+            361
+        ],
+        "textPixelOffset": [
+            0,
+            108
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "Linear03": {
+        "imageSize": [
+            118,
+            124
+        ],
+        "imagePixelOffset": [
+            484,
+            198
+        ],
+        "textPixelOffset": [
+            24,
+            98
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "CircularH01": {
+        "imageSize": [
+            170,
+            78
+        ],
+        "imagePixelOffset": [
+            484,
+            410
+        ],
+        "textPixelOffset": [
+            38,
+            39
+        ],
+        "anchorPixelOffset": [
+            -53,
+            0
+        ]
+    },
+    "CircularH02": {
+        "imageSize": [
+            151,
+            77
+        ],
+        "imagePixelOffset": [
+            484,
+            328
+        ],
+        "textPixelOffset": [
+            33,
+            39
+        ],
+        "anchorPixelOffset": [
+            -44,
+            0
+        ]
+    },
+    "CircularV01": {
+        "imageSize": [
+            110,
+            115
+        ],
+        "imagePixelOffset": [
+            143,
+            373
+        ],
+        "textPixelOffset": [
+            0,
+            97
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "CircularV02": {
+        "imageSize": [
+            90,
+            116
+        ],
+        "imagePixelOffset": [
+            143,
+            252
+        ],
+        "textPixelOffset": [
+            0,
+            98
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "CircularV03": {
+        "imageSize": [
+            90,
+            98
+        ],
+        "imagePixelOffset": [
+            143,
+            149
+        ],
+        "textPixelOffset": [
+            0,
+            80
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "CircularV04": {
+        "imageSize": [
+            90,
+            116
+        ],
+        "imagePixelOffset": [
+            143,
+            28
+        ],
+        "textPixelOffset": [
+            0,
+            98
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "CircularV05": {
+        "imageSize": [
+            90,
+            108
+        ],
+        "imagePixelOffset": [
+            669,
+            112
+        ],
+        "textPixelOffset": [
+            0,
+            91
+        ],
+        "anchorPixelOffset": [
+            0,
+            43
+        ]
+    },
+    "P3D01": {
+        "imageSize": [
+            110,
+            112
+        ],
+        "imagePixelOffset": [
+            253,
+            246
+        ],
+        "textPixelOffset": [
+            0,
+            94
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "P3D02": {
+        "imageSize": [
+            90,
+            124
+        ],
+        "imagePixelOffset": [
+            258,
+            363
+        ],
+        "textPixelOffset": [
+            0,
+            106
+        ],
+        "anchorPixelOffset": [
+            0,
+            18
+        ]
+    },
+    "P3D03": {
+        "imageSize": [
+            104,
+            97
+        ],
+        "imagePixelOffset": [
+            656,
+            10
+        ],
+        "textPixelOffset": [
+            0,
+            84
+        ],
+        "anchorPixelOffset": [
+            0,
+            4
+        ]
+    },
+    "P3D04": {
+        "imageSize": [
+            90,
+            107
+        ],
+        "imagePixelOffset": [
+            253,
+            134
+        ],
+        "textPixelOffset": [
+            0,
+            89
+        ],
+        "anchorPixelOffset": [
+            0,
+            23
+        ]
+    },
+    "P3D05": {
+        "imageSize": [
+            111,
+            110
+        ],
+        "imagePixelOffset": [
+            368,
+            5
+        ],
+        "textPixelOffset": [
+            0,
+            91
+        ],
+        "anchorPixelOffset": [
+            0,
+            6
+        ]
+    },
+    "P3D06": {
+        "imageSize": [
+            111,
+            106
+        ],
+        "imagePixelOffset": [
+            368,
+            235
+        ],
+        "textPixelOffset": [
+            0,
+            87
+        ],
+        "anchorPixelOffset": [
+            0,
+            2
+        ]
+    },
+    "P3D07": {
+        "imageSize": [
+            111,
+            110
+        ],
+        "imagePixelOffset": [
+            368,
+            120
+        ],
+        "textPixelOffset": [
+            0,
+            91
+        ],
+        "anchorPixelOffset": [
+            0,
+            6
+        ]
+    },
+    "Diamond01": {
+        "imageSize": [
+            90,
+            105
+        ],
+        "imagePixelOffset": [
+            253,
+            24
+        ],
+        "textPixelOffset": [
+            0,
+            85
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    },
+    "Diamond02": {
+        "imageSize": [
+            90,
+            141
+        ],
+        "imagePixelOffset": [
+            368,
+            346
+        ],
+        "textPixelOffset": [
+            0,
+            122
+        ],
+        "anchorPixelOffset": [
+            0,
+            0
+        ]
+    }
+}

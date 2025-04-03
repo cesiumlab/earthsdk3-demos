@@ -118,7 +118,7 @@ onMounted(() => {
     }
     xbsjEarthUi.activeViewer?.editingEvent.disposableOn((val) => {
         if (val) {
-            // console.log(val);
+            console.log(val);
 
             if (val.type === 'end') {
                 currentMode.value = ''
@@ -150,8 +150,9 @@ const iconColor = (item: any, index: number) => {
 }
 const changeCurrentMode = (item: any) => {
     if (currentMode.value === item.type) return
-    currentMode.value = ''
-    currentMode.value = item.type
+    setTimeout(() => {
+        currentMode.value = item.type
+    }, 100)
     const lastSelectedItem = sceneTree.lastSelectedItem
     if (lastSelectedItem && lastSelectedItem.sceneObject) {
         const sceneObject = lastSelectedItem.sceneObject as ESVisualObject

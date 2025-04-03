@@ -24,42 +24,43 @@
 </template>
 
 <script setup lang="ts">
+import { Message } from "earthsdk-ui";
 import { ESHuman } from "earthsdk3";
-import { ref, onBeforeUnmount, onMounted, inject } from "vue";
+import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 import PopList from "../../../components/PopList.vue";
-import { createSceneObjTreeItemFromJson, executePos } from "./fun";
+import { getsceneObjNumfromSceneTree } from "../../../scripts/general";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
+import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'worker',
-        img: new URL('../../../assets/plotting/worker.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/worker.png', import.meta.url).href,
         name: '工人'
     },
     {
         mode: 'police',
-        img: new URL('../../../assets/plotting/police.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/police.png', import.meta.url).href,
         name: '警察'
     },
     {
         mode: 'pedestrian',
-        img: new URL('../../../assets/plotting/pedestrian.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/pedestrian.png', import.meta.url).href,
         name: '路人'
     },
     {
         mode: 'stranger',
-        img: new URL('../../../assets/plotting/stranger.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/stranger.png', import.meta.url).href,
         name: '陌生人'
     },
     {
         mode: 'suitMan',
-        img: new URL('../../../assets/plotting/suitMan.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/suitMan.png', import.meta.url).href,
         name: '男士'
     },
     {
         mode: 'suitWoman',
-        img: new URL('../../../assets/plotting/suitWoman.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/suitWoman.png', import.meta.url).href,
         name: '女士'
     }
 ]
@@ -85,6 +86,11 @@ const changeCheckBox = () => {//点击取消连续创建时使得人员类型为
         selected.value = undefined
     }
     continuousCreate.value = !continuousCreate.value
+    if (continuousCreate.value) {
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+    } else {
+        Message.remove('xxx')
+    }
 }
 const select = (item: { mode: string, img: any, name: string, }) => {//点击选择框中的人员按钮
     destroy()
@@ -121,8 +127,10 @@ const createOneSceneObject = () => {
         sceneObject.name = selected.value.name + (sceneObjectIndex + 1)
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableWeakOn(() => {
             if (sceneObject && sceneObject.editing === false) {
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const position = sceneObject.position
                 const a = position[0] === 0 && position[1] === 0
@@ -155,6 +163,8 @@ onMounted(() => {
     createOneSceneObject()
     const disposes = executePos(xbsjEarthUi, pos)
     onBeforeUnmount(() => {
+        Message.remove('xxx')
+
         if (disposes) {
             disposes.forEach((item) => {
                 item && item()

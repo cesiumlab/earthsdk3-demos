@@ -2,6 +2,7 @@ import { ESDirectionMeasurement, ESDistanceMeasurement, ESHeightMeasurement, ESL
 import { Destroyable, react } from "xbsj-base";
 import { createProcessingFromAsyncFunc } from "xbsj-base";
 import { XbsjEarthUi } from "../xbsjEarthUi";
+import { Message } from "earthsdk-ui";
 export type MeasureType = ESAreaMeasurement | ESDirectionMeasurement | ESDistanceMeasurement | ESHeightMeasurement | ESLocationMeasurement | ESSurfaceAreaMeasurement
 export type MeasureTypeParam = 'ESAreaMeasurement' | 'ESDirectionMeasurement' | 'ESDistanceMeasurement' | 'ESHeightMeasurement' | 'ESLocationMeasurement' | 'ESSurfaceAreaMeasurement'
 
@@ -22,6 +23,7 @@ export class MeasurementManager extends Destroyable {
         }
         this._objectlist.push(esMeasurement);
         esMeasurement.editing = true;
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         this._currentEditingType.value = measurementType;
 
         // 取消时需要销毁的东西
@@ -36,6 +38,7 @@ export class MeasurementManager extends Destroyable {
             cancelsManager.disposer.dispose(esMeasurement.editingChanged.disposableOnce(() => {
                 if (!esMeasurement) return
                 if (!esMeasurement.editing) {
+                    Message.remove('xxx')
                     resolve();
                 }
             }));

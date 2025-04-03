@@ -9,7 +9,7 @@
                     <span v-show="iconIsShow == index ? true : false">{{ item.name ?? '模式' }}</span>
                 </div>
                 <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">{{
-        item.name ?? '模式' }}</div>
+                    item.name ?? '模式' }}</div>
             </div>
         </div>
     </PopList>
@@ -22,10 +22,11 @@ import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 import { createSceneObjTreeItemFromJson, executePos } from "./fun";
+import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: new URL('../../../assets/plotting/w_line.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/w_line.png', import.meta.url).href,
         name: '白色折线',
         type: {
             strokeWidth: 1,
@@ -33,7 +34,7 @@ const modes = [
         }
     },
     {
-        img: new URL('../../../assets/plotting/r_line.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/r_line.png', import.meta.url).href,
         name: '红色折线',
         type: {
             strokeWidth: 3,
@@ -61,8 +62,10 @@ const createSceneObject = () => {
         sceneObject.strokeColor = selected.value.type.strokeColor
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableWeakOn(() => {
             if (sceneObject && sceneObject.editing === false) {
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const pos = sceneObject.points?.length
                 xbsjEarthUi.destroySceneObject(sceneObject)
@@ -92,6 +95,7 @@ const destroy = () => {
 onMounted(() => {
     createSceneObject()
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         destroy()
     })
 })

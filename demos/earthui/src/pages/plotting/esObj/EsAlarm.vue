@@ -30,16 +30,17 @@ import { onBeforeUnmount, ref, onMounted, inject } from "vue";
 import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
+import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 'cylinder',
-        img: new URL('../../../assets/plotting/cylinder.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/cylinder.png', import.meta.url).href,
         name: '柱状警告'
     },
     {
         mode: 'circle',
-        img: new URL('../../../assets/plotting/circle1.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/circle1.png', import.meta.url).href,
         name: '圆形警告'
     }
 ]
@@ -65,7 +66,11 @@ const changeCheckBox = () => {//点击取消连续创建时使得报警类型为
         selected.value = undefined
     }
     continuousCreate.value = !continuousCreate.value
-
+    if (continuousCreate.value) {
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+    } else {
+        Message.remove('xxx')
+    }
 
 }
 const select = (item: { mode: string, img: any, name: string, }) => {//点击选择框中的报警按钮
@@ -104,8 +109,10 @@ const createOneSceneObject = () => {
         sceneObject.name = selected.value.name + (sceneObjectIndex + 1)
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = sceneObject.editingChanged.disposableWeakOn(() => {
             if (sceneObject && sceneObject.editing === false) {
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const position = sceneObject.position
                 const a = position[0] === 0 && position[1] === 0
@@ -136,6 +143,7 @@ onMounted(() => {
     createOneSceneObject()
     const disposes = executePos(xbsjEarthUi, pos)
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         if (disposes) {
             disposes.forEach((item) => {
                 item && item()

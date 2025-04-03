@@ -24,6 +24,7 @@ import { inject, onMounted, ref, onBeforeUnmount } from "vue";
 import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
+import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const inputIndex = ref(-1)
 
@@ -54,8 +55,10 @@ const createSceneObject = () => {
         sceneObject.innerHTML = `<div style="width: auto; height: 50px;white-space: nowrap; background: rgba(120, 120, 0, 0.7); color: white; font-size: 30px; line-height: 50px; border: 1px solid white;">${selected.value.name}</div>`
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableOnce(() => {
             if (sceneObject && sceneObject.editing === false) {
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const position = sceneObject.position
                 const a = position[0] === 0 && position[1] === 0
@@ -85,6 +88,7 @@ const destroy = () => {
 onMounted(() => {
     createSceneObject()
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         destroy()
     })
 })

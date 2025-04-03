@@ -1,7 +1,7 @@
 <template>
     <!-- 创建 -->
     <PopList :title="'创建场景对象'" :showButton="true" @ok="ok">
-        <LabelInput v-model="actorclass" :label="'引用路径'" ></LabelInput>
+        <LabelInput v-model="actorclass" :label="'引用路径'"></LabelInput>
         <LabelInput v-model="name" :label="'名称'"></LabelInput>
     </PopList>
 </template>
@@ -9,7 +9,7 @@
 <script setup lang='ts'>
 import { Message } from "earthsdk-ui";
 import { ESUnrealActor } from "earthsdk3";
-import { inject, ref } from 'vue';
+import { inject, onBeforeUnmount, ref } from 'vue';
 import LabelInput from "../../../components/LabelInput.vue";
 import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
@@ -41,8 +41,10 @@ const ok = () => {
         obj.actorClass = actorclass.value
         //编辑状态结束后根据json创建在场景树上
         obj.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         obj.d(obj.editingChanged.disposableWeakOn(() => {
             if (obj && obj.editing === false) {
+                Message.remove('xxx')
                 const json = obj.json
                 const position = obj.position
                 const a = position[0] === 0 && position[1] === 0
@@ -60,7 +62,9 @@ const ok = () => {
 }
 const actorclass = ref()
 const name = ref()
-
+onBeforeUnmount(() => {
+    Message.remove('xxx')
+})
 
 
 </script>

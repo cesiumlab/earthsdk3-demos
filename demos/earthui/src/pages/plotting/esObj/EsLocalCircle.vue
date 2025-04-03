@@ -19,20 +19,21 @@ import { ESLocalCircle } from "earthsdk3";
 import { inject, onMounted, ref, onBeforeUnmount } from "vue";
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
+import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 import { createSceneObjTreeItemFromJson, executePos } from "./fun";
+import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
         mode: 1,
-        img: new URL('../../../assets/plotting/l_circle.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/l_circle.png', import.meta.url).href,
         name: '圆'
     }
 ]
 const iconIsShow: any = ref()
 const selected: any = ref(modes[0])
 let sceneObject: ESLocalCircle | undefined = undefined
-let editingDispose: any=undefined
+let editingDispose: any = undefined
 const select = (item: { mode: number, img: any, name: string, }) => {//点击选择框中的圆按钮
     destroy()
     selected.value = item
@@ -42,28 +43,30 @@ const select = (item: { mode: number, img: any, name: string, }) => {//点击选
 const createSceneObject = () => {
     if (!selected.value) return
     sceneObject = xbsjEarthUi.createSceneObject(ESLocalCircle) as ESLocalCircle
-    if(sceneObject){
-    const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESLocalCircle')
-        sceneObject.name = selected.value.name+(sceneObjectIndex+1)
-    //编辑状态结束后根据json创建在场景树上
-    sceneObject.editing = true
-    editingDispose=(sceneObject.editingChanged.disposableOnce(() => {
-        if (sceneObject&&sceneObject.editing === false) {
-            const json = sceneObject.json
-            const position = sceneObject.position
-            const a = position[0] === 0 && position[1] === 0
-            xbsjEarthUi.destroySceneObject(sceneObject)
-            sceneObject = undefined
+    if (sceneObject) {
+        const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESLocalCircle')
+        sceneObject.name = selected.value.name + (sceneObjectIndex + 1)
+        //编辑状态结束后根据json创建在场景树上
+        sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+        editingDispose = (sceneObject.editingChanged.disposableOnce(() => {
+            if (sceneObject && sceneObject.editing === false) {
+                Message.remove('xxx')
+                const json = sceneObject.json
+                const position = sceneObject.position
+                const a = position[0] === 0 && position[1] === 0
+                xbsjEarthUi.destroySceneObject(sceneObject)
+                sceneObject = undefined
                 setTimeout(() => {
                     if (!a) {
                         createSceneObjTreeItemFromJson(xbsjEarthUi, json)
                         selected.value = undefined
                     }
                 }, 300)
-        }
-    }))
+            }
+        }))
     }
-    
+
 }
 const destroy = () => {
     if (sceneObject && sceneObject.editing) {
@@ -79,6 +82,7 @@ const destroy = () => {
 onMounted(() => {
     createSceneObject()
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         destroy()
     })
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { ESJEditingMode, ESVisualObject, SceneTree } from "earthsdk3";
-import { computed, inject, onBeforeMount, onMounted, ref } from "vue";
+import { inject, onMounted, ref } from "vue";
+import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const enditingList = ref([
@@ -118,8 +118,6 @@ onMounted(() => {
     }
     xbsjEarthUi.activeViewer?.editingEvent.disposableOn((val) => {
         if (val) {
-            console.log(val);
-
             if (val.type === 'end') {
                 currentMode.value = ''
             }

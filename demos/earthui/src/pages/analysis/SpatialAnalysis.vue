@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { createVueDisposer, toVR } from "earthsdk-ui";
+import { createVueDisposer, Message, toVR } from "earthsdk-ui";
 import { ESBoxClipping, ESClassification, ESClippingPlane, ESExcavate, ESHeightLimitAnalysis, ESPolygonFlattenedPlane, ESViewShed, ESVisibilityAnalysis } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Button from "../../components/Button.vue";
@@ -78,8 +78,10 @@ const createClippingPlane = (item: { zh: string, type: string, icon: string }) =
         const sceneObjectNum = getsceneObjNumfromSceneTree(xbsjEarthUi, item.type)
         sceneObject.name = item.zh + (sceneObjectNum + 1)
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableOn(() => {
             if (sceneObject && sceneObject.editing === false) {
+        Message.remove('xxx')
                 objType.value = ''
                 const json = sceneObject.json
                 const flag = sceneObject instanceof ESViewShed && (sceneObject.position[0] === 0 && sceneObject.position[1] === 0 && sceneObject.position[2] === 0)
@@ -109,6 +111,7 @@ const destroy = () => {
 }
 onMounted(() => {
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         destroy()
         objType.value = ''
     })

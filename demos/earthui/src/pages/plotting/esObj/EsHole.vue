@@ -16,12 +16,13 @@
 </template>
 
 <script setup lang="ts">
+import { Message } from "earthsdk-ui";
 import { ESHole } from "earthsdk3";
-import { inject, onMounted, ref, onBeforeUnmount } from "vue";
+import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 import PopList from "../../../components/PopList.vue";
+import { getsceneObjNumfromSceneTree } from "../../../scripts/general";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
-import { createSceneObjTreeItemFromJson, executePos } from "./fun";
+import { createSceneObjTreeItemFromJson } from "./fun";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
@@ -48,8 +49,10 @@ const createSceneObject = () => {
         sceneObject.name = selected.value.name+(sceneObjectIndex+1)
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableOnce(() => {
             if (sceneObject && sceneObject.editing === false) {
+        Message.remove('xxx')
                 const json = sceneObject.json
                 const pos = sceneObject.points?.length
                 xbsjEarthUi.destroySceneObject(sceneObject)
@@ -79,6 +82,7 @@ const destroy = () => {
 onMounted(() => {
     createSceneObject()
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         destroy()
     })
 })

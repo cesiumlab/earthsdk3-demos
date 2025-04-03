@@ -35,6 +35,7 @@ import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 import { poi2dList } from "../data"
+import { Message } from "earthsdk-ui";
 const iconIsShow: any = ref()
 const continuousCreate = ref(false)//连续创建
 const selected: any = ref(poi2dList[0])
@@ -58,6 +59,11 @@ const changeCheckBox = () => {//点击取消连续创建时使得报警类型为
         selected.value = undefined
     }
     continuousCreate.value = !continuousCreate.value
+    if (continuousCreate.value) {
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+    } else {
+        Message.remove('xxx')
+    }
 }
 const select = (item: { mode: string, img: any, name: string, }) => {//点击选择框中的poi2D按钮
     destroy()
@@ -95,8 +101,10 @@ const createOneSceneObject = () => {
         sceneObject.name = selected.value.name + '-' + + (sceneObjectIndex + 1)
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = sceneObject.editingChanged.disposableWeakOn(() => {
             if (sceneObject && sceneObject.editing === false) {
+        Message.remove('xxx')
                 const json = sceneObject.json
                 const position = sceneObject.position
                 const a = position[0] === 0 && position[1] === 0
@@ -127,6 +135,7 @@ onMounted(() => {
     createOneSceneObject()
     const disposes = executePos(xbsjEarthUi, pos)
     onBeforeUnmount(() => {
+        Message.remove('xxx')
         if (disposes) {
             disposes.forEach((item) => {
                 item && item()

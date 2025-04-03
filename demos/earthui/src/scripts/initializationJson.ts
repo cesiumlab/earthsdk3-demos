@@ -1,11 +1,11 @@
 
-import { get, getNoToken } from '../api/service'
-import { parse } from 'search-params'
-import { ES3DTileset, ESImageryLayer, ESTerrainLayer, ESImageLabel, ESVOptionUe, ESJSwitchToUEViewerOptionType } from "earthsdk3";
-import { Message } from "earthsdk-ui"
-import { XbsjEarthUi } from './xbsjEarthUi';
-import { $config } from './getConfig';
+import { Message } from "earthsdk-ui";
+import { ES3DTileset, ESImageryLayer, ESJSwitchToUEViewerOptionType, ESTerrainLayer, ESVOptionUe } from "earthsdk3";
 import { ESUeViewer } from 'earthsdk3-ue';
+import { parse } from 'search-params';
+import { get, getNoToken } from '../api/service';
+import { $config } from './getConfig';
+import { XbsjEarthUi } from './xbsjEarthUi';
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)
 //scene
@@ -116,65 +116,31 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
         })
     }
 }
-//json文件
-const initJsin = (url: string) => {
-    const json = {
-        "asset": {
-            "version": "0.1.0",
-            "createdTime": "2022-06-17T05:54:41.744Z",
-            "modifiedTime": "2023-06-08T10:25:47.763Z",
-            "name": "图层管理",
-            "type": "ESObjectsManager"
-        },
-        "viewers": [],
-        "sceneTree": {
-            "root": {
-                "children": [
-                    {
-                        "name": "新建场景",
-                        "children": [
-                            {
-                                "name": "全球影像",
-                                "sceneObj": {
-                                    "id": "ae103185-08c7-4ed0-b6d4-15ad77bbbf66",
-                                    "type": "ESImageryLayer",
-                                    "url": `${url}`,
-                                    "rectangle": [
-                                        -180,
-                                        -90,
-                                        180,
-                                        90
-                                    ],
-                                    "allowPicking": true,
-                                    "name": "全球影像",
-                                    "maximumLevel": 18
-                                },
-                                "children": []
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
-        "viewCollection": []
-    }
-    return json
-}
+//默认场景
 function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
+    fetch('/scene.json').then((res) => {
+        if (res.ok) {
+            res.json().then((json) => {
+                xbsjEarthUi.json = json
+                Message.success('加载默认场景成功')
+            }).catch((error) => {
+                console.log(error);
+                Message.success('加载默认场景失败')
+            })
+        } else {
+            Message.success('加载默认场景失败')
+        }
+    })
+
     getNoToken(`https://account.bjxbsj.cn/api/bjxbsj/online/default`).then((res: any) => {
         if (res && res.url) {
-            const json = initJsin(res.url)
-            xbsjEarthUi.json = json
-            Message.success('加载默认场景成功')
-        } else {
-            const json = initJsin('https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')
-            xbsjEarthUi.json = json
-            Message.success('加载默认场景成功')
+            xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+                "type": "ESImageryLayer",
+                "url": res.url,
+                "name": "全球影像",
+            })
         }
     }).catch((error: any) => {
-        const json = initJsin('https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')
-        xbsjEarthUi.json = json
-        Message.success('加载默认场景成功')
         console.log(error);
     })
 }

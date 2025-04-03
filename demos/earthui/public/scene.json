@@ -1,0 +1,18 @@
+{
+    "asset": {
+        "version": "0.1.0",
+        "createdTime": "2022-06-17T05:54:41.744Z",
+        "modifiedTime": "2023-06-08T10:25:47.763Z",
+        "name": "图层管理",
+        "type": "ESObjectsManager"
+    },
+    "viewers": [],
+    "sceneTree": {
+        "root": {
+            "children": [
+               
+            ]
+        }
+    },
+    "viewCollection": []
+}

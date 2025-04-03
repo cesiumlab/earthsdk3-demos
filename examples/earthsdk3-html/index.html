@@ -20,34 +20,25 @@
     </style>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"></script>
-    <script src="js/xbsj-base.js"></script>
     <script src="js/earthsdk3-assets/earthsdk3-assets.js"></script>
     <script src="js/earthsdk3.js"></script>
     <script src="js/earthsdk3-cesium.js"></script>
     <script src="js/earthsdk3-ue.js"></script>
-    <script src="js/earthsdk3-ol.js"></script>
 </head>
 
 <body>
     <div id="container" style="width: 100%; height: 100%;"></div>
     <script defer="defer">
-        const { Event } = window['xbsj-base'];
-
-        const { ESObjectsManager } = window['earthsdk3'];
+        const { ESObjectsManager, react } = window['earthsdk3'];
         const { ESCesiumViewer } = window['earthsdk3-cesium'];
         const { ESUeViewer } = window['earthsdk3-ue'];
-        const { ESOlViewer } = window['earthsdk3-ol'];
-
-        const objm = new ESObjectsManager(ESOlViewer, ESCesiumViewer, ESUeViewer);
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         console.log(objm);
         const option = {
-            type: "ESOlViewer",
+            type: "ESCesiumViewer",
             container: 'container'
         }
         const viewer = objm.createViewer(option);
-        const obj = objm.createSceneObject('ESXYZLayer');
-        obj.url = "http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=abd187e1140259634e44eea628b65e00"
-
     </script>
 </body>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ESJEditingMode, ESVisualObject, SceneTree } from "earthsdk3";
-import { inject, onMounted, ref } from "vue";
+import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -124,7 +124,9 @@ onMounted(() => {
 
         }
     })
-
+    onBeforeUnmount(() => {
+        xbsjEarthUi.activeViewer?.stopEditing()
+    })
 })
 const checkColor = {
     default: "#FFFFFF",

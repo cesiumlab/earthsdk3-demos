@@ -11,6 +11,8 @@ importers:
       earthsdk3:
         specifier: 3.0.3
         version: 3.0.3
+        specifier: 3.0.3
+        version: 3.0.3
       earthsdk3-assets:
         specifier: 0.0.1-beta.0.12
         version: 0.0.1-beta.0.12
@@ -80,8 +82,8 @@ importers:
         specifier: ^1.10.3
         version: 1.11.13
       earthsdk-ui:
-        specifier: 0.0.49-beta.0.30
-        version: 0.0.49-beta.0.30(typescript@4.9.5)
+        specifier: 0.0.49-beta.0.32
+        version: 0.0.49-beta.0.32(typescript@4.9.5)
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -8229,7 +8231,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  earthsdk-ui@0.0.49-beta.0.30(typescript@4.9.5):
+  /earthsdk-ui@0.0.49-beta.0.32(typescript@4.9.5):
+    resolution: {integrity: sha512-bFlhtNFus+GguYtdOCsHublUXvkZFdwvaC0W677Q5UzN555mgFhu59vAj0qkPnDT5yDCv33v3kcuwGdtoLmpjw==}
+    engines: {node: '>=16.0.0'}
     dependencies:
       earthsdk-icon: 0.0.10(typescript@4.9.5)
       earthsdk3: 0.0.1-beta.0.28
@@ -8240,20 +8244,17 @@ snapshots:
 
   earthsdk3-assets@0.0.1-beta.0.12: {}
 
-  earthsdk3-cesium@3.0.3:
+  /earthsdk3-cesium@3.0.3:
+    resolution: {integrity: sha512-5JL3W4gfyAnKp7eFS2hc9NL1ASViB5Idaq+sPa2In/jXHDtzS0WP+KsbZhJ9roMRk6tjgny1S8ic2kE5GN4b9Q==}
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
       earcut: 2.2.4
       html2canvas: 1.4.1
+    dev: false
 
-  earthsdk3-ol@0.0.1-beta.0.2:
-    dependencies:
-      earthsdk3: 0.0.1-beta.0.19
-      ol: 7.5.2
-      xbsj-base: 0.0.1-beta.0.11
-
-  earthsdk3-ue@3.0.3:
+  /earthsdk3-ue@3.0.3:
+    resolution: {integrity: sha512-AzQG/lehk+dc0poUOa2ZecP7mi65gpfOKD13xTec/wlsSoEB7BkbP63yqZwym55eurC3910GU6qGU8ARlLZ6sg==}
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
@@ -8276,7 +8277,8 @@ snapshots:
       proj4: 2.15.0
       xbsj-base: 0.0.1-beta.0.14
 
-  earthsdk3@3.0.3:
+  /earthsdk3@3.0.3:
+    resolution: {integrity: sha512-YAsjbnrvkm+ad66V1LGSf9bQCEBgtA1WKyxE3ovV+E+Y+w1Lo9webVDATMPuxqaEas5+zemYrUb/UWuy2o/nZA==}
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0

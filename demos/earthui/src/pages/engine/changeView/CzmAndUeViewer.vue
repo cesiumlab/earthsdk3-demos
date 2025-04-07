@@ -50,20 +50,26 @@ const confirm = () => {
     } else if (!app.value) {
         Message.warning('请输入应用id')
     } else {
-        const options = {
-            type: "ESUeViewer",
-            container: "viewersContainer",
-            options: {
-                uri: uri.value,
-                app: app.value,
-            },
-        }
+        // const options = {
+        //     type: "ESUeViewer",
+        //     container: "viewersContainer",
+        //     options: {
+        //         uri: uri.value,
+        //         app: app.value,
+        //     },
+        // }
         checkedactive.value = null
         let url
         if (uri.value.endsWith('/')) {
             url = uri.value
         } else {
             url = uri.value + '/'
+        }
+        const options = {
+            container: 'viewersContainer',
+            uri: url,
+            app: app.value,
+            destroy: true,
         }
         xbsjEarthUi.switchToUEViewer('viewersContainer', url, app.value)
         emits('close')

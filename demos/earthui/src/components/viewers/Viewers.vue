@@ -81,16 +81,24 @@ onMounted(() => {
     // }
     const options = {
       type: "ESUeViewer",
-      container: "viewersContainer",
+      container: viewersContainer.value,
+      id: 'earthui-active-viewer-id',
       options: {
         uri: "",
         app: "",
       },
-    } as ESVOptionUe;
+    }
+    //@ts-ignore
     viewer = xbsjEarthUi.createUeViewer(options);
   } else {
     if (viewersContainer.value) {
-      viewer = xbsjEarthUi.createCesiumViewer(viewersContainer.value);
+      const options = {
+        type: 'ESCesiumViewer',
+        id: 'earthui-active-viewer-id',
+        container: viewersContainer.value,
+      };
+      //@ts-ignore
+      viewer = xbsjEarthUi.createCesiumViewer(options);
     }
   }
 });

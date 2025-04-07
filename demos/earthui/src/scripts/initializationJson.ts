@@ -93,6 +93,7 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
                     const options = {
                         type: 'ESUeViewer',
                         container: 'viewersContainer',
+                        id: 'earthui-active-viewer-id',
                         options: {
                             uri: origin,
                             app: appid

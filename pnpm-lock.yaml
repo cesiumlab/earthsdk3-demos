@@ -9,22 +9,20 @@ importers:
   .:
     dependencies:
       earthsdk3:
-        specifier: 3.0.3
-        version: 3.0.3
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 3.0.3-beta.4
+        version: 3.0.3-beta.4
       earthsdk3-assets:
         specifier: 0.0.1-beta.0.12
         version: 0.0.1-beta.0.12
       earthsdk3-cesium:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 3.0.3-beta.3
+        version: 3.0.3-beta.3
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.2
         version: 0.0.1-beta.0.2
       earthsdk3-ue:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 3.0.3-beta.3
+        version: 3.0.3-beta.3
       xbsj-base:
         specifier: 1.0.1
         version: 1.0.1
@@ -998,67 +996,56 @@ packages:
     resolution: {integrity: sha512-mimPH43mHl4JdOTD7bUMFhBdrg6f9HzMTOEnzRmXbOZqjijCw8LA5z8uL6LCjxSa67H2xiLFvvO67PT05PRKGg==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.38.0':
     resolution: {integrity: sha512-tPiJtiOoNuIH8XGG8sWoMMkAMm98PUwlriOFCCbZGc9WCax+GLeVRhmaxjJtz6WxrPKACgrwoZ5ia/uapq3ZVg==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.38.0':
     resolution: {integrity: sha512-wZco59rIVuB0tjQS0CSHTTUcEde+pXQWugZVxWaQFdQQ1VYub/sTrNdY76D1MKdN2NB48JDuGABP6o6fqos8mA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.38.0':
     resolution: {integrity: sha512-fQgqwKmW0REM4LomQ+87PP8w8xvU9LZfeLBKybeli+0yHT7VKILINzFEuggvnV9M3x1Ed4gUBmGUzCo/ikmFbQ==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.38.0':
     resolution: {integrity: sha512-hz5oqQLXTB3SbXpfkKHKXLdIp02/w3M+ajp8p4yWOWwQRtHWiEOCKtc9U+YXahrwdk+3qHdFMDWR5k+4dIlddg==}
     cpu: [loong64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.38.0':
     resolution: {integrity: sha512-NXqygK/dTSibQ+0pzxsL3r4Xl8oPqVoWbZV9niqOnIHV/J92fe65pOir0xjkUZDRSPyFRvu+4YOpJF9BZHQImw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.38.0':
     resolution: {integrity: sha512-GEAIabR1uFyvf/jW/5jfu8gjM06/4kZ1W+j1nWTSSB3w6moZEBm7iBtzwQ3a1Pxos2F7Gz+58aVEnZHU295QTg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.38.0':
     resolution: {integrity: sha512-9EYTX+Gus2EGPbfs+fh7l95wVADtSQyYw4DfSBcYdUEAmP2lqSZY0Y17yX/3m5VKGGJ4UmIH5LHLkMJft3bYoA==}
     cpu: [riscv64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.38.0':
     resolution: {integrity: sha512-Mpp6+Z5VhB9VDk7RwZXoG2qMdERm3Jw07RNlXHE0bOnEeX+l7Fy4bg+NxfyN15ruuY3/7Vrbpm75J9QHFqj5+Q==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.38.0':
     resolution: {integrity: sha512-vPvNgFlZRAgO7rwncMeE0+8c4Hmc+qixnp00/Uv3ht2x7KYrJ6ERVd3/R0nUtlE6/hu7/HiiNHJ/rP6knRFt1w==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.38.0':
     resolution: {integrity: sha512-q5Zv+goWvQUGCaL7fU8NuTw8aydIL/C9abAVGCzRReuj5h30TPx4LumBtAidrVOtXnlB+RZkBtExMsfqkMfb8g==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.38.0':
     resolution: {integrity: sha512-u/Jbm1BU89Vftqyqbmxdq14nBaQjQX1HhmsdBWqSdGClNaKwhjsg5TpW+5Ibs1mb8Es9wJiMdl86BcmtUVXNZg==}
@@ -2628,21 +2615,21 @@ packages:
   earthsdk-icon@0.0.10:
     resolution: {integrity: sha512-GL/3PV7Tmq+ZathvBJaXTIhZ5MSqqeaWMh+lG14AfdTloT/o+ACf8InONfaiT2gOOwy0EL2sOHFIHGE3fvoKjA==}
 
-  earthsdk-ui@0.0.49-beta.0.30:
-    resolution: {integrity: sha512-xNc7dfYW0L+z24CapSSej8RfpganNjSlgGHK49qDYxrETF9hWSxd2esABR9s5AcymQjF5iosIMNeJe9s+y2r9g==}
+  earthsdk-ui@0.0.49-beta.0.32:
+    resolution: {integrity: sha512-bFlhtNFus+GguYtdOCsHublUXvkZFdwvaC0W677Q5UzN555mgFhu59vAj0qkPnDT5yDCv33v3kcuwGdtoLmpjw==}
     engines: {node: '>=16.0.0'}
 
   earthsdk3-assets@0.0.1-beta.0.12:
     resolution: {integrity: sha512-hzpPuhtm6WliuzIcfbx3yw2E8Ll/QLdcSYa2veunrnlJaG9C1jKV9CtFr7pI9skdYa+Ftg6jPosBrmaGNi3lOQ==}
 
-  earthsdk3-cesium@3.0.3:
-    resolution: {integrity: sha512-5JL3W4gfyAnKp7eFS2hc9NL1ASViB5Idaq+sPa2In/jXHDtzS0WP+KsbZhJ9roMRk6tjgny1S8ic2kE5GN4b9Q==}
+  earthsdk3-cesium@3.0.3-beta.3:
+    resolution: {integrity: sha512-kc6HJ9v6jxXxNUZYYM/ltLWgEhKYHCF4VH5It7Iv5Ck+zu2TQnyTDLv9HnJNQqJ9l1kAhUe4EmmH+iHbsG9Bsw==}
 
   earthsdk3-ol@0.0.1-beta.0.2:
     resolution: {integrity: sha512-iO7EiO3chol6n4MK00QVgI9x6WlJDY1UhMCQRNHnG7X2/pfElZ/2CkrquDDe8n9h7VHsUEce211An8Jh9p/ErA==}
 
-  earthsdk3-ue@3.0.3:
-    resolution: {integrity: sha512-AzQG/lehk+dc0poUOa2ZecP7mi65gpfOKD13xTec/wlsSoEB7BkbP63yqZwym55eurC3910GU6qGU8ARlLZ6sg==}
+  earthsdk3-ue@3.0.3-beta.3:
+    resolution: {integrity: sha512-yc4p2NgJuPohIvAZd968IbAIvMl3elp4aMimWmUFzaR3rEGsJAM3rwKUJYWo2MbJhjjMIiMokCIZ7TgG8hzLww==}
 
   earthsdk3@0.0.1-beta.0.19:
     resolution: {integrity: sha512-IMWPb9KuoAS3pbepoyjmZEwuo4QdYWmbI8QQs6IYEw4BJkOmQ2GDaAmqoJuFwdlmHdvBrdG0qZb4Zllbquio7w==}
@@ -2653,8 +2640,8 @@ packages:
   earthsdk3@0.0.1-beta.0.59:
     resolution: {integrity: sha512-LAT+41ZkBDZAdqFPBKoCfsQT176VDNo+56S1YzvA2GCN+XPOBrljFpzchabUL1E51+4ym6FstWhD+OpyNN+CFw==}
 
-  earthsdk3@3.0.3:
-    resolution: {integrity: sha512-YAsjbnrvkm+ad66V1LGSf9bQCEBgtA1WKyxE3ovV+E+Y+w1Lo9webVDATMPuxqaEas5+zemYrUb/UWuy2o/nZA==}
+  earthsdk3@3.0.3-beta.4:
+    resolution: {integrity: sha512-J3aLatoERRC/rpsZYCNMRIhLdjoH8IQSdo8fCfBvLPMuFcg0wIe902SMfmruGJvYX13rj5P9vrDa5e6f5P/aTg==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -8231,9 +8218,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  /earthsdk-ui@0.0.49-beta.0.32(typescript@4.9.5):
-    resolution: {integrity: sha512-bFlhtNFus+GguYtdOCsHublUXvkZFdwvaC0W677Q5UzN555mgFhu59vAj0qkPnDT5yDCv33v3kcuwGdtoLmpjw==}
-    engines: {node: '>=16.0.0'}
+  earthsdk-ui@0.0.49-beta.0.32(typescript@4.9.5):
     dependencies:
       earthsdk-icon: 0.0.10(typescript@4.9.5)
       earthsdk3: 0.0.1-beta.0.28
@@ -8244,17 +8229,20 @@ snapshots:
 
   earthsdk3-assets@0.0.1-beta.0.12: {}
 
-  /earthsdk3-cesium@3.0.3:
-    resolution: {integrity: sha512-5JL3W4gfyAnKp7eFS2hc9NL1ASViB5Idaq+sPa2In/jXHDtzS0WP+KsbZhJ9roMRk6tjgny1S8ic2kE5GN4b9Q==}
+  earthsdk3-cesium@3.0.3-beta.3:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
       earcut: 2.2.4
       html2canvas: 1.4.1
-    dev: false
 
-  /earthsdk3-ue@3.0.3:
-    resolution: {integrity: sha512-AzQG/lehk+dc0poUOa2ZecP7mi65gpfOKD13xTec/wlsSoEB7BkbP63yqZwym55eurC3910GU6qGU8ARlLZ6sg==}
+  earthsdk3-ol@0.0.1-beta.0.2:
+    dependencies:
+      earthsdk3: 0.0.1-beta.0.19
+      ol: 7.5.2
+      xbsj-base: 0.0.1-beta.0.11
+
+  earthsdk3-ue@3.0.3-beta.3:
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
@@ -8277,8 +8265,7 @@ snapshots:
       proj4: 2.15.0
       xbsj-base: 0.0.1-beta.0.14
 
-  /earthsdk3@3.0.3:
-    resolution: {integrity: sha512-YAsjbnrvkm+ad66V1LGSf9bQCEBgtA1WKyxE3ovV+E+Y+w1Lo9webVDATMPuxqaEas5+zemYrUb/UWuy2o/nZA==}
+  earthsdk3@3.0.3-beta.4:
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0

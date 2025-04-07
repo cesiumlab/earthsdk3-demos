@@ -118,19 +118,25 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
 }
 //默认场景
 function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
-    fetch('/scene.json').then((res) => {
-        if (res.ok) {
-            res.json().then((json) => {
-                xbsjEarthUi.json = json
-                Message.success('加载默认场景成功')
-            }).catch((error) => {
-                console.log(error);
+    try {
+        fetch('./scene.json').then((res) => {
+            if (res.ok) {
+                res.json().then((json) => {
+                    xbsjEarthUi.json = json
+                    Message.success('加载默认场景成功')
+                }).catch((error) => {
+                    console.log(error);
+                    Message.success('加载默认场景失败')
+                })
+            } else {
                 Message.success('加载默认场景失败')
-            })
-        } else {
-            Message.success('加载默认场景失败')
-        }
-    })
+            }
+        })
+    } catch (error) {
+        console.log(error);
+
+    }
+
 
     getNoToken(`https://account.bjxbsj.cn/api/bjxbsj/online/default`).then((res: any) => {
         if (res && res.url) {

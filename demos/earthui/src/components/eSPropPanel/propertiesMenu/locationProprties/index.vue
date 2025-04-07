@@ -21,7 +21,7 @@ onMounted(() => {
     const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
     dispose = sceneObject.editingChanged.disposableOn((res: boolean) => {
         if (res) {
-            Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击键盘退出（ESC）键可退出编辑模式。2. 对象提供多种编辑方式，可使用键盘空格（Space）键进行编辑方式的切换。' })
+            Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         } else {
             Message.remove('xxx')
         }
@@ -29,8 +29,9 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
     if (dispose) {
+        Message.remove('xxx')
         dispose()
-        dispose=undefined
+        dispose = undefined
     }
 })
 

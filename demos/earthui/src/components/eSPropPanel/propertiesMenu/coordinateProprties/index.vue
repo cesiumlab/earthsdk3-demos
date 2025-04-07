@@ -29,6 +29,7 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
     if (dispose) {
+        Message.remove('xxx')
         dispose()
         dispose = undefined
     }

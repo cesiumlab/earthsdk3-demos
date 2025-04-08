@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       earthsdk3:
-        specifier: 3.0.3-beta.4
-        version: 3.0.3-beta.4
+        specifier: 3.0.3-beta.8
+        version: 3.0.3-beta.8
       earthsdk3-assets:
         specifier: 0.0.1-beta.0.12
         version: 0.0.1-beta.0.12
       earthsdk3-cesium:
-        specifier: 3.0.3-beta.3
-        version: 3.0.3-beta.3
+        specifier: 3.0.3-beta.5
+        version: 3.0.3-beta.5
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.2
         version: 0.0.1-beta.0.2
@@ -45,13 +45,13 @@ importers:
     devDependencies:
       clean-webpack-plugin:
         specifier: ^3.0.0
-        version: 3.0.0(webpack@5.98.0)
+        version: 3.0.0(webpack@5.98.0(webpack-cli@4.10.0))
       compression-webpack-plugin:
         specifier: ^11.1.0
-        version: 11.1.0(webpack@5.98.0)
+        version: 11.1.0(webpack@5.98.0(webpack-cli@4.10.0))
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.2(typescript@4.9.5)(webpack@5.98.0)
+        version: 9.5.2(typescript@4.9.5)(webpack@5.98.0(webpack-cli@4.10.0))
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.11
@@ -2670,8 +2670,8 @@ packages:
   earthsdk3-assets@0.0.1-beta.0.12:
     resolution: {integrity: sha512-hzpPuhtm6WliuzIcfbx3yw2E8Ll/QLdcSYa2veunrnlJaG9C1jKV9CtFr7pI9skdYa+Ftg6jPosBrmaGNi3lOQ==}
 
-  earthsdk3-cesium@3.0.3-beta.3:
-    resolution: {integrity: sha512-kc6HJ9v6jxXxNUZYYM/ltLWgEhKYHCF4VH5It7Iv5Ck+zu2TQnyTDLv9HnJNQqJ9l1kAhUe4EmmH+iHbsG9Bsw==}
+  earthsdk3-cesium@3.0.3-beta.5:
+    resolution: {integrity: sha512-x6X+sO1C4qHfMOGja9bz47CsBUf+YwOdf9/LHd0OTKcLZYmhT2YQ0imoqy9JOze2N4n158565itI9ihe/SK7SA==}
 
   earthsdk3-ol@0.0.1-beta.0.2:
     resolution: {integrity: sha512-iO7EiO3chol6n4MK00QVgI9x6WlJDY1UhMCQRNHnG7X2/pfElZ/2CkrquDDe8n9h7VHsUEce211An8Jh9p/ErA==}
@@ -2688,8 +2688,8 @@ packages:
   earthsdk3@0.0.1-beta.0.59:
     resolution: {integrity: sha512-LAT+41ZkBDZAdqFPBKoCfsQT176VDNo+56S1YzvA2GCN+XPOBrljFpzchabUL1E51+4ym6FstWhD+OpyNN+CFw==}
 
-  earthsdk3@3.0.3-beta.4:
-    resolution: {integrity: sha512-J3aLatoERRC/rpsZYCNMRIhLdjoH8IQSdo8fCfBvLPMuFcg0wIe902SMfmruGJvYX13rj5P9vrDa5e6f5P/aTg==}
+  earthsdk3@3.0.3-beta.8:
+    resolution: {integrity: sha512-DylZNTU6nCYoT0Sk721DUmuFhNpdSoBM7doUBSwF5yZw8vXOXJ5J8kTbRCfxCGoRI56BGdRUNHKBsO4IFBVQ4w==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -6202,7 +6202,7 @@ snapshots:
       error-stack-parser: 2.1.4
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   '@soda/get-current-script@1.0.2': {}
 
@@ -7318,7 +7318,7 @@ snapshots:
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.4.1(@babel/core@7.26.10)(webpack@5.98.0)
       thread-loader: 3.0.4(webpack@5.98.0)
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - '@swc/core'
       - core-js
@@ -7349,7 +7349,7 @@ snapshots:
       ts-loader: 9.5.2(typescript@4.9.5)(webpack@5.98.0)
       typescript: 4.9.5
       vue: 3.5.13(typescript@4.9.5)
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - '@swc/core'
       - encoding
@@ -7413,7 +7413,7 @@ snapshots:
       thread-loader: 3.0.4(webpack@5.98.0)
       vue-loader: 17.4.2(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@4.9.5))(webpack@5.98.0)
       vue-style-loader: 4.1.3
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
       webpack-bundle-analyzer: 4.10.2
       webpack-chain: 6.5.1
       webpack-dev-server: 4.15.2(debug@4.4.0)(webpack@5.98.0)
@@ -7708,17 +7708,17 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0)(webpack@5.98.0)':
+  '@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0(webpack@5.98.0))(webpack@5.98.0(webpack-cli@4.10.0))':
     dependencies:
       webpack: 5.98.0(webpack-cli@4.10.0)
       webpack-cli: 4.10.0(webpack@5.98.0)
 
-  '@webpack-cli/info@1.5.0(webpack-cli@4.10.0)':
+  '@webpack-cli/info@1.5.0(webpack-cli@4.10.0(webpack@5.98.0))':
     dependencies:
       envinfo: 7.14.0
       webpack-cli: 4.10.0(webpack@5.98.0)
 
-  '@webpack-cli/serve@1.7.0(webpack-cli@4.10.0)':
+  '@webpack-cli/serve@1.7.0(webpack-cli@4.10.0(webpack@5.98.0))':
     dependencies:
       webpack-cli: 4.10.0(webpack@5.98.0)
 
@@ -7863,7 +7863,7 @@ snapshots:
       loader-utils: 2.0.4
       make-dir: 3.1.0
       schema-utils: 2.7.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   babel-plugin-dynamic-import-node@2.3.3:
     dependencies:
@@ -8044,7 +8044,7 @@ snapshots:
     dependencies:
       source-map: 0.6.1
 
-  clean-webpack-plugin@3.0.0(webpack@5.98.0):
+  clean-webpack-plugin@3.0.0(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       '@types/webpack': 4.41.40
       del: 4.1.1
@@ -8123,7 +8123,7 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  compression-webpack-plugin@11.1.0(webpack@5.98.0):
+  compression-webpack-plugin@11.1.0(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
@@ -8178,7 +8178,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   core-js-compat@3.41.0:
     dependencies:
@@ -8237,7 +8237,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.7.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   css-minimizer-webpack-plugin@3.4.1(webpack@5.98.0):
     dependencies:
@@ -8247,7 +8247,7 @@ snapshots:
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
       source-map: 0.6.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   css-select@4.3.0:
     dependencies:
@@ -8482,7 +8482,7 @@ snapshots:
 
   earthsdk3-assets@0.0.1-beta.0.12: {}
 
-  earthsdk3-cesium@3.0.3-beta.3:
+  earthsdk3-cesium@3.0.3-beta.5:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
@@ -8518,7 +8518,7 @@ snapshots:
       proj4: 2.15.0
       xbsj-base: 0.0.1-beta.0.14
 
-  earthsdk3@3.0.3-beta.4:
+  earthsdk3@3.0.3-beta.8:
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
@@ -8881,7 +8881,7 @@ snapshots:
       semver: 7.7.1
       tapable: 1.1.3
       typescript: 4.9.5
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     optionalDependencies:
       eslint: 7.32.0
 
@@ -9099,7 +9099,7 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.2.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   html2canvas@1.4.1:
     dependencies:
@@ -9519,7 +9519,7 @@ snapshots:
     dependencies:
       schema-utils: 4.3.0
       tapable: 2.2.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   minimalistic-assert@1.0.1: {}
 
@@ -9859,7 +9859,7 @@ snapshots:
       klona: 2.0.6
       postcss: 8.5.3
       semver: 7.7.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   postcss-merge-longhand@5.1.7(postcss@8.5.3):
     dependencies:
@@ -10035,7 +10035,7 @@ snapshots:
       chalk: 2.4.2
       figures: 2.0.0
       log-update: 2.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   progress@2.0.3:
     optional: true
@@ -10640,7 +10640,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+  terser-webpack-plugin@5.3.14(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -10648,6 +10648,15 @@ snapshots:
       serialize-javascript: 6.0.2
       terser: 5.39.0
       webpack: 5.98.0(webpack-cli@4.10.0)
+
+  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 4.3.0
+      serialize-javascript: 6.0.2
+      terser: 5.39.0
+      webpack: 5.98.0
 
   terser@5.39.0:
     dependencies:
@@ -10678,7 +10687,7 @@ snapshots:
       loader-utils: 2.0.4
       neo-async: 2.6.2
       schema-utils: 3.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   thunky@1.1.0: {}
 
@@ -10704,7 +10713,7 @@ snapshots:
 
   tr46@0.0.3: {}
 
-  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0):
+  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.18.1
@@ -10713,6 +10722,16 @@ snapshots:
       source-map: 0.7.4
       typescript: 4.9.5
       webpack: 5.98.0(webpack-cli@4.10.0)
+
+  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0):
+    dependencies:
+      chalk: 4.1.2
+      enhanced-resolve: 5.18.1
+      micromatch: 4.0.8
+      semver: 7.7.1
+      source-map: 0.7.4
+      typescript: 4.9.5
+      webpack: 5.98.0
 
   tsc-alias@1.8.11:
     dependencies:
@@ -10838,7 +10857,7 @@ snapshots:
       loader-utils: 1.4.2
       vue-hot-reload-api: 2.3.4
       vue-style-loader: 4.1.3
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
     transitivePeerDependencies:
@@ -10901,7 +10920,7 @@ snapshots:
       chalk: 4.1.2
       hash-sum: 2.0.0
       watchpack: 2.4.2
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
       vue: 3.5.13(typescript@4.9.5)
@@ -10966,9 +10985,9 @@ snapshots:
   webpack-cli@4.10.0(webpack@5.98.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 1.2.0(webpack-cli@4.10.0)(webpack@5.98.0)
-      '@webpack-cli/info': 1.5.0(webpack-cli@4.10.0)
-      '@webpack-cli/serve': 1.7.0(webpack-cli@4.10.0)
+      '@webpack-cli/configtest': 1.2.0(webpack-cli@4.10.0(webpack@5.98.0))(webpack@5.98.0(webpack-cli@4.10.0))
+      '@webpack-cli/info': 1.5.0(webpack-cli@4.10.0(webpack@5.98.0))
+      '@webpack-cli/serve': 1.7.0(webpack-cli@4.10.0(webpack@5.98.0))
       colorette: 2.0.20
       commander: 7.2.0
       cross-spawn: 7.0.6
@@ -10986,7 +11005,7 @@ snapshots:
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   webpack-dev-server@4.15.2(debug@4.4.0)(webpack@5.98.0):
     dependencies:
@@ -11021,7 +11040,7 @@ snapshots:
       webpack-dev-middleware: 5.3.4(webpack@5.98.0)
       ws: 8.18.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -11041,6 +11060,36 @@ snapshots:
   webpack-sources@3.2.3: {}
 
   webpack-virtual-modules@0.4.6: {}
+
+  webpack@5.98.0:
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.7
+      '@webassemblyjs/ast': 1.14.1
+      '@webassemblyjs/wasm-edit': 1.14.1
+      '@webassemblyjs/wasm-parser': 1.14.1
+      acorn: 8.14.1
+      browserslist: 4.24.4
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.18.1
+      es-module-lexer: 1.6.0
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 4.3.0
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
+      watchpack: 2.4.2
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
 
   webpack@5.98.0(webpack-cli@4.10.0):
     dependencies:
@@ -11064,7 +11113,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
+      terser-webpack-plugin: 5.3.14(webpack@5.98.0(webpack-cli@4.10.0))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     optionalDependencies:

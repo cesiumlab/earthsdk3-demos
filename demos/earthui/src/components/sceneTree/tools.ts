@@ -1,7 +1,7 @@
 import { messageBox } from "earthsdk-ui";
 import { getsceneObjNumfromSceneTree } from "../../scripts/general";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
-import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESObjectWithLocation, ESPath, ESTextLabel, ESVOptionUe, SceneTreeItem } from 'earthsdk3';
+import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESJSwitchToUEViewerOptionType, ESObjectWithLocation, ESPath, ESTextLabel, ESVOptionUe, SceneTreeItem } from 'earthsdk3';
 import * as topojson from "topojson-client";
 
 
@@ -510,8 +510,10 @@ export const createSceneJson = (xbsjEarthUi: XbsjEarthUi, resultJson: any) => {
     })
         .then(() => {
             xbsjEarthUi.json = resultJson
-            const id = resultJson.viewers[0].id
-            const type = resultJson.viewers[0].type
+            const json = resultJson.viewers[0]
+            if (!json) return
+            const id = json.id
+            const type = json.type
             const lastView = resultJson.lastView
             const dispose = xbsjEarthUi.viewerCreatedEvent.donce((viewer) => {
                 if (lastView && lastView.position && lastView.rotation) {
@@ -521,30 +523,30 @@ export const createSceneJson = (xbsjEarthUi: XbsjEarthUi, resultJson: any) => {
             })
             if (id && type) {
                 if (type === 'ESCesiumViewer') {
-                    const json = resultJson.viewers[0]
-                    const viewers = [...xbsjEarthUi.viewers]
-                    xbsjEarthUi.destroyViewer(viewers[0])
-                    const viewer = xbsjEarthUi.createCesiumViewer('viewersContainer', id);
+                    const viewer = xbsjEarthUi.switchToCesiumViewer({
+                        container: 'viewersContainer',
+                        destroy: true,
+                        id,
+                        attributeSync: false,
+                    })
                     viewer.json = json
                 } else if (type === 'ESUeViewer') {
-                    const uri = resultJson.viewers[0].uri
-                    const app = resultJson.viewers[0].app
-                    const json = resultJson.viewers[0]
-                    const viewers = [...xbsjEarthUi.viewers]
-                    xbsjEarthUi.destroyViewer(viewers[0])
+                    const extras = json.extras
+                    if (!extras) return
+                    const uri = extras.uri
+                    const app = extras.app
                     if (uri && app) {
                         const options = {
-                            type: 'ESUeViewer',
                             container: 'viewersContainer',
-                            id,
-                            options: {
-                                uri,
-                                app,
-                                
-                            }
-                        } as ESVOptionUe
-                        const viewer = xbsjEarthUi.createUeViewer(options);
+                            uri,
+                            app,
+                            destroy: true,
+                            id: 'earthui-active-viewer-id',
+                            attributeSync: false,
+                        } as ESJSwitchToUEViewerOptionType
+                        const viewer = xbsjEarthUi.switchToUEViewer(options);
                         viewer.json = json
+                       
                     }
                 }
             }

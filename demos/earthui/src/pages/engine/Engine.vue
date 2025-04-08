@@ -18,8 +18,13 @@ const openUeInstall = ref(false)
         </div>
         <Button :name="'qiehuanUE'" :content="'UE'" :click="() => { openUeInstall = !openUeInstall }"
             :actived="openUeInstall" :left-button="true"></Button>
-        <Button :name="'qiehuan_cesium'" :content="'Cesium'"
-            :click="() => { xbsjEarthUi.switchToCesiumViewer('viewersContainer') }" v-if="ueIsShow"></Button>
+        <Button :name="'qiehuan_cesium'" :content="'Cesium'" :click="() => {
+            xbsjEarthUi.switchToCesiumViewer({
+                container: 'viewersContainer',
+                destroy: true,
+                id: 'earthui-active-viewer-id',
+            })
+        }" v-if="ueIsShow"></Button>
         <CzmAndUeViewer v-if="openUeInstall" @close="openUeInstall = false">
         </CzmAndUeViewer>
     </RightList>

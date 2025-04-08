@@ -18,7 +18,6 @@
     "earthsdk3-ue": "3.0.3-beta.3",
     "earthsdk3-ol": "0.0.1-beta.0.2",
     "earthsdk3-assets": "0.0.1-beta.0.12"
-    
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

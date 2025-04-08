@@ -1,13 +1,12 @@
 <script setup lang='ts'>
 import { Message } from "earthsdk-ui";
+import { ESJSwitchToUEViewerOptionType } from "earthsdk3";
 import { inject, onMounted, ref, watch } from 'vue';
 import { getNoToken } from '../../../api/service';
-import PopList from '../../../components/PopList.vue';
+import LabelInput from "../../../components/LabelInput.vue";
 import Loading from '../../../components/Loading.vue';
+import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import LabelInput from "../../../components/LabelInput.vue"
-import { ESJSwitchToUEViewerOptionType, ESVOptionUe } from "earthsdk3";
-import { ESUeViewer } from "earthsdk3-ue";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
 const uri = ref<string>('http://localhost:8086')
@@ -50,14 +49,6 @@ const confirm = () => {
     } else if (!app.value) {
         Message.warning('请输入应用id')
     } else {
-        // const options = {
-        //     type: "ESUeViewer",
-        //     container: "viewersContainer",
-        //     options: {
-        //         uri: uri.value,
-        //         app: app.value,
-        //     },
-        // }
         checkedactive.value = null
         let url
         if (uri.value.endsWith('/')) {
@@ -70,18 +61,22 @@ const confirm = () => {
             uri: url,
             app: app.value,
             destroy: true,
+            id: 'earthui-active-viewer-id',
+        } as ESJSwitchToUEViewerOptionType
+        const viewer = xbsjEarthUi.switchToUEViewer(options)
+        if (viewer.extras) {
+            viewer.extras = {
+                ...viewer.extras as any,
+                uri: url,
+                app: app.value,
+            }
+        } else {
+            viewer.extras = {
+                uri: url,
+                app: app.value,
+            }
         }
-        xbsjEarthUi.switchToUEViewer('viewersContainer', url, app.value)
         emits('close')
-
-        // xbsjEarthUi.switchToUEViewer(options)
-        // const viewer = xbsjEarthUi.activeViewer
-        // if (viewer  && viewer instanceof ESUeViewer) {
-        //     viewer.sceneControlled = true
-        //     // viewer.innerViewer.brightness = 0
-        //     // viewer.innerViewer.ev100Ratio = 0
-
-        // }
     }
 }
 const changeServeUrl = (item: { id: string, name: string, thumbnail: string }, index: number) => {

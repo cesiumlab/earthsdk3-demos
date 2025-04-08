@@ -6,6 +6,7 @@ import { parse } from 'search-params';
 import { get, getNoToken } from '../api/service';
 import { $config } from './getConfig';
 import { XbsjEarthUi } from './xbsjEarthUi';
+import { JsonValue } from "xbsj-base";
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)
 //scene
@@ -42,7 +43,11 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
     const token = parseSearch.token as string
     if (!appid) {
         Message.error(`无appid,加载应用失败`)
-        xbsjEarthUi.switchToCesiumViewer('viewersContainer')
+        xbsjEarthUi.switchToCesiumViewer({
+            container: 'viewersContainer',
+            destroy: true,
+            id: 'earthui-active-viewer-id',
+        })
     }
     if (!token) {
         Message.error(`无token值`)
@@ -56,12 +61,31 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
                 const options = {
                     container: 'viewersContainer',
                     uri: origin,
-                    app: appid
+                    app: appid,
+                    destroy: true,
+                    id: 'earthui-active-viewer-id',
                 } as ESJSwitchToUEViewerOptionType
                 const viewer = xbsjEarthUi.switchToUEViewer(options) as unknown as ESUeViewer
+                if (viewer.extras) {
+                    viewer.extras = {
+                        ...viewer.extras as any,
+                        uri: origin,
+                        app: appid,
+                    }
+                } else {
+                    viewer.extras = {
+                        uri: origin,
+                        app: appid,
+                    }
+                }
+
                 viewer.statusChanged.don((newValue) => {
                     if (newValue === 'Error') {
-                        xbsjEarthUi.switchToCesiumViewer('viewersContainer')
+                        xbsjEarthUi.switchToCesiumViewer({
+                            container: 'viewersContainer',
+                            destroy: true,
+                            id: 'earthui-active-viewer-id',
+                        })
                     } else if (newValue === 'Created') {
                         viewer.defaultCameraFlyIn(1)
                     }

@@ -803,20 +803,20 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
       baseItems.splice(1, 0, copyUrl)
     }
   }
-  // const openCesium = {
-  //   text: "加载Cesium代码",
-  //   keys: "",
-  //   func: () => {
-  //     if (treeItem.sceneObject) {
-  //       popTreeItem.value = treeItem.sceneObject
-  //     }
-  //   },
-  // }
-  // if (treeItem.sceneObject) {
-  //   if ((treeItem.sceneObject instanceof ESImageryLayer || treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESTerrainLayer) && !ueIsShow.value) {
-  //     baseItems.splice(1, 0, openCesium)
-  //   }
-  // }
+  const openCesium = {
+    text: "加载Cesium代码",
+    keys: "",
+    func: () => {
+      if (treeItem.sceneObject) {
+        popTreeItem.value = treeItem.sceneObject
+      }
+    },
+  }
+  if (treeItem.sceneObject && treeItem.sceneObject.viewer?.getEngineType() == "ESCesiumViewer") {
+    if ((treeItem.sceneObject instanceof ESImageryLayer || treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESTerrainLayer)) {
+      baseItems.splice(1, 0, openCesium)
+    }
+  }
   const liftHeight = {
     text: "抬升高度",
     keys: "",

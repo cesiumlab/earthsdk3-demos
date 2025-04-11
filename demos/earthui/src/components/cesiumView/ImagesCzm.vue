@@ -14,6 +14,7 @@
 import { ref, onMounted, watch, onBeforeUnmount } from "vue"
 import { copyClipboard } from '../eSPropPanel/propertiesMenu/commons/base/copyClipboard';
 import { ES3DTileset, ESImageryLayer, ESTerrainLayer } from 'earthsdk3';
+import {getCzmCode} from 'earthsdk3-cesium'
 import * as Cesium from 'cesium';
 // import { getCzmCodeFromCzmTerrain, getCzmCodeFromES3DTileset, getCzmCodeFromESImageryLayer } from "./fun";
 const props = withDefaults(defineProps<{
@@ -40,13 +41,9 @@ const change = () => {
     if (viewer.imageryLayers) {
         viewer.imageryLayers.removeAll()
     }
-    if (sceneObject instanceof ES3DTileset) {
-        // str.value = getCzmCodeFromES3DTileset(sceneObject)
-    } else if (sceneObject instanceof ESImageryLayer) {
-        // str.value = getCzmCodeFromESImageryLayer(sceneObject)
-    } else if (sceneObject instanceof ESTerrainLayer) {
-        // str.value = getCzmCodeFromCzmTerrain(sceneObject)
-    } else {
+    if (sceneObject instanceof ES3DTileset || sceneObject instanceof ESImageryLayer || sceneObject instanceof ESTerrainLayer) {
+        str.value = getCzmCode(sceneObject)
+    }  else {
         console.log('请选择正确的影像地形或瓦片');
     }
     eval(str.value)

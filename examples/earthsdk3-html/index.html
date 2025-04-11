@@ -41,6 +41,15 @@
             container: 'container'
         }
         const viewer = objm.createViewer(option);
+
+        objm.createSceneObjectFromJson({
+            "id": "ae103185-08c7-4ed0-b6d4-15ad77bbbf66",
+            "type": "ESImageryLayer",
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 18,
+            "name": "全球影像",
+            "allowPicking": true
+        })
     </script>
 </body>
 

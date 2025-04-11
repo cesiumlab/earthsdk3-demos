@@ -17,6 +17,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
+          //此处注意若单独提取项目，路径应该为./node_modules
           src: normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3-assets')),
           dest: './js'
         }

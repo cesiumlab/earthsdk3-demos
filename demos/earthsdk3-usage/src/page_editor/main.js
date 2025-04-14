@@ -3,5 +3,5 @@ import App from './App.vue';
 import "./css/common.css"
 
 const app = createApp(App)
-app.mount('#app');
+app.mount('#app2');
 

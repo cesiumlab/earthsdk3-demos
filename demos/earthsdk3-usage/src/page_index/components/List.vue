@@ -25,7 +25,7 @@ const props = defineProps({
 
 function trunToEditor(item) {
     const url = window.location.href.replace("index.html", '') + 'example.html?id=' + item.path
-    window.open(url)
+    window.open(url, '_blank')
 }
 </script>
 

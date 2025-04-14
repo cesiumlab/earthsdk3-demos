@@ -9,22 +9,22 @@
                 "children": [
                     {
                         "name": "快速创建地球Cesium",
-                        "thumbnail": "earth-init-cesium.jpg",
+                        "thumbnail": "earth-init-cesium.webp",
                         "path": "earth/init/cesium"
                     },
                     {
                         "name": "快速创建地球UE",
-                        "thumbnail": "earth-init-ue.jpg",
+                        "thumbnail": "earth-init-ue.webp",
                         "path": "earth/init/ue"
                     },
                     {
                         "name": "UE和Ceisum引擎的切换",
-                        "thumbnail": "earth-init-switchEngine.jpg",
+                        "thumbnail": "earth-init-switchEngine.webp",
                         "path": "earth/init/switchEngine"
                     },
                     {
                         "name": "基础场景JSON初始化",
-                        "thumbnail": "earth-init-json.jpg",
+                        "thumbnail": "earth-init-json.webp",
                         "path": "earth/init/json"
                     }
                 ]
@@ -35,22 +35,22 @@
                 "children": [
                     {
                         "name": "根据类(Class)创建对象",
-                        "thumbnail": "earth-scene-createFromClass.jpg",
+                        "thumbnail": "earth-scene-createFromClass.webp",
                         "path": "earth/scene/createFromClass"
                     },
                     {
                         "name": "根据类名(String)创建对象",
-                        "thumbnail": "earth-scene-createFromClassStr.jpg",
+                        "thumbnail": "earth-scene-createFromClassStr.webp",
                         "path": "earth/scene/createFromClassStr"
                     },
                     {
                         "name": "根据JSON创建对象",
-                        "thumbnail": "earth-scene-createFromJson.jpg",
+                        "thumbnail": "earth-scene-createFromJson.webp",
                         "path": "earth/scene/createFromJson"
                     },
                     {
                         "name": "销毁对象",
-                        "thumbnail": "earth-scene-destroy.jpg",
+                        "thumbnail": "earth-scene-destroy.webp",
                         "path": "earth/scene/destroy"
                     }
                 ]
@@ -67,12 +67,12 @@
                 "children": [
                     {
                         "name": "视口状态",
-                        "thumbnail": "viewers-event-status.jpg",
+                        "thumbnail": "viewers-event-status.webp",
                         "path": "viewers/event/status"
                     },
                     {
                         "name": "视口创建成功",
-                        "thumbnail": "viewers-event-created.jpg",
+                        "thumbnail": "viewers-event-created.webp",
                         "path": "viewers/event/created"
                     }
                 ]
@@ -83,7 +83,7 @@
                 "children": [
                     {
                         "name": "响应式属性的监听",
-                        "thumbnail": "earth-don-property.jpg",
+                        "thumbnail": "earth-don-property.webp",
                         "path": "earth/don/property"
                     }
                 ]
@@ -94,27 +94,27 @@
                 "children": [
                     {
                         "name": "clickEvent 点击事件",
-                        "thumbnail": "earth-event-click.jpg",
+                        "thumbnail": "earth-event-click.webp",
                         "path": "earth/event/click"
                     },
                     {
                         "name": "dbclickEvent 双击事件",
-                        "thumbnail": "earth-event-dbclick.jpg",
+                        "thumbnail": "earth-event-dbclick.webp",
                         "path": "earth/event/dbclick"
                     },
                     {
                         "name": "hoverEvent 悬浮事件",
-                        "thumbnail": "earth-event-hover.jpg",
+                        "thumbnail": "earth-event-hover.webp",
                         "path": "earth/event/hover"
                     },
                     {
                         "name": "hoverOutEvent 悬浮移出事件",
-                        "thumbnail": "earth-event-hoverOut.jpg",
+                        "thumbnail": "earth-event-hoverOut.webp",
                         "path": "earth/event/hoverOut"
                     },
                     {
                         "name": "mouseMoveEvent 鼠标移动事件",
-                        "thumbnail": "earth-event-mouseMove.jpg",
+                        "thumbnail": "earth-event-mouseMove.webp",
                         "path": "earth/event/mouseMove"
                     }
                 ]
@@ -125,17 +125,17 @@
                 "children": [
                     {
                         "name": "视口pick拾取方法",
-                        "thumbnail": "earth-pick-object.jpg",
+                        "thumbnail": "earth-pick-object.webp",
                         "path": "earth/pick/object"
                     },
                     {
                         "name": "全局拾取场景元素",
-                        "thumbnail": "earth-pick-object2.jpg",
+                        "thumbnail": "earth-pick-object2.webp",
                         "path": "earth/pick/object2"
                     },
                     {
                         "name": "视口pickPosition拾取位置方法",
-                        "thumbnail": "earth-pick-position.jpg",
+                        "thumbnail": "earth-pick-position.webp",
                         "path": "earth/pick/position"
                     }
                 ]
@@ -146,12 +146,12 @@
                 "children": [
                     {
                         "name": "pickedEvent被拾取事件",
-                        "thumbnail": "earth-sceneEvent-picked.jpg",
+                        "thumbnail": "earth-sceneEvent-picked.webp",
                         "path": "earth/sceneEvent/picked"
                     },
                     {
                         "name": "widgetEvent图片对象被拾取事件",
-                        "thumbnail": "earth-sceneEvent-widget.jpg",
+                        "thumbnail": "earth-sceneEvent-widget.webp",
                         "path": "earth/sceneEvent/widget"
                     }
                 ]
@@ -162,12 +162,12 @@
                 "children": [
                     {
                         "name": "每帧事件",
-                        "thumbnail": "earth-tick-tick.jpg",
+                        "thumbnail": "earth-tick-tick.webp",
                         "path": "earth/tick/tick"
                     },
                     {
                         "name": "可视距离计算",
-                        "thumbnail": "earth-tick-distance.jpg",
+                        "thumbnail": "earth-tick-distance.webp",
                         "path": "earth/tick/distance"
                     }
                 ]
@@ -184,12 +184,12 @@
                 "children": [
                     {
                         "name": "视口状态",
-                        "thumbnail": "viewers-event-status.jpg",
+                        "thumbnail": "viewers-event-status.webp",
                         "path": "viewers/event/status"
                     },
                     {
                         "name": "视口创建成功",
-                        "thumbnail": "viewers-event-created.jpg",
+                        "thumbnail": "viewers-event-created.webp",
                         "path": "viewers/event/created"
                     }
                 ]
@@ -200,7 +200,7 @@
                 "children": [
                     {
                         "name": "多视口同步",
-                        "thumbnail": "viewers-sync-syncViewer.jpg",
+                        "thumbnail": "viewers-sync-syncViewer.webp",
                         "path": "viewers/sync/syncViewer"
                     }
                 ]
@@ -211,7 +211,7 @@
                 "children": [
                     {
                         "name": "视口标签",
-                        "thumbnail": "viewers-devTags-devTags.jpg",
+                        "thumbnail": "viewers-devTags-devTags.webp",
                         "path": "viewers/devTags/devTags"
                     }
                 ]
@@ -228,22 +228,22 @@
                 "children": [
                     {
                         "name": "初始位置飞行定位",
-                        "thumbnail": "roam-view-fly.jpg",
+                        "thumbnail": "roam-view-fly.webp",
                         "path": "roam/view/fly"
                     },
                     {
                         "name": "视角标签",
-                        "thumbnail": "roam-view-cameraview.jpg",
+                        "thumbnail": "roam-view-cameraview.webp",
                         "path": "roam/view/cameraview"
                     },
                     {
                         "name": "视角集合管理器",
-                        "thumbnail": "roam-view-cameraviewCollection.jpg",
+                        "thumbnail": "roam-view-cameraviewCollection.webp",
                         "path": "roam/view/cameraviewCollection"
                     },
                     {
                         "name": "通过json初始化视角管理器",
-                        "thumbnail": "roam-view-jsonviewCollection.jpg",
+                        "thumbnail": "roam-view-jsonviewCollection.webp",
                         "path": "roam/view/jsonviewCollection"
                     }
                 ]
@@ -254,22 +254,22 @@
                 "children": [
                     {
                         "name": "大地图交互模式(默认)",
-                        "thumbnail": "roam-pawn-map.jpg",
+                        "thumbnail": "roam-pawn-map.webp",
                         "path": "roam/pawn/map"
                     },
                     {
                         "name": "沿线漫游模式",
-                        "thumbnail": "roam-pawn-line.jpg",
+                        "thumbnail": "roam-pawn-line.webp",
                         "path": "roam/pawn/line"
                     },
                     {
                         "name": "第一人称模式",
-                        "thumbnail": "roam-pawn-walk.jpg",
+                        "thumbnail": "roam-pawn-walk.webp",
                         "path": "roam/pawn/walk"
                     },
                     {
                         "name": "环绕地球",
-                        "thumbnail": "image-online-google.jpg",
+                        "thumbnail": "image-online-google.webp",
                         "path": "roam/pawn/surround"
                     }
                 ]
@@ -286,32 +286,32 @@
                 "children": [
                     {
                         "name": "天地图",
-                        "thumbnail": "image-online-tianditu.jpg",
+                        "thumbnail": "image-online-tianditu.webp",
                         "path": "image/online/tianditu"
                     },
                     {
                         "name": "高德",
-                        "thumbnail": "image-online-gaode.jpg",
+                        "thumbnail": "image-online-gaode.webp",
                         "path": "image/online/gaode"
                     },
                     {
                         "name": "mapbox",
-                        "thumbnail": "image-online-mapbox.jpg",
+                        "thumbnail": "image-online-mapbox.webp",
                         "path": "image/online/mapbox"
                     },
                     {
                         "name": "arcgis",
-                        "thumbnail": "image-online-arcgis.jpg",
+                        "thumbnail": "image-online-arcgis.webp",
                         "path": "image/online/arcgis"
                     },
                     {
                         "name": "谷歌",
-                        "thumbnail": "image-online-google.jpg",
+                        "thumbnail": "image-online-google.webp",
                         "path": "image/online/google"
                     },
                     {
                         "name": "谷歌历史影像",
-                        "thumbnail": "image-online-google.jpg",
+                        "thumbnail": "image-online-google.webp",
                         "path": "image/online/historyGoogle"
                     }
                 ]
@@ -322,37 +322,37 @@
                 "children": [
                     {
                         "name": "可视化参数",
-                        "thumbnail": "image-param-global.jpg",
+                        "thumbnail": "image-param-global.webp",
                         "path": "image/param/global"
                     },
                     {
                         "name": "透明度",
-                        "thumbnail": "image-param-alpha.jpg",
+                        "thumbnail": "image-param-alpha.webp",
                         "path": "image/param/alpha"
                     },
                     {
                         "name": "对比度",
-                        "thumbnail": "image-param-contrast.jpg",
+                        "thumbnail": "image-param-contrast.webp",
                         "path": "image/param/contrast"
                     },
                     {
                         "name": "亮度",
-                        "thumbnail": "image-param-brightness.jpg",
+                        "thumbnail": "image-param-brightness.webp",
                         "path": "image/param/brightness"
                     },
                     {
                         "name": "色相",
-                        "thumbnail": "image-param-hue.jpg",
+                        "thumbnail": "image-param-hue.webp",
                         "path": "image/param/hue"
                     },
                     {
                         "name": "饱和度",
-                        "thumbnail": "image-param-saturation.jpg",
+                        "thumbnail": "image-param-saturation.webp",
                         "path": "image/param/saturation"
                     },
                     {
                         "name": "gamma",
-                        "thumbnail": "image-param-gamma.jpg",
+                        "thumbnail": "image-param-gamma.webp",
                         "path": "image/param/gamma"
                     }
                 ]
@@ -363,7 +363,7 @@
                 "children": [
                     {
                         "name": "wms影像加载",
-                        "thumbnail": "image-wms-wms.jpg",
+                        "thumbnail": "image-wms-wms.webp",
                         "path": "image/wms/wms"
                     }
                 ]
@@ -374,7 +374,7 @@
                 "children": [
                     {
                         "name": "wmts影像加载",
-                        "thumbnail": "image-wmts-wmts.jpg",
+                        "thumbnail": "image-wmts-wmts.webp",
                         "path": "image/wmts/wmts"
                     }
                 ]
@@ -385,7 +385,7 @@
                 "children": [
                     {
                         "name": "矢量图层",
-                        "thumbnail": "image-mvt-mvt.jpg",
+                        "thumbnail": "image-mvt-mvt.webp",
                         "path": "image/mvt/mvt"
                     }
                 ]
@@ -402,32 +402,32 @@
                 "children": [
                     {
                         "name": "倾斜摄影",
-                        "thumbnail": "tile-data-osgb.jpg",
+                        "thumbnail": "tile-data-osgb.webp",
                         "path": "tile/data/osgb"
                     },
                     {
                         "name": "白模数据",
-                        "thumbnail": "tile-data-model.jpg",
+                        "thumbnail": "tile-data-model.webp",
                         "path": "tile/data/model"
                     },
                     {
                         "name": "点云数据",
-                        "thumbnail": "tile-data-i3dm.jpg",
+                        "thumbnail": "tile-data-i3dm.webp",
                         "path": "tile/data/i3dm"
                     },
                     {
                         "name": "BIM建模",
-                        "thumbnail": "tile-data-bim.jpg",
+                        "thumbnail": "tile-data-bim.webp",
                         "path": "tile/data/bim"
                     },
                     {
                         "name": "人工建模",
-                        "thumbnail": "tile-data-max.jpg",
+                        "thumbnail": "tile-data-max.webp",
                         "path": "tile/data/max"
                     },
                     {
                         "name": "地下管线",
-                        "thumbnail": "tile-data-pipe.jpg",
+                        "thumbnail": "tile-data-pipe.webp",
                         "path": "tile/data/pipe"
                     }
                 ]
@@ -438,7 +438,7 @@
                 "children": [
                     {
                         "name": "位置移动",
-                        "thumbnail": "tile-edit-offset.jpg",
+                        "thumbnail": "tile-edit-offset.webp",
                         "path": "tile/edit/offset"
                     }
                 ]
@@ -449,22 +449,22 @@
                 "children": [
                     {
                         "name": "科技感",
-                        "thumbnail": "tile-style-technology.jpg",
+                        "thumbnail": "tile-style-technology.webp",
                         "path": "tile/style/technology"
                     },
                     {
                         "name": "style样式",
-                        "thumbnail": "tile-style-style.jpg",
+                        "thumbnail": "tile-style-style.webp",
                         "path": "tile/style/style"
                     },
                     {
                         "name": "feature等值条件着色",
-                        "thumbnail": "tile-color-equivalentFeatureColor.jpg",
+                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
                         "path": "tile/color/equivalentFeatureColor"
                     },
                     {
                         "name": "feature区间条件着色",
-                        "thumbnail": "tile-color-sectionFeatureColor.jpg",
+                        "thumbnail": "tile-color-sectionFeatureColor.webp",
                         "path": "tile/color/sectionFeatureColor"
                     }
                 ]
@@ -475,12 +475,12 @@
                 "children": [
                     {
                         "name": "feature等值条件显隐",
-                        "thumbnail": "tile-visable-equivalentFeatureVisable.jpg",
+                        "thumbnail": "tile-visable-equivalentFeatureVisable.webp",
                         "path": "tile/visable/equivalentFeatureVisable"
                     },
                     {
                         "name": "feature区间条件显隐",
-                        "thumbnail": "tile-visable-sectionFeatureVisable.jpg",
+                        "thumbnail": "tile-visable-sectionFeatureVisable.webp",
                         "path": "tile/visable/sectionFeatureVisable"
                     }
                 ]
@@ -491,7 +491,7 @@
                 "children": [
                     {
                         "name": "3dtileset属性查询高亮",
-                        "thumbnail": "tile-property-highlight.jpg",
+                        "thumbnail": "tile-property-highlight.webp",
                         "path": "tile/property/highlight"
                     }
                 ]
@@ -508,17 +508,17 @@
                 "children": [
                     {
                         "name": "Cesium地形",
-                        "thumbnail": "terrain-data-cesium.jpg",
+                        "thumbnail": "terrain-data-cesium.webp",
                         "path": "terrain/data/cesium"
                     },
                     {
                         "name": "带高度的纯平地形",
-                        "thumbnail": "terrain-data-flat.jpg",
+                        "thumbnail": "terrain-data-flat.webp",
                         "path": "terrain/data/flat"
                     },
                     {
                         "name": "dem/tif切片地形",
-                        "thumbnail": "terrain-data-dem.jpg",
+                        "thumbnail": "terrain-data-dem.webp",
                         "path": "terrain/data/dem"
                     }
                 ]
@@ -529,27 +529,27 @@
                 "children": [
                     {
                         "name": "挖坑",
-                        "thumbnail": "terrain-params-excavate.jpg",
+                        "thumbnail": "terrain-params-excavate.webp",
                         "path": "terrain/params/excavate"
                     },
                     {
                         "name": "高程",
-                        "thumbnail": "terrain-params-elevation.jpg",
+                        "thumbnail": "terrain-params-elevation.webp",
                         "path": "terrain/params/elevation"
                     },
                     {
                         "name": "坡度",
-                        "thumbnail": "terrain-params-slope.jpg",
+                        "thumbnail": "terrain-params-slope.webp",
                         "path": "terrain/params/slope"
                     },
                     {
                         "name": "坡向",
-                        "thumbnail": "terrain-params-aspect.jpg",
+                        "thumbnail": "terrain-params-aspect.webp",
                         "path": "terrain/params/aspect"
                     },
                     {
                         "name": "等高线",
-                        "thumbnail": "terrain-params-enableContour.jpg",
+                        "thumbnail": "terrain-params-enableContour.webp",
                         "path": "terrain/params/enableContour"
                     }
                 ]
@@ -566,27 +566,27 @@
                 "children": [
                     {
                         "name": "图片Poi",
-                        "thumbnail": "plot-poi-image.jpg",
+                        "thumbnail": "plot-poi-image.webp",
                         "path": "plot/poi/image"
                     },
                     {
                         "name": "3DPoi",
-                        "thumbnail": "plot-poi-3DPoi.jpg",
+                        "thumbnail": "plot-poi-3DPoi.webp",
                         "path": "plot/poi/3DPoi"
                     },
                     {
                         "name": "2DPoi",
-                        "thumbnail": "plot-poi-2DPoi.jpg",
+                        "thumbnail": "plot-poi-2DPoi.webp",
                         "path": "plot/poi/2DPoi"
                     },
                     {
                         "name": "Poi聚合",
-                        "thumbnail": "plot-poi-clusterPoi.jpg",
+                        "thumbnail": "plot-poi-clusterPoi.webp",
                         "path": "plot/poi/clusterPoi"
                     },
                     {
                         "name": "人员poi",
-                        "thumbnail": "plot-poi-humanPoi.jpg",
+                        "thumbnail": "plot-poi-humanPoi.webp",
                         "path": "plot/poi/humanPoi"
                     }
                 ]
@@ -597,22 +597,22 @@
                 "children": [
                     {
                         "name": "文字标记",
-                        "thumbnail": "plot-mark-text.jpg",
+                        "thumbnail": "plot-mark-text.webp",
                         "path": "plot/mark/text"
                     },
                     {
                         "name": "部件标注",
-                        "thumbnail": "plot-mark-widget.jpg",
+                        "thumbnail": "plot-mark-widget.webp",
                         "path": "plot/mark/widget"
                     },
                     {
                         "name": "自定义Div绑定三维坐标(1)",
-                        "thumbnail": "plot-mark-dom.jpg",
+                        "thumbnail": "plot-mark-dom.webp",
                         "path": "plot/mark/dom"
                     },
                     {
                         "name": "自定义Div绑定三维坐标(2)",
-                        "thumbnail": "plot-mark-domClass.jpg",
+                        "thumbnail": "plot-mark-domClass.webp",
                         "path": "plot/mark/domClass"
                     }
                 ]
@@ -623,27 +623,27 @@
                 "children": [
                     {
                         "name": "折线",
-                        "thumbnail": "plot-vector-line.jpg",
+                        "thumbnail": "plot-vector-line.webp",
                         "path": "plot/vector/line"
                     },
                     {
                         "name": "多边形",
-                        "thumbnail": "plot-vector-polygon.jpg",
+                        "thumbnail": "plot-vector-polygon.webp",
                         "path": "plot/vector/polygon"
                     },
                     {
                         "name": "带洞多边形",
-                        "thumbnail": "plot-vector-polygonwithhole.jpg",
+                        "thumbnail": "plot-vector-polygonwithhole.webp",
                         "path": "plot/vector/polygonwithhole"
                     },
                     {
                         "name": "圆",
-                        "thumbnail": "plot-vector-circle.jpg",
+                        "thumbnail": "plot-vector-circle.webp",
                         "path": "plot/vector/circle"
                     },
                     {
                         "name": "矩形",
-                        "thumbnail": "plot-vector-rectangle.jpg",
+                        "thumbnail": "plot-vector-rectangle.webp",
                         "path": "plot/vector/rectangle"
                     }
                 ]
@@ -654,52 +654,52 @@
                 "children": [
                     {
                         "name": "路径",
-                        "thumbnail": "plot-effect-path.jpg",
+                        "thumbnail": "plot-effect-path.webp",
                         "path": "plot/effect/path"
                     },
                     {
                         "name": "光圈特效",
-                        "thumbnail": "plot-effect-aperture.jpg",
+                        "thumbnail": "plot-effect-aperture.webp",
                         "path": "plot/effect/aperture"
                     },
                     {
                         "name": "电子围栏",
-                        "thumbnail": "plot-effect-fence.jpg",
+                        "thumbnail": "plot-effect-fence.webp",
                         "path": "plot/effect/fence"
                     },
                     {
                         "name": "管道电子围栏",
-                        "thumbnail": "plot-effect-pipefence.jpg",
+                        "thumbnail": "plot-effect-pipefence.webp",
                         "path": "plot/effect/pipefence"
                     },
                     {
                         "name": "报警",
-                        "thumbnail": "plot-effect-alarm.jpg",
+                        "thumbnail": "plot-effect-alarm.webp",
                         "path": "plot/effect/alarm"
                     },
                     {
                         "name": "摄像头",
-                        "thumbnail": "plot-effect-camera.jpg",
+                        "thumbnail": "plot-effect-camera.webp",
                         "path": "plot/effect/camera"
                     },
                     {
                         "name": "视频融合",
-                        "thumbnail": "plot-effect-video.jpg",
+                        "thumbnail": "plot-effect-video.webp",
                         "path": "plot/effect/video"
                     },
                     {
                         "name": "挖坑",
-                        "thumbnail": "plot-effect-excavation.jpg",
+                        "thumbnail": "plot-effect-excavation.webp",
                         "path": "plot/effect/excavation"
                     },
                     {
                         "name": "粒子爆炸",
-                        "thumbnail": "plot-particle-blast.jpg",
+                        "thumbnail": "plot-particle-blast.webp",
                         "path": "plot/particle/blast"
                     },
                     {
                         "name": "粒子烟火",
-                        "thumbnail": "plot-particle-fire.jpg",
+                        "thumbnail": "plot-particle-fire.webp",
                         "path": "plot/particle/fire"
                     }
                 ]
@@ -716,37 +716,37 @@
                 "children": [
                     {
                         "name": "GeoJson点数据(图片)",
-                        "thumbnail": "vector-geoJson-geojsonpoints.jpg",
+                        "thumbnail": "vector-geoJson-geojsonpoints.webp",
                         "path": "vector/geoJson/point"
                     },
                     {
                         "name": "GeoJson点数据(文本)",
-                        "thumbnail": "vector-geoJson-geojsonpoints1.jpg",
+                        "thumbnail": "vector-geoJson-geojsonpoints1.webp",
                         "path": "vector/geoJson/point1"
                     },
                     {
                         "name": "GeoJson点数据(文本+图片)",
-                        "thumbnail": "vector-geoJson-geojsonpoints2.jpg",
+                        "thumbnail": "vector-geoJson-geojsonpoints2.webp",
                         "path": "vector/geoJson/point2"
                     },
                     {
                         "name": "GeoJson线数据",
-                        "thumbnail": "vector-geoJson-geojsonline.jpg",
+                        "thumbnail": "vector-geoJson-geojsonline.webp",
                         "path": "vector/geoJson/line"
                     },
                     {
                         "name": "GeoJson面数据",
-                        "thumbnail": "vector-geoJson-geojsonpolygon.jpg",
+                        "thumbnail": "vector-geoJson-geojsonpolygon.webp",
                         "path": "vector/geoJson/polygon"
                     },
                     {
                         "name": "GeoJson随机点数据(图片)",
-                        "thumbnail": "vector-geoJson-random.jpg",
+                        "thumbnail": "vector-geoJson-random.webp",
                         "path": "vector/geoJson/random"
                     },
                     {
                         "name": "GeoJson可视距离",
-                        "thumbnail": "vector-geoJson-distance.jpg",
+                        "thumbnail": "vector-geoJson-distance.webp",
                         "path": "vector/geoJson/distance"
                     }
                 ]
@@ -757,7 +757,7 @@
                 "children": [
                     {
                         "name": "Kml",
-                        "thumbnail": "vector-kml-kml.jpg",
+                        "thumbnail": "vector-kml-kml.webp",
                         "path": "vector/kml/kml"
                     }
                 ]
@@ -768,7 +768,7 @@
                 "children": [
                     {
                         "name": "Czml",
-                        "thumbnail": "vector-czml-czml.jpg",
+                        "thumbnail": "vector-czml-czml.webp",
                         "path": "vector/czml/czml"
                     }
                 ]
@@ -785,42 +785,42 @@
                 "children": [
                     {
                         "name": "人员",
-                        "thumbnail": "industry-park-human.jpg",
+                        "thumbnail": "industry-park-human.webp",
                         "path": "industry/park/human"
                     },
                     {
                         "name": "人员poi",
-                        "thumbnail": "plot-poi-humanPoi.jpg",
+                        "thumbnail": "plot-poi-humanPoi.webp",
                         "path": "plot/poi/humanPoi"
                     },
                     {
                         "name": "车辆",
-                        "thumbnail": "industry-park-car.jpg",
+                        "thumbnail": "industry-park-car.webp",
                         "path": "industry/park/car"
                     },
                     {
                         "name": "建筑",
-                        "thumbnail": "industry-park-build.jpg",
+                        "thumbnail": "industry-park-build.webp",
                         "path": "industry/park/build"
                     },
                     {
                         "name": "摄像头",
-                        "thumbnail": "industry-park-camera.jpg",
+                        "thumbnail": "industry-park-camera.webp",
                         "path": "industry/park/camera"
                     },
                     {
                         "name": "路灯",
-                        "thumbnail": "industry-park-light.jpg",
+                        "thumbnail": "industry-park-light.webp",
                         "path": "industry/park/light"
                     },
                     {
                         "name": "配电箱",
-                        "thumbnail": "industry-park-box.jpg",
+                        "thumbnail": "industry-park-box.webp",
                         "path": "industry/park/box"
                     },
                     {
                         "name": "线杆",
-                        "thumbnail": "industry-park-poles.jpg",
+                        "thumbnail": "industry-park-poles.webp",
                         "path": "industry/park/poles"
                     }
                 ]
@@ -831,12 +831,12 @@
                 "children": [
                     {
                         "name": "地理水面",
-                        "thumbnail": "industry-water-geowater.jpg",
+                        "thumbnail": "industry-water-geowater.webp",
                         "path": "industry/water/geowater"
                     },
                     {
                         "name": "局部水面",
-                        "thumbnail": "industry-water-localwater.jpg",
+                        "thumbnail": "industry-water-localwater.webp",
                         "path": "industry/water/localwater"
                     }
                 ]
@@ -853,32 +853,32 @@
                 "children": [
                     {
                         "name": "点位",
-                        "thumbnail": "analyse-measure-point.jpg",
+                        "thumbnail": "analyse-measure-point.webp",
                         "path": "analyse/measure/point"
                     },
                     {
                         "name": "距离测量",
-                        "thumbnail": "analyse-measure-distance.jpg",
+                        "thumbnail": "analyse-measure-distance.webp",
                         "path": "analyse/measure/distance"
                     },
                     {
                         "name": "高度测量",
-                        "thumbnail": "analyse-measure-height.jpg",
+                        "thumbnail": "analyse-measure-height.webp",
                         "path": "analyse/measure/height"
                     },
                     {
                         "name": "面积测量",
-                        "thumbnail": "analyse-measure-area.jpg",
+                        "thumbnail": "analyse-measure-area.webp",
                         "path": "analyse/measure/area"
                     },
                     {
                         "name": "表面积测量",
-                        "thumbnail": "analyse-measure-space.jpg",
+                        "thumbnail": "analyse-measure-space.webp",
                         "path": "analyse/measure/space"
                     },
                     {
                         "name": "方位角测量",
-                        "thumbnail": "analyse-measure-direction.jpg",
+                        "thumbnail": "analyse-measure-direction.webp",
                         "path": "analyse/measure/direction"
                     }
                 ]
@@ -889,17 +889,17 @@
                 "children": [
                     {
                         "name": "交",
-                        "thumbnail": "analyse-planegeo-intersect.jpg",
+                        "thumbnail": "analyse-planegeo-intersect.webp",
                         "path": "analyse/planegeo/intersect"
                     },
                     {
                         "name": "并",
-                        "thumbnail": "analyse-planegeo-union.jpg",
+                        "thumbnail": "analyse-planegeo-union.webp",
                         "path": "analyse/planegeo/union"
                     },
                     {
                         "name": "计算差异(裁剪)",
-                        "thumbnail": "analyse-planegeo-difference.jpg",
+                        "thumbnail": "analyse-planegeo-difference.webp",
                         "path": "analyse/planegeo/difference"
                     }
                 ]
@@ -910,32 +910,32 @@
                 "children": [
                     {
                         "name": "视阈分析",
-                        "thumbnail": "analyse-space-viewshed.jpg",
+                        "thumbnail": "analyse-space-viewshed.webp",
                         "path": "analyse/space/viewshed"
                     },
                     {
                         "name": "裁剪",
-                        "thumbnail": "analyse-space-clipping.jpg",
+                        "thumbnail": "analyse-space-clipping.webp",
                         "path": "analyse/space/clipping"
                     },
                     {
                         "name": "压平",
-                        "thumbnail": "analyse-space-flattened.jpg",
+                        "thumbnail": "analyse-space-flattened.webp",
                         "path": "analyse/space/flattened"
                     },
                     {
                         "name": "挖坑",
-                        "thumbnail": "analyse-space-excavate.jpg",
+                        "thumbnail": "analyse-space-excavate.webp",
                         "path": "analyse/space/excavate"
                     },
                     {
                         "name": "体裁剪",
-                        "thumbnail": "analyse-space-cutting.jpg",
+                        "thumbnail": "analyse-space-cutting.webp",
                         "path": "analyse/space/cutting"
                     },
                     {
                         "name": "通视分析",
-                        "thumbnail": "analyse-space-visiblity.jpg",
+                        "thumbnail": "analyse-space-visiblity.webp",
                         "path": "analyse/space/visiblity"
                     }
                 ]
@@ -946,12 +946,12 @@
                 "children": [
                     {
                         "name": "体积测量",
-                        "thumbnail": "analyse-lerp-volume.jpg",
+                        "thumbnail": "analyse-lerp-volume.webp",
                         "path": "analyse/lerp/volume"
                     },
                     {
                         "name": "日照分析",
-                        "thumbnail": "analyse-lerp-sunlight.jpg",
+                        "thumbnail": "analyse-lerp-sunlight.webp",
                         "path": "analyse/lerp/sunlight"
                     }
                 ]
@@ -968,22 +968,22 @@
                 "children": [
                     {
                         "name": "雾",
-                        "thumbnail": "environment-weather-fog.jpg",
+                        "thumbnail": "environment-weather-fog.webp",
                         "path": "environment/weather/fog"
                     },
                     {
                         "name": "云",
-                        "thumbnail": "environment-weather-cloud.jpg",
+                        "thumbnail": "environment-weather-cloud.webp",
                         "path": "environment/weather/cloud"
                     },
                     {
                         "name": "雨",
-                        "thumbnail": "environment-weather-rain.jpg",
+                        "thumbnail": "environment-weather-rain.webp",
                         "path": "environment/weather/rain"
                     },
                     {
                         "name": "雪",
-                        "thumbnail": "environment-weather-snow.jpg",
+                        "thumbnail": "environment-weather-snow.webp",
                         "path": "environment/weather/snow"
                     }
                 ]
@@ -994,17 +994,17 @@
                 "children": [
                     {
                         "name": "时间线",
-                        "thumbnail": "environment-env-time.jpg",
+                        "thumbnail": "environment-env-time.webp",
                         "path": "environment/env/time"
                     },
                     {
                         "name": "天空盒",
-                        "thumbnail": "environment-env-skybox.jpg",
+                        "thumbnail": "environment-env-skybox.webp",
                         "path": "environment/env/skybox"
                     },
                     {
                         "name": "大气",
-                        "thumbnail": "environment-env-atmosphere.jpg",
+                        "thumbnail": "environment-env-atmosphere.webp",
                         "path": "environment/env/atmosphere"
                     }
                 ]
@@ -1015,7 +1015,7 @@
                 "children": [
                     {
                         "name": "景深",
-                        "thumbnail": "environment-aftertreatment-depth.jpg",
+                        "thumbnail": "environment-aftertreatment-depth.webp",
                         "path": "environment/aftertreatment/depth"
                     }
                 ]
@@ -1032,12 +1032,12 @@
                 "children": [
                     {
                         "name": "Cesium底层viewer获取",
-                        "thumbnail": "cesium-viewer-viewer.jpg",
+                        "thumbnail": "cesium-viewer-viewer.webp",
                         "path": "cesium/viewer/viewer"
                     },
                     {
                         "name": "Cesium深度检测",
-                        "thumbnail": "cesium-viewer-depth.jpg",
+                        "thumbnail": "cesium-viewer-depth.webp",
                         "path": "cesium/viewer/depth"
                     }
                 ]
@@ -1048,12 +1048,12 @@
                 "children": [
                     {
                         "name": "背景透明",
-                        "thumbnail": "cesium-background-background.jpg",
+                        "thumbnail": "cesium-background-background.webp",
                         "path": "cesium/background/background"
                     },
                     {
                         "name": "自定义背景",
-                        "thumbnail": "cesium-background-custom.jpg",
+                        "thumbnail": "cesium-background-custom.webp",
                         "path": "cesium/background/custom"
                     }
                 ]
@@ -1070,12 +1070,12 @@
                 "children": [
                     {
                         "name": "场景亮度",
-                        "thumbnail": "ue-env-brightness.jpg",
+                        "thumbnail": "ue-env-brightness.webp",
                         "path": "ue/env/brightness"
                     },
                     {
                         "name": "自发光亮度",
-                        "thumbnail": "ue-env-emissiveIntensity.jpg",
+                        "thumbnail": "ue-env-emissiveIntensity.webp",
                         "path": "ue/env/emissiveIntensity"
                     }
                 ]
@@ -1086,22 +1086,22 @@
                 "children": [
                     {
                         "name": "动态创建自定义Actor",
-                        "thumbnail": "ue-actor-actor.jpg",
+                        "thumbnail": "ue-actor-actor.webp",
                         "path": "ue/actor/actor"
                     },
                     {
                         "name": "tag绑定场景中的actor",
-                        "thumbnail": "ue-actor-actor.jpg",
+                        "thumbnail": "ue-actor-actor.webp",
                         "path": "ue/actor/tag"
                     },
                     {
                         "name": "关卡包(pak)",
-                        "thumbnail": "ue-actor-pak.jpg",
+                        "thumbnail": "ue-actor-pak.webp",
                         "path": "ue/actor/pak"
                     },
                     {
                         "name": "DataMeshActor",
-                        "thumbnail": "ue-actor-dataMeshActor.jpg",
+                        "thumbnail": "ue-actor-dataMeshActor.webp",
                         "path": "ue/actor/dataMeshActor"
                     }
                 ]
@@ -1112,7 +1112,7 @@
                 "children": [
                     {
                         "name": "高斯泼溅数据示例1",
-                        "thumbnail": "ue-gaosi-data.jpg",
+                        "thumbnail": "ue-gaosi-data.webp",
                         "path": "ue/gaosi/data"
                     }
                 ]
@@ -1129,7 +1129,7 @@
                 "children": [
                     {
                         "name": "路径动画",
-                        "thumbnail": "function-demonstration-human.jpg",
+                        "thumbnail": "function-demonstration-human.webp",
                         "path": "function/demonstration/human"
                     }
                 ]
@@ -1146,7 +1146,7 @@
                 "children": [
                     {
                         "name": "poi兴趣点地理查询",
-                        "thumbnail": "tool-geography-inquire.jpg",
+                        "thumbnail": "tool-geography-inquire.webp",
                         "path": "tool/geography/inquire"
                     }
                 ]

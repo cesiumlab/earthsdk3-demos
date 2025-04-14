@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>可视化-全球影像</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            align-items: center;
+        }
+
+        .box label {
+            padding-right: 10px;
+        }
+
+        .btn {
+            padding-top: 10px;
+        }
+
+        .btn button {
+            width: 286px;
+        }
+
+        label {
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">透明度</label>
+            <div class="rangeBox">
+                <input id="czmAlpha" type="range" value="1" step="0.01" min="0" max="1" oninput="setCzmAlpha()" />
+                <div class="rangeNum" id="czmAlphaBox">1</div>
+            </div>
+
+            <label for="">对比度</label>
+            <div class="rangeBox">
+                <input id="czmContrast" type="range" value="1" step="0.1" min="0" max="10" oninput="setCzmContrast()" />
+                <div class="rangeNum" id="czmContrastBox">1</div>
+            </div>
+
+            <label for="">亮度</label>
+            <div class="rangeBox">
+                <input id="czmBrightness" type="range" value="1" step="0.1" min="0" max="10"
+                    oninput="setCzmBrightness()" />
+                <div class="rangeNum" id="czmBrightnessBox">1</div>
+            </div>
+
+            <label for="">色相</label>
+            <div class="rangeBox">
+                <input id="czmHue" type="range" value="0" step="0.1" min="0" max="10" oninput="setCzmHue()" />
+                <div class="rangeNum" id="czmHueBox">0</div>
+            </div>
+
+            <label for="">饱和度</label>
+            <div class="rangeBox">
+                <input id="czmSaturation" type="range" value="1" step="0.1" min="0" max="10"
+                    oninput="setCzmSaturation()" />
+                <div class="rangeNum" id="czmSaturationBox">1</div>
+            </div>
+
+            <label for="">gamma</label>
+            <div class="rangeBox">
+                <input id="czmGamma" type="range" value="5.4" step="0.1" min="0" max="10" oninput="setCzmGamma()" />
+                <div class="rangeNum" id="czmGammaBox">5.4</div>
+            </div>
+        </div>
+        <div class="btn">
+            <button onclick="reset()">恢复初始值</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        /**-------------------------------------通过json创建一个影像图层-------------------------------**/
+        const sceneObject = objm.createSceneObjectFromJson({
+            id: "bacf1812-c1c7-4799-ab1a-45b2aa3032b5",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            zIndex: 1,
+            name: "argis",
+            allowPicking: true,
+            maximumLevel: 15,
+        });
+
+        // 设置透明度
+        const setCzmAlpha = () => {
+            let value = Number(document.querySelector("#czmAlpha").value);
+            document.querySelector("#czmAlphaBox").innerHTML = value;
+            sceneObject.czmAlpha = value;
+        };
+
+        // 设置对比度
+        const setCzmContrast = () => {
+            let value = Number(document.querySelector("#czmContrast").value);
+            document.querySelector("#czmContrastBox").innerHTML = value;
+            sceneObject.czmContrast = value;
+        };
+
+        // 设置亮度
+        const setCzmBrightness = () => {
+            let value = Number(document.querySelector("#czmBrightness").value);
+            document.querySelector("#czmBrightnessBox").innerHTML = value;
+            sceneObject.czmBrightness = value;
+        };
+
+        // 设置色相
+        const setCzmHue = () => {
+            let value = Number(document.querySelector("#czmHue").value);
+            document.querySelector("#czmHueBox").innerHTML = value;
+            sceneObject.czmHue = value;
+        };
+
+        // 设置饱和度
+        const setCzmSaturation = () => {
+            let value = Number(document.querySelector("#czmSaturation").value);
+            document.querySelector("#czmSaturationBox").innerHTML = value;
+            sceneObject.czmSaturation = value;
+        };
+
+        // 设置gamma
+        const setCzmGamma = () => {
+            let value = Number(document.querySelector("#czmGamma").value);
+            document.querySelector("#czmGammaBox").innerHTML = value;
+            sceneObject.czmGamma = value;
+        };
+
+        const init = () => {
+            setCzmAlpha()
+            setCzmContrast()
+            setCzmBrightness()
+            setCzmHue()
+            setCzmSaturation()
+            setCzmGamma()
+        }
+
+        init()
+
+        //   恢复初始值
+        const reset = () => {
+            // 透明度
+            document.querySelector("#czmAlpha").value = 1;
+            document.querySelector("#czmAlphaBox").innerHTML = 1;
+            sceneObject.czmAlpha = 1;
+
+            // 对比度
+            document.querySelector("#czmContrast").value = 1;
+            document.querySelector("#czmContrastBox").innerHTML = 1;
+            sceneObject.czmContrast = 1;
+
+            // 亮度
+            document.querySelector("#czmBrightness").value = 1;
+            document.querySelector("#czmBrightnessBox").innerHTML = 1;
+            sceneObject.czmBrightness = 1;
+
+            // 色相
+            document.querySelector("#czmHue").value = 0;
+            document.querySelector("#czmHueBox").innerHTML = 0;
+            sceneObject.czmHue = 0;
+
+            // 饱和度
+            document.querySelector("#czmSaturation").value = 1;
+            document.querySelector("#czmSaturationBox").innerHTML = 1;
+            sceneObject.czmSaturation = 1;
+
+            // 设置gamma
+            document.querySelector("#czmGamma").value = 1;
+            document.querySelector("#czmGammaBox").innerHTML = 1;
+            sceneObject.czmGamma = 1;
+        };
+    </script>
+</body>
+
+</html>

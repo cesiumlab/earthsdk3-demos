@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <title>根据json加载视角管理器</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            min-height: 130px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .content>div {
+            width: 64px;
+            height: 89px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        .content>div input {
+            text-indent: 0px;
+            background: none;
+            border: none;
+            color: #fff;
+            text-align: center;
+        }
+
+        .content>div p {
+            padding: 0px;
+            text-align: center;
+            margin: 0px;
+        }
+
+        .close {
+            position: absolute;
+            cursor: pointer;
+            right: 0px;
+            top: 0px;
+        }
+
+        .focus {
+            border: 1px solid #00FFFF;
+        }
+
+        #panel>a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <view-collection :viewCollection="viewCollection"></view-collection>
+        <a href="https://www.earthsdk.com/earthui/index.html" target="_blank">配置json链接 </a>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                objm.activeViewer.flyIn([
+                    116.38836950514933,
+                    39.90152264173749,
+                    2558.2266625402162
+                ], [
+                    359.96364396289476,
+                    -48.66554801391198,
+                    0.0011063677408178429
+                ], 3)
+
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /**
+         * 如何加载json格式的相机视角？json在哪里配置？
+         * 1.首先通过EarthUi https://www.earthsdk.com/earthui/index.html 将场景中加载好的相机视角保存为json文件
+         * 2.将json赋值给对象管理器的views
+         * 3.然后通过cameraViewsManager视角管理器就可拿到设置的相机视角views
+        */
+        // 2
+        const views = [
+            {
+                "duration": 1,
+                "position": [
+                    116.38836950514933,
+                    39.90152264173749,
+                    2558.2266625402162
+                ],
+                "rotation": [
+                    359.96364396289476,
+                    -48.66554801391198,
+                    0.0011063677408178429
+                ],
+                "thumbnail": "data:image/jpeg;base64,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",
+                "name": "视角1"
+            },
+            {
+                "duration": 1,
+                "position": [
+                    116.39355837748668,
+                    39.97945849253805,
+                    425.7974209221731
+                ],
+                "rotation": [
+                    359.52382957543205,
+                    -54.15362525868217,
+                    0.00022456053970542513
+                ],
+                "thumbnail": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCABAAEADASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAABQcEBggAAgP/xAArEAACAgICAgEDBAIDAQAAAAABAgMEBQYREgcTIQAUIggVIzEWMhdBUVL/xAAZAQEBAAMBAAAAAAAAAAAAAAADBAECBQD/xAArEQACAQMCBQMDBQAAAAAAAAABAhEAAyESUQQxQXGBEyLwkaHRFGGxweH/2gAMAwEAAhEDEQA/AGHt+1w+HdPevr1B5sxYjFiDHyXAwijH9qrOSGCAcEJ8n5bgfWf875t81x5a7l9UwFKWS9OLEhixrN74vRHEzFgWaN+IUXp27cFSOeORE3jJbF5UzbtruSGLNaMy5GWGEVwlmVwUCRqqyrzHCrGQySBjyD07kMBiq1tdnjyO15zM5qCu5EGNFxvzsBR+YRuA/wAjsY+PleV/I/JZfTXBGo7Vz24q29301eI+dAa7a9u8qbZjUj2nUZJrcjEyQ3UsxwSQfDKUMVgH29vjoUHX4/I8kKTw1aPGa/HWm067rU8cZkZaVAhp542SSAo7kyoD0kD8SK5ZYT3PA69kdfi3jbtfu4pWgvxTCL+KmmQtq/tVFklReYwiSBgyzyJyA/AbgA3On4k3R4mu5GvpkqQ2Iqkda7jsRSsqyqrGOVTXIWWRSgVBJyDJG3sZQCzQIAA8Vta93veftVHq7rG+ep1Z8dlo8biMdajiaxSiU1UZl9fX1djL8dUALAqUVuQe5LsxPlLxrmzUp7jncvBDTjjE1mt9zE07KW4jb2yyN/Sxh3Uz9mZj2HHc+Lml7FW1/I2sBQq4qZMrE00L4xKfpjggmCoyNL9pM6ySxSe2J0jLR9ieVCGh7J4Gn3yhc2/DJSzEladoJqsUf29+OWsZYzPYhjryyzxy9IiFg9PYSK/QEs6k0XiZBEfNqozbyuZo9ksz4jxMsNmji5ttsS1/Zk7UOMkqLLP1COjwyWQr9wq9VRCo/L8FUcfVZzu7Z7N18Jg62lUcPiMXB9vFJLURvto3ZDJIor9WWRgHZgOwLsOR8fBHyZ498ibPgcVRzekUNZbS4P258mszyLPTrkxvIxWMgJ1ELx+yRFAeUk9W7KjdSoMLZxme3axqk9nIrBViaOSWFx2eMSrMjdOqyRuhJYKAhbueOv10LHC8Jes6rl2G2IJ+4qe49xG9q48D/aYE+u+RcXdh8f1Ndy2Iz8F8JLG5rS8S8JNM3cOVmUR9GkYdgo9aMwYpydqZnCDM3scmcuZrLZJZcd64KETxCEV+nRZkT3+vunsdoSoYFysSHjhm63o1HXa9fPft967sOXw89etmauNyV+asQ6IEkLRAcsWZxJ0AkBkclVfj6Wn/ABPWwlqe5j9f3HM3JqdqAxSYKaCA+yIo6n2hFZzFI/RO693UL2BIB5BbSxUSPz32qrh+FSwgdIIJzJzGOQkEnn02pya0cLodinrr69ZGTWvVux4XALJKtju6hbUc7MOsAdJwUEwh6zFZO7v1+pE/kfbPHHijEbBX06zPPHYlq2IoMnTmJAhk62prKJ1RHdImkkjEZDuP9iPW1P1rxK+r+RchAN5zVKpbu9/2ylc9X3I+ZGkuSspmld3D/wBuR8SA8JI8CKjN+VvH1HYGhq+HdfNincfrLBDWWOSWOQFJePty5J4JJ79vngMoA+qv0sw7NAPf8j51o24gWxpbt8waauufq7hzGTll3HTMjQgWKLo8WcN/tLzyF6Sesxqnx+Sc9mH9EfkPGV/VhLJeSTJ+O6mS1WGen3NiNnvqCGeWXqVaFejAAcsOWBPb8uUJ57whrF7XdezFnYc0aWbElGnHMYG/bZYmszfbrIIVIgCMVSPleOYkLOCnpzlnf0/b09+4lLWMjPBVkK/crXkWKdOX4kjZwvdSI2II/wDV/wDpQSC20fJg+f7qa+eMEaYK/sM/zWv6nmzV85oS5DWbix3c3dWF6GZlmtQUlLLHJM8M0sRausTp3MJCD2E8svbkXd8OaLt9CHbdV3a0lyWtJWMWRrR/a5O4CFcCnHCiuzJDKzIUYuY4hG0QVmGc6HhzyacjQzl2hJWmjlQpYdIDIevX84ozJGJJFVQwPbn8R2PA+n3R0XyXBuImo7s9TLyY+OWXLHX+9KRD645VVHmYJM/29ctH+HKxggL1H14uqnnT2jcdZdYNISejr3h7E0vIOs5jKulhpcf+x3Z4I3lWzH8SSCDt6ovzPCDq4cAcrwG+iPinzp5Dw+tenGLieuGtiH/FzT6MyGwRYkWwW4Tq1muQXYD/AGLA9GLzfJGA1m69Jk3qo0VynHaDZcVYVtThZImbsSQ0bSp1Mg+FZJOiKeQarb0TA+Mdo+/pY6Otjo1ijmkjjSVQ03sbn+blWimg90fqcqyiQkCSSMc1m2rLnNY0lGlcCtC3Ldylu42fJ4mxh8RLha1+lZsVnk4uzvIGrWJFaTo4WSP8ULgBJGJ6KWCxn/TDJkZLGx3d2hrQzzSSs0eLaSFSXbnib2CMjn+m7Bf65I+o9alYzmFSxgshHrDymtQjw37obtCtZWdVZkYBI0T1mRz/AG8ks/UnuFMlXoQbzVyVyOXyVp9qd6MBQx5GP7WCs8q15JOeV+fzRh2fjo7AK7kBG9a3cWLkyPm9aPbkwVkVsS9u2wax+nixkdfxlOWxOZrMSWhJUlWBY1gWcO4ZAhZVm5kVI+jAsycMfrKu1bp5Q0fBY0XvOkFueVKy1DDWd1vK8hilkknnjMaoArep+eJlj9nDszF5P7rivHuTGzeQ8zitlyL1jDHFYrt644VumWJ6Sqvq6eoByqLJ1lkAJjX2H6z7LuUVjYGzOP2HOURg4FTELatyTTLGsqAL2XsEj4dj8dVH4gn44MnpBiWInxSPeKCeu1NjcfJXkjOYuzjMrnrOWorbSvau/aYyFJJY5DIixMsoYciGV+rhHPHzwEYMG1axjqm64vMUszc1vIQun3FulFCyx2WEZHUsx9sTqsvbkt8SherFWH1oXWtuO0mKtr+542xJeleOmlPLwO9h4lV5Qigg/Ck9gOQAQSRzx9fXYcLkJ8bPqO3XahOwgwY4WLCymS1DySiL7A0haBpFIUkmQRc9eeDLb4pWcWyhFSpevXiCbbRuQY+tGs15E8kbRjP8TyW+2JaebnWtNAWiMXqLA9W/7EZVAvVF/EOeB1BYJi/5D1XNF8O+YpZtZKkzeuOAtLL2/latN+fP9/wBO3J6xSKY5Partry/h6OrrZ/dMnE9SvipQs1lIVRlsy+mZOrt+BEYQo/BVW4+D1P1mjG6t468dax/ypHl7WYzuJsoMZjq9tahjso6NDPIT2kHUSBxEB2PoYswVuBfaRCsrjaN6tcsWqdjNPixeaSoM9ldOlyteCapFLZhrfuUSyqP4zLLCxQt3VACxA7A/ILNedqxmy6RPJ/l3lpMZkVgdFx8+MwcVhQAXLntLyUk9fAP+rPxwfkD6UWxLa8vXsftG4birW1x4WGhZutJNIqt39QaU+3gmRjyIynAbqWHL/V38+eKYst5DzeRyezCpjtcq061wSWo7E8JeIPGZXln9jNLPI35FSfz7AORwyEpqAbY9O1ZRWUYx5oZuPh21Yit7xs+RtNRRkEmSuJAK8TuOoic8nq6lgvHHKcAcqSO0nE+AcbkcdUymErYnLDIwuFnNwuTwnWQxx8fI6OvMgX4J5RlIB+huoeRE8uta8PeQdwTUtdo0Ya9O5BLPPWlap6o4kYf68MidvY/CDr/ANErw7fHVPUtRbWafira1zcGG96ZTIixLKnvMRmDQRn+PoPWEMaNyfZESGb5UrztaWBz7Y+ta6FB1Ec6VtH9MFme3G+Sy1PGNYuSCqhMrO8g6s0aCvXkKdeykBgPhvj4B4mL4gi2GrFDWo5CXITwrCsdzORtWghrdx6/5ApThFMij2EH2AAFmZBo7cK9qjlK+byeQSP7r0xYyzeeaGWeXmWIRxo6lXeVYYpSrnnowA/HgmlRQemf1AiLiT2g+0hVDEuOpPPU8kqOpHBPI+fn6NLrXM0psIOlf//Z",
+                "name": "视角2"
+            },
+            {
+                "duration": 1,
+                "position": [
+                    116.60748747942176,
+                    40.04720047083411,
+                    2484.0350082986993
+                ],
+                "rotation": [
+                    352.3304804630354,
+                    -45.37457183515052,
+                    0.0009119860607667718
+                ],
+                "thumbnail": "data:image/jpeg;base64,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",
+                "name": "视角3"
+            }
+        ]
+
+        objm.cameraViewsManager.views = [...views]
+
+        // 3
+        const viewCollection = objm.cameraViewsManager
+        /** -----------------------Vue组件方式创建UI----------------------------------**/
+        const VueOption = {
+            template: ` 
+            <div class="views" :key="key">
+                <div class="header">
+                    <button @click="appendView">添加视角</button>
+                    <button @click="clearAllViews">清空全部视角</button>
+                </div>
+                <div class="content">
+                    <div v-for="(item, index) in viewCollection.views" :key="index">
+                        <img :class="{ 'focus': currentIndex == index }" @click="flyToView(index)" :src="item.thumbnail" alt="">
+                        <input type="text" :value="item.name" @blur="resetViewName(index, $event)">
+                        <span class="close"  @click="deleteView(index)">❎</span>
+                    </div>
+                </div>
+            </div>
+            `,
+            data() {
+                return {
+                    key: 0,
+                    currentIndex: 0
+                }
+            },
+            beforeMount() {
+                // 该viewCollection是ESCameraViewCollection的实例
+                this.viewCollection = viewCollection
+
+                /** -----------------------事件的监听----------------------------------**/
+                // 监听视角变化
+                this.viewCollection.viewsChanged.don(() => {
+                    this.key = this.key + 1
+                })
+                // 监听当前索引值
+                this.viewCollection.currentViewIndexChanged.don((val) => {
+                    this.currentIndex = val
+                })
+            },
+            methods: {
+                // 添加视角
+                appendView() {
+                    this.viewCollection.appendView()
+                },
+                // 飞向视角并设置当前索引值
+                flyToView(index) {
+                    this.viewCollection.flyToView(index)
+                    this.viewCollection.setCurrentView(index)
+                },
+                // 重命名视角
+                resetViewName(index, $event) {
+                    this.viewCollection.resetViewName(index, $event.target.value)
+                },
+                // 清空全部视角
+                clearAllViews() {
+                    this.viewCollection.clearAllViews()
+                },
+                // 删除视角
+                deleteView(index) {
+                    this.viewCollection.deleteView(index)
+                }
+            },
+
+        }
+        const vm1 = Vue.createApp({
+            components: {
+                viewCollection: VueOption
+            }
+        })
+        vm1.mount("#panel");
+
+
+    </script>
+
+
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+
+</body>
+
+</html>

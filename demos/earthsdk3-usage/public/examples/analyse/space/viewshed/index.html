@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>视域分析</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            margin-bottom: 10px;
+            align-items: center;
+
+        }
+
+        .lat {
+            grid-template-columns: 100px 1fr;
+        }
+
+        .dis {
+            grid-template-columns: 150px 1fr;
+        }
+
+        .vis {
+            grid-template-columns: 74px 1fr;
+
+        }
+
+        .btn {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr;
+        }
+
+        em {
+            font-size: 14px;
+            color: yellow;
+        }
+
+        input[type="range"] {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box lat">
+
+            <label for="">经度</label>
+            <p id="longitude">108.96136</p>
+
+            <label for="">纬度</label>
+            <p id="latitude">34.21740</p>
+
+            <label for="">高度</label>
+            <p id="height">608.84214</p>
+
+        </div>
+        <div class="box lat">
+
+            <label for="">偏航角</label>
+            <p id="heading">320.79041</p>
+
+            <label for="">俯仰角</label>
+            <p id="pitching">-30.77363</p>
+
+            <label for="">翻滚角</label>
+            <p id="roll">359.99996</p>
+        </div>
+
+        <div class="box dis">
+            <label for="">近截面到起点距离</label>
+            <p id="near">10</p>
+            <label for="">远截面到起点距离</label>
+            <p id="far">100</p>
+        </div>
+
+        <div class="box vis">
+            <label for="">视域夹角</label>
+            <input type="range" min="1" max="179" step="1" value="90" id="fov" onchange="setFov()" />
+        </div>
+
+        <div class="btn">
+            <button onclick="setRotate()">设置为当前相机姿态</button>
+            <button onclick="startEditing()">编辑</button>
+            <button onclick="setPositon()">重新拾取位置</button>
+        </div>
+        <em>提示：可视区域为绿色，不可视区域为红色</em>
+    </div>
+    <script>
+
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            "domid": document.getElementById("app")
+        })
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([108.96136150796619, 34.21740450973634, 608.8421495544812], [320.79041236667945, -30.773631927182528, 359.9999684938915], 3)
+            }
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+
+        });
+
+        //添加3DTileset
+        const eS3DTileset = objm.createSceneObjectFromJson({
+            "id": "c2c8311e-6e50-47a2-b764-1c82f2d0e256",
+            "type": "ES3DTileset",
+            "name": "ES3DTileset",
+            "allowPicking": true,
+            "url": "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
+        })
+
+
+        /**-----------------------------根据类（Class）创建一个ESExcavate挖坑对象-------------------------------**/
+
+        // Vue中引入方式：import { ESViewShed } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        // 视域分析。可进行可视域分析，可视区域为绿色，不可视区域为红色。
+        const { ESViewShed } = XE2['esobjs-xe2-plugin-main']
+        const esViewShed = objm.createSceneObject(ESViewShed)
+        esViewShed.position = [108.95908314551673, 34.21965747090179, 425.057988674023]
+
+        /** 
+         * 怎么设置为当前相机姿态？
+         * 1.调用getCurrentCameraInfo()方法，获取当前相机的位置和姿态信息
+         * 2.设置给对象的position和rotation属性
+         * 需要注意的是:因为ceisum对象默认方向为正北，UE默认为为正东，对象和相机的heading不完全一致
+         * 为了统一，给cesium加了90度,但相机的方向没有改，所以heading(偏航角)需要手动减去90度
+         * 
+         * */
+        function setRotate() {
+            const { position, rotation } = objm.activeViewer.getCurrentCameraInfo()
+            esViewShed.position = position
+            const arr = [rotation[0] - 90, rotation[1], rotation[2]]
+            esViewShed.rotation = arr
+
+            document.getElementById('longitude').innerText = `${esViewShed.position[0].toFixed(5)}°`
+            document.getElementById('latitude').innerText = `${esViewShed.position[1].toFixed(5)}°`
+            document.getElementById('height').innerText = `${esViewShed.position[2].toFixed(2)}m`
+            document.getElementById('heading').innerText = `${esViewShed.rotation[0].toFixed(5)}°`
+            document.getElementById('pitching').innerText = `${esViewShed.rotation[1].toFixed(5)}°`
+            document.getElementById('roll').innerText = `${esViewShed.rotation[2].toFixed(2)}°`
+            document.getElementById('near').innerText = `${esViewShed.near.toFixed(0)}m`
+            document.getElementById('far').innerText = `${esViewShed.far.toFixed(0)}m`
+
+        }
+
+        // 设置视域夹角。属性值范围为0-180，不为0或180。
+        function setFov() {
+            esViewShed.fov = Number(document.getElementById('fov').value)
+        }
+
+        // 重新拾取位置
+        function setPositon() {
+            esViewShed.editing = false
+            esViewShed.position = [0, 0, 0]
+            esViewShed.editing = true
+        }
+
+        // 点击编辑
+        function startEditing() {
+            esViewShed.editing = true
+        }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

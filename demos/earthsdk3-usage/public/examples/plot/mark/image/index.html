@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 100px 1fr;
+            grid-row-gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .box>div {
+            display: grid;
+            grid-template-columns: 0.5fr 0.5fr;
+
+        }
+
+        .box>div>input {
+            width: 88px !important;
+        }
+
+
+        .box1 {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+
+        <p>标签属性</p>
+        <div class="box">
+
+            <label for="">屏幕渲染</label>
+            <input type="checkbox" checked id="screen" onchange="setScreen()">
+
+            <label for="">尺寸自适应</label>
+            <input type="checkbox" checked id="size" onchange="setsize()">
+
+
+            <label for="">尺寸大小</label>
+            <div>
+                <input type="number" value="100" id="sizeWidth" onchange="setsizeAll()">
+                <input type="number" value="100" id="sizeHeight" onchange="setsizeAll()">
+            </div>
+
+
+            <label for="">偏移比例</label>
+            <div>
+                <input type="number" value="0.5" id="offsetX" onchange="setOffset()">
+                <input type="number" value="1" id="offsetY" onchange="setOffset()">
+            </div>
+
+            <!-- 任意图片路径 -->
+            <label for="">图片路径</label>
+            <input type="text" id="img1" onchange="setImg()">
+
+            <label for="">内置图片路径</label>
+            <select name="mode" id="url1" onchange="setUrl()">
+                <option value="inner://CameraBlue.png" selected>蓝色相机</option>
+                <option value="inner://CameraGreen.png">绿色相机</option>
+                <option value="inner://CarBlue.png">蓝色车辆</option>
+                <option value="inner://CarRed.png">红色车辆</option>
+                <option value="inner://Dukou.png">渡口</option>
+                <option value="inner://Jiexian.png">界限</option>
+                <option value="inner://Jingshi.png">警示</option>
+                <option value="inner://LiaodouBlue.png">蓝色料斗</option>
+                <option value="inner://LiaodouRed.png">红色料斗</option>
+                <option value="inner://LongmendiaoBlue.png">龙门吊蓝色</option>
+                <option value="inner://LongmendiaoRed.png">龙门吊红色</option>
+                <option value="inner://Mao.png">锚</option>
+                <option value="inner://MenjiBlue.png">蓝色门机</option>
+                <option value="inner://MenjiRed.png">红色门机</option>
+                <option value="inner://RenyuanBlue.png">蓝色人员</option>
+                <option value="inner://RenyuanRed.png">红色人员</option>
+                <option value="inner://RenyuanCircleBlue.png">蓝色圆形人员</option>
+                <option value="inner://RenyuanCircleRed.png">红色圆形人员</option>
+            </select>
+
+            <label for="">渲染模式</label>
+            <select name="mode" id="mode1" onchange="setMode()">
+                <option value="0" selected>单面不透明</option>
+                <option value="1">双面不透明</option>
+                <option value="2">单面遮罩</option>
+                <option value="3">双面遮罩</option>
+                <option value="4">单面透明</option>
+                <option value="5">双面透明</option>
+                <option value="6">单面未遮挡透明</option>
+                <option value="7">双面未遮挡透明</option>
+            </select>
+
+            <label for="">漫游旋转类型</label>
+            <select name="type" id="type1" onchange="setType()">
+                <option value="0">固定模式</option>
+                <option value="1" selected>面向屏幕旋转</option>
+                <option value="2">绕自身Z轴旋转</option>
+            </select>
+        </div>
+
+
+        <div class="box1">
+            <button onclick="rePickPosition()">重新拾取位置</button>
+            <button onclick="startEditing()">开启编辑</button>
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([
+                    108.85607996971562,
+                    33.82085516821778,
+                    192696.3211939296
+                ], [
+                    345.49848698838616,
+                    -69.83431262552784,
+                    359.9505685536115
+                ], 3)
+            }
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------图标标记------------------------------------**/
+
+        const { ESImageLabel } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ESImageLabel)
+
+        // 设置位置数组
+        sceneObject.position = [108.95958901729841, 34.21997365328595, 0]
+
+        // 屏幕渲染
+        function setScreen() {
+            sceneObject.screenRender = !sceneObject.screenRender
+            // 非屏幕渲染，则飞行定位下
+            if (!sceneObject.screenRender) {
+                let timer = setTimeout(() => {
+                    sceneObject.flyTo()
+                    clearTimeout(timer)
+                }, 1000)
+            }
+
+        }
+
+        // 尺寸自适应
+        function setsize() {
+            sceneObject.sizeByContent = !sceneObject.sizeByContent
+
+        }
+
+        // 尺寸
+        function setsizeAll() {
+            const width = document.getElementById('sizeWidth').value
+            const height = document.getElementById('sizeHeight').value
+            sceneObject.size = [width, height]
+        }
+
+        // 偏移量
+        function setOffset() {
+            const offsetX = document.getElementById('offsetX').value
+            const offsetY = document.getElementById('offsetY').value
+            sceneObject.anchor = [offsetX, offsetY]
+        }
+
+        // 渲染模式
+        function setMode() {
+            const mode = document.getElementById('mode1').value
+            sceneObject.renderMode = Number(mode)
+        }
+
+        // 漫游旋转类型
+        function setType() {
+            const type = document.getElementById('type1').value
+            sceneObject.rotationType = Number(type)
+        }
+
+        // 重新拾取位置
+        function rePickPosition() {
+            sceneObject.editing = false
+            sceneObject.position = [0, 0, 0]
+            startEditing()
+        }
+
+
+        // 开始编辑
+        function startEditing() {
+            sceneObject.editing = true
+
+        }
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo()
+        }
+        // 设置图片路径     
+        function setUrl() {
+            sceneObject.url = document.getElementById('url1').value
+        }
+        function setImg() {
+            sceneObject.url = document.getElementById('img1').value
+        }
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

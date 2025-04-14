@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="./js/earthsdk.js"></script>
+  <script src="./js/Colorpicker.js"></script>
+  <!-- 自定义Css样式 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+  <title>Czml</title>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #panel {
+      width: 400px;
+    }
+
+    .box {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+    }
+
+    .box label {
+      padding-right: 10px;
+    }
+
+    .btn {
+      padding-top: 10px;
+    }
+
+    .btn button {
+      width: 286px;
+    }
+
+    label {
+      line-height: 40px;
+    }
+
+    .rectangle {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .rectangle>input {
+      width: 23%;
+      height: 20px;
+    }
+
+    .warning {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .warning .warningText {
+      color: sandybrown;
+    }
+
+    #fillColor,
+    #strokeColor,
+    #markerColorBox {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    #fillColor {
+      background-color: rgb(201, 232, 15, 0.2);
+    }
+
+    #markerColorBox,
+    #strokeColor {
+      background-color: rgba(201, 232, 15);
+    }
+
+    textarea {
+      width: 256px;
+      height: 87px;
+      background-color: #292b34;
+      color: #fff;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="panel">
+
+    <p class="warning">
+      <span class="warningText">提示：</span>可以填写geoserver导出的路径
+    </p>
+
+    <div class="box">
+      <label for="">路径</label>
+      <input type="text" id="url" value="https://demotiles.maplibre.org/style.json" onchange="changeUrl()" />
+    </div>
+
+    <p class="warning">
+      <span class="warningText">提示：</span>需要设置正确的矩形范围才可以飞行
+    </p>
+
+    <div class="box">
+      <label for="">矩形范围</label>
+      <div class="rectangle">
+        <input id="a" type="number" value="-180" onchange="changeRectangle()" />
+        <input id="b" type="number" value="-90" onchange="changeRectangle()" />
+        <input id="c" type="number" value="180" onchange="changeRectangle()" />
+        <input id="d" type="number" value="90" onchange="changeRectangle()" />
+      </div>
+    </div>
+    
+    <p class="warning">
+      <span class="warningText">提示1：</span>如何配置style详情请看
+    </p>
+    <div>
+      <a href="https://docs.mapbox.com/style-spec/reference/layers/"
+        target="_blank">https://docs.mapbox.com/style-spec/reference/layers/</a>
+    </div>
+
+    <p class="warning">
+      <span class="warningText">提示2：</span>如果是geoserver导出的路径，source属性必须设置为customSource ，source-layer属性
+      是geoserver发布的图层名，其他格式数据可以自定义
+    </p>
+
+    <div class="box">
+      <label for="">样式</label>
+      <textarea name="" id="style" onchange="changeStyle()"></textarea>
+    </div>
+    <div class="box">
+
+      <label for="mode">瓦片大小</label>
+      <select name="mode" id="tileSize" onchange="changeTileSize()">
+        <option value="256" selected>256</option>
+        <option value="512">512</option>
+        <option value="1024">1024</option>
+      </select>
+
+      <label for="">最大级别</label>
+      <div class="rangeBox">
+        <input id="maximumLevel" type="range" value="6" step="1" min="0" max="24" oninput="setMaximumLevel()" />
+        <div class="rangeNum" id="rangeMaximumLevel">6</div>
+      </div>
+
+      <label for="">最小级别</label>
+      <div class="rangeBox">
+        <input id="minimumLevel" type="range" value="0" step="1" min="0" max="24" oninput="setMinimumLevel()" />
+        <div class="rangeNum" id="rangeMinimumLevel">0</div>
+      </div>
+
+    </div>
+
+    <div class="box1">
+      <button onclick="flyTo()">飞行定位</button>
+    </div>
+  </div>
+
+  </div>
+  <script>
+    /** ---------------------------------地球创建------------------------------------**/
+
+    // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+    const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+    const objm = new ESObjectsManager();
+    window.g_objm = objm;
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer({
+      domid: document.getElementById("app"),
+    });
+
+    // 监听视口状态
+    viewer.statusChanged.don((status) => {
+      if (status == "Created") {
+        // 视口创建完成，飞到初始视角位置
+        //   objm.activeViewer.flyIn(
+        //     [100.51730206089887, 30.664297533377272, 15708718.458209643],
+        //     [359.9999999999994, -89.85211956534722, 0],
+        //     3
+        //   );
+      }
+    });
+
+    /** ---------------------------------地理水面------------------------------------**/
+
+    const { ESMVTLayer } = XE2["esobjs-xe2-plugin-main"];
+    const sceneObject = objm.createSceneObject(ESMVTLayer);
+    window.sceneObject = sceneObject;
+
+    // 设置最大级别为6
+    sceneObject.maximumLevel = 6
+
+    // 路径1
+    sceneObject.url = "https://demotiles.maplibre.org/style.json";
+    // 设置矩形范围
+    sceneObject.rectangle = [-180, -90, 180, 90];
+
+
+    // geoserver格式的数据
+    // http://192.168.0.15:7091/geoserver/gwc/service/tms/1.0.0/tiger:poly_landmarks_mvt@EPSG:900913@pbf/{z}/{x}/{y}.pbf
+
+    // 设置矩形范围
+    // -74.047185  40.679648  -73.90782  40.882078
+
+    // 设置 style 
+    // [{
+    //   "id": "00",
+    //   "source": "customSource",
+    //   "source-layer":
+    //   "poly_landmarks_mvt",
+    //   "type": "fill",
+    //   "paint": {
+    //     "fill-color": "#fdaf6b"
+    //   }
+    // }]
+
+    // dom元素
+    const dom = {
+      // 路径
+      url: document.getElementById("url"),
+      // 矩形范围
+      a: document.getElementById("a"),
+      b: document.getElementById("b"),
+      c: document.getElementById("c"),
+      d: document.getElementById("d"),
+      // 样式
+      style: document.getElementById("style"),
+      // 瓦片大小
+      tileSize: document.getElementById("tileSize"),
+      // 最大级别
+      maximumLevel: document.getElementById("maximumLevel"),
+      rangeMaximumLevel: document.getElementById("rangeMaximumLevel"),
+      // 最小级别
+      minimumLevel: document.getElementById("minimumLevel"),
+      rangeMinimumLevel: document.getElementById("rangeMinimumLevel"),
+    };
+
+    // 路径
+    const changeUrl = () => {
+      sceneObject.url = dom.url.value;
+    };
+
+    // 矩形范围
+    const changeRectangle = () => {
+      sceneObject.rectangle = [
+        dom.a.value,
+        dom.b.value,
+        dom.c.value,
+        dom.d.value,
+      ];
+    };
+
+    // 样式
+    const changeStyle = () => {
+      const style = JSON.parse(dom.style.value.replace(/\s*/g, ""));
+      sceneObject.style = style
+    };
+
+    // 瓦片大小
+    const changeTileSize = () => {
+      sceneObject.tileSize = Number(dom.tileSize.value);
+    };
+
+    // 最大级别
+    const setMaximumLevel = () => {
+      sceneObject.maximumLevel = Number(dom.maximumLevel.value);
+      dom.rangeMaximumLevel.innerText = dom.maximumLevel.value
+    };
+
+    // 最小级别
+    const setMinimumLevel = () => {
+      sceneObject.minimumLevel = Number(dom.minimumLevel.value);
+      dom.rangeMinimumLevel.innerText = dom.maximumLevel.value
+    };
+
+    // 飞行定位
+    const flyTo = () => {
+      sceneObject.flyTo();
+    };
+
+  </script>
+</body>
+
+</html>

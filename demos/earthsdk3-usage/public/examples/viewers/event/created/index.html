@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <title>视口创建完成事件</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        try {
+            /** ---------------------------------地球创建------------------------------------**/
+
+            // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+            const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+            const objm = new ESObjectsManager();
+            window.g_objm = objm;
+            // 视口创建完成事件（只要有新视口创建都会触发该事件）
+            objm.viewerCreatedEvent.don(viewer => {
+                console.log("视口创建完成", viewer);
+            });
+
+            // 创建Cesium视口
+            const viewer = objm.createCesiumViewer({
+                domid: document.getElementById("app"),
+            });
+
+            viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+            // 通过json创建一个影像图层
+            const imageryLayer = objm.createSceneObjectFromJson({
+                "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+                "type": "ESImageryLayer",
+                "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            });
+        } catch (error) {
+
+        }
+
+    </script>
+
+</body>
+
+</html>

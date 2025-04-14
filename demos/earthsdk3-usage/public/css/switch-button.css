@@ -1,0 +1,79 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 7px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+
+/* 滚动条样式*/
+::-webkit-scrollbar {
+    cursor: pointer;
+    width: 6px;
+    height: 6px;
+    background: #626262;
+    opacity: 0.4;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    cursor: pointer;
+    background-color: #383838;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 6px;
+    background: #626262;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-corner {
+    background: #232323;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #E0E0E0;
+    opacity: 0.6;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #E0E0E0;
+}

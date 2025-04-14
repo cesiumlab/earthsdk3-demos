@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 100px 1fr;
+            grid-row-gap: 5px;
+            margin-bottom: 10px;
+            grid-template-rows: 32px;
+        }
+
+        .box>div {
+            display: grid;
+            grid-template-columns: 0.5fr 0.5fr;
+        }
+
+        .box>div>input {
+            width: 88px !important;
+        }
+
+
+        .box1 {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([
+                    114.2794204306266,
+                    28.437726297104202,
+                    2450.8022006307774
+                ], [
+                    359.9999999999998,
+                    -89.93071549349989,
+                    0
+                ], 3)
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------文字标记------------------------------------**/
+
+        const { ESGeoDiv } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ESGeoDiv)
+
+        sceneObject.position = [114.28193082318909, 28.43803979736081, 0]
+
+        sceneObject.innerHTML = "<div   style=\"width: 300px; height: 50px; background: rgba(120, 120, 0, 0.7); color: white; font-size: 30px;pointer-events:all; line-height: 50px; border: 1px solid white;\">Hello world!<div style=\"position:absolute;top:-50%;right:-3%;cursor:pointer;\" onclick=\"destroy()\">×</div></div>"
+
+        function destroy() {
+            if (sceneObject) objm.destroySceneObject(sceneObject)
+            console.log("销毁成功")
+        }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

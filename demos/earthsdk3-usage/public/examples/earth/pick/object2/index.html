@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>全局拾取场景元素</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box {
+            height: 100px;
+            text-align: center;
+        }
+
+        #box>p {
+            text-align: left;
+        }
+
+        #box>p:nth-child(1)>span {
+            color: sandybrown;
+        }
+
+        #box>p:nth-child(2),
+        #box>p:nth-child(3) {
+            padding-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div id="box">
+            <p><span>提示：</span>鼠标点击拾取场景内容</p>
+
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+
+        const { PickedInfo } = XE2["xe2-base-objects"]
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 初始化元素
+        objm.json = {
+            "asset": {
+                "type": "ESObjectsManager",
+                "version": "0.1.0",
+                "createdTime": "2022-06-17T05:54:41.744Z",
+                "modifiedTime": "2025-03-06T06:28:28.970Z",
+                "name": "图层管理"
+            },
+            "viewers": [
+                {
+                    "id": "b8fc803b-38f6-4f66-b4b9-abfbbbb56cea",
+                    "type": "ESCzmViewer",
+                    "show": true,
+                    "globeShow": true,
+                    "ionAccessToken": "",
+                    "apiKey": "",
+                    "apiUrl": "",
+                    "secretKey": "",
+                    "speechVoiceMode": "",
+                    "hoverTime": 2,
+                    "debug": false,
+                    "lonLatFormat": "DECIMAL_DEGREE",
+                    "fov": 60,
+                    "currentTime": 1741233600000,
+                    "simulationTime": 1741190400000,
+                    "timeSync": false,
+                    "rain": 0,
+                    "snow": 0,
+                    "cloud": 0,
+                    "fog": 0,
+                    "depthOfField": 0,
+                    "atmosphere": true,
+                    "sun": true,
+                    "moon": true,
+                    "flyToBoundingSize": 256,
+                    "editingHeightOffset": 0,
+                    "terrainShader": {
+                        "slope": {
+                            "show": false
+                        },
+                        "aspect": {
+                            "show": false
+                        },
+                        "elevationRamp": {
+                            "show": false
+                        },
+                        "elevationContour": {
+                            "show": false,
+                            "color": [
+                                1,
+                                0,
+                                0,
+                                1
+                            ],
+                            "spacing": 150,
+                            "width": 2
+                        }
+                    },
+                    "name": "undefined_ined"
+                }
+            ],
+            "sceneTree": {
+                "root": {
+                    "children": [
+                        {
+                            "name": "新建场景",
+                            "children": [
+                                {
+                                    "name": "全球影像",
+                                    "sceneObj": {
+                                        "id": "ae103185-08c7-4ed0-b6d4-15ad77bbbf66",
+                                        "type": "ESImageryLayer",
+                                        "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                                        "rectangle": [
+                                            -180,
+                                            -90,
+                                            180,
+                                            90
+                                        ],
+                                        "maximumLevel": 18,
+                                        "name": "全球影像",
+                                        "allowPicking": true
+                                    },
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "相机图元",
+                            "sceneObj": {
+                                "id": "41c111c1-8c2b-45f2-921e-eb47c425c223",
+                                "type": "ESImageLabel",
+                                "position": [
+                                    111.00436500071837,
+                                    27.11546611226795,
+                                    -0.006209566152813388
+                                ],
+                                "name": "相机图元",
+                                "renderMode": 4
+                            },
+                            "children": []
+                        },
+                        {
+                            "name": "坐标图元",
+                            "sceneObj": {
+                                "id": "057017c1-44bd-4889-8bdb-b78452522eb2",
+                                "type": "ESPoi2D",
+                                "position": [
+                                    111.00396954350059,
+                                    27.10780338965234,
+                                    -0.004921383584093101
+                                ],
+                                "name": "坐标图元",
+                                "mode": "P3D04"
+                            },
+                            "children": []
+                        },
+                        {
+                            "name": "警车",
+                            "sceneObj": {
+                                "id": "e60554b5-e528-4a1f-a879-56a5bfd526dc",
+                                "type": "ESCar",
+                                "collision": true,
+                                "allowPicking": true,
+                                "position": [
+                                    111.00894908061393,
+                                    27.10301817015784,
+                                    -0.007865467481739654
+                                ],
+                                "scale": [
+                                    50,
+                                    50,
+                                    50
+                                ],
+                                "name": "警车"
+                            },
+                            "children": []
+                        },
+                        {
+                            "name": "红色多边形",
+                            "sceneObj": {
+                                "id": "7a337857-8146-49f1-8f30-4b24e3f786d6",
+                                "type": "ESGeoPolygon",
+                                "name": "红色多边形",
+                                "collision": true,
+                                "allowPicking": true,
+                                "fillStyle": {
+                                    "color": [
+                                        1,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "material": "",
+                                    "materialParams": {},
+                                    "ground": false
+                                },
+                                "points": [
+                                    [
+                                        111.00681208893155,
+                                        27.109400712315814,
+                                        -0.0019432002352708561
+                                    ],
+                                    [
+                                        111.00816322005096,
+                                        27.10594938028908,
+                                        -0.001952182496056232
+                                    ],
+                                    [
+                                        111.01064844926147,
+                                        27.105055763299234,
+                                        -0.0036560132587008538
+                                    ],
+                                    [
+                                        111.01185522112183,
+                                        27.10582495506876,
+                                        -0.00314488607858293
+                                    ],
+                                    [
+                                        111.01012278358284,
+                                        27.10789110878672,
+                                        -0.0052334027690486284
+                                    ],
+                                    [
+                                        111.00841719779696,
+                                        27.109215302127783,
+                                        -0.004173354738300087
+                                    ],
+                                    [
+                                        111.00780390674721,
+                                        27.109695627919915,
+                                        -0.005438400734806566
+                                    ]
+                                ]
+                            },
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            "viewCollection": [],
+            "lastView": {
+                "position": [
+                    111.01118339587974,
+                    27.098201084210086,
+                    395.6679243907117
+                ],
+                "rotation": [
+                    337.46537890827136,
+                    -24.123843663214064,
+                    0.0007594981744258459
+                ]
+            }
+        }
+
+        // 监听视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            /**
+             * 
+             * pick(screenPosition, attachedInfo)：拾取方法
+             *  参数1：screenPosition 像素点位置
+             *  参数2：attachedInfo 附加信息，【可选，默认undefined】（场景对象pickedEvent被拾取的时候用来区分是哪些自定义事件触发的）
+             *  
+            */
+
+            // 鼠标click事件的时候,定义自定义的pick事件
+            viewer.clickEvent.don((e) => {
+                viewer.pick(e.screenPosition, 'customPick').then(res => {
+                    // 全局拾取对象
+                    if (res && res.sceneObject) {
+                        alert('拾取到的是：' + res.sceneObject.name)
+                    }
+                })
+            })
+        })
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            "domid": document.getElementById("app")
+        })
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                viewer.flyIn([111.01118339587974, 27.098201084210086, 395.6679243907117], [337.46537890827136, -24.123843663214064, 0.0007594981744767348], 3)
+            }
+        })
+
+
+
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

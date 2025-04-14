@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>2DPoi</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 130px 130px;
+            grid-row-gap: 5px;
+            margin-bottom: 10px;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .box>img {
+            padding: 5px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 10px;
+        }
+
+        .box>img:hover {
+            border: 2px solid rgb(3, 173, 234);
+        }
+
+        .box>img:active {
+            border: 2px solid rgb(4, 188, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <img src="./thumbnail/poi2D/mode1.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareH01')">
+            <img src="./thumbnail/poi2D/mode2.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareH02')">
+            <img src="./thumbnail/poi2D/mode3.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareV01')">
+            <img src="./thumbnail/poi2D/mode4.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareV02')">
+            <img src="./thumbnail/poi2D/mode5.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareV03')">
+            <img src="./thumbnail/poi2D/mode6.webp" alt="" width="80" height="80" onclick="createESPoi2D('SquareV04')">
+            <img src="./thumbnail/poi2D/mode7.webp" alt="" width="80" height="80" onclick="createESPoi2D('Flag01')">
+            <img src="./thumbnail/poi2D/mode8.webp" alt="" width="80" height="80" onclick="createESPoi2D('Flag02')">
+            <img src="./thumbnail/poi2D/mode9.webp" alt="" width="80" height="80" onclick="createESPoi2D('Linear01')">
+            <img src="./thumbnail/poi2D/mode10.webp" alt="" width="80" height="80" onclick="createESPoi2D('Linear02')">
+            <img src="./thumbnail/poi2D/mode11.webp" alt="" width="80" height="80" onclick="createESPoi2D('Linear03')">
+            <img src="./thumbnail/poi2D/mode12.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularH01')">
+            <img src="./thumbnail/poi2D/mode13.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularH02')">
+            <img src="./thumbnail/poi2D/mode14.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularV01')">
+            <img src="./thumbnail/poi2D/mode15.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularV02')">
+            <img src="./thumbnail/poi2D/mode16.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularV03')">
+            <img src="./thumbnail/poi2D/mode17.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularV04')">
+            <img src="./thumbnail/poi2D/mode18.webp" alt="" width="80" height="80"
+                onclick="createESPoi2D('CircularV05')">
+            <img src="./thumbnail/poi2D/mode19.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D01')">
+            <img src="./thumbnail/poi2D/mode20.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D02')">
+            <img src="./thumbnail/poi2D/mode21.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D03')">
+            <img src="./thumbnail/poi2D/mode22.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D04')">
+            <img src="./thumbnail/poi2D/mode23.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D05')">
+            <img src="./thumbnail/poi2D/mode24.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D06')">
+            <img src="./thumbnail/poi2D/mode25.webp" alt="" width="80" height="80" onclick="createESPoi2D('P3D07')">
+            <img src="./thumbnail/poi2D/mode26.webp" alt="" width="80" height="80" onclick="createESPoi2D('Diamond01')">
+            <img src="./thumbnail/poi2D/mode27.webp" alt="" width="80" height="80" onclick="createESPoi2D('Diamond02')">
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([121.0315599331199, 29.4757448654051, 16873.856945403433], [303.29930304749536, -34.309975258316946, 0.0011478139691123229], 3)
+            }
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------图标标记------------------------------------**/
+        // Vue中引入方式：import { ESPoi2D } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESPoi2D } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ESPoi2D)
+
+        // 创建2D标记
+        function createESPoi2D(mode) {
+            const sceneObject = objm.createSceneObject(ESPoi2D)
+            if (!sceneObject) return
+            // 设置不同样式
+            sceneObject.mode = mode
+            // 开启编辑模式
+            sceneObject.editing = true
+            // 设置显示文本名称
+            sceneObject.name = "2DPoi标记"
+        }
+
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

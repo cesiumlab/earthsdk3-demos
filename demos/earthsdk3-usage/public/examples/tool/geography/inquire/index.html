@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/locationSearch.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>poi兴趣点地理查询</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            grid-row-gap: 10px;
+            align-items: center;
+        }
+
+        #apply {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #lists {
+            display: none;
+            margin-left: 91px;
+            margin-top: 5px;
+            width: 195px;
+            max-height: 175px;
+            background-color: #292b34;
+            color: #fff;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div id="box">
+            <label for="">地理搜索</label>
+            <input type="text" id="location" placeholder="请输入" onchange="changeLocation()" />
+        </div>
+
+        <!-- 下拉列表的容器 -->
+        <div id="lists"></div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn(
+                    [115.13608053611286, 28.821215137027473, 4461.014865370932],
+                    [309.07544316940016, -33.72351135063601, 0.00009594434830598995],
+                    3
+                );
+            }
+        });
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** --------------------------------- poi兴趣点 ------------------------------------**/
+        const { ESPoi2D } = XE2["esobjs-xe2-plugin-main"];
+        const sceneObject = objm.createSceneObject(ESPoi2D);
+        window.sceneObject = sceneObject;
+
+        // 设置poi模式
+        sceneObject.mode = "P3D04";
+
+        // 下拉列表容器 dom元素
+        const lists = document.getElementById("lists");
+
+        // 修改地理位置
+        const changeLocation = async () => {
+            const keyword = document.getElementById("location").value;
+            const searchList = await getSearchList(keyword);
+            if (searchList.pois && searchList.pois.length) {
+                // 设置下拉列表
+                setLists(searchList.pois);
+                // 显示下拉列表
+                lists.style.display = "block";
+            }
+        };
+
+        // 飞行定位
+        const flyToName = (location, name) => {
+            const index = location.indexOf(","); //获取第一个"_"的位置
+            const a = location.substring(0, index);
+            const b = location.substring(index + 1);
+            // 设置poi位置
+            sceneObject.position = [Number(a), Number(b), 0];
+            // 设置poi名称
+            sceneObject.name = name;
+            objm.activeViewer.flyTo(
+                {
+                    distance: 1000,
+                    heading: -90,
+                    pitch: -90,
+                    flyDuration: 1,
+                    hDelta: -90,
+                    pDelta: 1,
+                },
+                [Number(a), Number(b), 0]
+            );
+        };
+
+        // 设置下拉列表
+        const setLists = (searchList) => {
+            // 清空列表
+            lists.innerHTML = "";
+            searchList.forEach((e) => {
+                const item = document.createElement("div");
+                // 设置每一条信息的样式
+                item.style.cssText = `
+            height: 35px;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 35px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+            font-size: 13px;
+            cursor: pointer;
+          `;
+                // 设置地理名称
+                item.innerText = e.name;
+                item.title = e.name;
+
+                // 鼠标点击事件
+                item.onclick = () => {
+                    // 隐藏下拉列表
+                    lists.style.display = "none";
+                    // 飞行定位
+                    flyToName(e.location, e.name);
+                };
+                // 鼠标移入
+                item.onmouseenter = () => {
+                    item.style.backgroundColor = "#46474b";
+                };
+                // 鼠标移出
+                item.onmouseout = () => {
+                    item.style.backgroundColor = "#292b34";
+                };
+
+                lists.appendChild(item);
+            });
+        };
+    </script>
+</body>
+
+</html>

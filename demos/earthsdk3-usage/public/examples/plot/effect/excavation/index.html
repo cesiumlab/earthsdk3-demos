@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>挖坑</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            margin-bottom: 10px;
+            grid-row-gap: 5px;
+            align-items: center;
+        }
+
+        .btn {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .warning {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .warning .warningText {
+            color: sandybrown;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="depth">坑深度</label><input type="number" id="depth" value="100" onchange="setDepth()" />
+            <label for="sideImage">侧面图片url</label><input type="text" id="sideImage" placeholder="图片路径"
+                value="https://img95.699pic.com/xsj/1x/lf/yo.jpg" onchange="setSideImage()" />
+            <label for="bottomImage">底面图片url</label><input type="text" id="bottomImage" placeholder="图片路径"
+                value="https://img95.699pic.com/photo/50730/5472.jpg_wh860.jpg" onchange="setBottomImage()" />
+            <label for="opacity">透明度</label><input type="number" id="opacity" value="1" onchange="setOpacity()" />
+            <label for="interpolation">插值距离</label><input type="number" id="interpolation" value="50"
+                onchange="setInterpolation()" />
+        </div>
+        <p class="warning">
+            <span class="warningText">提示：</span>深度检测属性仅Cesium有效
+        </p>
+        <div class="box">
+            <label for="depth">深度检测</label>
+            <input type="checkbox" checked onchange="setDepthDetection()" id="depthDetection" />
+        </div>
+    </div>
+    <script>
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn(
+                    [115.08777254235521, 28.82914242392647, 3211.2758550561985],
+                    [18.21927286539754, -43.27165397444137, 0.00006321490246659753],
+                    3
+                );
+            }
+        });
+
+        // 开启深度检测
+        objm.activeViewer.innerViewer.sceneGlobeDepthTestAgainstTerrain = true;
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /**-----------------------------根据类（Class）创建一个ESTerrainLayer地形对象-------------------------------**/
+
+        /**
+         * 1.cesium官方地形需要到官网申请token
+         * 2.将token设置给当前视口下的ionAccessToken
+         */
+        // Vue中引入方式：import { ESTerrainLayer } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESTerrainLayer } = XE2["esobjs-xe2-plugin-main"];
+        const terrainObject = objm.createSceneObject(ESTerrainLayer);
+        // cesium官方地形
+        terrainObject.url = "ion://1";
+
+        //token需要到cesium官网申请 https://ion.cesium.com/
+        objm.activeViewer.ionAccessToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE";
+
+        /**-----------------------------根据类（Class）创建一个ESHole对象-------------------------------**/
+
+        // Vue中引入方式：import { ESPit } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESHole } = XE2["esobjs-xe2-plugin-main"];
+        const sceneObject = objm.createSceneObject(ESHole);
+        window.sceneObject = sceneObject;
+
+
+        setTimeout(() => {
+            sceneObject.points = [
+                [115.10487284949612, 28.85008240263011, 971.971116012139],
+                [115.09171663736156, 28.84805117374612, 1226.3707645627844],
+                [115.0934405345665, 28.84068265301527, 1092.263428089416],
+                [115.10261675426769, 28.84261365605999, 1065.006790359788],
+            ];
+        }, 3000);
+        function setDepth() {
+            sceneObject.depth = +document.getElementById("depth").value;
+        }
+        function setOpacity() {
+            sceneObject.opacity = +document.getElementById("opacity").value;
+        }
+        function setInterpolation() {
+            sceneObject.interpolation =
+                +document.getElementById("interpolation").value;
+        }
+        function setSideImage() {
+            sceneObject.sideImage = {
+                url: `${document.getElementById("sideImage").value}`,
+                uDis: 50,
+                vDis: 50,
+            };
+        }
+        setSideImage();
+
+        function setBottomImage() {
+            sceneObject.bottomImage = {
+                url: `${document.getElementById("bottomImage").value}`,
+                uDis: 50,
+                vDis: 50,
+            };
+        }
+        setBottomImage();
+
+        function setDepthDetection() {
+            objm.activeViewer.innerViewer.sceneGlobeDepthTestAgainstTerrain =
+                document.getElementById("depthDetection").checked;
+        }
+
+        objm.activeViewerChanged.don((viewer) => {
+            if (!viewer) return;
+            if (viewer.typeName === "ESCzmViewer") {
+                objm.activeViewer.innerViewer.sceneGlobeDepthTestAgainstTerrain =
+                    document.getElementById("depthDetection").checked;
+                sceneObject.filled = false
+            } else {
+                sceneObject.filled = true
+            }
+        });
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

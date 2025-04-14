@@ -1,0 +1,17 @@
+* {
+    user-select: none;
+}
+
+p {
+    margin: 0px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding: none;
+    margin: none;
+    list-style: none;
+}

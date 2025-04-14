@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/parse.js"></script>
+
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>wms影像加载</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .server,
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 100px 1fr;
+            grid-row-gap: 2px;
+        }
+
+        .tip {
+            color: rgb(255, 255, 0);
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px dotted #979797;
+        }
+
+        .box1 {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="server">
+            <label for="content">服务地址</label>
+            <input type="text" id="wmsUrl"
+                value="http://114.242.26.126:1004/geoserver/ne/wms?service=WMS&version=1.1.0&request=GetMap&layers=ne%3Aworld&bbox=-180.0%2C-90.0%2C180.0%2C90.0&width=768&height=384&srs=EPSG%3A4326&styles=&format=application/openlayers"
+                onchange=changeWmsUrl() />
+        </div>
+        <p class="tip">以下解析后SDK填写的参数</p>
+        <div class="box">
+            <label for="">url</label>
+            <input type="text" disabled id="url">
+            <label for="content">格式</label>
+            <input type="text" id="format" onchange="setOptions()" />
+            <label for="content">图层</label>
+            <input type="text" id="layers" onchange="setOptions()" />
+            <label for="content">credit</label>
+            <input type="text" id="credit" onchange="setOptions()" />
+            <label for="content">样式</label>
+            <input type="text" id="styles" onchange="setOptions()" />
+            <label for="content">srs</label>
+            <input type="text" id="srs" onchange="setOptions()" />
+            <label for="content">最小级别</label>
+            <input type="text" id="minimumLevel" onchange="setOptions()" />
+            <label for="content">最大级别</label>
+            <input type="text" id="maximumLevel" onchange="setOptions()" />
+            <label for="content">width</label>
+            <input type="text" id="width" onchange="setOptions()" />
+            <label for="content">height</label>
+            <input type="text" id="height" onchange="setOptions()" />
+            <label for="content">版本</label>
+            <input type="text" id="version" onchange="setOptions()" />
+            <label for="content">范围</label>
+            <input type="text" id="rectangle" onchange="setOptions()" />
+        </div>
+        <div class="box1">
+            <button onclick="flyTo()">飞行定位</button><button onclick="printJson()">控制台打印JSON</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';’‘
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        /** ---------------------------------wms影像------------------------------------**/
+
+        const { ESImageryLayer } = XE2["esobjs-xe2-plugin-main"];
+        const sceneObject = objm.createSceneObject(ESImageryLayer);
+        window.sceneObject = sceneObject
+
+        // 设置ESImageryLayer对象属性
+        function setImageryLayerProperty(url, layers, styles, height, width, srs, credit, version, format, rectangle) {
+            // 设置对应的url
+            sceneObject.url = url;
+            // 设置飞行包围盒
+            sceneObject.rectangle = rectangle;
+            // 设置影像加载的配置options
+            sceneObject.options = {
+                type: "wms",
+                layers: layers,
+                style: styles,
+                tileHeight: height,
+                tileWidth: width,
+                srs: srs,
+                credit: credit,
+                parameters: {
+                    service: "WMS",
+                    version: version,
+                    styles: styles,
+                    format: format,
+                }
+            };
+        }
+
+        // wms服务地址发生变化
+        function changeWmsUrl() {
+            let wmsUrl = document.getElementById("wmsUrl").value;
+            // 根据服务地址解析wms参数
+            const { url, layers, styles, height, width, srs, credit, version, format, rectangle } = getWmsParam(wmsUrl)
+            // 设置到dom元素上
+            document.getElementById('url').value = url ?? ''
+            document.getElementById('format').value = format ?? ''
+            document.getElementById('layers').value = layers ?? ''
+            document.getElementById('styles').value = styles ?? ''
+            document.getElementById('height').value = height ?? ''
+            document.getElementById('width').value = width ?? ''
+            document.getElementById('srs').value = srs ?? ''
+            document.getElementById('credit').value = credit ?? ''
+            document.getElementById('version').value = version ?? ''
+            document.getElementById('rectangle').value = rectangle ?? ''
+            // 设置ESImageryLayer对象属性
+            setImageryLayerProperty(url, layers, styles, height, width, srs, credit, version, format, rectangle)
+        };
+
+
+        // 某个参数变化重新设置ESImageryLayer对象属性
+        function setOptions() {
+            // 设置到dom元素上
+            let url = document.getElementById('url').value
+            let format = document.getElementById('format').value
+            let layers = document.getElementById('layers').value
+            let styles = document.getElementById('styles').value
+            let height = document.getElementById('height').value
+            let width = document.getElementById('width').value
+            let srs = document.getElementById('srs').value
+            let credit = document.getElementById('credit').value
+            let version = document.getElementById('version').value
+            let rectangle = document.getElementById('rectangle').value
+            // 设置ESImageryLayer对象属性
+            setImageryLayerProperty(url, layers, styles, height, width, srs, credit, version, format, rectangle)
+        }
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo();
+        };
+
+        // 打印影像对象JSON
+        function printJson() {
+            console.log("影像对象JSON", sceneObject.json)
+        }
+
+
+        // 初始化执行一遍
+        changeWmsUrl()
+
+
+
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .warning {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .warning .warningText {
+            color: sandybrown;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <p class="warning">
+            <span class="warningText">提示：</span>申请token到官网
+        </p>
+        <div>
+            <a href="https://www.mapbox.com/" target="_blank">https://www.mapbox.com/</a>
+        </div>
+    </div>
+    <script>
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        /**-------------------------------------通过json创建一个mapbox影像图层-------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "f753040a-a739-4463-82ce-067aae56ef8f",
+            type: "ESImageryLayer",
+            url: "https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.webp?sku=101sYi3y1mcMa&access_token=pk.eyJ1IjoiMTUyMzE5ODg5MzIiLCJhIjoiY2x6bWgzNWY3MDFrOTJscXd4cHVjYXoxNiJ9.sYA8NW_bR9mTTNpROFoznw",
+            zIndex: 1,
+            name: "mapbox影像",
+            allowPicking: true,
+            maximumLevel: 15,
+        });
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

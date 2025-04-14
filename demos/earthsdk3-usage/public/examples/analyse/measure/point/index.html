@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <button onclick="createPoint()">点位测量</button>
+        <button onclick="clearAll()">清除全部测量</button>
+
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([
+                    108.9608604961044,
+                    34.219333831420315,
+                    496.2818115519124
+                ], [
+                    283.4536508628332,
+                    -15.604358729456605,
+                    0.0001065806760175409
+                ], 3)
+            }
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+        //添加3DTileset用于测量
+        const ES3DTileset = objm.createSceneObjectFromJson({
+            "id": "c2c8311e-6e50-47a2-b764-1c82f2d0e256",
+            "type": "ES3DTileset",
+            "name": "ES3DTileset",
+            "allowPicking": true,
+            "url": "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
+        })
+        /**-------------------------------------点位-------------------------------**/
+        const { ESLocationMeasurement } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ESLocationMeasurement)
+        // 定义一个数组，用来存储对象便于销毁
+        const arr = []
+        // 位置数组
+        sceneObject.position = [108.95958901729841, 34.21997365328595, 430.9259951832773]
+        arr.push(sceneObject)
+
+        // 创建点位
+        function createPoint() {
+            const sceneObject = objm.createSceneObject(ESLocationMeasurement)
+            arr.push(sceneObject)
+            sceneObject.editing = true
+        }
+
+        //清除全部测量
+        function clearAll() {
+            arr.forEach((item) => {
+                if (item) objm.destroySceneObject(item)
+            })
+            arr.length = 0
+        }
+
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

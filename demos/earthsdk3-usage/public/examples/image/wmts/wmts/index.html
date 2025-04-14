@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/x2js/1.2.0/xml2json.js"></script>
+    <script src="./js/XbsjWMTSParser.js"></script>
+
+    <!-- <script src="https://cesium.com/downloads/cesiumjs/releases/1.116/Build/Cesium/Cesium.js"></script> -->
+    <script src="./js/XbsjWMTSParser.js" type="module"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>wmts影像加载</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .server,
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 100px 1fr;
+            grid-row-gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .box1 {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .scale {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .scale>input {
+            width: 30%;
+            height: 20px;
+        }
+
+        .tip {
+            color: rgb(255, 255, 0);
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px dotted #979797;
+        }
+
+        #GroupColor1,
+        #GroupColor2 {
+            background-color: rgb(0, 255, 0);
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="server">
+            <label for="content">服务地址</label>
+            <input type="text" id="server" onchange="updateServer()"
+                value="http://114.242.26.126:1004/geoserver/ne/gwc/service/wmts" />
+        </div>
+        <p class="tip">以下解析后SDK填写的参数</p>
+
+        <div class="box">
+            <!-- 任意图片路径 -->
+
+            <label for="mode">图层</label>
+            <select name="title" id="title" onchange="changeTitle()"></select>
+            <label for="content">范围</label>
+            <input type="text" id="rectangle" />
+            <label for="mode">样式</label>
+            <select name="style" id="style" onchange="changeStyle()"></select>
+            <label for="mode">格式</label>
+            <select name="format" id="format" onchange="changeFormat()"></select>
+            <!-- <label for="content"></label>
+        <input type="text" id="formatUrl" /> -->
+            <label for="mode">切片规则</label>
+            <select name="tileMatrixSets" id="tileMatrixSets" onchange="changeTileMatrixSets()"></select>
+            <label for="content">最小级别</label>
+            <input type="text" id="minimumLevel" />
+            <label for="content">最大级别</label>
+            <input type="text" id="maximumLevel" />
+        </div>
+        <div class="box1">
+            <button onclick="flyTo()">飞行定位</button>
+            <button onclick="printJson()">控制台打印JSON</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 视口创建完成，飞到初始视角位置
+                // objm.activeViewer.flyIn(
+                //   [113.45948377518191, 40.33892084355888, 4.621706087170627],
+                //   [273.6836068062252, -26.9426200212854, 0.00003015776112681918],
+                //   3
+                // );
+            }
+        });
+
+        /** ---------------------------------图标标记------------------------------------**/
+
+        const { ESImageryLayer } = XE2["esobjs-xe2-plugin-main"];
+        const sceneObject = objm.createSceneObject(ESImageryLayer);
+
+        // dom元素
+        const dom = {
+            // 服务地址
+            server: document.getElementById("server"),
+            // 图层
+            title: document.getElementById("title"),
+            // 范围
+            rectangle: document.getElementById("rectangle"),
+            // 样式
+            style: document.getElementById("style"),
+            // 格式
+            format: document.getElementById("format"),
+            // 切片规则
+            tileMatrixSets: document.getElementById("tileMatrixSets"),
+            // 最小级别
+            minimumLevel: document.getElementById("minimumLevel"),
+            // 最大级别
+            maximumLevel: document.getElementById("maximumLevel"),
+        };
+
+        // 数据
+        const data = {
+            // 图层
+            layersNameList: [],
+            // 选中的图层
+            currentLayer: { title: "", styles: [], urls: [], tileMatrixSets: [] },
+            // 格式url
+            formatUrl: "",
+            // 样式
+            style: [],
+            // 格式
+            format: [],
+            // 切片规则
+            tileMatrixSets: [],
+        };
+
+        //请求wmts并解析
+        function updateServer() {
+            let url = dom.server.value;
+            if (!url.startsWith("http")) {
+                console.error("请输入正确的wmts地址");
+                return;
+            }
+            var wmts = new XbsjWMTSParser();
+            url = wmts.addUrlParam(url);
+            wmts
+                .parser(url)
+                .then((layer) => {
+                    console.log(layer);
+                    // 初始赋值
+                    initLayer(layer);
+                    // 更新options
+                    changeImage();
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+
+        // 初始赋值
+        const initLayer = (layer) => {
+            // 设置总的图层列表+dom
+            setLayerList(layer);
+
+            if (layer.length == 0) {
+                console.warning("服务没有支持的图层");
+            } else {
+                //默认选择第一个Layer
+                data.currentLayer = layer[0];
+            }
+
+            // 默认选中的图层
+            setCurrentLayerFunc(data.currentLayer);
+        };
+
+        // 设置总的图层列表 dom
+        const setLayerList = (layer) => {
+            // 数据
+            data.layersNameList = [...layer];
+
+            // dom
+            dom.title.innerHTML = "";
+            for (let i = 0; i < data.layersNameList.length; i++) {
+                const option = document.createElement("option");
+                option.value = data.layersNameList[i].title;
+                option.innerText = data.layersNameList[i].title;
+                dom.title.appendChild(option);
+            }
+        };
+
+        // 逻辑函数
+        const setCurrentLayerFunc = (currentLayer) => {
+            // 设置范围
+            setRectangle(currentLayer);
+
+            // 设置样式列表+dom
+            setStyleList(currentLayer);
+
+            // 设置格式列表+dom
+            setFormatList(currentLayer);
+
+            // 设置格式url
+            data.formatUrl = data.format[0].template;
+
+            // 设置切片规则列表+dom
+            setTileMatrixSetsList(currentLayer);
+
+            // 最小级别
+            dom.minimumLevel.value = data.tileMatrixSets[0].params.minimumLevel;
+
+            // 最大级别
+            dom.maximumLevel.value = data.tileMatrixSets[0].params.maximumLevel;
+        };
+
+        // 设置范围
+        const setRectangle = (currentLayer) => {
+            dom.rectangle.value = currentLayer.rectangle
+                ? currentLayer.rectangle.map((d) => d)
+                : undefined;
+        };
+
+        // 设置样式列表 dom
+        const setStyleList = (currentLayer) => {
+            // data
+            data.style = [...currentLayer.styles];
+
+            // dom
+            dom.style.innerHTML = "";
+            for (let i = 0; i < data.style.length; i++) {
+                const option = document.createElement("option");
+                option.value = data.style[i].title;
+                option.innerText = data.style[i].title;
+                dom.style.appendChild(option);
+            }
+
+            // 默认选中值逻辑
+            let index = data.style.findIndex((d) => d.default);
+            if (index != -1) {
+                dom.style.selectedIndex = index;
+            } else {
+                dom.style.selectedIndex = 0;
+            }
+        };
+
+        // 设置格式列表+dom
+        const setFormatList = (currentLayer) => {
+            // data
+            data.format = [...currentLayer.urls];
+
+            // dom
+            dom.format.innerHTML = "";
+            for (let i = 0; i < data.format.length; i++) {
+                const option = document.createElement("option");
+                option.value = data.format[i].format;
+                option.innerText = data.format[i].format;
+                dom.format.appendChild(option);
+            }
+        };
+
+        // 设置切片规则列表+dom
+        const setTileMatrixSetsList = (currentLayer) => {
+            // data
+            data.tileMatrixSets = [...currentLayer.tileMatrixSets];
+
+            // dom
+            dom.tileMatrixSets.innerHTML = "";
+            for (let i = 0; i < data.tileMatrixSets.length; i++) {
+                const option = document.createElement("option");
+                option.value = data.tileMatrixSets[i].tileMatrixSetID;
+                option.innerText = data.tileMatrixSets[i].tileMatrixSetID;
+                dom.tileMatrixSets.appendChild(option);
+            }
+        };
+
+        // 更新options
+        const changeImage = () => {
+            if (!data.currentLayer) return;
+            const layer = dom.title.value;
+
+            if (!data.format.length) return;
+            const format = dom.format.value;
+            const url = data.format.find((d) => d.format === format).template;
+
+            console.log("url", url);
+
+            if (!data.style.length) return;
+            const style = dom.style.value;
+
+            if (!data.tileMatrixSets.length) return;
+
+            const rectangle = data.currentLayer.rectangle
+                ? data.currentLayer.rectangle.map((d) => d)
+                : undefined;
+            if (rectangle && sceneObject) {
+                sceneObject.rectangle = rectangle;
+            }
+
+            const tileMatrixLabels = data.tileMatrixSets.find(
+                (d) => d.tileMatrixSetID == dom.tileMatrixSets.value
+            ).params.tileMatrixLabels;
+
+            const tilingScheme = data.tileMatrixSets.find(
+                (d) => d.tileMatrixSetID == dom.tileMatrixSets.value
+            ).params.tilingScheme;
+
+            console.log("tilingScheme", tilingScheme);
+
+            const options = {
+                type: "wmts",
+                layer,
+                format,
+                style,
+                tileMatrixSetID: dom.tileMatrixSets.value,
+                tileMatrixLabels,
+                tilingScheme: {
+                    type:
+                        tilingScheme == "Geographic"
+                            ? "GeographicTilingScheme"
+                            : tilingScheme == "WebMercator"
+                                ? "WebMercatorTilingScheme"
+                                : "",
+                },
+            };
+
+            console.log("options", options);
+            if (sceneObject) {
+                sceneObject.url = url;
+                sceneObject.name = layer;
+                sceneObject.maximumLevel = dom.maximumLevel.value;
+                sceneObject.minimumLevel = dom.minimumLevel.value;
+                sceneObject.options = options;
+            }
+        };
+
+        // 设置选中图层
+        const changeTitle = () => {
+            data.currentLayer = data.layersNameList.find(
+                (d) => d.title == dom.title.value
+            );
+            setCurrentLayerFunc(data.currentLayer);
+            // 更新options
+            changeImage();
+        };
+
+        const changeStyle = () => {
+            // 更新options
+            changeImage();
+        };
+
+        const changeFormat = () => {
+            // 设置格式url
+            const format = dom.format.value;
+            data.formatUrl = data.format.find((d) => d.format === format).template;
+            // 更新options
+            changeImage();
+        };
+
+        const changeTileMatrixSets = () => {
+            const tileMatrixSetID = dom.tileMatrixSets.value;
+            // 最小级别
+            dom.minimumLevel.value = data.tileMatrixSets.find(
+                (d) => d.tileMatrixSetID === tileMatrixSetID
+            ).params.minimumLevel;
+
+            // 最大级别
+            dom.maximumLevel.value = data.tileMatrixSets.find(
+                (d) => d.tileMatrixSetID === tileMatrixSetID
+            ).params.maximumLevel;
+            // 更新options
+            changeImage();
+        };
+        // 打印影像对象JSON
+        function printJson() {
+            console.log("影像对象JSON", sceneObject.json);
+        }
+
+        // 初始调用一次
+        updateServer();
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo();
+        }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

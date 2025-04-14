@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <title>UE和Cesium引擎切换</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine></switch-engine>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            "domid": document.getElementById("app")
+        })
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            switch (status) {
+                case "Creating":
+                    console.log("视口正在创建");
+                    break;
+                case "Created":
+                    console.log("视口已创建");
+                    break;
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        // Vue的Options
+        const switchEngine = {
+            template: `
+        <div id=switchEngine>
+            <button @click="switchCesium()">切换Cesium视口</button>
+            <button @click="switchUE()">切换UE视口</button>
+        </div>
+        <div id="mark" v-show=show>
+            <div id="confirm">
+                <div class="title">
+                    <p>
+                        ESSS信令服务器地址：<a href="https://www.cesiumlab.com/esss.html"target="_blank">https://www.cesiumlab.com/esss.html</a>
+                        <a href="https://www.bilibili.com/video/BV17m411Z72S/?share_source=copy_web&vd_source=6b2f4b5f58a5e9c4201a7336f29ff597" class="to-link" target="_blank">视频教学</a>
+                        </p>
+                </div>
+                <div class="top">
+                <label for="">服务地址</label> <input id="uri" type="text" v-model="uri" @blur="init()" @keydown.enter="init()">
+                <label for="">应用id</label> <input id="appid" type="text" v-model="app">
+            </div>
+                <div class="middle">
+                    <div  v-for="item in list" :ket="item.id" @click="selectAPP(item)" :class="{selected:app==item.id}" >
+                        <img :src="item.thumbnail?item.thumbnail:'./thumbnail/fail.png'"  width="80" height="80"/>
+                        <p>{{item.name}}</p>
+                    </div>
+                    <p class="tip" v-if="status &&list.length<=0">暂无实例，请移步到ESSS配置!</p>
+                    <p class="tip" v-if="!status">请检查ESSS信令服务器是否启动!</p>
+                </div>
+                <div class="footer">
+                    <button @click="cancel">取消</button>
+                    <button @click="confirm">确定</button>
+                </div>
+            </div>
+        </div>`,
+            data() {
+                return {
+                    show: false,
+                    uri: "http://localhost:9007/",
+                    app: "",
+                    domid: document.getElementById("app"),
+                    list: [],
+                    status: false
+                }
+            },
+            mounted() {
+                this.init()
+            },
+            methods: {
+                init() {
+                    try {
+                        fetch(`${this.uri}ue/app`).then(response => response.text()).then((value) => {
+                            console.log("请求列表数据", JSON.parse(value).data)
+                            this.status = true
+                            this.list = JSON.parse(value).data
+                        }).catch(res => {
+                            this.list = []
+                            this.app = ""
+                            this.status = false
+                            console.log("请求列表数据失败", res)
+                        })
+                    } catch (error) {
+
+                    }
+                },
+                switchUE() {
+                    this.init()
+                    this.show = true
+                },
+                switchCesium() {
+                    // 切换Cesium的API
+                    if (!this.domid) {
+                        alert("未获取到对应的dom元素")
+                        return
+                    }
+                    objm.switchToCesiumViewer({
+                        "domid": this.domid
+                    })
+                },
+                confirm() {
+                    if (!objm) {//该objm可以传入，目前直接用的页面中定义得变量
+                        alert("ESObjectManager管理器为空，请检查")
+                        return
+                    }
+
+                    if (!this.domid) {
+                        alert("未获取到对应的dom元素")
+                        return
+                    }
+                    if (!this.uri) {
+                        alert("请填写ESSS信令服务器接口服务地址参数uri")
+                        return
+                    }
+                    if (!this.app) {
+                        alert("请填写实例id参数app")
+                        return
+                    }
+                    // 切换到UE视口API
+                    objm.switchToUEViewer({
+                        "domid": this.domid,
+                        "uri": this.uri,
+                        "app": this.app
+                    })
+                    this.show = false
+                },
+                cancel() {
+                    this.show = false
+                },
+                selectAPP(item) {
+                    this.app = item.id
+                }
+            }
+        }
+        const vm = Vue.createApp({
+            components: {
+                switchEngine
+            }
+        })
+        vm.mount("#root");
+
+    </script>
+</body>
+
+</html>

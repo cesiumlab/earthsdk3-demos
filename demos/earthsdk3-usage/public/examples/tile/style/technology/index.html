@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>视角对象</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .btn {
+            padding-top: 15px;
+            display: grid;
+            width: 220px;
+            box-sizing: border-box;
+            grid-template-columns: 1fr;
+        }
+
+        .btn button {
+            margin-right: 0px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <button onclick="flyTo()">飞行定位</button>
+    </div>
+    <script>
+
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                viewer.flyIn([120.15487432479986, 30.10734187072578, 11267.53961605032], [8.142219984546603e-13, -45.09919939073693, 359.9999999999594], 3)
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+
+        /**-----------------------------创建一个ES3DTileset对象-------------------------------**/
+
+        // Vue中引入方式：import { ES3DTileset } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ES3DTileset } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ES3DTileset)
+        sceneObject.url = "https://www.pipeser.com/cesiumlab/7hfKb4S4/tileset.json"
+
+        // 加载完成事件
+        sceneObject.tilesetReady.don(() => {
+            sceneObject.flyTo()
+        })
+
+        /**-------------------------------------科技感模式设置--------------------------------------------**/
+
+        // 科技感模式设置
+        sceneObject.materialMode = 'technology'
+
+
+        // 点击按钮调用飞行定位
+        function flyTo() {
+            if (sceneObject) sceneObject.flyTo()
+        }
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

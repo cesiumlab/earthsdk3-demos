@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            grid-row-gap: 5px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #tip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 100000;
+            color: #fff;
+            background-color: #ffffff54;
+            padding: 5px;
+            border: 1px solid #fff;
+            display: none;
+        }
+
+        .btn {
+            display: grid;
+            grid-template-columns: 1fr;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">人员样式</label>
+            <select name="mode" id="mode" onchange="setMode()">
+                <option value="police" selected>警察</option>
+                <option value="pedestrian">路人</option>
+                <option value="worker">工人</option>
+            </select>
+
+            <label for="">动画模式</label>
+            <select name="animation" id="animation" onchange="setAnimation()">
+                <option value="running">奔跑</option>
+                <option value="walking" selected>行走</option>
+                <option value="standing">站立</option>
+            </select>
+
+
+        </div>
+        <div class="btn">
+            <button onclick="smoothMove()">平滑移动一次</button>
+            <button onclick="flyTo()">人员飞行定位</button>
+        </div>
+    </div>
+    <p id="tip">请拾取人员下一位置点位</p>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 监听视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.clickEvent.don((e) => {
+                if (enableSmoothMove) {
+                    // 鼠标拾取位置，平滑移动
+                    viewer.pickPosition(e.screenPosition).then(res => {
+                        if (res) {
+                            // 平滑移动（位置，时长）
+                            sceneObject.smoothMove(res, 3)
+                            document.getElementById("tip").style.display = 'none'
+                        }
+                    })
+                }
+            })
+        })
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([
+                    95.03528546261336,
+                    43.36284563376504,
+                    2.3349984281980105
+                ], [
+                    346.4062462736794,
+                    -14.834052962495715,
+                    0.00000886853425049373
+                ], 3)
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------人员：仿真模拟人员定位，位置、模型、平滑移动等方法------------------------------------**/
+
+        document.getElementById("app").addEventListener("mousemove", (e) => {
+            if (e.screenX && e.screenY) {
+                document.getElementById("tip").style.left = e.clientX + 10 + "px";
+                document.getElementById("tip").style.top = e.clientY + 10 + "px";
+            }
+        })
+
+        const { ESHuman } = XE2['esobjs-xe2-plugin-main']
+        var sceneObject = objm.createSceneObject(ESHuman)
+
+        // 位置
+        sceneObject.position = [95.03526294996387, 43.36291722852459, -0.007210153477500473]
+        // 姿态
+        sceneObject.rotation = [0, 0, 0]
+
+        /** 人员有三种模式
+             1. 路人 pedestrian
+             2. 消防员 police
+             3. 警察 police
+        */
+        sceneObject.mode = 'police'
+
+        /**
+         * 动画效果
+         * 1. 奔跑 running
+         * 2. 行走 walking
+         * 3. 站立 standing
+        */
+        sceneObject.animation = 'walking'
+
+        // 设置动画模式
+        function setAnimation() {
+            sceneObject.animation = document.getElementById('animation').value
+        }
+
+        // 设置人员样式
+        function setMode() {
+            sceneObject.mode = document.getElementById("mode").value
+        }
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo()
+        }
+
+        // 平滑移动
+        function smoothMove() {
+            enableSmoothMove = true
+            document.getElementById("tip").style.display = 'block'
+        }
+
+
+
+
+
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

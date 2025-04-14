@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <title>多视口同步</title>
+    <style>
+        html,
+        body,
+        .viewer_box {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .viewer_box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .viewer_v {
+            width: 50%;
+            height: 100%;
+            box-sizing: border-box;
+            border: 3px solid #ccc;
+        }
+
+        .active {
+            border: 3px solid yellow;
+        }
+
+        .btn {
+            padding-top: 15px;
+            display: grid;
+            width: 220px;
+            box-sizing: border-box;
+            grid-template-columns: 1fr;
+        }
+
+        .btn button {
+            margin-right: 0px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .display_none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewer_box">
+        <div class="viewer_v active" id="xe1"></div>
+        <div class="viewer_v" id="xe2"></div>
+
+    </div>
+    <script defer="defer">
+        /** ---------------------------------视口标签创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        const xe1 = document.getElementById("xe1")
+        const xe2 = document.getElementById("xe2")
+
+        //创建czm视口
+        const viewer = objm.createCesiumViewer(xe1)
+        //标签(这里注意必须是_ES_Viewer_开头，后续跟一个数字的标签)
+        viewer.devTags = ["_ES_Viewer_0"]
+
+        //创建czm视口
+        const viewer2 = objm.createCesiumViewer(xe2)
+        //标签(这里注意必须是_ES_Viewer_开头，后续跟一个数字的标签)
+        viewer2.devTags = ["_ES_Viewer_1"]
+
+        // 开启视口同步
+        objm.syncOtherViewersToActived = true;
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+
+        // 通过json创建一个影像图层
+        const poi = objm.createSceneObject('ESPoi2D');
+        //标签
+        poi.devTags = ["_ES_Viewer_0"]
+        poi.name = "视口1标签"
+        poi.position = [116.3258, 39.12457, 20]
+
+
+
+    </script>
+
+</body>
+
+</html>

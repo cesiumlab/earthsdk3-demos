@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        /**-------------------------------------通过json创建一个高德影像图层-------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "caa2f9ad-f80c-4989-bd32-e666981d67fe",
+            "type": "ESImageryLayer",
+            "url": "https://webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}",
+            "zIndex": 2,
+            "czmTilingScheme": "ToWGS84WebMercatorTilingScheme",
+            "name": "高德影像",
+            "allowPicking": true,
+            "maximumLevel": 15
+        });
+
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

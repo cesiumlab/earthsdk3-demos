@@ -1,0 +1,155 @@
+@keyframes enter {
+    from {
+        left: -330px;
+    }
+
+    to {
+        left: 20px;
+    }
+}
+
+#panel {
+    position: absolute;
+    box-sizing: border-box;
+    left: -330px;
+    top: 20px;
+    width: 330px;
+    background: #3e4249;
+    border-radius: 8px;
+    padding: 20px;
+    color: #d6deea;
+    border: 1px solid #939e8f;
+    animation-name: enter;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
+}
+
+@media screen and (max-width: 550px) {
+    #panel {
+        display: none !important;
+    }
+}
+
+button {
+    background: #3385ff;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 32px;
+    color: #d6deea;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background: #004dc2 !important;
+}
+
+input[type=number],
+input[type=text] {
+    background: #282b34;
+    border: 1px solid #454953;
+    outline: none;
+    height: 32px;
+    color: #d6deea;
+    text-indent: 10px;
+    border-radius: 2px;
+}
+
+input[type=text]:hover {
+    animation-duration: 0.5s;
+    border: 1px solid #3385ff;
+}
+
+select {
+    background: #282b34;
+    border: 1px solid #454953;
+    height: 32px;
+    color: #d6deea;
+    text-indent: 10px;
+}
+
+option {
+    height: 32px;
+}
+
+a {
+    color: #3385ff;
+}
+
+p {
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+input[type="range"] {
+    width: 282px;
+}
+
+input[type="checkbox"] {
+    width: 15px;
+}
+
+.panel-text {
+    display: flex;
+    justify-content: space-between;
+}
+
+.colorBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.colorBox input {
+    width: calc(100% - 40px);
+    background: #282b34;
+    border: 1px solid #454953;
+    outline: none;
+    height: 32px;
+    
+    color: #d6deea;
+    text-indent: 10px;
+    border-radius: 2px;
+}
+
+#GroupColor {
+    background-color: rgb(26, 68, 120);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.rangeBox {
+    width: 175px;
+    display: flex;
+    align-items: center;
+}
+
+.rangeBox input {
+    width: 136px;
+    background: #282b34;
+    border: 1px solid #454953;
+    outline: none;
+    height: 32px;
+    color: #d6deea;
+    text-indent: 10px;
+    border-radius: 2px;
+
+}
+
+.rangeNum {
+    margin-left: 5px;
+    background-color: #58585d;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+}

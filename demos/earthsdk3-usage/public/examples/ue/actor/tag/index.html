@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>tag绑定场景中的actor</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box>div {
+            display: grid;
+            grid-template-columns: 40px 1fr 70px;
+            align-items: center;
+        }
+
+        .box>div>button {
+            margin: 0px;
+
+        }
+
+        .box>button {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .tip {
+            color: rgb(255, 255, 0);
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px dotted #979797;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <H3>tag绑定场景中的actor</H3>
+        <p class="tip">actorTag可手动输入，也可鼠标点击拾取！</p>
+        <div class="box">
+            <div>
+                <label>Tag:</label>
+                <input id="actorTag" type="text">
+                <button id="pick" onclick="setPick()">拾取</button>
+            </div>
+            <button onclick="createFromActorTag()">开始创建</button>
+            <button onclick="flyIn()">飞入UE的初始视角</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        var isPick = false
+
+        function setPick() {
+            isPick = true
+            document.getElementById('pick').style.backgroundColor = 'rgb(255,255,0)'
+        }
+
+        const { PickedInfo } = XE2["xe2-base-objects"]
+        // 视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            // 参考pick示例
+            viewer.clickEvent.don((e) => {
+                if (isPick) {
+                    isPick = false
+                    document.getElementById('pick').style.backgroundColor = '#3385ff'
+                    viewer.pick(e.screenPosition, 'customPick').then(res => {
+                        if (PickedInfo.getFinalAttachedInfo(res) == 'customPick') {
+                            if (viewer.typeName == 'ESUeViewer') {
+                                if (res && res.childPickedInfo && res.childPickedInfo.uePickResult) {
+                                    // 获取UE返回的拾取信息找寻actorTags
+                                    const actorTags = res.childPickedInfo.uePickResult.actorTags
+                                    if (Array.isArray(actorTags) && actorTags.length > 0) {
+                                        // 选择第一个tag
+                                        document.getElementById('actorTag').value = actorTags[0];
+                                    } else {
+                                        alert('没有拾取到有tag信息的Actor')
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+
+            )
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+
+
+        /** ---------------------------------!!!actor仅支持UE引擎------------------------------------**/
+
+        // 创建Actor绑定场景现有的Actor
+
+        const { ESUnrealActor } = XE2['esobjs-xe2-plugin-main'] // Vue中引入方式：import { ESUnrealActor } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        function createFromActorTag() {
+            if (objm.activeViewer.typeName != 'ESUeViewer') {
+                alert('当前视口不支持创建UE Actor，请切换UE视口')
+                return
+            }
+            let actorTag = document.getElementById("actorTag").value
+            if (!actorTag) {
+                alert('请填写场景种已有的Actor的标识符tag')
+                return
+            }
+            // 所有对象以以js为主，因此要获取UE端存在的Actor的位置、姿态等信息，不然就会设置到0，0，0位置点
+            objm.activeViewer.getObjectByInfo({ actorTag: actorTag }).then(res => {
+                console.log(res)
+                if (!res) {
+                    alert('该tag无效或者重复');
+                    return
+                } else {
+                    const actor = objm.createSceneObject(ESUnrealActor)
+                    // actorTag唯一标识
+                    actor.actorTag = actorTag
+                    // 位置
+                    actor.position = res.position
+                    // 姿态
+                    actor.rotation = res.rotation
+                    // 高亮
+                    actor.highlight = true
+                    // 编辑
+                    actor.editing = true
+                }
+            }).catch((error) => {
+                console.log(error);
+
+            })
+
+        }
+
+        // 飞到初始视角
+        function flyIn() {
+            objm.activeViewer.defaultCameraFlyIn()
+        }
+
+
+    </script>
+    <!-- UE引擎面板组件 -->
+    <div id="root">
+        <create-ue-engine :objm="objm"></create-ue-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/createUeEngine.js"></script>
+</body>
+
+</html>

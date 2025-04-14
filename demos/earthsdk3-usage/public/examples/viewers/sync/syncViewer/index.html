@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <title>多视口同步</title>
+    <style>
+        html,
+        body,
+        .viewer_box {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .viewer_box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .viewer_v {
+            width: 50%;
+            height: 50%;
+            box-sizing: border-box;
+            border: 3px solid #ccc;
+        }
+
+        .active {
+            border: 3px solid yellow;
+        }
+
+        .btn {
+            padding-top: 15px;
+            display: grid;
+            width: 220px;
+            box-sizing: border-box;
+            grid-template-columns: 1fr;
+        }
+
+        .btn button {
+            margin-right: 0px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .display_none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewer_box">
+        <div class="viewer_v active" id="xe1" onclick="changeViewer('xe1')"></div>
+        <div class="viewer_v" id="xe2" onclick="changeViewer('xe2')"></div>
+        <div class="viewer_v" id="xe3" onclick="changeViewer('xe3')"></div>
+        <div class="viewer_v" id="xe4" onclick="changeViewer('xe4')"></div>
+    </div>
+    <div id="panel">
+        <h4>同步控制</h4>
+        <div class="box">
+            <div class="btn" id="btn-box">
+                <button id="sync-viewer-btn" is-sync="false">开启全同步</button>
+            </div>
+        </div>
+    </div>
+    <script defer="defer">
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        //提示：需要ESSS安装信令服务器 https://www.cesiumlab.com/esss.html
+
+        const xe1 = document.getElementById("xe1")
+        const xe2 = document.getElementById("xe2")
+        const xe3 = document.getElementById("xe3")
+        const xe4 = document.getElementById("xe4")
+
+        //创建czm视口
+        const viewer = objm.createCesiumViewer(xe1)
+        //设置为主视口
+        objm.activeViewer = viewer;
+
+
+        //创建UE视口
+        const viewer2 = objm.createUEViewer({
+            "domid": xe2,// dom容器id或者dom元素
+            "uri": "http://localhost:9007/",//信令服务器服务地址
+            "app": "demo"// 应用实例id
+        })
+        //创建czm视口
+        const viewer3 = objm.createCesiumViewer(xe3)
+        //创建czm视口
+        const viewer4 = objm.createCesiumViewer(xe4)
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        //切换主视口
+        function changeViewer(v) {
+            xe1.classList.remove("active");
+            xe2.classList.remove("active");
+            xe3.classList.remove("active");
+            xe4.classList.remove("active");
+            switch (v) {
+                case 'xe1':
+                    objm.activeViewer = viewer;
+                    xe1.classList.add("active");
+                    break;
+                case 'xe2':
+                    objm.activeViewer = viewer2;
+                    xe2.classList.add("active");
+                    break;
+                case 'xe3':
+                    objm.activeViewer = viewer3;
+                    xe3.classList.add("active");
+                    break;
+                case 'xe4':
+                    objm.activeViewer = viewer4;
+                    xe4.classList.add("active");
+                    break;
+            }
+        }
+
+        //切换同步状态
+        let syncBtn = document.getElementById("sync-viewer-btn");
+        let btnBox = document.getElementById("btn-box");
+        syncBtn.addEventListener("click", function () {
+            let flag = syncBtn.getAttribute("is-sync");
+            if (flag === "false") {
+                objm.syncOtherViewersToActived = true;
+                syncBtn.setAttribute("is-sync", "true");
+                syncBtn.innerHTML = "关闭全同步";
+
+                {//v3
+                    const btn = document.createElement("button");
+                    btn.setAttribute("is-sync", "true");
+                    btn.innerHTML = "v3退出同步";
+                    btn.id = "nosync-viewer-btn";
+                    btnBox.appendChild(btn);
+
+                    btn.addEventListener("click", function () {
+                        if (viewer3 === objm.activeViewer) return;
+                        let btnFlag = btn.getAttribute("is-sync");
+                        if (btnFlag === "false") {
+                            btn.setAttribute("is-sync", "true");
+                            btn.innerHTML = "v3退出同步";
+                            viewer3.syncOtherViewer(objm.activeViewer);
+                        } else {
+                            btn.setAttribute("is-sync", "false");
+                            btn.innerHTML = "v3加入同步";
+                            viewer3.syncOtherViewer(undefined);
+                        }
+                    })
+                }
+
+            } else {
+                objm.syncOtherViewersToActived = false;
+                syncBtn.setAttribute("is-sync", "false");
+                syncBtn.innerHTML = "开启同步";
+
+                const btn1 = document.getElementById("nosync-viewer-btn");
+                btn1.removeEventListener("click", function () { });
+                btn1.remove();
+            }
+        })
+
+
+    </script>
+
+</body>
+
+</html>

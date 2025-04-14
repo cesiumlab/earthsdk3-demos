@@ -1,0 +1,29 @@
+{
+    "name": "earthsdk3-usage",
+    "description": "earthsdk3的示例",
+    "version": "0.1.0",
+    "private": false,
+    "owner": "北京西部世界科技有限公司",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "axios": "^1.6.7",
+        "monaco-editor": "^0.30.1",
+        "monaco-editor-webpack-plugin": "^6.0.0",
+        "x2js": "^3.4.4"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^5.1.4",
+        "copy-webpack-plugin": "^5.0.4",
+        "vite-plugin-externals": "^0.6.2",
+        "typescript": "^4.6.2",
+        "vite": "^5.4.10",
+        "vite-plugin-cesium": "^1.2.23",
+        "vite-plugin-html": "^3.2.2",
+        "vite-plugin-static-copy": "^1.0.1",
+        "vue": "^3.5.12"
+    }
+}

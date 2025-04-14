@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <title>视角集合管理器</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            min-height: 500px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .content>div {
+            width: 64px;
+            height: 89px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        .content>div input {
+            text-indent: 0px;
+            background: none;
+            border: none;
+            color: #fff;
+            text-align: center;
+        }
+
+        .content>div p {
+            padding: 0px;
+            text-align: center;
+            margin: 0px;
+        }
+
+        .close {
+            position: absolute;
+            cursor: pointer;
+            right: 0px;
+            top: 0px;
+        }
+
+        .focus {
+            border: 1px solid #00FFFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <view-collection :viewCollection="viewCollection"></view-collection>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            "domid": document.getElementById("app")
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        // Vue中引入方式：import { ESCameraViewCollection } from 'xbsj-xe2/dist-node/xe2';
+        const { ESCameraViewCollection } = XE2['esobjs-xe2-plugin-main']
+        const viewCollection = objm.createSceneObject(ESCameraViewCollection)
+        console.log(viewCollection)
+
+
+        /** -----------------------Vue组件方式创建UI----------------------------------**/
+        const VueOption = {
+            template: ` 
+            <div class="views" :key="key">
+                <div class="header">
+                    <button @click="addView">添加视角</button>
+                    <button @click="clearAllViews">清空全部视角</button>
+                </div>
+                <div class="content">
+                    <div v-for="(item, index) in viewCollection.views" :key="index">
+                        <img :class="{ 'focus': currentIndex == index }" @click="flyToView(index)" :src="item.thumbnail" alt="">
+                        <input type="text" :value="item.name" @blur="resetViewName(index, $event)">
+                        <span class="close"  @click="deleteView(index)">❎</span>
+                    </div>
+                </div>
+            </div>
+            `,
+            data() {
+                return {
+                    key: 0,
+                    currentIndex: -1
+                }
+            },
+            beforeMount() {
+                // 该viewCollection是ESCameraViewCollection的实例
+                this.viewCollection = viewCollection
+
+                /** -----------------------事件的监听----------------------------------**/
+                // 监听视角变化
+                this.viewCollection.viewsChanged.don(() => {
+                    this.key = this.key + 1
+                })
+                // 监听当前索引值
+                this.viewCollection.currentViewIndexChanged.don((val) => {
+                    this.currentIndex = val
+                })
+                window.cam = this.viewCollection
+            },
+            methods: {
+                // 添加视角
+                addView() {
+                    this.viewCollection.addView()
+                },
+                // 飞向视角并设置当前索引值
+                flyToView(index) {
+                    this.viewCollection.flyToView(index)
+                    this.viewCollection.setCurrentView(index)
+                },
+                // 重命名视角
+                resetViewName(index, $event) {
+                    this.viewCollection.resetViewName(index, $event.target.value)
+                },
+                // 清空全部视角
+                clearAllViews() {
+                    this.viewCollection.clearAllViews()
+                },
+                // 删除视角
+                deleteView(index) {
+                    this.viewCollection.deleteView(index)
+                }
+            }
+        }
+        const vm1 = Vue.createApp({
+            components: {
+                viewCollection: VueOption
+            }
+        })
+        vm1.mount("#panel");
+
+    </script>
+
+
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+
+</body>
+
+</html>

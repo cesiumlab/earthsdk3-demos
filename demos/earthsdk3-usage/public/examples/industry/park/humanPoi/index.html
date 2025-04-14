@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>3DPoi</title>
+    <style>
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .box {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 100px 1fr;
+        grid-row-gap: 5px;
+        margin-bottom: 10px;
+      }
+
+      .box1 {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .scale {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .scale > input {
+        width: 30%;
+        height: 20px;
+      }
+      #GroupColor1,
+      #GroupColor2 {
+        background-color: rgb(0, 255, 0);
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <div id="panel">
+      <div class="box">
+        <label for="mode">模式</label>
+        <select name="mode" id="mode" onchange="setMode()">
+          <option value="worker" selected>工人</option>
+          <option value="police">警察</option>
+          <option value="pedestrian">路人</option>
+        </select>
+
+        <label for="mode">动画</label>
+        <select name="animation" id="animation" onchange="setAnimation()">
+          <option value="standing" selected>站立</option>
+          <option value="walking">行走</option>
+          <option value="running">奔跑</option>
+        </select>
+
+        <label for="mode">poi模式</label>
+        <select name="poiMode" id="poiMode" onchange="setPoiMode()">
+          <option value="SquareH01">SquareH01</option>
+          <option value="SquareH02">SquareH02</option>
+          <option value="SquareV01">SquareV01</option>
+          <option value="SquareV02">SquareV02</option>
+          <option value="SquareV03">SquareV03</option>
+          <option value="SquareV04">SquareV04</option>
+          <option value="Flag01">Flag01</option>
+          <option value="Flag02">Flag02</option>
+          <option value="Linear01">Linear01</option>
+          <option value="Linear02">Linear02</option>
+          <option value="Linear03">Linear03</option>
+          <option value="CircularH01">CircularH01</option>
+          <option value="CircularH02">CircularH02</option>
+          <option value="CircularV01" selected>CircularV01</option>
+          <option value="CircularV02">CircularV02</option>
+          <option value="CircularV03">CircularV03</option>
+          <option value="CircularV04">CircularV04</option>
+          <option value="CircularV05">CircularV05</option>
+          <option value="P3D01">P3D01</option>
+          <option value="P3D02">P3D02</option>
+          <option value="P3D03">P3D03</option>
+          <option value="P3D04">P3D04</option>
+          <option value="P3D05">P3D05</option>
+          <option value="P3D06">P3D06</option>
+          <option value="P3D07">P3D07</option>
+          <option value="Diamond01">Diamond01</option>
+          <option value="Diamond02">Diamond02</option>
+        </select>
+
+        <label for="content">poi高度偏移</label>
+        <input
+          type="text"
+          id="poiOffsetHeight"
+          value="1.8"
+          oninput="setPoiOffsetHeight()"
+        />
+      </div>
+      <div class="box1">
+        <button onclick="rePickPosition()">重新拾取位置</button>
+        <button onclick="startEditing()">开启编辑</button>
+        <button onclick="flyTo()">飞行定位</button>
+      </div>
+    </div>
+    <script>
+      /** ---------------------------------地球创建------------------------------------**/
+
+      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+      const objm = new ESObjectsManager();
+      window.g_objm = objm;
+      // 创建Cesium视口
+      const viewer = objm.createCesiumViewer({
+        domid: document.getElementById("app"),
+      });
+      // 监听视口状态
+      viewer.statusChanged.don((status) => {
+        if (status == "Created") {
+          // 视口创建完成，飞到初始视角位置
+          objm.activeViewer.flyIn(
+            [113.45948377518191, 40.33892084355888, 4.621706087170627],
+            [273.6836068062252, -26.9426200212854, 0.00003015776112681918],
+            3
+          );
+        }
+      });
+
+      // 通过json创建一个影像图层
+      const imageryLayer = objm.createSceneObjectFromJson({
+        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+        type: "ESImageryLayer",
+        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      });
+
+      /** ---------------------------------图标标记------------------------------------**/
+
+      const { ESHumanPoi } = XE2["esobjs-xe2-plugin-main"];
+      const sceneObject = objm.createSceneObject(ESHumanPoi);
+
+      // 位置
+      sceneObject.position = [113.45941536647375, 40.33892671848204, 0];
+
+      //  poi模式
+      sceneObject.poiMode = "CircularV01"
+
+      // dom元素
+      const dom = {
+        // 模式
+        mode: document.getElementById("mode"),
+        // 动画
+        animation: document.getElementById("animation"),
+        // poi模式
+        poiMode: document.getElementById("poiMode"),
+        // poi高度偏移
+        poiOffsetHeight: document.getElementById("poiOffsetHeight"),
+      };
+
+      // 设置模式
+      const setMode = () => {
+        sceneObject.mode = dom.mode.value;
+      };
+
+      // 设置动画
+      const setAnimation = () => {
+        sceneObject.animation = dom.animation.value;
+      };
+
+      // 设置poi模式
+      const setPoiMode = () => {
+        sceneObject.poiMode = dom.poiMode.value;
+      };
+
+      // poi高度偏移
+      const setPoiOffsetHeight = () => {
+        sceneObject.poiOffsetHeight = Number(dom.poiOffsetHeight.value);
+      };
+
+      // 根据UI重新拾取位置
+      function rePickPosition() {
+        sceneObject.editing = false;
+        sceneObject.position = [0, 0, 0];
+        sceneObject.editing = true;
+      }
+      // 根据UI开始编辑
+      function startEditing() {
+        sceneObject.editing = true;
+      }
+      // 根据UI飞行定位
+      function flyTo() {
+        sceneObject.flyTo();
+      }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+      <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+  </body>
+</html>

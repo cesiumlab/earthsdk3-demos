@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            grid-row-gap: 5px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #tip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 100000;
+            color: #fff;
+            background-color: #ffffff54;
+            padding: 5px;
+            border: 1px solid #fff;
+            display: none;
+        }
+
+        .btn {
+            display: grid;
+            grid-template-columns: 1fr;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">人员样式</label>
+            <select name="mode" id="mode" onchange="setMode()">
+                <option value="police">警察</option>
+                <option value="pedestrian">路人</option>
+                <option value="worker" selected>工人</option>
+            </select>
+
+            <label for="">动画模式</label>
+            <select name="animation" id="animation" onchange="setAnimation()">
+                <option value="running">奔跑</option>
+                <option value="walking" selected>行走</option>
+                <option value="standing">站立</option>
+            </select>
+        </div>
+        <div class="btn">
+            <button onclick="flyTo()">人员飞行定位</button>
+        </div>
+    </div>
+
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn([
+                    116.65823364227758,
+                    33.55799459826448,
+                    3.9593350115652584
+                ], [
+                    125.23206369456727,
+                    -25.55768126708973,
+                    0.000016836512355815034
+                ], 3)
+            }
+        })
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------路径动画------------------------------------**/
+
+        /**
+         * 怎么实现路径动画？需要用到哪些对象？
+         * 思路：
+         * 1.首先创建 人员ESHuman, 路径ESPath, 播放器ESPlayer 三个对象
+         * 2.先画出路径，给路径设置时间戳
+         * 3.给播放器设置起始时间和结束时间，playing播放
+         * 4.通过监听 esPath的位置变化，将当前位置设置给人员对象 esHuman
+         * 
+        */
+        const { ESHuman, ESPath, ESPlayer } = XE2['esobjs-xe2-plugin-main']
+        const esHuman = objm.createSceneObject(ESHuman)
+        const esPath = objm.createSceneObject(ESPath)
+        const esPlayer = objm.createSceneObject(ESPlayer)
+
+        // 设置ESPath的路径点位
+        esPath.points = [
+            [
+                116.6583733821659,
+                33.557994095227464,
+                -0.621974187831631
+            ],
+            [
+                116.65855410758692,
+                33.55764741128194,
+                0.012145473703336254
+            ],
+            [
+                116.6572832782201,
+                33.55783675531925,
+                0.27505272187264174
+            ]
+        ]
+        // 设置时间戳
+        esPath.timeStamps = [0, 30000, 60000]
+
+        // 监听路径的位置变化
+        esPath.currentPositionChanged.don((e) => {
+            if (!esPath.currentPosition) return
+            // 将当前位置设置给人员对象实现位置移动
+            esHuman.position = esPath.currentPosition
+            if (!esPath.currentRotation) return
+            esHuman.rotation = esPath.currentRotation
+        })
+
+
+        // 设置ESPlayer播放器
+        esPlayer.startTime = 0
+        esPlayer.stopTime = 60000
+        esPlayer.playing = true
+        esPlayer.loop = true
+
+        // 设置人员对象的动画为行走模式walking
+        esHuman.animation = 'walking'
+        // 设置动画模式
+        function setAnimation() {
+            esHuman.animation = document.getElementById('animation').value
+        }
+
+        // 设置人员样式
+        function setMode() {
+            esHuman.mode = document.getElementById("mode").value
+        }
+
+        // 飞行定位
+        function flyTo() {
+            esHuman.flyTo()
+        }
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>关卡包(pak)</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #panel>div {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            align-items: center;
+        }
+
+        .url {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <a class="url"
+            href="https://ng627s0rel.feishu.cn/docx/JkqzdBIwvoyBjQxN6rfccdNnnnf?from=from_copylink">pak打包教程参考</a>
+        <div>
+            <label for="">pak地址</label>
+            <input type="text" id="url" value="http://114.242.26.126:1001/earthsdk/pak/demo.pak"
+                onchange="changeParams()">
+
+            <label for="">关卡名称</label>
+            <input type="text" id="name" value="Showroom" onchange="changeParams()">
+
+            <label for="">经度</label>
+            <input type="number" id="lon" value="107.9288231" onchange="changeParams()">
+
+            <label for="">经度</label>
+            <input type="number" id="lat" value="29.4578812" onchange="changeParams()">
+
+            <label for="">高度</label>
+            <input type="number" id="height" value="10" onchange="changeParams()">
+
+            <label for="">可视距离</label>
+            <input type="number" id="distance" value="100000" onchange="changeParams()">
+
+            <label for="">加载进度</label>
+            <input type="number" id="progress">
+        </div>
+
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            // 通过json创建一个影像图层
+            const imageryLayer = objm.createSceneObjectFromJson({
+                "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+                "type": "ESImageryLayer",
+                "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            });
+            objm.activeViewer.flyIn([107.92887323007179, 29.458082192738274, 23.660921878481062], [-148.91651916503906, -34.9408073425293, 0], 3)
+        })
+
+
+
+
+
+        /** ---------------------------------关卡包（pak）------------------------------------**/
+        // Vue中引入方式：import { ESLevelRuntimeModel } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESLevelRuntimeModel } = XE2['esobjs-xe2-plugin-main']
+        const levelRuntimeModel = objm.createSceneObject(ESLevelRuntimeModel)
+        window.l = levelRuntimeModel
+
+        // url地址（可以是磁盘路径，可以是服务路径）
+        levelRuntimeModel.url = "http://114.242.26.126:1001/earthsdk/pak/demo.pak"
+
+        // 关卡名称（默认加载第一个获取到的map关卡）
+        levelRuntimeModel.levelName = "Showroom"
+
+        // 位置
+        levelRuntimeModel.position = [107.9288231, 29.4578812, 10]
+
+        // 可视距离（超过即卸载）
+        levelRuntimeModel.levelLoadDistance = 100000
+
+        // url为网络地址时候，pak包下载进度【只读属性】，采样间隔1s,范围0-100
+        levelRuntimeModel.downloadProgressChanged.don(() => {
+            document.getElementById('progress').value = levelRuntimeModel.downloadProgress
+        })
+
+
+        function changeParams() {
+            let lon = Number(document.getElementById('lon').value)
+            let lat = Number(document.getElementById('lat').value)
+            let height = Number(document.getElementById('height').value)
+
+            levelRuntimeModel.url = document.getElementById('url').value
+            levelRuntimeModel.position = [lon, lat, height]
+            levelRuntimeModel.levelLoadDistance = document.getElementById('distance').value
+            levelRuntimeModel.levelName = document.getElementById('name').value
+
+        }
+
+
+
+
+    </script>
+
+    <!-- UE引擎面板组件 -->
+    <div id="root">
+        <create-ue-engine :objm="objm"></create-ue-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/createUeEngine.js"></script>
+</body>
+
+</html>

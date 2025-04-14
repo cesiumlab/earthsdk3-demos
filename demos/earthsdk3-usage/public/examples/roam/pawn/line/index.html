@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 10px;
+            grid-row-gap: 5px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+
+        <div class="box">
+            <p>沿线运动</p>
+            <label class="switch">
+                <input type="checkbox" id="mySwitch" onclick="toggleSwitch()">
+                <span class="slider"></span>
+            </label>
+
+            <label for="loop">是否循环</label>
+            <label class="switch">
+                <input type="checkbox" id="loop" onclick="setToLine()">
+                <span class="slider"></span>
+            </label>
+            <label for="speed">运动速度m/s</label><input type="number" id="speed" value="1" onchange="setToLine()">
+            <label for="height">抬高高度m</label><input type="number" id="height" value="1" onchange="setToLine()">
+        </div>
+
+    </div>
+    <script>
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                viewer.flyIn([
+                    111.86095036127529,
+                    22.308468118083965,
+                    127.38110089051644
+                ], [
+                    108.96150352861675,
+                    -26.67434272409835,
+                    0.00011197922027611482
+                ], 3)
+            }
+        })
+
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /**---------------------------------沿线运动-----------------------------------**/
+        /**
+         * 沿线运动怎么实现？
+         * 1. 创建一个ESGeoLineString对象
+         * 2. 设置路径点
+         * 3. 调用当前视口下的changeToLine方法实现运动
+         * */
+        const { ESGeoLineString } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObjectFromJson({
+            "id": "9dc8d658-6287-4913-934a-06e1e8d6e22c",
+            "type": "ESGeoLineString",
+            "name": "ESGeoLineString_9dc8",
+            "allowPicking": true,
+            "points": [
+                [
+                    111.86195260395567,
+                    22.307662979880124,
+                    -0.1803640225459114
+                ],
+                [
+                    111.8627277614124,
+                    22.306607462973968,
+                    0.08754877958473307
+                ],
+                [
+                    111.86171763564357,
+                    22.30720259529167,
+                    -0.40015763944409843
+                ]
+            ]
+        })
+
+
+        // 编辑路径
+        function edtingLine() {
+            sceneObject.editing = true
+        }
+        function toggleSwitch() {
+            let switchValue = document.getElementById("mySwitch").checked;
+            if (switchValue) {
+                console.log("Switch已打开");
+
+                // 执行打开状态下的操作
+                //    参数(折线id，运动速度，抬高高度，是否循环)
+                objm.activeViewer.changeToLine('9dc8d658-6287-4913-934a-06e1e8d6e22c', 1, 1, false)
+
+            } else {
+                console.log("Switch已关闭");
+                // 执行关闭状态下的操作
+                objm.activeViewer.changeToMap()
+            }
+
+        }
+        function setToLine() {
+            let speed = Number(document.getElementById("speed").value)
+            let height = Number(document.getElementById("height").value);
+            let loop = document.getElementById("loop").checked;
+            objm.activeViewer.changeToLine('9dc8d658-6287-4913-934a-06e1e8d6e22c', speed, height, loop)
+        }
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>拾取对象pick</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box {
+            /* height: 100px; */
+            text-align: center;
+        }
+
+        #box>p {
+            text-align: left;
+        }
+
+        #box>p:nth-child(1)>span {
+            color: sandybrown;
+        }
+
+        #panel {
+            width: 457px !important;
+            max-height: 450px !important;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div id="box">
+            <p><span>提示：</span>点击楼宇拾取高亮并查看信息</p>
+            <p id="a"></p>
+            <p id="b"></p>
+            <p id="c"></p>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESObjectsManager, ES3DTileset, ESWidget } = XE2["esobjs-xe2-plugin-main"];
+        const { reactJson, Destroyable } = XE2["xe2-base-utils"];
+        const { PickedInfo } = XE2["xe2-base-objects"];
+        // 对象管理器
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+
+        /** ---------------------------------创建ESWidget对象------------------------------------**/
+        const eSWidget = objm.createSceneObject(ESWidget);
+        // 设置初始位置
+        eSWidget.position = [116.39164622716487, 39.906734670180654, 11.757532098411325];
+        // 显示面板信息
+        eSWidget.info = {
+            "title": "基本信息",
+            "id": "054b82b7b2f5f6cf6533187bc98fe733",
+            "种类": "屋顶",
+            "科": "基本屋顶",
+            "体积": "570.84 m³",
+        }
+
+        /** ---------------------------------创建ES3DTileset对象------------------------------------**/
+        const es3DTileset = objm.createSceneObject(ES3DTileset);
+        // 加载完成时，高亮一个Feature
+        es3DTileset.tilesetReady.don(() => {
+            es3DTileset.setFeatureColor("id", [{
+                value: "054b82b7b2f5f6cf6533187bc98fe733",
+                rgba: [1, 0, 0, 1],
+            }]);
+        })
+        // url服务地址
+        es3DTileset.url = "https://www.pipeser.com/cesiumlab/jgYgbe3y/tileset.json";
+
+
+        /** ---------------------------------监听视口创建完成事件------------------------------------**/
+        objm.viewerCreatedEvent.don((viewer) => {
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                // pickPosition拾取经纬度
+                viewer.pickPosition(e.screenPosition).then((position) => {
+                    if (!position || !position.length) return;
+                    eSWidget.position = [...position];
+                });
+                // pick拾取
+                viewer.pick(e.screenPosition, "customPick").then((res) => {
+                    console.log("拾取属性信息", res)
+                    // 判断是否拾取到信息
+                    if (!res || !res.childPickedInfo || !res.childPickedInfo.tilesetPickInfo) {
+                        eSWidget.info = { "title": "基本信息" }
+                        eSWidget.show = false
+                        return;
+                    }
+                    const childPickedInfo = res.childPickedInfo
+                    // tilset属性信息
+                    const tilesetPickInfo = res.childPickedInfo.tilesetPickInfo
+                    // featureId
+                    const id = tilesetPickInfo['id'];
+                    // 高亮Feature
+                    es3DTileset.resetFeatureStyle()
+                    es3DTileset.setFeatureColor("id", [{
+                        value: id,
+                        rgba: [1, 0, 0, 1],
+                    }]);
+                    // 整理面板显示内容
+                    const prop = JSON.parse(tilesetPickInfo['_pack_props_'])
+                    const data = {
+                        title: "基本信息",
+                        id: id
+                    }
+                    if (prop["Element*Category"]) data["种类"] = prop["Element*Category"]
+                    if (prop["Element*Family"]) data["科"] = prop["Element*Family"]
+                    if (prop["Element*体积"]) data["体积"] = prop["Element*体积"]
+                    eSWidget.info = data
+                    eSWidget.show = true
+                });
+            });
+        });
+
+
+        /** ---------------------------------创建Cesium视口------------------------------------**/
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                viewer.flyIn(
+                    [116.3917558153482, 39.906350364956005, 22.646859723913906],
+                    [333.3111376393747, -18.04271739778633, 0.000009741717218966738],
+                    3
+                );
+            }
+        });
+
+
+        /** ---------------------------------通过json创建一个影像图层------------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

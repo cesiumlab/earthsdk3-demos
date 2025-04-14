@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>Czml</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #panel {
+            width: 360px;
+        }
+
+        .box1,
+        .box2,
+        .box {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            align-items: center;
+        }
+
+        .box label,
+        .box1 label,
+        .box2 label {
+            padding-right: 10px;
+        }
+
+        .btn {
+            padding-top: 10px;
+        }
+
+        .btn button {
+            width: 286px;
+        }
+
+        label {
+            line-height: 40px;
+        }
+
+        .warning {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .warning .warningText {
+            color: sandybrown;
+        }
+
+        #fillColor,
+        #strokeColor,
+        #markerColorBox {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        #fillColor {
+            background-color: rgb(201, 232, 15, 0.2);
+        }
+
+        #markerColorBox,
+        #strokeColor {
+            background-color: rgba(201, 232, 15);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">路径</label>
+            <input type="text" id="uri" value="http://114.242.26.126:6003/source/czml/simple.czml"
+                onchange="changeUri()" />
+
+            <label for="">自动设置时钟</label>
+            <input type="checkbox" id="autoResetClock" checked onchange="changeAutoResetClock()" />
+
+            <label for="">启用时钟</label>
+            <input checked type="checkbox" id="clockEnabled" onchange="changeClockEnabled()" />
+
+            <label for="">开始时间</label>
+            <input type="datetime-local" id="startTime" value="2013-07-26T03:33:58" onchange="changeStartTime()" />
+
+            <label for="">结束时间</label>
+            <input type="datetime-local" step="01" id="stopTime" value="2013-07-26T05:07:25"
+                onchange="changeStopTime()" />
+
+            <label for="">当前时间</label>
+            <input type="datetime-local" step="01" id="currentTime" value="2013-07-26T03:33:58" />
+
+            <label for="">倍速</label>
+            <input type="number" id="multiplier" value="93" onchange="changeMultiplier()" />
+
+            <label for="">clockStep</label>
+            <select name="mode" id="clockStep" onchange="changeClockStep()">
+                <option value="TICK_DEPENDENT">TICK_DEPENDENT</option>
+                <option value="SYSTEM_CLOCK_MULTIPLIER" selected>
+                    SYSTEM_CLOCK_MULTIPLIER
+                </option>
+                <option value="SYSTEM_CLOCK">SYSTEM_CLOCK</option>
+            </select>
+
+            <label for="">clockRange</label>
+            <select name="mode" id="clockRange" onchange="changeClockRange()">
+                <option value="UNBOUNDED" selected>UNBOUNDED</option>
+                <option value="CLAMPED">CLAMPED</option>
+                <option value="LOOP_STOP">LOOP_STOP</option>
+            </select>
+
+            <label for="">启用动画</label>
+            <input checked type="checkbox" id="shouldAnimate" onchange="changeShouldAnimate()" />
+        </div>
+        <div class="box1">
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn(
+                    [-108.92749281427143, 32.01359343846061, 44520409.25239474],
+                    [5.088887490341627e-14, -78.33744929919939, 359.99999999999994],
+                    3
+                );
+            }
+        });
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** ---------------------------------地理水面------------------------------------**/
+
+        const { ESCzml } = XE2["esobjs-xe2-plugin-main"];
+        const sceneObject = objm.createSceneObject(ESCzml);
+        window.sceneObject = sceneObject;
+        sceneObject.uri = "http://114.242.26.126:6003/source/czml/simple.czml";
+        sceneObject.shouldAnimate = true;
+        sceneObject.clockEnabled = true;
+
+        const dom = {
+            // 路径
+            uri: document.getElementById("uri"),
+            // 自动设置闹钟
+            autoResetClock: document.getElementById("autoResetClock"),
+            // 启用
+            clockEnabled: document.getElementById("clockEnabled"),
+            // 开始时间
+            startTime: document.getElementById("startTime"),
+            // 结束时间
+            stopTime: document.getElementById("stopTime"),
+            // 当前时间
+            currentTime: document.getElementById("currentTime"),
+            // 倍速
+            multiplier: document.getElementById("multiplier"),
+            // clockStep
+            clockStep: document.getElementById("clockStep"),
+            // clockRange
+            clockRange: document.getElementById("clockRange"),
+            // 是否启用动画
+            shouldAnimate: document.getElementById("shouldAnimate"),
+        };
+
+        // 路径
+        const changeUri = () => {
+            sceneObject.uri = dom.uri.value;
+        };
+
+        // 自动设置闹钟
+        const changeAutoResetClock = () => {
+            sceneObject.autoResetClock = dom.autoResetClock.checked;
+        };
+
+        // 启用
+        const changeClockEnabled = () => {
+            sceneObject.clockEnabled = dom.clockEnabled.checked;
+        };
+
+        // 开始时间
+        const changeStartTime = () => {
+            const date = new Date(dom.startTime.value).getTime();
+            sceneObject.startTime = date;
+        };
+
+        // 结束时间
+        const changeStopTime = () => {
+            const date = new Date(dom.stopTime.value).getTime();
+            sceneObject.stopTime = date;
+        };
+
+        // 时间戳进行格式化转换
+        const formatDate = (timestamp, format) => {
+            // 将时间戳转换为日期对象
+            const date = new Date(timestamp);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            // 替换需要的时间格式
+            format = format.replace("yyyy", year);
+            format = format.replace("MM", month < 10 ? "0" + month : month);
+            format = format.replace("dd", day < 10 ? "0" + day : day);
+            format = format.replace("HH", hours < 10 ? "0" + hours : hours);
+            format = format.replace("mm", minutes < 10 ? "0" + minutes : minutes);
+            format = format.replace("ss", seconds < 10 ? "0" + seconds : seconds);
+
+            return format;
+        };
+
+        // 当前时间
+        sceneObject.currentTimeChanged.don(() => {
+            dom.currentTime.value = formatDate(
+                sceneObject.currentTime,
+                "yyyy-MM-ddTHH:mm:ss"
+            );
+        });
+
+        // 倍速
+        const changeMultiplier = () => {
+            sceneObject.multiplier = Number(dom.multiplier.value);
+        };
+
+        // clockStep
+        const changeClockStep = () => {
+            sceneObject.clockStep = dom.clockStep.value;
+        };
+
+        // clockRange
+        const changeClockRange = () => {
+            sceneObject.clockRange = dom.clockRange.value;
+        };
+
+        // 是否启用动画
+        const changeShouldAnimate = () => {
+            sceneObject.shouldAnimate = dom.shouldAnimate.checked;
+        };
+
+        // 飞行定位
+        const flyTo = () => {
+            sceneObject.flyTo();
+        };
+    </script>
+</body>
+
+</html>

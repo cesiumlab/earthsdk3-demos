@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>GeoJSON</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+        // 监听视口状态
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn(
+                    [
+                        107.61167263220112,
+                        24.852302923577685,
+                        717972.5910686029
+                    ],
+                    [
+                        359.9999999999999,
+                        -50.5600829628006,
+                        1.9846661212332344e-12
+                    ],
+                    3
+                );
+            }
+        });
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** ---------------------------------ESGeoJson------------------------------------**/
+        let data = {
+            "type": "FeatureCollection",
+            "name": "xxxxx",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                }
+            },
+            "features": [
+                { "type": "Feature", "properties": { "desc_": "xxxxx" }, "geometry": { "type": "MultiLineString", "coordinates": [[[105.6005859375, 30.65681556429287], [107.95166015624999, 31.98944183792288], [109.3798828125, 30.031055426540206], [107.7978515625, 29.935895213372444]]] } },
+                { "type": "Feature", "properties": { "desc_": "xxxxx" }, "geometry": { "type": "MultiLineString", "coordinates": [[[109.3798828125, 30.031055426540206], [107.1978515625, 31.235895213372444]]] } }
+            ]
+        }
+
+
+        const { ESGeoJson } = XE2["esobjs-xe2-plugin-main"];
+        const { PickedInfo } = XE2["xe2-base-objects"]
+        const sceneObject = objm.createSceneObject(ESGeoJson);
+        window.sceneObject = sceneObject;
+
+        // url可以填写服务地址，也可以填写具体的data数据（如上所示）
+        sceneObject.url = data
+        // 额外存储属性
+        sceneObject.extras = data
+        // 线贴地
+        sceneObject.strokeGround = true
+        // 线尺寸大小
+        sceneObject.strokeWidth = 5
+        // 被拾取
+        sceneObject.pickedEvent.don((e) => {
+            const name = e.childPickedInfo.properties.name;
+            const attachedInfo = PickedInfo.getFinalAttachedInfo(e)
+            switch (attachedInfo.viewersPickingPointerEventFuncType[0]) {
+                case 'click':
+                    alert("点击拾取:" + name)
+                    break;
+                case "pointerHover":
+                    alert("悬浮拾取:" + name)
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        // 飞行定位
+        const flyTo = () => {
+            sceneObject.flyTo();
+        };
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            align-items: center;
+            grid-row-gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">时间</label>
+            <select name="date" id="time" onchange="setTime()">
+            </select>
+            <label for="">层级</label><input type="number" id="index" value="4" onchange="setIndex()">
+        </div>
+    </div>
+    <script>
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+        /**-------------------------------------通过json创建一个谷歌影像图层-------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "f753040a-a739-4463-82ce-067aae56ef8f",
+            "type": "ESImageryLayer",
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "zIndex": 3,
+            "name": "谷歌影像",
+            "allowPicking": true,
+            "maximumLevel": 15
+        });
+
+        /**-------------------------------------创建谷歌历史影像对象-------------------------------**/
+
+        const { ESGeHistoryImagery } = XE2['esobjs-xe2-plugin-main']
+        const sceneObject = objm.createSceneObject(ESGeHistoryImagery)
+        // 谷歌历史影像显示层级
+        sceneObject.zIndex = 4
+
+        /** 
+         * 怎么获取谷歌历史影像？
+         * 1. 监听谷歌历史影像的datesEvent事件，拿到返回的时间数组
+         * 2. 将要查看的时间设置给sceneObject.currentDate 
+         * 注意:需要设置历史影像的层级，否则可能被其他图层遮挡
+         * */
+        const selectElement = document.getElementById('time')
+        let currentValue = null
+        sceneObject.datesEvent.don((val) => {
+            // 清除选择框内容
+            while (selectElement.firstChild) {
+                selectElement.removeChild(selectElement.firstChild);
+            }
+            val.forEach((item, index) => {
+                const option = document.createElement("option");
+                option.value = item;
+                option.innerText = item;
+                selectElement.appendChild(option);
+            })
+            selectElement.value = currentValue;
+        })
+
+        // 设置谷歌历史影像显示时间
+        function setTime() {
+            sceneObject.currentDate = document.getElementById("time").value
+            currentValue = selectElement.value;
+        }
+
+        // 设置谷歌历史影像显示层级
+        function setIndex() {
+            sceneObject.zIndex = Number(document.getElementById("index").value)
+
+        }
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

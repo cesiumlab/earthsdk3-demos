@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>压平</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 10px;
+            grid-row-gap: 5px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">起始颜色</label> <input id="startColor" type="text" value="1,1,0,1" onchange="startColor()">
+            <label for="">结束颜色</label> <input id="endColor" type="text" value="1,0,0,1" onchange="">
+            <label for="">底面高度m</label> <input id="extrudedHeight" type="number" value="0" placeholder="m"
+                onchange="extrudedHeight()">
+            <label for="">高度m</label> <input id="height" type="number" value="30" placeholder="m"
+                onchange="setHeight()">
+            <label for="">采样间距</label><input id="sampling" type="number" value="10" onchange="sampling()">
+            <label for="">开始时间ms</label><input id="startTime" type="number" value="0" onchange="startTime()">
+            <label for="">结束时间ms</label><input id="endTime" type="number" value="36000000" onchange="endTime()">
+            <label for="">间隔时间</label><input id="spanTime" type="number" value="1" onchange="spanTime()">
+
+            <label for="">总面积</label>
+            <p id="area">2612.67㎡</p>
+            <label for="">周长</label>
+            <p id="perimeter">512.45㎡</p>
+            <label for="">分析进度</label>
+            <p id="progress"></p>
+        </div>
+        <button onclick="create()">开始分析</button>
+        <button onclick="reCreate()">重新创建</button>
+    </div>
+    <script>
+
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+        });
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        // 监听视口状态
+        viewer.statusChanged.don(status => {
+            if (status == 'Created') {
+                // 视口创建完成，飞到初始视角位置
+                objm.activeViewer.flyIn(
+                    [
+                        105.00189003773754,
+                        27.104190210849048,
+                        98.42531064531204
+                    ],
+                    [
+                        91.19597394794692,
+                        -26.60630375974183,
+                        0.000047361419718178144
+                    ], 3)
+            }
+        })
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+
+
+        /**-----------------------------根据类（Class）创建一个ESSunshineAnalysis对象-------------------------------**/
+
+        // Vue中引入方式：import { ESSunshineAnalysis } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        const { ESSunshineAnalysis, ESGltfModel } = XE2['esobjs-xe2-plugin-main']
+
+        // 创建一个模型便于观察光照分析效果
+        const modelObject = objm.createSceneObject(ESGltfModel)
+        modelObject.position = [105.00304498953146, 27.10407595182928, 0]
+
+        const sceneObject = objm.createSceneObject(ESSunshineAnalysis)
+        sceneObject.points = [
+            [
+                105.00267881805422,
+                27.104221872466546,
+                1.1387449194854786
+            ],
+            [
+                105.0026699108887,
+                27.103853500482362,
+                2.5002404137080725
+            ],
+            [
+                105.0028498511014,
+                27.103817114625073,
+                -0.11011595361817134
+            ],
+            [
+                105.00283928961844,
+                27.103966558023703,
+                -0.8446574904786591
+            ],
+            [
+                105.0030157567074,
+                27.10398129549464,
+                4.321452085290798
+            ],
+            [
+                105.00306703431139,
+                27.104176757874576,
+                -0.3079628719731618
+            ],
+            [
+                105.00294651996943,
+                27.104172749332253,
+                0.24132704645767322
+            ],
+            [
+                105.00298909214446,
+                27.104292482715667,
+                -2.4644320382299707
+            ]
+        ]
+        sceneObject.areaChanged.don((res) => {
+            document.getElementById('area').innerText = res.toFixed(2) + '㎡'
+        })
+        sceneObject.perimeterChanged.don((res) => {
+            document.getElementById('perimeter').innerText = res.toFixed(2) + '㎡'
+        })
+        sceneObject.progressChanged.don((res) => {
+            document.getElementById('progress').innerHTML = res + '%'
+        })
+        function create() {
+            sceneObject.start()
+        }
+        function reCreate() {
+            sceneObject.editing = false
+            sceneObject.points = []
+            sceneObject.editing = true
+        }
+        function startColor() {
+            str = document.getElementById("startColor").value
+            sceneObject.startColor = str.split(",").map(Number)
+        }
+        function endColor() {
+            str = document.getElementById("endColor").value
+            sceneObject.endColor = str.split(",").map(Number)
+        }
+        function extrudedHeight() {
+            sceneObject.extrudedHeight = Number(document.getElementById("extrudedHeight").value)
+        }
+        function setHeight() {
+            sceneObject.height = Number(document.getElementById("height").value)
+        }
+        function sampling() {
+            sceneObject.sampleDistance = Number(document.getElementById("sampling").value)
+        }
+        function startTime() {
+            sceneObject.startTime = Number(document.getElementById("startTime").value)
+        }
+        function endTime() {
+            sceneObject.endTime = Number(document.getElementById("endTime").value)
+        }
+        function spanTime() {
+            sceneObject.span = Number(document.getElementById("spanTime").value)
+        }
+    </script>
+
+</body>
+
+</html>

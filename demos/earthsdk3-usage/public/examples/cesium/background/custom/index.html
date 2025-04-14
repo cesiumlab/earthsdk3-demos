@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cesium自定义背景</title>
+</head>
+<!--Cesium js文件引入 -->
+<script src="./js/earthsdk.js"></script>
+<!-- 自定义Css样式 -->
+<link rel="stylesheet" href="./css/example1.css" />
+
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: url(./thumbnail/background.png) no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+    }
+
+    button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 999;
+    }
+</style>
+
+<body>
+    <div id="app"> </div>
+
+    <script>
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        // 通过earthsdk创建的Cesium视口
+        const viewer = objm.createCesiumViewer({
+            domid: document.getElementById("app"),
+            id: "123",
+            czmOptions: {
+                orderIndependentTranslucency: false,
+                contextOptions: {
+                    webgl: {
+                        alpha: true,
+                    }
+                }
+            }
+        });
+
+        // 监听视口状态 
+        viewer.statusChanged.don((status) => {
+            if (status == "Created") {
+                // 获取Cesium底层viewer
+                const viewer = objm.activeViewer.innerViewer.viewer
+                viewer.scene.skyBox.show = false;
+                viewer.scene.backgroundColor = new Cesium.Color(0.0, 0.0, 0.0, 0.0);
+            }
+        });
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+
+    </script>
+</body>
+
+</html>

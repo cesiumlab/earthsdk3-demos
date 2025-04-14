@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>UE地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 10px;
+            grid-row-gap: 5px;
+            align-items: center;
+        }
+
+        em {
+            color: rgb(232, 232, 105);
+        }
+
+        .btn {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">服务地址</label><input type="text" id="url" value="http://localhost:9007/">
+            <label for="">应用实例id</label><input type="text" id="id" value="demo" onchange="initCreate()">
+        </div>
+
+        <em>注：需要安装ESSS信令服务器https://www.cesiumlab.com/esss.html</em>
+    </div>
+    <script defer="defer">
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+
+        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
+        const objm = new ESObjectsManager();
+        window.g_objm = objm;
+
+        //提示：需要ESSS安装信令服务器 https://www.cesiumlab.com/esss.html
+
+
+        // 创建地球UE
+        function initCreate() {
+            //创建UE视口
+            const viewer = objm.createUEViewer({
+                "domid": document.getElementById("app"),// dom容器id或者dom元素
+                "uri": document.getElementById("url").value,//信令服务器服务地址
+                "app": document.getElementById("id").value// 应用实例id
+            })
+            // 监听视口状态
+            viewer.statusChanged.don(status => {
+                switch (status) {
+                    case "Creating":
+                        console.log("视口正在创建");
+                        break;
+                    case "Created":
+                        console.log("视口已创建");
+                        break;
+                }
+            })
+        }
+        initCreate();
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 18,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+
+
+    </script>
+</body>
+
+</html>

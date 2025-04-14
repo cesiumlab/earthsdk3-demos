@@ -1,11 +1,11 @@
 
-
+//<img style="cursor:pointer;marginBottom: 10px;" src="./thumbnail/tip.webp" @click="video" />
 const switchEngine = {
     template: `
         <div id=switchEngine>
             <button  @click="switchCesium()">切换Cesium视口</button>
             <button  @click="switchUE()">切换UE视口</button>
-            <img style="cursor:pointer;marginBottom: 10px;" src="./thumbnail/tip.png" @click="video" />
+     
         </div>
         <div id="mark" v-show=show>
             <div id="confirm">
@@ -20,7 +20,7 @@ const switchEngine = {
             </div>
                 <div class="middle">
                     <div  v-for="item in list" :ket="item.id" @click="selectAPP(item)" :class="{selected:app==item.id}" >
-                        <img :src="item.thumbnail?item.thumbnail:'./thumbnail/fail.png'"  width="80" height="80"/>
+                        <img :src="item.thumbnail?item.thumbnail:'./thumbnail/fail.webp'"  width="80" height="80"/>
                         <p>{{item.name}}</p>
                     </div>
                     <p class="tip" v-if="status &&list.length<=0">暂无实例，请移步到ESSS配置!</p>
@@ -72,7 +72,7 @@ const switchEngine = {
                 return
             }
             objm.switchToCesiumViewer({
-                "domid": this.domid
+                "container": this.domid
             })
         },
         video() {
@@ -98,7 +98,7 @@ const switchEngine = {
             }
             // 切换到UE视口API
             objm.switchToUEViewer({
-                "domid": this.domid,
+                "container": this.domid,
                 "uri": this.uri,
                 "app": this.app
             })

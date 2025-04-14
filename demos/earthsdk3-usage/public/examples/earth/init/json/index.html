@@ -1,248 +1,251 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-    <script src="./js/earthsdk.js"></script>
-    <!-- 自定义Css样式 -->
-    <link rel="stylesheet" href="./css/example1.css" />
-    <title>基础场景JSON初始化</title>
-    <style>
-      html,
-      body,
-      #app {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
-  <body>
-    <div id="app"></div>
-    <script>
-      /** ---------------------------------地球创建------------------------------------**/
+  <script src="./js/earthsdk.js"></script>
+  <!-- 自定义Css样式 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+  <title>基础场景JSON初始化</title>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+  </style>
+</head>
 
-      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+<body>
+  <div id="app"></div>
+  <script>
+    /** ---------------------------------地球创建------------------------------------**/
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
 
-      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-      const objm = new ESObjectsManager();
-      window.g_objm = objm;
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+    window.g_objm = objm;
 
-      // 创建Cesium视口
-      const viewer = objm.createCesiumViewer({
-        domid: document.getElementById("app"),
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer({
+      type: 'ESCesiumViewer',
+      container: document.getElementById("app"),
+    });
+
+    // 监听视口状态
+    objm.viewerCreatedEvent.don((v) => {
+      // 视口创建完成，飞到初始视角位置
+      objm.activeViewer.flyIn(
+        [118.36495112794947, 33.78726789197611, 297.73556333908346],
+        [156.31665212174508, -36.74645226154754, 359.99926756331877],
+        3
+      );
+
+      // 监听json加载基础场景配置
+      objm.jsonLoadingEvent.don((...args) => {
+        if (args.length > 0) {
+          switch (args[0].type) {
+            case "init":
+              console.log("json init");
+              break;
+            case "loading":
+              console.log("json loading");
+              break;
+            case "loaded":
+              console.log("json loaded");
+              break;
+          }
+        }
       });
 
-      // 监听视口状态
-      viewer.statusChanged.don((status) => {
-        if (status == "Created") {
-          // 视口创建完成，飞到初始视角位置
-          objm.activeViewer.flyIn(
-            [118.36495112794947, 33.78726789197611, 297.73556333908346],
-            [156.31665212174508, -36.74645226154754, 359.99926756331877],
-            3
-          );
-
-          // 监听json加载基础场景配置
-          objm.jsonLoadingEvent.don((...args) => {
-            if (args.length > 0) {
-              switch (args[0].type) {
-                case "init":
-                  console.log("json init");
-                  break;
-                case "loading":
-                  console.log("json loading");
-                  break;
-                case "loaded":
-                  console.log("json loaded");
-                  break;
-              }
-            }
-          });
-
-          // 视口初始完成之后，加载json基础场景配置
-          objm.json = {
-            //版本信息
-            asset: {
-              version: "0.1.0",
-              type: "ESObjectsManager",
-              createdTime: "2022-06-17T05:54:41.744Z",
-              modifiedTime: "2023-12-14T08:28:04.290Z",
-              name: "基础场景",
-            },
-            //viewer的配置信息
-            viewers: [],
-            //视角管理
-            viewCollection: [],
-            //场景结构树
-            sceneTree: {
-              root: {
+      // 视口初始完成之后，加载json基础场景配置
+      objm.json = {
+        //版本信息
+        asset: {
+          version: "0.1.0",
+          type: "ESObjectsManager",
+          createdTime: "2022-06-17T05:54:41.744Z",
+          modifiedTime: "2023-12-14T08:28:04.290Z",
+          name: "基础场景",
+        },
+        //viewer的配置信息
+        viewers: [],
+        //视角管理
+        viewCollection: [],
+        //场景结构树
+        sceneTree: {
+          root: {
+            children: [
+              {
+                name: "新建场景",
                 children: [
                   {
-                    name: "新建场景",
-                    children: [
-                      {
-                        name: "全球影像",
-                        sceneObj: {
-                          id: "ae103185-08c7-4ed0-b6d4-15ad77bbbf66",
-                          type: "ESImageryLayer",
-                          url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-                          name: "全球影像",
-                          allowPicking: true,
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "大楼",
-                        sceneObj: {
-                          id: "3902e5cf-347f-4aed-b93b-15403d310def",
-                          type: "ESGltfModel",
-                          position: [118.36686785706866, 33.78367642657204, 0],
-                          rotation: [55, 0, 0],
-                          name: "大楼",
-                          allowPicking: true,
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "蓝色相机",
-                        sceneObj: {
-                          id: "2dda128c-ab53-4da1-9dc2-f4cd8f8d000c",
-                          type: "ESImageLabel",
-                          position: [
-                            118.36663003144375, 33.78373255739211,
-                            40.54945712869733,
-                          ],
-                          name: "蓝色相机",
-                          allowPicking: true,
-                          size: [40, 50],
-                          anchor: [0.5, 1],
-                          sizeByContent: false,
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "工人",
-                        collapsed: true,
-                        sceneObj: {
-                          id: "bbbcf72e-debf-42e2-a869-9df3386cec43",
-                          type: "ESHuman",
-                          position: [118.36676909184939, 33.78416845980352, 0],
-                          rotation: [30, 0, 0],
-                          scale: [5, 5, 5],
-                          name: "工人",
-                          allowPicking: true,
-                          animation: "walking",
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "绿色相机",
-                        sceneObj: {
-                          id: "5de43eb2-51af-42d2-9755-f40db877d8d2",
-                          type: "ESImageLabel",
-                          position: [
-                            118.36709560635, 33.78383127074738,
-                            52.47675369726872,
-                          ],
-                          name: "绿色相机",
-                          allowPicking: true,
-                          size: [40, 50],
-                          anchor: [0.5, 1],
-                          sizeByContent: false,
-                          url: "inner://CameraGreen.png",
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "电子围栏5",
-                        sceneObj: {
-                          id: "bcfd258c-e7da-463c-890b-c6b8f21f34b4",
-                          type: "ESPolygonFence",
-                          height: 35,
-                          materialMode: "scanline",
-                          name: "电子围栏5",
-                          collision: false,
-                          allowPicking: true,
-                          filled: true,
-                          points: [
-                            [118.36729861205522, 33.78366367319343, 0],
-                            [118.36706072832223, 33.78393032508657, 0],
-                            [118.36685299126403, 33.78378905749879, 0],
-                            [118.36629677598762, 33.78375367247621, 0],
-                            [118.36679825910394, 33.78321700573189, 0],
-                            [118.36679825910394, 33.78321700573189, 0],
-                          ],
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "单箭头路径",
-                        collapsed: true,
-                        sceneObj: {
-                          id: "33a0d189-f95e-4975-a736-7e5d47e9b636",
-                          type: "ESPath",
-                          name: "单箭头路径",
-                          allowPicking: true,
-                          speed: 10,
-                          points: [
-                            [118.36658336916629, 33.7834709991536, 0],
-                            [118.36643641713063, 33.783390648116786, 0],
-                            [118.36555587388335, 33.78435608356367, 0],
-                            [118.3655824979677, 33.784525166024444, 0],
-                            [118.36624276521928, 33.78498612914587, 0],
-                          ],
-                          rotationRadius: [5],
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "光圈特效2",
-                        sceneObj: {
-                          id: "0316924c-05b6-4973-93e7-d90181a1f0ae",
-                          type: "ESApertureEffect",
-                          position: [118.36624665337314, 33.784988078083344, 0],
-                          name: "光圈特效2",
-                          collision: false,
-                          allowPicking: true,
-                          radius: 15,
-                        },
-                        children: [],
-                      },
-                      {
-                        name: "柱状警告",
-                        sceneObj: {
-                          id: "5a800793-cc2e-428d-bc62-eb8d81924742",
-                          type: "ESAlarm",
-                          position: [118.36716350129257, 33.784924461774864, 0],
-                          name: "柱状警告",
-                          collision: false,
-                          allowPicking: true,
-                          radius: 25,
-                        },
-                        children: [],
-                      },
-                    ],
+                    name: "全球影像",
+                    sceneObj: {
+                      id: "ae103185-08c7-4ed0-b6d4-15ad77bbbf66",
+                      type: "ESImageryLayer",
+                      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                      name: "全球影像",
+                      allowPicking: true,
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "大楼",
+                    sceneObj: {
+                      id: "3902e5cf-347f-4aed-b93b-15403d310def",
+                      type: "ESGltfModel",
+                      position: [118.36686785706866, 33.78367642657204, 0],
+                      rotation: [55, 0, 0],
+                      name: "大楼",
+                      allowPicking: true,
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "蓝色相机",
+                    sceneObj: {
+                      id: "2dda128c-ab53-4da1-9dc2-f4cd8f8d000c",
+                      type: "ESImageLabel",
+                      position: [
+                        118.36663003144375, 33.78373255739211,
+                        40.54945712869733,
+                      ],
+                      name: "蓝色相机",
+                      allowPicking: true,
+                      size: [40, 50],
+                      anchor: [0.5, 1],
+                      sizeByContent: false,
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "工人",
+                    collapsed: true,
+                    sceneObj: {
+                      id: "bbbcf72e-debf-42e2-a869-9df3386cec43",
+                      type: "ESHuman",
+                      position: [118.36676909184939, 33.78416845980352, 0],
+                      rotation: [30, 0, 0],
+                      scale: [5, 5, 5],
+                      name: "工人",
+                      allowPicking: true,
+                      animation: "walking",
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "绿色相机",
+                    sceneObj: {
+                      id: "5de43eb2-51af-42d2-9755-f40db877d8d2",
+                      type: "ESImageLabel",
+                      position: [
+                        118.36709560635, 33.78383127074738,
+                        52.47675369726872,
+                      ],
+                      name: "绿色相机",
+                      allowPicking: true,
+                      size: [40, 50],
+                      anchor: [0.5, 1],
+                      sizeByContent: false,
+                      url: "inner://CameraGreen.png",
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "电子围栏5",
+                    sceneObj: {
+                      id: "bcfd258c-e7da-463c-890b-c6b8f21f34b4",
+                      type: "ESPolygonFence",
+                      height: 35,
+                      materialMode: "scanline",
+                      name: "电子围栏5",
+                      collision: false,
+                      allowPicking: true,
+                      filled: true,
+                      points: [
+                        [118.36729861205522, 33.78366367319343, 0],
+                        [118.36706072832223, 33.78393032508657, 0],
+                        [118.36685299126403, 33.78378905749879, 0],
+                        [118.36629677598762, 33.78375367247621, 0],
+                        [118.36679825910394, 33.78321700573189, 0],
+                        [118.36679825910394, 33.78321700573189, 0],
+                      ],
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "单箭头路径",
+                    collapsed: true,
+                    sceneObj: {
+                      id: "33a0d189-f95e-4975-a736-7e5d47e9b636",
+                      type: "ESPath",
+                      name: "单箭头路径",
+                      allowPicking: true,
+                      speed: 10,
+                      points: [
+                        [118.36658336916629, 33.7834709991536, 0],
+                        [118.36643641713063, 33.783390648116786, 0],
+                        [118.36555587388335, 33.78435608356367, 0],
+                        [118.3655824979677, 33.784525166024444, 0],
+                        [118.36624276521928, 33.78498612914587, 0],
+                      ],
+                      rotationRadius: [5],
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "光圈特效2",
+                    sceneObj: {
+                      id: "0316924c-05b6-4973-93e7-d90181a1f0ae",
+                      type: "ESApertureEffect",
+                      position: [118.36624665337314, 33.784988078083344, 0],
+                      name: "光圈特效2",
+                      collision: false,
+                      allowPicking: true,
+                      radius: 15,
+                    },
+                    children: [],
+                  },
+                  {
+                    name: "柱状警告",
+                    sceneObj: {
+                      id: "5a800793-cc2e-428d-bc62-eb8d81924742",
+                      type: "ESAlarm",
+                      position: [118.36716350129257, 33.784924461774864, 0],
+                      name: "柱状警告",
+                      collision: false,
+                      allowPicking: true,
+                      radius: 25,
+                    },
+                    children: [],
                   },
                 ],
               },
-            },
-          };
-        }
-      });
-    </script>
+            ],
+          },
+        },
+      };
 
-    <!-- 切换UE和Cesium引擎的组件（Vue） -->
-    <div id="root">
-      <switch-engine :objm="objm"></switch-engine>
-    </div>
-    <!-- Vue文件 -->
-    <script src="./js/vue.global.js"></script>
-    <!-- 切换UE和Cesium的组件 -->
-    <script src="./js/switchEngineCom.js"></script>
-  </body>
+    });
+  </script>
+
+  <!-- 切换UE和Cesium引擎的组件（Vue） -->
+  <div id="root">
+    <switch-engine :objm="objm"></switch-engine>
+  </div>
+  <!-- Vue文件 -->
+  <script src="./js/vue.global.js"></script>
+  <!-- 切换UE和Cesium的组件 -->
+  <script src="./js/switchEngineCom.js"></script>
+</body>
+
 </html>

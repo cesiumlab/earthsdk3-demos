@@ -89,33 +89,63 @@
                 ]
             },
             {
-                "name": "鼠标事件",
+                "name": "鼠标事件,键盘事件",
                 "details": "全局的鼠标事件，以及pick的拾取方法都绑定在视口上",
                 "children": [
                     {
                         "name": "clickEvent 点击事件",
-                        "thumbnail": "earth-event-click.webp",
+                        "thumbnail": "earth-event-m.webp",
                         "path": "earth/event/click"
                     },
                     {
-                        "name": "dbclickEvent 双击事件",
-                        "thumbnail": "earth-event-dbclick.webp",
-                        "path": "earth/event/dbclick"
+                        "name": "dblclickEvent 双击事件",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/dblclick"
                     },
                     {
                         "name": "hoverEvent 悬浮事件",
-                        "thumbnail": "earth-event-hover.webp",
+                        "thumbnail": "earth-event-m.webp",
                         "path": "earth/event/hover"
                     },
                     {
-                        "name": "hoverOutEvent 悬浮移出事件",
-                        "thumbnail": "earth-event-hoverOut.webp",
-                        "path": "earth/event/hoverOut"
+                        "name": "pointerOverEvent 鼠标移入",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/pointerOverEvent"
                     },
                     {
-                        "name": "mouseMoveEvent 鼠标移动事件",
-                        "thumbnail": "earth-event-mouseMove.webp",
-                        "path": "earth/event/mouseMove"
+                        "name": "pointerOutEvent 鼠标移出",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/pointerOutEvent"
+                    },
+                    {
+                        "name": "pointerMoveEvent 鼠标移动",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/pointerMoveEvent"
+                    },
+                    {
+                        "name": "pointerDownEvent 鼠标按下",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/pointerDownEvent"
+                    },
+                    {
+                        "name": "pointerUpEvent 鼠标抬起",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/pointerUpEvent"
+                    },
+                    {
+                        "name": "wheelEvent 鼠标滚轮滚动",
+                        "thumbnail": "earth-event-m.webp",
+                        "path": "earth/event/wheelEvent"
+                    },
+                    {
+                        "name": "keyDownEvent 键盘按下",
+                        "thumbnail": "earth-event-k.webp",
+                        "path": "earth/event/keyDownEvent"
+                    },
+                    {
+                        "name": "keyUpEvent 键盘抬起",
+                        "thumbnail": "earth-event-k.webp",
+                        "path": "earth/event/keyUpEvent"
                     }
                 ]
             },

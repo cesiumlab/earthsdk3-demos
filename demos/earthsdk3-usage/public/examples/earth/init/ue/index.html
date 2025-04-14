@@ -44,31 +44,36 @@
     <div id="panel">
         <div class="box">
             <label for="">服务地址</label><input type="text" id="url" value="http://localhost:9007/">
-            <label for="">应用实例id</label><input type="text" id="id" value="demo" onchange="initCreate()">
+            <label for="">应用实例id</label><input type="text" id="id" value="earthsdk3" onchange="initCreate()">
         </div>
 
-        <em>注：需要安装ESSS信令服务器https://www.cesiumlab.com/esss.html</em>
+        <em>注:需要安装ESSS信令服务器https://www.cesiumlab.com/esss.html</em>
     </div>
     <script defer="defer">
         /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        // const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESUeViewer);
         window.g_objm = objm;
 
         //提示：需要ESSS安装信令服务器 https://www.cesiumlab.com/esss.html
-
-
         // 创建地球UE
         function initCreate() {
+            const container = document.getElementById("app");
+            const uri = document.getElementById("url").value;
+            const app = document.getElementById("id").value;
+
+            const options = {
+                type: "ESUeViewer",
+                container,
+                options: { uri, app },
+            }
             //创建UE视口
-            const viewer = objm.createUEViewer({
-                "domid": document.getElementById("app"),// dom容器id或者dom元素
-                "uri": document.getElementById("url").value,//信令服务器服务地址
-                "app": document.getElementById("id").value// 应用实例id
-            })
+            const viewer = objm.createUeViewer(options);
+
             // 监听视口状态
             viewer.statusChanged.don(status => {
                 switch (status) {
@@ -90,8 +95,6 @@
             "maximumLevel": 18,
             "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         });
-
-
 
     </script>
 </body>

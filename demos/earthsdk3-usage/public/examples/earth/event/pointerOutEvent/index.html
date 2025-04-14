@@ -8,7 +8,7 @@
     <script src="./js/earthsdk.js"></script>
     <!-- 自定义Css样式 -->
     <link rel="stylesheet" href="./css/example1.css">
-    <title>hoverEvent 悬浮事件</title>
+    <title>pointerOutEvent 鼠标移出</title>
     <style>
         html,
         body,
@@ -35,7 +35,7 @@
     <div id="app"></div>
     <div id="panel">
         <div id="box">
-            <h3>hoverEvent 悬浮事件信息</h3>
+            <h3>pointerOutEvent 鼠标移出</h3>
             <p id="info"></p>
         </div>
     </div>
@@ -51,9 +51,7 @@
 
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
-            //https://c0yh9tnn0na.feishu.cn/wiki/FrlTwMyGgi38ggkwE0Ecdw1fnpg#share-Vh0Dd976RoGUpmxdBR3csNkfnpc
-            //鼠标悬停事件 悬停时长可由viewer.hoverTime属性控制
-            viewer.hoverEvent.don((e) => {
+            viewer.pointerOutEvent.don((e) => {
                 const { screenPosition, pointerEvent } = e;
                 console.log(screenPosition);
                 console.log(pointerEvent);

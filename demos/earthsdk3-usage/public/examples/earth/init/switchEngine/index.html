@@ -32,17 +32,16 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
+        const container = document.getElementById("app");
         // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
+        const viewer = objm.createCesiumViewer(container);
         // 监听视口状态
         viewer.statusChanged.don(status => {
             switch (status) {
@@ -83,7 +82,7 @@
             </div>
                 <div class="middle">
                     <div  v-for="item in list" :ket="item.id" @click="selectAPP(item)" :class="{selected:app==item.id}" >
-                        <img :src="item.thumbnail?item.thumbnail:'./thumbnail/fail.png'"  width="80" height="80"/>
+                        <img :src="item.thumbnail?item.thumbnail:'./thumbnail/fail.webp'"  width="80" height="80"/>
                         <p>{{item.name}}</p>
                     </div>
                     <p class="tip" v-if="status &&list.length<=0">暂无实例，请移步到ESSS配置!</p>
@@ -100,7 +99,7 @@
                     show: false,
                     uri: "http://localhost:9007/",
                     app: "",
-                    domid: document.getElementById("app"),
+                    domid: container,
                     list: [],
                     status: false
                 }
@@ -136,7 +135,7 @@
                         return
                     }
                     objm.switchToCesiumViewer({
-                        "domid": this.domid
+                        "container": this.domid
                     })
                 },
                 confirm() {
@@ -159,7 +158,7 @@
                     }
                     // 切换到UE视口API
                     objm.switchToUEViewer({
-                        "domid": this.domid,
+                        "container": this.domid,
                         "uri": this.uri,
                         "app": this.app
                     })

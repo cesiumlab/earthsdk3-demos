@@ -8,7 +8,7 @@
     <script src="./js/earthsdk.js"></script>
     <!-- 自定义Css样式 -->
     <link rel="stylesheet" href="./css/example1.css">
-    <title>dbclickEvent双击事件</title>
+    <title>pointerUpEvent 鼠标抬起</title>
     <style>
         html,
         body,
@@ -35,42 +35,36 @@
     <div id="app"></div>
     <div id="panel">
         <div id="box">
-            <h3>dbclickEvent双击事件信息</h3>
+            <h3>pointerUpEvent 鼠标抬起</h3>
             <p id="info"></p>
         </div>
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
-            viewer.dbclickEvent.don((e) => {
-                console.log("dbclickEvent", e)
-                document.getElementById('info').innerHTML = JSON.stringify(e);
+            viewer.pointerUpEvent.don((e) => {
+                const { screenPosition, pointerEvent } = e;
+                console.log(screenPosition);
+                console.log(pointerEvent);
+                document.getElementById('info').innerHTML = '屏幕坐标: ' + JSON.stringify(screenPosition);
             })
         })
 
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            switch (status) {
-                case "Creating":
-                    console.log("视口正在创建");
-                    break;
-                case "Created":
-                    console.log("视口已创建");
-                    break;
-            }
-        })
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",

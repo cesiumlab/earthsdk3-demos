@@ -4,6 +4,7 @@ import cesium from 'vite-plugin-cesium';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import path from 'path';
 export default defineConfig({
+  base: './', // 默认值，应用部署在根路径
   resolve: {
     alias: {
       // 配置Cesium的访问

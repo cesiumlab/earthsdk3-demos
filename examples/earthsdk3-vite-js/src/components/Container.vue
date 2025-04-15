@@ -15,17 +15,17 @@
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { nextTick, ref } from 'vue';
 import { getobjm } from '../scripts/getobjm';
 import { ESViewer } from 'earthsdk3';
 const objm = getobjm();
-const container1 = ref<HTMLDivElement>();
-const container2 = ref<HTMLDivElement>();
+const container1 = ref();
+const container2 = ref();
 
-let viewer1: ESViewer, viewer2: ESViewer;
+let viewer1, viewer2;
 
-const syncOther = (index: number) => {
+const syncOther = (index) => {
   if (index === 1) {
     objm.activeViewer = viewer1;
   } else if (index === 2) {
@@ -35,7 +35,7 @@ const syncOther = (index: number) => {
 }
 
 //退出同步
-const exitSync = (index: number) => {
+const exitSync = (index) => {
   if (index === 1) {
     viewer1.syncOtherViewer(undefined);
   } else if (index === 2) {

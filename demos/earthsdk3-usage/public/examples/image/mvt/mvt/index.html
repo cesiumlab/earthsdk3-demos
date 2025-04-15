@@ -118,7 +118,7 @@
         <input id="d" type="number" value="90" onchange="changeRectangle()" />
       </div>
     </div>
-    
+
     <p class="warning">
       <span class="warningText">提示1：</span>如何配置style详情请看
     </p>
@@ -168,31 +168,18 @@
   <script>
     /** ---------------------------------地球创建------------------------------------**/
 
-    // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
 
-    const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-    const objm = new ESObjectsManager();
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
     window.g_objm = objm;
+
     // 创建Cesium视口
-    const viewer = objm.createCesiumViewer({
-      domid: document.getElementById("app"),
-    });
+    const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-    // 监听视口状态
-    viewer.statusChanged.don((status) => {
-      if (status == "Created") {
-        // 视口创建完成，飞到初始视角位置
-        //   objm.activeViewer.flyIn(
-        //     [100.51730206089887, 30.664297533377272, 15708718.458209643],
-        //     [359.9999999999994, -89.85211956534722, 0],
-        //     3
-        //   );
-      }
-    });
-
-    /** ---------------------------------地理水面------------------------------------**/
-
-    const { ESMVTLayer } = XE2["esobjs-xe2-plugin-main"];
+    const { ESMVTLayer } = window['earthsdk3-cesium']
     const sceneObject = objm.createSceneObject(ESMVTLayer);
     window.sceneObject = sceneObject;
 

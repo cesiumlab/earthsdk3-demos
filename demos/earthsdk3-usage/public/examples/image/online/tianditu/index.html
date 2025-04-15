@@ -25,23 +25,23 @@
     <div id="app"></div>
     <script>
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
         // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
         viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
 
 
         /**-------------------------------------通过json创建一个天地图影像图层-------------------------------**/
         // 注：天地图json中的url末尾需要添加token，需要到天地图官网申请，申请地址：https://www.tianditu.gov.cn/
         const imageryLayer = objm.createSceneObjectFromJson({
-
             "id": "e134add2-6584-4deb-b29e-7543c4dae9b0",
             "type": "ESImageryLayer",
             "url": "https://t3.tianditu.gov.cn/img_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=img&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=01045099f27b57f849495a8ea7c3a71d",
@@ -49,7 +49,6 @@
             "name": "天地图影像",
             "allowPicking": true,
             "maximumLevel": 15
-
         });
 
     </script>

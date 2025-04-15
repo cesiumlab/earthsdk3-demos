@@ -29,23 +29,23 @@
     <script>
 
         /** -----------------------------------------地球创建----------------------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
+
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                viewer.flyIn([114.38158635373034, 22.68016946259966, 443.26935815960223], [355.43312642127523, -37.94774250088048, 359.9998927816611], 3)
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([114.38158635373034, 22.68016946259966, 443.26935815960223], [355.43312642127523, -37.94774250088048, 359.9998927816611], 3)
+        });
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
@@ -56,9 +56,7 @@
 
 
         /**-----------------------------创建一个ES3DTileset对象-------------------------------**/
-
-        // Vue中引入方式：import { ES3DTileset } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ES3DTileset } = XE2['esobjs-xe2-plugin-main']
+        const { ES3DTileset } = window['earthsdk3']
         const sceneObject = objm.createSceneObject(ES3DTileset)
 
         // url服务地址

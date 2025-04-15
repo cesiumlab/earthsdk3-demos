@@ -9,6 +9,7 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "baseUrl": "./",
     "paths": {
       "@/*": [
         "src/*"

@@ -52,18 +52,25 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESObjectsManager, ES3DTileset, ESWidget } = XE2["esobjs-xe2-plugin-main"];
-        const { reactJson, Destroyable } = XE2["xe2-base-utils"];
-        const { PickedInfo } = XE2["xe2-base-objects"];
-        // 对象管理器
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [116.3917558153482, 39.906350364956005, 22.646859723913906],
+                [333.3111376393747, -18.04271739778633, 0.000009741717218966738],
+                3
+            );
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         /** ---------------------------------创建ESWidget对象------------------------------------**/
-        const eSWidget = objm.createSceneObject(ESWidget);
+        const eSWidget = objm.createSceneObject('ESWidget');
         // 设置初始位置
         eSWidget.position = [116.39164622716487, 39.906734670180654, 11.757532098411325];
         // 显示面板信息
@@ -74,9 +81,10 @@
             "科": "基本屋顶",
             "体积": "570.84 m³",
         }
+        eSWidget.show = false;
 
         /** ---------------------------------创建ES3DTileset对象------------------------------------**/
-        const es3DTileset = objm.createSceneObject(ES3DTileset);
+        const es3DTileset = objm.createSceneObject('ES3DTileset');
         // 加载完成时，高亮一个Feature
         es3DTileset.tilesetReady.don(() => {
             es3DTileset.setFeatureColor("id", [{
@@ -101,14 +109,13 @@
                 viewer.pick(e.screenPosition, "customPick").then((res) => {
                     console.log("拾取属性信息", res)
                     // 判断是否拾取到信息
-                    if (!res || !res.childPickedInfo || !res.childPickedInfo.tilesetPickInfo) {
+                    if (!res || !res.tilesetPickInfo) {
                         eSWidget.info = { "title": "基本信息" }
                         eSWidget.show = false
                         return;
                     }
-                    const childPickedInfo = res.childPickedInfo
                     // tilset属性信息
-                    const tilesetPickInfo = res.childPickedInfo.tilesetPickInfo
+                    const tilesetPickInfo = res.tilesetPickInfo
                     // featureId
                     const id = tilesetPickInfo['id'];
                     // 高亮Feature
@@ -117,37 +124,16 @@
                         value: id,
                         rgba: [1, 0, 0, 1],
                     }]);
-                    // 整理面板显示内容
-                    const prop = JSON.parse(tilesetPickInfo['_pack_props_'])
+
                     const data = {
                         title: "基本信息",
-                        id: id
+                        ...tilesetPickInfo
                     }
-                    if (prop["Element*Category"]) data["种类"] = prop["Element*Category"]
-                    if (prop["Element*Family"]) data["科"] = prop["Element*Family"]
-                    if (prop["Element*体积"]) data["体积"] = prop["Element*体积"]
                     eSWidget.info = data
                     eSWidget.show = true
                 });
             });
         });
-
-
-        /** ---------------------------------创建Cesium视口------------------------------------**/
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        // 监听视口状态
-        viewer.statusChanged.don((status) => {
-            if (status == "Created") {
-                viewer.flyIn(
-                    [116.3917558153482, 39.906350364956005, 22.646859723913906],
-                    [333.3111376393747, -18.04271739778633, 0.000009741717218966738],
-                    3
-                );
-            }
-        });
-
 
         /** ---------------------------------通过json创建一个影像图层------------------------------------**/
         const imageryLayer = objm.createSceneObjectFromJson({

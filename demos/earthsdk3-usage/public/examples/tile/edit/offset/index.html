@@ -35,28 +35,28 @@
             <label for="">偏移X：</label><input id="offsetx" type="number" value="0" onchange="changeOffsetX()">
             <label for="">偏移Y：</label><input id="offsety" type="number" value="0" onchange="changeOffsetY()">
             <label for="">偏移Z：</label><input id="offsetz" type="number" value="0" onchange="changeOffsetZ()">
+            <label for="">旋转H：</label><input id="rotationH" type="number" value="0" onchange="changeRotation('H')">
+            <label for="">旋转P：</label><input id="rotationP" type="number" value="0" onchange="changeRotation('P')">
+            <label for="">旋转R：</label><input id="rotationR" type="number" value="0" onchange="changeRotation('R')">
         </div>
     </div>
     <script>
 
         /** -----------------------------------------地球创建----------------------------------------------------**/
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                viewer.flyIn([108.96610365677321, 34.206992091389814, 1040.7418042287602], [335.98922025235976, -25.906877001440748, 0.00022993478992045343], 3)
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([108.96610365677321, 34.206992091389814, 1040.7418042287602], [335.98922025235976, -25.906877001440748, 0.00022993478992045343], 3)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
@@ -67,12 +67,10 @@
 
 
         /**-----------------------------根据类（Class）创建一个ES3DTileset对象-------------------------------**/
-
-        // Vue中引入方式：import { ES3DTileset } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ES3DTileset } = XE2['esobjs-xe2-plugin-main']
+        const { ES3DTileset } = window['earthsdk3']
         const sceneObject = objm.createSceneObject(ES3DTileset)
         sceneObject.url = "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
-        sceneObject.editing = true
+        // sceneObject.editing = true
 
         /**-----------------------------设置3dtileset偏移值-------------------------------**/
 
@@ -106,6 +104,20 @@
             offset[2] = Number(document.getElementById("offsetz").value)
             // 整体设置偏移值
             sceneObject.offset = offset
+        }
+
+        // 设置旋转值
+        function changeRotation(x) {
+            let rotation = sceneObject.rotation ? JSON.parse(JSON.stringify(sceneObject.rotation)) : [0, 0, 0]
+            if (x == 'H') {
+                rotation[0] = Number(document.getElementById("rotationH").value)
+            } else if (x == 'P') {
+                rotation[1] = Number(document.getElementById("rotationP").value)
+            } else if (x == 'R') {
+                rotation[2] = Number(document.getElementById("rotationR").value)
+            }
+            // 整体设置偏移值
+            sceneObject.rotation = [...rotation]
         }
 
 

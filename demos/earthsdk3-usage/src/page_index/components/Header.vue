@@ -2,27 +2,28 @@
     <div class="header">
         <div>
             <img src="../assets/logo.png" alt="" width="35" height="30">
-            <h2>EarthSDK2官方示例</h2>
+            <h2>EarthSDK3官方示例</h2>
         </div>
         <div class="vessel">
             <div class="box">
                 <img src="../assets/jiaocheng.png" alt="" width="18" height="18">
-                <a href="https://wzonfjgpzd.feishu.cn/docx/NUssdX48WobIqlxU9dFcaRDhnwc" target="_blank">初学者教程</a>
+                <a :href="data.doc" target="_blank">初学者教程</a>
             </div>
             <div class="box">
                 <img src="../assets/api.png" alt="" width="18" height="18">
-                <a href="https://www.wolai.com/earthsdk/nrp963KZyrXAtmGgUeuLRo" target="_blank">API文档</a>
+                <a :href="data.api" target="_blank">API文档</a>
             </div>
             <div class="box">
                 <img src="../assets/load.png" alt="" width="18" height="18">
-                <a href="https://gitee.com/cesiumlab/earthsdk2-examples" target="_blank">下载源码</a>
+                <a :href="data.code" target="_blank">下载源码</a>
             </div>
             <div class="box">
                 <img src="../assets/-zixun.png" alt="" width="18" height="18">
                 <button @click="viewVersion" class="box-info">版本信息</button>
                 <div class="box-version" v-show="versionShow">
-                    <div>"esobjs-xe2-plugin": "{{ esobjsXe2plugin }}"</div>
-                    <div>"vue-xe2-plugin": "{{ vueXe2Plugin }}"</div>
+                    <div>"earthsdk3": "{{ data.earthsdk3 }}"</div>
+                    <div>"earthsdk3-cesium": "{{ data["earthsdk3-cesium"] }}"</div>
+                    <div>"earthsdk3-ue": "{{ data["earthsdk3-ue"] }}"</div>
                 </div>
             </div>
         </div>
@@ -31,7 +32,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { esobjsXe2plugin, vueXe2Plugin } from "@/scripts/version.js"
+import { version } from "@/scripts/version.js"
+const data = { ...version };
 const versionShow = ref(false);
 const viewVersion = () => {
     versionShow.value = !versionShow.value;
@@ -39,12 +41,12 @@ const viewVersion = () => {
 </script>
 
 <style scoped>
-
 @media screen and (max-width: 550px) {
     .vessel {
         display: none !important;
     }
 }
+
 .box-info {
     position: relative;
     background: #010101;

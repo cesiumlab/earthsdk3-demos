@@ -493,6 +493,11 @@
                         "path": "tile/style/technology"
                     },
                     {
+                        "name": "根据多条件设置style",
+                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
+                        "path": "tile/style/setFeatureStyle"
+                    },
+                    {
                         "name": "style样式",
                         "thumbnail": "tile-style-style.webp",
                         "path": "tile/style/style"

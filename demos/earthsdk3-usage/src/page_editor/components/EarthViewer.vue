@@ -13,24 +13,25 @@
             <div class="right">
                 <div class="box">
                     <img src="../assets/code.png" alt="" width="25" height="25">
-                    <p @click="turnUrl('https://wzonfjgpzd.feishu.cn/docx/NUssdX48WobIqlxU9dFcaRDhnwc')">教程</p>
+                    <p @click="turnUrl(data.doc)">教程</p>
                 </div>
                 <div class="box">
                     <img src="../assets/jiaocheng.png" alt="" width="18" height="18">
-                    <p @click="turnUrl('https://www.wolai.com/earthsdk/nrp963KZyrXAtmGgUeuLRo')">文档</p>
+                    <p @click="turnUrl(data.api)">文档</p>
                 </div>
 
                 <div class="box">
                     <img src="../assets/load.png" alt="" width="18" height="18">
-                    <p @click="turnUrl('https://gitee.com/cesiumlab/earthsdk2-examples')">下载源码</p>
+                    <p @click="turnUrl(data.code)">下载源码</p>
                 </div>
 
                 <div class="box">
                     <img src="../assets/-zixun.png" alt="" width="18" height="18">
                     <button @click="viewVersion" class="box-info">版本信息</button>
                     <div class="box-version" v-show="versionShow">
-                        <div>"esobjs-xe2-plugin": "{{ esobjsXe2plugin }}"</div>
-                        <div>"vue-xe2-plugin": "{{ vueXe2Plugin }}"</div>
+                        <div>"earthsdk3": "{{ data.earthsdk3 }}"</div>
+                        <div>"earthsdk3-cesium": "{{ data["earthsdk3-cesium"] }}"</div>
+                        <div>"earthsdk3-ue": "{{ data["earthsdk3-ue"] }}"</div>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,8 @@ import { onBeforeUnmount, onMounted, ref, defineProps, defineEmits, watch } from
 import axios from "axios";
 const emits = defineEmits(['update:editorShow'])
 import { getUrlParam } from "@/scripts/utils.js"
-import { esobjsXe2plugin, vueXe2Plugin } from "@/scripts/version.js"
+import { version } from "@/scripts/version.js"
+const data = { ...version };
 const props = defineProps({
     code: {
         type: String,

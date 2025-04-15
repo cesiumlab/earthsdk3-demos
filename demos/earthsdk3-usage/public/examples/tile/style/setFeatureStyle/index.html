@@ -26,7 +26,7 @@
 <body>
     <div id="app"></div>
     <div id="panel">
-        <button onclick="setFeatureColor()">样式着色</button>
+        <button onclick="setFeatureStyle()">样式着色</button>
         <button onclick="resetFeatureStyle()">恢复原始</button>
     </div>
     <script>
@@ -55,22 +55,51 @@
         const es3DTileset = objm.createSceneObject('ES3DTileset');
         // url服务地址
         es3DTileset.url = "https://www.pipeser.com/cesiumlab/jgYgbe3y/tileset.json";
-        // 加载完成着色
+        // 加载完成
         // es3DTileset.tilesetReady.don((tileset) => {
-        //     setFeatureColor()
+        //     console.log(tileset);
         // })
         window.es3DTileset = es3DTileset;
 
-        // 屋顶着色
-        function setFeatureColor() {
-            es3DTileset.setFeatureColor(
-                "id", [
+
+        function setFeatureStyle() {
+
+            const json = [
                 {
-                    value: "6949fe393e9a4d4db7fe71339c61513800022318",
-                    rgba: [1, 0, 0, 1],
+                    "condition": [
+                        {
+                            "field": "面积",
+                            "op": ">",
+                            "value": 5
+                        }
+                    ],
+                    "color": [
+                        1,
+                        0,
+                        0,
+                        1
+                    ],
+                    "show": false
                 },
+                {
+                    "condition": [
+                        {
+                            "field": "类别",
+                            "op": "==",
+                            "value": "幕墙嵌板"
+                        }
+                    ],
+                    "color": [
+                        1,
+                        0,
+                        0,
+                        1
+                    ],
+                    "show": true
+                }
             ]
-            );
+            // op:string类型，操作符(目前字符串属性支持：==  !=  contain empty; 数字属性支持：== != > >= < <=）
+            es3DTileset.setFeatureStyle(json);
         };
 
         // 恢复原始

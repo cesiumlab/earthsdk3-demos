@@ -38,23 +38,29 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([116.39947309868032, 39.90592001431495, 334.38857241671485], [121.37477595297989, -33.67659827219708, 359.9997913701847], 3)
+
+            viewer.clickEvent.don((e) => {
+                viewer.pick(e.screenPosition, 'customPick');
+            })
+        })
 
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                viewer.flyIn([116.39947309868032, 39.90592001431495, 334.38857241671485], [121.37477595297989, -33.67659827219708, 359.9997913701847], 3)
-            }
-        })
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
@@ -64,8 +70,7 @@
         });
 
         // 创建一个ESGltfModel对象
-        const { ESGltfModel } = XE2['esobjs-xe2-plugin-main']
-        const { PickedInfo } = XE2["xe2-base-objects"]
+        const { ESGltfModel } = window['earthsdk3']
         const model = objm.createSceneObject(ESGltfModel)
         model.position = [116.404, 39.904, 0]
 
@@ -78,10 +83,6 @@
             // 信息返回
             console.log("被拾取信息", e)
             alert('我被点击了!')
-
-            // 用来区分自定义事件调用pick的标识(自定义调用pick的时候才有用)
-            const attachedInfo = PickedInfo.getFinalAttachedInfo(e)
-            console.log("标识信息，用来区分自定义事件调用pick的标识", attachedInfo)
         })
 
 

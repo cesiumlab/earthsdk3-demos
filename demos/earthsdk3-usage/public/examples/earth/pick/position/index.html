@@ -49,12 +49,14 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+
 
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
@@ -74,11 +76,11 @@
                 })
             })
         })
-
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({

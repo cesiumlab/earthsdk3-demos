@@ -49,13 +49,12 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-
-        const { PickedInfo } = XE2["xe2-base-objects"]
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
         // 初始化元素
@@ -70,7 +69,7 @@
             "viewers": [
                 {
                     "id": "b8fc803b-38f6-4f66-b4b9-abfbbbb56cea",
-                    "type": "ESCzmViewer",
+                    "type": "ESCesiumViewer",
                     "show": true,
                     "globeShow": true,
                     "ionAccessToken": "",
@@ -276,6 +275,8 @@
 
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([111.01118339587974, 27.098201084210086, 395.6679243907117], [337.46537890827136, -24.123843663214064, 0.0007594981744767348], 3)
+
             /**
              * 
              * pick(screenPosition, attachedInfo)：拾取方法
@@ -287,6 +288,7 @@
             // 鼠标click事件的时候,定义自定义的pick事件
             viewer.clickEvent.don((e) => {
                 viewer.pick(e.screenPosition, 'customPick').then(res => {
+                    console.log('拾取到的信息', res)
                     // 全局拾取对象
                     if (res && res.sceneObject) {
                         alert('拾取到的是：' + res.sceneObject.name)
@@ -297,17 +299,9 @@
 
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                viewer.flyIn([111.01118339587974, 27.098201084210086, 395.6679243907117], [337.46537890827136, -24.123843663214064, 0.0007594981744767348], 3)
-            }
-        })
-
-
-
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
 
     </script>
 

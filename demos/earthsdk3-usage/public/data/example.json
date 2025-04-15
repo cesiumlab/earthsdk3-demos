@@ -79,7 +79,7 @@
             },
             {
                 "name": "响应式属性监听",
-                "details": "XE2每个属性都有对应的Changed事件，如果需要则需要监听事件don",
+                "details": "每个属性都有对应的Changed事件，如果需要则需要监听事件don",
                 "children": [
                     {
                         "name": "响应式属性的监听",

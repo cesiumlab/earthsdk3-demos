@@ -32,9 +32,9 @@
     <div id="app"></div>
     <div id="panel">
         <div class="toggle-switch">
-            <h4>第一人称模式</h4>
+            <h4>对象跟随模式</h4>
             <label class="switch">
-                <input type="checkbox" id="mySwitch" checked onclick="toggleSwitch()">
+                <input type="checkbox" id="mySwitch" onclick="toggleSwitch()">
                 <span class="slider"></span>
             </label>
         </div>
@@ -53,10 +53,13 @@
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
             // 飞到某个视角下
-            viewer.flyIn([109.605333792018, 18.53372631984145, 3796.1047515254963], [355.14016420232184, -33.81201260919955, 0.026583596819532502], 3)
-
-            // 视口创建后,设置第一人称模式(给一个初始经纬度点位)
-            viewer.changeToWalk([109.60681752569195, 18.58679192126289, 200.9999999980438226])
+            viewer.flyIn([
+                109.60641642092877,
+                18.58672999712112,
+                21.06720560062831], [
+                80.30243945851852,
+                -20.670220938586485,
+                0.00004228996594215643], 3)
         })
 
         // 创建Cesium视口
@@ -66,23 +69,69 @@
         });
         // viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
 
-        // 通过json创建一个影像图层
-        const imageryLayer = objm.createSceneObjectFromJson({
-            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-            "type": "ESImageryLayer",
-            "maximumLevel": 18,
-            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        });
+        // 通过json创建对象
+        const objList = [
+            {
+                "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+                "type": "ESImageryLayer",
+                "maximumLevel": 18,
+                "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            },
+            {
+                "id": "ESHuman_id",// 对象Id
+                "ref": "ESHuman_obj",
+                "type": "ESHuman",
+                "position": [
+                    109.60681752569195,
+                    18.58679192126289,
+                    0.5
+                ],
+                "rotation": [
+                    -8.135989761566222,
+                    0,
+                    0
+                ],
+                "name": "工人1",
+                "animation": "walking"
+            },
+            {
+                "id": "bbce8c58-f45e-4365-858f-624f9595a761",
+                "type": "ESImageLabel",
+                "position": [
+                    109.6074882,
+                    18.5868828,
+                    0.5
+                ],
+                "rotation": [
+                    -90,
+                    0,
+                    0
+                ],
+                "name": "蓝色相机1",
+                "renderMode": 4
+            }
+        ]
+
+        objList.forEach(obj => {
+            objm.createSceneObjectFromJson(obj)
+        })
+
 
         // switch切换
         function toggleSwitch() {
             let switchValue = document.getElementById("mySwitch").checked;
             if (switchValue) {
-                // 开启第一人称
-                objm.activeViewer.changeToWalk([109.60681752569195, 18.58679192126289, 200.9999999980438226])
+                // changeToFollow(objectId: string, distance ?: number, heading ?: number, pitch ?: number, changeToFollow ?: boolean)
+                // 开启
+                objm.activeViewer.changeToFollow('ESHuman_id', 20)//Id来自objList
+
+                //人物移动
+                objm.$refs.ESHuman_obj.smoothMove([109.6074882, 18.5868828, 0.5], 20);
             } else {
-                // 关闭第一人称
-                objm.activeViewer.changeToMap()
+                // 关闭
+                objm.activeViewer.changeToMap();
+                //回到原位
+                objm.$refs.ESHuman_obj.smoothMove([109.60681752569195, 18.58679192126289, 0.5], 0);
             }
         }
         toggleSwitch();

@@ -237,7 +237,7 @@
             },
             {
                 "name": "视口标签",
-                "details": "视口标签",
+                "details": "视口标签，可让对象只在特定视口下显示",
                 "children": [
                     {
                         "name": "视口标签",
@@ -279,8 +279,8 @@
                 ]
             },
             {
-                "name": "鼠标交互模式",
-                "details": "交互模式包括大地图交互模式、沿线运动、第一人称",
+                "name": "交互漫游模式",
+                "details": "交互模式包括大地图交互模式、沿线运动、第一人称、环绕地球、围点环绕、视角跟随对象运动",
                 "children": [
                     {
                         "name": "大地图交互模式(默认)",
@@ -298,9 +298,19 @@
                         "path": "roam/pawn/walk"
                     },
                     {
-                        "name": "环绕地球",
+                        "name": "环绕地球模式",
                         "thumbnail": "image-online-google.webp",
                         "path": "roam/pawn/surround"
+                    },
+                    {
+                        "name": "围点环绕观察模式",
+                        "thumbnail": "roam-pawn-map.webp",
+                        "path": "roam/pawn/rotatePoint"
+                    },
+                    {
+                        "name": "视角跟随对象运动",
+                        "thumbnail": "roam-pawn-map.webp",
+                        "path": "roam/pawn/follow"
                     }
                 ]
             }

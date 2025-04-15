@@ -52,33 +52,33 @@
     </div>
     <script>
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
 
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+
+
+        // 监听视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                111.86095036127529,
+                22.308468118083965,
+                127.38110089051644
+            ], [
+                108.96150352861675,
+                -26.67434272409835,
+                0.00011197922027611482
+            ], 3)
+        })
 
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
         });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
-
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                viewer.flyIn([
-                    111.86095036127529,
-                    22.308468118083965,
-                    127.38110089051644
-                ], [
-                    108.96150352861675,
-                    -26.67434272409835,
-                    0.00011197922027611482
-                ], 3)
-            }
-        })
-
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -95,7 +95,7 @@
          * 2. 设置路径点
          * 3. 调用当前视口下的changeToLine方法实现运动
          * */
-        const { ESGeoLineString } = XE2['esobjs-xe2-plugin-main']
+        const { ESGeoLineString } = window['earthsdk3']
         const sceneObject = objm.createSceneObjectFromJson({
             "id": "9dc8d658-6287-4913-934a-06e1e8d6e22c",
             "type": "ESGeoLineString",
@@ -131,8 +131,8 @@
                 console.log("Switch已打开");
 
                 // 执行打开状态下的操作
-                //    参数(折线id，运动速度，抬高高度，是否循环)
-                objm.activeViewer.changeToLine('9dc8d658-6287-4913-934a-06e1e8d6e22c', 1, 1, false)
+                // 参数(折线id，运动速度，抬高高度，是否循环,turnRateDPS转动比例, lineMode漫游模式"auto" | "manual"(w/s))
+                objm.activeViewer.changeToLine('9dc8d658-6287-4913-934a-06e1e8d6e22c', 1, 1, false, 10, "auto")
 
             } else {
                 console.log("Switch已关闭");

@@ -8,7 +8,7 @@
     <script src="./js/earthsdk.js"></script>
     <!-- 面板的样式放到css文件内 -->
     <link rel="stylesheet" href="./css/example1.css">
-    <title>Cesium地球初始化</title>
+    <title>漫游模式</title>
     <style>
         html,
         body,
@@ -32,9 +32,9 @@
     <div id="app"></div>
     <div id="panel">
         <div class="toggle-switch">
-            <h4>第一人称模式</h4>
+            <h4>围点环绕模式</h4>
             <label class="switch">
-                <input type="checkbox" id="mySwitch" checked onclick="toggleSwitch()">
+                <input type="checkbox" id="mySwitch" onclick="toggleSwitch()">
                 <span class="slider"></span>
             </label>
         </div>
@@ -54,9 +54,6 @@
         objm.viewerCreatedEvent.don((viewer) => {
             // 飞到某个视角下
             viewer.flyIn([109.605333792018, 18.53372631984145, 3796.1047515254963], [355.14016420232184, -33.81201260919955, 0.026583596819532502], 3)
-
-            // 视口创建后,设置第一人称模式(给一个初始经纬度点位)
-            viewer.changeToWalk([109.60681752569195, 18.58679192126289, 200.9999999980438226])
         })
 
         // 创建Cesium视口
@@ -73,15 +70,24 @@
             "maximumLevel": 18,
             "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         });
+        const model = objm.createSceneObjectFromJson({
+            "id": "8e8ead4c-a95c-445d-b870-01ad98cd344c",
+            "type": "ESGltfModel",
+            "position": [
+                109.60681752569195, 18.58679192126289, 1
+            ],
+            "name": "大楼1"
+        });
 
         // switch切换
         function toggleSwitch() {
             let switchValue = document.getElementById("mySwitch").checked;
             if (switchValue) {
-                // 开启第一人称
-                objm.activeViewer.changeToWalk([109.60681752569195, 18.58679192126289, 200.9999999980438226])
+                // changeToRotatePoint(position: ESJVector3D, distance ?: number, orbitPeriod ?: number, heading ?: number, pitch ?: number) 
+                // 开启
+                objm.activeViewer.changeToRotatePoint([109.60681752569195, 18.58679192126289, 1], 300)
             } else {
-                // 关闭第一人称
+                // 关闭
                 objm.activeViewer.changeToMap()
             }
         }

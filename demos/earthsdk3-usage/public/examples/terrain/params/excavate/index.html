@@ -28,26 +28,23 @@
         <button onclick="editingCurrent()">编辑当前挖坑</button>
     </div>
     <script>
-
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
         /** -----------------------------------------地球创建----------------------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([115.13608053611286, 28.821215137027473, 4461.014865370932], [309.07544316940016, -33.72351135063601, 0.00009594434830598995], 3)
+            //token需要到cesium官网申请 https://ion.cesium.com/
+            // viewer.ionAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
+        });
 
         // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([115.13608053611286, 28.821215137027473, 4461.014865370932], [309.07544316940016, -33.72351135063601, 0.00009594434830598995], 3)
-            }
-        })
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -57,32 +54,18 @@
             "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         });
 
-
-        /**-----------------------------根据类（Class）创建一个ESTerrainLayer地形对象-------------------------------**/
-
-
         /**
-        * 1.cesium官方地形需要到官网申请token
-        * 2.将token设置给当前视口下的ionAccessToken
-        */
-        // Vue中引入方式：import { ESTerrainLayer } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESTerrainLayer } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESTerrainLayer)
+         * 1.cesium官方地形需要到官网申请token
+         * 2.将token设置给当前视口下的ionAccessToken
+         */
+        const sceneObject = objm.createSceneObject('ESTerrainLayer');
         // cesium官方地形
-        sceneObject.url = 'ion://1'
-
-        //token需要到cesium官网申请 https://ion.cesium.com/
-        objm.activeViewer.ionAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE'
-
+        sceneObject.url = 'ion://1';
         // 开启深度检测
-        objm.activeViewer.innerViewer.sceneGlobeDepthTestAgainstTerrain = true
+        viewer.depthTestAgainstTerrain = true;
 
         /**-----------------------------根据类（Class）创建一个ESExcavate挖坑对象-------------------------------**/
-
-        // Vue中引入方式：import { ESExcavate } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESExcavate } = XE2['esobjs-xe2-plugin-main']
-        const excavateObject = objm.createSceneObject(ESExcavate)
-
+        const excavateObject = objm.createSceneObject('ESExcavate')
         // 挖洞多边形点位
         excavateObject.points = [
             [

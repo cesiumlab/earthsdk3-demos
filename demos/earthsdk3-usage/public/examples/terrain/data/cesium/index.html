@@ -23,22 +23,31 @@
 
 <body>
     <div id="app"></div>
-
     <script>
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            //token需要到cesium官网申请 https://ion.cesium.com/
+            // viewer.ionAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
+            /**
+               * 1.cesium官方地形需要到官网申请token
+               * 2.将token设置给当前视口下的ionAccessToken
+              */
+            const sceneObject = objm.createSceneObject('ESTerrainLayer')
+            // cesium官方地形
+            sceneObject.url = 'ion://1'
         });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
 
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -47,19 +56,6 @@
             "maximumLevel": 18,
             "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         });
-
-        /**-------------------------------------cesium地形-------------------------------**/
-        /**
-         * 1.cesium官方地形需要到官网申请token
-         * 2.将token设置给当前视口下的ionAccessToken
-        */
-        const { ESTerrainLayer } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESTerrainLayer)
-        // cesium官方地形
-        sceneObject.url = 'ion://1'
-
-        //token需要到cesium官网申请 https://ion.cesium.com/
-        objm.activeViewer.ionAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE'
 
     </script>
     <!-- 切换UE和Cesium引擎的组件（Vue） -->

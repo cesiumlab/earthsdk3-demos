@@ -46,18 +46,29 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                109.02963562468135,
+                34.24517722812285,
+                595.4392105932077
+            ], [
+                356.70214753355594,
+                -21.984064078384968,
+                359.99709817065644
+            ], 3);
+        });
 
         // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+        // 加载Cesium ion的token
+        // viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
 
 
         // 通过json创建一个影像图层
@@ -68,27 +79,8 @@
             "maximumLevel": 15
         });
 
-        // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn(
-                    [
-                        109.02963562468135,
-                        34.24517722812285,
-                        595.4392105932077
-                    ], [
-                    356.70214753355594,
-                    -21.984064078384968,
-                    359.99709817065644
-                ], 3)
-
-            }
-        })
         /**-------------------------------------平球地形-------------------------------**/
-
-        const { ESTerrainLayer } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESTerrainLayer)
+        const sceneObject = objm.createSceneObject('ESTerrainLayer')
         sceneObject.name = '平球地形'
         sceneObject.url = 'http://inner.earthsdk.com/layer.json?h=0'
 
@@ -97,11 +89,10 @@
             sceneObject.url = `http://inner.earthsdk.com/layer.json?h=${Number(document.getElementById('flatHeight').value)}`
         }
         /**-------------------------------------点位测量--------------------------------**/
-        const { ESLocationMeasurement } = XE2['esobjs-xe2-plugin-main']
-        const pointSceneObject = objm.createSceneObject(ESLocationMeasurement)
+        // 创建一个位置测量对象
+        const pointSceneObject = objm.createSceneObject('ESLocationMeasurement')
         // 位置数组
         pointSceneObject.position = [109.03132041021797, 34.25274839985985, 0]
-
 
         function createPoint() {
             pointSceneObject.position = [0, 0, 0]

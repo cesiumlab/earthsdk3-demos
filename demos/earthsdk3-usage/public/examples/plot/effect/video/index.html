@@ -93,29 +93,19 @@
         const ES3DTileset = objm.createSceneObjectFromJson({
             "id": "c2c8311e-6e50-47a2-b764-1c82f2d0e256",
             "type": "ES3DTileset",
-            "name": "ES3DTileset",
+            "name": "大雁塔",
             "allowPicking": true,
             "url": "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
         })
 
-        // 创建视频融合对象
-        const sceneObject = objm.createSceneObject('ESVideoFusion')
-        // 位置数组
-        sceneObject.position = [108.95164796106991, 34.23064819963053, 1058.9890456424841]
-
-        // 姿态数组
-        sceneObject.rotation = [58.89167863222784, -40.86689895530417, 0]
-
-        // 远截面距离起点距离（米）
-        sceneObject.far = 2235.9369219586747
-
-        // 显示优先级
-        sceneObject.zIndex = 1
-
-        // 视频播放地址，支持像素流和一般视频。
-        sceneObject.videoStreamUrl = "https://cdn2-unrealengine-1251447533.file.myqcloud.com/homepage-opener-5a55a50aaa4c.mp4"
-
-
+        // 创建一个视频融合对象
+        const sceneObject = objm.createSceneObjectFromJson({
+            "type": "ESVideoFusion",
+            "position": [108.95940620973573, 34.21785533716187, 419.4659565408284],
+            "rotation": [-91.61253930450191, 1.8246546474987793, 0],
+            "far": 200,
+            "videoStreamUrl": "https://cdn2-unrealengine-1251447533.file.myqcloud.com/homepage-opener-5a55a50aaa4c.mp4"
+        })
         // 编辑对象
         function editing() {
             sceneObject.editing = !sceneObject.editing

@@ -32,27 +32,30 @@
     <script>
         /** ---------------------------------地球创建------------------------------------**/
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
-
         // 监听视口状态
-        viewer.statusChanged.don((status) => {
-            if (status == "Created") {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn(
-                    [115.9453432577605, 22.89216127030952, 789.4948053805265],
-                    [29.015034176609266, -29.191968119807054, 359.9990548222274],
-                    3
-                );
-            }
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [115.9453432577605, 22.89216127030952, 789.4948053805265],
+                [29.015034176609266, -29.191968119807054, 359.9990548222274],
+                3
+            )
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                // pick拾取
+                viewer.pick(e.screenPosition, "customPick").then((res) => {
+                    console.log('pickedEvent', res)
+                });
+            });
         });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
@@ -125,11 +128,8 @@
                 }]
         }
 
-        const { ESGeoJson } = XE2["esobjs-xe2-plugin-main"];
-        const { PickedInfo } = XE2["xe2-base-objects"]
-        const sceneObject = objm.createSceneObject(ESGeoJson);
-        window.sceneObject = sceneObject;
-
+        const sceneObject = objm.createSceneObject('ESGeoJson');
+        sceneObject.allowPicking = true
         // url可以填写服务地址，也可以填写具体的data数据（如上所示）
         sceneObject.url = data
         // 额外存储属性
@@ -152,19 +152,8 @@
         sceneObject.heightReference = "CLAMP_TO_GROUND"
         // 被拾取
         sceneObject.pickedEvent.don((e) => {
-            const name = e.childPickedInfo.geojsonPickInfo.properties.name;
-            const attachedInfo = PickedInfo.getFinalAttachedInfo(e)
-            console.log(e, attachedInfo)
-            switch (attachedInfo.viewersPickingPointerEventFuncType[0]) {
-                case 'click':
-                    alert("点击拾取:" + name)
-                    break;
-                case "pointerHover":
-                    alert("悬浮拾取:" + name)
-                    break;
-                default:
-                    break;
-            }
+            console.log('pickedEvent', e)
+            alert(JSON.stringify(e.pickedInfo.geojsonPickInfo))
         })
 
         // 飞行定位

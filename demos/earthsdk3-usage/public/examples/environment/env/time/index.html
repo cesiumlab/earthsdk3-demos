@@ -1,106 +1,95 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <script src="./js/earthsdk.js"></script>
-    <!-- 面板的样式放到css文件内 -->
-    <link rel="stylesheet" href="./css/example1.css" />
-    <title>Cesium地球初始化</title>
-    <style>
-      html,
-      body,
-      #app {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-      }
 
-      .box {
-        display: grid;
-        grid-template-columns: 80px 1fr;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="./js/earthsdk.js"></script>
+  <!-- 面板的样式放到css文件内 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+  <title>Cesium地球初始化</title>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
 
-  <body>
-    <div id="app"></div>
-    <div id="panel">
-      <div class="box">
-        <label for="">时间戳</label
-        ><input type="number" id="time" placeholder="单位：毫秒" />
-      </div>
-      <input type="range" min="0" max="24" step="1" value="0" id="rangeInput" />
-      <div class="panel-text">
-        <p>0</p>
-        <p>24</p>
-      </div>
+    .box {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="panel">
+    <div class="box">
+      <label for="">时间戳</label><input type="number" id="time" placeholder="单位：毫秒" />
     </div>
-    <script>
-      /** ---------------------------------地球创建------------------------------------**/
-
-      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-      const objm = new ESObjectsManager();
-      window.g_objm = objm;
-
-      // 创建Cesium视口
-      const viewer = objm.createCesiumViewer({
-        domid: document.getElementById("app"),
-      });
-
-      // 通过json创建一个影像图层
-      const imageryLayer = objm.createSceneObjectFromJson({
-        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-        type: "ESImageryLayer",
-        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      });
-
-      /**-------------------------------------时间线-------------------------------**/
-      /**
-       * 关键点:
-       * 将时间转为时间戳赋值给当前视口下的当前时间
-       * objm.activeViewer.currentTime
-       */
-
-      // 将小时转换为时间戳的方法
-      function hourToTimestamp(hour) {
-        var now = new Date(); // 获取当前日期时间
-        now.setHours(hour, 0, 0, 0); // 将当前日期时间设置为小时数
-        return now.getTime();
-      }
-
-      // 添加事件监听器，当拖动条的值发生变化时触发
-      const ipt = document.getElementById("rangeInput");
-      ipt.addEventListener("input", function () {
-        const timestamp = hourToTimestamp(+ipt.value);
-        objm.activeViewer.currentTime = timestamp;
-        document.getElementById("time").value = timestamp;
-      });
-
-      //监听视口变化  允许Manager控制SunSky
-      objm.d(
-        objm.activeViewerChanged.don((viewer) => {
-          if (!viewer) return;
-
-          if (objm.activeViewer.typeName === "ESUeViewer") {
-            objm.activeViewer.innerViewer.sunSkyControlled = true;
-          }
-        })
-      );
-    </script>
-    <!-- 切换UE和Cesium引擎的组件（Vue） -->
-    <div id="root">
-      <switch-engine :objm="objm"></switch-engine>
+    <input type="range" min="0" max="24" step="1" value="0" id="rangeInput" />
+    <div class="panel-text">
+      <p>0</p>
+      <p>24</p>
     </div>
-    <!-- Vue文件 -->
-    <script src="./js/vue.global.js"></script>
-    <!-- 切换UE和Cesium的组件 -->
-    <script src="./js/switchEngineCom.js"></script>
-  </body>
+  </div>
+  <script>
+    /** ---------------------------------地球创建------------------------------------**/
+
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+    window.g_objm = objm;
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+    // 通过json创建一个影像图层
+    const imageryLayer = objm.createSceneObjectFromJson({
+      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+      type: "ESImageryLayer",
+      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    });
+
+    /**-------------------------------------时间线-------------------------------**/
+    /**
+     * 关键点:
+     * 将时间转为时间戳赋值给当前视口下的当前时间
+     * objm.activeViewer.currentTime
+     */
+
+    // 将小时转换为时间戳的方法
+    function hourToTimestamp(hour) {
+      var now = new Date(); // 获取当前日期时间
+      now.setHours(hour, 0, 0, 0); // 将当前日期时间设置为小时数
+      return now.getTime();
+    }
+
+    // 添加事件监听器，当拖动条的值发生变化时触发
+    const ipt = document.getElementById("rangeInput");
+    ipt.addEventListener("input", function () {
+      const timestamp = hourToTimestamp(+ipt.value);
+      objm.activeViewer.currentTime = timestamp;
+      document.getElementById("time").value = timestamp;
+    });
+
+  </script>
+  <!-- 切换UE和Cesium引擎的组件（Vue） -->
+  <div id="root">
+    <switch-engine :objm="objm"></switch-engine>
+  </div>
+  <!-- Vue文件 -->
+  <script src="./js/vue.global.js"></script>
+  <!-- 切换UE和Cesium的组件 -->
+  <script src="./js/switchEngineCom.js"></script>
+</body>
+
 </html>

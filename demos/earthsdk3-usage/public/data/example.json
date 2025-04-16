@@ -1092,7 +1092,7 @@
                 "details": "Cesium宇宙背景设置",
                 "children": [
                     {
-                        "name": "背景透明",
+                        "name": "背景透明+地球颜色",
                         "thumbnail": "cesium-background-background.webp",
                         "path": "cesium/background/background"
                     },

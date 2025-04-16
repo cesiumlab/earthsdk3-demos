@@ -1,92 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cesium示例</title>
-  </head>
-  <!--Cesium js文件引入 -->
-  <script src="./js/earthsdk.js"></script>
-  <!-- 自定义Css样式 -->
-  <link rel="stylesheet" href="./css/example1.css" />
 
-  <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
-    #app {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    button {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 999;
-    }
-  </style>
-  <body>
-    <div id="app"></div>
-    <button onclick="isShowRedBox()">红色盒子显/隐</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cesium示例</title>
+</head>
+<!--Cesium js文件引入 -->
+<script src="./js/earthsdk.js"></script>
+<!-- 自定义Css样式 -->
+<link rel="stylesheet" href="./css/example1.css" />
 
-    <script>
-      /** -----------------------------------------地球创建----------------------------------------------------**/
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
 
-      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+  #app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
 
-      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-      const objm = new ESObjectsManager();
-      window.g_objm = objm;
+  button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+  }
+</style>
 
-      // 通过earthsdk创建的Cesium视口
-      const earthsdkViewer = objm.createCesiumViewer({
-        domid: document.getElementById("app"),
+<body>
+  <div id="app"></div>
+  <button onclick="isShowRedBox()">红色盒子显/隐</button>
+
+  <script>
+    /** -----------------------------------------地球创建----------------------------------------------------**/
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+    window.g_objm = objm;
+
+    var redBox;
+    // 监听视口状态
+    objm.viewerCreatedEvent.don((v) => {
+      // 获取Cesium底层viewer
+      const viewer = v.viewer;
+      // 创建红色盒子添加到viewer上
+      redBox = viewer.entities.add({
+        name: "Red box with black outline",
+        position: Cesium.Cartesian3.fromDegrees(-107.0, 40.0, 300000.0),
+        box: {
+          dimensions: new Cesium.Cartesian3(400000.0, 400000.0, 400000.0),
+          material: Cesium.Color.RED.withAlpha(0.5),
+          outline: true,
+          outlineColor: Cesium.Color.BLACK,
+        },
       });
+      viewer.zoomTo(viewer.entities);
+    });
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-      var redBox;
-
-      // 监听视口状态 
-      earthsdkViewer.statusChanged.don((status) => {
-        if (status == "Created") {//Created 视口已创建
-          // 获取Cesium底层viewer
-          // objm.activeViewer.innerViewer.viewer
-          const viewer = objm.activeViewer.innerViewer.viewer;
-
-          // 创建红色盒子添加到viewer上
-          redBox = viewer.entities.add({
-            name: "Red box with black outline",
-            position: Cesium.Cartesian3.fromDegrees(-107.0, 40.0, 300000.0),
-            box: {
-              dimensions: new Cesium.Cartesian3(400000.0, 400000.0, 400000.0),
-              material: Cesium.Color.RED.withAlpha(0.5),
-              outline: true,
-              outlineColor: Cesium.Color.BLACK,
-            },
-          });
-          viewer.zoomTo(viewer.entities);
-        }
-      });
-
-      // 通过json创建一个影像图层
-      const imageryLayer = objm.createSceneObjectFromJson({
-        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-        type: "ESImageryLayer",
-        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      });
+    // 通过json创建一个影像图层
+    const imageryLayer = objm.createSceneObjectFromJson({
+      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+      type: "ESImageryLayer",
+      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    });
 
 
-      // 红色盒子显示/隐藏
-      const isShowRedBox = () => {
-        redBox.show = !redBox.show;
-      };
-    </script>
-  </body>
+    // 红色盒子显示/隐藏
+    const isShowRedBox = () => {
+      redBox.show = !redBox.show;
+    };
+  </script>
+</body>
+
 </html>

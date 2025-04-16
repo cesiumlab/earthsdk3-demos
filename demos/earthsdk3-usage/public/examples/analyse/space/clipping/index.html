@@ -41,30 +41,28 @@
             <label for="width">宽度</label><input type="number" id="width" onchange="setWidth()" value="200">
             <label for="height">高度</label><input type="number" id="height" onchange="setHeight()" value="200">
         </div>
-        <button onclick="resetEdit()">重新选择裁剪位置</button>
-        <button onclick="editingCurrent()">编辑位置</button>
+        <button onclick="start()">开始绘制</button>
+        <button onclick="deleteClippingObj()">删除</button>
     </div>
     <script>
 
         /** -----------------------------------------地球创建----------------------------------------------------**/
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            "domid": document.getElementById("app")
-        })
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([108.96299571058906, 34.21678028533886, 646.936464988799], [307.19168576953393, -31.653922742502324, 0.0005275461534735532], 3)
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [108.96299571058906, 34.21678028533886, 646.936464988799], [307.19168576953393, -31.653922742502324, 0.0005275461534735532], 3
+            )
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -84,48 +82,25 @@
         })
 
 
-        /**-----------------------------根据类（Class）创建一个ESClippingPlane裁剪对象-------------------------------**/
-
-        // Vue中引入方式：import { ESClippingPlane } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESClippingPlane } = XE2['esobjs-xe2-plugin-main']
-        const clippingObject = objm.createSceneObject(ESClippingPlane)
-
-        //设置裁剪的3dtileset对象的id
-        clippingObject.targetID = eS3DTileset.id
-        // 设置裁剪的基准位置
-        clippingObject.position = [
-            108.95948309393542,
-            34.219364886363216,
-            424.8491858720023
-        ]
-        // 开启编辑
-        clippingObject.editing = true
-
-
-        // 重新绘制
-        function resetEdit() {
-            clippingObject.editing = false
-            clippingObject.position = [0, 0, 0]
-            clippingObject.editing = true
-        }
-
-        // 编辑
-        function editingCurrent() {
-            clippingObject.editing = true
-        }
-
-        function showArrow() {
-            clippingObject.showArrow = !clippingObject.showArrow
-        }
-
-        function setHeight() {
+        let clippingObj = null;
+        const start = () => {
+            if (clippingObj) {
+                deleteClippingObj()
+            }
+            const clippingObject = objm.createSceneObject('ESClippingPlane')
+            clippingObject.targetID = eS3DTileset.id;
             clippingObject.height = Number(document.getElementById('height').value)
-        }
-        function setWidth() {
             clippingObject.width = Number(document.getElementById('width').value)
-        }
-        function setEdgetWidth() {
             clippingObject.edgetWidth = Number(document.getElementById('edgetWidth').value)
+            clippingObject.showArrow = document.getElementById('arrow').checked
+            clippingObject.editing = true;
+            clippingObj = clippingObject;
+        }
+        const deleteClippingObj = () => {
+            if (clippingObj) {
+                objm.destroySceneObject(clippingObj)
+                clippingObj = null
+            }
         }
     </script>
 

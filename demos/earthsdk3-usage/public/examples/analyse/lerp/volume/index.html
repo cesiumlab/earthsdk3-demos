@@ -70,26 +70,20 @@
 
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
-        // 创建Ceisum视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([108.96261440183773, 34.217165976421526, 640.8978652592571], [301.5081035251009, -31.461909655027977, 0.0012513438258845236], 3)
-
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [108.96261440183773, 34.217165976421526, 640.8978652592571], [301.5081035251009, -31.461909655027977, 0.0012513438258845236], 3
+            )
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -112,8 +106,7 @@
         /**
          * 体积测量，通过此功能可以通过某一基准面对建筑填挖方体积进行估算。
         */
-        const { ESVolumeMeasurement } = XE2['esobjs-xe2-plugin-main']
-        const esVolumMeasurement = objm.createSceneObject(ESVolumeMeasurement)
+        const esVolumMeasurement = objm.createSceneObject('ESVolumeMeasurement')
 
         // 监听基准面设置到UI上
         esVolumMeasurement.planeHeightChanged.don((val) => {

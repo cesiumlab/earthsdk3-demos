@@ -1,388 +1,348 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <script src="./js/earthsdk.js"></script>
-    <script src="./js/Colorpicker.js"></script>
-    <!-- 自定义Css样式 -->
-    <link rel="stylesheet" href="./css/example1.css" />
-    <title>地理水面</title>
-    <style>
-      html,
-      body,
-      #app {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-      }
-      .box1,
-      .box2,
-      .box {
-        display: grid;
-        grid-template-columns: 110px 1fr;
-        align-items: center;
-      }
-      .box label,
-      .box1 label,
-      .box2 label {
-        padding-right: 10px;
-      }
 
-      .btn {
-        padding-top: 10px;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="./js/earthsdk.js"></script>
+  <script src="./js/Colorpicker.js"></script>
+  <!-- 自定义Css样式 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+  <title>地理水面</title>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
 
-      .btn button {
-        width: 286px;
-      }
+    .box1,
+    .box2,
+    .box {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      align-items: center;
+    }
 
-      label {
-        line-height: 40px;
-      }
-      .warning {
-        color: #fff;
-        font-size: 14px;
-      }
-      .warning .warningText {
-        color: sandybrown;
-      }
-      #GroupColor {
-        background-color: rgb(78, 82, 28);
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
+    .box label,
+    .box1 label,
+    .box2 label {
+      padding-right: 10px;
+    }
 
-  <body>
-    <div id="app"></div>
-    <div id="panel">
-      <div class="box">
-        <label for="">水域类型</label>
-        <select name="mode" id="type" onchange="setType()">
-          <option value="custom">custom</option>
-          <option value="river">river</option>
-          <option value="ocean">ocean</option>
-          <option value="lake">lake</option>
-        </select>
+    .btn {
+      padding-top: 10px;
+    }
+
+    .btn button {
+      width: 286px;
+    }
+
+    label {
+      line-height: 40px;
+    }
+
+    .warning {
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .warning .warningText {
+      color: sandybrown;
+    }
+
+    #GroupColor {
+      background-color: rgb(78, 82, 28);
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="panel">
+    <div class="box">
+      <label for="">水域类型</label>
+      <select name="mode" id="type" onchange="setType()">
+        <option value="custom">custom</option>
+        <option value="river">river</option>
+        <option value="ocean">ocean</option>
+        <option value="lake">lake</option>
+      </select>
+    </div>
+    <p class="warning">
+      <span class="warningText">提示：</span>下述参数只有类型为custom时生效
+    </p>
+    <div class="box1">
+      <label for="">水的底色</label>
+      <div class="colorBox">
+        <input id="waterColor" value="#1a4478" />
+        <div id="GroupColor"></div>
       </div>
-      <p class="warning">
-        <span class="warningText">提示：</span>下述参数只有类型为custom时生效
-      </p>
-      <div class="box1">
-        <label for="">水的底色</label>
-        <div class="colorBox">
-          <input id="waterColor" value="#1a4478" />
-          <div id="GroupColor"></div>
-        </div>
-        <label for="">频率</label>
-        <input
-          id="frequency"
-          type="number"
-          value="1000"
-          oninput="setFrequency()"
-        />
-        <label for="">波动频率</label>
-        <div class="rangeBox">
-          <input
-            id="waveVelocity"
-            type="range"
-            value="0.5"
-            step="0.01"
-            min="0"
-            max="1"
-            oninput="setWaveVelocity()"
-          />
-          <div class="rangeNum" id="rangeWaveVelocity">0.5</div>
-        </div>
-        <label for="">振幅</label>
-        <div class="rangeBox">
-          <input
-            id="amplitude"
-            type="range"
-            value="0.1"
-            step="0.01"
-            min="0"
-            max="1"
-            oninput="setAmplitude()"
-          />
-          <div class="rangeNum" id="rangeAmplitude">0.1</div>
-        </div>
-        <label for="">镜面反射强度</label>
-        <div class="rangeBox">
-          <input
-            id="specularIntensity"
-            type="range"
-            value="0.8"
-            step="0.01"
-            min="0"
-            max="1"
-            oninput="setSpecularIntensity()"
-          />
-          <div class="rangeNum" id="rangeSpecularIntensity">0.8</div>
-        </div>
+      <label for="">频率</label>
+      <input id="frequency" type="number" value="1000" oninput="setFrequency()" />
+      <label for="">波动频率</label>
+      <div class="rangeBox">
+        <input id="waveVelocity" type="range" value="0.5" step="0.01" min="0" max="1" oninput="setWaveVelocity()" />
+        <div class="rangeNum" id="rangeWaveVelocity">0.5</div>
       </div>
-      <p class="warning">
-        <span class="warningText">提示：</span>下述参数仅UE有效
-      </p>
-
-      <div class="box2">
-        <label for="">流向</label>
-        <div class="rangeBox">
-          <input
-            id="flowDirection"
-            type="range"
-            value="0"
-            step="1"
-            min="0"
-            max="360"
-            oninput="setFlowDirection()"
-          />
-          <div class="rangeNum" id="rangeFlowDirection">0</div>
-        </div>
-        <label for="">水流速度</label>
-        <input
-          id="flowSpeed"
-          type="number"
-          value="0"
-          oninput="setFlowSpeed()"
-        />
-        
+      <label for="">振幅</label>
+      <div class="rangeBox">
+        <input id="amplitude" type="range" value="0.1" step="0.01" min="0" max="1" oninput="setAmplitude()" />
+        <div class="rangeNum" id="rangeAmplitude">0.1</div>
       </div>
-      <p class="warning">
-        <span class="warningText">提示：</span>重新绘制时，第一次编辑确定原点位置，第二次编辑确定局部坐标
-      </p>
-      <div class="btn">
-        <button onclick="resetPlane()">重新绘制</button>
-        <button onclick="editPlane()">编辑</button>
+      <label for="">镜面反射强度</label>
+      <div class="rangeBox">
+        <input id="specularIntensity" type="range" value="0.8" step="0.01" min="0" max="1"
+          oninput="setSpecularIntensity()" />
+        <div class="rangeNum" id="rangeSpecularIntensity">0.8</div>
       </div>
     </div>
-    <script>
-      /** ---------------------------------地球创建------------------------------------**/
+    <p class="warning">
+      <span class="warningText">提示：</span>下述参数仅UE有效
+    </p>
 
-      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+    <div class="box2">
+      <label for="">流向</label>
+      <div class="rangeBox">
+        <input id="flowDirection" type="range" value="0" step="1" min="0" max="360" oninput="setFlowDirection()" />
+        <div class="rangeNum" id="rangeFlowDirection">0</div>
+      </div>
+      <label for="">水流速度</label>
+      <input id="flowSpeed" type="number" value="0" oninput="setFlowSpeed()" />
 
-      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-      const objm = new ESObjectsManager();
-      window.g_objm = objm;
-      // 创建Cesium视口
-      const viewer = objm.createCesiumViewer({
-        domid: document.getElementById("app"),
-      });
-      // 监听视口状态
-      viewer.statusChanged.don((status) => {
-        if (status == "Created") {
-          // 视口创建完成，飞到初始视角位置
-          objm.activeViewer.flyIn(
-            [117.2438081621899, 39.23358908644419, 2650.624135682927],
-            [43.09820515903513, -41.82447107614425, 0.003435021103636539],
-            3
-          );
-        }
-      });
-      // 通过json创建一个影像图层
-      const imageryLayer = objm.createSceneObjectFromJson({
-        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-        type: "ESImageryLayer",
-        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      });
+    </div>
+    <p class="warning">
+      <span class="warningText">提示：</span>重新绘制时，第一次编辑确定原点位置，第二次编辑确定局部坐标
+    </p>
+    <div class="btn">
+      <button onclick="resetPlane()">重新绘制</button>
+      <button onclick="editPlane()">编辑</button>
+    </div>
+  </div>
+  <script>
+    /** ---------------------------------地球创建------------------------------------**/
 
-      /** ---------------------------------地理水面------------------------------------**/
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+    window.g_objm = objm;
+    // 监听视口状态
+    objm.viewerCreatedEvent.don((viewer) => {
+      viewer.flyIn(
+        [117.2438081621899, 39.23358908644419, 2650.624135682927],
+        [43.09820515903513, -41.82447107614425, 0.003435021103636539],
+        3)
+    });
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-      const { ESDynamicWater, ESGeoPolygon } = XE2["esobjs-xe2-plugin-main"];
-      const { positionsToLocalPositions } = XE2["xe2-base-objects"];
+    // 通过json创建一个影像图层
+    const imageryLayer = objm.createSceneObjectFromJson({
+      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+      type: "ESImageryLayer",
+      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    });
 
-      const eSDynamicWater = objm.createSceneObject(ESDynamicWater);
-      window.eSDynamicWater = eSDynamicWater;
+    /** ---------------------------------地理水面------------------------------------**/
+    const { positionsToLocalPositions } = window['earthsdk3-cesium'];
 
-      const eSGeoPolygon = objm.createSceneObject(ESGeoPolygon);
-      window.eSGeoPolygon = eSGeoPolygon;
+    const eSDynamicWater = objm.createSceneObject('ESDynamicWater');
+    window.eSDynamicWater = eSDynamicWater;
 
-      // ESGeoPolygon初始赋值
-      const initESGeoPolygon = () => {
-        eSGeoPolygon.filled = false;
-        eSGeoPolygon.stroked = true;
-      };
-      initESGeoPolygon();
+    const eSGeoPolygon = objm.createSceneObject('ESGeoPolygon');
+    window.eSGeoPolygon = eSGeoPolygon;
 
-      // 初始赋值
-      const init = () => {
-        eSDynamicWater.stroked = false;
-        eSDynamicWater.waterColor = [0.1497, 0.165, 0.0031, 1];
-        eSDynamicWater.frequency = 1000;
-        eSDynamicWater.waveVelocity = 0.5;
-        eSDynamicWater.amplitude = 0.1;
-        eSDynamicWater.specularIntensity = 0.8;
-        eSDynamicWater.waterType = "custom";
-        eSDynamicWater.flowDirection = 0;
-        eSDynamicWater.flowSpeed = 0;
-        // 原点
-        eSDynamicWater.position = [117.26709403580408, 39.249633055440974, 0];
-        // 局部坐标
-        eSDynamicWater.points = [
-          [-678.6655226122871, 1136.7125619514845, 1],
-          [-353.50155226083507, 762.952365658246, 1],
-          [747.1959215573684, 59.71686225803569, 1],
-          [1187.4836822604943, -205.90367958508432, 1],
-          [923.6817880734984, -560.3375946073793, 1],
-          [208.4037627415914, -767.6689245509915, 1],
-          [-593.2399845068626, -219.5056472364813, 1],
-          [-988.1567926843468, 1132.3065926413983, 1],
-        ];
-      };
-      init();
+    // ESGeoPolygon初始赋值
+    const initESGeoPolygon = () => {
+      eSGeoPolygon.filled = false;
+      eSGeoPolygon.stroked = true;
+    };
+    initESGeoPolygon();
 
-      const dom = {
-        // 水域类型
-        type: document.getElementById("type"),
-        // 水的底色
-        waterColor: document.getElementById("waterColor"),
-        // 频率
-        frequency: document.getElementById("frequency"),
-        // 波动频率
-        waveVelocity: document.getElementById("waveVelocity"),
-        // 振幅
-        amplitude: document.getElementById("amplitude"),
-        // 镜面反射强度
-        specularIntensity: document.getElementById("specularIntensity"),
-        // 流向
-        flowDirection: document.getElementById("flowDirection"),
-        // 水流速度
-        flowSpeed: document.getElementById("flowSpeed"),
-      };
+    // 初始赋值
+    const init1 = () => {
+      eSDynamicWater.stroked = false;
+      eSDynamicWater.waterColor = [0.1497, 0.165, 0.0031, 1];
+      eSDynamicWater.frequency = 1000;
+      eSDynamicWater.waveVelocity = 0.5;
+      eSDynamicWater.amplitude = 0.1;
+      eSDynamicWater.specularIntensity = 0.8;
+      eSDynamicWater.waterType = "custom";
+      eSDynamicWater.flowDirection = 0;
+      eSDynamicWater.flowSpeed = 0;
+      // 原点
+      eSDynamicWater.position = [117.26709403580408, 39.249633055440974, 0];
+      // 局部坐标
+      eSDynamicWater.points = [
+        [-678.6655226122871, 1136.7125619514845, 1],
+        [-353.50155226083507, 762.952365658246, 1],
+        [747.1959215573684, 59.71686225803569, 1],
+        [1187.4836822604943, -205.90367958508432, 1],
+        [923.6817880734984, -560.3375946073793, 1],
+        [208.4037627415914, -767.6689245509915, 1],
+        [-593.2399845068626, -219.5056472364813, 1],
+        [-988.1567926843468, 1132.3065926413983, 1],
+      ];
+    };
+    init1();
 
-      // 设置水域类型
-      function setType() {
-        eSDynamicWater.waterType = dom.type.value;
-        if (eSDynamicWater.waterType !== "custom") {
-          for (let key in dom) {
-            if (key == "type") continue;
-            dom[key].disabled = true;
-            dom[key].style.cursor = "no-drop";
-          }
-        } else {
-          for (let key in dom) {
-            if (key == "type") continue;
-            dom[key].disabled = false;
-            dom[key].style.cursor = "unset";
-          }
-        }
-      }
-      setType();
-
+    const dom = {
+      // 水域类型
+      type: document.getElementById("type"),
+      // 水的底色
+      waterColor: document.getElementById("waterColor"),
       // 频率
-      function setFrequency() {
-        eSDynamicWater.frequency = Number(dom.frequency.value);
-      }
-
+      frequency: document.getElementById("frequency"),
       // 波动频率
-      function setWaveVelocity() {
-        let value = Number(dom.waveVelocity.value);
-        document.getElementById("rangeWaveVelocity").innerHTML = value;
-        eSDynamicWater.waveVelocity = value;
-      }
-
+      waveVelocity: document.getElementById("waveVelocity"),
       // 振幅
-      function setAmplitude() {
-        let value = Number(dom.amplitude.value);
-        document.getElementById("rangeAmplitude").innerHTML = value;
-        eSDynamicWater.amplitude = value;
-      }
-
+      amplitude: document.getElementById("amplitude"),
       // 镜面反射强度
-      function setSpecularIntensity() {
-        let value = Number(dom.specularIntensity.value);
-        document.getElementById("rangeSpecularIntensity").innerHTML = value;
-        eSDynamicWater.specularIntensity = value;
-      }
-
+      specularIntensity: document.getElementById("specularIntensity"),
       // 流向
-      function setFlowDirection() {
-        let value = Number(dom.flowDirection.value);
-        document.getElementById("rangeFlowDirection").innerHTML = value;
-        eSDynamicWater.flowDirection = value;
-      }
-
+      flowDirection: document.getElementById("flowDirection"),
       // 水流速度
-      function setFlowSpeed() {
-        eSDynamicWater.flowSpeed = Number(dom.flowSpeed.value);
-      }
+      flowSpeed: document.getElementById("flowSpeed"),
+    };
 
-      // 重新绘制
-      function resetPlane() {
-        eSDynamicWater.editing = false;
-
-        eSDynamicWater.points = [];
-        eSDynamicWater.position = [0, 0, 0];
-
-        eSDynamicWater.editing = true;
-      }
-
-      // 编辑
-      function editPlane() {
-        eSDynamicWater.editing = true;
-      }
-
-      // 取色
-      Colorpicker.create({
-        el: "GroupColor",
-        // color:"rgb(26,68,120)",
-        initColor: "rgb(78, 82, 28)",
-
-        change: function (elem, hex) {
-          elem.style.backgroundColor = hex;
-          // 最后颜色获取赋值部分，其中hex为用户选中后颜色
-          dom.waterColor.value = hex;
-          const cssColor = hexToRgb(hex);
-          const xe2Color = cssColorToXe2Color(cssColor);
-
-          eSDynamicWater.waterColor = [...xe2Color, 1];
-        },
-      });
-
-      eSDynamicWater.editingChanged.don(() => {
-        if (eSDynamicWater.editing) return;
-        if (!eSDynamicWater.points || !eSDynamicWater.points.length) {
-          if (!eSGeoPolygon.points || eSGeoPolygon.points.length > 0) {
-            eSGeoPolygon.points = [];
-          }
-          eSGeoPolygon.stroked = true;
-          eSGeoPolygon.editing = true;
+    // 设置水域类型
+    function setType() {
+      eSDynamicWater.waterType = dom.type.value;
+      if (eSDynamicWater.waterType !== "custom") {
+        for (let key in dom) {
+          if (key == "type") continue;
+          dom[key].disabled = true;
+          dom[key].style.cursor = "no-drop";
         }
-      });
-      eSGeoPolygon.editingChanged.don(() => {
-        if (eSGeoPolygon.editing) return;
-        setlocalPosition();
-        eSGeoPolygon.stroked = false;
-      });
-      // 设置局部坐标
-      const setlocalPosition = () => {
-        if (!eSGeoPolygon.editing && eSGeoPolygon.points.length > 2) {
-          // 中心点
-          const center = [...eSDynamicWater.position];
-          const points = [center, ...eSGeoPolygon.points];
-          const [localPositons] = positionsToLocalPositions(
-            { originPosition: points[0] },
-            points
-          );
-          eSDynamicWater.points = localPositons
-            .map((e) => [e[0], e[1], 1])
-            .slice(1);
+      } else {
+        for (let key in dom) {
+          if (key == "type") continue;
+          dom[key].disabled = false;
+          dom[key].style.cursor = "unset";
         }
-      };
-    </script>
+      }
+    }
+    setType();
 
-    <!-- 切换UE和Cesium引擎的组件（Vue） -->
-    <div id="root">
-      <switch-engine :objm="objm"></switch-engine>
-    </div>
-    <!-- Vue文件 -->
-    <script src="./js/vue.global.js"></script>
-    <!-- 切换UE和Cesium的组件 -->
-    <script src="./js/switchEngineCom.js"></script>
-  </body>
+    // 频率
+    function setFrequency() {
+      eSDynamicWater.frequency = Number(dom.frequency.value);
+    }
+
+    // 波动频率
+    function setWaveVelocity() {
+      let value = Number(dom.waveVelocity.value);
+      document.getElementById("rangeWaveVelocity").innerHTML = value;
+      eSDynamicWater.waveVelocity = value;
+    }
+
+    // 振幅
+    function setAmplitude() {
+      let value = Number(dom.amplitude.value);
+      document.getElementById("rangeAmplitude").innerHTML = value;
+      eSDynamicWater.amplitude = value;
+    }
+
+    // 镜面反射强度
+    function setSpecularIntensity() {
+      let value = Number(dom.specularIntensity.value);
+      document.getElementById("rangeSpecularIntensity").innerHTML = value;
+      eSDynamicWater.specularIntensity = value;
+    }
+
+    // 流向
+    function setFlowDirection() {
+      let value = Number(dom.flowDirection.value);
+      document.getElementById("rangeFlowDirection").innerHTML = value;
+      eSDynamicWater.flowDirection = value;
+    }
+
+    // 水流速度
+    function setFlowSpeed() {
+      eSDynamicWater.flowSpeed = Number(dom.flowSpeed.value);
+    }
+
+    // 重新绘制
+    function resetPlane() {
+      eSDynamicWater.editing = false;
+
+      eSDynamicWater.points = [];
+      eSDynamicWater.position = [0, 0, 0];
+
+      eSDynamicWater.editing = true;
+    }
+
+    // 编辑
+    function editPlane() {
+      eSDynamicWater.editing = true;
+    }
+
+    // 取色
+    Colorpicker.create({
+      el: "GroupColor",
+      // color:"rgb(26,68,120)",
+      initColor: "rgb(78, 82, 28)",
+
+      change: function (elem, hex) {
+        elem.style.backgroundColor = hex;
+        // 最后颜色获取赋值部分，其中hex为用户选中后颜色
+        dom.waterColor.value = hex;
+        const cssColor = hexToRgb(hex);
+        const xe2Color = cssColorToXe2Color(cssColor);
+
+        eSDynamicWater.waterColor = [...xe2Color, 1];
+      },
+    });
+
+    eSDynamicWater.editingChanged.don(() => {
+      if (eSDynamicWater.editing) return;
+      if (!eSDynamicWater.points || !eSDynamicWater.points.length) {
+        if (!eSGeoPolygon.points || eSGeoPolygon.points.length > 0) {
+          eSGeoPolygon.points = [];
+        }
+        eSGeoPolygon.stroked = true;
+        eSGeoPolygon.editing = true;
+      }
+    });
+    eSGeoPolygon.editingChanged.don(() => {
+      if (eSGeoPolygon.editing) return;
+      setlocalPosition();
+      eSGeoPolygon.stroked = false;
+    });
+    // 设置局部坐标
+    const setlocalPosition = () => {
+      if (!eSGeoPolygon.editing && eSGeoPolygon.points.length > 2) {
+        // 中心点
+        const center = [...eSDynamicWater.position];
+        const points = [center, ...eSGeoPolygon.points];
+        const [localPositons] = positionsToLocalPositions(
+          { originPosition: points[0] },
+          points
+        );
+        eSDynamicWater.points = localPositons
+          .map((e) => [e[0], e[1], 1])
+          .slice(1);
+      }
+    };
+  </script>
+
+  <!-- 切换UE和Cesium引擎的组件（Vue） -->
+  <div id="root">
+    <switch-engine :objm="objm"></switch-engine>
+  </div>
+  <!-- Vue文件 -->
+  <script src="./js/vue.global.js"></script>
+  <!-- 切换UE和Cesium的组件 -->
+  <script src="./js/switchEngineCom.js"></script>
+</body>
+
 </html>

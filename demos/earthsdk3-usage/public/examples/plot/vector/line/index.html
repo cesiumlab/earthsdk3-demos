@@ -29,32 +29,19 @@
     <script>
         /** ---------------------------------地球创建------------------------------------**/
 
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
-
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([
-                    81.86266209417337,
-                    34.48839278215159,
-                    51153.994113703215
-                ], [
-                    360,
-                    -89.90037058978302,
-                    0
-                ], 3)
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([81.86266209417337, 34.48839278215159, 51153.994113703215], [360, -89.90037058978302, 0], 3)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
             "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
@@ -64,9 +51,7 @@
         });
 
         /** ---------------------------------折线------------------------------------**/
-
-        const { ESGeoLineString } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESGeoLineString)
+        const sceneObject = objm.createSceneObject('ESGeoLineString')
 
         // 折线颜色
         sceneObject.strokeColor = [
@@ -103,7 +88,7 @@
 
 
         function createESGeoLineString() {
-            const sceneObject = objm.createSceneObject(ESGeoLineString)
+            const sceneObject = objm.createSceneObject('ESGeoLineString')
             sceneObject.strokeWidth = 5
             sceneObject.editing = true
         }

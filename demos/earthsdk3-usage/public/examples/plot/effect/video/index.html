@@ -50,34 +50,28 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [
                     108.96708085773535,
                     34.21365588348781,
                     826.952187784194
                 ], [
-                    303.9941519186465,
-                    -28.05758861619508,
-                    0.00007180136614638873
-                ], 3)
-
-            }
-        })
+                303.9941519186465,
+                -28.05758861619508,
+                0.00007180136614638873
+            ], 3
+            )
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -105,8 +99,7 @@
         })
 
         // 创建视频融合对象
-        const { ESVideoFusion } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESVideoFusion)
+        const sceneObject = objm.createSceneObject('ESVideoFusion')
         // 位置数组
         sceneObject.position = [108.95164796106991, 34.23064819963053, 1058.9890456424841]
 

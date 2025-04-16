@@ -28,33 +28,26 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-
-        // 创建Cesium视口
-        const viewer = objm.createCesiumViewer({
-            domid: document.getElementById("app"),
-        });
-        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
         // 监听视口状态
-        viewer.statusChanged.don(status => {
-            if (status == 'Created') {
-                // 视口创建完成，飞到初始视角位置
-                objm.activeViewer.flyIn([
-                    110.58749553432271,
-                    20.268524281393816,
-                    192536.89974363067
-                ], [
-                    335.78601015167027,
-                    -55.864586236154764,
-                    0.0003301719638204506
-                ], 3)
-            }
-        })
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                110.58749553432271,
+                20.268524281393816,
+                192536.89974363067
+            ], [
+                335.78601015167027,
+                -55.864586236154764,
+                0.0003301719638204506
+            ], 3)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
         // 通过json创建一个影像图层
         const imageryLayer = objm.createSceneObjectFromJson({
@@ -65,9 +58,7 @@
         });
 
         /** ---------------------------------------摄像头------------------------------------------**/
-
-        const { ESCameraVisibleRange } = XE2['esobjs-xe2-plugin-main']
-        const sceneObject = objm.createSceneObject(ESCameraVisibleRange)
+        const sceneObject = objm.createSceneObject('ESCameraVisibleRange')
         // 位置
         sceneObject.position = [110.31472888467145, 21.283075122275044, 0]
 
@@ -86,7 +77,7 @@
 
         function createCamera() {
 
-            const sceneObject = objm.createSceneObject(ESCameraVisibleRange)
+            const sceneObject = objm.createSceneObject('ESCameraVisibleRange')
             sceneObject.editing = true
         }
     </script>

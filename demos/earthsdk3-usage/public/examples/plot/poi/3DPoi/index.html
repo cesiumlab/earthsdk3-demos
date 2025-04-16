@@ -1,249 +1,237 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <script src="./js/earthsdk.js"></script>
-    <script src="./js/Colorpicker.js"></script>
-    <!-- 自定义Css样式 -->
-    <link rel="stylesheet" href="./css/example1.css" />
-    <title>3DPoi</title>
-    <style>
-      html,
-      body,
-      #app {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-      }
 
-      .box {
-        display: grid;
-        align-items: center;
-        grid-template-columns: 100px 1fr;
-        grid-row-gap: 5px;
-        margin-bottom: 10px;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="./js/earthsdk.js"></script>
+  <script src="./js/Colorpicker.js"></script>
+  <!-- 自定义Css样式 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+  <title>3DPoi</title>
+  <style>
+    html,
+    body,
+    #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
 
-      .box1 {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
+    .box {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 100px 1fr;
+      grid-row-gap: 5px;
+      margin-bottom: 10px;
+    }
 
-      .scale {
-        display: flex;
-        justify-content: space-between;
-      }
+    .box1 {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
 
-      .scale > input {
-        width: 30%;
-        height: 20px;
-      }
-      #GroupColor1,
-      #GroupColor2 {
-        background-color: rgb(0, 255, 0);
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
+    .scale {
+      display: flex;
+      justify-content: space-between;
+    }
 
-  <body>
-    <div id="app"></div>
-    <div id="panel">
-      <div class="box">
-        <!-- 任意图片路径 -->
-        <label for="content">内容</label>
-        <input
-          type="text"
-          id="content"
-          value="3D标牌"
-          oninput="setContent()"
-        />
+    .scale>input {
+      width: 30%;
+      height: 20px;
+    }
 
-        <label for="mode">3DPoi</label>
-        <select name="mode" id="mode" onchange="setMode()">
-          <option value="triangle">三角形</option>
-          <option value="diamond" selected>菱形</option>
-        </select>
-        <label for="">标牌颜色</label>
-        <div class="colorBox">
-          <input id="color" value="#00ff00" />
-          <div id="GroupColor1"></div>
-        </div>
-        <label for="">主体颜色</label>
-        <div class="colorBox">
-          <input id="color" value="#00ff00" />
-          <div id="GroupColor2"></div>
-        </div>
-        <label for="">尺寸</label>
-        <div class="scale">
-          <input id="scaleX" type="number" value="1" onchange="setScale()" />
-          <input id="scaleY" type="number" value="1" onchange="setScale()" />
-          <input id="scaleZ" type="number" value="1" onchange="setScale()" />
-        </div>
+    #GroupColor1,
+    #GroupColor2 {
+      background-color: rgb(0, 255, 0);
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="panel">
+    <div class="box">
+      <!-- 任意图片路径 -->
+      <label for="content">内容</label>
+      <input type="text" id="content" value="3D标牌" oninput="setContent()" />
+
+      <label for="mode">3DPoi</label>
+      <select name="mode" id="mode" onchange="setMode()">
+        <option value="triangle">三角形</option>
+        <option value="diamond" selected>菱形</option>
+      </select>
+      <label for="">标牌颜色</label>
+      <div class="colorBox">
+        <input id="color" value="#00ff00" />
+        <div id="GroupColor1"></div>
       </div>
-      <div class="box1">
-        <button onclick="rePickPosition()">重新拾取位置</button>
-        <button onclick="startEditing()">开启编辑</button>
-        <button onclick="flyTo()">飞行定位</button>
+      <label for="">主体颜色</label>
+      <div class="colorBox">
+        <input id="color" value="#00ff00" />
+        <div id="GroupColor2"></div>
+      </div>
+      <label for="">尺寸</label>
+      <div class="scale">
+        <input id="scaleX" type="number" value="1" onchange="setScale()" />
+        <input id="scaleY" type="number" value="1" onchange="setScale()" />
+        <input id="scaleZ" type="number" value="1" onchange="setScale()" />
       </div>
     </div>
-    <script>
-      /** ---------------------------------地球创建------------------------------------**/
+    <div class="box1">
+      <button onclick="rePickPosition()">重新拾取位置</button>
+      <button onclick="startEditing()">开启编辑</button>
+      <button onclick="flyTo()">飞行定位</button>
+    </div>
+  </div>
+  <script>
+    /** ---------------------------------地球创建------------------------------------**/
+    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+    const { ESObjectsManager } = window['earthsdk3']
+    const { ESCesiumViewer } = window['earthsdk3-cesium']
+    const { ESUeViewer } = window['earthsdk3-ue']
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+    window.g_objm = objm;
+    // 监听视口状态
+    objm.viewerCreatedEvent.don((viewer) => {
+      viewer.flyIn([113.45948377518191, 40.33892084355888, 4.621706087170627], [273.6836068062252, -26.9426200212854, 0.00003015776112681918], 3)
+    });
 
-      // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
+    // 创建Cesium视口
+    const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-      const { ESObjectsManager } = XE2["esobjs-xe2-plugin-main"];
-      const objm = new ESObjectsManager();
-      window.g_objm = objm;
-      // 创建Cesium视口
-      const viewer = objm.createCesiumViewer({
-        domid: document.getElementById("app"),
+    // 通过json创建一个影像图层
+    const imageryLayer = objm.createSceneObjectFromJson({
+      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+      type: "ESImageryLayer",
+      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    });
+
+    /** ---------------------------------图标标记------------------------------------**/
+    const sceneObject = objm.createSceneObject('ESPoi3D');
+
+    // 位置
+    sceneObject.position = [113.45941536647375, 40.33892671848204, 0];
+    // 模式
+    sceneObject.mode = "diamond";
+    // style样式
+    sceneObject.style = {
+      FX_Color: [0, 1, 0, 1],
+      UI_Color: [0, 1, 0, 1],
+      text: "3D标牌",
+    };
+
+    let fxArr = [0, 1, 0, 1];
+    let uiArr = [0, 1, 0, 1];
+    // 根据UI响应设置样式，整体设置覆盖
+    function setStyle() {
+      Colorpicker.create({
+        el: "GroupColor2",
+        // color:"rgb(26,68,120)",
+        initColor: "rgb(0,255,0)",
+
+        change: function (elem, hex) {
+          elem.style.backgroundColor = hex;
+          // 最后颜色获取赋值部分，其中hex为用户选中后颜色
+          document.getElementById("color").value = hex;
+          const cssColor = hexToRgb(hex);
+          const xe2Color = cssColorToXe2Color(cssColor);
+
+          fxArr = [...xe2Color, 1];
+          sceneObject.style = {
+            FX_Color: [...fxArr],
+            UI_Color: [...uiArr],
+            text: sceneObject.name,
+          };
+        },
       });
-      // 监听视口状态
-      viewer.statusChanged.don((status) => {
-        if (status == "Created") {
-          // 视口创建完成，飞到初始视角位置
-          objm.activeViewer.flyIn(
-            [113.45948377518191, 40.33892084355888, 4.621706087170627],
-            [273.6836068062252, -26.9426200212854, 0.00003015776112681918],
-            3
-          );
-        }
+
+      Colorpicker.create({
+        el: "GroupColor1",
+        // color:"rgb(26,68,120)",
+        initColor: "rgb(0,255,0)",
+
+        change: function (elem, hex) {
+          elem.style.backgroundColor = hex;
+          // 最后颜色获取赋值部分，其中hex为用户选中后颜色
+          document.getElementById("color").value = hex;
+          const cssColor = hexToRgb(hex);
+          const xe2Color = cssColorToXe2Color(cssColor);
+
+          uiArr = [...xe2Color, 1];
+          sceneObject.style = {
+            FX_Color: [...fxArr],
+            UI_Color: [...uiArr],
+            text: sceneObject.name,
+          };
+        },
       });
+    }
+    setStyle();
 
-      // 通过json创建一个影像图层
-      const imageryLayer = objm.createSceneObjectFromJson({
-        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-        type: "ESImageryLayer",
-        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      });
+    // hex 转 Rgb
+    const hexToRgb = (hex) => {
+      var hex = parseInt(hex.indexOf("#") > -1 ? hex.substring(1) : hex, 16);
+      return [hex >> 16, (hex & 0x00ff00) >> 8, hex & 0x0000ff];
+    };
 
-      /** ---------------------------------图标标记------------------------------------**/
+    // Rgb 转 xe2Color
+    const cssColorToXe2Color = (cssColor) => {
+      return cssColor.map((e) => e / 255 || 0);
+    };
 
-      const { ESPoi3D } = XE2["esobjs-xe2-plugin-main"];
-      const sceneObject = objm.createSceneObject(ESPoi3D);
-
-      // 位置
-      sceneObject.position = [113.45941536647375, 40.33892671848204, 0];
-      // 模式
-      sceneObject.mode = "diamond";
-      // style样式
+    // 根据UI设置内容
+    function setContent() {
+      sceneObject.name = `${document.getElementById("content").value}`;
       sceneObject.style = {
-        FX_Color: [0, 1, 0, 1],
-        UI_Color: [0, 1, 0, 1],
-        text: "3D标牌",
+        FX_Color: [...fxArr],
+        UI_Color: [...uiArr],
+        text: sceneObject.name,
       };
+    }
+    // 根据UI设置模式
+    function setMode() {
+      sceneObject.mode = document.getElementById("mode").value;
+    }
 
-      let fxArr = [0, 1, 0, 1];
-      let uiArr = [0, 1, 0, 1];
-      // 根据UI响应设置样式，整体设置覆盖
-      function setStyle() {
-        Colorpicker.create({
-          el: "GroupColor2",
-          // color:"rgb(26,68,120)",
-          initColor: "rgb(0,255,0)",
+    // 设置scale
+    function setScale() {
+      let x = document.getElementById("scaleX").value;
+      let y = document.getElementById("scaleY").value;
+      let z = document.getElementById("scaleZ").value;
 
-          change: function (elem, hex) {
-            elem.style.backgroundColor = hex;
-            // 最后颜色获取赋值部分，其中hex为用户选中后颜色
-            document.getElementById("color").value = hex;
-            const cssColor = hexToRgb(hex);
-            const xe2Color = cssColorToXe2Color(cssColor);
+      sceneObject.scale = [Number(x), Number(y), Number(z)];
+    }
 
-            fxArr = [...xe2Color, 1];
-            sceneObject.style = {
-              FX_Color: [...fxArr],
-              UI_Color: [...uiArr],
-              text: sceneObject.name,
-            };
-          },
-        });
+    // 根据UI重新拾取位置
+    function rePickPosition() {
+      sceneObject.editing = false;
+      sceneObject.position = [0, 0, 0];
+      sceneObject.editing = true;
+    }
+    // 根据UI开始编辑
+    function startEditing() {
+      sceneObject.editing = true;
+    }
+    // 根据UI飞行定位
+    function flyTo() {
+      sceneObject.flyTo();
+    }
+  </script>
 
-        Colorpicker.create({
-          el: "GroupColor1",
-          // color:"rgb(26,68,120)",
-          initColor: "rgb(0,255,0)",
+  <!-- 切换UE和Cesium引擎的组件（Vue） -->
+  <div id="root">
+    <switch-engine :objm="objm"></switch-engine>
+  </div>
+  <!-- Vue文件 -->
+  <script src="./js/vue.global.js"></script>
+  <!-- 切换UE和Cesium的组件 -->
+  <script src="./js/switchEngineCom.js"></script>
+</body>
 
-          change: function (elem, hex) {
-            elem.style.backgroundColor = hex;
-            // 最后颜色获取赋值部分，其中hex为用户选中后颜色
-            document.getElementById("color").value = hex;
-            const cssColor = hexToRgb(hex);
-            const xe2Color = cssColorToXe2Color(cssColor);
-
-            uiArr = [...xe2Color, 1];
-            sceneObject.style = {
-              FX_Color: [...fxArr],
-              UI_Color: [...uiArr],
-              text: sceneObject.name,
-            };
-          },
-        });
-      }
-      setStyle();
-
-      // hex 转 Rgb
-      const hexToRgb = (hex) => {
-        var hex = parseInt(hex.indexOf("#") > -1 ? hex.substring(1) : hex, 16);
-        return [hex >> 16, (hex & 0x00ff00) >> 8, hex & 0x0000ff];
-      };
-
-      // Rgb 转 xe2Color
-      const cssColorToXe2Color = (cssColor) => {
-        return cssColor.map((e) => e / 255 || 0);
-      };
-
-      // 根据UI设置内容
-      function setContent() {
-        sceneObject.name = `${document.getElementById("content").value}`;
-        sceneObject.style = {
-          FX_Color: [...fxArr],
-          UI_Color: [...uiArr],
-          text: sceneObject.name,
-        };
-      }
-      // 根据UI设置模式
-      function setMode() {
-        sceneObject.mode = document.getElementById("mode").value;
-      }
-
-      // 设置scale
-      function setScale() {
-        let x = document.getElementById("scaleX").value;
-        let y = document.getElementById("scaleY").value;
-        let z = document.getElementById("scaleZ").value;
-
-        sceneObject.scale = [Number(x), Number(y), Number(z)];
-      }
-
-      // 根据UI重新拾取位置
-      function rePickPosition() {
-        sceneObject.editing = false;
-        sceneObject.position = [0, 0, 0];
-        sceneObject.editing = true;
-      }
-      // 根据UI开始编辑
-      function startEditing() {
-        sceneObject.editing = true;
-      }
-      // 根据UI飞行定位
-      function flyTo() {
-        sceneObject.flyTo();
-      }
-    </script>
-
-    <!-- 切换UE和Cesium引擎的组件（Vue） -->
-    <div id="root">
-      <switch-engine :objm="objm"></switch-engine>
-    </div>
-    <!-- Vue文件 -->
-    <script src="./js/vue.global.js"></script>
-    <!-- 切换UE和Cesium的组件 -->
-    <script src="./js/switchEngineCom.js"></script>
-  </body>
 </html>

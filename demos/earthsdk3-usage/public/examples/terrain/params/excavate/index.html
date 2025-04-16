@@ -24,8 +24,8 @@
 <body>
     <div id="app"></div>
     <div id="panel">
-        <button onclick="resetEdit()">重新绘制挖坑</button>
-        <button onclick="editingCurrent()">编辑当前挖坑</button>
+        <button onclick="createExcavate()">创建</button>
+        <button onclick="deleteExcavate()">销毁</button>
     </div>
     <script>
         Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
@@ -64,45 +64,63 @@
         // 开启深度检测
         viewer.depthTestAgainstTerrain = true;
 
-        /**-----------------------------根据类（Class）创建一个ESExcavate挖坑对象-------------------------------**/
-        const excavateObject = objm.createSceneObject('ESExcavate')
-        // 挖洞多边形点位
-        excavateObject.points = [
-            [
-                115.10487284949612,
-                28.85008240263011,
-                971.971116012139
-            ],
-            [
-                115.09171663736156,
-                28.84805117374612,
-                1226.3707645627844
-            ],
-            [
-                115.0934405345665,
-                28.84068265301527,
-                1092.263428089416
-            ],
-            [
-                115.10261675426769,
-                28.84261365605999,
-                1065.006790359788
-            ]
-        ]
-
-        // 重新绘制
-        function resetEdit() {
-            excavateObject.editing = false
-            excavateObject.points = []
-            excavateObject.editing = true
+        let excavateObject = null;
+        //销毁
+        function deleteExcavate() {
+            if (excavateObject) {
+                objm.destroySceneObject(excavateObject);
+                excavateObject = null;
+            }
         }
 
-        // 编辑当前挖洞
-        function editingCurrent() {
-            // 开启编辑状态
-            excavateObject.editing = true
-        }
+        //创建
+        function createExcavate() {
+            if (excavateObject) {
+                deleteExcavate();
+            }
+            excavateObject = objm.createSceneObjectFromJson(
+                {
+                    "id": "909d3d1f-fd2f-4265-a30a-d493d21e95b3",
+                    "type": "ESExcavate",
+                    "name": "挖坑1",
+                    "collision": false,
+                    "fillStyle": {
+                        "color": [
+                            1,
+                            1,
+                            1,
+                            0.5
+                        ],
+                        "material": "",
+                        "materialParams": {},
+                        "ground": false
+                    },
+                    "points": [
+                        [
+                            115.10487284949612,
+                            28.85008240263011,
+                            971.971116012139
+                        ],
+                        [
+                            115.09171663736156,
+                            28.84805117374612,
+                            1226.3707645627844
+                        ],
+                        [
+                            115.0934405345665,
+                            28.84068265301527,
+                            1092.263428089416
+                        ],
+                        [
+                            115.10261675426769,
+                            28.84261365605999,
+                            1065.006790359788
+                        ]
+                    ]
+                }
+            )
 
+        }
 
     </script>
 

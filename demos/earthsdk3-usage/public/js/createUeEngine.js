@@ -81,11 +81,15 @@ const createUeEngine = {
                 return
             }
             // 切换到UE视口API
-            objm.createUEViewer({
-                "domid": this.domid,
-                "uri": this.uri,
-                "app": this.app
-            })
+            const options = {
+                type: "ESUeViewer",
+                container: this.domid,
+                options: {
+                    uri: this.uri,
+                    app: this.app
+                },
+            }
+            objm.createUeViewer(options)
             this.show = false
         },
 

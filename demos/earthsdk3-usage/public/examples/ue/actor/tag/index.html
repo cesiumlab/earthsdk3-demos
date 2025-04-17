@@ -61,11 +61,13 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
+
         var isPick = false
 
         function setPick() {
@@ -73,7 +75,6 @@
             document.getElementById('pick').style.backgroundColor = 'rgb(255,255,0)'
         }
 
-        const { PickedInfo } = XE2["xe2-base-objects"]
         // 视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
             // 参考pick示例
@@ -82,20 +83,21 @@
                     isPick = false
                     document.getElementById('pick').style.backgroundColor = '#3385ff'
                     viewer.pick(e.screenPosition, 'customPick').then(res => {
-                        if (PickedInfo.getFinalAttachedInfo(res) == 'customPick') {
-                            if (viewer.typeName == 'ESUeViewer') {
-                                if (res && res.childPickedInfo && res.childPickedInfo.uePickResult) {
-                                    // 获取UE返回的拾取信息找寻actorTags
-                                    const actorTags = res.childPickedInfo.uePickResult.actorTags
-                                    if (Array.isArray(actorTags) && actorTags.length > 0) {
-                                        // 选择第一个tag
-                                        document.getElementById('actorTag').value = actorTags[0];
-                                    } else {
-                                        alert('没有拾取到有tag信息的Actor')
-                                    }
-                                }
-                            }
-                        }
+                        console.log('customPick', res)
+                        // if (PickedInfo.getFinalAttachedInfo(res) == 'customPick') {
+                        //     if (viewer.typeName == 'ESUeViewer') {
+                        //         if (res && res.childPickedInfo && res.childPickedInfo.uePickResult) {
+                        //             // 获取UE返回的拾取信息找寻actorTags
+                        //             const actorTags = res.childPickedInfo.uePickResult.actorTags
+                        //             if (Array.isArray(actorTags) && actorTags.length > 0) {
+                        //                 // 选择第一个tag
+                        //                 document.getElementById('actorTag').value = actorTags[0];
+                        //             } else {
+                        //                 alert('没有拾取到有tag信息的Actor')
+                        //             }
+                        //         }
+                        //     }
+                        // }
                     })
                 }
             }
@@ -117,8 +119,6 @@
 
         // 创建Actor绑定场景现有的Actor
 
-        const { ESUnrealActor } = XE2['esobjs-xe2-plugin-main'] // Vue中引入方式：import { ESUnrealActor } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
         function createFromActorTag() {
             if (objm.activeViewer.typeName != 'ESUeViewer') {
                 alert('当前视口不支持创建UE Actor，请切换UE视口')
@@ -136,7 +136,7 @@
                     alert('该tag无效或者重复');
                     return
                 } else {
-                    const actor = objm.createSceneObject(ESUnrealActor)
+                    const actor = objm.createSceneObject('ESUnrealActor')
                     // actorTag唯一标识
                     actor.actorTag = actorTag
                     // 位置

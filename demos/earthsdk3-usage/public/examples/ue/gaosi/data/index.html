@@ -53,16 +53,16 @@
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-
-        // Vue中引入方式：import { ESObjectsManager } from 'esobjs-xe2-plugin/dist-node/esobjs-xe2-plugin-main';
-
-        const { ESObjectsManager } = XE2['esobjs-xe2-plugin-main']
-        const objm = new ESObjectsManager();
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['earthsdk3']
+        const { ESCesiumViewer } = window['earthsdk3-cesium']
+        const { ESUeViewer } = window['earthsdk3-ue']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 
         // 监听视口创建完成事件
         objm.viewerCreatedEvent.don((viewer) => {
-            objm.activeViewer.flyIn([
+            viewer.flyIn([
                 116.48642360917361,
                 39.91437779088571,
                 56.60217231088666
@@ -85,15 +85,12 @@
         /** ---------------------------------!!!高斯泼溅数据------------------------------------**/
 
         // UE加载高斯泼溅数据
-        const { ESGaussianSplatting } = XE2['esobjs-xe2-plugin-main']
-
-        const sceneObj = objm.createSceneObject(ESGaussianSplatting)
+        const sceneObj = objm.createSceneObject('ESGaussianSplatting')
         // 高斯泼溅数据
         sceneObj.url = document.getElementById("url").value
         // 位置
         sceneObj.position = [116.48635490000001, 39.914374899999984, 54.29999409875434]
         window.sceneObj = sceneObj
-
 
         // 飞行定位
         function flyTo() {
@@ -103,15 +100,7 @@
         // 切换url
         function changeurl() {
             if (sceneObj) sceneObj.url = document.getElementById("url").value
-
         }
-
-
-
-
-
-
-
 
     </script>
 

@@ -1,4 +1,3 @@
-import { ESOlViewer } from '@olSrc/ESOlViewer';
 import { EngineObject } from 'earthsdk3';
 import { getTopLeft, getWidth } from 'ol/extent';
 import ImageLayer from 'ol/layer/Image.js';
@@ -6,6 +5,7 @@ import { get as getProjection } from 'ol/proj';
 import XYZ from 'ol/source/XYZ';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import { createNextAnimateFrameEvent, Destroyable, react } from 'xbsj-base';
+import { ESOlViewer } from '../../ESOlViewer';
 import { createTable, CurveChannels, getColorsLevelTable, getHSLChannels, HSLChannel, setBrightnessContrast } from '../base/colorManipulation/Color';
 import { createRasterSource } from '../base/colorManipulation/colorManipulation';
 import { ESXYZLayer } from './ESXYZLayer';

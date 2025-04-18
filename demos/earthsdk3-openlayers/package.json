@@ -1,9 +1,9 @@
 {
   "name": "earthsdk3-ol",
-  "version": "0.0.1-beta.0.2",
+  "version": "0.0.1-beta.0.3",
   "description": "地球可视化实验室 (EarthSDK&CesiumLab) https://www.bjxbsj.cn",
-  "main": "dist/earthsdk3-ol.js",
-  "module": "dist/earthsdk3-ol.esm.js",
+  "main": "dist/earthsdk3-ol.cjs",
+  "module": "dist/earthsdk3-ol.mjs",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -11,8 +11,8 @@
     "README.md"
   ],
   "scripts": {
-    "build:dev": "webpack --config ./tools/webpack-scripts/webpack.dev.js && tsc-alias",
-    "build:prod": "webpack --config ./tools/webpack-scripts/webpack.prod.js && tsc-alias",
+    "build:dev": "rimraf dist && webpack --config ./tools/webpack-scripts/webpack.dev.js && tsc-alias",
+    "build:prod": "rimraf dist && webpack --config ./tools/webpack-scripts/webpack.prod.js && tsc-alias",
     "login": "npm login --registry https://registry.npmjs.org",
     "push:beta": "npm publish --registry https://registry.npmjs.org --tag beta",
     "push": "npm publish --registry https://registry.npmjs.org"
@@ -22,8 +22,6 @@
   "homepage": "www.earthsdk.com",
   "license": "ISC",
   "devDependencies": {
-    "compression-webpack-plugin": "^11.1.0",
-    "clean-webpack-plugin": "^3.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^4.6.2",
     "webpack": "^5.37.0",
@@ -33,7 +31,7 @@
   },
   "dependencies": {
     "ol": "^7.1.0",
-    "xbsj-base": "0.0.1-beta.0.11",
-    "earthsdk3": "0.0.1-beta.0.59"
+    "xbsj-base": "1.0.1",
+    "earthsdk3": "3.0.5"
   }
 }

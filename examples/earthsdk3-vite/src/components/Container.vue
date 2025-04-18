@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import { getobjm } from '../scripts/getobjm';
-import { ESViewer } from 'earthsdk3';
+import { ESVOption } from 'earthsdk3';
 
 const objm = getobjm();
 const container = ref<HTMLDivElement>();
@@ -30,43 +30,30 @@ nextTick(() => {
 })
 
 
+type ViewerType = 'cesium' | 'ue' | 'openlayers';
 //切换视口
-const switchViewer = (type: string) => {
+const switchViewer = (type: ViewerType) => {
   if (!container.value) return;
-  if (type === 'cesium') {
 
-    const option = {
-      container: container.value,
-      type: 'ESCesiumViewer'
-    };
+  let option: ESVOption = { type: 'ESCesiumViewer', container: container.value }
 
-    //切换cesium视口
-    objm.switchViewer(option);
-
-  } else if (type === 'ue') {
-
-    const option = {
-      container: container.value,
-      type: 'ESUeViewer',
+  if (type === 'ue') {
+    //需要配置ESSS信令服务器 https://bjxbsj.cn/esss.html
+    option = {
+      type: 'ESUeViewer', container: container.value,
       options: {
         uri: 'http://localhost:9007/',
         app: 'earthsdk3'
       }
     };
-    //切换ue视口
-    objm.switchViewer(option);
-
 
   } else if (type === 'openlayers') {
 
-    const option = {
-      container: container.value,
-      type: 'ESOlViewer'
-    };
-    //切换ol视口
-    objm.switchViewer(option);
-
+    option = { type: 'ESOlViewer', container: container.value };
   }
+
+  //切换cesium/ue/openlayers视口
+  objm.switchViewer(option);
 }
 
 </script>

@@ -15,8 +15,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.8
-        version: 3.0.6-beta.8
+        specifier: 3.0.5
+        version: 3.0.5
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.3
         version: link:demos/earthsdk3-openlayers
@@ -5246,8 +5246,8 @@ packages:
     resolution: {integrity: sha512-xXWOzhYDu5lYFcPPg0Qzd4Mn0NevQTBQaeXaxbG19KEiDIWrw+VCzJRecOFuC84gVj7gcGKbG5gOG92R836/pQ==}
     dev: false
 
-  /earthsdk3-cesium@3.0.6-beta.8:
-    resolution: {integrity: sha512-mmj+dfqLy9wvWnUph7+8/iaB0OhAF1ssWGzHDFhI/MNpDNyqaCYb7hWzvYKp/b89sYu3P+Oud7xijdCrF45i3A==}
+  /earthsdk3-cesium@3.0.5:
+    resolution: {integrity: sha512-MgB3SVVQbhHW21qbb+tNN0WrzIr02pMBw+VuGd/uDXI1QY9or8Y4YqIus6zPKbs+pXm03Oit9gCH4TV0kjx5XA==}
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1

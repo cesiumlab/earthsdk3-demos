@@ -46,7 +46,7 @@ import PopList from '../../../components/PopList.vue';
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
-
+import { ESSceneObject } from "earthsdk3";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const url = ref()
@@ -83,7 +83,7 @@ const addSceneObjects = () => {
     const { sceneObject } = treeItem
     sceneObject.url = url.value
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESMVTLayer')
-    sceneObject.name = '矢量图层' + (objNum )
+    sceneObject.name = '矢量图层' + (objNum)
     accessToken.value && (sceneObject.accessToken = accessToken.value)
     tileSize.value && (sceneObject.tileSize = tileSize.value)
     maximumLevel.value && (sceneObject.maximumLevel = maximumLevel.value)
@@ -167,7 +167,7 @@ const loadIframe = async (json: any) => {
     const newJson = JSON.stringify(json)
     await setJson(newJson)
 }
-const iframeSrc ='./monaco-editor/json-editor.html';
+const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
 const changeOk = async () => {
     const str = await getJson()
     try {

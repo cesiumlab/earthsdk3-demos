@@ -1,10 +1,11 @@
-
 <script setup lang='ts'>
 import { ref, watch } from 'vue';
+import { ESSceneObject } from "earthsdk3";
+
 const props = withDefaults(defineProps<{ markdownStr?: string, isJson?: boolean }>(), { isJson: false });
 
-const mdiframeSrc  = './marked/index.html';
-const jsoniframeSrc = './monaco-editor/json-editor.html';
+const mdiframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/marked/index.html');
+const jsoniframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 
 const markdownIframe = ref<HTMLIFrameElement>();
 const mainIframe = ref<HTMLIFrameElement>();

@@ -17,7 +17,7 @@ import { Message } from "earthsdk-ui"
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { createSceneObjTreeItemFromJson } from "../../../pages/plotting/esObj/fun"
-
+import { ESSceneObject } from "earthsdk3";
 const emits = defineEmits(["changeShow"]);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
 
@@ -34,7 +34,7 @@ const copyClipboard = async (text: string) => {//复制
             Message.error(`复制失败!error:${e}`);
         });
 }
-const iframeSrc = './monaco-editor/json-editor.html';
+const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
 const loadIframe = async () => {
     await setJson(JSON.stringify({}, undefined, '    '))
 }

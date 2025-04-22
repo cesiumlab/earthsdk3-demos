@@ -12,7 +12,7 @@
                                     :color="hoverliIndex ? '#fff' : '#575B66'" :size="13" /></span></div>
                     </div>
                     <div class="mergemodel_list_data">
-                        <div class="mergemodel_list_data_input" v-for="(item, index) in modelListsData ">
+                        <div class="mergemodel_list_data_input" v-for="(item, index) in modelListsData">
                             <div class="mergemodel_list_head_index">{{ index + 1 }}</div>
                             <div class="mergemodel_list_head_url"><input type="text" :value="item"
                                     @input="changeValue($event, index)"></div>
@@ -24,7 +24,7 @@
                                         :color="hoverlideleteIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
                             </div>
                             <div class="mergemodel_list_head_tip" :title="getTipMessage(index)">{{ getTipMessage(index)
-                                }}</div>
+                            }}</div>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,7 @@
 import { FileHandleType, getSaveFileHandle, Message, messageBox, saveFile } from "earthsdk-ui";
 import { merge3dTilesServer } from "earthsdk3-cesium";
 import { inject, ref } from 'vue';
+import { ESSceneObject } from "earthsdk3";
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import { copyClipboard } from "../../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
 const emits = defineEmits(['close']);
@@ -58,7 +59,7 @@ const hoverliIndex = ref(false)
 const modelListsData = ref<any[]>(['', ''])
 const tipListsData = ref<any[]>([])
 
-const iframeSrc = './monaco-editor/json-editor.html';
+const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
 const changeValue = (event: any, index: number) => {
     tipListsData.value = []
     const v = event.target.value

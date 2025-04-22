@@ -11,17 +11,14 @@
             style="width:100%;  height:calc(100% - 50px);cursor: not-allowed"></iframe>
     </Window>
 
-    <SamplePanel :jsonStr="props.sampleValue ?? '<center>暂无数据</center>'" :isShow="sampleShow"
-        @changeShow="changeSampleShow">
-    </SamplePanel>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
 import { Message } from "earthsdk-ui"
-import SamplePanel from './SamplePanel.vue';
 import Window from "../../components/commom/Window.vue";
+import { ESSceneObject } from "earthsdk3";
 
 
 const props = withDefaults(defineProps<{
@@ -42,7 +39,7 @@ const copyClipboard = async (text: string) => {//复制
             Message.error(`复制失败!error:${e}`);
         });
 }
-const iframeSrc = './monaco-editor/json-editor.html';
+const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 
 const sampleShow = ref(false)
 

@@ -59,12 +59,19 @@ const baseItemsHelp = [
         type: "divider",
     },
     {
-        text: 'EarthSDK  API文档',
+        text: 'EarthSDK2  API文档',
         keys: "",
         func: () => {
             window.open('https://www.wolai.com/earthsdk/nrp963KZyrXAtmGgUeuLRo', '_blank');
         }
     },
+    {
+        text: 'EarthSDK3  API文档',
+        keys: "",
+        func: () => {
+            window.open('https://c0yh9tnn0na.feishu.cn/wiki/NcIww74yTiNq0EkVxszc5XtOnqf', '_blank');
+        }
+    },
 
 ];
 const jsonStr = ref<string>('')

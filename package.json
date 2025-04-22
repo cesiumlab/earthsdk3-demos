@@ -4,6 +4,7 @@
   "private": false,
   "scripts": {
     "dev:earthui": "pnpm -F earthui dev",
+    "build:earthui":"pnpm -F earthui build",
     "clean_node_modules": "pnpm run ce & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cnm",
     "cnm": "rimraf node_modules",
     "ce": "rimraf demos/earthui/node_modules",

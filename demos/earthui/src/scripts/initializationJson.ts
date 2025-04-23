@@ -204,10 +204,21 @@ export function initSceneWithType(xbsjEarthUi: XbsjEarthUi) {
             // console.log('images', parseSearch);
             const czmTilingScheme = parseSearch.proj === "4326" ? "GeographicTilingScheme" : "WebMercatorTilingScheme"
             const url = parseSearch.tiletrans === "tms" ? `${parseSearch.url}/tilemapresource.xml` : `${parseSearch.url}`
+            let newUrl
+            if (xbsjEarthUi.cesiumLabToken) {
+                newUrl = {
+                    url,
+                    headers: {
+                        labtoken: xbsjEarthUi.cesiumLabToken
+                    }
+                }
+            } else {
+                newUrl = url
+            }
             const imagesJson =
             {
                 "type": "ESImageryLayer",
-                "url": url + `${xbsjEarthUi.cesiumLabToken ? '?labtoken=' + xbsjEarthUi.cesiumLabToken : ''}`,
+                "url": newUrl,
                 "rectangle": rectangle,
                 // "czmTilingScheme": czmTilingScheme,
                 "allowPicking": true,
@@ -233,9 +244,20 @@ export function initSceneWithType(xbsjEarthUi: XbsjEarthUi) {
             }, 1000);
         } else if (parseSearch.type === "terrains") {//存在terrains
             const rectangle = [+(parseSearch.west ?? -180), +(parseSearch.south ?? -90), +(parseSearch.east ?? 180), +(parseSearch.north ?? 90)]
+            let newUrl
+            if (xbsjEarthUi.cesiumLabToken) {
+                newUrl = {
+                    url: parseSearch.url,
+                    headers: {
+                        labtoken: xbsjEarthUi.cesiumLabToken
+                    }
+                }
+            } else {
+                newUrl = parseSearch.url
+            }
             const terrainsJson = {
                 "type": "ESTerrainLayer",
-                "url": `${parseSearch.url}` + `${xbsjEarthUi.cesiumLabToken ? '?labtoken=' + xbsjEarthUi.cesiumLabToken : ''}`,
+                "url": newUrl,
                 "rectangle": rectangle,
                 "allowPicking": true,
                 "name": `${parseSearch.name}`,
@@ -250,9 +272,20 @@ export function initSceneWithType(xbsjEarthUi: XbsjEarthUi) {
                 sceneObject.flyTo()
             }, 1000);
         } else if (parseSearch.type === "models") {//存在models
+            let newUrl
+            if (xbsjEarthUi.cesiumLabToken) {
+                newUrl = {
+                    url: parseSearch.url,
+                    headers: {
+                        labtoken: xbsjEarthUi.cesiumLabToken
+                    }
+                }
+            } else {
+                newUrl = parseSearch.url
+            }
             const tilesetJson = {
                 "type": "ES3DTileset",
-                "url": `${parseSearch.url}` + `${xbsjEarthUi.cesiumLabToken ? '?labtoken=' + xbsjEarthUi.cesiumLabToken : ''}`,
+                "url": newUrl,
                 "allowPicking": true,
                 "name": `${parseSearch.name}`,
             }

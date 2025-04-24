@@ -39,6 +39,7 @@ import { Message, messageBox, createVueDisposer, toVR } from "earthsdk-ui";
 import { ESJViewInfo } from "earthsdk3";
 import { inject, onBeforeUnmount, ref } from 'vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
+import { view } from "../..";
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const { cameraViewsManager } = xbsjEarthUi
@@ -72,4 +73,13 @@ const demo = (index: number) => {
     cameraViewsManager.setCurrentView(index)
     cameraViewsManager.flyToView(index)
 }
+// const addView = () => {
+//     cameraViewsManager.addView()
+//     setTimeout(() => {
+//         const view = viewsRef.value[viewsRef.value.length - 1]
+//         const newView = { ...view, duration: 5 }
+//         cameraViewsManager.updateView(viewsRef.value.length - 1, newView)
+//     }, 100)
+
+// }
 </script>

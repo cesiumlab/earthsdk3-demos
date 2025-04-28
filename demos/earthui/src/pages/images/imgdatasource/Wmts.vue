@@ -2,21 +2,21 @@
     <PopList :title="'WMTS'" :showButton="true" @ok="addSceneObjects">
         <LabelInput v-model="server" :label="'服务地址'" @keydownenter="updateServer" @change="updateServer"></LabelInput>
         <!-- 图层 -->
-        <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :placeholder="'请选择'" :readonly="true"
+        <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :placeholder="'请选择'" 
             :checkbox="true" :list="layersNameList" :listContent="'title'" :liClickFun="changeLayerListShow"
             :checkboxFun="checkboxFun">
         </LabelInput>
         <!-- 范围飞入 -->
         <div class="roam_moveOnLineMode" style="margin-top: 10px;" v-if="rectangle">
             <div>
-                <label for="">范围:</label><input type="text" placeholder="请输入" v-model="rectangle" :readonly="true">
+                <label for="">范围:</label><input type="text" placeholder="请输入" v-model="rectangle" :readonly="true" class="input_disabled">
                 <span class="span" @click="flyTo(selected.currentLayer)" title="飞入"> <es-icon :name="'tubiaodian1'"
                         :color="'#fff'" :size="15" /></span>
             </div>
         </div>
         <!-- 样式 -->
         <LabelInput v-if="selected.style.title" v-model="selected.style.title" :label="'样式'" :placeholder="'请选择'"
-            :readonly="true" :checkbox="true" :list="selected.currentLayer.styles" :listContent="'title'"
+             :checkbox="true" :list="selected.currentLayer.styles" :listContent="'title'"
             :liClickFun="changeCurrentStyle">
         </LabelInput>
         <div v-if="selected.style.legend">
@@ -24,12 +24,12 @@
         </div>
         <!-- 格式 -->
         <LabelInput v-if="selected.format.format" v-model="selected.format.format" :label="'格式'" :placeholder="'请选择'"
-            :readonly="true" :checkbox="true" :list="selected.currentLayer.urls" :listContent="'format'"
+             :checkbox="true" :list="selected.currentLayer.urls" :listContent="'format'"
             :liClickFun="changeCurrentFormat">
         </LabelInput>
         <!-- 切片规则-->
         <LabelInput v-if="selected.tileMatrixSet.tileMatrixSetID" v-model="selected.tileMatrixSet.tileMatrixSetID"
-            :label="'切片规则'" :placeholder="'请选择'" :readonly="true" :checkbox="true"
+            :label="'切片规则'" :placeholder="'请选择'"  :checkbox="true"
             :list="selected.currentLayer.tileMatrixSets" :listContent="'tileMatrixSetID'"
             :liClickFun="changeTileMatrixSetID">
         </LabelInput>

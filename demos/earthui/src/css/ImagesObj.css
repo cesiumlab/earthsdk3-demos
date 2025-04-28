@@ -84,3 +84,14 @@
 .input_number[type="number"] {
     -moz-appearance: textfield;
 }
+.input_disabled {
+  cursor: not-allowed;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  background: rgba(48, 48, 48, 0.6) !important;
+  color: #555;
+  border-radius: 5px;
+}

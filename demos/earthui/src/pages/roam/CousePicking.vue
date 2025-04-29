@@ -49,7 +49,10 @@ onMounted(() => {
                         const properties = geojsonPickInfo.properties
                         const geometry = geojsonPickInfo.geometry
                         if (propertyIsShow.value) return
-                        xbsjEarthUi.pickResult = { ...properties, ...geometry }
+                        xbsjEarthUi.pickResult = {
+                            value: { ...properties, ...geometry },
+                            name: 'geojson对象属性'
+                        }
                     }
                 }
                 if (result.sceneObject instanceof ES3DTileset) {
@@ -75,7 +78,10 @@ onMounted(() => {
                                 }
                             }
                         }
-                        xbsjEarthUi.pickResult = list
+                        xbsjEarthUi.pickResult = {
+                            value: list,
+                            name: '3DTileset对象属性'
+                        }
                     }
                 }
             }

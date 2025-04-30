@@ -104,79 +104,32 @@ const enditingList = ref([
 ])
 const currentMode = ref('')
 onMounted(() => {
-
-    xbsjEarthUi.activeViewer?.editingEvent.disposableOn((val) => {
-        if (val) {
-            if (val.type === 'end') {
-                currentMode.value = ''
-            }
-
-        }
-    })
-    onBeforeUnmount(() => {
-        xbsjEarthUi.activeViewer?.stopEditing()
-    })
-    if (sceneTree) {
-        xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don((val) => {
-            const select = [...val]
-            if (select.length === 1) {
-                const lastSelectedItem = sceneTree.lastSelectedItem
-                if (lastSelectedItem && lastSelectedItem.sceneObject) {
-                    const sceneObject = lastSelectedItem.sceneObject as ESVisualObject
-                    const modes = sceneObject.supportEditingModes()
-                    enditingList.value = enditingList.value.map(item => {
-                        // 如果当前项的 type 在数组 a 中，则 allowEditing = true，否则保持不变
-                        return {
-                            ...item,
-                            allowEditing: modes.includes(item.type)
-                        };
-                    });
-                }
-            } else {
-                enditingList.value = enditingList.value.map(item => {
-                    // 如果当前项的 type 在数组 a 中，则 allowEditing = true，否则保持不变
-                    return {
-                        ...item,
-                        allowEditing: false
-                    };
-                });
-                xbsjEarthUi.activeViewer?.stopEditing()
-            }
-        }))
-    }
-})
+    onBeforeUnmount(() => xbsjEarthUi.activeViewer?.stopEditing());
+    xbsjEarthUi.activeViewer?.editingEvent.disposableOn(val => val?.type === 'end' && (currentMode.value = ''));
+    sceneTree && xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don(val => {
+        const [lastSelectedItem] = [...val];
+        const shouldUpdate = val.length === 1 && lastSelectedItem?.sceneObject;
+        enditingList.value = enditingList.value.map(item => ({
+            ...item,
+            allowEditing: shouldUpdate
+                ? (lastSelectedItem.sceneObject as ESVisualObject).supportEditingModes().includes(item.type)
+                : false
+        }));
+        !shouldUpdate && xbsjEarthUi.activeViewer?.stopEditing();
+    }));
+});
 const checkColor = {
     default: "#FFFFFF",
     checked: "#5788FF",
     indeterminate: "#525252",
 }
 const hoverIndex = ref(-1)
-const iconColor = (item: any, index: number) => {
-    if (item.allowEditing) {
-        if (currentMode.value === item.type) {
-            return checkColor.checked
-        } else if (hoverIndex.value === index) {
-            return checkColor.checked
-        } else {
-            return checkColor.default
-        }
-    } else {
-        return checkColor.indeterminate
-    }
-}
+const iconColor = (item: any, index: number) => !item.allowEditing ? checkColor.indeterminate : currentMode.value === item.type || hoverIndex.value === index ? checkColor.checked : checkColor.default;
 const changeCurrentMode = (item: any) => {
-    if (currentMode.value === item.type) return
-    setTimeout(() => {
-        currentMode.value = item.type
-    }, 100)
-    const lastSelectedItem = sceneTree.lastSelectedItem
-    if (lastSelectedItem && lastSelectedItem.sceneObject) {
-        const sceneObject = lastSelectedItem.sceneObject as ESVisualObject
-        const viewer = xbsjEarthUi.activeViewer
-        if (viewer) {
-            viewer.startEditing(sceneObject, [item.type])
-        }
-    }
+    if (currentMode.value === item.type) return;
+    setTimeout(() => currentMode.value = item.type, 100);
+    const sceneObject = sceneTree.lastSelectedItem?.sceneObject as ESVisualObject;
+    xbsjEarthUi.activeViewer?.startEditing(sceneObject, [item.type]);
 }
 </script>
 <template>
@@ -189,7 +142,6 @@ const changeCurrentMode = (item: any) => {
                 <div class="short-border" v-if="index !== 7"></div>
             </div>
         </div>
-
     </div>
 </template>
 <style scoped>

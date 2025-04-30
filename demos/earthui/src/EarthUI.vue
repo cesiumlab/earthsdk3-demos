@@ -5,17 +5,15 @@
             <Menu :navList="navList" :navType="navType" :key="navList"></Menu>
         </div>
         <!-- 视口 -->
-        <div class="xbsj_earth" ref="xbsjEarth">
+        <div class="xbsj_earth">
             <ViewersComp></ViewersComp>
         </div>
         <!-- 场景树 -->
         <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
             :height="'410px'" :left="0" :top="40" :iconName="'tucengguanli'" :checkIconIsShow="true"
-            :editingIconIsShow="true" :iconIschecked="sceneTreeCheckedIcon"
-            :checkFun="() => sceneTreeCheckedIcon = !sceneTreeCheckedIcon" :editingIschecked="sceneTreeEditingIcon"
-            :editingFun="editingFun">
+            :iconIschecked="sceneTreeCheckedIcon" :checkFun="() => sceneTreeCheckedIcon = !sceneTreeCheckedIcon">
             <div class="Layer_Management">
-                <div class="Layer_Management_editing" v-if="sceneTreeEditingIcon">
+                <div class="Layer_Management_editing">
                     <Editing></Editing>
                 </div>
                 <div class="Layer_Management_scenetree">
@@ -44,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { createVueDisposer, Message, toRefKey, toVR } from 'earthsdk-ui';
+import { createVueDisposer, toRefKey, toVR } from 'earthsdk-ui';
 import { onBeforeUnmount, onMounted, provide, ref, shallowRef, watch } from "vue";
 import DraggablePopup2 from "./components/DraggablePopup2.vue";
 import ESPropPanel from './components/eSPropPanel/ESPropPanel.vue';
@@ -89,14 +87,12 @@ const czmPinkList: any = ref()
 provide("xbsjEarthUi", xbsjEarthUi);//所有子组件都可以获取到，不用一层一层传值
 provide("sceneTree", sceneTree);//所有子组件都可以获取到，不用一层一层传值
 defineExpose({ objectsManager: xbsjEarthUi, sceneTree });
-const xbsjEarth = ref<HTMLElement>()
 const disposer = createVueDisposer(onBeforeUnmount);
 const showSceneTreeViewRef = toVR<boolean>(disposer, [xbsjEarthUi, "showSceneTreeView"])
 const propSceneTree = toVR<any>(disposer, [xbsjEarthUi, "propSceneTree"])
 const propTreeKey = toRefKey(propSceneTree);
 const animationShow = toVR<boolean>(disposer, [xbsjEarthUi, "animationShow"])
 const sceneTreeCheckedIcon = toVR<boolean>(disposer, [xbsjEarthUi, "sceneTreeCheckedIcon"])
-const sceneTreeEditingIcon = toVR<boolean>(disposer, [xbsjEarthUi, "sceneTreeEditingIcon"])
 const navigatorShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "navigatorShow"])
 const scaleShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "scaleShow"])
 const statusBarShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "statusBarShow"])
@@ -225,29 +221,7 @@ onMounted(() => {
             czmPickResult.value = true
         }
     }))
-    if (sceneTree) {
-        xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don((val) => {
-            const select = [...val]
-            if (select.length !== 1 && sceneTreeEditingIcon.value) {
-                sceneTreeEditingIcon.value = false
-            }
-        }))
-    }
-
 })
-const editingFun = () => {
-    if (!sceneTree) return
-    const select = [...sceneTree.selectedItems]
-    if (select.length !== 1) {
-        Message.warning('请选中任意一个对象才可进行操作')
-        return
-    }
-    if(sceneTree.lastSelectedItem&&sceneTree.lastSelectedItem.type==='Folder'){
-        Message.warning('请选中非文件夹的对象')
-        return
-    }
-    sceneTreeEditingIcon.value = !sceneTreeEditingIcon.value
-}
 
 </script>
 

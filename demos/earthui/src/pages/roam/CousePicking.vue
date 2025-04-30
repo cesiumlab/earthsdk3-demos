@@ -54,7 +54,7 @@ onMounted(() => {
                                 value: { ...properties, ...geometry },
                                 name: 'geojson对象属性'
                             }
-                        }else{
+                        } else {
                             xbsjEarthUi.pickResult = {
                                 value: { ...geojsonPickInfo },
                                 name: 'geojson对象属性'

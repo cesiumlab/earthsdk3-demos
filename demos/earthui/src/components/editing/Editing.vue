@@ -104,18 +104,7 @@ const enditingList = ref([
 ])
 const currentMode = ref('')
 onMounted(() => {
-    const lastSelectedItem = sceneTree.lastSelectedItem
-    if (lastSelectedItem && lastSelectedItem.sceneObject) {
-        const sceneObject = lastSelectedItem.sceneObject as ESVisualObject
-        const modes = sceneObject.supportEditingModes()
-        enditingList.value = enditingList.value.map(item => {
-            // 如果当前项的 type 在数组 a 中，则 allowEditing = true，否则保持不变
-            return {
-                ...item,
-                allowEditing: modes.includes(item.type)
-            };
-        });
-    }
+
     xbsjEarthUi.activeViewer?.editingEvent.disposableOn((val) => {
         if (val) {
             if (val.type === 'end') {
@@ -127,6 +116,34 @@ onMounted(() => {
     onBeforeUnmount(() => {
         xbsjEarthUi.activeViewer?.stopEditing()
     })
+    if (sceneTree) {
+        xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don((val) => {
+            const select = [...val]
+            if (select.length === 1) {
+                const lastSelectedItem = sceneTree.lastSelectedItem
+                if (lastSelectedItem && lastSelectedItem.sceneObject) {
+                    const sceneObject = lastSelectedItem.sceneObject as ESVisualObject
+                    const modes = sceneObject.supportEditingModes()
+                    enditingList.value = enditingList.value.map(item => {
+                        // 如果当前项的 type 在数组 a 中，则 allowEditing = true，否则保持不变
+                        return {
+                            ...item,
+                            allowEditing: modes.includes(item.type)
+                        };
+                    });
+                }
+            } else {
+                enditingList.value = enditingList.value.map(item => {
+                    // 如果当前项的 type 在数组 a 中，则 allowEditing = true，否则保持不变
+                    return {
+                        ...item,
+                        allowEditing: false
+                    };
+                });
+                xbsjEarthUi.activeViewer?.stopEditing()
+            }
+        }))
+    }
 })
 const checkColor = {
     default: "#FFFFFF",
@@ -134,7 +151,6 @@ const checkColor = {
     indeterminate: "#525252",
 }
 const hoverIndex = ref(-1)
-
 const iconColor = (item: any, index: number) => {
     if (item.allowEditing) {
         if (currentMode.value === item.type) {

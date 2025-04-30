@@ -14,11 +14,8 @@ interface Props {
     iconColor?: string,
     iconSize?: number,
     checkIconIsShow?: boolean,
-    editingIconIsShow?: boolean,
     iconIschecked?: boolean,
-    editingIschecked?: boolean,
     checkFun?: () => void
-    editingFun?: () => void
 }
 const props = withDefaults(defineProps<Props>(), {
     title: "设置",
@@ -33,9 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
     iconSize: 16,
     checkIcon: false,
     iconIschecked: false,
-    editingIschecked: false,
     checkFun: () => { },
-    editingFun: () => { }
 })
 const emits = defineEmits(['close', 'ok']);
 const developContent = ref(true)
@@ -130,7 +125,7 @@ const dragPointerdown = (event: MouseEvent) => {
     }
 }
 const hoverLineHeight = ref(-1)
-const hoverLineHeight2 = ref(-1)
+// const hoverLineHeight2 = ref(-1)
 </script>
 
 <template>
@@ -144,12 +139,12 @@ const hoverLineHeight2 = ref(-1)
                     <a :href="`${link}`" v-show="link" target="_blank"> {{ link }}</a>
                 </div>
                 <div class="popup_icon">
-                    <span class="develop_icon" @click.stop="editingFun()" v-if="editingIconIsShow"
+                    <!-- <span class="develop_icon" @click.stop="editingFun()" v-if="editingIconIsShow"
                         :title="editingIschecked ? '取消编辑' : '编辑'" @mouseover.prevent="hoverLineHeight2 = 0"
                         @mouseout.prevent="hoverLineHeight2 = -1">
                         <es-icon :name="'sanweizuobiao'"
                             :color="editingIschecked || hoverLineHeight2 === 0 ? '#5788FF' : '#fff'" :size="12" />
-                    </span>
+                    </span> -->
                     <span class="develop_icon" @click.stop="checkFun()" v-if="checkIconIsShow"
                         :title="iconIschecked ? '取消全选' : '全选'" @mouseover.prevent="hoverLineHeight = 0"
                         @mouseout.prevent="hoverLineHeight = -1">

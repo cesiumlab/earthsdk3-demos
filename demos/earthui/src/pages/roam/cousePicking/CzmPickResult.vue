@@ -1,9 +1,9 @@
 <template>
     <div class="type">
-        <DraggablePopup :title="'3DTileset对象属性'" :left="'calc(100% - 463px)'" @close="close" :width="463"
-            :height="'340px'" :top="500">
+        <DraggablePopup :title="list.name" :left="'calc(100% - 463px)'" @close="close" :width="463" :height="'340px'"
+            :top="500">
             <div class="bottom-content">
-                <div class="bottom" v-for=" (value, key)  in list">
+                <div class="bottom" v-for="(value, key) in list.value">
                     <div class="left-name">{{ key }}</div>
                     <div class="right-name">{{ value }}</div>
                 </div>

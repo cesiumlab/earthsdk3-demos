@@ -74,7 +74,7 @@ export class XbsjEarthUi extends ESObjectsManager {
     set roamMode(value: string) { this._roamMode.value = value; }
     get roamModeChanged() { return this._roamMode.changed; }
 
-    private _pickResult = this.dv(react<any>({}));//拾取到的信息
+    private _pickResult = this.dv(react<any>({name:'3DTileset对象属性',value:{}}));//拾取到的信息
     get pickResult() { return this._pickResult.value; }
     set pickResult(value: any) { this._pickResult.value = value; }
     get pickResultChanged() { return this._pickResult.changed; }

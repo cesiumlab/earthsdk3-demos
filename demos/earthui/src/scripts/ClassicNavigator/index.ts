@@ -29,6 +29,8 @@ export class ClassicNavigatorManager extends Destroyable {
     private _navigatorScaleRight = this.dv(react<number>(290))//导航比例尺的right
     get navigatorScaleRight() { return this._navigatorScaleRight.value; }
     set navigatorScaleRight(value: number) { this._navigatorScaleRight.value = value; }
+    get navigatorScaleRightChanged() { return this._navigatorScaleRight.changed; }
+
     constructor(private xbsjEarthUi: XbsjEarthUi) {
         super();
     }

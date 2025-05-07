@@ -169,6 +169,7 @@ function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
                 "type": "ESImageryLayer",
                 "url": res.url,
                 "name": "全球影像",
+                "maximumLevel": 18,
             })
         }
     }).catch((error: any) => {

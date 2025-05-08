@@ -59,7 +59,9 @@ const start = async () => {
 }
 const restart = () => {
     esGeoLineString.points = []
-    esGeoLineString.editing = true
+    requestAnimationFrame(() => {
+        esGeoLineString.editing = true
+    })
     heightList.value = []
 }
 let dispose: any

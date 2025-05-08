@@ -6,6 +6,7 @@ import RightList from "../../components/RightList.vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import Fov from "./effectAdjustment/Fov.vue";
 import FlyToBoundingSize from "./effectAdjustment/FlyToBoundingSize.vue";
+import EditingHeightOffset from "./effectAdjustment/EditingHeightOffset.vue";
 const d = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const textAvoidance = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'textAvoidance']);//文字避让
@@ -20,9 +21,9 @@ const objType = ref('')
         <Button :name="'dingweipeizhi'" :content="'定位配置'" :actived="objType === 'flyToBoundingSize'"
             :click="() => { objType === 'flyToBoundingSize' ? objType = '' : objType = 'flyToBoundingSize' }"
             :left-button="true"></Button>
-        <!-- <Button :name="'pianyi'" :content="'编辑高度偏移'" :actived="objType === 'editingHeightOffset'"
+        <Button :name="'pianyi'" :content="'编辑高度偏移'" :actived="objType === 'editingHeightOffset'"
             :click="() => { objType === 'editingHeightOffset' ? objType = '' : objType = 'editingHeightOffset' }"
-            :left-button="false"></Button> -->
+            :left-button="false"></Button>
         <Fov v-if="objType === 'fov'"></Fov>
         <FlyToBoundingSize v-if="objType === 'flyToBoundingSize'"></FlyToBoundingSize>
         <EditingHeightOffset v-if="objType === 'editingHeightOffset'"></EditingHeightOffset>

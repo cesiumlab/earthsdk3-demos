@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2970600",
+      "name": "网络",
+      "font_class": "wangluo",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
       "icon_id": "43804268",
       "name": "rotation",
       "font_class": "rotation",

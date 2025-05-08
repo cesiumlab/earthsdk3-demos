@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       earthsdk3:
-        specifier: 3.0.6-beta.10
-        version: 3.0.6-beta.10
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.20
-        version: 3.0.6-beta.20
+        specifier: 3.0.6-beta.23
+        version: 3.0.6-beta.23
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.3
         version: 0.0.1-beta.0.3
@@ -2624,8 +2624,8 @@ packages:
   earthsdk3-assets@3.0.2:
     resolution: {integrity: sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==}
 
-  earthsdk3-cesium@3.0.6-beta.20:
-    resolution: {integrity: sha512-JeZ/+pQcdnTgzC0wLHvOAe1esDfUa2ZDeASNvg444xVZN60089brhZxDpSkNuM9cyMMNWL/alK+oYdOZztXqwA==}
+  earthsdk3-cesium@3.0.6-beta.23:
+    resolution: {integrity: sha512-LEsd5n4yX2DD/aVnHkUGix1ja7m/pJI2xYkQ1M+jnD2qpIGdZfRj2HWXMG8D/VvlPy/WsiCLFIYbcvry6yhNyw==}
 
   earthsdk3-ol@0.0.1-beta.0.3:
     resolution: {integrity: sha512-Puu0W//OTOAsGhAzGBs1vGX/pj43y+fEv+ZjKGiijwsisrfriL7S0WH2ldhI3+UlP0SDsPJdgnYSU50Wwmmfhg==}
@@ -2636,8 +2636,8 @@ packages:
   earthsdk3@3.0.5:
     resolution: {integrity: sha512-oz6Fubnnz+578uvQ4pptsrRndFEC6cfCRTyCixalOx3bMOYDfRdeTMNZ/fN5VsnLohNXnYAXQlHBSTuDMBSl0w==}
 
-  earthsdk3@3.0.6-beta.10:
-    resolution: {integrity: sha512-9Az5FrRSj8wa9ZPZwLq3dzgqr0IU9gonJdmFEe9LhfeGtsyTCahV5WR6Li1Xxrzp+woMe6Q+vA2hbjvbCdNN0Q==}
+  earthsdk3@3.0.6-beta.13:
+    resolution: {integrity: sha512-afLI1fTFTN0bBUWnGbZwleEhTuHRR869JBubG7I7xdk2RfHr/Uh+YGBPpNpfIj3SWeedMMo3LWWjctE/GxsZwA==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -8124,7 +8124,7 @@ snapshots:
 
   earthsdk3-assets@3.0.2: {}
 
-  earthsdk3-cesium@3.0.6-beta.20:
+  earthsdk3-cesium@3.0.6-beta.23:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
@@ -8147,7 +8147,7 @@ snapshots:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
 
-  earthsdk3@3.0.6-beta.10:
+  earthsdk3@3.0.6-beta.13:
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0

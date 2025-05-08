@@ -36,6 +36,7 @@ import EsUnrealActor2 from "./esObj/EsUnrealActor2.vue";
 import EsPipeFence from "./esObj/EsPipeFence.vue";
 import EsGaussianSplatting from './esObj/EsGaussianSplatting.vue';
 import EsGeoExtrudedPolygon from './esObj/EsGeoExtrudedPolygon.vue';
+import EsStaticMesh from './esObj/EsStaticMesh.vue';
 export const textTypeList: { name: string, type: { textSize: number, textColor: [number, number, number, number] } }[] = [
     {
         name: '白小文本',
@@ -126,83 +127,83 @@ export const textTypeList: { name: string, type: { textSize: number, textColor: 
 export const imageTypeList: { name: string, img: any, type: string }[] = [
     {
         name: '蓝色相机',
-        img: new URL('../../assets/plotting/points/CameraBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/CameraBlue.png', import.meta.url).href,
         type: ('inner://CameraBlue.png')
     }, {
         name: '绿色相机',
-        img: new URL('../../assets/plotting/points/CameraGreen.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/CameraGreen.png', import.meta.url).href,
         type: ('inner://CameraGreen.png')
     }, {
         name: '蓝色车辆',
-        img: new URL('../../assets/plotting/points/CarBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/CarBlue.png', import.meta.url).href,
         type: ('inner://CarBlue.png')
     }, {
         name: '红色车辆',
-        img: new URL('../../assets/plotting/points/CarRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/CarRed.png', import.meta.url).href,
         type: ('inner://CarRed.png')
     }, {
         name: '渡口',
-        img: new URL('../../assets/plotting/points/Dukou.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Dukou.png', import.meta.url).href,
         type: ('inner://Dukou.png')
     }, {
         name: '界限',
-        img: new URL('../../assets/plotting/points/Jiexian.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Jiexian.png', import.meta.url).href,
         type: ('inner://Jiexian.png')
     }, {
         name: '警示',
-        img: new URL('../../assets/plotting/points/Jingshi.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Jingshi.png', import.meta.url).href,
         type: ('inner://Jingshi.png')
     }, {
         name: '蓝色料斗',
-        img: new URL('../../assets/plotting/points/LiaodouBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/LiaodouBlue.png', import.meta.url).href,
         type: ('inner://LiaodouBlue.png')
     }, {
         name: '红色料斗',
-        img: new URL('../../assets/plotting/points/LiaodouRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/LiaodouRed.png', import.meta.url).href,
         type: ('inner://LiaodouRed.png')
     }, {
         name: '蓝色龙门吊',
-        img: new URL('../../assets/plotting/points/LongmendiaoBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/LongmendiaoBlue.png', import.meta.url).href,
         type: ('inner://LongmendiaoBlue.png')
     }, {
         name: '红色龙门吊',
-        img: new URL('../../assets/plotting/points/LongmendiaoRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/LongmendiaoRed.png', import.meta.url).href,
         type: ('inner://LongmendiaoRed.png')
     }, {
         name: '锚',
-        img: new URL('../../assets/plotting/points/Mao.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Mao.png', import.meta.url).href,
         type: ('inner://Mao.png')
     }, {
         name: '蓝色门机',
-        img: new URL('../../assets/plotting/points/MenjiBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/MenjiBlue.png', import.meta.url).href,
         type: ('inner://MenjiBlue.png')
     }, {
         name: '红色门机',
-        img: new URL('../../assets/plotting/points/MenjiRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/MenjiRed.png', import.meta.url).href,
         type: ('inner://MenjiRed.png')
     }, {
         name: '鸣笛',
-        img: new URL('../../assets/plotting/points/Mingdi.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Mingdi.png', import.meta.url).href,
         type: ('inner://Mingdi.png')
     }, {
         name: '气象站',
-        img: new URL('../../assets/plotting/points/Qixiang.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/Qixiang.png', import.meta.url).href,
         type: ('inner://Qixiang.png')
     }, {
         name: '蓝色人员',
-        img: new URL('../../assets/plotting/points/RenyuanBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/RenyuanBlue.png', import.meta.url).href,
         type: ('inner://RenyuanBlue.png')
     }, {
         name: '红色人员',
-        img: new URL('../../assets/plotting/points/RenyuanRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/RenyuanRed.png', import.meta.url).href,
         type: ('inner://RenyuanRed.png')
     }, {
         name: '圆形蓝色人员',
-        img: new URL('../../assets/plotting/points/RenyuanCircleBlue.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/RenyuanCircleBlue.png', import.meta.url).href,
         type: ('inner://RenyuanCircleBlue.png')
     }, {
         name: '圆形红色人员',
-        img: new URL('../../assets/plotting/points/RenyuanCircleRed.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/points/RenyuanCircleRed.png', import.meta.url).href,
         type: ('inner://RenyuanCircleRed.png')
     }
 ]
@@ -210,132 +211,132 @@ export const imageTypeList: { name: string, img: any, type: string }[] = [
 export const poi2dList: { name: string, img: any, mode: string }[] = [//多选模式类型
     {
         mode: 'SquareH01',
-        img: new URL('../../assets/plotting/poi2d/Square_H_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_H_01.png', import.meta.url).href,
         name: '模式1'
     },
     {
         mode: 'SquareH02',
-        img: new URL('../../assets/plotting/poi2d/Square_H_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_H_02.png', import.meta.url).href,
         name: '模式2'
     }, {
         mode: 'SquareV01',
-        img: new URL('../../assets/plotting/poi2d/Square_V_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_V_01.png', import.meta.url).href,
         name: '模式3'
     }, {
         mode: 'SquareV02',
-        img: new URL('../../assets/plotting/poi2d/Square_V_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_V_02.png', import.meta.url).href,
         name: '模式4'
     }, {
         mode: 'SquareV03',
-        img: new URL('../../assets/plotting/poi2d/Square_V_03.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_V_03.png', import.meta.url).href,
         name: '模式5'
     }, {
         mode: 'SquareV04',
-        img: new URL('../../assets/plotting/poi2d/Square_V_04.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Square_V_04.png', import.meta.url).href,
         name: '模式6'
     }, {
         mode: 'Flag01',
-        img: new URL('../../assets/plotting/poi2d/Flag_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Flag_01.png', import.meta.url).href,
         name: '模式7'
     }, {
         mode: 'Flag02',
-        img: new URL('../../assets/plotting/poi2d/Flag_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Flag_02.png', import.meta.url).href,
         name: '模式8'
     }, {
         mode: 'Linear01',
-        img: new URL('../../assets/plotting/poi2d/Linear_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Linear_01.png', import.meta.url).href,
         name: '模式9'
     }, {
         mode: 'Linear02',
-        img: new URL('../../assets/plotting/poi2d/Linear_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Linear_02.png', import.meta.url).href,
         name: '模式10'
     }, {
         mode: 'Linear03',
-        img: new URL('../../assets/plotting/poi2d/Linear_03.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Linear_03.png', import.meta.url).href,
         name: '模式11'
     }, {
         mode: 'CircularH01',
-        img: new URL('../../assets/plotting/poi2d/Circular_H_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_H_01.png', import.meta.url).href,
         name: '模式12'
     }, {
         mode: 'CircularH02',
-        img: new URL('../../assets/plotting/poi2d/Circular_H_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_H_02.png', import.meta.url).href,
         name: '模式13'
     }, {
         mode: 'CircularV01',
-        img: new URL('../../assets/plotting/poi2d/Circular_V_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_V_01.png', import.meta.url).href,
         name: '模式14'
     }, {
         mode: 'CircularV02',
-        img: new URL('../../assets/plotting/poi2d/Circular_V_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_V_02.png', import.meta.url).href,
         name: '模式15'
     }, {
         mode: 'CircularV03',
-        img: new URL('../../assets/plotting/poi2d/Circular_V_03.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_V_03.png', import.meta.url).href,
         name: '模式16'
     }, {
         mode: 'CircularV04',
-        img: new URL('../../assets/plotting/poi2d/Circular_V_04.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_V_04.png', import.meta.url).href,
         name: '模式17'
     }, {
         mode: 'CircularV05',
-        img: new URL('../../assets/plotting/poi2d/Circular_V_05.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Circular_V_05.png', import.meta.url).href,
         name: '模式18'
     }, {
         mode: 'P3D01',
-        img: new URL('../../assets/plotting/poi2d/P3D_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_01.png', import.meta.url).href,
         name: '模式19'
     }, {
         mode: 'P3D02',
-        img: new URL('../../assets/plotting/poi2d/P3D_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_02.png', import.meta.url).href,
         name: '模式20'
     }, {
         mode: 'P3D03',
-        img: new URL('../../assets/plotting/poi2d/P3D_03.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_03.png', import.meta.url).href,
         name: '模式21'
     }, {
         mode: 'P3D04',
-        img: new URL('../../assets/plotting/poi2d/P3D_04.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_04.png', import.meta.url).href,
         name: '模式22'
     }, {
         mode: 'P3D05',
-        img: new URL('../../assets/plotting/poi2d/P3D_05.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_05.png', import.meta.url).href,
         name: '模式23'
     }, {
         mode: 'P3D06',
-        img: new URL('../../assets/plotting/poi2d/P3D_06.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_06.png', import.meta.url).href,
         name: '模式24'
     }, {
         mode: 'P3D07',
-        img: new URL('../../assets/plotting/poi2d/P3D_07.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/P3D_07.png', import.meta.url).href,
         name: '模式25'
     }, {
         mode: 'Diamond01',
-        img: new URL('../../assets/plotting/poi2d/Diamond_01.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Diamond_01.png', import.meta.url).href,
         name: '模式26'
     }, {
         mode: 'Diamond02',
-        img: new URL('../../assets/plotting/poi2d/Diamond_02.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Diamond_02.png', import.meta.url).href,
         name: '模式27'
-    },{
+    }, {
         mode: 'Stranger',
-        img: new URL('../../assets/plotting/poi2d/Stranger.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Stranger.png', import.meta.url).href,
         name: '模式28'
-    },{
+    }, {
         mode: 'ManNormal',
-        img: new URL('../../assets/plotting/poi2d/Man_Normal.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Man_Normal.png', import.meta.url).href,
         name: '模式29'
-    },{
+    }, {
         mode: 'ManAbnormal',
-        img: new URL('../../assets/plotting/poi2d/Man_Abnormal.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Man_Abnormal.png', import.meta.url).href,
         name: '模式30'
-    },{
+    }, {
         mode: 'WomanNormal',
-        img: new URL('../../assets/plotting/poi2d/Woman_Normal.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Woman_Normal.png', import.meta.url).href,
         name: '模式31'
-    },{
+    }, {
         mode: 'WomanAbnormal',
-        img: new URL('../../assets/plotting/poi2d/Woman_Abnormal.png',import.meta.url).href,
+        img: new URL('../../assets/plotting/poi2d/Woman_Abnormal.png', import.meta.url).href,
         name: '模式32'
     },
     // {
@@ -605,11 +606,17 @@ export const ueObjectList: { type: string, zh: string, icon: string, leftButton:
         leftButton: false,
         com: shallowRef(EsLevelRuntimeModel)
     }, {
-        type: 'eesGaussianSplatting',
+        type: 'esGaussianSplatting',
         zh: '高斯溅射模型',
         icon: 'model-lib',
         leftButton: false,
         com: shallowRef(EsGaussianSplatting)
+    }, {
+        type: 'eSStaticMesh',
+        zh: '静态网格体',
+        icon: 'wangluo',
+        leftButton: true,
+        com: shallowRef(EsStaticMesh)
     }
 ]
 

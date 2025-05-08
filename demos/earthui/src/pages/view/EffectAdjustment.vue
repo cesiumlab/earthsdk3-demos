@@ -6,6 +6,7 @@ import RightList from "../../components/RightList.vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import Fov from "./effectAdjustment/Fov.vue";
 import FlyToBoundingSize from "./effectAdjustment/FlyToBoundingSize.vue";
+import EditingHeightOffset from "./effectAdjustment/EditingHeightOffset.vue";
 const d = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const textAvoidance = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'textAvoidance']);//文字避让

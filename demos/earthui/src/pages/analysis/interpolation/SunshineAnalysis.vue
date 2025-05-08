@@ -29,7 +29,7 @@
         <LabelInput v-model="extrudedHeight" :inputType="'number'" :label="'底面高度'" :unit="'m'"></LabelInput>
         <LabelInput v-model="height" :inputType="'number'" :label="'高度'" :unit="'m'"></LabelInput>
         <LabelInput v-model="spanTime" :inputType="'number'" :label="'间隔时间'" :unit="'h'"></LabelInput>
-        <LabelInput v-model="sampleDistance" :inputType="'number'" :label="'采样间距'" :unit="'m'" >
+        <LabelInput v-model="sampleDistance" :inputType="'number'" :label="'采样间距'" :unit="'m'">
         </LabelInput>
         <LabelInput v-model="progress" :inputType="'number'" :label="'计算进度'" :unit="'%'" :readonly="true"></LabelInput>
     </PopList>
@@ -122,10 +122,12 @@ const endColorOk = (rgba: { r: number, g: number, b: number, a: number }) => {//
 const restart = () => {
     sunshineAnalysis.stop()
     sunshineAnalysis.points = undefined
-    sunshineAnalysis.editing = true
     progress.value = 0
     sampleDistance.value = 0
     flag.value = true
+    requestAnimationFrame(() => {
+        sunshineAnalysis.editing = true
+    });
     Message.warning('结束编辑之后请点击开始分析')
 }
 const flag = ref(true)//trueda

@@ -53,6 +53,7 @@ import LiftHeight from "./scenetreeCreate/LiftHeight.vue";
 import SetStyle from "./scenetreeCreate/SetStyle2.vue";
 import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
 import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
+import { ESUeViewer } from "earthsdk3-ue";
 
 const props = withDefaults(defineProps<{
   showCheckBox: boolean
@@ -872,8 +873,8 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
     },
   }
   if (treeItem.sceneObject) {
-    // if (treeItem.sceneObject instanceof ES3DTileset&&xbsjEarthUi.activeViewer?.typeName==='ESUeViewer') {
-    if (treeItem.sceneObject instanceof ES3DTileset) {
+    if (treeItem.sceneObject instanceof ES3DTileset && xbsjEarthUi.activeViewer instanceof ESUeViewer) {
+      // if (treeItem.sceneObject instanceof ES3DTileset) {
       baseItems.splice(13, 0, setMaterial)
     }
   }

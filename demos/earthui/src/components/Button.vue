@@ -11,6 +11,7 @@ interface Props {
     showSpan?: boolean,
     size?: number,
     leftButton?: boolean,
+    fontSize?: number,
     click: () => void,
     spanClick?: () => void
 }
@@ -23,7 +24,8 @@ const props = withDefaults(defineProps<Props>(), {
     disabled: false,
     showSpan: false,
     size: 20,
-    leftButton: false
+    leftButton: false,
+    fontSize: 14,
 })
 const xiaosanjiao = ref(true)
 const spanIsShow = ref(false)
@@ -38,7 +40,7 @@ const xiaosanjiaoClick = () => {
     <div class="right_button" :class="{ 'active': actived, 'disable': disabled, 'right_button_left': leftButton }"
         @click.prevent.stop="click()" @mouseover="spanIsShow = true" @mouseout="spanIsShow = false">
         <div class="right_button_icon"><es-icon :name="name" :color="color" :size="size" /></div>
-        <div class="right_button_content">{{ content }}</div>
+        <div class="right_button_content" :style="{fontSize:`${fontSize}px`}">{{ content }}</div>
         <span v-show="spanIsShow && showSpan" class="xiaosanjiao" :class="xiaosanjiao ? '' : 'xiaosanjiao_transform'"
             @click.stop.prevent="xiaosanjiaoClick()"></span>
     </div>
@@ -69,8 +71,6 @@ const xiaosanjiaoClick = () => {
 
 .right_button>.right_button_content {
     margin-left: 5px;
-    font-size: 14px;
-
 }
 
 .right_button>.right_button_icon {

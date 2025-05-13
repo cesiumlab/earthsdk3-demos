@@ -88,7 +88,7 @@ const scrollDownAndClick2 = (item: any) => {
     <RightList :title="'ue引擎'" v-if="ueIsShow">
         <Button v-for="item in ueObjectList" :name="item.icon" :content="item.zh"
             :click="() => scrollDownAndClick2(item)" :actived="objType === item.type"
-            :left-button="item.leftButton"></Button>
+            :left-button="item.leftButton" :font-size="item.fontSize"></Button>
         <component :is="ueCom" @close="objType = ''"></component>
     </RightList>
 </template>

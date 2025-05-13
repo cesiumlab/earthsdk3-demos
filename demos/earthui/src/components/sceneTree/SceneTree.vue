@@ -31,6 +31,9 @@
   <SetStyle v-if="setStyleShow" :isShow="setStyleShow" @changeShow="setStyleShow = false"
     :setStyleTreeItem="setStyleTreeItem">
   </SetStyle>
+  <MaterialReplace v-if="materialReplaceShow" :isShow="materialReplaceShow" @changeShow="materialReplaceShow = false"
+    :setStyleTreeItem="setStyleTreeItem">
+  </MaterialReplace>
 </template>
 <script setup lang="ts">
 import { FileHandleType, Message, createVueDisposer, getSaveFileHandle, messageBox, saveFile, toReadonlyVueRef, toRefKey, toVR } from "earthsdk-ui";
@@ -48,6 +51,7 @@ import SceneTreeItemComp from "./SceneTreeItem.vue";
 import CreateSceneObjFromJson from "./scenetreeCreate/CreateSceneObjFromJson.vue";
 import LiftHeight from "./scenetreeCreate/LiftHeight.vue";
 import SetStyle from "./scenetreeCreate/SetStyle2.vue";
+import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
 import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
 
 const props = withDefaults(defineProps<{
@@ -79,6 +83,7 @@ const close = () => {
 const createSceneObjFromJsonShow = ref(false)
 const liftHeightShow = ref(false)//抬升高度
 const setStyleShow = ref(false)//设置样式
+const materialReplaceShow = ref(false)//材质替换
 const liftHeightTreeItem = ref<any>(undefined)
 const setStyleTreeItem = ref<any>(undefined)
 const liftHeightType = ref<string>('')
@@ -722,34 +727,34 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
       baseItems.splice(-8, 0, item)
     })
   }
-  const enditingList = {
-    text: "编辑",
-    keys: "",
-    func: () => {
-      let dispose: any
-      if (treeItem.sceneObject) {
-        if ('editing' in treeItem.sceneObject) {
-          treeItem.sceneObject.editing = true
-          Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
-          //@ts-ignore
-          dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
-            if (!res) {
-              Message.remove('xxx')
-              dispose()
-              dispose = undefined
-            }
-          })
-        }
-      }
-    },
-  }
-  if (treeItem.sceneObject) {
-    if ('positionEditing' in treeItem.sceneObject || 'editing' in treeItem.sceneObject) {
-      if ((!(treeItem.sceneObject instanceof ES3DTileset)) || (treeItem.sceneObject instanceof ES3DTileset && treeItem.sceneObject.supportEdit)) {
-        baseItems.splice(1, 0, enditingList)
-      }
-    }
-  }
+  // const enditingList = {
+  //   text: "编辑",
+  //   keys: "",
+  //   func: () => {
+  //     let dispose: any
+  //     if (treeItem.sceneObject) {
+  //       if ('editing' in treeItem.sceneObject && treeItem.sceneObject instanceof ESGeoJson) {//ESGeoJson有editing属性但是不能被编辑
+  //         treeItem.sceneObject.editing = true
+  //         Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+  //         //@ts-ignore
+  //         dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
+  //           if (!res) {
+  //             Message.remove('xxx')
+  //             dispose()
+  //             dispose = undefined
+  //           }
+  //         })
+  //       }
+  //     }
+  //   },
+  // }
+  // if (treeItem.sceneObject) {
+  //   if ('positionEditing' in treeItem.sceneObject || 'editing' in treeItem.sceneObject) {
+  //     if ((!(treeItem.sceneObject instanceof ES3DTileset)) || (treeItem.sceneObject instanceof ES3DTileset && treeItem.sceneObject.supportEdit)) {
+  //       baseItems.splice(1, 0, enditingList)
+  //     }
+  //   }
+  // }
   const Geojson = {
     text: "转为ES点线面对象",
     keys: "",
@@ -851,6 +856,25 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
   if (treeItem.sceneObject) {
     if (treeItem.sceneObject instanceof ES3DTileset) {
       baseItems.splice(13, 0, set3DTileasetStyle)
+    }
+  }
+  const setMaterial = {
+    text: "材质替换",
+    keys: "",
+    func: () => {
+      setStyleTreeItem.value = treeItem
+      materialReplaceShow.value = false
+      setTimeout(() => {
+        materialReplaceShow.value = true
+      }, 100)
+
+
+    },
+  }
+  if (treeItem.sceneObject) {
+    // if (treeItem.sceneObject instanceof ES3DTileset&&xbsjEarthUi.activeViewer?.typeName==='ESUeViewer') {
+    if (treeItem.sceneObject instanceof ES3DTileset) {
+      baseItems.splice(13, 0, setMaterial)
     }
   }
   const ESObjToGeojson = {

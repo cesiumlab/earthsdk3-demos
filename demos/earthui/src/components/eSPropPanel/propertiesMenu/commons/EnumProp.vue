@@ -3,12 +3,13 @@ import { onMounted, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<{
     modelValue?: any,
-    enumStrsList: [aliasName: any, value: any][],
+    enumStrsList: [aliasName: any, value: any, disabled?: any][],
     withUndefined: boolean,
     defaultValue?: any,
     readonly?: boolean,
     isBan?: boolean,
-    isStyleEdit?: boolean
+    isStyleEdit?: boolean,
+    clickli?: () => {}
 }>(), { readonly: false, isBan: false, isStyleEdit: false })
 
 const emits = defineEmits(["update:modelValue", 'clickli']);
@@ -19,6 +20,9 @@ watch(modelValueName, (val) => {
     emits('update:modelValue', val)
 })
 const changeSelect = (item: any) => {
+    if (item[2]) {
+        return
+    }
     mouseFlag.value = false
     leftulisShow.value = false
     if (props.isStyleEdit) {
@@ -26,19 +30,14 @@ const changeSelect = (item: any) => {
     } else {
         modelValueRef.value = item[0]
         modelValueName.value = item[1]
+        if (props.clickli) {
+            props.clickli()
+        }
         emits('clickli')
     }
 
 }
 const mouseFlag = ref(false)
-const resetDefult = () => {
-    emits('update:modelValue', props.defaultValue)
-    const item = props.enumStrsList.find(item => item[1] === props.defaultValue)
-    if (item) {
-        modelValueRef.value = item[0]
-        modelValueName.value = item[1]
-    }
-}
 watch(() => props.modelValue, (val) => {
     const item = props.enumStrsList.find(item => item[1] === val)
     if (item) {
@@ -60,17 +59,10 @@ watch(() => props.modelValue, (val) => {
                 <span class="images_xiaosanjiao" :class="leftulisShow ? 'images_xiaosanjiao_transform' : ''"></span>
             </div>
             <ul v-show="leftulisShow">
-                <li v-for="item in enumStrsList" :title="item[0]" :class="{ actived: item[0] === modelValueRef }"
-                    @click="changeSelect(item)">
+                <li v-for="item in enumStrsList" :title="item[0]"
+                    :class="{ actived: item[0] === modelValueRef, disaled: item[2] }" @click="changeSelect(item)">
                     {{ item[0] }}</li>
             </ul>
-        </div>
-        <div class="checkbox1">
-            <div v-if="!readonly && defaultValue !== undefined && modelValue !== defaultValue" class="checkbox"
-                @click.stop.prevent="resetDefult" @mouseover="mouseFlag = true" @mouseout="mouseFlag = false">
-                <es-icon :name="'huaban'" :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'"
-                    :size="14" />
-            </div>
         </div>
     </div>
 </template>
@@ -158,6 +150,12 @@ watch(() => props.modelValue, (val) => {
 
 .actived {
     background: #455767 !important;
+}
+
+.disaled {
+    background: rgba(48, 48, 48, 0.6) !important;
+    cursor: not-allowed !important;
+    /* 可选：改变鼠标指针样式 */
 }
 
 .checkbox1 {

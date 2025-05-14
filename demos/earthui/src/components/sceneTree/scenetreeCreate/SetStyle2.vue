@@ -483,22 +483,11 @@ const changeCancel = () => {//点击取消
             }
         }
     }
-    dispose()
     emits("changeShow", false);
 }
 const scenetree = ref()//当前选中的对象
-let disposeczmColorBlendMode: any//选中对象的监听颜色模式改变事件
-const dispose = () => {//销毁
-    if (disposeczmColorBlendMode) {
-        disposeczmColorBlendMode()
-        disposeczmColorBlendMode = undefined
-    }
-}
-onBeforeUnmount(() => {
-    dispose()
-})
+
 watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
-    dispose()
     scenetree.value = props.setStyleTreeItem
     if (scenetree.value) {
         const sceneObject = scenetree.value.sceneObject as ES3DTileset
@@ -655,7 +644,6 @@ const changeOk = async () => {//点击确定
     hoverlideleteIndex.value = -2
     hoverlideleteIndexHover.value = -2
     hoverdeleteIndex.value = -2
-    dispose()
 }
 const saveStyle = async () => {//点击另存为新样式
     if (currentMenu.value === 'edit') {//可视化编辑器

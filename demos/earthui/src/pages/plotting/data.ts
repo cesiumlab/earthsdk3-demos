@@ -578,7 +578,7 @@ export const effectObjectList: { type: string, zh: string, icon: string, leftBut
 
 ]
 //actor
-export const ueObjectList: { type: string, zh: string, icon: string, leftButton: boolean, com: any }[] = [
+export const ueObjectList: { type: string, zh: string, icon: string, leftButton: boolean, com: any ,fontSize?:number}[] = [
     {
         type: 'esUnrealActor',
         zh: '创建Actor',
@@ -610,7 +610,8 @@ export const ueObjectList: { type: string, zh: string, icon: string, leftButton:
         zh: '高斯溅射模型',
         icon: 'model-lib',
         leftButton: false,
-        com: shallowRef(EsGaussianSplatting)
+        com: shallowRef(EsGaussianSplatting),
+        fontSize:12
     }, {
         type: 'eSStaticMesh',
         zh: '静态网格体',

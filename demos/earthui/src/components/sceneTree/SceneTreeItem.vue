@@ -233,13 +233,17 @@ const ondragstart = (e: DragEvent) => sceneTreeItem.dragDrop.dragStart(e)
 const ondrop = (e: DragEvent) => sceneTreeItem.dragDrop.drop(e)
 const ondragover = (e: DragEvent) => sceneTreeItem.dragDrop.dragOver(e)
 const ondragleave = (e: DragEvent) => sceneTreeItem.dragDrop.dragLeave(e)
-const changeCheckedStatus = () => sceneTreeItem.uiTreeObject.check(sceneTreeItem.uiTreeObject.checkedStatus !== "checked")
+const changeCheckedStatus = () => {
+  sceneTreeItem.uiTreeObject.check(sceneTreeItem.uiTreeObject.checkedStatus !== "checked")
+  // console.log(1111111111111);
+
+}
 
 const flyTo = () => {
   const { sceneObject } = sceneTreeItem
-  if(sceneObject instanceof ESLocalSkyBox){
+  if (sceneObject instanceof ESLocalSkyBox) {
     sceneObject.flyIn()
-  }else if (sceneObject && Reflect.has(sceneObject, 'flyTo')) {
+  } else if (sceneObject && Reflect.has(sceneObject, 'flyTo')) {
     // @ts-ignore
     sceneObject.flyTo()
   } else {
@@ -271,8 +275,8 @@ const createTreeItem = (item: SceneTreeItem, list?: TileTreeItem[]) => {
     //@ts-ignore
     const treeItem = new SceneTreeItem(tree, hasChildren, undefined, { ...element, esid }, false)
     treeItem.name = element.name;
-     //@ts-ignore
-     treeItem.show = sceneTreeItem?.sceneObject?.show
+    //@ts-ignore
+    treeItem.show = sceneTreeItem?.sceneObject?.show
     treeItem.uiTreeObject.collapsed = true;
     treeItems.push(treeItem);
     if (hasChildren) {

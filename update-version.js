@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// 在此替换版本号 在根目录运行 node update.js
+// 在此替换版本号 在根目录运行 node update-version.js (pnpm run update:version)
 const newVersion = {
     "xbsj-base": "1.0.1",
     "earthsdk3": "3.0.6-beta.19",
@@ -10,8 +10,10 @@ const newVersion = {
     "earthsdk3-assets": "3.0.1-beta.1",
 }
 
+//需要更新的package.json路径
 const packageJsonPaths = [
     'demos/earthsdk3-openlayers/package.json',
+    'demos/earthsdk-all-engine/package.json',
     'demos/earthui/package.json',
     'examples/earthsdk3-vite/package.json',
     'examples/earthsdk3-vite-js/package.json',

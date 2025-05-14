@@ -10,16 +10,16 @@
                         @mouseleave="hoverIndex = -2"><es-icon :name="'tianjia'"
                             :color="hoverIndex === -1 ? '#fff' : '#575B66'" :size="13" /></span></div>
             </div>
-            <div class="set_materal_content">
+            <div class="set_materal_content" @scroll="handleScroll">
                 <div class="materal_content_title" v-for="(item, index) in materalList" :key="index">
                     <div>
-                        <EnumProp :withUndefined="false" :defaultValue="undefined" :enumStrsList="materialNameList"
-                            v-model="item.name" :clickli="getEnumList">
+                        <EnumProp :scroll-position="scrollPosition" :withUndefined="false" :defaultValue="undefined"
+                            :enumStrsList="materialNameList" v-model="item.name" :clickli="getEnumList">
                         </EnumProp>
                     </div>
                     <div>
-                        <EnumProp :withUndefined="false" :defaultValue="undefined" :enumStrsList="materialIdList"
-                            v-model="item.id">
+                        <EnumProp :scroll-position="scrollPosition" :withUndefined="false" :defaultValue="undefined"
+                            :enumStrsList="materialIdList" v-model="item.id">
                         </EnumProp>
                     </div>
                     <div><span @click="deleteMaterial(index)" @mouseenter="hoverIndex = index"
@@ -68,22 +68,12 @@ const deleteMaterial = (index: number) => {//删除材质
 }
 const materialNameList = ref<[aliasName: any, value: any, disabled: boolean][]>([])
 const materialIdList = ref<[aliasName: any, value: any][]>([])
-
-watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
-    // const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
-    // if (sceneObject.viewer instanceof ESUeViewer) {
-    //     const materialNameListRes = await sceneObject.getMaterialNameList() as any
-    //     if (materialNameListRes.length === 0) return
-    //     materialNameList.value = changematerialNameList(materialNameListRes)
-    //     const materialIdListRes = await sceneObject.viewer.getTilesetMaterialIDList() as any
-    //     materialIdList.value = changematerialIDList(materialIdListRes)
-    //     materalList.value = [{
-    //         name: '',
-    //         id: ''
-    //     }]
-    // }
-    // hoverIndex.value = -2
-}, { immediate: true })
+const scrollPosition = ref(0)
+const handleScroll = (event: Event) => {
+    if (event.target) {
+        scrollPosition.value = (event.target as HTMLElement).scrollTop;
+    }
+}
 const changeOk = async () => {//点击确定
     const result = materalList.value.reduce((obj: any, item: any) => {
         obj[item.name] = item.id;

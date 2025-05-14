@@ -9,7 +9,7 @@
                     <span v-show="iconIsShow == index ? true : false">{{ item.name ?? '模式' }}</span>
                 </div>
                 <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">{{
-        item.name ?? '模式' }}</div>
+                    item.name ?? '模式' }}</div>
             </div>
         </div>
     </PopList>
@@ -20,13 +20,13 @@ import { ESPit } from "earthsdk3";
 import { inject, onMounted, ref, onBeforeUnmount } from "vue";
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
+import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
 import { createSceneObjTreeItemFromJson, executePos } from "./fun";
 import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: new URL('../../../assets/plotting/pit.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/pit.png', import.meta.url).href,
         name: '坑',
         fillStyle: {
             color: [
@@ -53,21 +53,24 @@ const createSceneObject = () => {
     sceneObject = xbsjEarthUi.createSceneObject(ESPit) as ESPit
     if (sceneObject) {
         const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESPit')
-        sceneObject.name = selected.value.name+(sceneObjectIndex+1)
+        sceneObject.name = selected.value.name + (sceneObjectIndex + 1)
         sceneObject.fillStyle = selected.value.fillStyle
+        sceneObject.interpolation = 5000
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
         Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableOnce(() => {
             if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const pos = sceneObject.points?.length
                 xbsjEarthUi.destroySceneObject(sceneObject)
                 sceneObject = undefined
                 setTimeout(() => {
                     if (pos && pos >= 2) {
-                        createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+                        const newJson = JSON.parse(JSON.stringify(json))
+                        newJson.interpolation = 50
+                        createSceneObjTreeItemFromJson(xbsjEarthUi, newJson)
                         selected.value = undefined
                     }
                 }, 300)

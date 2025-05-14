@@ -21,9 +21,9 @@ const modelValueName = ref<number | string | undefined>('')
 watch(modelValueName, (val) => {
     emits('update:modelValue', val)
 })
-watch(() => props.scrollPosition, (val) => {
-    visible.value = false;
-})
+// watch(() => props.scrollPosition, (val) => {
+//     visible.value = false;
+// })
 const changeSelect = (item: any) => {
     if (item[2]) {
         return

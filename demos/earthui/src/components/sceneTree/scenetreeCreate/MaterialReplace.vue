@@ -65,6 +65,7 @@ const addMaterial = () => {//添加材质
 }
 const deleteMaterial = (index: number) => {//删除材质
     materalList.value.splice(index, 1)
+    getEnumList()
 }
 const materialNameList = ref<[aliasName: any, value: any, disabled: boolean][]>([])
 const materialIdList = ref<[aliasName: any, value: any][]>([])
@@ -105,6 +106,7 @@ const getEnumList = async () => {//获取枚举列表
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
     const materialNameListRes = await sceneObject.getMaterialNameList() as any
     materialNameList.value = changematerialNameList(materialNameListRes)
+    
 }
 onMounted(async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset

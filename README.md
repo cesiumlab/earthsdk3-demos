@@ -36,6 +36,17 @@ yarn run build
 
  - 建议：如果只启动某个项目建议采用局部安装依赖npm/yarn; 如果想要启动多个项目，建议采用pnpm来管理依赖；
 
+```sh
+//根目录
+pnpm install 
+
+//对应目录
+pnpm run dev 
+
+//对应目录
+pnpm run build 
+
+```
 
 # monorepo
 

@@ -1,12 +1,11 @@
 import { ESObjectsManager } from 'earthsdk3';
 import { ESCesiumViewer } from 'earthsdk3-cesium';
-import { ESOlViewer } from 'earthsdk3-ol';
 import { ESUeViewer } from 'earthsdk3-ue';
 import { createApp } from 'vue';
 import App from './App.vue';
 import './style.css';
 
-const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer, ESOlViewer);
+const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer);
 //调试
 window.g_objm = objm;
 

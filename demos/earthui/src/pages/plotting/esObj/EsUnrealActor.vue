@@ -22,25 +22,21 @@ const ok = () => {
         return
     }
     const obj = xbsjEarthUi.createSceneObject(ESUnrealActor)
+
+
     if (obj) {
-        let n
-        if (name.value) {
-            n = name.value
-        } else {
-            // 获取最后一个逗号的位置
-            var lastIndex = actorclass.value.lastIndexOf('.');
-            // 如果找不到逗号，直接返回原字符串
-            if (lastIndex === -1) {
-                n = actorclass.value
-            } else {
-                n = actorclass.value.substring(lastIndex + 1);
-                n = n.slice(0, -1);
+        obj.lastActorStatusChanged.don((res) => {
+            if (res === 'created') {
+                obj.editing = true
             }
-        }
-        obj.name = n
+        })
+        obj.name = name.value || actorclass.value.slice(
+            actorclass.value.lastIndexOf('.') + 1,
+            -1
+        );
         obj.actorClass = actorclass.value
+
         //编辑状态结束后根据json创建在场景树上
-        obj.editing = true
         Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         obj.d(obj.editingChanged.disposableWeakOn(() => {
             if (obj && obj.editing === false) {

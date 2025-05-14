@@ -41,7 +41,7 @@ const ok = () => {
         Message.warning('请填写路径')
         return
     }
-    if (!position.value) {
+    if (!position.value[0]||!position.value[1]) {
         Message.warning('请填写经纬度')
         return
     }

@@ -1,12 +1,13 @@
+import "cesiumWidgets/widgets.css";
+import { ESObjectsManager } from 'earthsdk3';
+import { ESCesiumViewer } from 'earthsdk3-cesium';
+import { ESUeViewer } from 'earthsdk3-ue';
 import { createApp } from 'vue';
 import App from './App.vue';
-import './css/index.css';
-import "cesiumWidgets/widgets.css"
-import { ESUeViewer } from 'earthsdk3-ue';
-import { ESOlViewer } from 'earthsdk3-ol';
-import { ESCesiumViewer } from 'earthsdk3-cesium';
-import MyESObjectsManager from './scripts/MyESObjectsManager';
-const objm = new MyESObjectsManager(ESUeViewer, ESCesiumViewer, ESOlViewer);
+import './style.css';
+
+const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer);
+
 //@ts-ignore
 window.g_objm = objm;
 
@@ -20,11 +21,4 @@ objm.sceneTree.createSceneObjectTreeItemFromJson({
     "maximumLevel": 18,
     "name": "全球影像",
     "allowPicking": true
-})
-
-//openlayers的图层
-objm.sceneTree.createSceneObjectTreeItemFromJson({
-    "id": "ae103185-08c7-4ed0-b6d4-15ad77bbbf45",
-    "type": "ESXYZLayer",
-    "url": "http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=abd187e1140259634e44eea628b65e00"
 })

@@ -4,6 +4,7 @@
     <div class="btn-box">
       <botton @click="switchViewer('cesium')">切换为Cesium</botton>
       <botton @click="switchViewer('ue')">切换为UE</botton>
+      <botton @click="switchViewer('openlayers')">切换为Openlayers</botton>
     </div>
 
     <!-- 视口容器 -->
@@ -13,12 +14,13 @@
 
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import { getobjm } from '../scripts/getobjm';
+import { ESVOption } from 'earthsdk3';
 
 const objm = getobjm();
-const container = ref();
+const container = ref<HTMLDivElement>();
 
 nextTick(() => {
   if (!container.value) return;
@@ -28,11 +30,12 @@ nextTick(() => {
 })
 
 
-
+type ViewerType = 'cesium' | 'ue' | 'openlayers';
 //切换视口
-const switchViewer = (type) => {
+const switchViewer = (type: ViewerType) => {
   if (!container.value) return;
-  let option = { type: 'ESCesiumViewer', container: container.value }
+
+  let option: ESVOption = { type: 'ESCesiumViewer', container: container.value }
 
   if (type === 'ue') {
     //需要配置ESSS信令服务器 https://bjxbsj.cn/esss.html
@@ -43,8 +46,13 @@ const switchViewer = (type) => {
         app: 'earthsdk3'
       }
     };
+
+  } else if (type === 'openlayers') {
+
+    option = { type: 'ESOlViewer', container: container.value };
   }
-  //切换cesium/ue视口
+
+  //切换cesium/ue/openlayers视口
   objm.switchViewer(option);
 }
 

@@ -4,21 +4,15 @@
   "private": false,
   "scripts": {
     "dev:earthui": "pnpm -F earthui dev",
-    "build:earthui":"pnpm -F earthui build",
-    "clean_node_modules": "pnpm run ce & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cnm",
+    "build:earthui": "pnpm -F earthui build",
+    "update:version": "node update-version.js",
+    "clean_node_modules": "pnpm run ce & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj",
     "cnm": "rimraf node_modules",
     "ce": "rimraf demos/earthui/node_modules",
     "ceo": "rimraf demos/earthsdk3-openlayers/node_modules",
     "cev": "rimraf examples/earthsdk3-vite/node_modules",
+    "cevj": "rimraf examples/earthsdk3-vite-js/node_modules",
     "cew": "rimraf examples/earthsdk3-wbpk/node_modules"
-  },
-  "dependencies": {
-    "xbsj-base": "1.0.1",
-    "earthsdk3": "3.0.6-beta.19",
-    "earthsdk3-cesium": "3.0.6-beta.29",
-    "earthsdk3-ue": "3.0.6-beta.12",
-    "earthsdk3-assets": "3.0.1-beta.1",
-    "earthsdk3-ol": "0.0.1-beta.0.3"
   },
   "devDependencies": {
     "rimraf": "^5.0.10"

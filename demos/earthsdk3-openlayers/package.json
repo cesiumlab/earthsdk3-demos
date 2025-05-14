@@ -2,9 +2,10 @@
   "name": "earthsdk3-ol",
   "version": "0.0.1-beta.0.3",
   "description": "地球可视化实验室 (EarthSDK&CesiumLab) https://www.bjxbsj.cn",
-  "main": "dist/earthsdk3-ol.cjs",
-  "module": "dist/earthsdk3-ol.mjs",
-  "types": "dist/types/index.d.ts",
+  "main": "./src/index.ts",
+  "1main": "dist/earthsdk3-ol.cjs",
+  "1module": "dist/earthsdk3-ol.mjs",
+  "1types": "dist/types/index.d.ts",
   "files": [
     "dist",
     "package.json",
@@ -31,7 +32,6 @@
   },
   "dependencies": {
     "ol": "^7.1.0",
-    "xbsj-base": "1.0.1",
-    "earthsdk3": "3.0.5"
+    "earthsdk3": "3.0.6-beta.19"
   }
 }

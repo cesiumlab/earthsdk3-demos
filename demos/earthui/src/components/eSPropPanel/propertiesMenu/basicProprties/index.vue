@@ -2,7 +2,7 @@
 import { ReactVarProperty } from 'earthsdk3';
 import { createVueDisposer, toReadonlyVueRef, toVR } from 'earthsdk-ui';
 import { propComps } from 'earthsdk-ui'
-// import { propComps } from '../../index'
+// import { newpropComps } from '../../index'
 import SpeedAndStartTime from './SpeedAndStartTime.vue'
 import StartTimeAndStopTime from './StartTimeAndStopTime.vue'
 import { inject, ref, onBeforeUnmount, watch } from 'vue';
@@ -36,7 +36,7 @@ let propertiesMenu: { name: string, component: string }[] = [
 const currentCom = ref('speedAndStartTime')
 </script>
 <template>
-    <div v-for="item in properties " :key="item.memId" class="item" v-if="(properties.length > 0)"
+    <div v-for="item in properties" :key="item.memId" class="item" v-if="(properties.length > 0)"
         :class="{ 'no-click': (treeItem.type === 'ESGeoWater' || treeItem.type === 'ESDynamicWater') && waterType !== 'custom' && item.name !== '水域类型' }">
         <div class="item_type">
             <component :is="propComps[item.type]" :property="item" :type="type" :xbsjEarthUi="xbsjEarthUi"
@@ -50,7 +50,7 @@ const currentCom = ref('speedAndStartTime')
                     @click="currentCom = item.component">
                     <span class="header_item_span2" :class="currentCom === item.component ? 'header_active2' : ''">{{
                         item.name
-                    }}</span>
+                        }}</span>
                 </div>
             </div>
         </div>

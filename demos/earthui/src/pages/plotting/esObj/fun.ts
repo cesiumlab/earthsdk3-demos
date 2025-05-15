@@ -26,7 +26,7 @@ export const createSceneObjTreeItemFromJson = (xbsjEarthUi: XbsjEarthUi, json: a
     treeItem.uiTreeObject.selected = true
     const { sceneObject } = treeItem
     if (zIndex) {
-        sceneObject.zIndex = zIndex 
+        sceneObject.zIndex = zIndex
     }
     xbsjEarthUi.propSceneTree = treeItem
 }
@@ -37,7 +37,7 @@ export const createSceneObjTreeItemFromJson = (xbsjEarthUi: XbsjEarthUi, json: a
  * @param pos 传入你获取到位置(经纬高的数组)之后，要执行的函数
  * @returns 返回值是一个的执行函数，外部需要调用一下，结束点击事件
  */
-export const executePos = (xbsjEarthUi: XbsjEarthUi, pos: (position: [number, number, number]) => void) => {
+export const executePos = (xbsjEarthUi: XbsjEarthUi, pos: (position: [number, number, number]) => void,dbclick?:()=>void) => {
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     let dispose = viewer.clickEvent.don(async (e: any) => {
@@ -46,9 +46,11 @@ export const executePos = (xbsjEarthUi: XbsjEarthUi, pos: (position: [number, nu
         pos(result)
     })
     let dispose1 = viewer.dblclickEvent.don(async (e: any) => {
-        const result = await viewer.pickPosition(e.screenPosition)
-        if (!result) return
-        pos(result)
+        dispose && dispose()
+        dispose1 && dispose1()
+        if(dbclick){
+            dbclick()
+        }
     })
     return [dispose, dispose1]
 }

@@ -51,35 +51,32 @@ const continuousCreate = ref(false)//连续创建
 const textType = ref(textTypeList)//类型列表
 const selected: any = ref(textTypeList[0])//选中的类型列表
 let sceneObject: ESTextLabel | undefined = undefined
+let sceneObject2: ESTextLabel | undefined = undefined
 let editingDispose: any = undefined
-let sce: any
+let editingDispose2: any = undefined
+let ececutDispose: any = undefined
 const pos = (position: [number, number, number]) => {
-    if (!selected.value) return
-    if (!continuousCreate.value) return
-    if (sce) {
-        sce.editing = false
+    if (sceneObject2) {
+        sceneObject2.editing = false
     }
     setTimeout(() => {
         createSceneObject(position)
     }, 100)
 }
-const changeCheckBox = () => {//点击取消连续创建时使得文字标注类型为空
-    destroy()
-    if (continuousCreate.value) {
-        selected.value = undefined
-    }
+const changeCheckBox = () => {//点击取消连续创建时使得人员类型为空
     continuousCreate.value = !continuousCreate.value
-    if (continuousCreate.value) {
-        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
-    } else {
-        Message.remove('xxx')
-    }
-}
-const select = (item: { name: string; type: { textSize: number, textColor: [number, number, number, number] } }) => {//点击选择框中的文字标注按钮
+    Message.remove('xxx')
     destroy()
+    selected.value = undefined
+}
+const select = (item: { name: string; type: { textSize: number, textColor: [number, number, number, number] } }) => {//点击选择框中的人员按钮
     selected.value = item
-    if (continuousCreate.value) return
-    createOneSceneObject()
+    destroy()
+    if (continuousCreate.value) {
+        ececutDispose = executePos(xbsjEarthUi, pos, () => { selected.value = undefined })
+    } else {
+        createOneSceneObject()
+    }
 }
 const changeText = (item: { name: string; type: { textSize: number, textColor: [number, number, number, number] } }, index: number) => {
     textareaIsShow.value = index
@@ -88,23 +85,55 @@ const changeText = (item: { name: string; type: { textSize: number, textColor: [
 //创建文字标注场景对象
 const createSceneObject = (position: [number, number, number]) => {
     if (!selected.value) return
-    sce = xbsjEarthUi.createSceneObject(ESTextLabel) as ESTextLabel
-    sce.position = position
-    sce.fontSize = selected.value.type.textSize
-    sce.color = selected.value.type.textColor
+    sceneObject2 = xbsjEarthUi.createSceneObject(ESTextLabel) as ESTextLabel
+    sceneObject2.position = position
+    sceneObject2.fontSize = selected.value.type.textSize
+    sceneObject2.color = selected.value.type.textColor
     const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESTextLabel')
-    sce.name = selected.value.name + (sceneObjectIndex + 1)
-    sce.text = selected.value.name + (sceneObjectIndex + 1)
+    sceneObject2.name = selected.value.name + (sceneObjectIndex + 1)
+    sceneObject2.text = selected.value.name + (sceneObjectIndex + 1)
     //编辑状态结束后根据json创建在场景树上
-    sce.editing = true
-    sce.editingChanged.disposableOnce(() => {
-        if (sce.editing === false) {
-            const json = sce.json
-            // sce.destroy()
-            xbsjEarthUi.destroySceneObject(sce)
+     setTimeout(() => {
+        //@ts-ignore
+        sceneObject2.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+    }, 10)
+    sceneObject2.name = selected.value.name + (sceneObjectIndex + 1)
+     //编辑状态结束后根据json创建在场景树上
+    editingDispose2 = sceneObject2.editingChanged.disposableWeakOn(() => {
+        if (sceneObject2 && sceneObject2.editing === false) {
+            Message.remove('xxx')
+            const json = sceneObject2.json
+            xbsjEarthUi.destroySceneObject(sceneObject2)
+            sceneObject2 = undefined
             createSceneObjTreeItemFromJson(xbsjEarthUi, json)
         }
     })
+}
+const destroy = () => {//销毁未编辑完成的对象
+    if (sceneObject && sceneObject.editing) {
+        if (editingDispose) {
+            editingDispose()
+            editingDispose = undefined
+        }
+        sceneObject.editing = false
+        xbsjEarthUi.destroySceneObject(sceneObject)
+        sceneObject = undefined
+    }
+    if (sceneObject2 && sceneObject2.editing) {
+        if (editingDispose2) {
+            editingDispose2()
+            editingDispose2 = undefined
+        }
+        sceneObject2.editing = false
+        xbsjEarthUi.destroySceneObject(sceneObject2)
+        sceneObject2 = undefined
+    }
+    if (ececutDispose) {
+        ececutDispose.forEach((item: () => any) => {
+            item && item()
+        })
+    }
 }
 //创建单个报警场景对象
 const createOneSceneObject = () => {
@@ -139,27 +168,10 @@ const createOneSceneObject = () => {
     }
 
 }
-const destroy = () => {
-    if (sceneObject && sceneObject.editing) {
-        if (editingDispose) {
-            editingDispose()
-            editingDispose = undefined
-        }
-        sceneObject.editing = false
-        xbsjEarthUi.destroySceneObject(sceneObject)
-        sceneObject = undefined
-    }
-}
 onMounted(() => {
     createOneSceneObject()
-    const disposes = executePos(xbsjEarthUi, pos)
     onBeforeUnmount(() => {
         Message.remove('xxx')
-        if (disposes) {
-            disposes.forEach((item) => {
-                item && item()
-            })
-        }
         destroy()
     })
 })

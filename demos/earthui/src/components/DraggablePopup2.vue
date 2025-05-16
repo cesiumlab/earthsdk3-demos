@@ -15,7 +15,9 @@ interface Props {
     iconSize?: number,
     checkIconIsShow?: boolean,
     iconIschecked?: boolean,
-    checkFun?: () => void
+    checkFun?: () => void,
+    minWidthHeight?: [number, number]
+
 }
 const props = withDefaults(defineProps<Props>(), {
     title: "设置",
@@ -30,6 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
     iconSize: 16,
     checkIcon: false,
     iconIschecked: false,
+    minWidthHeight: () => [215, 100],
     checkFun: () => { },
 })
 const emits = defineEmits(['close', 'ok']);
@@ -104,15 +107,15 @@ const dragPointerdown = (event: MouseEvent) => {
         var x = ev.clientX
         var y = ev.clientY
         if (disW.value && disH.value) {
-            if ((disW.value + (x - disX.value)) < 200) {
-                popupBodyDom.value.style.width = '215px'
-                popupHeaderDom.value.style.width = '215px';
+            if ((disW.value + (x - disX.value)) < props.minWidthHeight[0]) {
+                popupBodyDom.value.style.width = `${props.minWidthHeight[0] + 15}px`
+                popupHeaderDom.value.style.width = `${props.minWidthHeight[0] + 15}px`;
             } else {
                 popupBodyDom.value.style.width = disW.value + (x - disX.value) + 'px';
                 popupHeaderDom.value.style.width = disW.value + (x - disX.value) + 'px';
             }
-            if ((disH.value + (y - disY.value)) < 100) {
-                popupBodyDom.value.style.height = '100px';
+            if ((disH.value + (y - disY.value)) < props.minWidthHeight[1]) {
+                popupBodyDom.value.style.height = `${props.minWidthHeight[1]}px`;
             } else {
                 popupBodyDom.value.style.height = disH.value + (y - disY.value) + 'px';
 
@@ -165,7 +168,7 @@ const hoverLineHeight = ref(-1)
             <div class="popup_body" ref="popupBodyDom" v-show="developContent">
                 <slot></slot>
             </div>
-            <div class="popup_foot" v-if="showButton&&developContent" >
+            <div class="popup_foot" v-if="showButton && developContent">
                 <button @click="emits('close')">取消</button>
                 <button @click="emits('ok')">{{ buttonConfirm ?? '确认' }}</button>
             </div>
@@ -224,9 +227,12 @@ const hoverLineHeight = ref(-1)
     text-align: left;
     margin-left: 10px;
     width: calc(100% - 80px);
-    white-space: nowrap; /* 确保文本不会换行 */  
-    overflow: hidden; /* 隐藏超出容器的文本 */  
-    text-overflow: ellipsis; /* 当文本超出容器时显示省略号 */  
+    white-space: nowrap;
+    /* 确保文本不会换行 */
+    overflow: hidden;
+    /* 隐藏超出容器的文本 */
+    text-overflow: ellipsis;
+    /* 当文本超出容器时显示省略号 */
     display: flex;
 
 }

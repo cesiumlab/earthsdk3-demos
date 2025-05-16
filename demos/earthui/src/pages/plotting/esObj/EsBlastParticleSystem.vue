@@ -40,68 +40,93 @@ const modes = [//多选模式类型
         name: '粒子爆炸'
     }
 ]
-const iconIsShow: any = ref()
+const iconIsShow: any = ref()//划过样式
 const continuousCreate = ref(false)//连续创建
-const selected: any = ref(modes[0])
+const selected: any = ref(modes[0])//当前选中
 let sceneObject: ESBlastParticleSystem | undefined = undefined
-let editingDispose: any
-let sce: any
+let sceneObject2: ESBlastParticleSystem | undefined = undefined
+let editingDispose: any = undefined
+let editingDispose2: any = undefined
+let ececutDispose: any = undefined
+const changeCheckBox = () => {//点击取消连续创建时使得粒子爆炸类型为空
+    continuousCreate.value = !continuousCreate.value
+    Message.remove('xxx')
+    destroy()
+    selected.value = undefined
+}
 const pos = (position: [number, number, number]) => {
-    if (!selected.value) return
-    if (!continuousCreate.value) return
-    if (sce) {
-        sce.editing = false
+    if (sceneObject2) {
+        sceneObject2.editing = false
     }
     setTimeout(() => {
         createSceneObject(position)
     }, 100)
 }
-const changeCheckBox = () => {//点击取消连续创建时使得粒子爆炸类型为空
-    destroy()
-    if (continuousCreate.value) {
-        selected.value = undefined
-    }
-    continuousCreate.value = !continuousCreate.value
-    if (continuousCreate.value) {
-        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
-    } else {
-        Message.remove('xxx')
-    }
-}
 const select = (item: { imgUrl: string, img: any, name: string, }) => {//点击选择框中的粒子爆炸按钮
-    destroy()
     selected.value = item
-    if (continuousCreate.value) return
-    createOneSceneObject()
+    destroy()
+    if (continuousCreate.value) {
+        ececutDispose = executePos(xbsjEarthUi, pos, () => { selected.value = undefined })
+    } else {
+        createOneSceneObject()
+    }
 }
 //连续创建粒子爆炸场景对象
 const createSceneObject = (position: [number, number, number]) => {
     if (!selected.value) return
-    sce = xbsjEarthUi.createSceneObject(ESBlastParticleSystem)
-    if (sce) {
-        const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESBlastParticleSystem')
-        sce.position = position
-        sce.image = selected.value.imgUrl
-        sce.name = selected.value.name + (sceneObjectIndex + 1)
-        sce.editing = true
-        //编辑状态结束后根据json创建在场景树上
-        sce.d(sce.editingChanged.disposableWeakOn(() => {
-            if (sce.editing === false) {
-                const json = sce.json
-                xbsjEarthUi.destroySceneObject(sce)
-                createSceneObjTreeItemFromJson(xbsjEarthUi, json)
-            }
-        }))
+    sceneObject2 = xbsjEarthUi.createSceneObject(ESBlastParticleSystem) as ESBlastParticleSystem
+    sceneObject2.position = position
+    sceneObject2.image = selected.value.imgUrl
+    const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESBlastParticleSystem')
+    setTimeout(() => {
+        //@ts-ignore
+        sceneObject2.editing = true
+        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+    }, 10)
+    sceneObject2.name = selected.value.name + (sceneObjectIndex + 1)
+    //编辑状态结束后根据json创建在场景树上
+    editingDispose2 = sceneObject2.editingChanged.disposableWeakOn(() => {
+        if (sceneObject2 && sceneObject2.editing === false) {
+            Message.remove('xxx')
+            const json = sceneObject2.json
+            xbsjEarthUi.destroySceneObject(sceneObject2)
+            sceneObject2 = undefined
+            createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+        }
+    })
+}
+const destroy = () => {//销毁未编辑完成的对象
+    if (sceneObject && sceneObject.editing) {
+        if (editingDispose) {
+            editingDispose()
+            editingDispose = undefined
+        }
+        sceneObject.editing = false
+        xbsjEarthUi.destroySceneObject(sceneObject)
+        sceneObject = undefined
+    }
+    if (sceneObject2 && sceneObject2.editing) {
+        if (editingDispose2) {
+            editingDispose2()
+            editingDispose2 = undefined
+        }
+        sceneObject2.editing = false
+        xbsjEarthUi.destroySceneObject(sceneObject2)
+        sceneObject2 = undefined
+    }
+    if (ececutDispose) {
+        ececutDispose.forEach((item: () => any) => {
+            item && item()
+        })
     }
 }
 //创建单个粒子爆炸场景对象
 const createOneSceneObject = () => {
     if (!selected.value) return
-    sceneObject = xbsjEarthUi.createSceneObject(ESBlastParticleSystem)
-    const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESBlastParticleSystem')
-
+    sceneObject = xbsjEarthUi.createSceneObject(ESBlastParticleSystem) as ESBlastParticleSystem
     if (sceneObject) {
         sceneObject.image = selected.value.imgUrl
+        const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESBlastParticleSystem')
         sceneObject.name = selected.value.name + (sceneObjectIndex + 1)
         //编辑状态结束后根据json创建在场景树上
         sceneObject.editing = true
@@ -117,34 +142,24 @@ const createOneSceneObject = () => {
                 setTimeout(() => {
                     if (!a) {
                         createSceneObjTreeItemFromJson(xbsjEarthUi, json)
-                        selected.value = undefined
+                        if (continuousCreate.value) {
+                            createOneSceneObject()
+                        } else {
+                            selected.value = undefined
+
+                        }
                     }
                 }, 300)
+
             }
         })
     }
-}
-const destroy = () => {
-    if (sceneObject && sceneObject.editing) {
-        if (editingDispose) {
-            editingDispose()
-            editingDispose = undefined
-        }
-        sceneObject.editing = false
-        xbsjEarthUi.destroySceneObject(sceneObject)
-        sceneObject = undefined
-    }
+
 }
 onMounted(() => {
     createOneSceneObject()
-    const disposes = executePos(xbsjEarthUi, pos)
     onBeforeUnmount(() => {
         Message.remove('xxx')
-        if (disposes) {
-            disposes.forEach((item) => {
-                item && item()
-            })
-        }
         destroy()
     })
 })

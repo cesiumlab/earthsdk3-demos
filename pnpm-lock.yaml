@@ -18,20 +18,20 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -55,15 +55,15 @@ importers:
   demos/earthsdk3-openlayers:
     dependencies:
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       ol:
         specifier: ^7.1.0
         version: 7.5.2
     devDependencies:
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.2(typescript@4.9.5)(webpack@5.98.0)
+        version: 9.5.2(typescript@4.9.5)(webpack@5.98.0(webpack-cli@4.10.0))
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.13
@@ -123,17 +123,17 @@ importers:
         specifier: 0.0.49-beta.0.38
         version: 0.0.49-beta.0.38(typescript@4.9.5)
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -175,17 +175,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -212,17 +212,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -246,17 +246,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vue/cli-plugin-babel':
         specifier: ~5.0.0
@@ -1106,56 +1106,67 @@ packages:
     resolution: {integrity: sha512-mimPH43mHl4JdOTD7bUMFhBdrg6f9HzMTOEnzRmXbOZqjijCw8LA5z8uL6LCjxSa67H2xiLFvvO67PT05PRKGg==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.38.0':
     resolution: {integrity: sha512-tPiJtiOoNuIH8XGG8sWoMMkAMm98PUwlriOFCCbZGc9WCax+GLeVRhmaxjJtz6WxrPKACgrwoZ5ia/uapq3ZVg==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.38.0':
     resolution: {integrity: sha512-wZco59rIVuB0tjQS0CSHTTUcEde+pXQWugZVxWaQFdQQ1VYub/sTrNdY76D1MKdN2NB48JDuGABP6o6fqos8mA==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.38.0':
     resolution: {integrity: sha512-fQgqwKmW0REM4LomQ+87PP8w8xvU9LZfeLBKybeli+0yHT7VKILINzFEuggvnV9M3x1Ed4gUBmGUzCo/ikmFbQ==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.38.0':
     resolution: {integrity: sha512-hz5oqQLXTB3SbXpfkKHKXLdIp02/w3M+ajp8p4yWOWwQRtHWiEOCKtc9U+YXahrwdk+3qHdFMDWR5k+4dIlddg==}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.38.0':
     resolution: {integrity: sha512-NXqygK/dTSibQ+0pzxsL3r4Xl8oPqVoWbZV9niqOnIHV/J92fe65pOir0xjkUZDRSPyFRvu+4YOpJF9BZHQImw==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.38.0':
     resolution: {integrity: sha512-GEAIabR1uFyvf/jW/5jfu8gjM06/4kZ1W+j1nWTSSB3w6moZEBm7iBtzwQ3a1Pxos2F7Gz+58aVEnZHU295QTg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.38.0':
     resolution: {integrity: sha512-9EYTX+Gus2EGPbfs+fh7l95wVADtSQyYw4DfSBcYdUEAmP2lqSZY0Y17yX/3m5VKGGJ4UmIH5LHLkMJft3bYoA==}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.38.0':
     resolution: {integrity: sha512-Mpp6+Z5VhB9VDk7RwZXoG2qMdERm3Jw07RNlXHE0bOnEeX+l7Fy4bg+NxfyN15ruuY3/7Vrbpm75J9QHFqj5+Q==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.38.0':
     resolution: {integrity: sha512-vPvNgFlZRAgO7rwncMeE0+8c4Hmc+qixnp00/Uv3ht2x7KYrJ6ERVd3/R0nUtlE6/hu7/HiiNHJ/rP6knRFt1w==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.38.0':
     resolution: {integrity: sha512-q5Zv+goWvQUGCaL7fU8NuTw8aydIL/C9abAVGCzRReuj5h30TPx4LumBtAidrVOtXnlB+RZkBtExMsfqkMfb8g==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.38.0':
     resolution: {integrity: sha512-u/Jbm1BU89Vftqyqbmxdq14nBaQjQX1HhmsdBWqSdGClNaKwhjsg5TpW+5Ibs1mb8Es9wJiMdl86BcmtUVXNZg==}
@@ -2690,17 +2701,17 @@ packages:
   earthsdk3-assets@3.0.2:
     resolution: {integrity: sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==}
 
-  earthsdk3-cesium@3.0.6-beta.29:
-    resolution: {integrity: sha512-U7L9G7RCDpLhr40BG6X9v7WJEjjlkmQvyX/LKXtbTFQPchzjs+9blnfOggKEDk6gvcebXGwoCgTdwLcyhcTbZw==}
+  earthsdk3-cesium@3.0.6-beta.30:
+    resolution: {integrity: sha512-NeJOIDD+0wuNd6X40wZu3X9hQJZHy/dEpk2FzV9HjMcNVWEaPoRtHzhnqYGdAcUW9cfbb4noa8HgUHAyr34HeQ==}
 
-  earthsdk3-ue@3.0.6-beta.12:
-    resolution: {integrity: sha512-9+k/ZLOEXVI8tFYbTvNNl9qRHQBN5Q2Tv2F/RfBT3DMiBiIDaN/IC5lqiuvaCOmZIhohsqLv9FeokDqgm0eSJw==}
+  earthsdk3-ue@3.0.6-beta.13:
+    resolution: {integrity: sha512-0MMrugU1eVsBWtm/KskFKTAUzc+X16TWozgbmMwCdO7+eX3yBFYcPd3GaoIXuPSTkWFvAmP9gsrn2DGXMTqYVw==}
 
   earthsdk3@3.0.5:
     resolution: {integrity: sha512-oz6Fubnnz+578uvQ4pptsrRndFEC6cfCRTyCixalOx3bMOYDfRdeTMNZ/fN5VsnLohNXnYAXQlHBSTuDMBSl0w==}
 
-  earthsdk3@3.0.6-beta.19:
-    resolution: {integrity: sha512-IT2XfmFOaqLV7/Eg6/rZNSa52iKcskJg6pq6784MHC/hSZe5P3jM7RtnObY66Rt+fT8pMOHANVArTVfTW9CKJA==}
+  earthsdk3@3.0.6-beta.20:
+    resolution: {integrity: sha512-xNAn8mwgd1o6qzg5M5PinfbXaYAohk8q/zNgKPwqJahVY+PQcWTnAL4JIwCgrV0h078/vgSBBqudjwE8iyWFWw==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -5988,7 +5999,7 @@ snapshots:
       error-stack-parser: 2.1.4
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   '@soda/get-current-script@1.0.2': {}
 
@@ -7074,7 +7085,7 @@ snapshots:
       '@vue/cli-shared-utils': 5.0.8
       babel-loader: 8.4.1(@babel/core@7.26.10)(webpack@5.98.0)
       thread-loader: 3.0.4(webpack@5.98.0)
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - '@swc/core'
       - core-js
@@ -7105,7 +7116,7 @@ snapshots:
       ts-loader: 9.5.2(typescript@4.9.5)(webpack@5.98.0)
       typescript: 4.9.5
       vue: 3.5.13(typescript@4.9.5)
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - '@swc/core'
       - encoding
@@ -7169,7 +7180,7 @@ snapshots:
       thread-loader: 3.0.4(webpack@5.98.0)
       vue-loader: 17.4.2(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@4.9.5))(webpack@5.98.0)
       vue-style-loader: 4.1.3
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
       webpack-bundle-analyzer: 4.10.2
       webpack-chain: 6.5.1
       webpack-dev-server: 4.15.2(debug@4.4.0)(webpack@5.98.0)
@@ -7464,17 +7475,17 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0)(webpack@5.98.0)':
+  '@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0(webpack@5.98.0))(webpack@5.98.0(webpack-cli@4.10.0))':
     dependencies:
       webpack: 5.98.0(webpack-cli@4.10.0)
       webpack-cli: 4.10.0(webpack@5.98.0)
 
-  '@webpack-cli/info@1.5.0(webpack-cli@4.10.0)':
+  '@webpack-cli/info@1.5.0(webpack-cli@4.10.0(webpack@5.98.0))':
     dependencies:
       envinfo: 7.14.0
       webpack-cli: 4.10.0(webpack@5.98.0)
 
-  '@webpack-cli/serve@1.7.0(webpack-cli@4.10.0)':
+  '@webpack-cli/serve@1.7.0(webpack-cli@4.10.0(webpack@5.98.0))':
     dependencies:
       webpack-cli: 4.10.0(webpack@5.98.0)
 
@@ -7594,7 +7605,7 @@ snapshots:
       loader-utils: 2.0.4
       make-dir: 3.1.0
       schema-utils: 2.7.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   babel-plugin-dynamic-import-node@2.3.3:
     dependencies:
@@ -7897,7 +7908,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   core-js-compat@3.41.0:
     dependencies:
@@ -7956,7 +7967,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.7.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   css-minimizer-webpack-plugin@3.4.1(webpack@5.98.0):
     dependencies:
@@ -7966,7 +7977,7 @@ snapshots:
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
       source-map: 0.6.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   css-select@4.3.0:
     dependencies:
@@ -8187,14 +8198,14 @@ snapshots:
 
   earthsdk3-assets@3.0.2: {}
 
-  earthsdk3-cesium@3.0.6-beta.29:
+  earthsdk3-cesium@3.0.6-beta.30:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
       earcut: 2.2.4
       html2canvas: 1.4.1
 
-  earthsdk3-ue@3.0.6-beta.12:
+  earthsdk3-ue@3.0.6-beta.13:
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
@@ -8204,7 +8215,7 @@ snapshots:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
 
-  earthsdk3@3.0.6-beta.19:
+  earthsdk3@3.0.6-beta.20:
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
@@ -8472,7 +8483,7 @@ snapshots:
       semver: 7.7.1
       tapable: 1.1.3
       typescript: 4.9.5
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   form-data@4.0.2:
     dependencies:
@@ -8672,7 +8683,7 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.2.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   html2canvas@1.4.1:
     dependencies:
@@ -9047,7 +9058,7 @@ snapshots:
     dependencies:
       schema-utils: 4.3.0
       tapable: 2.2.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   minimalistic-assert@1.0.1: {}
 
@@ -9362,7 +9373,7 @@ snapshots:
       klona: 2.0.6
       postcss: 8.5.3
       semver: 7.7.1
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   postcss-merge-longhand@5.1.7(postcss@8.5.3):
     dependencies:
@@ -9535,7 +9546,7 @@ snapshots:
       chalk: 2.4.2
       figures: 2.0.0
       log-update: 2.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   proj4@2.15.0:
     dependencies:
@@ -10108,7 +10119,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+  terser-webpack-plugin@5.3.14(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -10116,6 +10127,15 @@ snapshots:
       serialize-javascript: 6.0.2
       terser: 5.39.0
       webpack: 5.98.0(webpack-cli@4.10.0)
+
+  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 4.3.0
+      serialize-javascript: 6.0.2
+      terser: 5.39.0
+      webpack: 5.98.0
 
   terser@5.39.0:
     dependencies:
@@ -10143,7 +10163,7 @@ snapshots:
       loader-utils: 2.0.4
       neo-async: 2.6.2
       schema-utils: 3.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   thunky@1.1.0: {}
 
@@ -10169,7 +10189,7 @@ snapshots:
 
   tr46@0.0.3: {}
 
-  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0):
+  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0(webpack-cli@4.10.0)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.18.1
@@ -10178,6 +10198,16 @@ snapshots:
       source-map: 0.7.4
       typescript: 4.9.5
       webpack: 5.98.0(webpack-cli@4.10.0)
+
+  ts-loader@9.5.2(typescript@4.9.5)(webpack@5.98.0):
+    dependencies:
+      chalk: 4.1.2
+      enhanced-resolve: 5.18.1
+      micromatch: 4.0.8
+      semver: 7.7.1
+      source-map: 0.7.4
+      typescript: 4.9.5
+      webpack: 5.98.0
 
   tsc-alias@1.8.13:
     dependencies:
@@ -10292,7 +10322,7 @@ snapshots:
       loader-utils: 1.4.2
       vue-hot-reload-api: 2.3.4
       vue-style-loader: 4.1.3
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
     transitivePeerDependencies:
@@ -10355,7 +10385,7 @@ snapshots:
       chalk: 4.1.2
       hash-sum: 2.0.0
       watchpack: 2.4.2
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
       vue: 3.5.13(typescript@4.9.5)
@@ -10420,9 +10450,9 @@ snapshots:
   webpack-cli@4.10.0(webpack@5.98.0):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 1.2.0(webpack-cli@4.10.0)(webpack@5.98.0)
-      '@webpack-cli/info': 1.5.0(webpack-cli@4.10.0)
-      '@webpack-cli/serve': 1.7.0(webpack-cli@4.10.0)
+      '@webpack-cli/configtest': 1.2.0(webpack-cli@4.10.0(webpack@5.98.0))(webpack@5.98.0(webpack-cli@4.10.0))
+      '@webpack-cli/info': 1.5.0(webpack-cli@4.10.0(webpack@5.98.0))
+      '@webpack-cli/serve': 1.7.0(webpack-cli@4.10.0(webpack@5.98.0))
       colorette: 2.0.20
       commander: 7.2.0
       cross-spawn: 7.0.6
@@ -10440,7 +10470,7 @@ snapshots:
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.3.0
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
 
   webpack-dev-server@4.15.2(debug@4.4.0)(webpack@5.98.0):
     dependencies:
@@ -10475,7 +10505,7 @@ snapshots:
       webpack-dev-middleware: 5.3.4(webpack@5.98.0)
       ws: 8.18.1
     optionalDependencies:
-      webpack: 5.98.0(webpack-cli@4.10.0)
+      webpack: 5.98.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -10495,6 +10525,36 @@ snapshots:
   webpack-sources@3.2.3: {}
 
   webpack-virtual-modules@0.4.6: {}
+
+  webpack@5.98.0:
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.7
+      '@webassemblyjs/ast': 1.14.1
+      '@webassemblyjs/wasm-edit': 1.14.1
+      '@webassemblyjs/wasm-parser': 1.14.1
+      acorn: 8.14.1
+      browserslist: 4.24.4
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.18.1
+      es-module-lexer: 1.6.0
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 4.3.0
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
+      watchpack: 2.4.2
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
 
   webpack@5.98.0(webpack-cli@4.10.0):
     dependencies:
@@ -10518,7 +10578,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
+      terser-webpack-plugin: 5.3.14(webpack@5.98.0(webpack-cli@4.10.0))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     optionalDependencies:

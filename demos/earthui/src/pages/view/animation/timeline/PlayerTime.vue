@@ -28,7 +28,7 @@
                         <div v-for="(ite) in playerScaleListItem" :key="ite.id" class="scale_item">
                         </div>
                         <span v-if="(index + 1) % 2 === 0" class="scale_number">{{ timestampToTime(item.value, true)
-                            }}</span>
+                        }}</span>
                     </div>
                 </div>
                 <!-- icon  B -->
@@ -56,7 +56,7 @@
                     <span class="player_barbox_bottom_list_icon"><es-icon :name="'donghua'" :color="'#fff'"
                             :size="14" /></span>
                     <span class="player_barbox_bottom_list_name" :title="getName(item.pathId)">{{ getName(item.pathId)
-                        }}</span>
+                    }}</span>
                     <span class="player_barbox_bottom_list_icon" style="cursor: pointer;"
                         @click.stop="changeDeleteCheck(index)"><es-icon :name="item.flag ? 'checked' : 'unchecked'"
                             :color="item.flag ? '#fff' : 'rgba(230, 230, 230, 1)'" :size="16" /></span>
@@ -76,11 +76,11 @@
             <!-- 时间线 -->
             <div class="time_player_list">
                 <svg :width="totaltimeAxis * xScale" :height="totalItemHeight" preserveAspectRatio="none"
-                    :viewBox="`0 0 ${totaltimeAxis * xScale} ${totalItemHeight}`" @pointerdown="pointerdown"
+                    :viewBox="`0 0 ${totaltimeAxis * xScale} ${totalItemHeight}`" style="pointer-events: bounding-box" @pointerdown="pointerdown"
                     @pointerup="pointerup" @pointermove="pointermove" @pointerover="pointerover"
                     @pointerout="pointerout" @wheel="wheel">
                     <!-- 所有时间段的数组 -->
-                    <PathItem v-for="(item, index) in  channelsRef" :scene-id="item.pathId" :index="index"
+                    <PathItem v-for="(item, index) in channelsRef" :scene-id="item.pathId" :index="index"
                         :xScale="xScale" :playerStarttimeAxis=playerStarttimeAxis></PathItem>
                     <!-- 循环开始时间的线 -->
                     <line v-if="abRange" class="current-time-line"
@@ -384,8 +384,9 @@ const pointerdown = (event: PointerEvent) => {
     if (!event.target) {
         return
     }
+
     resetCurrentDragger();
-    const dom = event.target as HTMLElement;
+  const dom = event.target as HTMLElement;
     const name = dom.getAttribute('name');
     if (!name) {
         return

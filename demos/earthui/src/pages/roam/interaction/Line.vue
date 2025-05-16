@@ -3,6 +3,9 @@
         <LabelInput v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
             :list="linesList" :checkboxFun="changeLinesListShow" :liClickFun="changeLineId" :placeholder="'请选择折线'">
         </LabelInput>
+        <!-- <LabelEnum v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
+            :list="linesList" :checkboxFun="changeLinesListShow" :liClickFun="changeLineId" :placeholder="'请选择折线'">
+        </LabelEnum> -->
         <LabelInput v-model="speed" :inputType="'number'" :min="0" :label="'运动速度'" :unit="'m/s'"></LabelInput>
         <LabelInput v-model="heightOffset" :inputType="'number'" :label="'抬高高度'" :unit="'m'"></LabelInput>
         <div class="roam_moveOnLineMode" style="margin-top: 10px;">
@@ -25,6 +28,7 @@ import PopList from '../../../components/PopList.vue';
 import { inject, ref, watch } from 'vue';
 import { searchForLineValues } from '../../../scripts/general';
 import LabelInput from "../../../components/LabelInput.vue"
+import LabelEnum from "../../../components/LabelEnum.vue"
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const lineId = ref<string>()
 const lineNameId = ref<string>()

@@ -18,20 +18,20 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -55,8 +55,8 @@ importers:
   demos/earthsdk3-openlayers:
     dependencies:
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       ol:
         specifier: ^7.1.0
         version: 7.5.2
@@ -123,17 +123,17 @@ importers:
         specifier: 0.0.49-beta.0.38
         version: 0.0.49-beta.0.38(typescript@4.9.5)
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -175,17 +175,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -212,17 +212,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -246,17 +246,17 @@ importers:
         specifier: 1.123.1
         version: 1.123.1
       earthsdk3:
-        specifier: 3.0.6-beta.19
-        version: 3.0.6-beta.19
+        specifier: 3.0.6-beta.20
+        version: 3.0.6-beta.20
       earthsdk3-assets:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.29
-        version: 3.0.6-beta.29
+        specifier: 3.0.6-beta.30
+        version: 3.0.6-beta.30
       earthsdk3-ue:
-        specifier: 3.0.6-beta.12
-        version: 3.0.6-beta.12
+        specifier: 3.0.6-beta.13
+        version: 3.0.6-beta.13
     devDependencies:
       '@vue/cli-plugin-babel':
         specifier: ~5.0.0
@@ -2690,17 +2690,17 @@ packages:
   earthsdk3-assets@3.0.2:
     resolution: {integrity: sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==}
 
-  earthsdk3-cesium@3.0.6-beta.29:
-    resolution: {integrity: sha512-U7L9G7RCDpLhr40BG6X9v7WJEjjlkmQvyX/LKXtbTFQPchzjs+9blnfOggKEDk6gvcebXGwoCgTdwLcyhcTbZw==}
+  earthsdk3-cesium@3.0.6-beta.30:
+    resolution: {integrity: sha512-NeJOIDD+0wuNd6X40wZu3X9hQJZHy/dEpk2FzV9HjMcNVWEaPoRtHzhnqYGdAcUW9cfbb4noa8HgUHAyr34HeQ==}
 
-  earthsdk3-ue@3.0.6-beta.12:
-    resolution: {integrity: sha512-9+k/ZLOEXVI8tFYbTvNNl9qRHQBN5Q2Tv2F/RfBT3DMiBiIDaN/IC5lqiuvaCOmZIhohsqLv9FeokDqgm0eSJw==}
+  earthsdk3-ue@3.0.6-beta.13:
+    resolution: {integrity: sha512-0MMrugU1eVsBWtm/KskFKTAUzc+X16TWozgbmMwCdO7+eX3yBFYcPd3GaoIXuPSTkWFvAmP9gsrn2DGXMTqYVw==}
 
   earthsdk3@3.0.5:
     resolution: {integrity: sha512-oz6Fubnnz+578uvQ4pptsrRndFEC6cfCRTyCixalOx3bMOYDfRdeTMNZ/fN5VsnLohNXnYAXQlHBSTuDMBSl0w==}
 
-  earthsdk3@3.0.6-beta.19:
-    resolution: {integrity: sha512-IT2XfmFOaqLV7/Eg6/rZNSa52iKcskJg6pq6784MHC/hSZe5P3jM7RtnObY66Rt+fT8pMOHANVArTVfTW9CKJA==}
+  earthsdk3@3.0.6-beta.20:
+    resolution: {integrity: sha512-xNAn8mwgd1o6qzg5M5PinfbXaYAohk8q/zNgKPwqJahVY+PQcWTnAL4JIwCgrV0h078/vgSBBqudjwE8iyWFWw==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -8187,14 +8187,14 @@ snapshots:
 
   earthsdk3-assets@3.0.2: {}
 
-  earthsdk3-cesium@3.0.6-beta.29:
+  earthsdk3-cesium@3.0.6-beta.30:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1
       earcut: 2.2.4
       html2canvas: 1.4.1
 
-  earthsdk3-ue@3.0.6-beta.12:
+  earthsdk3-ue@3.0.6-beta.13:
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
@@ -8204,7 +8204,7 @@ snapshots:
       '@turf/turf': 6.5.0
       proj4: 2.15.0
 
-  earthsdk3@3.0.6-beta.19:
+  earthsdk3@3.0.6-beta.20:
     dependencies:
       '@turf/turf': 6.5.0
       proj4: 2.15.0

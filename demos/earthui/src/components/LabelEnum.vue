@@ -1,20 +1,26 @@
 <script setup lang='ts'>
-import { computed, watch, ref } from "vue";
+import { computed, watch, ref, onMounted } from "vue";
 import EnumProp from "../components/eSPropPanel/propertiesMenu/commons/EnumProp.vue"
 
 interface Props {
     label?: string,
     modelValue?: string | number,
-    materialIdList: any
+    materialIdList: any,
+    changeVisibleclick?:() => void
 }
 const props = withDefaults(defineProps<Props>(), {
     label: "内容",
     modelValue: '',
+    materialIdList: []
 })
-const emit = defineEmits(["update:modelValue"]);
-const ulIsShow = ref(false)
-
-
+const emits = defineEmits(["update:modelValue"]);
+const newValue = ref()
+watch(newValue, (val) => {
+    emits('update:modelValue', val)
+})
+onMounted(() => {
+    newValue.value = props.modelValue
+})
 
 
 </script>
@@ -22,8 +28,8 @@ const ulIsShow = ref(false)
     <div class="label_enum">
         <label class="label" for="" :title="label">{{ label }}</label>
         <div class="enum">
-            <EnumProp :withUndefined="false" :defaultValue="undefined" :enumStrsList="materialIdList"
-                >
+            <EnumProp :withUndefined="false" :defaultValue="undefined" :changeVisibleclick="changeVisibleclick"
+                :enumStrsList="materialIdList" v-model="newValue">
             </EnumProp>
         </div>
     </div>

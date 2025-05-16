@@ -3,8 +3,8 @@
         <LabelInput v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
             :list="linesList" :checkboxFun="changeLinesListShow" :liClickFun="changeLineId" :placeholder="'请选择折线'">
         </LabelInput>
-        <!-- <LabelEnum v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
-            :list="linesList" :checkboxFun="changeLinesListShow" :liClickFun="changeLineId" :placeholder="'请选择折线'">
+        <!-- <LabelEnum v-model="lineId" :label="'折线id'" :materialIdList="materialIdList"
+            :changeVisibleclick="changeLinesListShow">
         </LabelEnum> -->
         <LabelInput v-model="speed" :inputType="'number'" :min="0" :label="'运动速度'" :unit="'m/s'"></LabelInput>
         <LabelInput v-model="heightOffset" :inputType="'number'" :label="'抬高高度'" :unit="'m'"></LabelInput>
@@ -16,7 +16,9 @@
             </div>
         </div>
         <LabelInput v-model="turnRateDPS" :inputType="'number'" :min="0" :label="'转弯速度'" :unit="'°/s'"></LabelInput>
-        <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
+        <!-- <LabelEnum v-model="lineMode" :label="'线模式'" :materialIdList="[['自动', 'auto'], ['手动', 'manual']]">
+        </LabelEnum> -->
+         <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
             :list="listsModeList" :liClickFun="changeLineModeId" :placeholder="'请选择或输入'"></LabelInput>
     </PopList>
 </template>
@@ -54,6 +56,7 @@ const changeLineModeId = (item: any) => {
     lineMode.value = item.id
     lineNameMode.value = item.name
 }
+const materialIdList = ref()
 const changeLinesListShow = () => {
     const sceneTree = xbsjEarthUi.getSceneTree()
     if (!sceneTree) return
@@ -63,9 +66,19 @@ const changeLinesListShow = () => {
         return
     }
 }
+// const changeLinesListShow = () => {
+//     const sceneTree = xbsjEarthUi.getSceneTree()
+//     if (!sceneTree) return
+//     materialIdList.value = searchForLineValues(sceneTree)
+//     if (materialIdList.value.length <= 0) {
+//         Message.warning('折线列表为空，请先创建折线')
+//     }
+// }
 watch([lineId, speed, heightOffset, loop, turnRateDPS, lineMode], () => {
     okLine()
 })
+
+
 const okLine = () => {
     if (!lineId.value) {
         Message.warning('请选择一条折线')

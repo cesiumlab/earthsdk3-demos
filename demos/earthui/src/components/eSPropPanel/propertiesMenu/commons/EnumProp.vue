@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<{
     isBan?: boolean,
     isStyleEdit?: boolean,
     scrollPosition?: any
-    clickli?: () => {}
+    clickli?: () => {},
+    changeVisibleclick?: () => void
+
 }>(), { readonly: false, isBan: false, isStyleEdit: false })
 
 const emits = defineEmits(["update:modelValue", 'clickli']);
@@ -69,6 +71,7 @@ const changeVisible = () => {
     } else {
         setTimeout(() => {
             openTooltip();
+            if (props.changeVisibleclick) props.changeVisibleclick()
         }, 0);
     }
 }
@@ -149,16 +152,11 @@ onMounted(() => {
 <template>
     <div class="select">
         <div class="enum_prop" ref="slotRef">
-            <div class="enum_prop_model" :class="{ 'enum_prop_model_ban': isBan }" @click.stop.prevent="changeVisible"
-                :title="modelValueRef">{{
-                    modelValueRef }}
+            <div class="enum_prop_model" :class="{ 'enum_prop_model_ban': isBan }"
+                @click.stop.prevent="changeVisible" :title="modelValueRef">{{
+                    modelValueRef}}
                 <span class="images_xiaosanjiao" :class="visible ? 'images_xiaosanjiao_transform' : ''"></span>
             </div>
-            <!-- <ul v-show="leftulisShow">
-                <li v-for="item in enumStrsList" :title="item[0]"
-                    :class="{ actived: item[0] === modelValueRef, disaled: item[2] }" @click="changeSelect(item)">
-                    {{ item[0] }}</li>
-            </ul> -->
         </div>
     </div>
     <teleport to='body'>

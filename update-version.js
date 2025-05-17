@@ -4,8 +4,8 @@ const path = require('path');
 // 在此替换版本号 在根目录运行 node update-version.js (pnpm run update:version)
 const newVersion = {
     "xbsj-base": "1.0.1",
-    "earthsdk3": "3.0.6-beta.21",
-    "earthsdk3-cesium": "3.0.6-beta.31",
+    "earthsdk3": "3.0.6-beta.22",
+    "earthsdk3-cesium": "3.0.6-beta.34",
     "earthsdk3-ue": "3.0.6-beta.14",
     "earthsdk3-assets": "3.0.1-beta.1",
 }

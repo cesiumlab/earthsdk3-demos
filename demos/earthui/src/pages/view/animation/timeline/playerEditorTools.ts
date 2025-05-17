@@ -3,11 +3,19 @@ import { Destroyable } from "xbsj-base";
 import { XbsjEarthUi } from "../../../../scripts/xbsjEarthUi";
 import { ESPath, ESSceneObject } from "earthsdk3";
 export abstract class Dragger extends Destroyable {
-    protected _startX = this._event.offsetX
-    protected _target = this._event.target as HTMLElement
-    protected _pointerId = this._event.pointerId
+    protected _startX: number;
+    protected _target: HTMLElement;
+    protected _pointerId: number;
+    // protected _startX = this._event.offsetX
+    // protected _target = this._event.target as HTMLElement
+    // protected _pointerId = this._event.pointerId
     constructor(protected _event: PointerEvent, protected _xScale: Ref<number>) {
         super();
+        // 安全获取 offsetX，优先从 event.offsetX 获取，否则计算相对位置
+        this._startX = _event.offsetX
+
+        this._target = _event.target as HTMLElement;
+        this._pointerId = _event.pointerId;
         this._target.setPointerCapture(this._pointerId)
         this.dispose(() => this._target.releasePointerCapture(this._pointerId))
     }
@@ -26,9 +34,17 @@ export class StartTimeLineDragger extends Dragger {
     }
 }
 export class CurrentTimeLineDragger extends Dragger {
-    private _start = this._currentTime.value
+    // private _start = this._currentTime.value
+    private _start: number; // 先声明但不初始化
     constructor(event: PointerEvent, xScale: Ref<number>, private _currentTime: Ref<number>) {
         super(event, xScale)
+        // 添加防御性检查
+        if (!this._currentTime || typeof this._currentTime.value === 'undefined') {
+            throw new Error('Invalid currentTime ref provided');
+        }
+
+        // 现在安全地初始化
+        this._start = this._currentTime.value;
     }
     update(event: PointerEvent) {
         const diff = (event.offsetX - this._startX) / this._xScale.value

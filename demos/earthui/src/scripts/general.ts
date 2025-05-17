@@ -40,7 +40,13 @@ export function searchMaxZindex(sceneTree: { [key: string]: any }, type: string)
 }
 function searchAndCollectLineValues(obj: { [key: string]: any }, resultArray: any[]) {
     if (obj['sceneObj']) {
-        if (obj['sceneObj'].type && obj['sceneObj'].type === 'ESGeoLineString') {//ESPath
+        // if (obj['sceneObj'].type && ((obj['sceneObj'].type === 'ESGeoLineString' || obj['sceneObj'].type === 'ESPath'))) {//ESPath
+        //     resultArray.push([
+        //         obj['sceneObj'].name,
+        //         obj['sceneObj'].id
+        //     ]);
+        // }
+                if (obj['sceneObj'].type && obj['sceneObj'].type === 'ESGeoLineString') {//ESPath
             resultArray.push({
                 name: obj['sceneObj'].name,
                 id: obj['sceneObj'].id

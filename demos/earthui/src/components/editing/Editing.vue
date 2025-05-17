@@ -104,33 +104,18 @@ const enditingList = ref([
 ])
 const currentMode = ref('')
 onMounted(() => {
-    onBeforeUnmount(() => xbsjEarthUi.activeViewer?.stopEditing());
-    xbsjEarthUi.activeViewer?.editingEvent.disposableOn(val => val?.type === 'end' && (currentMode.value = ''));
+    onBeforeUnmount(() => {
+        xbsjEarthUi.activeViewer?.stopEditing()
+        if (dispose) dispose()
+        if (dispose2) dispose2()
+    });
+    let dispose = xbsjEarthUi.activeViewer?.editingEvent.disposableOn(val => val?.type === 'end' && (currentMode.value = ''));
+    let dispose2 = xbsjEarthUi.activeViewerChanged.disposableOn((val) => {
+        if (dispose) dispose()
+        dispose = xbsjEarthUi.activeViewer?.editingEvent.disposableOn(val => val?.type === 'end' && (currentMode.value = ''));
+    })
     sceneTree && xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don(val => {
-        // const selectedLength = val.length;
-        // if (selectedLength < 1) {
-        //     enditingList.value = enditingList.value.map(item => ({
-        //         ...item,
-        //         allowEditing: false
-        //     }));
-        // } else {
-
-        // }
-        // console.log(selectedLength);
-
         const [lastSelectedItem] = [...val];
-        // console.log('lastSelectedItem', lastSelectedItem);
-        // if (lastSelectedItem.type === 'folder' && lastSelectedItem.children && lastSelectedItem.children._innerObj.length > 0) {
-        //     enditingList.value = enditingList.value.map(item => ({
-        //         ...item,
-        //         allowEditing: shouldUpdate
-        //             ? (lastSelectedItem.sceneObject as ESVisualObject).supportEditingModes().includes(item.type)
-        //             : false
-        //     }));
-
-        // }
-
-
         const shouldUpdate = val.length === 1 && lastSelectedItem?.sceneObject;
         enditingList.value = enditingList.value.map(item => ({
             ...item,

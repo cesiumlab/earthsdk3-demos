@@ -18,7 +18,7 @@
     "topojson-client": "^3.1.0",
     "x2js": "^3.3.1",
     "earthsdk3": "3.0.6-beta.22",
-    "earthsdk3-cesium": "3.0.6-beta.34",
+    "earthsdk3-cesium": "3.0.6-beta.35",
     "earthsdk3-ue": "3.0.6-beta.14",
     "earthsdk3-assets": "3.0.1-beta.1"
   },

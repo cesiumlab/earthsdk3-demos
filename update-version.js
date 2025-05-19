@@ -15,6 +15,7 @@ const packageJsonPaths = [
     'demos/earthsdk3-openlayers/package.json',
     'demos/earthsdk-all-engine/package.json',
     'demos/earthui/package.json',
+    'demos/vis-earth/package.json',
     'examples/earthsdk3-vite/package.json',
     'examples/earthsdk3-vite-js/package.json',
     'examples/earthsdk3-wbpk/package.json',

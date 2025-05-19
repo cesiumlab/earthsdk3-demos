@@ -1,0 +1,30 @@
+{
+  "name": "vis-earth",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "cesium": "1.123.1",
+    "earthsdk3": "3.0.6-beta.22",
+    "earthsdk3-cesium": "3.0.6-beta.35",
+    "earthsdk3-assets": "3.0.1-beta.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite-plugin-cesium": "^1.2.23",
+    "vite-plugin-static-copy": "^1.0.1",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vue-tsc": "^2.2.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14"
+  }
+}

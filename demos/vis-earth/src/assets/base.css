@@ -1,0 +1,15 @@
+:root {
+    --vis-font-size-1: 12px;
+    --vis-font-size-2: 14px;
+    --vis-font-size-3: 16px;
+    --vis-primary-color: #333333;
+    --vis-highlight-color: #0A78FF;
+    --vis-white: #ffffff;
+    --vis-gray: #666666;
+    --vis-bgc: #F0F4F9;
+    --vis-bgc-layer: #f0f4f9d7;
+    --vis-bgc-layer-transparent: #f0f4f9a4;
+    --vis-border-color: #E9E9E9;
+    --vis-bgc-hover: #a5a5a5b6;
+
+}

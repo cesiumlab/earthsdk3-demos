@@ -271,7 +271,7 @@ watch(rightModuleShow, () => {
 .sub_menu {
     width: 280px;
     height: calc(100% - 70px);
-    position: absolute;
+    position: fixed;
     transition: right 0.4s linear;
     right: 0;
     top: 40px;

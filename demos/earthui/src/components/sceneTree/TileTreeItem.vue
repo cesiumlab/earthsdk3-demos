@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { ES3DTileset, ESSceneObject, SceneTree, SceneTreeItem } from "earthsdk3";
-import { StyleValue } from "vue";
+import { ref, StyleValue } from "vue";
 import Collapse from "../commom/Collapse.vue";
 
 const props = withDefaults(defineProps<{
@@ -45,13 +45,34 @@ const flyTo = () => {
     // obj.highlightFeature(id, 'rgba(255, 0, 0, 1)');
     // obj.tileFlyTo(sphere);
 }
+
+const getChildrenIds = (children: any, showRef: boolean) => {
+    let result: any = []
+    const aaa = (item: any, result: any, showRef: boolean) => {
+        const { children, id, type } = item;
+        if (type === 'element') {
+            result.push({ value: id, visable: showRef });
+        }
+        if (children && children.length > 0) {
+            children.forEach((item: any) => aaa(item, result, showRef));
+        }
+    }
+    children.forEach((item: any) => aaa(item, result, showRef));
+    return result
+}
 const changeShow = () => {
     const showRef = sceneTreeItem.show;
     sceneTreeItem.show = !showRef;
     //@ts-ignore
-    const { id, esid } = sceneTreeItem.extras;
+    const { id, esid, children } = sceneTreeItem.extras;
     const obj = ESSceneObject.getSceneObjById(esid) as ES3DTileset;
-    obj.setFeatureVisable('id', [{ value: id, visable: !showRef }]);
+    if (children && children.length > 0) {
+        const ids = getChildrenIds(children, !showRef);
+        setTimeout(() => { obj.setFeatureVisable('id', ids); }, 0);
+    }
+    else {
+        obj.setFeatureVisable('id', [{ value: id, visable: !showRef }]);
+    }
 }
 const collapsedSymbol = () => {
     if ((!sceneTreeItem.children || (sceneTreeItem.children && sceneTreeItem.children.length === 0)) && sceneTreeItem.type !== 'ES3DTileset') {
@@ -84,6 +105,7 @@ const collapsedSymbol = () => {
         <span class="eye" title="是否可见" @click.stop="changeShow"><es-icon :name="sceneTreeItem.show ? 'show' : 'unshow'"
                 :color="'rgba(151, 153, 154, 1)'" :size="18" /></span>
     </div>
+
 </template>
 
 <style scoped src="../css/SceneTreeItem.css"></style>

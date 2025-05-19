@@ -1,0 +1,16 @@
+@import './assets/base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--vis-white);
+  color: var(--vis-primary-color);
+  overflow: hidden;
+}

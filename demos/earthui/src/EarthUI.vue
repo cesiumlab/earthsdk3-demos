@@ -236,14 +236,21 @@ onMounted(() => {
 .xbsj_header {
     width: 100%;
     height: 40px;
-    background-color: #2F3034;
+    position: fixed;
+    left: 1;
+    top: 0;
+    z-index: 1000;
+    background-color: #2f3034f1;
     border-bottom: 1px solid #111111;
     box-sizing: border-box;
 }
 
 .xbsj_earth {
     width: 100%;
-    height: calc(100% - 40px);
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
 }
 
 

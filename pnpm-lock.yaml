@@ -24,8 +24,8 @@ importers:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.34
-        version: 3.0.6-beta.34
+        specifier: 3.0.6-beta.35
+        version: 3.0.6-beta.35
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
@@ -129,8 +129,8 @@ importers:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.34
-        version: 3.0.6-beta.34
+        specifier: 3.0.6-beta.35
+        version: 3.0.6-beta.35
       earthsdk3-ue:
         specifier: 3.0.6-beta.14
         version: 3.0.6-beta.14
@@ -181,8 +181,8 @@ importers:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.34
-        version: 3.0.6-beta.34
+        specifier: 3.0.6-beta.35
+        version: 3.0.6-beta.35
       earthsdk3-ue:
         specifier: 3.0.6-beta.14
         version: 3.0.6-beta.14
@@ -218,8 +218,8 @@ importers:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.34
-        version: 3.0.6-beta.34
+        specifier: 3.0.6-beta.35
+        version: 3.0.6-beta.35
       earthsdk3-ue:
         specifier: 3.0.6-beta.14
         version: 3.0.6-beta.14
@@ -252,8 +252,8 @@ importers:
         specifier: 3.0.1-beta.1
         version: 3.0.1-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.6-beta.34
-        version: 3.0.6-beta.34
+        specifier: 3.0.6-beta.35
+        version: 3.0.6-beta.35
       earthsdk3-ue:
         specifier: 3.0.6-beta.14
         version: 3.0.6-beta.14
@@ -1106,56 +1106,67 @@ packages:
     resolution: {integrity: sha512-mimPH43mHl4JdOTD7bUMFhBdrg6f9HzMTOEnzRmXbOZqjijCw8LA5z8uL6LCjxSa67H2xiLFvvO67PT05PRKGg==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.38.0':
     resolution: {integrity: sha512-tPiJtiOoNuIH8XGG8sWoMMkAMm98PUwlriOFCCbZGc9WCax+GLeVRhmaxjJtz6WxrPKACgrwoZ5ia/uapq3ZVg==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.38.0':
     resolution: {integrity: sha512-wZco59rIVuB0tjQS0CSHTTUcEde+pXQWugZVxWaQFdQQ1VYub/sTrNdY76D1MKdN2NB48JDuGABP6o6fqos8mA==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.38.0':
     resolution: {integrity: sha512-fQgqwKmW0REM4LomQ+87PP8w8xvU9LZfeLBKybeli+0yHT7VKILINzFEuggvnV9M3x1Ed4gUBmGUzCo/ikmFbQ==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.38.0':
     resolution: {integrity: sha512-hz5oqQLXTB3SbXpfkKHKXLdIp02/w3M+ajp8p4yWOWwQRtHWiEOCKtc9U+YXahrwdk+3qHdFMDWR5k+4dIlddg==}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.38.0':
     resolution: {integrity: sha512-NXqygK/dTSibQ+0pzxsL3r4Xl8oPqVoWbZV9niqOnIHV/J92fe65pOir0xjkUZDRSPyFRvu+4YOpJF9BZHQImw==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.38.0':
     resolution: {integrity: sha512-GEAIabR1uFyvf/jW/5jfu8gjM06/4kZ1W+j1nWTSSB3w6moZEBm7iBtzwQ3a1Pxos2F7Gz+58aVEnZHU295QTg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.38.0':
     resolution: {integrity: sha512-9EYTX+Gus2EGPbfs+fh7l95wVADtSQyYw4DfSBcYdUEAmP2lqSZY0Y17yX/3m5VKGGJ4UmIH5LHLkMJft3bYoA==}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.38.0':
     resolution: {integrity: sha512-Mpp6+Z5VhB9VDk7RwZXoG2qMdERm3Jw07RNlXHE0bOnEeX+l7Fy4bg+NxfyN15ruuY3/7Vrbpm75J9QHFqj5+Q==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.38.0':
     resolution: {integrity: sha512-vPvNgFlZRAgO7rwncMeE0+8c4Hmc+qixnp00/Uv3ht2x7KYrJ6ERVd3/R0nUtlE6/hu7/HiiNHJ/rP6knRFt1w==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.38.0':
     resolution: {integrity: sha512-q5Zv+goWvQUGCaL7fU8NuTw8aydIL/C9abAVGCzRReuj5h30TPx4LumBtAidrVOtXnlB+RZkBtExMsfqkMfb8g==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.38.0':
     resolution: {integrity: sha512-u/Jbm1BU89Vftqyqbmxdq14nBaQjQX1HhmsdBWqSdGClNaKwhjsg5TpW+5Ibs1mb8Es9wJiMdl86BcmtUVXNZg==}
@@ -2690,8 +2701,8 @@ packages:
   earthsdk3-assets@3.0.2:
     resolution: {integrity: sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==}
 
-  earthsdk3-cesium@3.0.6-beta.34:
-    resolution: {integrity: sha512-WgFEM67DpSLORhLREhqO0rV0mr3OJXHnW/mQPucmVIkQSAjlldlx8V6DmSsBE0X/nA99Kp1jyBJ7jDafSISQRQ==}
+  earthsdk3-cesium@3.0.6-beta.35:
+    resolution: {integrity: sha512-juiWFRuIHvHdsaeryEEMP1QP3j3YBHKt/GW5zxoEddbK4JwkaYHAxlLM2aeQoW663yGhCfAlf4icCZp82jnIOg==}
 
   earthsdk3-ue@3.0.6-beta.14:
     resolution: {integrity: sha512-lylHrix2Jhsvj6G0ZbJqdth4wi6Pj8BSXMZs/yp7LZetH/U4dGutf5X7l1vIsU/fuhciy2qZFvhgVdm0yJ+2sg==}
@@ -8187,7 +8198,7 @@ snapshots:
 
   earthsdk3-assets@3.0.2: {}
 
-  earthsdk3-cesium@3.0.6-beta.34:
+  earthsdk3-cesium@3.0.6-beta.35:
     dependencies:
       cesium: 1.123.1
       delaunator: 5.0.1

@@ -24,9 +24,12 @@ export abstract class Dragger extends Destroyable {
 
 
 export class StartTimeLineDragger extends Dragger {
-    private _start = this._startTimeRef.value
+    protected _start: number;
+
     constructor(event: PointerEvent, xScale: Ref<number>, private _startTimeRef: Ref<number>) {
         super(event, xScale)
+        this._start = this._startTimeRef.value
+
     }
     update(event: PointerEvent) {
         const diff = (event.offsetX - this._startX) / this._xScale.value
@@ -53,9 +56,10 @@ export class CurrentTimeLineDragger extends Dragger {
 }
 
 export class LastTimeLineDragger extends Dragger {
-    private _start = this._stopTimeRef.value
+    private _start: number; // 先声明但不初始化
     constructor(event: PointerEvent, xScale: Ref<number>, private _stopTimeRef: Ref<number>) {
         super(event, xScale)
+        this._start = this._stopTimeRef.value
     }
 
     update(event: PointerEvent) {

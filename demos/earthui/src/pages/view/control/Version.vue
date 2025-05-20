@@ -51,7 +51,7 @@ onMounted(() => {
     max-width: 300px;
     /* height: 200px; */
     background: rgba(37, 38, 42, 1);
-    z-index: 200;
+    z-index: 2000;
     border: 1px solid rgba(180, 180, 180, 1);
     box-sizing: border-box;
     display: flex;

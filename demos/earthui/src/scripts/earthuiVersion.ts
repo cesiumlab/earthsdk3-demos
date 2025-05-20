@@ -1,3 +1,3 @@
 export function getEarthuiVersion(){
-    return '24.12.02'
+    return '25.05.19'
 }

@@ -1,11 +1,11 @@
 <template>
     <PopList :title="'沿线运动'">
-        <LabelInput v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
+        <!-- <LabelInput v-model="lineNameId" :label="'折线id'" :disabled="false" :activeMode="lineId" :checkbox="true"
             :list="linesList" :checkboxFun="changeLinesListShow" :liClickFun="changeLineId" :placeholder="'请选择折线'">
-        </LabelInput>
-        <!-- <LabelEnum v-model="lineId" :label="'折线id'" :materialIdList="materialIdList"
+        </LabelInput> -->
+        <LabelEnum v-model="lineId" :label="'折线id'" :materialIdList="materialIdList"
             :changeVisibleclick="changeLinesListShow">
-        </LabelEnum> -->
+        </LabelEnum>
         <LabelInput v-model="speed" :inputType="'number'" :min="0" :label="'运动速度'" :unit="'m/s'"></LabelInput>
         <LabelInput v-model="heightOffset" :inputType="'number'" :label="'抬高高度'" :unit="'m'"></LabelInput>
         <div class="roam_moveOnLineMode" style="margin-top: 10px;">
@@ -16,10 +16,10 @@
             </div>
         </div>
         <LabelInput v-model="turnRateDPS" :inputType="'number'" :min="0" :label="'转弯速度'" :unit="'°/s'"></LabelInput>
-        <!-- <LabelEnum v-model="lineMode" :label="'线模式'" :materialIdList="[['自动', 'auto'], ['手动', 'manual']]">
-        </LabelEnum> -->
-         <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
-            :list="listsModeList" :liClickFun="changeLineModeId" :placeholder="'请选择或输入'"></LabelInput>
+        <LabelEnum v-model="lineMode" :label="'线模式'" :materialIdList="[['自动', 'auto'], ['手动', 'manual']]">
+        </LabelEnum>
+         <!-- <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
+            :list="listsModeList" :liClickFun="changeLineModeId" :placeholder="'请选择或输入'"></LabelInput> -->
     </PopList>
 </template>
 
@@ -57,23 +57,23 @@ const changeLineModeId = (item: any) => {
     lineNameMode.value = item.name
 }
 const materialIdList = ref()
-const changeLinesListShow = () => {
-    const sceneTree = xbsjEarthUi.getSceneTree()
-    if (!sceneTree) return
-    linesList.value = searchForLineValues(sceneTree)
-    if (linesList.value.length <= 0) {
-        Message.warning('折线列表为空，请先创建折线')
-        return
-    }
-}
 // const changeLinesListShow = () => {
 //     const sceneTree = xbsjEarthUi.getSceneTree()
 //     if (!sceneTree) return
-//     materialIdList.value = searchForLineValues(sceneTree)
-//     if (materialIdList.value.length <= 0) {
+//     linesList.value = searchForLineValues(sceneTree)
+//     if (linesList.value.length <= 0) {
 //         Message.warning('折线列表为空，请先创建折线')
+//         return
 //     }
 // }
+const changeLinesListShow = () => {
+    const sceneTree = xbsjEarthUi.getSceneTree()
+    if (!sceneTree) return
+    materialIdList.value = searchForLineValues(sceneTree)
+    if (materialIdList.value.length <= 0) {
+        Message.warning('折线列表为空，请先创建折线')
+    }
+}
 watch([lineId, speed, heightOffset, loop, turnRateDPS, lineMode], () => {
     okLine()
 })

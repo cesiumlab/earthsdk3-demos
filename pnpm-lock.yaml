@@ -120,8 +120,8 @@ importers:
         specifier: ^1.10.3
         version: 1.11.13
       earthsdk-ui:
-        specifier: 0.0.49-beta.0.38
-        version: 0.0.49-beta.0.38(typescript@4.9.5)
+        specifier: ~0.0.49-beta.0.41
+        version: 0.0.49-beta.41(typescript@4.9.5)
       earthsdk3:
         specifier: 3.0.6
         version: 3.0.6
@@ -2937,8 +2937,8 @@ packages:
   earthsdk-icon@0.0.10:
     resolution: {integrity: sha512-GL/3PV7Tmq+ZathvBJaXTIhZ5MSqqeaWMh+lG14AfdTloT/o+ACf8InONfaiT2gOOwy0EL2sOHFIHGE3fvoKjA==}
 
-  earthsdk-ui@0.0.49-beta.0.38:
-    resolution: {integrity: sha512-yc0fsD5LL2ErxpmJyZb1o/rjlsh4aSOckcZiXOcVIqAVTyauqzabHvyy0Wd4gYOO19smflmMP3ZUcKnfhmeu0w==}
+  earthsdk-ui@0.0.49-beta.41:
+    resolution: {integrity: sha512-2zdRf7mSgSCpHAGhCumExWj1HdeGtj3s45/VglShjTlXCeHvEAoAbfbEAF44tQSQLo8r/UrB5MMacy3tSEoDCA==}
     engines: {node: '>=16.0.0'}
 
   earthsdk3-assets@3.0.1-beta.1:
@@ -2955,9 +2955,6 @@ packages:
 
   earthsdk3-ue@3.0.6:
     resolution: {integrity: sha512-JAR7IBSQ+bLkCmqKv/HgvsTbvJ91E1ZqkzCSnha7P3FIcI0992QQwtAkY8xf1AV3d6QlDs1sS/323mz+v73hzw==}
-
-  earthsdk3@3.0.5:
-    resolution: {integrity: sha512-oz6Fubnnz+578uvQ4pptsrRndFEC6cfCRTyCixalOx3bMOYDfRdeTMNZ/fN5VsnLohNXnYAXQlHBSTuDMBSl0w==}
 
   earthsdk3@3.0.6:
     resolution: {integrity: sha512-YtW6wz0H3xhS5QDt2SHlYEGX+jq5++3OQjJkuxCUeL1GL2Amhlym56UvCKfql7ZLiEiqrfQITxNt0unLY2xWNA==}
@@ -8729,10 +8726,10 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  earthsdk-ui@0.0.49-beta.0.38(typescript@4.9.5):
+  earthsdk-ui@0.0.49-beta.41(typescript@4.9.5):
     dependencies:
       earthsdk-icon: 0.0.10(typescript@4.9.5)
-      earthsdk3: 3.0.5
+      earthsdk3: 3.0.6
       earthsdk3-assets: 3.0.2
       tiny-emitter: 2.1.0
       vue: 3.5.13(typescript@4.9.5)
@@ -8762,11 +8759,6 @@ snapshots:
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.4': 1.1.5
       html2canvas: 1.4.1
-
-  earthsdk3@3.0.5:
-    dependencies:
-      '@turf/turf': 6.5.0
-      proj4: 2.15.0
 
   earthsdk3@3.0.6:
     dependencies:

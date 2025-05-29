@@ -62,6 +62,8 @@ import StatusBar from "./pages/view/control/StatusBar.vue";
 import { $config } from "./scripts/getConfig";
 import Menu from "./views/Menu.vue";
 import Editing from './components/editing/Editing.vue';
+import { merge3dTilesServer } from "earthsdk3-cesium";
+
 const props = withDefaults(defineProps<{
     newList?: any
     navType?: string
@@ -72,6 +74,8 @@ const sceneTree = xbsjEarthUi.getSceneTree()
 xbsjEarthUi.czmlabPath = location.origin
 // @ts-ignore
 window.g_xbsjEarthUi = xbsjEarthUi;
+window.g_xbsjEarthUi.merge3dTilesServer = merge3dTilesServer;
+
 xbsjEarthUi.jsonLoadingEvent.don(() => {
     initSceneWithType(xbsjEarthUi)
     //设置初始化时间的时间戳

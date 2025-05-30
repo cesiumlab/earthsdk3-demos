@@ -19,6 +19,7 @@ const packageJsonPaths = [
     'examples/earthsdk3-vite/package.json',
     'examples/earthsdk3-vite-js/package.json',
     'examples/earthsdk3-wbpk/package.json',
+    'examples/earthsdk3-react-vite/package.json',
 ]
 
 //替换package.json中的dependencies对应 newVersion 的版本号

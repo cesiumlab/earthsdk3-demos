@@ -13,11 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, inject } from "vue";
-import { SceneTreeItem, ES3DTileset } from "earthsdk3";
+import { ref, watch } from "vue";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
-import { ESUeViewer } from "earthsdk3-ue";
-import { Message } from "earthsdk-ui";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, currentUEMaterial: string | undefined, tilesetUEMaterial: any[] }>(), {});
@@ -26,7 +23,7 @@ const emits = defineEmits(["cancel", "ok"]);
 // 当前选中材质
 const currentUEMaterial = ref<string | undefined>(props.currentUEMaterial);
 
-watch(() => props.currentUEMaterial, (newValue) => {
+watch(() => props.currentUEMaterial, (newValue: string | undefined) => {
     currentUEMaterial.value = newValue
 }, { immediate: true, deep: true });
 

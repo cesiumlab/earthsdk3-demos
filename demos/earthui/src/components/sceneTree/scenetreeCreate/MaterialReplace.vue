@@ -16,7 +16,7 @@
                 </div>
                 <div class="middle_content">
                     <div v-for="(item, index) in list" :key="index">
-                        <input type="checkbox">
+                        <input type="checkbox" v-model="item.select">
                         <p>{{ item.key }}</p>
                         <p>{{ item.value }}</p>
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="setMaterial(item)">
@@ -25,6 +25,18 @@
                     </div>
                 </div>
             </div>
+            <div class="footer">
+                <div>
+                    <input type="checkbox" v-model="isSelectAll">
+                    <p>共计{{ list.length }}条记录</p>
+                </div>
+                <div>
+                    <button @click="setMaterialFormMost">批量替换</button>
+                </div>
+
+
+            </div>
+
         </div>
     </DraggablePopup2>
     <MaterialSelect :isShow="materialSelectShow" :tilesetUEMaterial="tilesetUEMaterial"
@@ -34,30 +46,44 @@
 </template>
 
 <script setup lang="ts">
-type item = { key: string, value: string | undefined };
+type item = { key: string, value: string | undefined, select: boolean };
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
-import { Message } from "earthsdk-ui";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
 // 分发事件
 const emits = defineEmits(["changeShow"]);
+/** <-----------------------------------材质替换器变量--------------------------------------------------------->*/
 // 当前材质名称
 const materialName = ref("");
 // 列表list
 const list = ref<item[]>([])
+// 当前选择项
+const currentItem = ref<any>({})
+// 全选
+const isSelectAll = ref(false)
+// 是否批量设置
+const isSetMaterialFormMost = ref(false)
 
+/** <-----------------------------------材质管理器传入变量--------------------------------------------------------->*/
 // UE材质管理器显隐控制
 const materialSelectShow = ref(false)
 // UE材质ID列表
 const tilesetUEMaterial = ref<any[]>([])
-// 当前选择项
-const currentItem = ref<any>({})
+
+
+
+
+watch(isSelectAll, (newValue) => {
+    list.value.forEach((item: item) => {
+        item.select = newValue
+    })
+});
 
 /**
  * 取消材质替换
@@ -81,6 +107,7 @@ const changeOk = async () => {
  */
 const cancelMaterialSelect = () => {
     materialSelectShow.value = false
+    isSetMaterialFormMost.value = false
 }
 
 /**
@@ -88,8 +115,15 @@ const cancelMaterialSelect = () => {
  */
 const okMaterialSelect = async (material: string) => {
     materialSelectShow.value = false
-    currentItem.value.value = material
+    if (isSetMaterialFormMost.value) {
+        list.value.forEach((item: item) => {
+            if (item.select) item.value = material
+        })
+        isSetMaterialFormMost.value = false
+    } else {
+        currentItem.value.value = material
 
+    }
 }
 
 
@@ -106,7 +140,7 @@ const getMaterialNameList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
     const temp = await sceneObject.getMaterialNameList() as any
     list.value = temp.map((item: any) => {
-        return { key: item, value: sceneObject.materialOverrideMap ? sceneObject.materialOverrideMap[item] : undefined }
+        return { key: item, value: sceneObject.materialOverrideMap ? sceneObject.materialOverrideMap[item] : undefined, select: false }
     })
 }
 
@@ -131,15 +165,24 @@ const setMaterial = (item: item) => {
 }
 
 /**
+ * 批量替换材质
+ */
+const setMaterialFormMost = () => {
+    currentItem.value = {}
+    materialSelectShow.value = true
+    isSetMaterialFormMost.value = true
+}
+
+/**
  * 将列表转换为对象
  * @param list 
  * @returns 
  */
-const convertListToObject = (list: { key: string, value: string }[]) => {
+const convertListToObject = (list: item[]) => {
     const result = list.reduce((acc, item) => {
         acc[item.key] = item.value;
         return acc;
-    }, {} as Record<string, string | undefined>);
+    }, {} as any);
 
     return result;
 };
@@ -200,7 +243,7 @@ onMounted(() => {
 
 .middle {
     width: calc(100% - 30px);
-    height: calc(100% - 80px);
+    height: calc(100% - 100px);
     margin: auto;
 }
 
@@ -223,7 +266,7 @@ onMounted(() => {
 
 .middle_content {
     width: 100%;
-    height: calc(100% - 100px);
+    height: calc(100% - 50px);
     overflow: auto;
 }
 
@@ -242,5 +285,25 @@ onMounted(() => {
     border: 1px solid #3B3C40;
     margin: 4px;
     margin-right: 20px;
+}
+
+.footer {
+    width: calc(100% - 50px);
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer p {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
 }
 </style>

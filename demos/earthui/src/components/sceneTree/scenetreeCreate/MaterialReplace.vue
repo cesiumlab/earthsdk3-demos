@@ -12,7 +12,7 @@
                     <div v-for="(item, index) in list" :key="index">
                         <input type="checkbox" v-model="item.select">
                         <p>{{ item.key }}</p>
-                        <input type="text" v-model="item.value">
+                        <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="setMaterial(item)">
 
                     </div>
@@ -46,14 +46,13 @@ import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
+import { Message } from "earthsdk-ui";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
 // 分发事件
 const emits = defineEmits(["changeShow"]);
 /** <-----------------------------------材质替换器变量--------------------------------------------------------->*/
-// 当前材质名称
-const materialName = ref("");
 // 列表list
 const list = ref<item[]>([])
 // 当前选择项
@@ -173,6 +172,13 @@ const convertListToObject = (list: item[]) => {
 
     return result;
 };
+
+
+const handleBlur = (value: string) => {
+    const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
+    if (index == -1) Message.warning('请输入正确的UE材质ID')
+
+}
 
 
 onMounted(() => {

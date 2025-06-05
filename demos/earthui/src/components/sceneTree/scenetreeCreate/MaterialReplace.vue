@@ -5,8 +5,8 @@
         <div class="material">
             <div class="middle">
                 <div class="middle_title">
-                    <p>Tiles材质名称</p>
-                    <p>替换UE材质ID</p>
+                    <p>3dtiles</p>
+                    <p>UE场景</p>
                 </div>
                 <div class="middle_content">
                     <div v-for="(item, index) in list" :key="index">
@@ -174,7 +174,7 @@ const convertListToObject = (list: item[]) => {
 };
 
 
-const handleBlur = (value: string) => {
+const handleBlur = (value: string | undefined) => {
     const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
     if (index == -1) Message.warning('请输入正确的UE材质ID')
 
@@ -204,6 +204,9 @@ onMounted(() => {
 
 .middle_title {
     margin-top: 20px;
+    padding-left: 40px;
+    padding-right: 30px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -174,6 +174,11 @@ const convertListToObject = (list: item[]) => {
 };
 
 
+/**
+ * 输入框失去焦点
+ * @param value 
+
+ */
 const handleBlur = (value: string | undefined) => {
     const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
     if (index == -1) Message.warning('请输入正确的UE材质ID')

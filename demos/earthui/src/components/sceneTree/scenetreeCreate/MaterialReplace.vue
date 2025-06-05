@@ -1,183 +1,246 @@
 <template>
     <DraggablePopup2 v-if="props.isShow"
-        :title="`${(props.setStyleTreeItem && props.setStyleTreeItem.name) ? props.setStyleTreeItem.name : ''}-材质替换编辑器`"
-        :width="500" :height="'400px'" :left="500" :top="100" @close="changeCancel" :showButton="true" @ok="changeOk">
-        <div class="set_materal">
-            <div class="set_materal_title">
-                <div>材质名称</div>
-                <div>替换的材质ID</div>
-                <div><span style="cursor:pointer;" @click.stop="addMaterial" title="添加" @mouseenter="hoverIndex = -1"
-                        @mouseleave="hoverIndex = -2"><es-icon :name="'tianjia'"
-                            :color="hoverIndex === -1 ? '#fff' : '#575B66'" :size="13" /></span></div>
+        :title="`材质替换编辑器${(props.setStyleTreeItem && props.setStyleTreeItem.name) ? '（' + props.setStyleTreeItem.name + '）' : ''}`"
+        :width="600" :height="'400px'" :left="650" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
+        <div class="material">
+            <div class="header">
+                <input type="text" v-model="materialName" placeholder="请输入材质名称">
+                <div @click="searchMaterial">
+                    <img class="search_img" src="../../../assets/material/search.png" alt="">
+                </div>
             </div>
-            <div class="set_materal_content" @scroll="handleScroll">
-                <div class="materal_content_title" v-for="(item, index) in materalList" :key="index">
-                    <div>
-                        <EnumProp :scroll-position="scrollPosition" :withUndefined="false" :defaultValue="undefined"
-                            :enumStrsList="materialNameList" v-model="item.name" :clickli="getEnumList">
-                        </EnumProp>
+            <div class="middle">
+                <div class="middle_title">
+                    <p>Tiles材质名称</p>
+                    <p>替换UE材质ID</p>
+                </div>
+                <div class="middle_content">
+                    <div v-for="(item, index) in list" :key="index">
+                        <input type="checkbox">
+                        <p>{{ item.key }}</p>
+                        <p>{{ item.value }}</p>
+                        <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="setMaterial(item)">
+                        <img src="../../../assets/material/chongzhi_weixuanzhong.png" alt="">
+
                     </div>
-                    <div>
-                        <EnumProp :scroll-position="scrollPosition" :withUndefined="false" :defaultValue="undefined"
-                            :enumStrsList="materialIdList" v-model="item.id">
-                        </EnumProp>
-                    </div>
-                    <div><span @click="deleteMaterial(index)" @mouseenter="hoverIndex = index"
-                            @mouseleave="hoverIndex = -2" style="cursor:pointer;">
-                            <es-icon :name="'shanchu_2'" :color="hoverIndex === index ? '#fff' : '#575B66'"
-                                :size="13" />
-                        </span></div>
                 </div>
             </div>
         </div>
     </DraggablePopup2>
+    <MaterialSelect :isShow="materialSelectShow" :tilesetUEMaterial="tilesetUEMaterial"
+        :currentUEMaterial="currentItem.value" @cancel="cancelMaterialSelect" @ok="okMaterialSelect">
+    </MaterialSelect>
 
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, inject } from "vue";
+type item = { key: string, value: string | undefined };
+
+import { ref, onMounted } from "vue";
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";
-import EnumProp from "../../eSPropPanel/propertiesMenu/commons/EnumProp.vue"
 import DraggablePopup2 from "../../DraggablePopup2.vue";
+import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
 import { Message } from "earthsdk-ui";
-const props = withDefaults(defineProps<{
-    isShow: boolean,
-    setStyleTreeItem: SceneTreeItem | undefined,
-}>(), {});
 
+// 传入事件
+const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
+// 分发事件
 const emits = defineEmits(["changeShow"]);
-const changeCancel = () => {//点击取消
+// 当前材质名称
+const materialName = ref("");
+// 列表list
+const list = ref<item[]>([])
+
+// UE材质管理器显隐控制
+const materialSelectShow = ref(false)
+// UE材质ID列表
+const tilesetUEMaterial = ref<any[]>([])
+// 当前选择项
+const currentItem = ref<any>({})
+
+/**
+ * 取消材质替换
+ */
+const changeCancel = () => {
     emits("changeShow", false);
 }
-//控制划过变色的变量
-const hoverIndex = ref(-2)
-const materalList = ref([{
-    name: '',
-    id: ''
-}])
-const addMaterial = () => {//添加材质
-    const item = {
-        name: '',
-        id: ''
-    }
-    materalList.value.push(item)
-}
-const deleteMaterial = (index: number) => {//删除材质
-    materalList.value.splice(index, 1)
-    getEnumList()
-}
-const materialNameList = ref<[aliasName: any, value: any, disabled: boolean][]>([])
-const materialIdList = ref<[aliasName: any, value: any][]>([])
-const scrollPosition = ref(0)
-const handleScroll = (event: Event) => {
-    if (event.target) {
-        scrollPosition.value = (event.target as HTMLElement).scrollTop;
-    }
-}
-const changeOk = async () => {//点击确定
-    const result = materalList.value.reduce((obj: any, item: any) => {
-        obj[item.name] = item.id;
-        return obj;
-    }, {});
+
+/**
+ * 确认材质替换
+ */
+const changeOk = async () => {
+    const result = convertListToObject(list.value)
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
     sceneObject.materialOverrideMap = result
     emits("changeShow", false);
 }
-const changematerialNameList = (materialList: string[]): any => {
-    if (materialList.length === 0) return []
-    const list = materialList.map((item) => {
-        if (materalList.value.findIndex((item1) => item1.name === item) !== -1) {
-            return [item, item, true]
-        } else {
-            return [item, item, false]
-        }
-    })
-    return list
+
+/**
+ * 取消材质选择
+ */
+const cancelMaterialSelect = () => {
+    materialSelectShow.value = false
 }
-const changematerialIDList = (materialList: string[]): any => {
-    if (materialList.length === 0) return []
-    const list = materialList.map((item) => {
-        return [item, item]
-    })
-    return list
+
+/**
+ * 确认材质选择
+ */
+const okMaterialSelect = async (material: string) => {
+    materialSelectShow.value = false
+    currentItem.value.value = material
+
 }
-const getEnumList = async () => {//获取枚举列表
+
+
+/**
+ * 搜索材质
+ */
+const searchMaterial = () => {
+
+}
+/**
+ * 获取材质名称列表
+ */
+const getMaterialNameList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
-    const materialNameListRes = await sceneObject.getMaterialNameList() as any
-    materialNameList.value = changematerialNameList(materialNameListRes)
-    
+    const temp = await sceneObject.getMaterialNameList() as any
+    list.value = temp.map((item: any) => {
+        return { key: item, value: sceneObject.materialOverrideMap ? sceneObject.materialOverrideMap[item] : undefined }
+    })
 }
-onMounted(async () => {
+
+/**
+ * 获取替换Tileset的UE材质ID列表
+ */
+const getTilesetMaterialIDList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
     if (sceneObject.viewer instanceof ESUeViewer) {
-        const materialNameListRes = await sceneObject.getMaterialNameList() as any
-        materialNameList.value = changematerialNameList(materialNameListRes)
-        const materialIdListRes = await sceneObject.viewer.getTilesetMaterialIDList() as any
-        materialIdList.value = changematerialIDList(materialIdListRes)
-        if (materialNameList.value.length === 0) Message.warning('未查询到对象的材质名称列表')
-        materalList.value = [{
-            name: materialNameList.value.length > 0 ? materialNameList.value[0][0] : '',
-            id: materialIdList.value.length > 0 ? materialIdList.value[0][0] : ''
-        }]
-        getEnumList()
+        tilesetUEMaterial.value = await sceneObject.viewer.getTilesetMaterialIDList() as any
     }
+}
+
+/**
+ * 设置材质
+ * @param item 
+ */
+const setMaterial = (item: item) => {
+    currentItem.value = item
+    materialSelectShow.value = true
+
+}
+
+/**
+ * 将列表转换为对象
+ * @param list 
+ * @returns 
+ */
+const convertListToObject = (list: { key: string, value: string }[]) => {
+    const result = list.reduce((acc, item) => {
+        acc[item.key] = item.value;
+        return acc;
+    }, {} as Record<string, string | undefined>);
+
+    return result;
+};
+
+
+onMounted(() => {
+    getMaterialNameList()
+    getTilesetMaterialIDList()
 })
 
 
 </script>
 <style scoped>
-.set_materal {
+.material {
     width: 100%;
     height: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+
+}
+
+.header {
+    width: calc(100% - 30px);
+    height: 32px;
+    margin: auto;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    color: #fff;
 }
 
-.set_materal_title,
-.materal_content_title {
-    width: 100%;
-    height: 30px;
-    display: grid;
-    grid-template-columns: 45% 45% 10%;
-    font-size: 14px;
-
-}
-
-.set_materal_title {
-    background-color: rgba(28, 28, 29, 0.6);
-    border-radius: 4px;
-    margin: 5px 0;
-}
-
-.set_materal_title>div {
-    width: 100%;
+.header input {
+    width: calc(100% - 40px);
     height: 100%;
-    line-height: 30px;
-    text-align: center;
-}
-
-.materal_content_title>div {
-    width: 100%;
-    height: 100%;
-    padding: 0 5px;
+    background: #25262A;
+    border-radius: 4px 0px 0px 4px;
+    border: 1px solid #5d5e60;
+    text-indent: 15px;
     box-sizing: border-box;
-
-
+    color: #fff;
 }
 
-.materal_content_title>div:nth-child(3),
-.set_materal_title>div:nth-child(3) {
+.header div {
+    width: 40px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid #5d5e60;
+    box-sizing: border-box;
+    border-radius: 0px 4px 4px 0px;
+    border-left: 0px;
+    cursor: pointer;
 }
 
-.set_materal_content {
+.search_img:active,
+.search_img:hover {
+    content: url(../../../assets/material/search_hover.png);
+}
+
+.middle {
+    width: calc(100% - 30px);
+    height: calc(100% - 80px);
+    margin: auto;
+}
+
+.middle_title {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    flex: 1;
+    height: 30px;
+    background: rgba(28, 28, 29, 0.6);
+    border-radius: 4px;
+}
+
+.middle_title p {
+    width: 50%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.middle_content {
+    width: 100%;
+    height: calc(100% - 100px);
     overflow: auto;
+}
+
+.middle_content div {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 20px 20px;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+}
+
+.middle_content div p {
+    height: 20px;
+    background: rgba(28, 28, 29, 0.6);
+    border-radius: 4px;
+    border: 1px solid #3B3C40;
+    margin: 4px;
+    margin-right: 20px;
 }
 </style>

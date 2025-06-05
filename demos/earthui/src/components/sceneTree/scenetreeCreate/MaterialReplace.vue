@@ -1,7 +1,7 @@
 <template>
     <DraggablePopup2 v-if="props.isShow"
         :title="`材质替换编辑器${(props.setStyleTreeItem && props.setStyleTreeItem.name) ? '（' + props.setStyleTreeItem.name + '）' : ''}`"
-        :width="600" :height="'400px'" :left="650" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
+        :width="600" :height="'440px'" :left="650" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
         <div class="material">
             <div class="header">
                 <input type="text" v-model="materialName" placeholder="请输入材质名称">
@@ -243,7 +243,7 @@ onMounted(() => {
 
 .middle {
     width: calc(100% - 30px);
-    height: calc(100% - 100px);
+    height: calc(100% - 130px);
     margin: auto;
 }
 
@@ -304,6 +304,16 @@ onMounted(() => {
 .footer p {
     padding: 0px;
     margin: 0px;
+    font-size: 12px;
+}
+
+.footer button {
+    width: 79px;
+    height: 30px;
+    background: #25262A;
+    border-radius: 4px;
+    border: 1px solid #B7B7B7;
+    color: #fff;
     font-size: 12px;
 }
 </style>

@@ -14,7 +14,6 @@
                         <p>{{ item.key }}</p>
                         <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="setMaterial(item)">
-
                     </div>
                 </div>
             </div>
@@ -26,10 +25,7 @@
                 <div>
                     <button @click="setMaterialFormMost">批量替换</button>
                 </div>
-
-
             </div>
-
         </div>
     </DraggablePopup2>
     <MaterialSelect :isShow="materialSelectShow" :tilesetUEMaterial="tilesetUEMaterial"

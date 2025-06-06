@@ -275,6 +275,11 @@
                         "name": "通过json初始化视角管理器",
                         "thumbnail": "roam-view-jsonviewCollection.webp",
                         "path": "roam/view/jsonviewCollection"
+                    },
+                    {
+                        "name": "多段视角飞行",
+                        "thumbnail": "roam-view-flymulti.webp",
+                        "path": "roam/view/flymulti"
                     }
                 ]
             },

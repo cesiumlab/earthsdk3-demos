@@ -15,11 +15,11 @@ export default defineConfig({
       targets: [
         {
           src: [
-            normalizePath(path.resolve(__dirname, '../../node_modules/xbsj-base/dist/xbsj-base.js')),
-            normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3-assets')),
-            normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3/dist/earthsdk3.js')),
-            normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3-cesium/dist/earthsdk3-cesium.js')),
-            normalizePath(path.resolve(__dirname, '../../node_modules/earthsdk3-ue/dist/earthsdk3-ue.js')),
+            normalizePath(path.resolve(__dirname, './node_modules/xbsj-base/dist/xbsj-base.js')),
+            normalizePath(path.resolve(__dirname, './node_modules/earthsdk3-assets')),
+            normalizePath(path.resolve(__dirname, './node_modules/earthsdk3/dist/earthsdk3.js')),
+            normalizePath(path.resolve(__dirname, './node_modules/earthsdk3-cesium/dist/earthsdk3-cesium.js')),
+            normalizePath(path.resolve(__dirname, './node_modules/earthsdk3-ue/dist/earthsdk3-ue.js')),
           ],
           dest: './earthsdk3'
         }

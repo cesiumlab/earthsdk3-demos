@@ -3,7 +3,8 @@
     <PopList :title="'体积测量'" :showButton="true" @close="restart" @ok="start" :leftButton="'重新绘制'" :rightButton="'开始分析'"
         :showLeftButton="true">
         <LabelInput v-model="planeHight" :inputType="'number'" :label="'基准面高程'" :unit="'m'"></LabelInput>
-        <LabelInput v-model="sampling" :inputType="'number'" :label="'采样间距'" :unit="'m'" :noZero=true :min=0></LabelInput>
+        <LabelInput v-model="sampling" :inputType="'number'" :label="'采样间距'" :unit="'m'" :noZero=true :min=0>
+        </LabelInput>
         <LabelInput v-model="areaRef" :inputType="'number'" :label="'总面积'" :unit="'㎡'" :readonly="true"></LabelInput>
         <LabelInput v-model="excavationAreaRef" :inputType="'number'" :label="'挖方'" :unit="'m³'" :readonly="true">
         </LabelInput>
@@ -60,7 +61,7 @@ const restart = () => {
     volumeSceneObject.clear()
     schedule.value = 0
     planeHight.value = 0
-    sampling.value=0
+    sampling.value = 0
     volumeSceneObject.editing = true
     Message.warning('结束编辑之后请点击开始分析')
 }

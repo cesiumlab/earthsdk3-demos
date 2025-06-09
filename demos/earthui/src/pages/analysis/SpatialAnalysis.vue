@@ -63,24 +63,18 @@ const createlList: { zh: string, type: string, icon: string, leftButton: boolean
         icon: 'tipaoqie',
         leftButton: false,
         hiddenFromUE: true
-    },
-    {
-        zh: '天际线分析',
-        type: 'ESSkylineAnalysis',
-        icon: 'tipaoqie',
-        leftButton: false,
     }
 
 
 ];
 
-let sceneObject: ESViewShed | ESExcavate | ESPolygonFlattenedPlane | ESClippingPlane | ESBoxClipping | ESVisibilityAnalysis | ESHeightLimitAnalysis | ESClassification | ESSkylineAnalysis | undefined = undefined
+let sceneObject: ESViewShed | ESExcavate | ESPolygonFlattenedPlane | ESClippingPlane | ESBoxClipping | ESVisibilityAnalysis | ESHeightLimitAnalysis | ESClassification | undefined = undefined
 let editingDispose: any = undefined
 
 const createClippingPlane = (item: { zh: string, type: string, icon: string }) => {
     objType.value = item.type
     destroy()
-    sceneObject = xbsjEarthUi.createSceneObject(item.type) as ESViewShed | ESExcavate | ESPolygonFlattenedPlane | ESClippingPlane | ESBoxClipping | ESVisibilityAnalysis | ESSkylineAnalysis
+    sceneObject = xbsjEarthUi.createSceneObject(item.type) as ESViewShed | ESExcavate | ESPolygonFlattenedPlane | ESClippingPlane | ESBoxClipping | ESVisibilityAnalysis
     if (sceneObject) {
         const sceneObjectNum = getsceneObjNumfromSceneTree(xbsjEarthUi, item.type)
         sceneObject.name = item.zh + (sceneObjectNum + 1)

@@ -22,7 +22,7 @@ const callback = (params: any): void => {
     });
 };
 //@ts-ignore
-const waterType = toVR<any>(disposer, properties[0].reactVar, s => s)
+const waterType = (treeItem.type === 'ESGeoWater' || treeItem.type === 'ESDynamicWater') ? toVR<any>(disposer, properties[0].reactVar, s => s) : true
 let propertiesMenu: { name: string, component: string }[] = [
     {
         name: '速度和起始时间',
@@ -48,9 +48,8 @@ const currentCom = ref('speedAndStartTime')
             <div class="lab_Property_header1">
                 <div class="header_item2" v-for="item in propertiesMenu" :key="item.component"
                     @click="currentCom = item.component">
-                    <span class="header_item_span2" :class="currentCom === item.component ? 'header_active2' : ''">{{
-                        item.name
-                        }}</span>
+                    <span class="header_item_span2"
+                        :class="currentCom === item.component ? 'header_active2' : ''">{{ item.name }}</span>
                 </div>
             </div>
         </div>

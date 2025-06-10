@@ -1,15 +1,15 @@
 <template>
-    <PopList :title="'天际线分析'" :showButton="false">
+    <PopList :title="'天际线分析'" :showButton="false" class="skyline">
         <p class="title">天际线</p>
-        <div class="box1">
+        <div class="box">
             <label for="">半径：</label>
             <input type="number" v-model="radius">
         </div>
-        <div class="box1">
+        <div class="box">
             <label for="">颜色：</label>
             <ESColor :color="strokeColorRef" @ok="confirmStrokeColor"></ESColor>
         </div>
-        <div class="box1">
+        <div class="box">
             <label for="">显隐：</label>
             <ToggleSwitch :booleanValue="stroked" @update:booleanValue="updateStroked">
             </ToggleSwitch>
@@ -17,16 +17,16 @@
 
 
         <p class="title">闭合体</p>
-        <div class="box1">
+        <div class="box">
             <label for="">颜色：</label>
             <ESColor :color="fillColorRef" @ok="confirmFillColor"></ESColor>
         </div>
-        <div class="box1">
+        <div class="box">
             <label for="">显隐：</label>
             <ToggleSwitch :booleanValue="filled" @update:booleanValue="updateFilled">
             </ToggleSwitch>
         </div>
-        <p class="title">功能</p>
+        <p class="title">功能键</p>
         <div class="btn">
             <button @click="start">重绘天际线</button>
             <button>二维天际线</button>
@@ -43,6 +43,7 @@ import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import PopList from "../../../components/PopList.vue";
 import ToggleSwitch from "../../../components/eSPropPanel/propertiesMenu/commons/base/InputCheckBox.vue"
+import SkylineDepths from "./SkylineDepths.vue"
 type ColorType = [number, number, number, number]
 // 分发事件
 const emits = defineEmits(['close'])
@@ -56,7 +57,7 @@ skylineAnalysis.radius = 1000
 // 销毁函数
 let dispose: any
 // 深度值
-let depths = toVR<number>(d, [skylineAnalysis, "depths"])
+let depths = toVR<number[]>(d, [skylineAnalysis, "depths"])
 // 半径
 let radius = toVR<number>(d, [skylineAnalysis, "radius"])
 // 天际线显隐
@@ -144,8 +145,17 @@ const clear = () => {
 
 
 onMounted(() => {
+    const parent = document.querySelector('.roam');
+    const child = document.querySelector('.roam .skyline');
+    if (parent && child instanceof HTMLElement) {
+        parent?.scrollTo({
+            top: child?.offsetTop,
+            behavior: "smooth"
+        });
+    }
     Message.success('已开启天际线，可调整视角（平视），重新绘制天际线')
     start()
+    console.log('天际线', skylineAnalysis)
 })
 onBeforeUnmount(() => {
     if (skylineAnalysis) {
@@ -163,19 +173,10 @@ onBeforeUnmount(() => {
 .box {
     display: grid;
     font-size: 12px;
-    grid-template-columns: 80px 160px 60px;
-    align-items: center;
-    height: 30px;
-
-}
-
-.box1 {
-    display: grid;
-    font-size: 12px;
     grid-template-columns: 70px 160px 60px;
     align-items: center;
     height: 30px;
-    padding-left: 10px;
+    padding-left: 12px;
 
 }
 
@@ -188,8 +189,8 @@ onBeforeUnmount(() => {
     font-size: 13px;
     border-left: 5px solid #0276fb;
     padding-left: 5px;
-    margin-left: -10px;
     margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 input {
@@ -210,7 +211,7 @@ button {
     height: 27px;
     background: rgba(28, 28, 29, 0.6);
     border-radius: 4px;
-    border: 1px solid rgb(37, 90, 214);
+    border: 1px solid rgb(36, 85, 200);
     cursor: pointer;
     color: rgba(230, 230, 230, 1);
     box-sizing: border-box;
@@ -222,8 +223,12 @@ button:hover {
     border: 2px solid rgba(44, 104, 247, 1);
 }
 
+.btn {
+    margin-top: 5px;
+}
+
 .btn button {
     width: 100px;
-    margin: 5px;
+    margin: 5px 10px;
 }
 </style>

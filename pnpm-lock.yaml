@@ -24,8 +24,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
@@ -92,8 +92,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -144,8 +144,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -196,8 +196,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       vue:
         specifier: ^3.5.13
         version: 3.5.16(typescript@5.6.3)
@@ -245,8 +245,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -309,8 +309,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -346,8 +346,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -380,8 +380,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.13
-        version: 3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
+        specifier: 3.0.7-beta.14
+        version: 3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.11)
@@ -3213,8 +3213,8 @@ packages:
   earthsdk3-assets@3.0.2:
     resolution: {integrity: sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==}
 
-  earthsdk3-cesium@3.0.7-beta.13:
-    resolution: {integrity: sha512-k/OHN0gisCkoKqpu/YQP/5uhCWCTuAGRQPiCPBhPG9KRTiV3F3cAPu0wwpvuYnPbmJP7KcEJ0XAMVrGAfz3xOQ==}
+  earthsdk3-cesium@3.0.7-beta.14:
+    resolution: {integrity: sha512-35RAXJFKNZc0K6dn0tA6YYejUR4Ypa5IYKTeJzGmfbZ23ipti6JHkZMj4pyXk5w09VQ8yX4Se0DBhh7DJmWSrA==}
     peerDependencies:
       cesium: ~1.123.1
       earthsdk3: workspace:*
@@ -4239,6 +4239,11 @@ packages:
 
   multicast-dns@7.2.5:
     resolution: {integrity: sha512-2eznPJP8z2BFLX50tf0LuODrpINqP1RVIm/CObbTcBRITQgmC/TjcREF1NeTBzIcR5XO/ukWo+YHOjBbFwIupg==}
+    hasBin: true
+
+  mvt-basic-render@0.3.5:
+    resolution: {integrity: sha512-5krXhDMl2MpJgTMhaEwVtomjVGk89HneYIQemqCkx1dCpi4F2VU+Z2T0JAmcBvryMWLf+2mOHaNvcl7qlTuBSQ==}
+    engines: {node: '>=12.21.0'}
     hasBin: true
 
   mylas@2.1.13:
@@ -9401,7 +9406,7 @@ snapshots:
 
   earthsdk3-assets@3.0.2: {}
 
-  earthsdk3-cesium@3.0.7-beta.13(cesium@1.123.1)(earthsdk3@3.0.7-beta.11):
+  earthsdk3-cesium@3.0.7-beta.14(cesium@1.123.1)(earthsdk3@3.0.7-beta.11):
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.123.1
@@ -9409,6 +9414,7 @@ snapshots:
       earcut: 2.2.4
       earthsdk3: 3.0.7-beta.11
       html2canvas: 1.4.1
+      mvt-basic-render: 0.3.5
       xbsj-base: 1.0.1
 
   earthsdk3-ue@3.0.7-beta.4(earthsdk3@3.0.7-beta.11):
@@ -10469,6 +10475,8 @@ snapshots:
     dependencies:
       dns-packet: 5.6.1
       thunky: 1.1.0
+
+  mvt-basic-render@0.3.5: {}
 
   mylas@2.1.13: {}
 

@@ -18,6 +18,7 @@ const callback = (params: any): void => {
 };
 let dispose: any
 onMounted(() => {
+    console.log('properties', props.properties)
     const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
     dispose = sceneObject.editingChanged.disposableOn((res: boolean) => {
         if (res) {

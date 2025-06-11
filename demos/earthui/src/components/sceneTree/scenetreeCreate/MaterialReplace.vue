@@ -24,6 +24,7 @@
                     <p>共计{{ list.length }}条记录</p>
                 </div>
                 <div>
+                    <button @click="clear">一键清空</button>
                     <button @click="setMaterialFormMost">批量替换</button>
                 </div>
             </div>
@@ -43,7 +44,7 @@ import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
-import { Message } from "earthsdk-ui";
+import { Message, messageBox } from "earthsdk-ui";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
@@ -155,6 +156,20 @@ const setMaterialFormMost = () => {
     currentItem.value = {}
     materialSelectShow.value = true
     isSetMaterialFormMost.value = true
+}
+
+/**
+ * 清空UE材质
+ */
+const clear = () => {
+    messageBox({ text: '确认一键清空？' })
+        .then(() => {
+            list.value.forEach((item: item) => {
+                item.value = undefined
+            })
+        })
+        .catch((err) => {
+        })
 }
 
 /**
@@ -304,5 +319,6 @@ onMounted(() => {
     border: 1px solid #B7B7B7;
     color: #fff;
     font-size: 12px;
+    margin-right: 10px;
 }
 </style>

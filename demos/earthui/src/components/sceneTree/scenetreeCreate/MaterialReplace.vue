@@ -162,15 +162,10 @@ const setMaterialFormMost = () => {
  * 清空UE材质
  */
 const clear = () => {
-    messageBox({ text: '确认一键清空？' })
-        .then(() => {
-            list.value.forEach((item: item) => {
-                item.value = undefined
-            })
-            replaceUeMaterial()
-        })
-        .catch((err) => {
-        })
+    messageBox({ text: '确认一键清空？' }).then(() => {
+        list.value.forEach((item: item) => { item.value = undefined })
+        replaceUeMaterial()
+    }).catch(() => { })
 }
 
 /**

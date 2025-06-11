@@ -1,8 +1,7 @@
 <template>
-    <DraggablePopup2 :title="`天际线二维深度值`" :width="600" :height="'440px'" :left="650" :top="200" @close="changeCancel"
+    <DraggablePopup2 :title="`天际线二维深度值`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
         :showButton="false">
         <div class="echart" ref="echart"></div>
-
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
@@ -13,64 +12,42 @@ import * as echarts from "echarts";
 const props = withDefaults(defineProps<{ depths: number[] }>(), {})
 const echart = ref(null)
 const myChart = ref(null)
-// 定义图表配置的类型（可进一步细化）
-interface SeriesData {
-    name: string;
-    type: string;
-    smooth: boolean;
-    symbol: string;
-    areaStyle: Record<string, any>;
-    data: number[]; // 与 props.depths 类型一致
-}
-
-interface ChartOption {
-    tooltip: Record<string, any>;
-    title: Record<string, any>;
-    toolbox: Record<string, any>;
-    xAxis: Record<string, any>;
-    yAxis: Record<string, any>;
-    dataZoom: Record<string, any>[];
-    series: SeriesData[];
-}
-const option = reactive<ChartOption>({
-    title: {
-        text: '天际线二维深度值',
-        left: 10
-    },
-    tooltip: {
-        trigger: 'axis',
-    },
-    grid: {
-        bottom: 90
-    },
-    dataZoom: [
-        {
-            type: 'inside'
-        },
-        {
-            type: 'slider'
-        }
-    ],
+const emits = defineEmits(["changeShow"])
+const option = reactive<any>({
     xAxis: {
-        data: props.depths,
-        silent: false,
-        splitLine: {
-            show: false
-        },
-        splitArea: {
-            show: false
-        }
+        type: 'category',
+        show: false
     },
     yAxis: {
-        splitArea: {
-            show: false
+        type: 'value',
+        min: 0,
+        max: 1,
+        textStyle: {
+            color: '#fff' // 设置图例文字颜色为白色
+        },
+        splitLine: { //网格线
+            lineStyle: {
+                type: 'dashed', //设置网格线类型 dotted：虚线 solid:实线
+                color: '#ccc',
+            },
+            show: true //隐藏或显示
+        }
+    },
+    tooltip: {
+        show: true, // 是否显示提示组件
+        trigger: 'item', // 提示组件触发类型
+        axisPointer: {
+            type: 'line', // 指示器类型
+            label: {
+                show: true, // 是否显示文本标签
+                formatter: '{value}单位' // 文本标签格式器
+            }
         }
     },
     series: [
         {
-            type: 'bar',
             data: props.depths,
-            large: true
+            type: 'line'
         }
     ]
 }
@@ -78,18 +55,24 @@ const option = reactive<ChartOption>({
 watch(() => props.depths, () => {
     option.series[0].data = props.depths
     // 绘制图表
+    // @ts-ignore
     if (myChart.value) myChart.value.setOption(option);
 })
 
 
 onMounted(() => {
+    // @ts-ignore
     myChart.value = echarts.init(echart.value);
     // 绘制图表
+
+    option.series[0].data = props.depths
+    // @ts-ignore
     myChart.value.setOption(option);
 })
 
 
 const changeCancel = () => {
+    emits("changeShow", false);
 }
 </script>
 

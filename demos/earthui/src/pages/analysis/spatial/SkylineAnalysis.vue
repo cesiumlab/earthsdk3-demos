@@ -29,21 +29,22 @@
         <p class="title">功能键</p>
         <div class="btn">
             <button @click="start">重绘天际线</button>
-            <button>二维天际线</button>
+            <button @click="depthsShow = !depthsShow">二维天际线</button>
             <button @click="clear">清除</button>
         </div>
     </PopList>
+    <SkylineDepths :depths="depths" v-if="depthsShow" @changeShow="depthsShow = false" />
 
 </template>
 <script setup lang="ts">
 import { ESSkylineAnalysis } from "earthsdk3";
-import { inject, onBeforeUnmount, onMounted, computed } from "vue";
+import { inject, onBeforeUnmount, onMounted, computed, ref } from "vue";
 import { ESColor, Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import PopList from "../../../components/PopList.vue";
 import ToggleSwitch from "../../../components/eSPropPanel/propertiesMenu/commons/base/InputCheckBox.vue"
-import SkylineDepths from "./SkylineDepths.vue"
+import SkylineDepths from "./SkylineDepths.vue";
 type ColorType = [number, number, number, number]
 // 分发事件
 const emits = defineEmits(['close'])
@@ -58,6 +59,9 @@ skylineAnalysis.radius = 1000
 let dispose: any
 // 深度值
 let depths = toVR<number[]>(d, [skylineAnalysis, "depths"])
+const depthsShow = ref(false)
+
+/** <-----------------------------------天际线边界变量--------------------------------------------------------->*/
 // 半径
 let radius = toVR<number>(d, [skylineAnalysis, "radius"])
 // 天际线显隐
@@ -79,6 +83,9 @@ const strokeColorRef = computed(() => {
         }
     }
 })
+
+
+/** <-----------------------------------闭合体变量--------------------------------------------------------->*/
 // 闭合体显隐
 let filled = toVR<boolean>(d, [skylineAnalysis, "filled"])
 // 闭合体颜色
@@ -120,13 +127,19 @@ const confirmFillColor = (rgba: { r: number, g: number, b: number, a: number }) 
     fillColor.value = rgbaArr
 }
 
+/**
+ * 更新闭合体显隐
+ * @param value 
+ */
 const updateFilled = (value: boolean) => {
-    console.log('updateFilled', value)
     filled.value = value
 }
 
+/**
+ * 更新天际线显隐
+ * @param value 
+ */
 const updateStroked = (value: boolean) => {
-    console.log('updateStorked', value)
     stroked.value = value
 }
 /**
@@ -155,7 +168,6 @@ onMounted(() => {
     }
     Message.success('已开启天际线，可调整视角（平视），重新绘制天际线')
     start()
-    console.log('天际线', skylineAnalysis)
 })
 onBeforeUnmount(() => {
     if (skylineAnalysis) {

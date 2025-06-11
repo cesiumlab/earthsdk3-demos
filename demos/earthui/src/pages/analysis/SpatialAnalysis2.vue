@@ -1,6 +1,7 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref } from "vue";
+import { defineComponent, onBeforeUnmount, ref, inject } from "vue";
 import SkylineAnalysis from './spatial/SkylineAnalysis.vue'; //表面积组件
+import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 export default defineComponent({
     components: {
         SkylineAnalysis,
@@ -8,14 +9,19 @@ export default defineComponent({
 })
 </script>
 <script setup lang='ts'>
+import { createVueDisposer, toVR } from "earthsdk-ui";
 import RightList from '../../components/RightList.vue';
 import Button from '../../components/Button.vue';
-const controlList: { type: string, zh: string, icon: string, leftButton: boolean, }[] = [
+const disposer = createVueDisposer(onBeforeUnmount);
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+const ueIsShow = toVR<boolean>(disposer, [xbsjEarthUi, 'ueIsShow'])
+const controlList: { zh: string, type: string, icon: string, leftButton: boolean, hiddenFromUE?: boolean }[] = [
     {
         type: 'SkylineAnalysis',
         zh: '天际线',
         icon: 'tiji',
-        leftButton: true
+        leftButton: true,
+        hiddenFromUE: true
     }
 
 ];
@@ -27,10 +33,10 @@ const emits = defineEmits(['closeObj'])
 </script>
 
 <template>
-    <RightList :title="'空间分析2'">
+    <RightList :title="'空间分析2'" v-show="!ueIsShow">
         <div class="control-list">
-            <Button v-for="item in controlList" :name="item.icon" :content="item.zh"
-                :click="() => { changeType(item.type) }" :actived="type === item.type"
+            <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"
+                :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
                 :left-button="item.leftButton"></Button>
             <component :is="type" />
         </div>

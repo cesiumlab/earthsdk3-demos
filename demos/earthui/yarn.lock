@@ -1970,15 +1970,16 @@ earthsdk3-assets@3.0.2:
   resolved "https://registry.npmmirror.com/earthsdk3-assets/-/earthsdk3-assets-3.0.2.tgz#2108573ade8b6ecf392428caa5e594ac728f08de"
   integrity sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==
 
-earthsdk3-cesium@3.0.7-beta.13:
-  version "3.0.7-beta.13"
-  resolved "https://registry.npmmirror.com/earthsdk3-cesium/-/earthsdk3-cesium-3.0.7-beta.13.tgz#2bea4c20830bad247e7c0289caa3529d49a363c1"
-  integrity sha512-k/OHN0gisCkoKqpu/YQP/5uhCWCTuAGRQPiCPBhPG9KRTiV3F3cAPu0wwpvuYnPbmJP7KcEJ0XAMVrGAfz3xOQ==
+earthsdk3-cesium@3.0.7-beta.15:
+  version "3.0.7-beta.15"
+  resolved "https://registry.npmmirror.com/earthsdk3-cesium/-/earthsdk3-cesium-3.0.7-beta.15.tgz#f318e582c650d50e9ca4a9933c31d98e87699643"
+  integrity sha512-FHBMeixo+rtxtBALnommtnMMu3rPvAl8oQ7XdZv8yznlvL5SXBNLouvoP/eMfWZQ9W9UklUOROi0XqU4JykFAA==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
     earcut "^2.2.4"
     html2canvas "^1.4.1"
+    mvt-basic-render "^0.3.5"
     xbsj-base "1.0.1"
 
 earthsdk3-ue@3.0.7-beta.4:
@@ -1999,10 +2000,10 @@ earthsdk3@3.0.6:
     proj4 "^2.8.0"
     xbsj-base "1.0.1"
 
-earthsdk3@3.0.7-beta.11:
-  version "3.0.7-beta.11"
-  resolved "https://registry.npmmirror.com/earthsdk3/-/earthsdk3-3.0.7-beta.11.tgz#ec4873870aea04f3ca2ac499cc7ff7095ba58156"
-  integrity sha512-YSvxbTbm6WoNqZEvTijQDjR7hLZhUQPgO0uaUdMkjmVGu/rhlIB+BnAuj2i0wUq8OHT6SaHl2RmIJSiE/9MFaA==
+earthsdk3@3.0.7-beta.13:
+  version "3.0.7-beta.13"
+  resolved "https://registry.npmmirror.com/earthsdk3/-/earthsdk3-3.0.7-beta.13.tgz#913baeba90052143475fa63d8bc3071f0a106c5d"
+  integrity sha512-HcVqCXuMW7Zp9/bvLp2043N3YiCCWsjx1bGsiBb9hwYSXGxhSk1i0PIaX5Ky+bMjBOEyCFP7KogdjIPNtnCLtA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -2475,6 +2476,11 @@ ms@2.1.3:
   version "2.1.3"
   resolved "https://registry.npmmirror.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+
+mvt-basic-render@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.npmmirror.com/mvt-basic-render/-/mvt-basic-render-0.3.5.tgz#e9a242a4ea0132a0e6fcdab3a72b660640c2c764"
+  integrity sha512-5krXhDMl2MpJgTMhaEwVtomjVGk89HneYIQemqCkx1dCpi4F2VU+Z2T0JAmcBvryMWLf+2mOHaNvcl7qlTuBSQ==
 
 nanoid@^3.3.11:
   version "3.3.11"

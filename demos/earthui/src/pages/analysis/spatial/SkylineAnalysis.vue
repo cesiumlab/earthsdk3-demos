@@ -37,7 +37,7 @@
 </template>
 <script setup lang="ts">
 import { ESSkylineAnalysis } from "earthsdk3";
-import { inject, onBeforeUnmount, onMounted, ref, computed } from "vue";
+import { inject, onBeforeUnmount, onMounted, computed } from "vue";
 import { ESColor, Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';

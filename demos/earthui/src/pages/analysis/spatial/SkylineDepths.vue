@@ -6,10 +6,8 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { inject, onBeforeUnmount, onMounted, ref, computed, reactive, defineProps, watch } from "vue";
-import { ESColor, Message } from "earthsdk-ui";
-import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { createVueDisposer, toVR } from 'earthsdk-ui';
+import { onMounted, ref, reactive, defineProps, watch } from "vue";
+
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import * as echarts from "echarts";
 const props = withDefaults(defineProps<{ depths: number[] }>(), {})

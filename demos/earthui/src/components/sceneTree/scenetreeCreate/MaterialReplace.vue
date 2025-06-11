@@ -167,6 +167,7 @@ const clear = () => {
             list.value.forEach((item: item) => {
                 item.value = undefined
             })
+            replaceUeMaterial()
         })
         .catch((err) => {
         })

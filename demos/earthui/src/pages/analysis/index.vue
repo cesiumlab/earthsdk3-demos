@@ -22,3 +22,8 @@ const closeObj = () => {
     </div>
 </template>
 <style src="../../css/AnalysisObj.css"></style>
+<style>
+.roam {
+    position: relative !important;
+}
+</style>

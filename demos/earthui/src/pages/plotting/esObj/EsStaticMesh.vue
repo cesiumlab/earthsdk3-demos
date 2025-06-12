@@ -1,9 +1,11 @@
 <template>
     <PopList :title="'静态网格体'" :showButton="true" @close="cancel" @ok="ok">
         <LabelInput v-model="mesh" :label="'mesh路径'"></LabelInput>
-        <LabelInput v-model="position[0]" :inputType="'number'" :label="'经度'" :max="180" :min="-180" :placeholder="'请输入经度或者点击地球获取'">
+        <LabelInput v-model="position[0]" :inputType="'number'" :label="'经度'" :max="180" :min="-180"
+            :placeholder="'请输入经度或者点击地球获取'">
         </LabelInput>
-        <LabelInput v-model="position[1]" :inputType="'number'" :label="'纬度'" :max="90" :min="-90" :placeholder="'请输入纬度或者点击地球获取'">
+        <LabelInput v-model="position[1]" :inputType="'number'" :label="'纬度'" :max="90" :min="-90"
+            :placeholder="'请输入纬度或者点击地球获取'">
         </LabelInput>
         <LabelInput v-model="position[2]" :inputType="'number'" :label="'高度'" :placeholder="'请输入高度或者点击地球获取'">
         </LabelInput>
@@ -23,7 +25,7 @@ const mesh = ref()
 const position = ref([undefined, undefined, undefined])
 const emits = defineEmits(['close'])
 const pos = (messages: { [key: string]: any }) => {
-    const a = messages.pickResult.position
+    const a = messages
     const pos = a.map((num: number) => Number(num.toFixed(7)))
     if (pos) {
         position.value = pos
@@ -39,7 +41,7 @@ const ok = () => {
         Message.warning('请填写路径')
         return
     }
-    if (!position.value[0]||!position.value[1]) {
+    if (!position.value[0] || !position.value[1]) {
         Message.warning('请填写经纬度')
         return
     }
@@ -70,7 +72,7 @@ const ok = () => {
     sceneObject.mesh = mesh.value
     const sceneObjectIndex = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESStaticMesh')
     sceneObject.position = position.value
-    sceneObject.name = ( '静态网格体') + (sceneObjectIndex + 1)
+    sceneObject.name = ('静态网格体') + (sceneObjectIndex + 1)
     emits('close')
     destroy()
 }

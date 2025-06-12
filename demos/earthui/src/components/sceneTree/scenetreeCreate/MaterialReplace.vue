@@ -1,5 +1,5 @@
 <template>
-    <DraggablePopup2 v-if="props.isShow"
+    <DraggablePopup2
         :title="`材质替换编辑器${(props.setStyleTreeItem && props.setStyleTreeItem.name) ? '（' + props.setStyleTreeItem.name + '）' : ''}`"
         :width="600" :height="'440px'" :left="650" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
         <div class="material">
@@ -13,7 +13,8 @@
                         <input type="checkbox" v-model="item.select">
                         <p>{{ item.key }}</p>
                         <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
-                        <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="setMaterial(item)">
+                        <img src="../../../assets/material/caizhi_weixuanzhong.png" alt=""
+                            @click="openMaterialPanel(item)">
                     </div>
                 </div>
             </div>
@@ -23,6 +24,7 @@
                     <p>共计{{ list.length }}条记录</p>
                 </div>
                 <div>
+                    <button @click="clear">一键清空</button>
                     <button @click="setMaterialFormMost">批量替换</button>
                 </div>
             </div>
@@ -37,12 +39,12 @@
 <script setup lang="ts">
 type item = { key: string, value: string | undefined, select: boolean };
 
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, nextTick } from "vue";
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
-import { Message } from "earthsdk-ui";
+import { Message, messageBox } from "earthsdk-ui";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
@@ -63,7 +65,8 @@ const isSetMaterialFormMost = ref(false)
 const materialSelectShow = ref(false)
 // UE材质ID列表
 const tilesetUEMaterial = ref<any[]>([])
-
+// 原始材质列表
+const orginalMaterialOverrideMap = ref<any>({})
 
 
 
@@ -74,24 +77,24 @@ watch(isSelectAll, (newValue) => {
 });
 
 /**
- * 取消材质替换
+ * 取消材质[替换]
  */
 const changeCancel = () => {
+    const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
+    sceneObject.materialOverrideMap = orginalMaterialOverrideMap.value
     emits("changeShow", false);
 }
 
 /**
- * 确认材质替换
+ * 确认材质[替换]
  */
 const changeOk = async () => {
-    const result = convertListToObject(list.value)
-    const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
-    sceneObject.materialOverrideMap = result
+    replaceUeMaterial()
     emits("changeShow", false);
 }
 
 /**
- * 取消材质选择
+ * 取消材质[选择]
  */
 const cancelMaterialSelect = () => {
     materialSelectShow.value = false
@@ -99,7 +102,7 @@ const cancelMaterialSelect = () => {
 }
 
 /**
- * 确认材质选择
+ * 确认材质[选择]
  */
 const okMaterialSelect = async (material: string) => {
     materialSelectShow.value = false
@@ -110,13 +113,13 @@ const okMaterialSelect = async (material: string) => {
         isSetMaterialFormMost.value = false
     } else {
         currentItem.value.value = material
-
     }
+    replaceUeMaterial()
 }
 
 
 /**
- * 获取材质名称列表
+ * 获取Tileset材质名称列表
  */
 const getMaterialNameList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
@@ -127,7 +130,7 @@ const getMaterialNameList = async () => {
 }
 
 /**
- * 获取替换Tileset的UE材质ID列表
+ * 获取UE材质列表
  */
 const getTilesetMaterialIDList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
@@ -137,10 +140,10 @@ const getTilesetMaterialIDList = async () => {
 }
 
 /**
- * 设置材质
+ * 打开材质选择面板
  * @param item 
  */
-const setMaterial = (item: item) => {
+const openMaterialPanel = (item: item) => {
     currentItem.value = item
     materialSelectShow.value = true
 
@@ -153,6 +156,16 @@ const setMaterialFormMost = () => {
     currentItem.value = {}
     materialSelectShow.value = true
     isSetMaterialFormMost.value = true
+}
+
+/**
+ * 清空UE材质
+ */
+const clear = () => {
+    messageBox({ text: '确认一键清空？' }).then(() => {
+        list.value.forEach((item: item) => { item.value = undefined })
+        replaceUeMaterial()
+    }).catch(() => { })
 }
 
 /**
@@ -182,10 +195,23 @@ const handleBlur = (value: string | undefined) => {
 
 }
 
+/**
+ * 替换UE材质
+ */
+const replaceUeMaterial = () => {
+    const result = convertListToObject(list.value)
+    const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
+    sceneObject.materialOverrideMap = result
+}
+
 
 onMounted(() => {
     getMaterialNameList()
     getTilesetMaterialIDList()
+    nextTick(() => {
+        const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
+        orginalMaterialOverrideMap.value = JSON.parse(JSON.stringify(sceneObject.materialOverrideMap))
+    });
 })
 
 
@@ -289,5 +315,6 @@ onMounted(() => {
     border: 1px solid #B7B7B7;
     color: #fff;
     font-size: 12px;
+    margin-right: 10px;
 }
 </style>

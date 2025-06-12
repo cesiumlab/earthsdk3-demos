@@ -304,6 +304,7 @@ onMounted(() => {
     width: 100%;
     height: calc(100% - 50px);
     overflow: auto;
+
 }
 
 .middle_content div {

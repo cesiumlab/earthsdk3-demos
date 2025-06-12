@@ -1,7 +1,7 @@
 <template>
     <DraggablePopup2
         :title="`材质替换编辑器${(props.setStyleTreeItem && props.setStyleTreeItem.name) ? '（' + props.setStyleTreeItem.name + '）' : ''}`"
-        :width="600" :height="'440px'" :left="650" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
+        :width="600" :height="'440px'" :left="350" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
         <div class="material">
             <div class="middle">
                 <div class="middle_title">
@@ -15,7 +15,7 @@
                         <p>{{ item.key }}</p>
                         <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt=""
-                            @click="openMaterialPanel(item)">
+                            @click="openMaterialPanel(item)" title="选择材质">
                     </div>
                 </div>
             </div>
@@ -157,9 +157,15 @@ const openMaterialPanel = (item: item) => {
  * 批量替换材质
  */
 const setMaterialFormMost = () => {
-    currentItem.value = {}
-    materialSelectShow.value = true
-    isSetMaterialFormMost.value = true
+
+    if (list.value.filter((item: item) => item.select).length == 0) {
+        Message.warning('请选择要批量替换的材质')
+    } else {
+        currentItem.value = {}
+        materialSelectShow.value = true
+        isSetMaterialFormMost.value = true
+    }
+
 }
 
 /**

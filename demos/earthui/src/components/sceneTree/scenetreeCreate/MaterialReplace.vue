@@ -5,7 +5,8 @@
         <div class="material">
             <div class="middle">
                 <div class="middle_title">
-                    <p>3dtiles</p>
+                    <p>选择</p>
+                    <p>3DTiles</p>
                     <p>UE场景</p>
                 </div>
                 <div class="middle_content">
@@ -24,6 +25,8 @@
                     <p>共计{{ list.length }}条记录</p>
                 </div>
                 <div>
+                    <button @click="importJsonFile">导入</button>
+                    <button @click="exportJsonFile">导出</button>
                     <button @click="clear">一键清空</button>
                     <button @click="setMaterialFormMost">批量替换</button>
                 </div>
@@ -45,6 +48,7 @@ import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
 import { Message, messageBox } from "earthsdk-ui";
+import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
@@ -205,6 +209,45 @@ const replaceUeMaterial = () => {
 }
 
 
+/**
+ * 导入文件
+ */
+const importJsonFile = async () => {
+    try {
+        Message.warning('正在打开..')
+        const handle = await getOpenFileHandle('json');
+        if (!handle) return;
+        const jsonStr = await getTextFromFile(handle);
+        if (!jsonStr) return;
+        let result = JSON.parse(jsonStr)
+        const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
+        sceneObject.materialOverrideMap = result
+        list.value.forEach(item => {
+            item.value = result[item.key]
+        })
+        Message.success('导入成功！')
+    } catch (error) {
+        Message.error(`打开失败！ error: ${error}`);
+    }
+}
+/**
+ * 导出文件
+ */
+const exportJsonFile = async () => {
+    const jsonStr = JSON.stringify(convertListToObject(list.value))
+    const name = "materialUE"
+    try {
+        Message.warning('正在另存为..');
+        const handle = await getSaveFileHandle('json', name);
+        if (!handle) return;
+        await saveFile(handle, jsonStr);
+        Message.success('另存成功!');
+    } catch (error) {
+        Message.error(`另存失败! error: ${error}`);
+    }
+}
+
+
 onMounted(() => {
     getMaterialNameList()
     getTilesetMaterialIDList()
@@ -232,22 +275,23 @@ onMounted(() => {
 
 .middle_title {
     margin-top: 20px;
-    padding-left: 40px;
-    padding-right: 30px;
     box-sizing: border-box;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 30px;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: 30px;
+    line-height: 30px;
     background: rgba(28, 28, 29, 0.6);
     border-radius: 4px;
 }
 
 .middle_title p {
-    width: 50%;
     text-align: center;
     font-size: 12px;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
 }
 
 .middle_content {
@@ -316,5 +360,10 @@ onMounted(() => {
     color: #fff;
     font-size: 12px;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.footer button:hover {
+    border: 2px solid rgba(44, 104, 247, 1);
 }
 </style>

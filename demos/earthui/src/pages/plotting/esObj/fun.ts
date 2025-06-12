@@ -70,7 +70,7 @@ export const ueActorResult = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => v
             Message.warning('请在ue视口下操作')
             return
         }
-        const result = await viewer.pick(e.screenPosition, false)
+        const result = await viewer.pickPosition(e.screenPosition)
         // console.log('result',result);
         if (!result) return
         pos(result)

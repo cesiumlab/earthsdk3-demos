@@ -5,7 +5,7 @@
             <div class="item" :class="{ active: currentUEMaterial == item }"
                 v-for="(item, index) in props.tilesetUEMaterial" :key="index" @click="selectMaterial(item)">
                 <div class="thumbnail"></div>
-                <p>{{ item }}</p>
+                <p :title="item">{{ item }}</p>
             </div>
         </div>
     </DraggablePopup2>

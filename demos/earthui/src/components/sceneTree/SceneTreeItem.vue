@@ -92,6 +92,10 @@ onMounted(() => {
   if (nameEditingRef.value) {
     editingName.value = sceneTreeItem.name
   }
+  if (sceneObject) {
+    //@ts-ignore
+    sceneTreeItem.show = sceneObject.show
+  }
   if (sceneTreeItem.sceneObject instanceof ES3DTileset) {
     if (sceneTreeItem.children && sceneTreeItem.children.length > 0) return;
     let tilesUrl = typeof sceneTreeItem.sceneObject.url === 'string' ? sceneTreeItem.sceneObject.url : sceneTreeItem.sceneObject.url.url;

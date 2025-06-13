@@ -92,7 +92,6 @@ const closeActorHighlight = (val: string, flag: boolean) => {
 }
 //ue点击拾取位置信息后执行的函数
 const pos = (messages: { [key: string]: any }) => {
-    console.log(111111111111,messages);
     //TODO ME 等换场景之后进行测试
     if (!messages) return
     closeActorHighlight(oldActor.value, false)

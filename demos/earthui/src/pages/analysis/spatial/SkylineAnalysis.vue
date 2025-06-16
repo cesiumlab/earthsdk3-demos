@@ -3,7 +3,7 @@
         <p class="title">天际线</p>
         <div class="box">
             <label for="">半径：</label>
-            <input type="number" v-model="radius">
+            <input type="number" v-model="radius" min="0" placeholder="请输入天际线半径" @input="radiusChange">
         </div>
         <div class="box">
             <label for="">颜色：</label>
@@ -161,6 +161,22 @@ const clear = () => {
     skylineAnalysis.clear()
 }
 
+
+/**
+ * 限制半径不能为负数和空
+ * @param e 
+ */
+const radiusChange = (e) => {
+    let temp = e.target.value
+    if (temp < 0) {
+        Message.warning('天际线半径不能为负数')
+        radius.value = 1000
+    }
+    if (!temp) {
+        Message.warning('天际线半径不能为空')
+        radius.value = 1000
+    }
+}
 
 
 

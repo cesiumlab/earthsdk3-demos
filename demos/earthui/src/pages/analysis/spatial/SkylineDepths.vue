@@ -49,7 +49,8 @@ const option = reactive<any>({
     series: [
         {
             data: props.depths,
-            type: 'line'
+            type: 'line',
+            showAllSymbol: true
         }
     ]
 }
@@ -72,7 +73,7 @@ const init = () => {
     if (myChart.value) myChart.value.clear()
     try {
         option.series[0].data = props.depths.map(item => {
-            return 1 - (item[1] / xbsjEarthUi.activeViewer.container.offsetHeight)
+            return (1 - (item[1] / xbsjEarthUi.activeViewer.container.offsetHeight)).toFixed(6)
         })
     } catch (error) {
 

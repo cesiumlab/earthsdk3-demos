@@ -1,5 +1,5 @@
 <template>
-    <DraggablePopup2 :title="`天际线二维深度值`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
+    <DraggablePopup2 :title="`二维天际线`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
         :showButton="false">
         <div class="echart" ref="echart"></div>
     </DraggablePopup2>
@@ -57,7 +57,7 @@ const option = reactive<any>({
 watch(() => props.depths, () => {
     // 绘制图表
     init()
-})
+}, { deep: true })
 
 
 onMounted(() => {

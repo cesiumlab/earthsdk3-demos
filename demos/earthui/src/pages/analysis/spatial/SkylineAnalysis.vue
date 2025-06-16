@@ -33,7 +33,7 @@
             <button @click="clear">清除</button>
         </div>
     </PopList>
-    <SkylineDepths :depths="depths" v-if="depthsShow" @changeShow="depthsShow = false" />
+    <SkylineDepths :depths="windowPositions" v-if="depthsShow" @changeShow="depthsShow = false" />
 
 </template>
 <script setup lang="ts">
@@ -58,8 +58,14 @@ skylineAnalysis.radius = 1000
 // 销毁函数
 let dispose: any
 // 深度值
-let depths = toVR<number[]>(d, [skylineAnalysis, "windowPositions"])
+let windowPositions = ref([]);
+skylineAnalysis.windowPositionsChanged.don((value) => {
+    if (value) {
+        windowPositions.value = JSON.parse(JSON.stringify(value))
+    }
+})
 const depthsShow = ref(false)
+
 
 /** <-----------------------------------天际线边界变量--------------------------------------------------------->*/
 // 半径

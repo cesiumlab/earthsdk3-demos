@@ -2,7 +2,7 @@
     <PopList :title="'WMTS'" :showButton="true" @ok="addSceneObjects">
         <LabelInput v-model="server" :label="'服务地址'" @keydownenter="updateServer" @change="updateServer"></LabelInput>
         <!-- 图层 -->
-        <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :placeholder="'请选择'" 
+        <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :disabled="true" :placeholder="'请选择'" 
             :checkbox="true" :list="layersNameList" :listContent="'title'" :liClickFun="changeLayerListShow"
             :checkboxFun="checkboxFun">
         </LabelInput>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <!-- 样式 -->
-        <LabelInput v-if="selected.style.title" v-model="selected.style.title" :label="'样式'" :placeholder="'请选择'"
+        <LabelInput v-if="selected.style.title" v-model="selected.style.title" :disabled="true" :label="'样式'" :placeholder="'请选择'"
              :checkbox="true" :list="selected.currentLayer.styles" :listContent="'title'"
             :liClickFun="changeCurrentStyle">
         </LabelInput>
@@ -23,21 +23,21 @@
             <img :src="selected.style.legend.href ?? ''" alt="">
         </div>
         <!-- 格式 -->
-        <LabelInput v-if="selected.format.format" v-model="selected.format.format" :label="'格式'" :placeholder="'请选择'"
+        <LabelInput v-if="selected.format.format" v-model="selected.format.format" :disabled="true" :label="'格式'" :placeholder="'请选择'"
              :checkbox="true" :list="selected.currentLayer.urls" :listContent="'format'"
             :liClickFun="changeCurrentFormat">
         </LabelInput>
         <!-- 切片规则-->
-        <LabelInput v-if="selected.tileMatrixSet.tileMatrixSetID" v-model="selected.tileMatrixSet.tileMatrixSetID"
+        <LabelInput v-if="selected.tileMatrixSet.tileMatrixSetID" :disabled="true" v-model="selected.tileMatrixSet.tileMatrixSetID"
             :label="'切片规则'" :placeholder="'请选择'"  :checkbox="true"
             :list="selected.currentLayer.tileMatrixSets" :listContent="'tileMatrixSetID'"
             :liClickFun="changeTileMatrixSetID">
         </LabelInput>
         <!-- 最大最小级别 -->
-        <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel"
+        <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel" :disabled="true"
             v-model="selected.tileMatrixSet.params.minimumLevel" :inputType="'number'" :label="'最小级别'" :readonly="true">
         </LabelInput>
-        <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel"
+        <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel" :disabled="true"
             v-model="selected.tileMatrixSet.params.maximumLevel" :inputType="'number'" :label="'最大级别'" :readonly="true">
         </LabelInput>
     </PopList>

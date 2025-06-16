@@ -225,7 +225,9 @@ const importJsonFile = async () => {
         if (!handle) return;
         const jsonStr = await getTextFromFile(handle);
         if (!jsonStr) return;
+        console.log("字符串", jsonStr)
         let result = JSON.parse(jsonStr)
+
         const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
         sceneObject.materialOverrideMap = result
         list.value.forEach(item => {
@@ -241,7 +243,7 @@ const importJsonFile = async () => {
  */
 const exportJsonFile = async () => {
     const jsonStr = JSON.stringify(convertListToObject(list.value))
-    const name = "materialUE"
+    const name = "materialOverrideMap"
     try {
         Message.warning('正在另存为..');
         const handle = await getSaveFileHandle('json', name);
@@ -259,7 +261,7 @@ onMounted(() => {
     getTilesetMaterialIDList()
     nextTick(() => {
         const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
-        orginalMaterialOverrideMap.value = JSON.parse(JSON.stringify(sceneObject.materialOverrideMap))
+        orginalMaterialOverrideMap.value = sceneObject.materialOverrideMap ? JSON.parse(JSON.stringify(sceneObject.materialOverrideMap)) : {}
     });
 })
 

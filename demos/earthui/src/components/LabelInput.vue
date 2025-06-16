@@ -138,8 +138,8 @@ watch(a, () => {
                 @keydown.enter="onKeydownEnter($event)">
         </div>
         <div class="unit" v-if="unit">{{ unit }}</div>
-        <div class="checkbox" :class="{ 'checkbox_active': ulIsShow, 'input_disabled': disabled || readonly }"
-            v-if="checkbox" @click="checkBoxChange">
+        <div class="checkbox" :class="{ 'checkbox_active': ulIsShow, 'input_disabled': readonly }" v-if="checkbox"
+            @click="checkBoxChange">
             <es-icon :name="'liebiao'" :color="ulIsShow ? 'rgba(255, 255, 255, 1)' : 'rgba(230, 230, 230, 1)'"
                 :size="15" />
         </div>

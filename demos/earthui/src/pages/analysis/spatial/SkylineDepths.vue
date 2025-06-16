@@ -5,7 +5,7 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, defineProps, watch } from "vue";
+import { onMounted, ref, reactive, defineProps, watch, inject } from "vue";
 
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import * as echarts from "echarts";
@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<{ depths: number[] }>(), {})
 const echart = ref(null)
 const myChart = ref(null)
 const emits = defineEmits(["changeShow"])
+// 对象管理器
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const option = reactive<any>({
     xAxis: {
         type: 'category',
@@ -53,22 +55,31 @@ const option = reactive<any>({
 }
 )
 watch(() => props.depths, () => {
-    option.series[0].data = props.depths
     // 绘制图表
-    // @ts-ignore
-    if (myChart.value) myChart.value.setOption(option);
+    init()
 })
 
 
 onMounted(() => {
     // @ts-ignore
     myChart.value = echarts.init(echart.value);
-    // 绘制图表
+    init();
 
-    option.series[0].data = props.depths
+})
+
+const init = () => {
+    // @ts-ignore
+    if (myChart.value) myChart.value.clear()
+    try {
+        option.series[0].data = props.depths.map(item => {
+            return 1 - (item[1] / xbsjEarthUi.activeViewer.container.offsetHeight)
+        })
+    } catch (error) {
+
+    }
     // @ts-ignore
     myChart.value.setOption(option);
-})
+}
 
 
 const changeCancel = () => {

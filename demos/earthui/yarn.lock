@@ -1970,7 +1970,12 @@ earthsdk3-assets@3.0.2:
   resolved "https://registry.npmmirror.com/earthsdk3-assets/-/earthsdk3-assets-3.0.2.tgz#2108573ade8b6ecf392428caa5e594ac728f08de"
   integrity sha512-KxDTRu8sbsiBo19SDRx+RlAul9JMQir3QVJc4O6Ydm5iatXixLIimq27JY+2c5oogm0Ax15MTEFCwR/103M0yg==
 
-earthsdk3-cesium@3.0.7-beta.15:
+earthsdk3-assets@3.0.4-beta.1:
+  version "3.0.3"
+  resolved "https://registry.npmmirror.com/earthsdk3-assets/-/earthsdk3-assets-3.0.3.tgz#4a396c80e472d59f8c75b7e1673790f3ea61b19b"
+  integrity sha512-Bj3qkdat7/20iz9sUMMciSZB9uzj1y0wZTCwknz2lGESsD1W/oPbMPgVfxp+agMxUEl7mtgfeYjPrRaxMwwrCQ==
+
+earthsdk3-cesium@3.0.7-beta.22:
   version "3.0.7-beta.15"
   resolved "https://registry.npmmirror.com/earthsdk3-cesium/-/earthsdk3-cesium-3.0.7-beta.15.tgz#f318e582c650d50e9ca4a9933c31d98e87699643"
   integrity sha512-FHBMeixo+rtxtBALnommtnMMu3rPvAl8oQ7XdZv8yznlvL5SXBNLouvoP/eMfWZQ9W9UklUOROi0XqU4JykFAA==
@@ -2000,7 +2005,7 @@ earthsdk3@3.0.6:
     proj4 "^2.8.0"
     xbsj-base "1.0.1"
 
-earthsdk3@3.0.7-beta.13:
+earthsdk3@3.0.7-beta.17:
   version "3.0.7-beta.13"
   resolved "https://registry.npmmirror.com/earthsdk3/-/earthsdk3-3.0.7-beta.13.tgz#913baeba90052143475fa63d8bc3071f0a106c5d"
   integrity sha512-HcVqCXuMW7Zp9/bvLp2043N3YiCCWsjx1bGsiBb9hwYSXGxhSk1i0PIaX5Ky+bMjBOEyCFP7KogdjIPNtnCLtA==

@@ -58,7 +58,7 @@ skylineAnalysis.radius = 1000
 // 销毁函数
 let dispose: any
 // 深度值
-let depths = toVR<number[]>(d, [skylineAnalysis, "depths"])
+let depths = toVR<number[]>(d, [skylineAnalysis, "windowPositions"])
 const depthsShow = ref(false)
 
 /** <-----------------------------------天际线边界变量--------------------------------------------------------->*/

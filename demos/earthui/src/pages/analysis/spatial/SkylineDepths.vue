@@ -1,11 +1,11 @@
 <template>
-    <DraggablePopup2 :title="`天际线二维深度值`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
+    <DraggablePopup2 :title="`二维天际线`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
         :showButton="false">
         <div class="echart" ref="echart"></div>
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, defineProps, watch } from "vue";
+import { onMounted, ref, reactive, defineProps, watch, inject } from "vue";
 
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import * as echarts from "echarts";
@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<{ depths: number[] }>(), {})
 const echart = ref(null)
 const myChart = ref(null)
 const emits = defineEmits(["changeShow"])
+// 对象管理器
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const option = reactive<any>({
     xAxis: {
         type: 'category',
@@ -47,28 +49,38 @@ const option = reactive<any>({
     series: [
         {
             data: props.depths,
-            type: 'line'
+            type: 'line',
+            showAllSymbol: true
         }
     ]
 }
 )
 watch(() => props.depths, () => {
-    option.series[0].data = props.depths
     // 绘制图表
-    // @ts-ignore
-    if (myChart.value) myChart.value.setOption(option);
-})
+    init()
+}, { deep: true })
 
 
 onMounted(() => {
     // @ts-ignore
     myChart.value = echarts.init(echart.value);
-    // 绘制图表
+    init();
 
-    option.series[0].data = props.depths
+})
+
+const init = () => {
+    // @ts-ignore
+    if (myChart.value) myChart.value.clear()
+    try {
+        option.series[0].data = props.depths.map(item => {
+            return (1 - (item[1] / xbsjEarthUi.activeViewer.container.offsetHeight)).toFixed(6)
+        })
+    } catch (error) {
+
+    }
     // @ts-ignore
     myChart.value.setOption(option);
-})
+}
 
 
 const changeCancel = () => {

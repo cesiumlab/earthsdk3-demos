@@ -94,7 +94,6 @@ const closeActorHighlight = (val: string, flag: boolean) => {
 }
 //ue点击拾取位置信息后执行的函数
 const pos = (messages: { [key: string]: any }) => {
-    console.log(111,messages)
     if (!messages) return
     closeActorHighlight(oldActor.value, false)
     const message = messages.pickResult

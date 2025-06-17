@@ -13,7 +13,7 @@
                     <div v-for="(item, index) in list" :key="index">
                         <input type="checkbox" v-model="item.select">
                         <p>{{ item.key }}</p>
-                        <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
+                        <input type="text" v-model="item.value" placeholder="请选择或输入" @blur="handleBlur(item.value)">
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt=""
                             @click="openMaterialPanel(item)" title="选择材质">
                     </div>
@@ -199,9 +199,13 @@ const convertListToObject = (list: item[]) => {
 
  */
 const handleBlur = (value: string | undefined) => {
-    if (!value) return
-    const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
-    if (index == -1) Message.warning('请输入正确的UE材质ID')
+
+    if (value) {
+        const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
+        if (index == -1) Message.warning('请输入正确的UE材质ID')
+    }
+
+    replaceUeMaterial()
 
 }
 

@@ -199,9 +199,13 @@ const convertListToObject = (list: item[]) => {
 
  */
 const handleBlur = (value: string | undefined) => {
-    if (!value) return
-    const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
-    if (index == -1) Message.warning('请输入正确的UE材质ID')
+
+    if (value) {
+        const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
+        if (index == -1) Message.warning('请输入正确的UE材质ID')
+    }
+
+    replaceUeMaterial()
 
 }
 

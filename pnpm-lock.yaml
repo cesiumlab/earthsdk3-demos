@@ -24,8 +24,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
@@ -92,8 +92,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -144,8 +144,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -196,8 +196,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       vue:
         specifier: ^3.5.13
         version: 3.5.16(typescript@5.6.3)
@@ -245,8 +245,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -309,8 +309,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -346,8 +346,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -380,8 +380,8 @@ importers:
         specifier: 3.0.4-beta.1
         version: 3.0.4-beta.1
       earthsdk3-cesium:
-        specifier: 3.0.7-beta.22
-        version: 3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
+        specifier: 3.0.7-beta.23
+        version: 3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17)
       earthsdk3-ue:
         specifier: 3.0.7-beta.4
         version: 3.0.7-beta.4(earthsdk3@3.0.7-beta.17)
@@ -3205,8 +3205,8 @@ packages:
   earthsdk3-assets@3.0.4-beta.1:
     resolution: {integrity: sha512-pM4BTjIXnm1/Qt3nn4ojwDLrO8/kHHDfYLE02JVD3Ytgv7wkdJX3FDPvZsZ0z6aTHacaR6R599R1ZjRzN5hp3Q==}
 
-  earthsdk3-cesium@3.0.7-beta.22:
-    resolution: {integrity: sha512-T7cH8gDr1+H+gMLiRWvYyufLwAYp1iuG1l4OsSrTp699P//L117X2uWQcAjaeq7koYMxhf9qBWNykQpZLvgoZg==}
+  earthsdk3-cesium@3.0.7-beta.23:
+    resolution: {integrity: sha512-EXmSnjN8G+cUDkbVEN9e4x7fe8pp0J1DbxpPJVzUWL1nFwfBUcUkTCLVEg2JC8GKhxZUhP9ogD+GgKAAUMGDWQ==}
     peerDependencies:
       cesium: ~1.123.1
       earthsdk3: workspace:*
@@ -9400,7 +9400,7 @@ snapshots:
 
   earthsdk3-assets@3.0.4-beta.1: {}
 
-  earthsdk3-cesium@3.0.7-beta.22(cesium@1.123.1)(earthsdk3@3.0.7-beta.17):
+  earthsdk3-cesium@3.0.7-beta.23(cesium@1.123.1)(earthsdk3@3.0.7-beta.17):
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.123.1

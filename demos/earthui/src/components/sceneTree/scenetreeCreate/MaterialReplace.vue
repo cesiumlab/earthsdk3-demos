@@ -13,7 +13,7 @@
                     <div v-for="(item, index) in list" :key="index">
                         <input type="checkbox" v-model="item.select">
                         <p>{{ item.key }}</p>
-                        <input type="text" v-model="item.value" @blur="handleBlur(item.value)">
+                        <input type="text" v-model="item.value" placeholder="请选择或输入" @blur="handleBlur(item.value)">
                         <img src="../../../assets/material/caizhi_weixuanzhong.png" alt=""
                             @click="openMaterialPanel(item)" title="选择材质">
                     </div>

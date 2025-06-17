@@ -77,3 +77,26 @@ export const ueActorResult = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => v
     });
     return disposeUe
 }
+//unrealActor ue点击返回信息事件
+/**
+ * 
+ * @param xbsjEarthUi 传入当前的挂载ueViewer的XbsjEarthViewer类
+ * @param pos 传入你获取到位置(经纬高的数组)之后，要执行的函数
+ * @returns 返回值是一个ue的执行函数，外部需要循环调用一下，结束点击事件
+ */
+export const ueActorResult2 = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => void) => {
+    const viewer = xbsjEarthUi.activeViewer as unknown as ESUeViewer
+    if (!viewer) return
+    let disposeUe = viewer.clickEvent.don(async e => { // ue中没有pointerDown，但是ue的click相当于pointerDown
+        if (!e.screenPosition) return;
+        if (!(viewer instanceof ESUeViewer)) {
+            Message.warning('请在ue视口下操作')
+            return
+        }
+        const result = await viewer.pick(e.screenPosition)
+        // console.log('result',result);
+        if (!result) return
+        pos(result)
+    });
+    return disposeUe
+}

@@ -19,7 +19,7 @@ import { Message } from "earthsdk-ui";
 import { inject, onBeforeUnmount, ref } from 'vue';
 import LabelInput from "../../../components/LabelInput.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { ueActorResult } from './fun';
+import { ueActorResult2 } from './fun';
 import Tree from './tree/Tree.vue';
 import PopList from '../../../components/PopList.vue';
 import { ESUeViewer } from "earthsdk3-ue";
@@ -124,7 +124,7 @@ const pos = (messages: { [key: string]: any }) => {
 }
 
 //调用点击返回拾取信息函数
-const dispose = ueActorResult(xbsjEarthUi, pos)
+const dispose = ueActorResult2(xbsjEarthUi, pos)
 const destroy = () => {//销毁
     closeActorHighlight(actorTag.value, false)
     closeActorHighlight(oldActor.value, false)

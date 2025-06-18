@@ -24,6 +24,7 @@
                     <div>"earthsdk3": "{{ data.earthsdk3 }}"</div>
                     <div>"earthsdk3-cesium": "{{ data["earthsdk3-cesium"] }}"</div>
                     <div>"earthsdk3-ue": "{{ data["earthsdk3-ue"] }}"</div>
+                    <div>"earthsdk3-assets": "{{ data["earthsdk3-assets"] }}"</div>
                 </div>
             </div>
         </div>

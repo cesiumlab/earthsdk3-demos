@@ -1102,12 +1102,12 @@
                 "details": "Cesium宇宙背景设置",
                 "children": [
                     {
-                        "name": "背景透明+地球颜色",
+                        "name": "背景颜色+地球颜色",
                         "thumbnail": "cesium-background-background.webp",
                         "path": "cesium/background/background"
                     },
                     {
-                        "name": "自定义背景",
+                        "name": "自定义图片背景",
                         "thumbnail": "cesium-background-custom.webp",
                         "path": "cesium/background/custom"
                     }

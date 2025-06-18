@@ -2,91 +2,91 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <script src="./js/earthsdk.js"></script>
-  <!-- 自定义Css样式 -->
-  <link rel="stylesheet" href="./css/example1.css" />
-  <title>Cesium地球初始化</title>
-  <style>
-    html,
-    body,
-    #app {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <script>
-    /** ---------------------------------地球创建------------------------------------**/
-    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-    const { ESObjectsManager } = window['earthsdk3']
-    const { ESCesiumViewer } = window['earthsdk3-cesium']
-    const { ESUeViewer } = window['earthsdk3-ue']
-    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-    window.g_objm = objm;
-    // 监听视口状态
-    objm.viewerCreatedEvent.don((viewer) => {
-      viewer.flyIn([114.82137484163687, 26.49083789956334, 8694.279766006526], [278.69090484833276, -33.50694542004849, 0.005995718570266888], 3)
-    });
+    <div id="app"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([114.82137484163687, 26.49083789956334, 8694.279766006526], [278.69090484833276, -33.50694542004849, 0.005995718570266888], 3)
+        });
 
-    // 创建Cesium视口
-    const viewer = objm.createCesiumViewer(document.getElementById("app"));
-    // 通过json创建一个影像图层
-    const imageryLayer = objm.createSceneObjectFromJson({
-      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-      type: "ESImageryLayer",
-      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
 
-    /** ------------------------------带洞多边形------------------------------------**/
-    const sceneObject = objm.createSceneObject('ESPolygonWithHole');
+        /** ------------------------------带洞多边形------------------------------------**/
+        const sceneObject = objm.createSceneObject('ESPolygonWithHole');
 
-    sceneObject.fillStyle = {
-      color: [1, 1, 1, 0.5],
-      material: "",
-      materialParams: {},
-      ground: false,
-    };
+        sceneObject.fillStyle = {
+            color: [1, 1, 1, 0.5],
+            material: "",
+            materialParams: {},
+            ground: false,
+        };
 
-    sceneObject.points = [
-      [114.67684610882753, 26.526451166681444, 4.656612873077393e-10],
-      [114.69676194396713, 26.478934504911145, 0],
-      [114.74233953253741, 26.528333703779726, 0],
-    ];
+        sceneObject.points = [
+            [114.67684610882753, 26.526451166681444, 4.656612873077393e-10],
+            [114.69676194396713, 26.478934504911145, 0],
+            [114.74233953253741, 26.528333703779726, 0],
+        ];
 
-    setTimeout(() => {
-      sceneObject.innerRings = [
-        [
-          [114.69316728533545, 26.504865284205472, -0.8443384258447216],
-          [114.70094958338905, 26.49625771729132, -0.8362339243148961],
-          [114.70853784505844, 26.505567365004527, -1.0734564621630764],
-          [114.7005052191517, 26.508032542312407, -1.021581343892519],
-        ],
-        [
-          [114.7030984067773, 26.519533279204637, -0.9805352487695138],
-          [114.71497554516903, 26.506522130161, -1.0602925491342097],
-          [114.72678711822003, 26.520405417478507, -0.7923769544358833],
-          [114.71466653115611, 26.5119433965195, -0.9938444026771838],
-        ],
-      ];
-    }, 1000);
-  </script>
+        setTimeout(() => {
+            sceneObject.innerRings = [
+                [
+                    [114.69316728533545, 26.504865284205472, -0.8443384258447216],
+                    [114.70094958338905, 26.49625771729132, -0.8362339243148961],
+                    [114.70853784505844, 26.505567365004527, -1.0734564621630764],
+                    [114.7005052191517, 26.508032542312407, -1.021581343892519],
+                ],
+                [
+                    [114.7030984067773, 26.519533279204637, -0.9805352487695138],
+                    [114.71497554516903, 26.506522130161, -1.0602925491342097],
+                    [114.72678711822003, 26.520405417478507, -0.7923769544358833],
+                    [114.71466653115611, 26.5119433965195, -0.9938444026771838],
+                ],
+            ];
+        }, 1000);
+    </script>
 
-  <!-- 切换UE和Cesium引擎的组件（Vue） -->
-  <div id="root">
-    <switch-engine :objm="objm"></switch-engine>
-  </div>
-  <!-- Vue文件 -->
-  <script src="./js/vue.global.js"></script>
-  <!-- 切换UE和Cesium的组件 -->
-  <script src="./js/switchEngineCom.js"></script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
 </body>
 
 </html>

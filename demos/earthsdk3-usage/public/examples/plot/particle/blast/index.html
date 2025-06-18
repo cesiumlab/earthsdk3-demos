@@ -2,106 +2,106 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <script src="./js/earthsdk.js"></script>
-  <!-- 自定义Css样式 -->
-  <link rel="stylesheet" href="./css/example1.css" />
-  <title>粒子爆炸</title>
-  <style>
-    html,
-    body,
-    #app {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>粒子爆炸</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
 
-    .box {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 100px 1fr;
-      grid-row-gap: 5px;
-      margin-bottom: 10px;
-    }
+        .box {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 100px 1fr;
+            grid-row-gap: 5px;
+            margin-bottom: 10px;
+        }
 
-    .box1 {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-  </style>
+        .box1 {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <div id="panel">
-    <div class="box1">
-      <button onclick="rePickPosition()">重新拾取位置</button>
-      <button onclick="startEditing()">开启编辑</button>
-      <button onclick="flyTo()">飞行定位</button>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box1">
+            <button onclick="rePickPosition()">重新拾取位置</button>
+            <button onclick="startEditing()">开启编辑</button>
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
     </div>
-  </div>
-  <script>
-    /** ---------------------------------地球创建------------------------------------**/
-    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-    const { ESObjectsManager } = window['earthsdk3']
-    const { ESCesiumViewer } = window['earthsdk3-cesium']
-    const { ESUeViewer } = window['earthsdk3-ue']
-    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-    window.g_objm = objm;
-    // 监听视口状态
-    objm.viewerCreatedEvent.don((viewer) => {
-      viewer.flyIn(
-        [114.18426044851871, 34.62142064759297, 56.300590493329274],
-        [360, -30.000000000000018, 360],
-        3
-      )
-    });
-    // 创建Cesium视口
-    const viewer = objm.createCesiumViewer(document.getElementById("app"));
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [114.18426044851871, 34.62142064759297, 56.300590493329274],
+                [360, -30.000000000000018, 360],
+                3
+            )
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-    // 通过json创建一个影像图层
-    const imageryLayer = objm.createSceneObjectFromJson({
-      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-      type: "ESImageryLayer",
-      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    });
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
 
-    /** ---------------------------------图标标记------------------------------------**/
+        /** ---------------------------------图标标记------------------------------------**/
 
-    const sceneObject = objm.createSceneObject('ESBlastParticleSystem');
+        const sceneObject = objm.createSceneObject('ESBlastParticleSystem');
 
-    // 位置
-    sceneObject.position = [
-      114.18426044851871, 34.62220131026932, 6.300000235742714,
-    ];
+        // 位置
+        sceneObject.position = [
+            114.18426044851871, 34.62220131026932, 6.300000235742714,
+        ];
 
-    // 根据UI重新拾取位置
-    function rePickPosition() {
-      sceneObject.editing = false;
-      sceneObject.position = [0, 0, 0];
-      sceneObject.editing = true;
-    }
-    // 根据UI开始编辑
-    function startEditing() {
-      sceneObject.editing = true;
-    }
-    // 根据UI飞行定位
-    function flyTo() {
-      sceneObject.flyTo();
-    }
-  </script>
+        // 根据UI重新拾取位置
+        function rePickPosition() {
+            sceneObject.editing = false;
+            sceneObject.position = [0, 0, 0];
+            sceneObject.editing = true;
+        }
+        // 根据UI开始编辑
+        function startEditing() {
+            sceneObject.editing = true;
+        }
+        // 根据UI飞行定位
+        function flyTo() {
+            sceneObject.flyTo();
+        }
+    </script>
 
-  <!-- 切换UE和Cesium引擎的组件（Vue） -->
-  <div id="root">
-    <switch-engine :objm="objm"></switch-engine>
-  </div>
-  <!-- Vue文件 -->
-  <script src="./js/vue.global.js"></script>
-  <!-- 切换UE和Cesium的组件 -->
-  <script src="./js/switchEngineCom.js"></script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
 </body>
 
 </html>

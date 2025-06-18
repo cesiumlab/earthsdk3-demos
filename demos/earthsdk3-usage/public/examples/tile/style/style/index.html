@@ -58,9 +58,9 @@
 
 
         // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-        const { ESObjectsManager } = window['earthsdk3']
-        const { ESCesiumViewer } = window['earthsdk3-cesium']
-        const { ESUeViewer } = window['earthsdk3-ue']
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
         // 监听视口状态
@@ -89,7 +89,7 @@
 
 
         /**-----------------------------创建一个ES3DTileset对象-------------------------------**/
-        const { ES3DTileset } = window['earthsdk3']
+        const { ES3DTileset } = window['EarthSDK3']
         const sceneObject = objm.createSceneObject(ES3DTileset)
         sceneObject.url = "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
 

@@ -2,108 +2,108 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <script src="./js/earthsdk.js"></script>
-  <!-- 面板的样式放到css文件内 -->
-  <link rel="stylesheet" href="./css/example1.css" />
-  <title>坡度</title>
-  <style>
-    html,
-    body,
-    #app {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 面板的样式放到css文件内 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>坡度</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
 
-    #box {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-    }
-  </style>
+        #box {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <div id="panel">
-    <div id="box">
-      <label for="">坡度</label>
-      <input type="checkbox" id="slope" onchange="changeSlope()" checked />
+    <div id="app"></div>
+    <div id="panel">
+        <div id="box">
+            <label for="">坡度</label>
+            <input type="checkbox" id="slope" onchange="changeSlope()" checked />
+        </div>
     </div>
-  </div>
-  <script>
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
-    /** ---------------------------------地球创建------------------------------------**/
-    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-    const { ESObjectsManager } = window['earthsdk3']
-    const { ESCesiumViewer } = window['earthsdk3-cesium']
-    const { ESUeViewer } = window['earthsdk3-ue']
-    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-    window.g_objm = objm;
-    // 监听视口状态
-    objm.viewerCreatedEvent.don((viewer) => {
-      viewer.flyIn(
-        [115.13608053611286, 28.821215137027473, 4461.014865370932],
-        [309.07544316940016, -33.72351135063601, 0.00009594434830598995],
-        3
-      );
-      //token需要到cesium官网申请 https://ion.cesium.com/
-      // viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE";
-    });
-    // 创建Cesium视口
-    const viewer = objm.createCesiumViewer(document.getElementById("app"));
+    <script>
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k'
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [115.13608053611286, 28.821215137027473, 4461.014865370932],
+                [309.07544316940016, -33.72351135063601, 0.00009594434830598995],
+                3
+            );
+            //token需要到cesium官网申请 https://ion.cesium.com/
+            // viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE";
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-    // 通过json创建一个影像图层
-    const imageryLayer = objm.createSceneObjectFromJson({
-      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-      type: "ESImageryLayer",
-      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    });
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
 
-    /**-------------------------------------cesium地形-------------------------------**/
-    /**
-     * 1.cesium官方地形需要到官网申请token
-     * 2.将token设置给当前视口下的ionAccessToken
-     */
-    const eSTerrainLayer = objm.createSceneObject('ESTerrainLayer');
-    // cesium官方地形
-    eSTerrainLayer.url = "ion://1";
+        /**-------------------------------------cesium地形-------------------------------**/
+        /**
+         * 1.cesium官方地形需要到官网申请token
+         * 2.将token设置给当前视口下的ionAccessToken
+         */
+        const eSTerrainLayer = objm.createSceneObject('ESTerrainLayer');
+        // cesium官方地形
+        eSTerrainLayer.url = "ion://1";
 
-    /** --------------------------------- 全球材质，地形着色 ------------------------------------**/
-    const func = (key, obj) => {
-      const terrainShader = {
-        slope: {
-          show: false
-        },
-        aspect: {
-          show: false,
-        },
-        elevationRamp: {
-          show: false,
-        },
-        elevationContour: {
-          show: false,
-          color: [1, 0, 0, 1],
-          spacing: 150,
-          width: 2,
+        /** --------------------------------- 全球材质，地形着色 ------------------------------------**/
+        const func = (key, obj) => {
+            const terrainShader = {
+                slope: {
+                    show: false
+                },
+                aspect: {
+                    show: false,
+                },
+                elevationRamp: {
+                    show: false,
+                },
+                elevationContour: {
+                    show: false,
+                    color: [1, 0, 0, 1],
+                    spacing: 150,
+                    width: 2,
+                }
+            }
+            terrainShader[key] = obj;
+
+            return terrainShader;
         }
-      }
-      terrainShader[key] = obj;
 
-      return terrainShader;
-    }
-
-    // 设置坡度
-    const changeSlope = () => {
-      const flag = document.getElementById("slope").checked
-      const terrainShader = func("slope", { show: flag });
-      viewer.terrainShader = { ...terrainShader }
-    };
-    changeSlope();
-  </script>
+        // 设置坡度
+        const changeSlope = () => {
+            const flag = document.getElementById("slope").checked
+            const terrainShader = func("slope", { show: flag });
+            viewer.terrainShader = { ...terrainShader }
+        };
+        changeSlope();
+    </script>
 </body>
 
 </html>

@@ -56,6 +56,7 @@
             viewer.scene.skyBox.show = false;
             //地球颜色
             v.sceneGlobeBaseColor = [1, 0, 0, 1]
+            viewer.scene.backgroundColor = new Cesium.Color(1.0, 1.0, 0.0, 1.0);
         });
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));

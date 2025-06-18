@@ -58,6 +58,7 @@
             // 获取Cesium底层viewer
             const viewer = v.viewer;
             viewer.scene.skyBox.show = false;
+            // 设置背景透明（CSS设置背景图片，上方所示）
             viewer.scene.backgroundColor = new Cesium.Color(0.0, 0.0, 0.0, 0.0);
         });
 

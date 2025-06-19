@@ -86,17 +86,17 @@ importers:
         specifier: ^1.6.7
         version: 1.9.0
       earthsdk3:
-        specifier: 3.0.7
-        version: 3.0.7
+        specifier: 3.0.8-beta.8
+        version: 3.0.8-beta.8(xbsj-base@1.0.3)
       earthsdk3-assets:
         specifier: 3.0.4
         version: 3.0.4
       earthsdk3-cesium:
-        specifier: 3.0.7
-        version: 3.0.7(cesium@1.123.1)(earthsdk3@3.0.7)
+        specifier: 3.0.8-beta.7
+        version: 3.0.8-beta.7(cesium@1.123.1)(earthsdk3@3.0.8-beta.8(xbsj-base@1.0.3))(xbsj-base@1.0.3)
       earthsdk3-ue:
-        specifier: 3.0.7
-        version: 3.0.7(earthsdk3@3.0.7)
+        specifier: 3.0.8-beta.4
+        version: 3.0.8-beta.4(earthsdk3@3.0.8-beta.8(xbsj-base@1.0.3))(xbsj-base@1.0.3)
       monaco-editor:
         specifier: ^0.30.1
         version: 0.30.1
@@ -104,8 +104,8 @@ importers:
         specifier: ^3.4.4
         version: 3.4.4
       xbsj-base:
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.0.3
+        version: 1.0.3
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -3211,16 +3211,34 @@ packages:
       cesium: ~1.123.1
       earthsdk3: workspace:*
 
+  earthsdk3-cesium@3.0.8-beta.7:
+    resolution: {integrity: sha512-Ndy6duCh8ymGVG7bAhNB3rMfKwDj+MRwORWbkAeQf72xT58HBs2gxdoiTs5mIQ3dbxmJB2T8d7wvKKymxj1khQ==}
+    peerDependencies:
+      cesium: '1.130'
+      earthsdk3: workspace:*
+      xbsj-base: 1.0.3
+
   earthsdk3-ue@3.0.7:
     resolution: {integrity: sha512-LTUmqPUSbHXcQL1q7sSwGdC6ch60iTlzODC6oiFc0BXBBDkZ4vJf45a2wx+oWKfyR6RyQK0eq2Bj4fU0mWQ4eQ==}
     peerDependencies:
       earthsdk3: workspace:^
+
+  earthsdk3-ue@3.0.8-beta.4:
+    resolution: {integrity: sha512-hoNm1ljAA0qEEuDx609b8WPNvsTw5Do+u3E8n94jiEc/eLffiDG5AuhOKKbAZhuwAKPBKgOB9gUc6dipMr3eXg==}
+    peerDependencies:
+      earthsdk3: workspace:^
+      xbsj-base: 1.0.3
 
   earthsdk3@3.0.6:
     resolution: {integrity: sha512-YtW6wz0H3xhS5QDt2SHlYEGX+jq5++3OQjJkuxCUeL1GL2Amhlym56UvCKfql7ZLiEiqrfQITxNt0unLY2xWNA==}
 
   earthsdk3@3.0.7:
     resolution: {integrity: sha512-2I+Oj7LhMH61FF5QqYikHGZer8AcsP5StErgn0YeevGdmC9DE9PoCka8PlfJSrdTq3I+nxyk8gLqT/Y4r1GR9Q==}
+
+  earthsdk3@3.0.8-beta.8:
+    resolution: {integrity: sha512-LGC1SI8YnmNw5RiiZK9OjWrRoIGCqeAZnUB5PK+q6jhlsT+IXAOpEfK/x3+h5SMIV3FFzJRG3GAzmb8Lr+49dA==}
+    peerDependencies:
+      xbsj-base: 1.0.3
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -3684,6 +3702,9 @@ packages:
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
+
+  heatmapjs@2.0.2:
+    resolution: {integrity: sha512-1pO/bbn9G1NYhndvjnzLVAQMGBOCk8abMM7QnLOPlIMoxDfG9Uylb68PlZe/0MCT9GuwGGtchXVPLWfoT6HrCw==}
 
   highlight.js@10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
@@ -5816,6 +5837,9 @@ packages:
 
   xbsj-base@1.0.1:
     resolution: {integrity: sha512-9rFh2x/GW4pCwVMFNJ6qyAPD02+FxDg95+IvAYFENRW6LP+QIsVxrnCfzncLnhTBRs42awe4eknjZozpwvKfRg==}
+
+  xbsj-base@1.0.3:
+    resolution: {integrity: sha512-4rSSuhGIu9lRH9TJqWK5iD4nouKlS6qmCzh+44YwrvDVDQLdNOE8OMdT0QzF/1GNa65EJ+OaX8POUkc6XrZ8NQ==}
 
   xml-utils@1.10.2:
     resolution: {integrity: sha512-RqM+2o1RYs6T8+3DzDSoTRAUfrvaejbVHcp3+thnAtDKo8LskR+HomLajEy5UjTz24rpka7AxVBRR3g2wTUkJA==}
@@ -9411,12 +9435,31 @@ snapshots:
       mvt-basic-render: 0.3.5
       xbsj-base: 1.0.1
 
+  earthsdk3-cesium@3.0.8-beta.7(cesium@1.123.1)(earthsdk3@3.0.8-beta.8(xbsj-base@1.0.3))(xbsj-base@1.0.3):
+    dependencies:
+      '@types/delaunator': 5.0.3
+      cesium: 1.123.1
+      delaunator: 5.0.1
+      earcut: 2.2.4
+      earthsdk3: 3.0.8-beta.8(xbsj-base@1.0.3)
+      heatmapjs: 2.0.2
+      html2canvas: 1.4.1
+      mvt-basic-render: 0.3.5
+      xbsj-base: 1.0.3
+
   earthsdk3-ue@3.0.7(earthsdk3@3.0.7):
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.8
       earthsdk3: 3.0.7
       html2canvas: 1.4.1
       xbsj-base: 1.0.1
+
+  earthsdk3-ue@3.0.8-beta.4(earthsdk3@3.0.8-beta.8(xbsj-base@1.0.3))(xbsj-base@1.0.3):
+    dependencies:
+      '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.8
+      earthsdk3: 3.0.8-beta.8(xbsj-base@1.0.3)
+      html2canvas: 1.4.1
+      xbsj-base: 1.0.3
 
   earthsdk3@3.0.6:
     dependencies:
@@ -9430,6 +9473,13 @@ snapshots:
       '@types/proj4': 2.5.6
       proj4: 2.17.0
       xbsj-base: 1.0.1
+
+  earthsdk3@3.0.8-beta.8(xbsj-base@1.0.3):
+    dependencies:
+      '@turf/turf': 6.5.0
+      '@types/proj4': 2.5.6
+      proj4: 2.17.0
+      xbsj-base: 1.0.3
 
   eastasianwidth@0.2.0: {}
 
@@ -9991,6 +10041,8 @@ snapshots:
       function-bind: 1.1.2
 
   he@1.2.0: {}
+
+  heatmapjs@2.0.2: {}
 
   highlight.js@10.7.3: {}
 
@@ -12174,6 +12226,10 @@ snapshots:
       '@xmldom/xmldom': 0.8.10
 
   xbsj-base@1.0.1:
+    dependencies:
+      js-binary-schema-parser: 2.0.3
+
+  xbsj-base@1.0.3:
     dependencies:
       js-binary-schema-parser: 2.0.3
 

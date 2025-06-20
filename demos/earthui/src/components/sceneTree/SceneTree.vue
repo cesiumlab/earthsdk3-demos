@@ -729,34 +729,34 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
             baseItems.splice(-8, 0, item)
         })
     }
-    // const enditingList = {
-    //   text: "编辑",
-    //   keys: "",
-    //   func: () => {
-    //     let dispose: any
-    //     if (treeItem.sceneObject) {
-    //       if ('editing' in treeItem.sceneObject && treeItem.sceneObject instanceof ESGeoJson) {//ESGeoJson有editing属性但是不能被编辑
-    //         treeItem.sceneObject.editing = true
-    //         Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
-    //         //@ts-ignore
-    //         dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
-    //           if (!res) {
-    //             Message.remove('xxx')
-    //             dispose()
-    //             dispose = undefined
-    //           }
-    //         })
-    //       }
-    //     }
-    //   },
-    // }
-    // if (treeItem.sceneObject) {
-    //   if ('positionEditing' in treeItem.sceneObject || 'editing' in treeItem.sceneObject) {
-    //     if ((!(treeItem.sceneObject instanceof ES3DTileset)) || (treeItem.sceneObject instanceof ES3DTileset && treeItem.sceneObject.supportEdit)) {
-    //       baseItems.splice(1, 0, enditingList)
-    //     }
-    //   }
-    // }
+    const enditingList = {
+        text: "编辑",
+        keys: "",
+        func: () => {
+            let dispose: any
+            if (treeItem.sceneObject) {
+                if ('editing' in treeItem.sceneObject && treeItem.sceneObject instanceof ESGeoJson) {//ESGeoJson有editing属性但是不能被编辑
+                    treeItem.sceneObject.editing = true
+                    Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+                    //@ts-ignore
+                    dispose = treeItem.sceneObject.editingChanged.disposableOnce((res: boolean) => {
+                        if (!res) {
+                            Message.remove('xxx')
+                            dispose()
+                            dispose = undefined
+                        }
+                    })
+                }
+            }
+        },
+    }
+    if (treeItem.sceneObject) {
+        if ('positionEditing' in treeItem.sceneObject || 'editing' in treeItem.sceneObject) {
+            if ((!(treeItem.sceneObject instanceof ES3DTileset)) || (treeItem.sceneObject instanceof ES3DTileset && treeItem.sceneObject.supportEdit)) {
+                baseItems.splice(1, 0, enditingList)
+            }
+        }
+    }
     const Geojson = {
         text: "转为ES点线面对象",
         keys: "",
@@ -907,9 +907,32 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
         }
     }
 
+    if (treeItem.sceneObject) {
+        if (treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESImageryLayer) {
+            const setSplitDirection = getSplitDirectionList(treeItem.sceneObject)
+            setSplitDirection.forEach((item: any) => {
+                baseItems.push(item)
+            })
+        }
+    }
     menuContent.value = baseItems
 }
+const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
+    const actions:any = {
+        LEFT: { text: "向左分割", next: ['RIGHT', 'NONE'] },
+        RIGHT: { text: "向右分割", next: ['LEFT', 'NONE'] },
+        NONE: { text: "不分割", next: ['LEFT', 'RIGHT'] }
+    };
 
+    const current = sceneObject.splitDirection;
+    const availableActions = actions[current].next.map((dir:any) => ({
+        text: actions[dir].text,
+        keys: "",
+        func: () => { sceneObject.splitDirection = dir; }
+    }));
+
+    return [{ type: "divider" }, ...availableActions];
+};
 const copyClipboard = async (text: string) => {//复制
     navigator.clipboard.writeText(text)
         .then(function () {

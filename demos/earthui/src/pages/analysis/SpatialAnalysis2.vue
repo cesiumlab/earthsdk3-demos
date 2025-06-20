@@ -15,6 +15,7 @@ import Button from '../../components/Button.vue';
 const disposer = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const ueIsShow = toVR<boolean>(disposer, [xbsjEarthUi, 'ueIsShow'])
+const rollerShutter = toVR<boolean>(disposer, [xbsjEarthUi.activeViewer, 'rollerShutter'])
 const controlList: { zh: string, type: string, icon: string, leftButton: boolean, hiddenFromUE?: boolean }[] = [
     {
         type: 'SkylineAnalysis',
@@ -34,13 +35,13 @@ const emits = defineEmits(['closeObj'])
 
 <template>
     <RightList :title="'空间分析2'" v-show="!ueIsShow">
-        <div class="control-list">
-            <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"
-                :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
-                :left-button="item.leftButton"></Button>
-            <component :is="type" />
-        </div>
-
+        <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"
+            :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
+            :left-button="item.leftButton"></Button>
+        <Button  :name="'jiancai'"
+            :content="'卷帘分割'" :click="() => { rollerShutter=!rollerShutter }" :actived="rollerShutter"
+            :left-button="false"></Button>
+        <component :is="type" />
     </RightList>
 </template>
 

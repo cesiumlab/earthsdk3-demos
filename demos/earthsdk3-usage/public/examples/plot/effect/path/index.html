@@ -2,189 +2,189 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <script src="./js/earthsdk.js"></script>
-  <script src="./js/Colorpicker.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
 
-  <!-- 自定义Css样式 -->
-  <link rel="stylesheet" href="./css/example1.css" />
-  <title>Cesium地球初始化</title>
-  <style>
-    html,
-    body,
-    #app {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>Cesium地球初始化</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
 
-    .box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin-bottom: 10px;
-      align-items: center;
-      grid-row-gap: 5px;
-    }
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 10px;
+            align-items: center;
+            grid-row-gap: 5px;
+        }
 
-    .btn {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 1fr;
-    }
+        .btn {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr;
+        }
 
-    #GroupColor {
-      background: #e738be;
-    }
+        #GroupColor {
+            background: #e738be;
+        }
 
-    /* 231, 56, 190 #e738be */
-  </style>
+        /* 231, 56, 190 #e738be */
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <div id="panel">
-    <div class="box">
-      <label for="">编辑</label><input type="checkbox" id="editing" onchange="editing()" />
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <label for="">编辑</label><input type="checkbox" id="editing" onchange="editing()" />
 
-      <label for="">线宽</label><input type="number" id="line" value="7" onchange="line()" />
+            <label for="">线宽</label><input type="number" id="line" value="7" onchange="line()" />
 
-      <label for="">速度</label><input type="number" id="speed" value="20" onchange="speed()" />
+            <label for="">速度</label><input type="number" id="speed" value="20" onchange="speed()" />
 
-      <label for="">线条颜色</label>
-      <div class="colorBox">
-        <input id="strokeColor" value="#4e521c" />
-        <div id="GroupColor"></div>
-      </div>
+            <label for="">线条颜色</label>
+            <div class="colorBox">
+                <input id="strokeColor" value="#4e521c" />
+                <div id="GroupColor"></div>
+            </div>
 
-      <label for="">路径样式</label><select name="mode" id="mode1" onchange="mode()">
-        <option value="singleArrow" selected>单线条</option>
-        <option value="multipleArrows">多线条</option>
-      </select>
+            <label for="">路径样式</label><select name="mode" id="mode1" onchange="mode()">
+                <option value="singleArrow" selected>单线条</option>
+                <option value="multipleArrows">多线条</option>
+            </select>
+        </div>
+        <div class="btn">
+            <button onclick="createESPath()">重新绘制</button>
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
     </div>
-    <div class="btn">
-      <button onclick="createESPath()">重新绘制</button>
-      <button onclick="flyTo()">飞行定位</button>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [109.87816359566766, 37.456677008936914, 118.59381921733548],
+                [4.547008759980817, -38.675659321417186, 0.000324197108549594],
+                3
+            )
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** ---------------------------------------路径------------------------------------------**/
+
+        const sceneObject = objm.createSceneObject('ESPath');
+
+        // 路径样式 blue、purple(默认)
+        // sceneObject.materialMode = "blue"
+
+        // 速度【速度 m/s】
+        sceneObject.speed = 20;
+
+        // 点位
+        sceneObject.points = [
+            [109.8778028424594, 37.45791208311074, 0.18139695775208664],
+            [109.87853718258414, 37.45792094652431, 0.47671251762246414],
+            [109.8784372100681, 37.457352564391705, 0.10352228101479152],
+            [109.87795366203022, 37.45734949491914, 1.4194308256082209],
+            [109.87792162633669, 37.457532499061294, 3.609131457456519],
+            [109.87826262866017, 37.457556342875705, 1.1933256522674218],
+            [109.87826483927806, 37.45768451528966, 2.0130874578655047],
+        ];
+
+        // 线宽
+        sceneObject.strokeWidth = 7;
+
+        // 新建路径
+        function createESPath() {
+            sceneObject.editing = false;
+            sceneObject.points = [];
+            sceneObject.editing = true;
+        }
+
+        //编辑状态
+        function editing() {
+            sceneObject.editing = !sceneObject.editing;
+        }
+        /**
+         * 监听对象的编辑状态，改变checkbox的状态
+         * 用法 对象名.属性名+Changed.don((val)=>{})
+         * don是disposableOn的简写形式，用来监听事件，相当于Vue中的watch用途，都是监听属性事件的变化
+         */
+        sceneObject.editingChanged.don((val) => {
+            document.getElementById("editing").checked = val;
+        });
+
+        // 线宽
+        function line() {
+            sceneObject.strokeWidth = Number(document.getElementById("line").value);
+        }
+
+        // 速度
+        function speed() {
+            sceneObject.speed = Number(document.getElementById("speed").value);
+        }
+
+        // 路径样式
+        function mode() {
+            sceneObject.materialMode = document.getElementById("mode1").value;
+        }
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo();
+        }
+
+        // 取色
+        Colorpicker.create({
+            el: "GroupColor",
+            // color:"rgb(26,68,120)",
+            initColor: "rgb(231, 56, 190)",
+
+            change: function (elem, hex) {
+                elem.style.backgroundColor = hex;
+                // 最后颜色获取赋值部分，其中hex为用户选中后颜色
+                document.getElementById("strokeColor").value = hex;
+                const cssColor = hexToRgb(hex);
+                const xe2Color = cssColorToXe2Color(cssColor);
+
+                sceneObject.strokeColor = [...xe2Color, 1];
+            },
+        });
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
     </div>
-  </div>
-  <script>
-    /** ---------------------------------地球创建------------------------------------**/
-    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-    const { ESObjectsManager } = window['earthsdk3']
-    const { ESCesiumViewer } = window['earthsdk3-cesium']
-    const { ESUeViewer } = window['earthsdk3-ue']
-    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-    window.g_objm = objm;
-    // 监听视口状态
-    objm.viewerCreatedEvent.don((viewer) => {
-      viewer.flyIn(
-        [109.87816359566766, 37.456677008936914, 118.59381921733548],
-        [4.547008759980817, -38.675659321417186, 0.000324197108549594],
-        3
-      )
-    });
-    // 创建Cesium视口
-    const viewer = objm.createCesiumViewer(document.getElementById("app"));
-
-    // 通过json创建一个影像图层
-    const imageryLayer = objm.createSceneObjectFromJson({
-      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-      type: "ESImageryLayer",
-      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    });
-
-    /** ---------------------------------------路径------------------------------------------**/
-
-    const sceneObject = objm.createSceneObject('ESPath');
-
-    // 路径样式 blue、purple(默认)
-    // sceneObject.materialMode = "blue"
-
-    // 速度【速度 m/s】
-    sceneObject.speed = 20;
-
-    // 点位
-    sceneObject.points = [
-      [109.8778028424594, 37.45791208311074, 0.18139695775208664],
-      [109.87853718258414, 37.45792094652431, 0.47671251762246414],
-      [109.8784372100681, 37.457352564391705, 0.10352228101479152],
-      [109.87795366203022, 37.45734949491914, 1.4194308256082209],
-      [109.87792162633669, 37.457532499061294, 3.609131457456519],
-      [109.87826262866017, 37.457556342875705, 1.1933256522674218],
-      [109.87826483927806, 37.45768451528966, 2.0130874578655047],
-    ];
-
-    // 线宽
-    sceneObject.strokeWidth = 7;
-
-    // 新建路径
-    function createESPath() {
-      sceneObject.editing = false;
-      sceneObject.points = [];
-      sceneObject.editing = true;
-    }
-
-    //编辑状态
-    function editing() {
-      sceneObject.editing = !sceneObject.editing;
-    }
-    /**
-     * 监听对象的编辑状态，改变checkbox的状态
-     * 用法 对象名.属性名+Changed.don((val)=>{})
-     * don是disposableOn的简写形式，用来监听事件，相当于Vue中的watch用途，都是监听属性事件的变化
-     */
-    sceneObject.editingChanged.don((val) => {
-      document.getElementById("editing").checked = val;
-    });
-
-    // 线宽
-    function line() {
-      sceneObject.strokeWidth = Number(document.getElementById("line").value);
-    }
-
-    // 速度
-    function speed() {
-      sceneObject.speed = Number(document.getElementById("speed").value);
-    }
-
-    // 路径样式
-    function mode() {
-      sceneObject.materialMode = document.getElementById("mode1").value;
-    }
-
-    // 飞行定位
-    function flyTo() {
-      sceneObject.flyTo();
-    }
-
-    // 取色
-    Colorpicker.create({
-      el: "GroupColor",
-      // color:"rgb(26,68,120)",
-      initColor: "rgb(231, 56, 190)",
-
-      change: function (elem, hex) {
-        elem.style.backgroundColor = hex;
-        // 最后颜色获取赋值部分，其中hex为用户选中后颜色
-        document.getElementById("strokeColor").value = hex;
-        const cssColor = hexToRgb(hex);
-        const xe2Color = cssColorToXe2Color(cssColor);
-
-        sceneObject.strokeColor = [...xe2Color, 1];
-      },
-    });
-  </script>
-
-  <!-- 切换UE和Cesium引擎的组件（Vue） -->
-  <div id="root">
-    <switch-engine :objm="objm"></switch-engine>
-  </div>
-  <!-- Vue文件 -->
-  <script src="./js/vue.global.js"></script>
-  <!-- 切换UE和Cesium的组件 -->
-  <script src="./js/switchEngineCom.js"></script>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
 </body>
 
 </html>

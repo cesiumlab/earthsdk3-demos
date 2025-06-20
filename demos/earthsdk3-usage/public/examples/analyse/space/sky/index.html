@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>天际线分析</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <button onclick="start()">重新分析</button>
+        <button onclick="clear()">清除天际线</button>
+    </div>
+    <script>
+
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager, ESSkylineAnalysis } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([108.95253454651117, 34.22555205116836, 22.674795774818534], [113.904748821511, 6.681012142019844, 0.00012123633795514992], 3)
+            const timer = setTimeout(() => {
+                start()
+                clearTimeout(timer)
+            }, 6000)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 16,
+        });
+
+        // 通过json创建一个3DTileset
+        const tileset = objm.createSceneObjectFromJson({
+            "id": "d940eab4-15bf-4300-be28-a1b15492bc48",
+            "type": "ESGltfModel",
+            "name": "ESGltfModel_bc48",
+            "position": [
+                108.95458335528859,
+                34.22480184099677,
+                -0.0006292056696432082
+            ],
+            "czmEnvironmentMapManager": {
+                "atmosphereScatteringIntensity": 2
+            }
+        })
+
+        //添加3DTileset
+        const eS3DTileset = objm.createSceneObjectFromJson({
+            "id": "c2c8311e-6e50-47a2-b764-1c82f2d0e256",
+            "type": "ES3DTileset",
+            "name": "ES3DTileset",
+            "allowPicking": true,
+            "url": "https://www.pipeser.com/cesiumlab/G7qC5vBk/tileset.json"
+        })
+
+
+        /**-----------------------------根据类（Class）-------------------------------**/
+
+        const skylineAnalysis = objm.createSceneObject(ESSkylineAnalysis)
+        // 天际线半径
+        skylineAnalysis.radius = 1000
+        // 天际线显隐藏
+        skylineAnalysis.stroked = true
+        // 天际线颜色
+        skylineAnalysis.strokeColor = [1, 0, 0, 1]
+        // 闭合体显隐
+        skylineAnalysis.filled = false
+        // 闭合体颜色
+        skylineAnalysis.fillColor = [0, 1, 0, 1]
+
+
+        const start = () => {
+            if (!skylineAnalysis) return
+            skylineAnalysis.start()
+        }
+
+        const clear = () => {
+            if (!skylineAnalysis) return
+            skylineAnalysis.clear()
+        }
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

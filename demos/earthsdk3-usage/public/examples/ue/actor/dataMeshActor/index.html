@@ -2,209 +2,209 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <script src="./js/earthsdk.js"></script>
-  <!-- 自定义Css样式 -->
-  <link rel="stylesheet" href="./css/example1.css" />
-  <title>关卡包(pak)</title>
-  <style>
-    html,
-    body,
-    #app {
-      width: 100%;
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-    }
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>关卡包(pak)</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
 
-    #box2 {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-      align-items: center;
-    }
+        #box2 {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            align-items: center;
+        }
 
-    #box {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-    }
+        #box {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+        }
 
-    #option {
-      display: grid;
-      grid-template-columns: 75px 124px;
-      align-items: center;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+        #option {
+            display: grid;
+            grid-template-columns: 75px 124px;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
-    .url {
-      margin-bottom: 20px;
-    }
+        .url {
+            margin-bottom: 20px;
+        }
 
-    .warning {
-      color: #fff;
-      font-size: 14px;
-    }
+        .warning {
+            color: #fff;
+            font-size: 14px;
+        }
 
-    .warning .warningText {
-      color: sandybrown;
-    }
-  </style>
+        .warning .warningText {
+            color: sandybrown;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <div id="panel">
+    <div id="app"></div>
+    <div id="panel">
 
-    <p class="warning">
-      <span class="warningText">提示：</span>这是UE的datasmithruntime
-      官方导入选项，具体解释看官方文档
-    </p>
-    <div>
-      <a href="https://docs.unrealengine.com/4.27/zh-CN/WorkingWithContent/Importing/Datasmith/Overview/UsingDatasmithAtRuntime/#将datasmith运行时与蓝图结合使用"
-        target="_blank">将datasmith运行时与蓝图结合使用</a>
+        <p class="warning">
+            <span class="warningText">提示：</span>这是UE的datasmithruntime
+            官方导入选项，具体解释看官方文档
+        </p>
+        <div>
+            <a href="https://docs.unrealengine.com/4.27/zh-CN/WorkingWithContent/Importing/Datasmith/Overview/UsingDatasmithAtRuntime/#将datasmith运行时与蓝图结合使用"
+                target="_blank">将datasmith运行时与蓝图结合使用</a>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/using-datasmith-at-runtime-in-unreal-engine#构造datasmith运行时导入选项"
+                target="_blank">构造datasmith运行时导入选项</a>
+        </div>
+
+        <p class="warning">
+            <span class="warningText">提示：</span>导入时选项，导入后不可更改
+        </p>
+        <div id="box">
+            <label for="" style="margin-top: 5px">导入选项</label>
+            <div id="option">
+                <label for="">构建层级</label>
+                <select name="mode" id="buildHierarchy" onchange="changeOption()">
+                    <option value="None">None</option>
+                    <option value="Simplified" selected>Simplified</option>
+                    <option value="Unfiltered">Unfiltered</option>
+                </select>
+
+                <label for="">构建碰撞</label>
+                <select name="mode" id="buildCollisions" onchange="changeOption()">
+                    <option value="NoCollision">NoCollision</option>
+                    <option value="QueryOnly">QueryOnly</option>
+                    <option value="PhysicsOnly">PhysicsOnly</option>
+                    <option value="QueryAndPhysics">QueryAndPhysics</option>
+                    <option value="ProbeOnly">ProbeOnly</option>
+                    <option value="QueryAndProbe" selected>QueryAndProbe</option>
+                </select>
+
+                <label for="">构建类型</label>
+                <select name="mode" id="collisionType" onchange="changeOption()">
+                    <option value="CTF_UseDefault">CTF_UseDefault</option>
+                    <option value="CTF_UseSimpleAndComplex">
+                        CTF_UseSimpleAndComplex
+                    </option>
+                    <option value="CTF_UseSimpleAsComplex">
+                        CTF_UseSimpleAsComplex
+                    </option>
+                    <option value="CTF_UseComplexAsSimple" selected>
+                        CTF_UseComplexAsSimple
+                    </option>
+                    <option value="CTF_MAX">CTF_MAX</option>
+                </select>
+
+                <label for="">导入元数据</label>
+                <input type="checkbox" id="bImportMetaData" onchange="changeOption()" />
+            </div>
+        </div>
+
+        <div id="box2">
+            <label for="">url地址</label>
+            <input type="text" id="url" value="http://114.242.26.126:6003/source/dataSmith/school.udatasmith"
+                onchange="changeParams()" />
+
+            <label for="">经度</label>
+            <input type="number" id="lon" value="107.9288231" onchange="changeParams()" />
+
+            <label for="">经度</label>
+            <input type="number" id="lat" value="29.4578812" onchange="changeParams()" />
+
+            <label for="">高度</label>
+            <input type="number" id="height" value="10" onchange="changeParams()" />
+
+            <label for="">加载进度</label>
+            <input type="number" id="progress" disabled value="0" />
+        </div>
     </div>
-    <div style="margin-bottom: 10px;">
-      <a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/using-datasmith-at-runtime-in-unreal-engine#构造datasmith运行时导入选项"
-        target="_blank">构造datasmith运行时导入选项</a>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        // 视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [107.92945949072205, 29.45961337257943, 223.83588570245996],
+                [-177.15020751953125, -49.999568939208984, 0],
+                3
+            );
+        });
+
+        /** --------------------------------- datasmith ------------------------------------**/
+        const sceneobject = objm.createSceneObject('ESDatasmithRuntimeModel');
+        window.sceneobject = sceneobject;
+
+        // url地址（可以是磁盘路径，可以是服务路径）
+        sceneobject.url = "http://114.242.26.126:6003/source/dataSmith/school.udatasmith";
+
+        // 位置
+        sceneobject.position = [107.9288231, 29.4578812, 10];
+
+        // url为网络地址时候，下载进度【只读属性】，采样间隔1s,范围0-100
+        sceneobject.downloadProgressChanged.don(() => {
+            document.getElementById("progress").value =
+                sceneobject.downloadProgress;
+        });
+
+        function changeParams() {
+            let lon = Number(document.getElementById("lon").value);
+            let lat = Number(document.getElementById("lat").value);
+            let height = Number(document.getElementById("height").value);
+
+            sceneobject.url = document.getElementById("url").value;
+            sceneobject.position = [lon, lat, height];
+        }
+
+        function changeOption() {
+            let buildHierarchy = document.getElementById("buildHierarchy").value;
+            let buildCollisions = document.getElementById("buildCollisions").value;
+            let collisionType = document.getElementById("collisionType").value;
+            let bImportMetaData =
+                document.getElementById("bImportMetaData").checked;
+
+            sceneobject.importOptions = {
+                buildHierarchy,
+                buildCollisions,
+                collisionType,
+                bImportMetaData,
+            };
+        }
+    </script>
+
+    <!-- UE引擎面板组件 -->
+    <div id="root">
+        <create-ue-engine :objm="objm"></create-ue-engine>
     </div>
-
-    <p class="warning">
-      <span class="warningText">提示：</span>导入时选项，导入后不可更改
-    </p>
-    <div id="box">
-      <label for="" style="margin-top: 5px">导入选项</label>
-      <div id="option">
-        <label for="">构建层级</label>
-        <select name="mode" id="buildHierarchy" onchange="changeOption()">
-          <option value="None">None</option>
-          <option value="Simplified" selected>Simplified</option>
-          <option value="Unfiltered">Unfiltered</option>
-        </select>
-
-        <label for="">构建碰撞</label>
-        <select name="mode" id="buildCollisions" onchange="changeOption()">
-          <option value="NoCollision">NoCollision</option>
-          <option value="QueryOnly">QueryOnly</option>
-          <option value="PhysicsOnly">PhysicsOnly</option>
-          <option value="QueryAndPhysics">QueryAndPhysics</option>
-          <option value="ProbeOnly">ProbeOnly</option>
-          <option value="QueryAndProbe" selected>QueryAndProbe</option>
-        </select>
-
-        <label for="">构建类型</label>
-        <select name="mode" id="collisionType" onchange="changeOption()">
-          <option value="CTF_UseDefault">CTF_UseDefault</option>
-          <option value="CTF_UseSimpleAndComplex">
-            CTF_UseSimpleAndComplex
-          </option>
-          <option value="CTF_UseSimpleAsComplex">
-            CTF_UseSimpleAsComplex
-          </option>
-          <option value="CTF_UseComplexAsSimple" selected>
-            CTF_UseComplexAsSimple
-          </option>
-          <option value="CTF_MAX">CTF_MAX</option>
-        </select>
-
-        <label for="">导入元数据</label>
-        <input type="checkbox" id="bImportMetaData" onchange="changeOption()" />
-      </div>
-    </div>
-
-    <div id="box2">
-      <label for="">url地址</label>
-      <input type="text" id="url" value="http://114.242.26.126:6003/source/dataSmith/school.udatasmith"
-        onchange="changeParams()" />
-
-      <label for="">经度</label>
-      <input type="number" id="lon" value="107.9288231" onchange="changeParams()" />
-
-      <label for="">经度</label>
-      <input type="number" id="lat" value="29.4578812" onchange="changeParams()" />
-
-      <label for="">高度</label>
-      <input type="number" id="height" value="10" onchange="changeParams()" />
-
-      <label for="">加载进度</label>
-      <input type="number" id="progress" disabled value="0" />
-    </div>
-  </div>
-  <script>
-    /** ---------------------------------地球创建------------------------------------**/
-    // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-    const { ESObjectsManager } = window['earthsdk3']
-    const { ESCesiumViewer } = window['earthsdk3-cesium']
-    const { ESUeViewer } = window['earthsdk3-ue']
-    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-    window.g_objm = objm;
-
-    // 通过json创建一个影像图层
-    const imageryLayer = objm.createSceneObjectFromJson({
-      id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
-      type: "ESImageryLayer",
-      url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    });
-
-    // 视口创建完成事件
-    objm.viewerCreatedEvent.don((viewer) => {
-      viewer.flyIn(
-        [107.92945949072205, 29.45961337257943, 223.83588570245996],
-        [-177.15020751953125, -49.999568939208984, 0],
-        3
-      );
-    });
-
-    /** --------------------------------- datasmith ------------------------------------**/
-    const sceneobject = objm.createSceneObject('ESDatasmithRuntimeModel');
-    window.sceneobject = sceneobject;
-
-    // url地址（可以是磁盘路径，可以是服务路径）
-    sceneobject.url = "http://114.242.26.126:6003/source/dataSmith/school.udatasmith";
-
-    // 位置
-    sceneobject.position = [107.9288231, 29.4578812, 10];
-
-    // url为网络地址时候，下载进度【只读属性】，采样间隔1s,范围0-100
-    sceneobject.downloadProgressChanged.don(() => {
-      document.getElementById("progress").value =
-        sceneobject.downloadProgress;
-    });
-
-    function changeParams() {
-      let lon = Number(document.getElementById("lon").value);
-      let lat = Number(document.getElementById("lat").value);
-      let height = Number(document.getElementById("height").value);
-
-      sceneobject.url = document.getElementById("url").value;
-      sceneobject.position = [lon, lat, height];
-    }
-
-    function changeOption() {
-      let buildHierarchy = document.getElementById("buildHierarchy").value;
-      let buildCollisions = document.getElementById("buildCollisions").value;
-      let collisionType = document.getElementById("collisionType").value;
-      let bImportMetaData =
-        document.getElementById("bImportMetaData").checked;
-
-      sceneobject.importOptions = {
-        buildHierarchy,
-        buildCollisions,
-        collisionType,
-        bImportMetaData,
-      };
-    }
-  </script>
-
-  <!-- UE引擎面板组件 -->
-  <div id="root">
-    <create-ue-engine :objm="objm"></create-ue-engine>
-  </div>
-  <!-- Vue文件 -->
-  <script src="./js/vue.global.js"></script>
-  <!-- 切换UE和Cesium的组件 -->
-  <script src="./js/createUeEngine.js"></script>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/createUeEngine.js"></script>
 </body>
 
 </html>

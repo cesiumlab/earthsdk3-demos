@@ -12,7 +12,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const objType = ref<string>('')
 const disposer = createVueDisposer(onBeforeUnmount);
 const ueIsShow = toVR<boolean>(disposer, [xbsjEarthUi, 'ueIsShow'])
-const createlList: { zh: string, type: string, icon: string, leftButton: boolean }[] = [
+const createlList: { zh: string, type: string, icon: string, leftButton: boolean, hiddenFromUE?: boolean }[] = [
     {
         zh: '视阈',
         type: 'ESViewShed',
@@ -56,17 +56,18 @@ const createlList: { zh: string, type: string, icon: string, leftButton: boolean
         type: 'ESClassification',
         icon: 'jianzhudantihua',
         leftButton: true
-    }
-
-
-];
-const createlList2: { zh: string, type: string, icon: string, leftButton: boolean }[] = [
+    },
     {
         zh: '体剖切',
         type: 'ESBoxClipping',
         icon: 'tipaoqie',
-        leftButton: false
-    }]
+        leftButton: false,
+        hiddenFromUE: true
+    }
+
+
+];
+
 let sceneObject: ESViewShed | ESExcavate | ESPolygonFlattenedPlane | ESClippingPlane | ESBoxClipping | ESVisibilityAnalysis | ESHeightLimitAnalysis | ESClassification | undefined = undefined
 let editingDispose: any = undefined
 
@@ -78,23 +79,27 @@ const createClippingPlane = (item: { zh: string, type: string, icon: string }) =
         const sceneObjectNum = getsceneObjNumfromSceneTree(xbsjEarthUi, item.type)
         sceneObject.name = item.zh + (sceneObjectNum + 1)
         sceneObject.editing = true
-        Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
-        editingDispose = (sceneObject.editingChanged.disposableOn(() => {
-            if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
-                objType.value = ''
-                const json = sceneObject.json
-                const flag = sceneObject instanceof ESViewShed && (sceneObject.position[0] === 0 && sceneObject.position[1] === 0 && sceneObject.position[2] === 0)
-                xbsjEarthUi.destroySceneObject(sceneObject)
-                sceneObject = undefined
-                setTimeout(() => {
-                    if (!flag) {
-                        createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+        switch (item.type) {
+            // 有特殊性质的对象可单独处理
+            default:
+                Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+                editingDispose = (sceneObject.editingChanged.disposableOn(() => {
+                    if (sceneObject && sceneObject.editing === false) {
+                        Message.remove('xxx')
+                        objType.value = ''
+                        const json = sceneObject.json
+                        const flag = sceneObject instanceof ESViewShed && (sceneObject.position[0] === 0 && sceneObject.position[1] === 0 && sceneObject.position[2] === 0)
+                        xbsjEarthUi.destroySceneObject(sceneObject)
+                        sceneObject = undefined
+                        setTimeout(() => {
+                            if (!flag) {
+                                createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+                            }
+                        }, 300)
                     }
-                    // createSceneObjTreeItemFromJson(xbsjEarthUi, json)
-                }, 300)
-            }
-        }))
+                }))
+                break;
+        }
     }
 }
 const destroy = () => {
@@ -116,18 +121,16 @@ onMounted(() => {
         objType.value = ''
     })
 })
-watch(() => props.closeSceneobject, (val) => {
+watch(() => props.closeSceneobject, () => {
     destroy()
     objType.value = ''
 }, { immediate: true })
 </script>
 <template>
-    <RightList :title="'空间分析'">
-        <Button v-for="item in createlList" :name="item.icon" :content="item.zh"
-            :click="() => { createClippingPlane(item) }" :actived="objType === item.type"
+    <RightList :title="'空间分析1'">
+        <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in createlList" :name="item.icon"
+            :content="item.zh" :click="() => { createClippingPlane(item) }" :actived="objType === item.type"
             :left-button="item.leftButton"></Button>
-        <Button v-if="!ueIsShow" v-for="item in createlList2" :name="item.icon" :content="item.zh"
-            :click="() => { createClippingPlane(item) }" :actived="objType === item.type"
-            :left-button="item.leftButton"></Button>
+
     </RightList>
 </template>

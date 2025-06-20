@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "ol": "^7.1.0",
-    "earthsdk3": "3.0.6"
+    "earthsdk3": "3.0.7"
   }
 }

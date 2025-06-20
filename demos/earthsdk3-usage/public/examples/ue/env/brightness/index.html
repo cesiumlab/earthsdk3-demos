@@ -61,9 +61,9 @@
     <script>
         /** ---------------------------------地球创建------------------------------------**/
         // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
-        const { ESObjectsManager } = window['earthsdk3']
-        const { ESCesiumViewer } = window['earthsdk3-cesium']
-        const { ESUeViewer } = window['earthsdk3-ue']
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
 

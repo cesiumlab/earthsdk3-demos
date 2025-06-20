@@ -31,7 +31,7 @@
                         @click="changeServerLab(item, index)" :key="index"
                         :class="{ 'server_lab_content_active': serverActive === index }">
                         <div class="server_lab_content_index">{{ index + 1 }}</div>
-                        <div class="server_lab_content_name">{{ item.name }}</div>
+                        <div class="server_lab_content_name" :title="item.name">{{ item.name }}</div>
                         <div class="server_lab_content_type">{{ item.type }}</div>
                     </div>
                 </div>

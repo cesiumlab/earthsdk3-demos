@@ -17,10 +17,10 @@
     "search-params": "^4.0.1",
     "topojson-client": "^3.1.0",
     "x2js": "^3.3.1",
-    "earthsdk3": "3.0.6",
-    "earthsdk3-cesium": "3.0.6",
-    "earthsdk3-ue": "3.0.6",
-    "earthsdk3-assets": "3.0.2"
+    "earthsdk3": "3.0.7",
+    "earthsdk3-cesium": "3.0.7",
+    "earthsdk3-ue": "3.0.7",
+    "earthsdk3-assets": "3.0.4"
   },
   "devDependencies": {
     "@types/topojson-client": "^3.1.5",

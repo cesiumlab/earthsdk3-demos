@@ -182,7 +182,7 @@ const hoverLineHeight = ref(-1)
 .popup_box {
     position: fixed;
     overflow: auto;
-    background: rgba(37, 38, 42, 0.9);
+    background-color: rgb(37, 38, 42);
     border-radius: 3px;
     z-index: 8887;
 }
@@ -286,10 +286,9 @@ const hoverLineHeight = ref(-1)
 .popup_foot {
     width: 100%;
     height: 40px;
-    /* border-top: 2px solid #242424; */
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
 }
 
 .popup_foot>button {
@@ -300,6 +299,7 @@ const hoverLineHeight = ref(-1)
     border: 1px solid #3b3c40;
     cursor: pointer;
     color: rgba(230, 230, 230, 1);
+    margin-right: 10px;
 }
 
 .popup_foot>button:hover {

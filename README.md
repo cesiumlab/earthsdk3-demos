@@ -1,57 +1,75 @@
-### 🔥开放协作进行中！无论对象还是引擎，期待您提交PR成为的贡献之星！
+![](https://gitee.com/suplyang/data/raw/master/img/1750324919813earthsdk.png)
 
-# 项目介绍
+---
 
-- earthui 是 earthsdk 所有功能的主要展示项目源码。
-- earthsdk-all-engine 是 Cesium、UE、Openlayers三个引擎互相切换的示例。
-- earthsdk3-usage 是 earthsdk 所有对象的使用示例项目源码。
-- earthsdk3-openlayers 是earthsdk一个自定义引擎扩展和自定义对象扩展的示例源码，使用openlayers作为渲染引擎。
-- earthsdk3-html 是 earthsdk 在html中使用示例。
-- earthsdk3-vite 是 earthsdk 在使用vite搭建的项目中的使用示例。
-- earthsdk3-wbpk 是 earthsdk 在使用VUE CLI搭建的项目中的使用示例。
+[**立即体验**](https://www.earthsdk.com/earthui/index.html)
+[**快速上手**](https://www.earthsdk.com)
+[**示例**](https://www.earthsdk.com/example3/index.html)
+[**API 文档**](https://www.earthsdk.com/api/index.html)
 
-# EarthUI的使用
+EarthSDK 是一套基于 JS 语言的开源免费地球可视化二次开发框架，整套框架独立于引擎之外，不依赖于特定引擎，和可视化引擎互为插件，目前自带 Cesium 引擎和 Unreal Engine 的两种引擎实现。本身不是为了包装而封装，是为了赋能原生引擎。实现了数字孪生项目常用的所有基础功能和效果，实现了一套接口代码多引擎之间无缝切换，未来会有更多的引擎实现，例如：mapbox、unity、openlayers、godot 等。
 
- - 安装依赖：在demos/earthui目录下安环依赖(npm/yarn/pnpm,注意:pnpm会为所有项目安装依赖)
+- 2019 年开始，发布 EarthSDK1，依赖 Cesium 引擎做了大量易用性扩展。
+- 2022 年 11 月，我们着手开发 EarthSDK2，结合了 Cesium 引擎和 Unreal Engine 的两种引擎实现。
+- 2024 年 10 月，着手升级 EarthSDK3，对开发包进行模块化拆分，用户可灵活的组合不同引擎模块。
+- EarthSDK 就像一个中间件，做为可视化引擎和空间数据可视化业务之间的粘合剂。空间数据可视化业务说的更通俗点，就是传统的三维 GIS 项目，或者新兴的数字孪生园区、智慧城市等。
 
-```sh
+![](https://gitee.com/suplyang/data/raw/master/img/1750324864570objm.png)
 
-yarn install
+在很长一段时间内，3D 可视化技术选型是所有做涉及三维的项目最头疼的事情，到底是传统的 CS 本地化渲染，还是使用纯 webgl 方式的页面方式，或者使用浏览器插件方式实现的渲染，这些技术各有优缺点。而且一旦选型，系统再升级和迁移的成本就很高。由于 EarthSDK 的存在，可视化项目可以基本摆脱 3D 可视化技术的选型麻烦。项目开发过程中需要一套代码，随着客户现场的软硬件运行环境或者数据保密性要求，可以采用不同的部署方式：
 
-```
- - 启动：在earthui目录下运行dev (npm/yarn/pnpm)
+- EarthSDK JS + Cesium JS 实现浏览器下的 Webgl 方式的地球可视化渲染
+- EarthSDK JS + UE + ESForUE + Cesium For Unreal + ESSS 信令服务器 浏览器下像素流方式的可视化渲染
+- EarthSDK JS + UE + ESForUE + Cesium For Unreal + ESWebView 实现本地部署的三维方式渲染
+- EarthSDK JS + H5 实现 UE 在浏览器下以 Webgl 方式加载
+- 更多...
 
- ```sh
+# 开始
 
-yarn run dev
+### npm & yarn & pnpm
 
-```
- - 构建：在earthui目录下运行build (npm/yarn/pnpm)
-
-```sh
-
-yarn run build
-
-```
-
- - 建议：如果只启动某个项目建议采用局部安装依赖npm/yarn; 如果想要启动多个项目，建议采用pnpm来管理依赖；
+earthsdk3 是必须安装的基础包，根据业务需要和技术选型，选择是否安装 earthsdk3-cesium 和 earthsdk3-ue;安装 earthsdk3-cesium 时需要自行[安装配置 Cesium](https://cesium.com/blog/2024/02/13/configuring-vite-or-webpack-for-cesiumjs/)，目前内部支持版本为 cesium:1.123.1 。
 
 ```sh
-//根目录
-pnpm install 
-
-//对应目录
-pnpm run dev 
-
-//对应目录
-pnpm run build 
-
+pnpm add earthsdk3 --save
+pnpm add earthsdk3-ue --save
+pnpm add earthsdk3-cesium --save
 ```
 
-# monorepo
+初始化对象管理器后即可创建引擎视口对象和场景对象，以浏览器像素流的方式创建 UE 场景需要[ESSS 信令服务器](https://www.bjxbsj.cn/esss.html)支持。
 
- - 启动earthsdk-all-engine需要使用pnpm来管理依赖;
- - 想要启动earthsdk-all-engine需要先安装earthsdk3-openlayers的依赖;
- - 本工程中使用monorepo来解决 earthsdk-all-engine 中 earthsdk3-openlayers 的依赖问题;
- - 运行 earthsdk-all-engine 前需要先构建 earthsdk3-openlayers;
- - 不构建 earthsdk3-openlayers也可更改 pacgage.json中 "main": "./src/index.ts";
+```js
+import { ESObjectsManager } from "earthsdk3";
+import { ESUeViewer } from "earthsdk3-ue";
+import { ESCesiumViewer } from "earthsdk3-cesium";
+const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer);
+```
+
+![](https://gitee.com/suplyang/data/raw/master/img/1750324912572earthui.png)
+
+### 直接使用
+
+```html
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <link
+      href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css"
+      rel="stylesheet"
+    />
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"></script>
+    <script src="js/xbsj-base.js"></script>
+    <script src="js/earthsdk3.iife.js"></script>
+    <script src="js/earthsdk3-cesium.iife.js"></script>
+    <script src="js/earthsdk3-ue.iife.js"></script>
+  </head>
+  <script defer="defer">
+    const { ESObjectsManager } = window["EarthSDK3"];
+    const { ESCesiumViewer } = window["EarthSDK3_Cesium"];
+    const { ESUeViewer } = window["EarthSDK3_UE"];
+    const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+  </script>
+</html>
+```
+
+> 此开发包版权归[北京西部世界科技有限公司](https://www.bjxbsj.cn)所有。

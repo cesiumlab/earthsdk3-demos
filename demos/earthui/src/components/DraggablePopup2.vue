@@ -284,8 +284,10 @@ const hoverLineHeight = ref(-1)
 }
 
 .popup_foot {
+    border-top: 4px solid rgba(0, 0, 0, 1);
     width: 100%;
     height: 40px;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -296,7 +298,7 @@ const hoverLineHeight = ref(-1)
     height: 32px;
     background: rgba(28, 28, 29, 0.6);
     border-radius: 4px;
-    border: 1px solid #3b3c40;
+    border: 2px solid #6c7184;
     cursor: pointer;
     color: rgba(230, 230, 230, 1);
     margin-right: 10px;

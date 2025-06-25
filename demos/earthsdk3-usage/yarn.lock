@@ -1750,36 +1750,34 @@ earthsdk3-assets@3.0.4:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.4.tgz#36997dfbb2a7eeae4d47c694197a8ca6d87a711a"
   integrity sha512-OgwOg4NK47cQ3vceg04PzzRdgUSK/6zdooWGr75KlhGCWKGNBurQn71kWQic3yo4qdzBZbUK6RqQ+sOrACd6iA==
 
-earthsdk3-cesium@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.0.7.tgz#1216b8dc9acf99b005f58ca5b8c21db1d0711f28"
-  integrity sha512-C6aXCR0vRM7JmG/2mOqf92P8KSR02Z3FhWenpPe8b4mYLwaAltHPyJqmu8OLdUHdIFaQeC0k2s252tu6grgpiw==
+earthsdk3-cesium@3.2.0-beta.2:
+  version "3.2.0-beta.2"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.2.0-beta.2.tgz#de9bc8ead6819b73f810ea492e7512ff84be86d0"
+  integrity sha512-hhS2x7fhC2d452d7XzlTN9YkEz7wtE5LfIoy0r9TNA4ybHDsRfa3dWDD9f3FBE/m0i6Dw84pCed5v+/3BVgy3g==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
     earcut "^2.2.4"
+    heatmapjs "2.0.2"
     html2canvas "^1.4.1"
     mvt-basic-render "^0.3.5"
-    xbsj-base "1.0.1"
 
-earthsdk3-ue@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.0.7.tgz#3645d840cd3462caf4c3371ba2996451e98ff53c"
-  integrity sha512-LTUmqPUSbHXcQL1q7sSwGdC6ch60iTlzODC6oiFc0BXBBDkZ4vJf45a2wx+oWKfyR6RyQK0eq2Bj4fU0mWQ4eQ==
+earthsdk3-ue@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.1.0.tgz#297809d842f61cf2b6367ceaeca345e87173f65b"
+  integrity sha512-utSmILGuGzikK6FBkZF6xZsNwSbDQm84NeHDwogjrONLOMJUXILFPYkeo6iUeDD+Kfc4SQkcFs2y/vjUrUlyhg==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
-    xbsj-base "1.0.1"
 
-earthsdk3@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.0.7.tgz#2e7b7e49d659486763c346f30c105d999e418afc"
-  integrity sha512-2I+Oj7LhMH61FF5QqYikHGZer8AcsP5StErgn0YeevGdmC9DE9PoCka8PlfJSrdTq3I+nxyk8gLqT/Y4r1GR9Q==
+earthsdk3@3.2.0-beta.2:
+  version "3.2.0-beta.2"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0-beta.2.tgz#0f8c174376f4b0c73874a4fbc1759b6ceb05f4c7"
+  integrity sha512-BoO27+mAH/UrwdD7cKNb85Ve9pLxGBLZwSuGJM4QQ0KFR31arjRSy1T3t2lvrdG4nnF+pYEvF0OiuKPogKDuMQ==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
     proj4 "^2.8.0"
-    xbsj-base "1.0.1"
 
 entities@^4.5.0:
   version "4.5.0"
@@ -2001,6 +1999,11 @@ hasown@^2.0.2:
   integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
+
+heatmapjs@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/heatmapjs/-/heatmapjs-2.0.2.tgz#4763dee6fc9ff794dde20b8db028c204ff6bec87"
+  integrity sha512-1pO/bbn9G1NYhndvjnzLVAQMGBOCk8abMM7QnLOPlIMoxDfG9Uylb68PlZe/0MCT9GuwGGtchXVPLWfoT6HrCw==
 
 html2canvas@^1.4.1:
   version "1.4.1"
@@ -2445,9 +2448,9 @@ x2js@^3.4.4:
   dependencies:
     "@xmldom/xmldom" "^0.8.3"
 
-xbsj-base@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmmirror.com/xbsj-base/-/xbsj-base-1.0.1.tgz#3e81f3f520dac3808ca07de1884e353ebe3748f0"
-  integrity sha512-9rFh2x/GW4pCwVMFNJ6qyAPD02+FxDg95+IvAYFENRW6LP+QIsVxrnCfzncLnhTBRs42awe4eknjZozpwvKfRg==
+xbsj-base@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/xbsj-base/-/xbsj-base-1.0.3.tgz#b0bf91633003f6257a138e221fe45257d655fd04"
+  integrity sha512-4rSSuhGIu9lRH9TJqWK5iD4nouKlS6qmCzh+44YwrvDVDQLdNOE8OMdT0QzF/1GNa65EJ+OaX8POUkc6XrZ8NQ==
   dependencies:
     js-binary-schema-parser "^2.0.3"

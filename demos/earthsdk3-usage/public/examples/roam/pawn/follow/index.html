@@ -78,7 +78,7 @@
                 "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
             },
             {
-                "id": "ESHuman_id",// 对象Id
+                "id": "ESHumanTest",// 对象Id
                 "ref": "ESHuman_obj",
                 "type": "ESHuman",
                 "position": [
@@ -123,7 +123,7 @@
             if (switchValue) {
                 // changeToFollow(objectId: string, distance ?: number, heading ?: number, pitch ?: number, changeToFollow ?: boolean)
                 // 开启
-                objm.activeViewer.changeToFollow('ESHuman_id', 20)//Id来自objList
+                objm.activeViewer.changeToFollow('ESHumanTest', 20)//Id来自objList
 
                 //人物移动
                 objm.$refs.ESHuman_obj.smoothMove([109.6074882, 18.5868828, 0.5], 20);

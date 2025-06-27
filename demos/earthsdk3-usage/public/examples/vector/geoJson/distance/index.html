@@ -164,8 +164,8 @@
         sceneObject.maxFeatureVisibleDistance = 10000
         // 被拾取
         sceneObject.pickedEvent.don((e) => {
-            console.log('pickedEvent', e.pickedInfo.geojsonPickInfo)
-            alert(JSON.stringify(e.pickedInfo.geojsonPickInfo))
+            console.log('pickedEvent', e)
+            alert(JSON.stringify(e.geojsonPickInfo))
         })
 
         // 飞行定位

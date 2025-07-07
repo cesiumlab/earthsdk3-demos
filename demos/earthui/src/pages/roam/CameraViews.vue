@@ -69,9 +69,7 @@ const viewerManager = () => {
     <RightList :title="'视角'" :isTop="true">
         <Button v-for="item in sceneList" :name="item.icon" :content="item.zh" :click="item.func"
             :left-button="item.leftButton"></Button>
-        <Button :name="'zidingyi'" :content="'自定义'" :click="viewerManager" :actived="customRef"
-            :left-button="true"></Button>
         <Button :name="'chushi'" :content="'初始'" :click="startView" v-if="ueIsShow"></Button>
-        <ViewManager v-if="customRef"></ViewManager>
+        <ViewManager></ViewManager>
     </RightList>
 </template>

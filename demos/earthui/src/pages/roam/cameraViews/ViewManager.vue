@@ -7,13 +7,13 @@
         </div>
         <div class="view-content">
             <div class="view_item" :class="{ 'view_selected': currentViewIndex === index }"
-                v-for="(item, index) in viewsRef" :title="item.name" @click.stop="flyInByIndex(index)">
-                <img :src="item.thumbnail" alt="" width="60" height="60">
-                <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name"
+                v-for="(item, index) in viewsRef" @click.stop="flyInByIndex(index)">
+                <img :src="item.thumbnail" alt="" width="60" height="60" :title="item.name">
+                <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
                     @blur="editingChange(item.name, index)" @keydown.enter="editingChange(item.name, index)">
                 <span v-else>{{ item.name }}</span>
-                <es-icon @click.stop="editingIndex = index" :name="'bianji'" :size="16" />
-                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" />
+                <es-icon @click.stop="editingIndex = index" :name="'bianji'" :size="16" :title="'编辑'" />
+                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" :title="'删除'" />
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@ const changeToMap = () => {
 .view_item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
     padding: 5px;
 }
@@ -127,6 +127,12 @@ const changeToMap = () => {
 .view_item:hover {
     background-color: rgba(44, 118, 247, 0.572)
 }
+
+.view_selected input,
+.view_item:hover input {
+    border: 1px solid #2cf736;
+}
+
 
 
 .view_item span,

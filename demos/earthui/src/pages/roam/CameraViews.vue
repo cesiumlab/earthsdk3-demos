@@ -56,13 +56,6 @@ const startView = () => {
         viewer.defaultCameraFlyIn(1)
     }
 }
-const viewerManager = () => {
-    changeToMap()
-    customRef.value = !customRef.value
-    if (!customRef.value) {
-        loopplying.value = false
-    }
-}
 </script>
 
 <template>

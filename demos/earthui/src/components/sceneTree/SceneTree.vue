@@ -782,7 +782,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
         func: () => {
             let dispose: any
             if (treeItem.sceneObject) {
-                if ('editing' in treeItem.sceneObject && treeItem.sceneObject instanceof ESGeoJson) {//ESGeoJson有editing属性但是不能被编辑
+                if ('editing' in treeItem.sceneObject) {
                     treeItem.sceneObject.editing = true
                     Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
                     //@ts-ignore
@@ -798,7 +798,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
         },
     }
     if (treeItem.sceneObject) {
-        if ('positionEditing' in treeItem.sceneObject || 'editing' in treeItem.sceneObject) {
+        if ('editing' in treeItem.sceneObject && !(treeItem.sceneObject instanceof ESGeoJson)) {//ESGeoJson有editing属性但是不能被编辑
             if ((!(treeItem.sceneObject instanceof ES3DTileset)) || (treeItem.sceneObject instanceof ES3DTileset && treeItem.sceneObject.supportEdit)) {
                 baseItems.splice(1, 0, enditingList)
             }

@@ -116,11 +116,11 @@ onMounted(() => {
     })
     sceneTree && xbsjEarthUi.d(sceneTree.selectedItems.changedEvent.don(val => {
         const [lastSelectedItem] = [...val];
-        const shouldUpdate = val.length === 1 && lastSelectedItem?.sceneObject;
+        const shouldUpdate = val.length === 1 && lastSelectedItem?.sceneObject && lastSelectedItem.sceneObject instanceof ESVisualObject;
         enditingList.value = enditingList.value.map(item => ({
             ...item,
             allowEditing: shouldUpdate
-                ? (lastSelectedItem.sceneObject as ESVisualObject).supportEditingModes().includes(item.type)
+                ? lastSelectedItem.sceneObject.supportEditingModes().includes(item.type)
                 : false
         }));
         !shouldUpdate && xbsjEarthUi.activeViewer?.stopEditing();

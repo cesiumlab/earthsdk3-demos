@@ -4,11 +4,14 @@
         <div class="view-header" @click.stop="addView()">
             <span>+</span>
             <span>视点书签</span>
+            <div class="play" @click.stop="loopplying = !loopplying" :title="loopplying ? '暂停' : '播放'"><es-icon
+                    :name="loopplying ? 'zanting' : 'bofang'" :color="'rgba(216, 216, 216, 1)'" :size="12" />
+            </div>
         </div>
         <div class="view-content">
             <div class="view_item" :class="{ 'view_selected': currentViewIndex === index }"
                 v-for="(item, index) in viewsRef" @click.stop="flyInByIndex(index)">
-                <img :src="item.thumbnail" alt="" width="60" height="60" :title="item.name">
+                <img :src="item.thumbnail" alt="" width="40" height="40" :title="item.name">
                 <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
                     @blur="editingChange(item.name, index)" @keydown.enter="editingChange(item.name, index)">
                 <span v-else>{{ item.name }}</span>
@@ -47,7 +50,7 @@ const d = createVueDisposer(onBeforeUnmount)
 const viewsRef = toVR<ESJViewInfo[]>(d, [cameraViewsManager, 'views'])//视角数组
 const loopplying = toVR<boolean>(d, [cameraViewsManager, 'playing'])//视角数组
 const currentViewIndex = toVR<number>(d, [cameraViewsManager, 'currentViewIndex'])//视角数组
-
+cameraViewsManager.intervalTime = 2
 
 /**
  * 删除视角
@@ -97,6 +100,7 @@ const changeToMap = () => {
 }
 
 .view-header {
+    position: relative;
     background: rgba(28, 28, 30, 0.9);
     border: 1px solid #2C68F7;
     margin-bottom: 20px;
@@ -104,6 +108,13 @@ const changeToMap = () => {
     padding: 6px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.play {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-45%);
 }
 
 .view-content {

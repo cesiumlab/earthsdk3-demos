@@ -1,35 +1,22 @@
 <template>
-    <div class="roam_custom_box">
-        <div class="roam_custom_head">
-            <div class="roam_custom_head_top">{{ '视角管理器' }} </div>
-            <div class="roam_custom_head_bottom">
-                <div @click.stop="cameraViewsManager.addView()" title="添加视角"><es-icon :name="'tianjia'"
-                        :color="'rgba(216, 216, 216, 1)'" :size="12" /></div>
-                <div @click.stop="loopplying = !loopplying" :title="loopplying ? '暂停' : '播放'"><es-icon
-                        :name="loopplying ? 'zanting' : 'bofang'" :color="'rgba(216, 216, 216, 1)'" :size="12" />
-                </div>
+    <div class="view_panel">
+
+        <div class="view-header" @click.stop="addView()">
+            <span>+</span>
+            <span>视点书签</span>
+            <div class="play" @click.stop="loopplying = !loopplying" :title="loopplying ? '暂停' : '播放'"><es-icon
+                    :name="loopplying ? 'zanting' : 'bofang'" :color="'rgba(216, 216, 216, 1)'" :size="12" />
             </div>
         </div>
-        <div class="poplist_content">
-            <div class="roam_custom_centent">
-                <div v-for="(item, index) in viewsRef" class="roam_custom_item" :title="item.name">
-                    <div class="roam_custom_operate">
-                        <span :title="'删除'" @click="deleteViewer(index)"><es-icon :name="'shanchu_2'"
-                                :color="currentViewIndex === index ? 'rgba(230, 230, 230, 1)' : 'rgba(87, 91, 102, 1)'"
-                                :size="8" /></span>
-                        <span :title="'更新'" @click="cameraViewsManager.resetView(index)"><es-icon :name="'gengxin'"
-                                :color="currentViewIndex === index ? 'rgba(230, 230, 230, 1)' : 'rgba(87, 91, 102, 1)'"
-                                :size="8" /></span>
-                        <span :title="'编辑'" @click="editingNmae = index"><es-icon :name="'bianji'"
-                                :color="currentViewIndex === index ? 'rgba(230, 230, 230, 1)' : 'rgba(87, 91, 102, 1)'"
-                                :size="8" /></span>
-                    </div>
-                    <img class="roam_img_item" :src="item.thumbnail" alt="" width="70" @click="demo(index)"
-                        :class="{ 'roam_img_item_selected': currentViewIndex === index }">
-                    <input type="text" class="roam_name_editing" v-if="editingNmae === index" v-model="item.name"
-                        @blur="editingChange(item.name, index)" @keydown.enter="editingChange(item.name, index)">
-                    <span class="roam_name_item" v-else>{{ item.name }}</span>
-                </div>
+        <div class="view-content">
+            <div class="view_item" :class="{ 'view_selected': currentViewIndex === index }"
+                v-for="(item, index) in viewsRef" @click.stop="flyInByIndex(index)">
+                <img :src="item.thumbnail" alt="" width="40" height="40" :title="item.name">
+                <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
+                    @blur="editingChange(item.name, index)" @keydown.enter="editingChange(item.name, index)">
+                <span v-else>{{ item.name }}</span>
+                <es-icon @click.stop="editingIndex = index" :name="'bianji'" :size="16" :title="'编辑'" />
+                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" :title="'删除'" />
             </div>
         </div>
     </div>
@@ -39,13 +26,12 @@ import { Message, messageBox, createVueDisposer, toVR } from "earthsdk-ui";
 import { ESJViewInfo } from "earthsdk3";
 import { inject, onBeforeUnmount, ref } from 'vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import { view } from "../..";
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const { cameraViewsManager } = xbsjEarthUi
-const hoverIndex = ref(-1)
+const emits = defineEmits(['close'])
 const currentDeleteIndex = ref(-1)
-const editingNmae = ref(-1)
+const editingIndex = ref(-1)
 const deleteViewer = (index: number) => {
     currentDeleteIndex.value = index
     messageBox({ text: '确认删除视角？' })
@@ -56,30 +42,141 @@ const deleteViewer = (index: number) => {
         })
 }
 const editingChange = (name: string | undefined, index: number) => {
-    editingNmae.value = -1
+    editingIndex.value = -1
     cameraViewsManager.resetViewName(index, name ?? '视角')
+    Message.success('编辑成功')
 }
 const d = createVueDisposer(onBeforeUnmount)
 const viewsRef = toVR<ESJViewInfo[]>(d, [cameraViewsManager, 'views'])//视角数组
 const loopplying = toVR<boolean>(d, [cameraViewsManager, 'playing'])//视角数组
 const currentViewIndex = toVR<number>(d, [cameraViewsManager, 'currentViewIndex'])//视角数组
+cameraViewsManager.intervalTime = 2
+
+/**
+ * 删除视角
+ */
 const deleteViewConfirm = () => {
     cameraViewsManager.deleteView(currentDeleteIndex.value)
     currentDeleteIndex.value = -1
     Message.success('删除成功')
 }
-const emits = defineEmits(['close'])
-const demo = (index: number) => {
+
+
+/**
+ * 飞行定位
+ * @param index 
+ */
+const flyInByIndex = (index: number) => {
     cameraViewsManager.setCurrentView(index)
     cameraViewsManager.flyToView(index)
 }
-// const addView = () => {
-//     cameraViewsManager.addView()
-//     setTimeout(() => {
-//         const view = viewsRef.value[viewsRef.value.length - 1]
-//         const newView = { ...view, duration: 5 }
-//         cameraViewsManager.updateView(viewsRef.value.length - 1, newView)
-//     }, 100)
 
-// }
+/**
+ * 添加视角
+ */
+const addView = () => {
+    changeToMap()
+    cameraViewsManager.playing = false
+    cameraViewsManager.addView()
+    Message.success('添加成功')
+}
+
+/**
+ * 切换到地图模式
+ */
+const changeToMap = () => {
+    const viewer = xbsjEarthUi.activeViewer
+    if (!viewer) return
+    viewer.changeToMap()
+    xbsjEarthUi.roamMode = 'Map'
+}
 </script>
+
+<style scoped>
+.view_panel {
+    width: 100%;
+    font-size: 14px;
+    margin: 5px 15px 15px 15px;
+}
+
+.view-header {
+    position: relative;
+    background: rgba(28, 28, 30, 0.9);
+    border: 1px solid #2C68F7;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.play {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-45%);
+}
+
+.view-content {
+    overflow-y: auto;
+}
+
+.view-header:hover {
+    box-shadow: inset 0px 0px 11px 2px #2C63E4;
+    border: 1px solid #2C68F7;
+}
+
+.view_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.view_selected,
+.view_item:hover {
+    background-color: rgba(44, 118, 247, 0.572)
+}
+
+.view_selected input,
+.view_item:hover input {
+    border: 1px solid #2cf736;
+}
+
+
+
+.view_item span,
+.view_item input {
+    width: calc(100% - 100px);
+    margin-left: 10px;
+    height: 30px;
+
+    box-sizing: border-box;
+    background: rgba(28, 28, 30, 0.9);
+    outline: none;
+    border: none;
+    color: #fff;
+    text-indent: 10px;
+    border: 1px solid #5c5c5c;
+    border-radius: 5px;
+}
+
+.view_item span {
+    line-height: 30px;
+}
+
+.view_item input {
+    border: 1px solid #2C68F7;
+}
+
+.es-icon {
+    margin-left: 5px;
+    cursor: pointer;
+    color: #fff !important;
+}
+
+.es-icon:hover {
+    color: #2cf736 !important;
+}
+</style>

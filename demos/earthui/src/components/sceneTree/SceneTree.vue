@@ -38,10 +38,11 @@
 </template>
 <script setup lang="ts">
 import { FileHandleType, Message, createVueDisposer, getSaveFileHandle, messageBox, saveFile, toReadonlyVueRef, toRefKey, toVR } from "earthsdk-ui";
-import { ES3DTileset, ESGeoJson, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
+import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, ESTextLabel, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
+import { ESKml } from 'earthsdk3-cesium'
 import { Ref, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { JsonValue, Tree, TreeItem, TreeItemInsertFlag } from "xbsj-base";
-import { getNoToken } from "../../api/service";
+import { getNoToken, getNoTokenText } from "../../api/service";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import DraggablePopup2 from '../DraggablePopup2.vue';
 import ImagesCzm from "../cesiumView/ImagesCzm.vue";
@@ -99,7 +100,9 @@ type menuContentType = {
     type: "divider",
 }
 
-//删除点击确认
+/**
+ * 删除点击确认
+ */
 const confirm = () => {
     const list = [...sceneTree.selectedItems] //删除选中
     list.forEach(obj => {
@@ -114,7 +117,11 @@ const confirm = () => {
 
     Message.success('删除成功')
 }
-const espathAndLocationfromChannels = () => {//返回在动画中存在的espath对象
+
+/**
+ * 返回在动画中存在的espath对象
+ */
+const espathAndLocationfromChannels = () => {
     const path = searchAllEspathFromselectItem(xbsjEarthUi)
     const location = searchAllESObjectWithLocationFromselectItem(xbsjEarthUi)
     const channels = xbsjEarthUi.pathAnimationManager.channels
@@ -136,6 +143,10 @@ const espathAndLocationfromChannels = () => {//返回在动画中存在的espath
     return { pathList, locationList }
 }
 const deleteFlad = ref(true)
+
+/**
+ * 删除选中
+ */
 const clickDelete = () => {
     const pathAndLocationList = espathAndLocationfromChannels()
     if (pathAndLocationList.pathList.length > 0 || pathAndLocationList.locationList.length > 0) {
@@ -168,6 +179,11 @@ const addNewTreeItem = (treeItem: SceneTreeItem | undefined, location?: TreeItem
     groupscenetreeitem.name = '新建文件夹';
 }
 
+/**
+ * 保存文件
+ * @param json 
+ * @param name 
+ */
 const saveAs = async (json: JsonValue, name?: string) => {
     try {
         let handle: FileHandleType | undefined
@@ -189,10 +205,17 @@ const saveAs = async (json: JsonValue, name?: string) => {
 }
 let checkedItems: any
 let fatherItem: any
+/**
+ * 空白点击
+ */
 const whiteSpaceClick = () => {
     sceneTree.sceneUiTree.clearAllSelectedItems()
     close()
 }
+/**
+ * 
+ * @param checkLiftSceneObj 
+ */
 const locationAndVectorNumber = (checkLiftSceneObj: any[]) => {
     let num = 0
     if (checkLiftSceneObj.length > 0) {
@@ -204,7 +227,11 @@ const locationAndVectorNumber = (checkLiftSceneObj: any[]) => {
     }
     return num
 }
-const whiteSpaceContexMenuEvent = () => {//空白右键
+
+/**
+ * 空白右键
+ */
+const whiteSpaceContexMenuEvent = () => {
     const baseItems: Array<menuContentType> = [
         {
             text: "添加文件夹",
@@ -369,6 +396,11 @@ const whiteSpaceContexMenuEvent = () => {//空白右键
     }
     menuContent.value = baseItems
 }
+
+/**
+ * 保存飞行视角
+ * @param sceneObject 
+ */
 const saveFlyParms = async (sceneObject: any) => {
     let position: [number, number, number];
     let rotation: [number, number, number];
@@ -383,6 +415,11 @@ const saveFlyParms = async (sceneObject: any) => {
     sceneObject.flyInParam = { position, rotation, flyDuration: 1 }
     Message.success('保存视角成功')
 }
+
+/**
+ * 保存参数
+ * @param treeItem 
+ */
 const saveParms = async (treeItem: SceneTreeItem) => {
     const { sceneObject } = treeItem
     if (sceneObject instanceof ESLocalSkyBox) {
@@ -394,7 +431,12 @@ const saveParms = async (treeItem: SceneTreeItem) => {
         saveFlyParms(sceneObject)
     }
 }
-const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {//文件夹右键
+
+/**
+ * 文件夹右键
+ * @param treeItem 
+ */
+const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {
     const baseItems: Array<menuContentType> = [
         {
             text: "添加同级文件夹",
@@ -568,7 +610,12 @@ const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {//文件夹右键
 
     menuContent.value = baseItems
 }
-const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
+
+/**
+ * 节点右键
+ * @param treeItem 
+ */
+const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
 
     const baseItems: Array<menuContentType> = [
         {
@@ -772,20 +819,56 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
                 if (typeof (url) === 'string') {
                     getNoToken(url).then((res: any) => {
                         json = res
+                        itemGeoJsonTOESObjects(json)
                     }).catch(error => {
                         console.log(error);
                         Message.error(`请求失败，请检查！${error}`)
                     })
                 } else {
                     json = url
+                    itemGeoJsonTOESObjects(json)
                 }
-                itemGeoJsonTOESObjects(json)
+
             }
         },
     }
     if (treeItem.sceneObject) {
         if (treeItem.sceneObject instanceof ESGeoJson) {
             baseItems.splice(2, 0, Geojson)
+        }
+    }
+
+    const Kml = {
+        text: "转为ES点线面对象",
+        keys: "",
+        func: () => {
+            if (treeItem.sceneObject) {
+                const sceneObject = treeItem.sceneObject as ESKml
+                const url = sceneObject.uri
+                if (!url) {
+                    Message.error('此场景对象不存在url属性，请检查')
+                    return
+                }
+                if (typeof (url) === 'string') {
+                    getNoTokenText(url).then((res: any) => {
+                        const parser = new DOMParser();
+                        console.log(res);
+                        const kmlDoc = parser.parseFromString(res, "text/xml");
+                        itemKmlToESObjects(kmlDoc)
+                    }).catch(error => {
+                        console.log(error);
+                        Message.error(`请求失败，请检查！${error}`)
+                    })
+                } else {
+                    itemKmlToESObjects(url)
+                }
+
+            }
+        },
+    }
+    if (treeItem.sceneObject) {
+        if (treeItem.sceneObject instanceof ESKml) {
+            baseItems.splice(2, 0, Kml)
         }
     }
     const copyUrl =
@@ -917,15 +1000,19 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {//节点右键
     }
     menuContent.value = baseItems
 }
+/**
+ * 卷帘分割
+ * @param sceneObject 
+ */
 const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
-    const actions:any = {
+    const actions: any = {
         LEFT: { text: "向左分割", next: ['RIGHT', 'NONE'] },
         RIGHT: { text: "向右分割", next: ['LEFT', 'NONE'] },
         NONE: { text: "不分割", next: ['LEFT', 'RIGHT'] }
     };
 
     const current = sceneObject.splitDirection;
-    const availableActions = actions[current].next.map((dir:any) => ({
+    const availableActions = actions[current].next.map((dir: any) => ({
         text: actions[dir].text,
         keys: "",
         func: () => { sceneObject.splitDirection = dir; }
@@ -933,7 +1020,12 @@ const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
 
     return [{ type: "divider" }, ...availableActions];
 };
-const copyClipboard = async (text: string) => {//复制
+
+/**
+ * 复制
+ * @param text 
+ */
+const copyClipboard = async (text: string) => {
     navigator.clipboard.writeText(text)
         .then(function () {
             Message.success('复制成功');
@@ -942,6 +1034,10 @@ const copyClipboard = async (text: string) => {//复制
         });
 }
 
+/**
+ * 删除对象
+ * @param e 
+ */
 const deleteItem = (e: KeyboardEvent) => {
     if (e.key === 'Delete') {
         if (deleteFlad.value) {
@@ -952,6 +1048,11 @@ const deleteItem = (e: KeyboardEvent) => {
 
     }
 }
+
+/**
+ * 修改名称
+ * @param event 
+ */
 const changeSceObjName = (event: KeyboardEvent) => {
     if (event.keyCode === 113) {
         const select = [...sceneTree.selectedItems]
@@ -965,7 +1066,12 @@ const changeSceObjName = (event: KeyboardEvent) => {
     }
 }
 const menuContent = ref<Array<menuContentType>>([])
-const contexMenuEvent = (treeItem: SceneTreeItem | undefined) => {//树内右键暴露出来的事件
+
+/**
+ * 右键列表菜单
+ * @param treeItem 
+ */
+const contexMenuEvent = (treeItem: SceneTreeItem | undefined) => {
     if (!treeItem) {
         whiteSpaceContexMenuEvent()
     } else if (treeItem.type === 'Folder') {
@@ -974,6 +1080,10 @@ const contexMenuEvent = (treeItem: SceneTreeItem | undefined) => {//树内右键
         imageContexMenuEvent(treeItem)
     }
 }
+/**
+ * 飞行定位
+ * @param treeItem 
+ */
 const flyTo = (treeItem: SceneTreeItem) => {
     const { sceneObject } = treeItem
     if (sceneObject instanceof ESLocalSkyBox) {
@@ -985,16 +1095,32 @@ const flyTo = (treeItem: SceneTreeItem) => {
         Message.warning('暂不支持定位!')
     }
 }
-//拖拽Geojson
+/**
+ * 拖拽开始
+ * @param event 
+ */
 const dragEnter = (event: Event) => {
     event.preventDefault();
 }
+
+/**
+ * 拖拽离开
+ * @param event 
+ */
 const dragLeave = (event: Event) => {
     event.preventDefault();
 }
+/**
+ * 拖拽结束
+ * @param event 
+ */
 const dragOver = (event: Event) => {
     event.preventDefault();
 }
+/**
+ * 
+ * @param event 
+ */
 const dropFile = async (event: Event) => {
     event.preventDefault();
     //@ts-ignore
@@ -1022,6 +1148,10 @@ const dropFile = async (event: Event) => {
     })
 }
 
+/**
+ * geojson转ES对象
+ * @param a 
+ */
 const itemGeoJsonTOESObjects = (a: any) => {
     const b = geojsonToPointsLinesPolygons(a)
     setTimeout(() => {
@@ -1043,6 +1173,157 @@ const itemGeoJsonTOESObjects = (a: any) => {
             Message.warning('请检查geojson格式是否正确')
         }
     }, 100)
+}
+
+
+
+/**
+ * Kml转ES对象
+ * @param a 
+ */
+const itemKmlToESObjects = (kmlDocument: any) => {
+    console.log('itemKmlToESObjects', kmlDocument)
+    // 检查解析是否成功
+    const parseError = kmlDocument.querySelector('parsererror');
+    if (parseError) Message.warning('解析KML失败')
+
+
+    // 从解析后的XML中提取数据
+    const placemarks = Array.from(kmlDocument.querySelectorAll('Placemark'));
+
+    const points: number[][] = []
+    const lines: number[][][] = []
+    const polygons: number[][][] = []
+
+    placemarks.forEach((placemark: any) => {
+        // 提取点坐标
+        const point = placemark.querySelector('Point');
+        if (point) {
+            const coordinates = point.querySelector('coordinates');
+            if (coordinates) {
+                const coordText = coordinates.textContent?.trim() || '';
+                const [lng, lat, alt] = coordText.split(',').map(Number);
+                points.push([lng, lat, alt])
+            }
+        }
+
+        // 提取线坐标
+        const lineString = placemark.querySelector('LineString');
+        if (lineString) {
+            const coordinates = lineString.querySelector('coordinates');
+            if (coordinates) {
+                const coordText = coordinates.textContent?.trim() || '';
+                const coords = coordText.split(/\s+/).filter(Boolean).map((coord: string) => coord.split(',').map(Number));
+                lines.push(coords)
+            }
+        }
+
+        // 提取多边形坐标
+        const polygon = placemark.querySelector('Polygon');
+        if (polygon) {
+            const outerBoundaryIs = polygon.querySelector('outerBoundaryIs');
+            if (outerBoundaryIs) {
+                const coordinates = outerBoundaryIs.querySelector('coordinates');
+                if (coordinates) {
+                    const coordText = coordinates.textContent?.trim() || '';
+                    const coords = coordText.split(/\s+/).filter(Boolean).map((coord: string) => coord.split(',').map(Number));
+                    polygons.push(coords)
+                }
+            }
+        }
+
+    });
+    const group = xbsjEarthUi.sceneTree.createGroupTreeItem('Kml')
+    if (points.length > 0) {
+        const pointsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('points', undefined, group, 'Inner') as SceneTreeItem
+        points.forEach((element: any, index: number) => {
+            const position = element.length === 2 ? [...element, 0] as [number, number, number] : element
+            const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESTextLabel', undefined, pointsGroup, 'Inner') as SceneTreeItem
+            const sceneObject = treeItem.sceneObject as ESTextLabel
+            sceneObject.position = position
+            sceneObject.text = `点位${index + 1}`
+            sceneObject.name = `点位${index + 1}`
+
+        });
+
+    }
+    if (lines.length > 0) {
+        const linesGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('lines', undefined, group, 'Inner') as SceneTreeItem
+        lines.forEach((element: any, index: number) => {
+            let points: [number, number, number][] = []
+            element.forEach((item: [number, number] | [number, number, number]) => {
+                if (item.length === 2) {
+                    points.push([...item, 0])
+                } else if (item.length === 3) {
+                    points.push(item)
+                }
+            })
+            const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoLineString', undefined, linesGroup, 'Inner') as SceneTreeItem
+            const sceneObject = treeItem.sceneObject as ESGeoLineString
+            sceneObject.points = points
+            sceneObject.name = `折线${index + 1}`
+
+            sceneObject.strokeStyle = {
+                "width": 1,
+                "widthType": "screen",
+                "color": [
+                    0.7137254901960784,
+                    0.8274509803921568,
+                    0.10196078431372549,
+                    1
+                ],
+                "material": "",
+                "materialParams": {},
+                "ground": false
+            }
+        });
+    }
+    if (polygons.length > 0) {
+        const polygonsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('polygons', undefined, group, 'Inner') as SceneTreeItem
+        polygons.forEach((element: any, index: number) => {
+            let points: [number, number, number][] = []
+            element.forEach((item: [number, number] | [number, number, number]) => {
+                if (item.length === 2) {
+                    points.push([...item, 0])
+                } else if (item.length === 3) {
+                    points.push(item)
+                }
+            })
+            const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoPolygon', undefined, polygonsGroup, 'Inner') as SceneTreeItem
+            const sceneObject = treeItem.sceneObject as ESGeoPolygon
+            sceneObject.points = points
+
+            sceneObject.name = `多边形${index + 1}`
+
+            sceneObject.stroked = true
+            sceneObject.strokeStyle = {
+                "width": 1,
+                "widthType": "screen",
+                "color": [
+                    0.6235294117647059,
+                    0.7294117647058823,
+                    0.08627450980392157,
+                    1
+                ],
+                "material": "",
+                "materialParams": {},
+                "ground": false
+            }
+            sceneObject.filled = true
+            sceneObject.fillStyle = {
+                "color": [
+                    0.788235294117647,
+                    0.9098039215686274,
+                    0.058823529411764705,
+                    0.2
+                ],
+                "material": "",
+                "materialParams": {},
+                "ground": false
+            }
+        });
+    }
+
 }
 </script>
 

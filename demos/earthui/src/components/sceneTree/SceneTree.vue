@@ -977,7 +977,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
     }
 
     if (treeItem.sceneObject) {
-        if (treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESImageryLayer) {
+        if (!(xbsjEarthUi.activeViewer instanceof ESUeViewer) && (treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESImageryLayer)) {
             const setSplitDirection = getSplitDirectionList(treeItem.sceneObject)
             setSplitDirection.forEach((item: any) => {
                 baseItems.push(item)

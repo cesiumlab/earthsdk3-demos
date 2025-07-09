@@ -43,6 +43,8 @@ export function geojsonToPointsLinesPolygons(geojson: any) {
     }
     return result;
 }
+
+
 function convertGeometry(geometry: { type: any; coordinates: any[]; geometries: any[]; geometry: any; }, result: { points: any; lines: any; polygons: any; }, properties?: any) {
     // console.log('properties', properties);
 
@@ -546,7 +548,7 @@ export const createSceneJson = (xbsjEarthUi: XbsjEarthUi, resultJson: any) => {
                         } as ESJSwitchToUEViewerOptionType
                         const viewer = xbsjEarthUi.switchToUEViewer(options);
                         viewer.json = json
-                       
+
                     }
                 }
             }

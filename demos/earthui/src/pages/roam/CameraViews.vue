@@ -9,13 +9,8 @@ import { XbsjEarthUi } from '../../scripts/xbsjEarthUi';
 import ViewManager from "./cameraViews/ViewManager.vue";
 import { ESJVector3D } from 'earthsdk3';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-
-const customRef = ref(false)
 const d = createVueDisposer(onBeforeUnmount)
 const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
-const { cameraViewsManager } = xbsjEarthUi
-
-const loopplying = toVR<boolean>(d, [cameraViewsManager, 'playing'])//视角数组
 
 const changeToMap = () => {
     const viewer = xbsjEarthUi.activeViewer

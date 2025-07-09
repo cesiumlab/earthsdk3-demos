@@ -1001,7 +1001,12 @@ const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
     const availableActions = actions[current].next.map((dir: any) => ({
         text: actions[dir].text,
         keys: "",
-        func: () => { sceneObject.splitDirection = dir; }
+        func: () => {
+            if (!xbsjEarthUi.activeViewer || !xbsjEarthUi.activeViewer.rollerShutter) {
+                return Message.warning('当前视图不支持卷帘分割,请在分析中打开卷帘分割功能');
+            }
+            sceneObject.splitDirection = dir;
+        }
     }));
 
     return [{ type: "divider" }, ...availableActions];

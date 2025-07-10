@@ -38,7 +38,7 @@ const emits = defineEmits(['closeObj'])
         <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"
             :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
             :left-button="item.leftButton"></Button>
-        <Button  :name="'jiancai'"
+        <Button v-show="!ueIsShow " :name="'jiancai'"
             :content="'卷帘分割'" :click="() => { rollerShutter=!rollerShutter }" :actived="rollerShutter"
             :left-button="false"></Button>
         <component :is="type" />

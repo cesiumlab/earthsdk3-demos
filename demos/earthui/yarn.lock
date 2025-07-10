@@ -1964,15 +1964,15 @@ earthsdk-ui@1.0.2-beta.2:
     vue "^3.2.13"
     xbsj-base "^1.0.3"
 
-earthsdk3-assets@3.0.4:
-  version "3.0.4"
-  resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.4.tgz#36997dfbb2a7eeae4d47c694197a8ca6d87a711a"
-  integrity sha512-OgwOg4NK47cQ3vceg04PzzRdgUSK/6zdooWGr75KlhGCWKGNBurQn71kWQic3yo4qdzBZbUK6RqQ+sOrACd6iA==
+earthsdk3-assets@3.0.5:
+  version "3.0.5"
+  resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.5.tgz#2ad9c0b87b0d658327554fca4d576893187bddf7"
+  integrity sha512-VyTZZ88x+x0QStfb0qrZfWF99Qlpaz2dacmvZ4VVW/CKy+4fZ/7LFXPh+twqWLgSgMuIwg9mdwH/DF7R7t9pVA==
 
-earthsdk3-cesium@3.2.0-beta.7:
-  version "3.2.0-beta.7"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.2.0-beta.7.tgz#0594dcedeb8513f76552bb927f4314c15c23ed02"
-  integrity sha512-hER03pC7fN9byOJjqc4yoNFIxhHpq8KxFxb9SrivtivLLsEbYLH2hR2Ok+JzQddIlUpCptnbvC4qv0vfC9ZenA==
+earthsdk3-cesium@3.2.0-beta.9:
+  version "3.2.0-beta.9"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.2.0-beta.9.tgz#4cf035aa5ef664cede63085a62d638e038a0c817"
+  integrity sha512-hXPALT+w3Kwt8qKW6dkSHj9g+4biUmej0eSte3OeDpbeD0JwiVJhVlHTj6bbbK24D5DKNylMx4ISf6GjDQuHzA==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
@@ -1981,18 +1981,18 @@ earthsdk3-cesium@3.2.0-beta.7:
     html2canvas "^1.4.1"
     mvt-basic-render "^0.3.5"
 
-earthsdk3-ue@3.2.0-beta.7:
-  version "3.2.0-beta.7"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.2.0-beta.7.tgz#0cac3b0c5ed59164d39255a7af5b357b6231c7e2"
-  integrity sha512-3A2g4QJiY6mKR3tUVivwiX7zeN40fPYSGGmkzun7CwpMxEu6wyukqzNBuoDLB+g7IBiI5M1/bywjwEfd6pUDew==
+earthsdk3-ue@3.2.0-beta.8:
+  version "3.2.0-beta.8"
+  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.2.0-beta.8.tgz#bdb46508c3ccd08f755e9d5b987823660aa95d7e"
+  integrity sha512-HnBEh6jA8tQQ0K9Oc8keQIjGuDKpD/OiyZg5DqV+Yko6mlbvyvc1gFlqjLBz+RM62Nbp95FGt+ali+kHsEoq0w==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.2.0-beta.5:
-  version "3.2.0-beta.5"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0-beta.5.tgz#75c5aa48bd2099ff202803c116b9babbb9dce293"
-  integrity sha512-/lQiY+dGDKqtZe7r6w0D58Msv0jYHtrBZ1WXD12zXuIXMyeBrp2qYop+cndi/esHaabSS3MF5fGZZpp9k+lW0Q==
+earthsdk3@3.2.0-beta.7:
+  version "3.2.0-beta.7"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0-beta.7.tgz#335fddf0d2c0754aeee209871349acb1895afece"
+  integrity sha512-DbJHHCEmP60CTUaJykg0xwdUqmmOL6L6LIRcYHOCplvwamHinI3F1zdUmoOVbxU3ur8w8LkTx451GrQkg99PHw==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

@@ -1172,163 +1172,128 @@ const itemGeoJsonTOESObjects = (a: any) => {
  * Kml转ES对象
  * @param url
  */
-const kmlToESObjects = (url: any) => {
-    if (typeof (url) === 'string') {
-        getNoTokenText(url).then((res: any) => {
-            const parser = new DOMParser();
-            const kmlDocument = parser.parseFromString(res, "text/xml");
-            // 检查解析是否成功
-            const parseError = kmlDocument.querySelector('parsererror');
-            if (parseError) {
-                Message.warning('解析KML失败,请检查数据源')
-                return;
+const kmlToESObjects = async (url: any) => {
+    if (typeof url !== 'string') return;
+
+    try {
+        const res: any = await getNoTokenText(url);
+        const parser = new DOMParser();
+        const kmlDocument = parser.parseFromString(res, "text/xml");
+
+        // 检查解析是否成功
+        if (kmlDocument.querySelector('parsererror')) {
+            Message.warning('解析KML失败,请检查数据源');
+            return;
+        }
+
+        // 工具函数：解析坐标字符串为数组
+        const parseCoordinates = (coordText: string): [number, number, number][] => {
+            return coordText
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((coord: string) => {
+                    const arr = coord.split(',').map(Number);
+                    if (arr.length === 2) return [arr[0], arr[1], 0];
+                    if (arr.length === 3) return [arr[0], arr[1], arr[2]];
+                    return [0, 0, 0];
+                });
+        };
+
+        // 提取所有Placemark
+        const placemarks = Array.from(kmlDocument.querySelectorAll('Placemark'));
+
+        const points: [number, number, number][] = [];
+        const lines: [number, number, number][][] = [];
+        const polygons: [number, number, number][][] = [];
+
+        placemarks.forEach((placemark: Element) => {
+            // 点
+            const point = placemark.querySelector('Point > coordinates');
+            if (point && point.textContent) {
+                const coords = parseCoordinates(point.textContent);
+                if (coords.length) points.push(coords[0]);
             }
 
-            // 从解析后的XML中提取数据
-            const placemarks = Array.from(kmlDocument.querySelectorAll('Placemark'));
+            // 线
+            const line = placemark.querySelector('LineString > coordinates');
+            if (line && line.textContent) {
+                const coords = parseCoordinates(line.textContent);
+                if (coords.length) lines.push(coords);
+            }
 
-            const points: number[][] = []
-            const lines: number[][][] = []
-            const polygons: number[][][] = []
+            // 多边形
+            const polygon = placemark.querySelector('Polygon outerBoundaryIs > coordinates');
+            if (polygon && polygon.textContent) {
+                const coords = parseCoordinates(polygon.textContent);
+                if (coords.length) polygons.push(coords);
+            }
+        });
 
-            placemarks.forEach((placemark: any) => {
-                // 提取点坐标
-                const point = placemark.querySelector('Point');
-                if (point) {
-                    const coordinates = point.querySelector('coordinates');
-                    if (coordinates) {
-                        const coordText = coordinates.textContent?.trim() || '';
-                        const [lng, lat, alt] = coordText.split(',').map(Number);
-                        points.push([lng, lat, alt])
-                    }
-                }
+        const group = xbsjEarthUi.sceneTree.createGroupTreeItem('Kml');
 
-                // 提取线坐标
-                const lineString = placemark.querySelector('LineString');
-                if (lineString) {
-                    const coordinates = lineString.querySelector('coordinates');
-                    if (coordinates) {
-                        const coordText = coordinates.textContent?.trim() || '';
-                        const coords = coordText.split(/\s+/).filter(Boolean).map((coord: string) => coord.split(',').map(Number));
-                        lines.push(coords)
-                    }
-                }
-
-                // 提取多边形坐标
-                const polygon = placemark.querySelector('Polygon');
-                if (polygon) {
-                    const outerBoundaryIs = polygon.querySelector('outerBoundaryIs');
-                    if (outerBoundaryIs) {
-                        const coordinates = outerBoundaryIs.querySelector('coordinates');
-                        if (coordinates) {
-                            const coordText = coordinates.textContent?.trim() || '';
-                            const coords = coordText.split(/\s+/).filter(Boolean).map((coord: string) => coord.split(',').map(Number));
-                            polygons.push(coords)
-                        }
-                    }
-                }
-
+        // 创建点位
+        if (points.length > 0) {
+            const pointsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('points', undefined, group, 'Inner') as SceneTreeItem;
+            points.forEach((position, index) => {
+                const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESTextLabel', undefined, pointsGroup, 'Inner') as SceneTreeItem;
+                const sceneObject = treeItem.sceneObject as ESTextLabel;
+                sceneObject.position = position;
+                sceneObject.text = `点位${index + 1}`;
+                sceneObject.name = `点位${index + 1}`;
             });
-            const group = xbsjEarthUi.sceneTree.createGroupTreeItem('Kml')
-            // 创建点位
-            if (points.length > 0) {
-                const pointsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('points', undefined, group, 'Inner') as SceneTreeItem
-                points.forEach((element: any, index: number) => {
-                    const position = element.length === 2 ? [...element, 0] as [number, number, number] : element
-                    const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESTextLabel', undefined, pointsGroup, 'Inner') as SceneTreeItem
-                    const sceneObject = treeItem.sceneObject as ESTextLabel
-                    sceneObject.position = position
-                    sceneObject.text = `点位${index + 1}`
-                    sceneObject.name = `点位${index + 1}`
+        }
 
-                });
+        // 创建线
+        if (lines.length > 0) {
+            const linesGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('lines', undefined, group, 'Inner') as SceneTreeItem;
+            lines.forEach((linePoints, index) => {
+                const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoLineString', undefined, linesGroup, 'Inner') as SceneTreeItem;
+                const sceneObject = treeItem.sceneObject as ESGeoLineString;
+                sceneObject.points = linePoints;
+                sceneObject.name = `折线${index + 1}`;
+                sceneObject.strokeStyle = {
+                    width: 1,
+                    widthType: "screen",
+                    color: [0.7137254901960784, 0.8274509803921568, 0.10196078431372549, 1],
+                    material: "",
+                    materialParams: {},
+                    ground: false
+                };
+            });
+        }
 
-            }
-            // 创建线
-            if (lines.length > 0) {
-                const linesGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('lines', undefined, group, 'Inner') as SceneTreeItem
-                lines.forEach((element: any, index: number) => {
-                    let points: [number, number, number][] = []
-                    element.forEach((item: [number, number] | [number, number, number]) => {
-                        if (item.length === 2) {
-                            points.push([...item, 0])
-                        } else if (item.length === 3) {
-                            points.push(item)
-                        }
-                    })
-                    const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoLineString', undefined, linesGroup, 'Inner') as SceneTreeItem
-                    const sceneObject = treeItem.sceneObject as ESGeoLineString
-                    sceneObject.points = points
-                    sceneObject.name = `折线${index + 1}`
-
-                    sceneObject.strokeStyle = {
-                        "width": 1,
-                        "widthType": "screen",
-                        "color": [
-                            0.7137254901960784,
-                            0.8274509803921568,
-                            0.10196078431372549,
-                            1
-                        ],
-                        "material": "",
-                        "materialParams": {},
-                        "ground": false
-                    }
-                });
-            }
-            // 创建多边形
-            if (polygons.length > 0) {
-                const polygonsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('polygons', undefined, group, 'Inner') as SceneTreeItem
-                polygons.forEach((element: any, index: number) => {
-                    let points: [number, number, number][] = []
-                    element.forEach((item: [number, number] | [number, number, number]) => {
-                        if (item.length === 2) {
-                            points.push([...item, 0])
-                        } else if (item.length === 3) {
-                            points.push(item)
-                        }
-                    })
-                    const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoPolygon', undefined, polygonsGroup, 'Inner') as SceneTreeItem
-                    const sceneObject = treeItem.sceneObject as ESGeoPolygon
-                    sceneObject.points = points
-
-                    sceneObject.name = `多边形${index + 1}`
-
-                    sceneObject.stroked = true
-                    sceneObject.strokeStyle = {
-                        "width": 1,
-                        "widthType": "screen",
-                        "color": [
-                            0.6235294117647059,
-                            0.7294117647058823,
-                            0.08627450980392157,
-                            1
-                        ],
-                        "material": "",
-                        "materialParams": {},
-                        "ground": false
-                    }
-                    sceneObject.filled = true
-                    sceneObject.fillStyle = {
-                        "color": [
-                            0.788235294117647,
-                            0.9098039215686274,
-                            0.058823529411764705,
-                            0.2
-                        ],
-                        "material": "",
-                        "materialParams": {},
-                        "ground": false
-                    }
-                });
-            }
-        }).catch(error => {
-            console.log(error);
-            Message.error(`请求失败，请检查数据源！${error}`)
-        })
+        // 创建多边形
+        if (polygons.length > 0) {
+            const polygonsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('polygons', undefined, group, 'Inner') as SceneTreeItem;
+            polygons.forEach((polygonPoints, index) => {
+                const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoPolygon', undefined, polygonsGroup, 'Inner') as SceneTreeItem;
+                const sceneObject = treeItem.sceneObject as ESGeoPolygon;
+                sceneObject.points = polygonPoints;
+                sceneObject.name = `多边形${index + 1}`;
+                sceneObject.stroked = true;
+                sceneObject.strokeStyle = {
+                    width: 1,
+                    widthType: "screen",
+                    color: [0.6235294117647059, 0.7294117647058823, 0.08627450980392157, 1],
+                    material: "",
+                    materialParams: {},
+                    ground: false
+                };
+                sceneObject.filled = true;
+                sceneObject.fillStyle = {
+                    color: [0.788235294117647, 0.9098039215686274, 0.058823529411764705, 0.2],
+                    material: "",
+                    materialParams: {},
+                    ground: false
+                };
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        Message.error(`请求失败，请检查数据源！${error}`);
     }
-
-}
+};
 </script>
 
 <style scoped>

@@ -13,10 +13,12 @@
                 v-for="(item, index) in viewsRef" @click.stop="flyInByIndex(index)">
                 <img :src="item.thumbnail" alt="" width="40" height="40" :title="item.name">
                 <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
-                    @blur="editingChange(item.name, index)" @keydown.enter="editingChange(item.name, index)">
+                    @blur="editingChange(item.name, index)" @keydown.enter="handleEnterKey"
+                    :ref="el => setInputRef(el, index)">
                 <span v-else>{{ item.name }}</span>
-                <es-icon @click.stop="editingIndex = index" :name="'bianji'" :size="16" :title="'编辑'" />
-                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" :title="'删除'" />
+                <es-icon @click.stop="updateView(index)" :name="'gengxin'" :size="16" />
+                <es-icon @click.stop="startEditing(index)" :name="'bianji'" :size="16" />
+                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" />
             </div>
         </div>
     </div>
@@ -24,7 +26,7 @@
 <script setup lang='ts'>
 import { Message, messageBox, createVueDisposer, toVR } from "earthsdk-ui";
 import { ESJViewInfo } from "earthsdk3";
-import { inject, onBeforeUnmount, ref } from 'vue';
+import { inject, onBeforeUnmount, ref, nextTick } from 'vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -41,10 +43,50 @@ const deleteViewer = (index: number) => {
         .catch((err) => {
         })
 }
+// 添加一个标志来防止重复调用
+const isProcessingEdit = ref(false)
+
 const editingChange = (name: string | undefined, index: number) => {
+    if (isProcessingEdit.value) return // 如果正在处理编辑，直接返回
+
+    isProcessingEdit.value = true
     editingIndex.value = -1
     cameraViewsManager.resetViewName(index, name ?? '视角')
     Message.success('编辑成功')
+
+    // 重置标志
+    setTimeout(() => {
+        isProcessingEdit.value = false
+    }, 100)
+}
+
+const handleEnterKey = (event: KeyboardEvent) => {
+    const target = event.target as HTMLInputElement
+    const index = editingIndex.value
+    if (index !== -1) {
+        editingChange(target.value, index)
+    }
+}
+
+// 存储输入框引用
+const inputRefs = ref<{ [key: number]: HTMLInputElement }>({})
+
+const setInputRef = (el: any, index: number) => {
+    if (el) {
+        inputRefs.value[index] = el
+    }
+}
+
+const startEditing = (index: number) => {
+    editingIndex.value = index
+    // 等待DOM更新后聚焦输入框
+    nextTick(() => {
+        const input = inputRefs.value[index]
+        if (input) {
+            input.focus()
+            input.select() // 选中所有文本
+        }
+    })
 }
 const d = createVueDisposer(onBeforeUnmount)
 const viewsRef = toVR<ESJViewInfo[]>(d, [cameraViewsManager, 'views'])//视角数组
@@ -76,7 +118,6 @@ const flyInByIndex = (index: number) => {
  */
 const addView = () => {
     changeToMap()
-    cameraViewsManager.playing = false
     cameraViewsManager.addView()
     Message.success('添加成功')
 }
@@ -89,6 +130,10 @@ const changeToMap = () => {
     if (!viewer) return
     viewer.changeToMap()
     xbsjEarthUi.roamMode = 'Map'
+}
+
+const updateView = (index: number) => {
+    cameraViewsManager.update(index)
 }
 </script>
 

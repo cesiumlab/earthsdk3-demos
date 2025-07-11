@@ -134,6 +134,7 @@ const changeToMap = () => {
 
 const updateView = (index: number) => {
     cameraViewsManager.update(index)
+    Message.success('视角更新')
 }
 </script>
 

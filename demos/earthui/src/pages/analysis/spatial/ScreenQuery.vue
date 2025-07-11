@@ -1,0 +1,155 @@
+<template>
+    <PopList :title="'屏幕查询'" :showButton="false" class="screenQuery">
+    </PopList>
+</template>
+<script setup lang="ts">
+import { ESObjectWithLocation, SceneTreeItem } from "earthsdk3";
+import { inject, onMounted, onBeforeUnmount, ref, nextTick } from "vue";
+import { Message } from "earthsdk-ui";
+import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
+import PopList from "../../../components/PopList.vue";
+
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+const drawing = ref(false);
+const startScreen = ref<{ x: number, y: number } | null>(null);
+const endScreen = ref<{ x: number, y: number } | null>(null);
+let drawCanvas: HTMLCanvasElement | null = null;
+let ctx: CanvasRenderingContext2D | null = null;
+
+function createCanvas() {
+    drawCanvas = document.createElement('canvas');
+    drawCanvas.className = 'draw-canvas';
+    drawCanvas.style.position = 'absolute';
+    drawCanvas.style.left = '0';
+    drawCanvas.style.top = '0';
+    drawCanvas.style.width = '100%';
+    drawCanvas.style.height = '100%';
+    drawCanvas.style.zIndex = '1';
+    drawCanvas.width = window.innerWidth;
+    drawCanvas.height = window.innerHeight;
+    const viewer = xbsjEarthUi.activeViewer;
+    if (viewer && viewer.container) {
+        viewer.container.appendChild(drawCanvas);
+    } else {
+        console.warn("容器未就绪，无法添加 canvas");
+    }
+    ctx = drawCanvas.getContext('2d');
+}
+
+function removeCanvas() {
+    if (drawCanvas && drawCanvas.parentNode) {
+        drawCanvas.parentNode.removeChild(drawCanvas);
+    }
+    drawCanvas = null;
+    ctx = null;
+}
+
+function updateCanvasSize() {
+    if (drawCanvas) {
+        drawCanvas.width = window.innerWidth;
+        drawCanvas.height = window.innerHeight;
+    }
+}
+
+function drawRect() {
+    if (!ctx || !startScreen.value || !endScreen.value) return;
+    ctx.clearRect(0, 0, drawCanvas!.width, drawCanvas!.height);
+    const x = Math.min(startScreen.value.x, endScreen.value.x);
+    const y = Math.min(startScreen.value.y, endScreen.value.y);
+    const w = Math.abs(startScreen.value.x - endScreen.value.x);
+    const h = Math.abs(startScreen.value.y - endScreen.value.y);
+    ctx.save();
+    ctx.globalAlpha = 0.3;
+    ctx.fillStyle = '#2C68F7';
+    ctx.fillRect(x, y, w, h);
+    ctx.restore();
+    ctx.strokeStyle = '#2C68F7';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, w, h);
+}
+
+function onMouseDown(e: MouseEvent) {
+    drawing.value = true;
+    startScreen.value = { x: e.clientX, y: e.clientY };
+    endScreen.value = null;
+}
+function onMouseMove(e: MouseEvent) {
+    if (drawing.value && startScreen.value) {
+        endScreen.value = { x: e.clientX, y: e.clientY };
+        drawRect();
+    }
+}
+function onMouseUp(e: MouseEvent) {
+    if (!drawing.value) return;
+    drawing.value = false;
+    if (startScreen.value) {
+        endScreen.value = { x: e.clientX, y: e.clientY };
+        drawRect();
+        // 处理地理坐标转换和高亮
+        handleScreenRect(startScreen.value, endScreen.value);
+    }
+    startScreen.value = null;
+    endScreen.value = null;
+}
+
+async function handleScreenRect(start: { x: number, y: number }, end: { x: number, y: number }) {
+    if (!xbsjEarthUi.activeViewer) {
+        Message.warning("视口未加载");
+        return;
+    }
+    try {
+        const [p1, p2, p3, p4] = await Promise.all([
+            xbsjEarthUi.activeViewer.pickPosition([start.x, start.y]),
+            xbsjEarthUi.activeViewer.pickPosition([start.x, end.y]),
+            xbsjEarthUi.activeViewer.pickPosition([end.x, end.y]),
+            xbsjEarthUi.activeViewer.pickPosition([end.x, start.y])
+        ]);
+        if (!p1 || !p2 || !p3 || !p4) return;
+        const lons = [p1[0], p2[0], p3[0], p4[0]];
+        const lats = [p1[1], p2[1], p3[1], p4[1]];
+        const minLon = Math.min(...lons);
+        const maxLon = Math.max(...lons);
+        const minLat = Math.min(...lats);
+        const maxLat = Math.max(...lats);
+        highlightElementsInRect(minLon, minLat, maxLon, maxLat);
+    } catch (error) {
+        console.error('屏幕坐标拾取失败:', error);
+    }
+}
+
+function highlightElementsInRect(minLon: number, minLat: number, maxLon: number, maxLat: number) {
+    const allItems = [...xbsjEarthUi.sceneTree.getDescendants()] as SceneTreeItem[];
+    xbsjEarthUi.sceneTree.sceneUiTree.clearAllSelectedItems();
+    allItems.forEach(item => {
+        if (item && item.sceneObject && item.sceneObject instanceof ESObjectWithLocation) {
+            const [lon, lat] = item.sceneObject.position;
+            if (lon >= minLon && lon <= maxLon && lat >= minLat && lat <= maxLat) {
+                item.uiTreeObject.selected = true;
+            }
+        }
+    });
+}
+
+onMounted(() => {
+    Message.loading({ id: 'message', content: '请按下并拖动绘制矩形，进行区域查询筛选' })
+    createCanvas();
+    window.addEventListener('resize', updateCanvasSize);
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+});
+onBeforeUnmount(() => {
+    removeCanvas();
+    window.removeEventListener('resize', updateCanvasSize);
+    window.removeEventListener('mousedown', onMouseDown);
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+    Message.remove("message")
+});
+</script>
+
+<style scoped>
+.screenQuery {
+    position: relative;
+}
+</style>

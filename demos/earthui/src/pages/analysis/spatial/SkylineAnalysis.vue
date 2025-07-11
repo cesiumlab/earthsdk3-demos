@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts">
 import { ESSkylineAnalysis } from "earthsdk3";
-import { inject, onBeforeUnmount, onMounted, computed, ref } from "vue";
+import { inject, onBeforeUnmount, onMounted,nextTick, computed, ref } from "vue";
 import { ESColor, Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
@@ -181,17 +181,19 @@ const radiusChange = (e) => {
 
 
 onMounted(() => {
-    const parent = document.querySelector('.roam');
-    const child = document.querySelector('.roam .skyline');
-    if (parent && child instanceof HTMLElement) {
-        parent?.scrollTo({
-            top: child?.offsetTop,
-            behavior: "smooth"
-        });
-    }
-    Message.success('已开启天际线，可调整视角（平视），重新绘制天际线')
-    start()
-})
+    nextTick(() => {
+        const parent = document.querySelector('.roam');
+        const child = document.querySelector('.roam .skyline');
+        if (parent && child instanceof HTMLElement) {
+            parent.scrollTo({
+                top: child.offsetTop,
+                behavior: "smooth"
+            });
+        }
+        Message.success('已开启天际线，可调整视角（平视），重新绘制天际线');
+        start();
+    });
+});
 onBeforeUnmount(() => {
     if (skylineAnalysis) {
         xbsjEarthUi.destroySceneObject(skylineAnalysis)

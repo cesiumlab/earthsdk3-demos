@@ -835,12 +835,8 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
                     case 'ESKml':
                         {
                             const sceneObject = treeItem.sceneObject as ESKml
-                            const url = sceneObject.uri
-                            if (!url) {
-                                Message.error('此场景对象不存在uri属性，请检查')
-                                return
-                            }
-                            kmlToESObjects(url)
+                            let input = sceneObject.uri ? sceneObject.uri : sceneObject.data
+                            kmlToESObjects(input)
                         }
                         break;
 
@@ -1172,13 +1168,42 @@ const itemGeoJsonTOESObjects = (a: any) => {
  * Kml转ES对象
  * @param url
  */
-const kmlToESObjects = async (url: any) => {
-    if (typeof url !== 'string') return;
+// 定义数据结构类型
+interface KmlPoint {
+    name: string;
+    coordinates: [number, number, number];
+}
+
+interface KmlLine {
+    name: string;
+    coordinates: [number, number, number][];
+}
+
+interface KmlPolygon {
+    name: string;
+    coordinates: [number, number, number][];
+}
+
+const kmlToESObjects = async (input: any) => {
+    if (typeof input !== 'string') return;
 
     try {
-        const res: any = await getNoTokenText(url);
+        let kmlText: string;
+
+        // 判断输入是URL还是KML文本内容
+        const isUrl = input.startsWith('http://') || input.startsWith('https://') || input.startsWith('ftp://') || input.startsWith('file://');
+
+        if (isUrl) {
+            // 如果是URL，则请求获取KML内容
+            const res: any = await getNoTokenText(input);
+            kmlText = res;
+        } else {
+            // 如果是KML文本内容，直接使用
+            kmlText = input;
+        }
+
         const parser = new DOMParser();
-        const kmlDocument = parser.parseFromString(res, "text/xml");
+        const kmlDocument = parser.parseFromString(kmlText, "text/xml");
 
         // 检查解析是否成功
         if (kmlDocument.querySelector('parsererror')) {
@@ -1200,33 +1225,56 @@ const kmlToESObjects = async (url: any) => {
                 });
         };
 
+        // 工具函数：获取Placemark的名称
+        const getName = (placemark: Element): string => {
+            const nameElement = placemark.querySelector('name');
+            return nameElement?.textContent?.trim() || '未命名';
+        };
+
         // 提取所有Placemark
         const placemarks = Array.from(kmlDocument.querySelectorAll('Placemark'));
 
-        const points: [number, number, number][] = [];
-        const lines: [number, number, number][][] = [];
-        const polygons: [number, number, number][][] = [];
+        const points: KmlPoint[] = [];
+        const lines: KmlLine[] = [];
+        const polygons: KmlPolygon[] = [];
 
         placemarks.forEach((placemark: Element) => {
+            const name = getName(placemark);
+
             // 点
             const point = placemark.querySelector('Point > coordinates');
             if (point && point.textContent) {
                 const coords = parseCoordinates(point.textContent);
-                if (coords.length) points.push(coords[0]);
+                if (coords.length) {
+                    points.push({
+                        name,
+                        coordinates: coords[0]
+                    });
+                }
             }
 
             // 线
             const line = placemark.querySelector('LineString > coordinates');
             if (line && line.textContent) {
                 const coords = parseCoordinates(line.textContent);
-                if (coords.length) lines.push(coords);
+                if (coords.length) {
+                    lines.push({
+                        name,
+                        coordinates: coords
+                    });
+                }
             }
 
             // 多边形
-            const polygon = placemark.querySelector('Polygon outerBoundaryIs > coordinates');
+            const polygon = placemark.querySelector('Polygon > outerBoundaryIs > LinearRing > coordinates');
             if (polygon && polygon.textContent) {
                 const coords = parseCoordinates(polygon.textContent);
-                if (coords.length) polygons.push(coords);
+                if (coords.length) {
+                    polygons.push({
+                        name,
+                        coordinates: coords
+                    });
+                }
             }
         });
 
@@ -1235,23 +1283,23 @@ const kmlToESObjects = async (url: any) => {
         // 创建点位
         if (points.length > 0) {
             const pointsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('points', undefined, group, 'Inner') as SceneTreeItem;
-            points.forEach((position, index) => {
+            points.forEach((point) => {
                 const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESTextLabel', undefined, pointsGroup, 'Inner') as SceneTreeItem;
                 const sceneObject = treeItem.sceneObject as ESTextLabel;
-                sceneObject.position = position;
-                sceneObject.text = `点位${index + 1}`;
-                sceneObject.name = `点位${index + 1}`;
+                sceneObject.position = point.coordinates;
+                sceneObject.text = point.name;
+                sceneObject.name = point.name;
             });
         }
 
         // 创建线
         if (lines.length > 0) {
             const linesGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('lines', undefined, group, 'Inner') as SceneTreeItem;
-            lines.forEach((linePoints, index) => {
+            lines.forEach((line) => {
                 const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoLineString', undefined, linesGroup, 'Inner') as SceneTreeItem;
                 const sceneObject = treeItem.sceneObject as ESGeoLineString;
-                sceneObject.points = linePoints;
-                sceneObject.name = `折线${index + 1}`;
+                sceneObject.points = line.coordinates;
+                sceneObject.name = line.name;
                 sceneObject.strokeStyle = {
                     width: 1,
                     widthType: "screen",
@@ -1266,11 +1314,11 @@ const kmlToESObjects = async (url: any) => {
         // 创建多边形
         if (polygons.length > 0) {
             const polygonsGroup = xbsjEarthUi.sceneTree.createGroupTreeItem('polygons', undefined, group, 'Inner') as SceneTreeItem;
-            polygons.forEach((polygonPoints, index) => {
+            polygons.forEach((polygon) => {
                 const treeItem = xbsjEarthUi.sceneTree.createSceneObjectTreeItem('ESGeoPolygon', undefined, polygonsGroup, 'Inner') as SceneTreeItem;
                 const sceneObject = treeItem.sceneObject as ESGeoPolygon;
-                sceneObject.points = polygonPoints;
-                sceneObject.name = `多边形${index + 1}`;
+                sceneObject.points = polygon.coordinates;
+                sceneObject.name = polygon.name;
                 sceneObject.stroked = true;
                 sceneObject.strokeStyle = {
                     width: 1,
@@ -1289,6 +1337,13 @@ const kmlToESObjects = async (url: any) => {
                 };
             });
         }
+
+        // 返回解析结果
+        return {
+            points,
+            lines,
+            polygons
+        };
     } catch (error) {
         console.log(error);
         Message.error(`请求失败，请检查数据源！${error}`);

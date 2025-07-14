@@ -43,7 +43,7 @@ const emits = defineEmits(['closeObj'])
 </script>
 
 <template>
-    <RightList :title="'空间分析2'" v-show="!ueIsShow">
+    <RightList :title="'空间分析2'">
         <Button v-show="!ueIsShow" :name="'jiancai'" :content="'卷帘分割'" :click="() => { rollerShutter = !rollerShutter }"
             :actived="rollerShutter" :left-button="true"></Button>
         <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"

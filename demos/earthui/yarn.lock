@@ -1989,10 +1989,10 @@ earthsdk3-ue@3.2.0-beta.8:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.2.0-beta.7:
-  version "3.2.0-beta.7"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0-beta.7.tgz#335fddf0d2c0754aeee209871349acb1895afece"
-  integrity sha512-DbJHHCEmP60CTUaJykg0xwdUqmmOL6L6LIRcYHOCplvwamHinI3F1zdUmoOVbxU3ur8w8LkTx451GrQkg99PHw==
+earthsdk3@3.2.0-beta.8:
+  version "3.2.0-beta.8"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0-beta.8.tgz#bfe934943a5a541a18bb60c963a6847fcfd8af71"
+  integrity sha512-3fOe0O/ybqDxpJMSq0N7LrIIymR1tJHuSAGmsggPPyM4+lJ1YY896OxA61z5gal83X8zycCEzb8ZeemXlp8puA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

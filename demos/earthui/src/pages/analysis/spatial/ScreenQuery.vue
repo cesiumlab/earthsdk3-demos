@@ -120,7 +120,7 @@ async function handleScreenRect(start: { x: number, y: number }, end: { x: numbe
             if (item && item.sceneObject && item.sceneObject instanceof ESObjectWithLocation) {
                 const point: ESJVector2D = [item.sceneObject.position[0], item.sceneObject.position[1]]
                 const inside = booleanPointInPolygon(polygon, point)
-                if (inside) item.uiTreeObject.selected = true;
+                if (inside && item.show) item.uiTreeObject.selected = true;
             }
         });
     } catch (error) {
@@ -134,16 +134,22 @@ onMounted(() => {
     Message.loading({ id: 'message', content: '请按下并拖动绘制矩形，进行区域查询筛选' })
     createCanvas();
     window.addEventListener('resize', updateCanvasSize);
-    window.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
+    const container = xbsjEarthUi.activeViewer?.container;
+    if (container) {
+        container.removeEventListener('mousedown', onMouseDown);
+        container.removeEventListener('mousemove', onMouseMove);
+        container.removeEventListener('mouseup', onMouseUp);
+    }
 });
 onBeforeUnmount(() => {
     removeCanvas();
     window.removeEventListener('resize', updateCanvasSize);
-    window.removeEventListener('mousedown', onMouseDown);
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('mouseup', onMouseUp);
+    const container = xbsjEarthUi.activeViewer?.container;
+    if (container) {
+        container.removeEventListener('mousedown', onMouseDown);
+        container.removeEventListener('mousemove', onMouseMove);
+        container.removeEventListener('mouseup', onMouseUp);
+    }
     Message.remove("message")
 });
 </script>

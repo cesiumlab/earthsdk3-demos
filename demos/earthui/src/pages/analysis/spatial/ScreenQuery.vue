@@ -3,7 +3,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { ESObjectWithLocation, SceneTreeItem } from "earthsdk3";
+import { ESJVector2D, ESJVector2DArray, ESJVector3D, ESObjectWithLocation, SceneTreeItem, booleanPointInPolygon } from "earthsdk3";
 import { inject, onMounted, onBeforeUnmount, ref, nextTick } from "vue";
 import { Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
@@ -100,35 +100,35 @@ async function handleScreenRect(start: { x: number, y: number }, end: { x: numbe
     try {
         const [p1, p2, p3, p4] = await Promise.all([
             xbsjEarthUi.activeViewer.pickPosition([start.x, start.y]),
-            xbsjEarthUi.activeViewer.pickPosition([start.x, end.y]),
+            xbsjEarthUi.activeViewer.pickPosition([end.x, start.y]),
             xbsjEarthUi.activeViewer.pickPosition([end.x, end.y]),
-            xbsjEarthUi.activeViewer.pickPosition([end.x, start.y])
+            xbsjEarthUi.activeViewer.pickPosition([start.x, end.y])
         ]);
         if (!p1 || !p2 || !p3 || !p4) return;
-        const lons = [p1[0], p2[0], p3[0], p4[0]];
-        const lats = [p1[1], p2[1], p3[1], p4[1]];
-        const minLon = Math.min(...lons);
-        const maxLon = Math.max(...lons);
-        const minLat = Math.min(...lats);
-        const maxLat = Math.max(...lats);
-        highlightElementsInRect(minLon, minLat, maxLon, maxLat);
+
+        // 闭合多边形
+        const polygon: ESJVector2DArray = [
+            [p1[0], p1[1]],
+            [p2[0], p2[1]],
+            [p3[0], p3[1]],
+            [p4[0], p4[1]],
+            [p1[0], p1[1]]
+        ];
+        const allItems = [...xbsjEarthUi.sceneTree.getDescendants()] as SceneTreeItem[];
+        xbsjEarthUi.sceneTree.sceneUiTree.clearAllSelectedItems();
+        allItems.forEach(item => {
+            if (item && item.sceneObject && item.sceneObject instanceof ESObjectWithLocation) {
+                const point: ESJVector2D = [item.sceneObject.position[0], item.sceneObject.position[1]]
+                const inside = booleanPointInPolygon(polygon, point)
+                if (inside) item.uiTreeObject.selected = true;
+            }
+        });
     } catch (error) {
         console.error('屏幕坐标拾取失败:', error);
     }
 }
 
-function highlightElementsInRect(minLon: number, minLat: number, maxLon: number, maxLat: number) {
-    const allItems = [...xbsjEarthUi.sceneTree.getDescendants()] as SceneTreeItem[];
-    xbsjEarthUi.sceneTree.sceneUiTree.clearAllSelectedItems();
-    allItems.forEach(item => {
-        if (item && item.sceneObject && item.sceneObject instanceof ESObjectWithLocation) {
-            const [lon, lat] = item.sceneObject.position;
-            if (lon >= minLon && lon <= maxLon && lat >= minLat && lat <= maxLat) {
-                item.uiTreeObject.selected = true;
-            }
-        }
-    });
-}
+
 
 onMounted(() => {
     Message.loading({ id: 'message', content: '请按下并拖动绘制矩形，进行区域查询筛选' })

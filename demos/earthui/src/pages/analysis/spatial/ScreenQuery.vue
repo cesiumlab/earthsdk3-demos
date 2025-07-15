@@ -3,7 +3,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { ESJVector2D, ESJVector2DArray, ESJVector3D, ESObjectWithLocation, SceneTreeItem, booleanPointInPolygon } from "earthsdk3";
+import { ESJVector2D, ESJVector2DArray, ESObjectWithLocation, SceneTreeItem, booleanPointInPolygon } from "earthsdk3";
 import { inject, onMounted, onBeforeUnmount, ref, nextTick } from "vue";
 import { Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";

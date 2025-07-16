@@ -136,10 +136,12 @@ onMounted(() => {
     window.addEventListener('resize', updateCanvasSize);
     const container = xbsjEarthUi.activeViewer?.container;
     if (container) {
-        container.removeEventListener('mousedown', onMouseDown);
-        container.removeEventListener('mousemove', onMouseMove);
-        container.removeEventListener('mouseup', onMouseUp);
+        container.addEventListener('mousedown', onMouseDown);
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseup', onMouseUp);
     }
+
+
 });
 onBeforeUnmount(() => {
     removeCanvas();
@@ -150,6 +152,8 @@ onBeforeUnmount(() => {
         container.removeEventListener('mousemove', onMouseMove);
         container.removeEventListener('mouseup', onMouseUp);
     }
+
+
     Message.remove("message")
 });
 </script>

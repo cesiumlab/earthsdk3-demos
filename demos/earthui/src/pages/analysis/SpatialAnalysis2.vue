@@ -38,19 +38,37 @@ const controlList: { zh: string, type: string, icon: string, leftButton: boolean
 const type = ref('')
 const changeType = (value: string) => {
     type.value = type.value === value ? '' : value
+    cancelEditing()
+    if(value=='ScreenQuery'){
+        if (xbsjEarthUi.activeViewer) {
+        xbsjEarthUi.activeViewer.stopEditing()
+    }
+
+    openEditing()
+    }
 }
-const emits = defineEmits(['closeObj'])
+
+let dispose: (() => void) | null=null
 
 
-onMounted(() => {
+onBeforeUnmount(() => {
+    cancelEditing()
+})
+
+const openEditing=()=>{
     if (!xbsjEarthUi.activeViewer) return
-    const dispose = xbsjEarthUi.activeViewer.editingEvent.don(() => {
+    dispose = xbsjEarthUi.activeViewer.editingEvent.don(() => {
         type.value = ""
     })
-    onBeforeUnmount(() => {
+}
+
+const cancelEditing=()=>{
+    if(dispose){
         dispose()
-    })
-})
+        dispose=null
+    }
+}
+
 
 
 

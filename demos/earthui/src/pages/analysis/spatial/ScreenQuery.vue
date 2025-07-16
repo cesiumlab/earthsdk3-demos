@@ -4,7 +4,7 @@
 </template>
 <script setup lang="ts">
 import { ESJVector2D, ESJVector2DArray, ESObjectWithLocation, SceneTreeItem, booleanPointInPolygon } from "earthsdk3";
-import { inject, onMounted, onBeforeUnmount, ref, nextTick } from "vue";
+import { inject, onMounted, onBeforeUnmount, ref } from "vue";
 import { Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import PopList from "../../../components/PopList.vue";
@@ -131,14 +131,15 @@ async function handleScreenRect(start: { x: number, y: number }, end: { x: numbe
 
 
 onMounted(() => {
+   
     Message.loading({ id: 'message', content: '请按下并拖动绘制矩形，进行区域查询筛选' })
     createCanvas();
     window.addEventListener('resize', updateCanvasSize);
     const container = xbsjEarthUi.activeViewer?.container;
     if (container) {
-        container.addEventListener('mousedown', onMouseDown);
-        container.addEventListener('mousemove', onMouseMove);
-        container.addEventListener('mouseup', onMouseUp);
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
     }
 
 
@@ -146,13 +147,9 @@ onMounted(() => {
 onBeforeUnmount(() => {
     removeCanvas();
     window.removeEventListener('resize', updateCanvasSize);
-    const container = xbsjEarthUi.activeViewer?.container;
-    if (container) {
-        container.removeEventListener('mousedown', onMouseDown);
-        container.removeEventListener('mousemove', onMouseMove);
-        container.removeEventListener('mouseup', onMouseUp);
-    }
-
+    window.removeEventListener('mousedown', onMouseDown);
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
 
     Message.remove("message")
 });

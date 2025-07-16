@@ -10,12 +10,15 @@ import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import PopList from "../../../components/PopList.vue";
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const drawing = ref(false);
-const startScreen = ref<{ x: number, y: number } | null>(null);
-const endScreen = ref<{ x: number, y: number } | null>(null);
+const drawing = ref(false); // 是否正在绘制
+const startScreen = ref<{ x: number, y: number } | null>(null); // 起点屏幕坐标
+const endScreen = ref<{ x: number, y: number } | null>(null);   // 终点屏幕坐标
 let drawCanvas: HTMLCanvasElement | null = null;
 let ctx: CanvasRenderingContext2D | null = null;
 
+/**
+ * 创建并挂载 canvas 到地球容器
+ */
 function createCanvas() {
     drawCanvas = document.createElement('canvas');
     drawCanvas.className = 'draw-canvas';
@@ -36,6 +39,9 @@ function createCanvas() {
     ctx = drawCanvas.getContext('2d');
 }
 
+/**
+ * 移除 canvas
+ */
 function removeCanvas() {
     if (drawCanvas && drawCanvas.parentNode) {
         drawCanvas.parentNode.removeChild(drawCanvas);
@@ -44,6 +50,9 @@ function removeCanvas() {
     ctx = null;
 }
 
+/**
+ * canvas 尺寸自适应窗口
+ */
 function updateCanvasSize() {
     if (drawCanvas) {
         drawCanvas.width = window.innerWidth;
@@ -51,6 +60,9 @@ function updateCanvasSize() {
     }
 }
 
+/**
+ * 绘制半透明矩形
+ */
 function drawRect() {
     if (!ctx || !startScreen.value || !endScreen.value) return;
     ctx.clearRect(0, 0, drawCanvas!.width, drawCanvas!.height);
@@ -68,17 +80,28 @@ function drawRect() {
     ctx.strokeRect(x, y, w, h);
 }
 
+/**
+ * 鼠标按下：记录起点，开始绘制
+ */
 function onMouseDown(e: MouseEvent) {
     drawing.value = true;
     startScreen.value = { x: e.clientX, y: e.clientY };
     endScreen.value = null;
 }
+
+/**
+ * 鼠标移动：实时更新终点并绘制
+ */
 function onMouseMove(e: MouseEvent) {
     if (drawing.value && startScreen.value) {
         endScreen.value = { x: e.clientX, y: e.clientY };
         drawRect();
     }
 }
+
+/**
+ * 鼠标抬起：记录终点，绘制完成，转地理坐标并高亮
+ */
 function onMouseUp(e: MouseEvent) {
     if (!drawing.value) return;
     drawing.value = false;
@@ -92,6 +115,9 @@ function onMouseUp(e: MouseEvent) {
     endScreen.value = null;
 }
 
+/**
+ * 屏幕矩形四角转地理坐标，筛选高亮
+ */
 async function handleScreenRect(start: { x: number, y: number }, end: { x: number, y: number }) {
     if (!xbsjEarthUi.activeViewer) {
         Message.warning("视口未加载");
@@ -128,29 +154,27 @@ async function handleScreenRect(start: { x: number, y: number }, end: { x: numbe
     }
 }
 
-
-
+// 生命周期：组件挂载时创建canvas并监听事件，卸载时清理
 onMounted(() => {
-   
     Message.loading({ id: 'message', content: '请按下并拖动绘制矩形，进行区域查询筛选' })
     createCanvas();
     window.addEventListener('resize', updateCanvasSize);
     const container = xbsjEarthUi.activeViewer?.container;
     if (container) {
-        window.addEventListener('mousedown', onMouseDown);
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseup', onMouseUp);
+        container.addEventListener('mousedown', onMouseDown);
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseup', onMouseUp);
     }
-
-
 });
 onBeforeUnmount(() => {
     removeCanvas();
     window.removeEventListener('resize', updateCanvasSize);
-    window.removeEventListener('mousedown', onMouseDown);
-    window.removeEventListener('mousemove', onMouseMove);
-    window.removeEventListener('mouseup', onMouseUp);
-
+    const container = xbsjEarthUi.activeViewer?.container;
+    if (container) {
+        container.removeEventListener('mousedown', onMouseDown);
+        container.removeEventListener('mousemove', onMouseMove);
+        container.removeEventListener('mouseup', onMouseUp);
+    }
     Message.remove("message")
 });
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, ref, inject } from "vue";
+import { defineComponent, onBeforeUnmount, ref, inject, onMounted } from "vue";
 import SkylineAnalysis from './spatial/SkylineAnalysis.vue'; //天际线组件
 import ScreenQuery from './spatial/ScreenQuery.vue'; //屏幕查询组件
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
@@ -40,6 +40,21 @@ const changeType = (value: string) => {
     type.value = type.value === value ? '' : value
 }
 const emits = defineEmits(['closeObj'])
+
+
+onMounted(() => {
+    if (!xbsjEarthUi.activeViewer) return
+    const dispose = xbsjEarthUi.activeViewer.editingEvent.don(() => {
+        type.value = ""
+    })
+    onBeforeUnmount(() => {
+        dispose()
+    })
+})
+
+
+
+
 </script>
 
 <template>

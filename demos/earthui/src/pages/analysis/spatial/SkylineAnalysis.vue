@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts">
 import { ESSkylineAnalysis } from "earthsdk3";
-import { inject, onBeforeUnmount, onMounted,nextTick, computed, ref } from "vue";
+import { inject, onBeforeUnmount, onMounted, nextTick, computed, ref } from "vue";
 import { ESColor, Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
@@ -59,7 +59,7 @@ skylineAnalysis.radius = 1000
 let dispose: any
 // 深度值
 let windowPositions = ref([]);
-skylineAnalysis.windowPositionsChanged.don((value) => {
+skylineAnalysis.windowPositionsChanged.don((value: any) => {
     if (value) {
         windowPositions.value = JSON.parse(JSON.stringify(value))
     }
@@ -166,7 +166,7 @@ const clear = () => {
  * 限制半径不能为负数和空
  * @param e 
  */
-const radiusChange = (e) => {
+const radiusChange = (e: any) => {
     let temp = e.target.value
     if (temp < 0) {
         Message.warning('天际线半径不能为负数')

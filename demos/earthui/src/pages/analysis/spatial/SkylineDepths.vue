@@ -6,7 +6,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive, defineProps, watch, inject } from "vue";
-
+import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import * as echarts from "echarts";
 const props = withDefaults(defineProps<{ depths: number[] }>(), {})
@@ -73,6 +73,7 @@ const init = () => {
     if (myChart.value) myChart.value.clear()
     try {
         option.series[0].data = props.depths.map(item => {
+            // @ts-ignore
             return (1 - (item[1] / xbsjEarthUi.activeViewer.container.offsetHeight)).toFixed(6)
         })
     } catch (error) {

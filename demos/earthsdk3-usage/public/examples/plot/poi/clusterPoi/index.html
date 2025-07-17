@@ -66,7 +66,7 @@
     <div id="panel">
         <div class="box">
             <label for="content">地址</label>
-            <input type="text" id="url" value="http://114.242.26.126:6003/source/poi/cun.json" onchange="setUrl()" />
+            <input type="text" id="url" value="https://www.earthsdk.com/assets/cun.json" onchange="setUrl()" />
             <label for="content">聚合范围</label>
             <input type="text" id="pixelRange" value="200" onchange="setScope()" />
             <label for="content">最小数量</label>
@@ -109,7 +109,7 @@
 
         /** ---------------------------------poi聚合------------------------------------**/
         const sceneObject = objm.createSceneObject('ESEntityCluster');
-        sceneObject.url = "http://114.242.26.126:6003/source/poi/cun.json"
+        sceneObject.url = "https://www.earthsdk.com/assets/cun.json"
         sceneObject.pixelRange = 200
         sceneObject.minimumClusterSize = 2
         sceneObject.heightReference = "None"

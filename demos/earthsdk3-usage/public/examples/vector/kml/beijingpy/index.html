@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>KML</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                117.13851723107524,
+                37.6327439860649,
+                223980.9890638722
+            ], [
+                348.83280837634317,
+                -37.91751496362766,
+                359.9846847396456
+            ],
+                3
+            )
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                // pick拾取
+                viewer.pick(e.screenPosition, "customPick").then((res) => {
+                    console.log('pickedEvent', res)
+                });
+            });
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+        //token需要到cesium官网申请 https://ion.cesium.com/
+        objm.activeViewer.ionAccessToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlMGJlNTYyMS05YzIzLTQ5NmYtOTA4My1hYzYwMTlkMjVmZTEiLCJpZCI6MTk3ODAxLCJpYXQiOjE3MDg5MDg3NTF9.TIhdHyy6gBeHCLRHfsw7klG5ObX-OpD6e0VfqiH6AWE";
+
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** ---------------------------------ESGeoJson面------------------------------------**/
+
+
+        const kml = objm.createSceneObject('ESKml');
+        kml.allowPicking = true
+        // 服务地址
+        kml.uri = "https://www.earthsdk.com/assets/kml/beijingpy.kml"
+
+
+        // 飞行定位
+        const flyTo = () => {
+            kml.flyTo();
+        };
+
+
+
+
+
+
+    </script>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+</body>
+
+</html>

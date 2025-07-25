@@ -508,6 +508,11 @@
                         "path": "tile/property/highlight"
                     },
                     {
+                        "name": "feature等值条件着色",
+                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
+                        "path": "tile/color/equivalentFeatureColor"
+                    },
+                    {
                         "name": "根据多条件设置style",
                         "thumbnail": "tile-color-equivalentFeatureColor.webp",
                         "path": "tile/style/setFeatureStyle"
@@ -516,11 +521,6 @@
                         "name": "style样式",
                         "thumbnail": "tile-style-style.webp",
                         "path": "tile/style/style"
-                    },
-                    {
-                        "name": "feature等值条件着色",
-                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
-                        "path": "tile/color/equivalentFeatureColor"
                     },
                     {
                         "name": "feature区间条件着色",
@@ -833,6 +833,11 @@
                         "name": "北京地名kml",
                         "thumbnail": "vector-kml-beijing.webp",
                         "path": "vector/kml/beijing"
+                    },
+                    {
+                        "name": "北京区县kml",
+                        "thumbnail": "vector-kml-beijingpy.webp",
+                        "path": "vector/kml/beijingpy"
                     }
                 ]
             },

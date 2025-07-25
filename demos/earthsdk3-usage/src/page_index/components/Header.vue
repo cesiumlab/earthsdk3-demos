@@ -50,7 +50,7 @@ const viewVersion = () => {
 
 .box-info {
     position: relative;
-    background: #010101;
+    background: #232a34;
     font-size: 16px;
     border: none;
     color: #1690d9;
@@ -68,15 +68,15 @@ const viewVersion = () => {
 }
 
 .header {
-    height: 70px;
     width: 100%;
+    height: 56px;
+    background: #232a34;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: #010101;
-    padding-left: 20px;
+    justify-content: space-between;
+    padding: 0 32px;
     box-sizing: border-box;
-    padding-right: 30px;
+    color: #fff !important;
 }
 
 h2 {

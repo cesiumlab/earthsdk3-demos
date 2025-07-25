@@ -503,6 +503,11 @@
                         "path": "tile/style/technology"
                     },
                     {
+                        "name": "属性拾取",
+                        "thumbnail": "tile-property-highlight.webp",
+                        "path": "tile/property/highlight"
+                    },
+                    {
                         "name": "根据多条件设置style",
                         "thumbnail": "tile-color-equivalentFeatureColor.webp",
                         "path": "tile/style/setFeatureStyle"
@@ -537,17 +542,6 @@
                         "name": "feature区间条件显隐",
                         "thumbnail": "tile-visable-sectionFeatureVisable.webp",
                         "path": "tile/visable/sectionFeatureVisable"
-                    }
-                ]
-            },
-            {
-                "name": "3dtileset属性查询",
-                "details": "支持3dtileset属性查询",
-                "children": [
-                    {
-                        "name": "3dtileset属性查询高亮",
-                        "thumbnail": "tile-property-highlight.webp",
-                        "path": "tile/property/highlight"
                     }
                 ]
             }

@@ -1,11 +1,6 @@
 <template>
-  <TreeItem
-    v-for="(item, index) in visibleItems"
-    :key="index"
-    :item="item"
-    @toggleExpand="toggleExpand"
-    @onclick="onclick"
-  />
+    <TreeItem v-for="(item, index) in visibleItems" :key="index" :item="item" @toggleExpand="toggleExpand"
+        @onclick="onclick" />
 </template>
 <script setup>
 import TreeItem from "./TreeItem.vue";
@@ -83,6 +78,13 @@ function toggleExpand(item) {
 function onclick(item) {
     emits("onclick", item)
     selectedItem.value = item
+    // 如果是二级菜单，自动滚动到对应内容区位置
+    if (item.level === 1 && item.id) {
+        const dom = document.getElementById(item.id)
+        if (dom) {
+            dom.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
 }
 </script>
 <style scoped></style>

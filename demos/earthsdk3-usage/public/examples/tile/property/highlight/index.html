@@ -63,17 +63,6 @@
 
         /** ---------------------------------创建ESWidget对象------------------------------------**/
         const eSWidget = objm.createSceneObject('ESWidget');
-        // 设置初始位置
-        eSWidget.position = [116.39164622716487, 39.906734670180654, 11.757532098411325];
-        // 显示面板信息
-        eSWidget.info = {
-            "title": "基本信息",
-            "id": "054b82b7b2f5f6cf6533187bc98fe733",
-            "种类": "屋顶",
-            "科": "基本屋顶",
-            "体积": "570.84 m³",
-        }
-        eSWidget.show = false;
 
         /** ---------------------------------创建ES3DTileset对象------------------------------------**/
         const es3DTileset = objm.createSceneObject('ES3DTileset');
@@ -82,7 +71,7 @@
         es3DTileset.tilesetReady.don(() => {
             es3DTileset.flyTo();
             es3DTileset.setFeatureColor("id", [{
-                value: "054b82b7b2f5f6cf6533187bc98fe733",
+                value: "85768ce3-2398-43f6-bfef-4f071d87ee93",
                 rgba: [1, 0, 0, 1],
             }]);
         })

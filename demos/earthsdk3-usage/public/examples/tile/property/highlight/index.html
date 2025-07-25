@@ -58,14 +58,6 @@
         const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 监听视口状态
-        objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn(
-                [116.3917558153482, 39.906350364956005, 22.646859723913906],
-                [333.3111376393747, -18.04271739778633, 0.000009741717218966738],
-                3
-            );
-        });
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
@@ -85,8 +77,10 @@
 
         /** ---------------------------------创建ES3DTileset对象------------------------------------**/
         const es3DTileset = objm.createSceneObject('ES3DTileset');
+
         // 加载完成时，高亮一个Feature
         es3DTileset.tilesetReady.don(() => {
+            es3DTileset.flyTo();
             es3DTileset.setFeatureColor("id", [{
                 value: "054b82b7b2f5f6cf6533187bc98fe733",
                 rgba: [1, 0, 0, 1],

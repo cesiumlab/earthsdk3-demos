@@ -20,6 +20,7 @@ const emits = defineEmits(["onclick"])
 watch(() => props.tree, (newVal) => {
     items.value = []
     flattenJsonObject(props.tree, null, 0, items.value);
+    console.log("items", items)
 })
 
 watch(selectedItem, (newVal, oldVal) => {

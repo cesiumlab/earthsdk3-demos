@@ -800,6 +800,11 @@
                         "path": "vector/geoJson/polygon"
                     },
                     {
+                        "name": "GeoJson组合数据",
+                        "thumbnail": "vector-geoJson-beijing.webp",
+                        "path": "vector/geoJson/beijing"
+                    },
+                    {
                         "name": "GeoJson随机点数据(图片)",
                         "thumbnail": "vector-geoJson-random.webp",
                         "path": "vector/geoJson/random"

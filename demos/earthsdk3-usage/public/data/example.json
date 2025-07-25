@@ -795,6 +795,11 @@
                         "path": "vector/geoJson/random"
                     },
                     {
+                        "name": "GeoJson鼠标悬浮显示",
+                        "thumbnail": "vector-geoJson-mouse.webp",
+                        "path": "vector/geoJson/mouse"
+                    },
+                    {
                         "name": "GeoJson可视距离",
                         "thumbnail": "vector-geoJson-distance.webp",
                         "path": "vector/geoJson/distance"

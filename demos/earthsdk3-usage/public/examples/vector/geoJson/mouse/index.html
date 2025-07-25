@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>GeoJSON</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #hoverInfo {
+            min-width: 150px;
+            height: 40px;
+            background-color: #f00;
+            position: fixed;
+            z-index: 10000;
+            left: 0px;
+            top: 0px;
+            display: none;
+            color: #fff;
+            text-align: center;
+            line-height: 40px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="box">
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <div id="hoverInfo"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        let currentHoverTime = 0
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [123.05113353287854, 12.972433675521788, 1706111.018160458],
+                [329.37876748591043, -50.86187479691701, 0.2657453724191149],
+                3
+            )
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                viewer.pick(e.screenPosition, "click")
+
+            });
+            // 监听hoverEvent鼠标事件
+            viewer.hoverEvent.don((e) => {
+                viewer.pick(e.screenPosition, "hover")
+
+            });
+
+            // 根据鼠标移动事件，计算移除提示框
+            viewer.pointerMoveEvent.don(() => {
+                const diff = ((new Date()).getTime() - currentHoverTime) / 1000
+                if (diff > 0.5) {
+                    // 隐藏图标
+                    const dom = document.getElementById('hoverInfo')
+                    dom.style.display = 'none'
+                }
+            })
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+
+        /** ---------------------------------ESGeoJson------------------------------------**/
+
+
+        function randomGeojson(num) {
+            const minLng = 73.66; // 最小经度
+            const maxLng = 135.05; // 最大经度
+            const minLat = 3.86; // 最小纬度
+            const maxLat = 53.56; // 最大纬度
+
+            let features = [];
+            for (let i = 0; i < num; i++) {
+                const randomLng = minLng + Math.random() * (maxLng - minLng);
+                const randomLat = minLat + Math.random() * (maxLat - minLat);
+                features.push({
+                    "type": "Feature",
+                    "properties": {
+                        "name": `Point_${i}`
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            randomLng,
+                            randomLat
+                        ]
+                    }
+                });
+            }
+
+            return {
+                "type": "FeatureCollection",
+                "name": "random_points",
+                "crs": {
+                    "type": "name",
+                    "properties": {
+                        "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                    }
+                },
+                "features": features
+            };
+        }
+
+        const sceneObject = objm.createSceneObject('ESGeoJson');
+        window.sceneObject = sceneObject;
+        let data = randomGeojson(3000);
+
+        // url可以填写服务地址，也可以填写具体的data数据（如上所示）
+        sceneObject.url = data
+        // 额外存储属性
+        sceneObject.extras = data
+        // 文字显隐控制
+        sceneObject.textShow = false
+        // 图片url地址
+        sceneObject.imageUrl = "./thumbnail/poi2D/geojson.webp"
+        // 图片大小
+        sceneObject.imageSize = [40, 51]
+        // 图片锚点
+        sceneObject.imageAnchor = [0.5, 1]
+        // 图片偏移
+        sceneObject.imageOffset = [0, 0]
+        // 是否被拾取
+        sceneObject.allowPicking = true
+        // 贴地模式
+        sceneObject.heightReference = "CLAMP_TO_GROUND"
+        // 被拾取
+        sceneObject.pickedEvent.don((e) => {
+            if (e && e.attachedInfo == 'hover') {
+                console.log('pickedEvent', e)
+                const dom = document.getElementById('hoverInfo')
+                dom.style.display = 'block'
+                dom.style.left = e.screenPosition[0] - dom.offsetWidth / 2 + 'px'
+                dom.style.top = e.screenPosition[1] - dom.offsetHeight - 30 + 'px'
+                dom.innerHTML = e.geojsonPickInfo.properties.name
+                currentHoverTime = (new Date()).getTime()
+            }
+        })
+
+        // 飞行定位
+        const flyTo = () => {
+            sceneObject.flyTo();
+        };
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

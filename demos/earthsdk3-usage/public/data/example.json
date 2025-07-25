@@ -26,6 +26,11 @@
                         "name": "基础场景JSON初始化",
                         "thumbnail": "earth-init-json.webp",
                         "path": "earth/init/json"
+                    },
+                    {
+                        "name": "基础场景JSON初始化2",
+                        "thumbnail": "earth-init-json2.webp",
+                        "path": "earth/init/json2"
                     }
                 ]
             },
@@ -695,6 +700,11 @@
                         "name": "矩形",
                         "thumbnail": "plot-vector-rectangle.webp",
                         "path": "plot/vector/rectangle"
+                    },
+                    {
+                        "name": "矢量组合（且贴地）",
+                        "thumbnail": "earth-init-json2.webp",
+                        "path": "earth/init/json2"
                     }
                 ]
             },

@@ -834,6 +834,11 @@
                         "name": "Kml",
                         "thumbnail": "vector-kml-kml.webp",
                         "path": "vector/kml/kml"
+                    },
+                    {
+                        "name": "北京地名kml",
+                        "thumbnail": "vector-kml-beijing.webp",
+                        "path": "vector/kml/beijing"
                     }
                 ]
             },

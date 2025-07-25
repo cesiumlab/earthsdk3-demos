@@ -37,10 +37,7 @@
         const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 监听视口状态
-        objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn([116.39193482449402, 39.906399291545384, 54.28013086155778], [324.55877082508925, -36.824132668310035, 359.999935971016], 2);
-        });
+
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
@@ -56,9 +53,9 @@
         // url服务地址
         es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
         // 加载完成
-        // es3DTileset.tilesetReady.don((tileset) => {
-        //     console.log(tileset);
-        // })
+        es3DTileset.tilesetReady.don(() => {
+            es3DTileset.flyTo()
+        })
         window.es3DTileset = es3DTileset;
 
 

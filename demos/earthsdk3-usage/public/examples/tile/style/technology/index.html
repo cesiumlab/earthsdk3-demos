@@ -54,10 +54,7 @@
         const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 监听视口状态
-        objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn([120.15487432479986, 30.10734187072578, 11267.53961605032], [8.142219984546603e-13, -45.09919939073693, 359.9999999999594], 3)
-        });
+
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
         viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"

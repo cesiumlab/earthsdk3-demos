@@ -38,14 +38,7 @@
         const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
         window.g_objm = objm;
-        // 监听视口状态
-        objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn(
-                [116.35581215034496, 39.987711009589205, 80.13207081218997],
-                [320.3370729250185, -29.355927531043786, 0.00013982187478451367],
-                3
-            );
-        });
+
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
@@ -61,7 +54,10 @@
         const es3DTileset = objm.createSceneObject('ES3DTileset');
         // url服务地址
         es3DTileset.url = "https://www.pipeser.com/3dtiles/phipxrow1/tileset.json";
-
+        // 加载完成
+        es3DTileset.tilesetReady.don((tileset) => {
+            es3DTileset.flyTo();
+        })
         // 区间设置颜色
         function setFeatureVisable() {
             // 恢复默认样式

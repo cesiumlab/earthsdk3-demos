@@ -800,9 +800,14 @@
                         "path": "vector/geoJson/polygon"
                     },
                     {
-                        "name": "GeoJson组合数据",
+                        "name": "GeoJson北京区县",
                         "thumbnail": "vector-geoJson-beijing.webp",
                         "path": "vector/geoJson/beijing"
+                    },
+                    {
+                        "name": "GeoJson北京路网",
+                        "thumbnail": "vector-geoJson-luwang.webp",
+                        "path": "vector/geoJson/luwang"
                     },
                     {
                         "name": "GeoJson随机点数据(图片)",

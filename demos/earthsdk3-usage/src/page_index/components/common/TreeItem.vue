@@ -3,7 +3,7 @@
     :style="{ fontSize: item.level == 0 ? '18px' : '15px', paddingLeft: 24 * item.level + 10 + 'px' }"
     @click="onItemClickOrToggle">
     <span v-if="item.children && item.children.length > 0 && item.level != 0" @click="toggleExpand">
-      {{ item.expanded ? '▼' : '▶' }}
+      {{ item.expanded ? '▾' : '▸' }}
     </span>
     <p> {{ item.name }} <span class="label" v-if="item.level == 1">({{ item.children.length }})</span></p>
   </div>

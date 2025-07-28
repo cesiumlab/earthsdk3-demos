@@ -371,6 +371,11 @@
                 "details": "",
                 "children": [
                     {
+                        "name": "影像高亮效果",
+                        "thumbnail": "image-param-brightnessdemo.webp",
+                        "path": "image/param/brightnessdemo"
+                    },
+                    {
                         "name": "可视化参数",
                         "thumbnail": "image-param-global.webp",
                         "path": "image/param/global"

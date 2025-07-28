@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>可视化-全球影像</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        // 监听视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyZmQzMDI1OC1kMWYyLTQ1ZjEtYTJmNS0yMjY1ZDcxZjEyOTkiLCJpZCI6NjQ3MTgsImlhdCI6MTYyOTQzNDM5M30.m8vkzG05QiAfe6JQ0XPK8z_6KuUVMf_CoSY-YlMnAIg"
+
+
+
+            // 飞到某个视角下
+            viewer.flyIn([
+                103.88186392746648,
+                29.975549148491236,
+                322789.24193513795
+            ], [
+                355.70366217727457,
+                -68.302539923426,
+                359.99662709558686
+            ], 3)
+
+            /**-------------------------------------创建一个地形-------------------------------**/
+
+            const terrain = objm.createSceneObject('ESTerrainLayer')
+            // cesium官方地形
+            terrain.url = 'ion://1'
+        })
+
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        viewer.ionAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k"
+
+
+
+        /**-------------------------------------通过json创建一个影像图层-------------------------------**/
+        const sceneObject = objm.createSceneObjectFromJson({
+            id: "bacf1812-c1c7-4799-ab1a-45b2aa3032b5",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            zIndex: 1,
+            name: "argis",
+            allowPicking: true,
+            czmBrightness: 0.3,//亮度降低
+            maximumLevel: 15,
+        });
+
+
+        /**-------------------------------------通过json创建一个影像图层-------------------------------**/
+        const sceneObject1 = objm.createSceneObjectFromJson({
+            id: "123124",
+            type: "ESImageryLayer",
+            url: "https://earthsdk.com/assets/image/djy/{z}/{x}/{y}.png",
+            zIndex: 2,
+            name: "argis",
+            allowPicking: true,
+            maximumLevel: 15,
+        });
+
+        /**-------------------------------------创建一个geojson边界-------------------------------**/
+        const sceneObject2 = objm.createSceneObjectFromJson({
+            "id": "f0bb046e-8427-46a5-9e93-c06f8cf5f9e9",
+            "type": "ESGeoJson",
+            "name": "GeoJson1",
+            "url": "http://earthsdk.com/assets/geojson/djy.geojson",
+            "strokeStyle": {
+                "width": 2,
+                "widthType": "world",
+                "color": [
+                    0.79,
+                    0.91,
+                    0.06,
+                    1
+                ],
+                "material": "",
+                "materialParams": {},
+                "ground": false
+            },
+            "filled": false,
+            "imageShow": false,
+            "textShow": false
+        })
+
+
+    </script>
+</body>
+
+</html>

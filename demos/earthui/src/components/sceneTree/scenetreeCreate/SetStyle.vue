@@ -29,7 +29,7 @@
                         <div class="header_item3" @click="changeCurrentEdit">
                             <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{
                                 '规则可视化编辑器'
-                                }}</span>
+                            }}</span>
                         </div>
                         <div class="header_item3" @click="currentMenu = 'JsonEdit'">
                             <span class="header_item_span3"
@@ -447,8 +447,8 @@ const changeOk = async () => {
     } catch (error) {
         console.error('设置样式失败:', error);
         Message.error(
-            error === undefined 
-                ? '样式未定义' 
+            error === undefined
+                ? '样式未定义'
                 : `设置样式失败！error: ${error}`
         );
     } finally {

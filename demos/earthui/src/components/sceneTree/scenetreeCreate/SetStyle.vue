@@ -1,5 +1,5 @@
 <template>
-    <DraggablePopup2 v-if="props.isShow" :minWidthHeight="[510, 100]"
+    <DraggablePopup2 v-if="props.isShow" :minWidthHeight="[700, 200]"
         :title="`${(scenetree && scenetree.name) ? scenetree.name : ''}-编辑器`" :width="1000" :height="'600px'"
         :left="300" :top="100" @close="changeCancel" :showButton="true" @ok="changeOk">
         <div class="set_style">
@@ -152,7 +152,6 @@ import { ESColor } from "earthsdk-ui"
 import BooleanProp from "../../eSPropPanel/propertiesMenu/commons/BooleanProp.vue";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import { ESSceneObject } from "earthsdk3";
-import Index from "../../eSPropPanel/propertiesMenu/basicProprties/index.vue";
 const props = withDefaults(defineProps<{
     isShow: boolean,
     setStyleTreeItem: SceneTreeItem | undefined,
@@ -365,11 +364,16 @@ watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
             const extras = sceneObject.extras as any
             if (extras && 'xbsjFetureStyles' in extras) {
                 styleList.value = JSON.parse(JSON.stringify(extras.xbsjFetureStyles))
-                ruleRef.value = styleList.value[0].code
+                if (styleList.value.length > 0) {
+                    ruleRef.value = styleList.value[styleList.value.length - 1].code
+                    checkedactive.value = styleList.value.length - 1
+                }else{
+                    checkedactive.value = 0
+
+                }
             }
         }
     }
-    checkedactive.value = 0
     hoverIndex.value = -2
     hoverliIndex.value = -2
     hoverlideleteIndex.value = -2
@@ -399,9 +403,6 @@ function getCurrentDateTime() {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 const changeOk = async () => {
-    const viewer = xbsjEarthUi.activeViewer;
-    if (!viewer) return;
-    const capture = await viewer.capture();
     const sceneObject = scenetree.value?.sceneObject as ES3DTileset;
     if (!sceneObject) return;
     const addStyleToExtras = (styleData: any) => {
@@ -413,36 +414,30 @@ const changeOk = async () => {
         newExtras.xbsjFetureStyles.push(styleData);
         sceneObject.extras = newExtras;
     };
+    let normalizedJson
     try {
         if (currentMenu.value === 'edit') {
-            const styleData = {
-                id: getUuid(),
-                name: getCurrentDateTime(),
-                code: JSON.parse(JSON.stringify(ruleRef.value)),
-                thumbnail: capture,  // 使用已获取的 capture
-            };
-            addStyleToExtras(styleData);
             sceneObject.setFeatureStyle(ruleRef.value);
-            Message.success('设置样式成功');
         } else {
             const str = await getJson();
             const json = JSON.parse(str);
-            const normalizedJson = json.map((item: any) => ({
+            normalizedJson = json.map((item: any) => ({
                 ...item,
                 condition: Array.isArray(item.condition) ? item.condition : [item.condition],
             }));
-
-            const styleData = {
-                id: getUuid(),
-                name: getCurrentDateTime(),
-                code: normalizedJson,
-                thumbnail: capture,  // 使用已获取的 capture
-            };
-            addStyleToExtras(styleData);
             sceneObject.setFeatureStyle(normalizedJson);
-            Message.success('设置样式成功');
         }
-
+        Message.success('设置样式成功');
+        const viewer = xbsjEarthUi.activeViewer;
+        if (!viewer) return;
+        const capture = await viewer.capture();
+        const styleData = {
+            id: getUuid(),
+            name: getCurrentDateTime(),
+            code: currentMenu.value === 'edit' ? JSON.parse(JSON.stringify(ruleRef.value)) : normalizedJson,
+            thumbnail: capture,  // 使用已获取的 capture
+        };
+        addStyleToExtras(styleData);
         emits("changeShow", false);
     } catch (error) {
         console.error('设置样式失败:', error);
@@ -604,8 +599,8 @@ function getUuid() {//设置随机id
 }
 
 .set_style_list_lilist {
-    width: 50px;
-    height: 80px;
+    width: 70px;
+    height: 100px;
     margin-right: 6px;
     border-radius: 5px;
     position: relative;
@@ -613,8 +608,8 @@ function getUuid() {//设置随机id
 
 .set_imgposition {
     border-radius: 5px;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     cursor: pointer;
     border: 2px solid rgba(37, 38, 42, 0.9);
     box-sizing: border-box;
@@ -786,7 +781,7 @@ function getUuid() {//设置随机id
 
 .setStyle_onlineimageName {
     display: inline-block;
-    width: 46px;
+    width: 66px;
     text-align: center;
     margin-left: 4px;
     white-space: nowrap;

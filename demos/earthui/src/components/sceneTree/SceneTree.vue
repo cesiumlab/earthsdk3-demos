@@ -52,7 +52,7 @@ import PropTreeWrapper from "../propTree/PropTreeWrapper.vue";
 import SceneTreeItemComp from "./SceneTreeItem.vue";
 import CreateSceneObjFromJson from "./scenetreeCreate/CreateSceneObjFromJson.vue";
 import LiftHeight from "./scenetreeCreate/LiftHeight.vue";
-import SetStyle from "./scenetreeCreate/SetStyle2.vue";
+import SetStyle from "./scenetreeCreate/SetStyle.vue";
 import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
 import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
 import { ESUeViewer } from "earthsdk3-ue";

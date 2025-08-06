@@ -1026,6 +1026,11 @@
                         "name": "天际线分析",
                         "thumbnail": "analyse-space-sky.webp",
                         "path": "analyse/space/sky"
+                    },
+                    {
+                        "name": "卷帘分析",
+                        "thumbnail": "analyse-space-rollerShutter.webp",
+                        "path": "analyse/space/rollerShutter"
                     }
                 ]
             },

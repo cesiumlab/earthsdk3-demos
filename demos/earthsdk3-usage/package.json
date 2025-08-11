@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "xbsj-base": "1.0.3",
-    "earthsdk3": "3.3.0-beta.9",
-    "earthsdk3-cesium": "3.3.0-beta.16",
-    "earthsdk3-ue": "3.3.0-beta.2",
+    "earthsdk3": "3.3.0-beta.10",
+    "earthsdk3-cesium": "3.3.0-beta.17",
+    "earthsdk3-ue": "3.3.0-beta.3",
     "earthsdk3-assets": "3.0.5",
     "axios": "^1.6.7",
     "monaco-editor": "^0.30.1",

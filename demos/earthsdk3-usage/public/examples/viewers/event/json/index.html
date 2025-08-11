@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <title>视口创建采用JSON中的配置</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+            id: "earthui-active-viewer-id",
+        });
+
+        // 视口初始完成之后，加载json基础场景配置
+        objm.json = {
+            "asset": {
+                "type": "ESObjectsManager",
+                "version": "0.1.0",
+                "createdTime": "2022-06-17T05:54:41.744Z",
+                "modifiedTime": "2025-08-11T01:31:38.937Z",
+                "name": "图层管理"
+            },
+            "viewers": [
+                {
+                    "id": "earthui-active-viewer-id",
+                    "type": "ESCesiumViewer",
+                    "name": "ESCesiumViewer_r-id",
+                    "currentTime": 1754884800000,
+                    "simulationTime": 1754841600000,
+                    "rain": 0.97,
+                    "cloud": 0.98
+                }
+            ],
+            "sceneTree": {
+                "root": {
+                    "children": [
+                        {
+                            "name": "全球影像",
+                            "sceneObj": {
+                                "id": "07662127-2f21-4ae6-939d-54cdcf78b805",
+                                "type": "ESImageryLayer",
+                                "name": "全球影像",
+                                "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                                "maximumLevel": 18
+                            },
+                            "children": []
+                        }
+                    ]
+                }
+            },
+            "viewCollection": [],
+            "lastView": {
+                "position": [
+                    105,
+                    30.02189590613652,
+                    17013835.65847062
+                ],
+                "rotation": [
+                    360,
+                    -89.9012168504958,
+                    0
+                ]
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

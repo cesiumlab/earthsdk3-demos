@@ -79,6 +79,11 @@
                         "name": "视口创建成功",
                         "thumbnail": "viewers-event-created.webp",
                         "path": "viewers/event/created"
+                    },
+                    {
+                        "name": "根据JSON配置,赋值视口信息",
+                        "thumbnail": "viewers-event-json.webp",
+                        "path": "viewers/event/json"
                     }
                 ]
             },
@@ -226,6 +231,11 @@
                         "name": "视口创建成功",
                         "thumbnail": "viewers-event-created.webp",
                         "path": "viewers/event/created"
+                    },
+                    {
+                        "name": "根据JSON配置,赋值视口信息",
+                        "thumbnail": "viewers-event-json.webp",
+                        "path": "viewers/event/json"
                     }
                 ]
             },

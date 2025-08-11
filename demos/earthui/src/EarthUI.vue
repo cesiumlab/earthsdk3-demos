@@ -74,6 +74,7 @@ const sceneTree = xbsjEarthUi.getSceneTree()
 xbsjEarthUi.czmlabPath = location.origin
 // @ts-ignore
 window.g_xbsjEarthUi = xbsjEarthUi;
+//@ts-ignore
 window.g_xbsjEarthUi.merge3dTilesServer = merge3dTilesServer;
 
 xbsjEarthUi.jsonLoadingEvent.don(() => {

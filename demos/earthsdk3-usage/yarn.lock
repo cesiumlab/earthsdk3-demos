@@ -1750,10 +1750,10 @@ earthsdk3-assets@3.0.5:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.5.tgz#2ad9c0b87b0d658327554fca4d576893187bddf7"
   integrity sha512-VyTZZ88x+x0QStfb0qrZfWF99Qlpaz2dacmvZ4VVW/CKy+4fZ/7LFXPh+twqWLgSgMuIwg9mdwH/DF7R7t9pVA==
 
-earthsdk3-cesium@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.2.0.tgz#37927dec2057286a4c7d7e7d1b72387809a498e8"
-  integrity sha512-+leUNbBmSrYyaqxReKAiAQgDtV/cK4Uf2WoleJ66KsBWVJ+N/jewjlqK2BdwRmTj6k8d1nNRKpgUpuzB+v4w3w==
+earthsdk3-cesium@3.3.0-beta.16:
+  version "3.3.0-beta.16"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.3.0-beta.16.tgz#ba7d0c4055fad4ce6a0002f11962c0496d7437cf"
+  integrity sha512-8nQsC4K9v1eGfCB73VmAkJYOUKaPsn5mqlZQfotitJ0tHuk32tTq/jQf4KP7Qddi2sh2bXsVTENOxmk3Xe5Ypg==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
@@ -1762,18 +1762,18 @@ earthsdk3-cesium@3.2.0:
     html2canvas "^1.4.1"
     mvt-basic-render "^0.3.5"
 
-earthsdk3-ue@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.2.0.tgz#aa9fca1117c865da10b53e0af4bb69d0ce273e46"
-  integrity sha512-coMJS4hc/3zyoHNJjbqxqcvyiPm1oQlYluZv8TvQWl9xvMmDaB8gHm5WkIRI1EFTIoWUYtk6H5fAkR2DWFUWtw==
+earthsdk3-ue@3.3.0-beta.2:
+  version "3.3.0-beta.2"
+  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.3.0-beta.2.tgz#57ba66c90b81caec8d630b3a6e7767c0e66651f2"
+  integrity sha512-L+Fxg0QIujacKIu1W1cG5RAAmQkaLn18bWhE9AvM6NpU2g/7xdEI87iCaOLrlMdqBYiVsMiFSsgmLxXNDxYNuQ==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.2.0.tgz#1d01c66719971ca139b35e1629d00085c348147f"
-  integrity sha512-8Q66CqxH5lfsr7lgIHTvhiCJbtCLcue0yznk0dIuA11BZ5Z1GQy7tYj1NjdPCdPDgKMeCVRUp0dwB3TTr9Ls+g==
+earthsdk3@3.3.0-beta.9:
+  version "3.3.0-beta.9"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.3.0-beta.9.tgz#5c901ea2fc96c87142cc11cb56e7b2c738b3b594"
+  integrity sha512-MpMxbsrjgx+8Nu50Y5IrEQgexBLeXXdeY/kgNzV34Z/XGqRdSiOhoKHB/KgeXqkEGWJPZYozH6TxE253dG+foA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

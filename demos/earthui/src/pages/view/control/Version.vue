@@ -36,6 +36,8 @@ const getVersion = async () => {
         }
     }
     v.push({ name: 'earth-ui', version: getEarthuiVersion() })
+    //@ts-ignore
+    v.push({ name: 'cesium', version: window.CESIUM_VERSION })
     version.value = v
 }
 onMounted(() => {

@@ -988,7 +988,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
  */
 const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
     const actions: any = {
-        LEFT: { text: "", next: ['RIGHT', 'NONE'] },
+        LEFT: { text: "向左分割", next: ['RIGHT', 'NONE'] },
         RIGHT: { text: "向右分割", next: ['LEFT', 'NONE'] },
         NONE: { text: "不分割", next: ['LEFT', 'RIGHT'] }
     };

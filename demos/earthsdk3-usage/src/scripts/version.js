@@ -7,4 +7,5 @@ export const version = {
     "earthsdk3-cesium": "3.2.0-beta.2",
     "earthsdk3-ue": "3.1.0",
     "earthsdk3-assets": "3.0.4",
+    "cesium": "1.132",
 }

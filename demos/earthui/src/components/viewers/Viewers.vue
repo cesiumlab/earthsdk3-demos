@@ -4,7 +4,7 @@
 </template>
 <script setup lang="ts">
 import { Message } from "earthsdk-ui";
-import { ESVOptionUe } from "earthsdk3";
+import { ESVOptionCzm, ESVOptionUe } from "earthsdk3";
 import { inject, onMounted, shallowRef } from "vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import {
@@ -63,42 +63,40 @@ const dropFile = async (event: Event) => {
     };
   });
 };
-
+const changeUe = () => {
+  const options = {
+    type: "ESUeViewer",
+    container: viewersContainer.value,
+    id: 'earthui-active-viewer-id',
+    options: {
+      uri: "",
+      app: "",
+    },
+  } as ESVOptionUe
+  xbsjEarthUi.createUeViewer(options)
+}
 onMounted(() => {
-  // const options = {
-  //     domid: 'viewersContainer',
-  //     uri: 'http://localhost:8086/',
-  //     app: '0108',
-  // }
-  // xbsjEarthUi.createUEViewer(options);
-  let viewer;
+  const urlParams = new URLSearchParams(window.location.search);
+  const eswebview = urlParams.get("eswebview") === 'true';
   //@ts-ignore
   if (window.ue && window.ue.es) {
-    // const options = {
-    //     domid: 'viewersContainer',
-    //     uri: '',
-    //     app: '',
-    // }
-    const options = {
-      type: "ESUeViewer",
-      container: viewersContainer.value,
-      id: 'earthui-active-viewer-id',
-      options: {
-        uri: "",
-        app: "",
-      },
-    }
-    //@ts-ignore
-    viewer = xbsjEarthUi.createUeViewer(options);
+    changeUe()
+  } else if (eswebview) {
+    let timer = setInterval(() => {
+      //@ts-ignore
+      if (window.ue && window.ue.es) {
+        clearInterval(timer)
+        changeUe()
+      }
+    }, 200)
   } else {
     if (viewersContainer.value) {
       const options = {
         type: 'ESCesiumViewer',
         id: 'earthui-active-viewer-id',
         container: viewersContainer.value,
-      };
-      //@ts-ignore
-      viewer = xbsjEarthUi.createCesiumViewer(options);
+      } as ESVOptionCzm
+      xbsjEarthUi.createCesiumViewer(options);
     }
   }
 });

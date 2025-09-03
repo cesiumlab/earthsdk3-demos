@@ -15,7 +15,6 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
     label: "内容",
-    modelValue: 1,
     placeholder: '请输入内容',
     defaultValue: 0,
     step: 1,
@@ -57,7 +56,7 @@ const modelValueChange = (val: any) => {
     }
 }
 onMounted(() => {
-    newValue.value = props.modelValue
+    newValue.value = props.modelValue ?? props.defaultValue
 })
 watch(newValue, (val) => {
     if (props.step === 0.01) {

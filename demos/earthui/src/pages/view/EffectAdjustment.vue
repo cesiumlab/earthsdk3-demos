@@ -5,6 +5,8 @@ import Button from "../../components/Button.vue";
 import RightList from "../../components/RightList.vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import Fov from "./effectAdjustment/Fov.vue";
+import ScreenPercentage from "./effectAdjustment/ScreenPercentage.vue";
+import AntiAliasingMethod from "./effectAdjustment/AntiAliasingMethod.vue";
 import FlyToBoundingSize from "./effectAdjustment/FlyToBoundingSize.vue";
 import EditingHeightOffset from "./effectAdjustment/EditingHeightOffset.vue";
 const d = createVueDisposer(onBeforeUnmount);
@@ -13,7 +15,7 @@ const textAvoidance = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'textAvoidance
 const objType = ref('')
 </script>
 <template>
-     <RightList :title="'全局效果调整'">
+    <RightList :title="'全局效果调整'">
         <Button :name="'wenzibirang'" :content="'文字避让'" :actived="textAvoidance === true"
             :click="() => { textAvoidance = !textAvoidance }" :left-button="true"></Button>
         <Button :name="'FOV1'" :content="'FOV'" :actived="objType === 'fov'"
@@ -24,9 +26,18 @@ const objType = ref('')
         <Button :name="'pianyi'" :fontSize="12" :content="'编辑高度偏移'" :actived="objType === 'editingHeightOffset'"
             :click="() => { objType === 'editingHeightOffset' ? objType = '' : objType = 'editingHeightOffset' }"
             :left-button="false"></Button>
+        <Button :name="'huamianbili'" :content="'画面比例'" :actived="objType === 'screenPercentage'"
+            :click="() => { objType === 'screenPercentage' ? objType = '' : objType = 'screenPercentage' }"
+            :left-button="true"></Button>
+        <Button :name="'kangjuchi'" :content="'抗锯齿方法'" :actived="objType === 'antiAliasingMethod'"
+            :click="() => { objType === 'antiAliasingMethod' ? objType = '' : objType = 'antiAliasingMethod' }"
+            :left-button="false"></Button>
         <Fov v-if="objType === 'fov'"></Fov>
         <FlyToBoundingSize v-if="objType === 'flyToBoundingSize'"></FlyToBoundingSize>
         <EditingHeightOffset v-if="objType === 'editingHeightOffset'"></EditingHeightOffset>
+        <ScreenPercentage v-if="objType === 'screenPercentage'"></ScreenPercentage>
+        <AntiAliasingMethod v-if="objType === 'antiAliasingMethod'"></AntiAliasingMethod>
+
     </RightList>
 </template>
 <style scoped></style>

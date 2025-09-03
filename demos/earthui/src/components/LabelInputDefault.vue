@@ -4,78 +4,46 @@ interface Props {
     label?: string,
     unit?: string,
     modelValue?: string | number,
-    activeMode?: string | number,
-    activeModeType?: string,
-    checkbox?: boolean,
-    list?: any,
-    listContent?: string,
-    placeholder?: string,
-    readonly?: boolean,
-    disabled?: boolean,
     inputType?: string,
+    placeholder?: string,
+    disabled?: boolean,
+    readonly?: boolean,
+    defaultValue?: undefined | number,
     min?: number,
     max?: number,
-    noZero?: boolean
-    checkboxFun?: () => void,
-    liClickFun?: (item: any, index?: number) => void
 
 }
 const props = withDefaults(defineProps<Props>(), {
     label: "内容",
-    modelValue: '',
-    checkbox: false,
-    list: [],
-    activeModeType: 'id',
-    listContent: 'name',
+    modelValue: undefined,
     placeholder: '请输入内容',
+    inputType: 'text',
     readonly: false,
     disabled: false,
-    inputType: 'text',
-    liClickFun: (item: any, index?: number) => {
-        // console.log(item, index);
-    },
-    checkboxFun: () => {
-    },
+    defaultValue: undefined
 })
-const emit = defineEmits(["update:modelValue", "input", "focus", "blur", "keypress", "keyup", "keydownenter"]);
-const ulIsShow = ref(false)
+const emit = defineEmits(["update:modelValue"]);
+const onKeydownEnter = (e?: Event) => {
+    if (e) {
+        //@ts-ignore
+        e.target.blur()
+    }
+};
 const onInput = (e: Event) => {
-    let targetValue
-    targetValue = (e.target as HTMLInputElement).value as any;
-    if (targetValue === '-') {
-        targetValue = 0
-    }
-    if (typeof props.modelValue === 'number') {
-        targetValue = Number(targetValue)
-    }
+    mouseFlag.value = false
+    let targetValue = (e.target as HTMLInputElement).value as any;
     if (props.inputType === 'number') {
-        if (props.min !== undefined) {
-            if (targetValue < props.min) {
-                if (props.min === 0) {
-                    targetValue = 1
-                } else {
-                    targetValue = props.min
-                }
-            }
+        targetValue = Number(targetValue)
+        if (props.min !== undefined && targetValue < props.min) {
+            targetValue = props.min
         }
-        if (props.max !== undefined) {
-            if (targetValue > props.max) {
-                targetValue = props.max
-            }
+        if (props.max !== undefined && targetValue > props.max) {
+            targetValue = props.max
         }
     }
-    if (props.noZero) {
-        if (targetValue === 0) {
-            targetValue = 1
-        }
-    }
-    emit("input", targetValue);
+    newValue.value = targetValue
     emit("update:modelValue", targetValue);
 };
-const liClick = (item: any, index: number) => {
-    props.liClickFun(item, index)
-    ulIsShow.value = false
-}
 const name = "input";
 const inpClass = computed(() => {
     const status = getStatus();
@@ -86,68 +54,31 @@ function getStatus() {
         (props.disabled && "disabled") || (props.readonly && "readonly") || "normal"
     );
 }
-const checkBoxChange = () => {
-    props.checkboxFun()
-    ulIsShow.value = !ulIsShow.value
-}
-const onFocus = () => emit("focus");
-const onBlur = () => emit("blur");
-const onKeypress = () => emit("keypress");
-const onKeyup = () => emit("keyup");
-const onKeydownEnter = (e?: Event) => {
-    if (e) {
-        //@ts-ignore
-        e.target.blur()
-    }
-    emit("keydownenter")
-};
-const a = ref()
+const newValue = ref<undefined | number>(undefined)
 watch(() => props.modelValue, (val: any) => {
-    a.value = val
+    if (val) {
+        newValue.value = val
+    }
 }, { immediate: true })
-watch(a, () => {
-    if (props.noZero) {
-        if (a.value === 0) {
-            a.value = 1
-        }
-    }
-    if (props.inputType === 'number') {
-        if (props.min !== undefined) {
-            if (a.value < props.min) {
-                if (props.min === 0) {
-                    a.value = 1
-                } else {
-                    a.value = props.min
-                }
-            }
-        }
-        if (props.max !== undefined) {
-            if (a.value > props.max) {
-                a.value = props.max
-            }
-        }
-    }
-})
+const resetDefult = () => {
+    newValue.value = props.defaultValue
+    emit("update:modelValue", newValue.value);
+}
+const mouseFlag = ref(false)
 </script>
 <template>
     <div class="label_input">
         <label class="label" for="" :title="label">{{ label }}</label>
         <div :class="inpClass">
-            <input :type="inputType" :min="min" :max="max" :placeholder="placeholder" v-model="a" @input="onInput"
-                :disabled=disabled @focus="onFocus" @blur="onBlur" @keypress="onKeypress" @keyup="onKeyup"
+            <input :type="inputType" :placeholder="placeholder" v-model="newValue" @input="onInput" :disabled=disabled
                 @keydown.enter="onKeydownEnter($event)">
         </div>
         <div class="unit" v-if="unit">{{ unit }}</div>
-        <div class="checkbox" :class="{ 'checkbox_active': ulIsShow, 'input_disabled': readonly }" v-if="checkbox"
-            @click="checkBoxChange">
-            <es-icon :name="'liebiao'" :color="ulIsShow ? 'rgba(255, 255, 255, 1)' : 'rgba(230, 230, 230, 1)'"
+        <div v-if="newValue !== defaultValue" class="checkbox" @click.stop.prevent="resetDefult"
+            @mouseover="mouseFlag = true" @mouseout="mouseFlag = false">
+            <es-icon :name="'huaban'" :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'"
                 :size="15" />
         </div>
-        <ul class="ul" v-if="ulIsShow">
-            <li v-for="(item, index) in list" :class="{ l_active: item[activeModeType] === activeMode }"
-                @click="liClick(item, index)">
-                {{ item[listContent] }}</li>
-        </ul>
     </div>
 </template>
 

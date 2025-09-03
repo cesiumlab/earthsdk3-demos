@@ -2,7 +2,6 @@
 import { inject,onBeforeUnmount } from "vue";
 import Button from '../../components/Button.vue';
 import RightList from '../../components/RightList.vue';
-import Vports from "./splitView/Vports.vue";
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi';
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 

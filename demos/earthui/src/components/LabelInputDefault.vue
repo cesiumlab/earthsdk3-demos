@@ -9,6 +9,8 @@ interface Props {
     disabled?: boolean,
     readonly?: boolean,
     defaultValue?: undefined | number,
+    min?: number,
+    max?: number,
 
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -32,7 +34,14 @@ const onInput = (e: Event) => {
     let targetValue = (e.target as HTMLInputElement).value as any;
     if (props.inputType === 'number') {
         targetValue = Number(targetValue)
+        if (props.min !== undefined && targetValue < props.min) {
+            targetValue = props.min
+        }
+        if (props.max !== undefined && targetValue > props.max) {
+            targetValue = props.max
+        }
     }
+    newValue.value = targetValue
     emit("update:modelValue", targetValue);
 };
 const name = "input";

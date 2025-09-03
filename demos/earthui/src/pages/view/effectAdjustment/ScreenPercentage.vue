@@ -1,6 +1,6 @@
 <template>
     <PopList :title="'画面比例'">
-        <LabelInputDefault v-model="screenPercentage" :inputType="'number'" :label="'画面比例'" :unit="'%'"></LabelInputDefault>
+        <LabelInputDefault v-model="screenPercentage" :inputType="'number'" :min="0" :max="300" :label="'画面比例'" :unit="'%'"></LabelInputDefault>
     </PopList>
 </template>
 <script setup lang="ts">

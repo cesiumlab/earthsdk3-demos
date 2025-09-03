@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45433674",
+      "name": "抗锯齿",
+      "font_class": "kangjuchi",
+      "unicode": "e720",
+      "unicode_decimal": 59168
+    },
+    {
+      "icon_id": "41762013",
+      "name": "画面比例",
+      "font_class": "huamianbili",
+      "unicode": "e7bb",
+      "unicode_decimal": 59323
+    },
+    {
       "icon_id": "2970600",
       "name": "网络",
       "font_class": "wangluo",

@@ -2,6 +2,8 @@
     <PopList :title="'第一人称'">
         <LabelInput v-if="ueIsShow" v-model="jumpZVelocity" :inputType="'number'" :min="0" :label="'跳跃初始速度'"
             :unit="'m/s'"></LabelInput>
+        <LabelInput v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :unit="'m'">
+        </LabelInput>
         <div class="interation_text" :style="{ marginTop: ueIsShow ? '20px' : '0' }">
             <div><span>W( ↑ )</span><span>水平方向前进</span></div>
             <div><span>A</span><span>水平方向左移</span></div>
@@ -22,6 +24,7 @@ import PopList from '../../../components/PopList.vue';
 import LabelInput from "../../../components/LabelInput.vue";
 const d = createVueDisposer(onBeforeUnmount);
 const jumpZVelocity = ref<number>(4.2)
+const eyeHeight = ref<number>(1.6)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
 const position = ref<[number, number, number]>([0, 0, 0])
@@ -44,11 +47,12 @@ const dispose = ueActorResult()
 const destroy = () => {//销毁
     if (dispose) dispose()
 }
-watch([jumpZVelocity], () => {
+watch([jumpZVelocity, eyeHeight], () => {
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
-    viewer.changeToWalk(position.value, jumpZVelocity.value)
+    viewer.changeToWalk(position.value, jumpZVelocity.value, eyeHeight.value)
 }, { deep: true })
+
 onMounted(() => {
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return

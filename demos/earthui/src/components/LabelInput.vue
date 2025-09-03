@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
     disabled: false,
     inputType: 'text',
     liClickFun: (item: any, index?: number) => {
-        console.log(item, index);
+        // console.log(item, index);
     },
     checkboxFun: () => {
     },

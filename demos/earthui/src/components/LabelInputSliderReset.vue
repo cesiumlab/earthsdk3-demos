@@ -56,8 +56,6 @@ const modelValueChange = (val: any) => {
     }
 }
 onMounted(() => {
-    console.log(1111111,props.modelValue, props.defaultValue);
-    
     newValue.value = props.modelValue ?? props.defaultValue
 })
 watch(newValue, (val) => {

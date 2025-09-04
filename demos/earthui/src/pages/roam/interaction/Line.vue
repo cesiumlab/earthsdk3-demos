@@ -18,7 +18,7 @@
         <LabelInput v-model="turnRateDPS" :inputType="'number'" :min="0" :label="'转弯速度'" :unit="'°/s'"></LabelInput>
         <LabelEnum v-model="lineMode" :label="'线模式'" :materialIdList="[['自动', 'auto'], ['手动', 'manual']]">
         </LabelEnum>
-         <!-- <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
+        <!-- <LabelInput v-model="lineNameMode" :label="'线模式'" :disabled="false" :activeMode="lineMode" :checkbox="true"
             :list="listsModeList" :liClickFun="changeLineModeId" :placeholder="'请选择或输入'"></LabelInput> -->
     </PopList>
 </template>

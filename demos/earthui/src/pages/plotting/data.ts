@@ -605,14 +605,7 @@ export const ueObjectList: { type: string, zh: string, icon: string, leftButton:
         icon: 'guanqiabao',
         leftButton: false,
         com: shallowRef(EsLevelRuntimeModel)
-    }, {
-        type: 'esGaussianSplatting',
-        zh: '高斯溅射模型',
-        icon: 'model-lib',
-        leftButton: false,
-        com: shallowRef(EsGaussianSplatting),
-        fontSize:12
-    }, {
+    },{
         type: 'eSStaticMesh',
         zh: '静态网格体',
         icon: 'wangluo',

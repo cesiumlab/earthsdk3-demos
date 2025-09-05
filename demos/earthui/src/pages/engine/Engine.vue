@@ -1,13 +1,10 @@
 <script setup lang='ts'>
-import { ref, onBeforeUnmount, inject } from 'vue';
+import { ref, inject } from 'vue';
 import CzmAndUeViewer from "./changeView/CzmAndUeViewer.vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi"
 import RightList from '../../components/RightList.vue';
 import Button from '../../components/Button.vue';
-import { createVueDisposer, toVR } from 'earthsdk-ui';
-const d = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
 const openUeInstall = ref(false)
 </script>
 
@@ -24,7 +21,15 @@ const openUeInstall = ref(false)
                 destroy: true,
                 id: 'earthui-active-viewer-id',
             })
-        }" v-if="ueIsShow"></Button>
+        }"></Button>
+        <Button :name="'qiehuan_cesium'" :content="'Openlayers'" :click="() => {
+            xbsjEarthUi.switchViewer({
+                container: 'viewersContainer',
+                type: 'ESOlViewer',
+                options: { destroy: true, },
+                id: 'earthui-active-viewer-id',
+            })
+        }"></Button>
         <CzmAndUeViewer v-if="openUeInstall" @close="openUeInstall = false">
         </CzmAndUeViewer>
     </RightList>

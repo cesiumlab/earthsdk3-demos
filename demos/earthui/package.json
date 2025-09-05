@@ -20,6 +20,8 @@
     "earthsdk3": "3.4.0-beta.13",
     "earthsdk3-cesium": "3.4.0-beta.8",
     "earthsdk3-ue": "3.4.0-beta.7",
+    "earthsdk3-ol": "0.0.1-beta.0.4",
+    "ol": "^7.1.0",
     "earthsdk3-assets": "3.0.6"
   },
   "devDependencies": {

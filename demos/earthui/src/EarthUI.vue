@@ -63,13 +63,14 @@ import { $config } from "./scripts/getConfig";
 import Menu from "./views/Menu.vue";
 import Editing from './components/editing/Editing.vue';
 import { merge3dTilesServer } from "earthsdk3-cesium";
+import { ESOlViewer } from 'earthsdk3-ol';
 
 const props = withDefaults(defineProps<{
     newList?: any
     navType?: string
 }>(), {});
 const clickEmpty = ref(false)
-const xbsjEarthUi = new XbsjEarthUi(ESUeViewer, ESCesiumViewer);
+const xbsjEarthUi = new XbsjEarthUi(ESUeViewer, ESCesiumViewer,ESOlViewer);
 const sceneTree = xbsjEarthUi.getSceneTree()
 xbsjEarthUi.czmlabPath = location.origin
 // @ts-ignore

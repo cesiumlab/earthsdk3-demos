@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "45463493",
+      "name": "Openlayers",
+      "font_class": "Openlayers",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
       "icon_id": "45433674",
       "name": "抗锯齿",
       "font_class": "kangjuchi",

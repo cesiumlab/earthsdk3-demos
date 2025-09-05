@@ -22,7 +22,7 @@ const openUeInstall = ref(false)
                 id: 'earthui-active-viewer-id',
             })
         }"></Button>
-        <Button :name="'qiehuan_cesium'" :content="'Openlayers'" :click="() => {
+        <Button :left-button="true" :name="'Openlayers'" :content="'Openlayers'" :click="() => {
             xbsjEarthUi.switchViewer({
                 container: 'viewersContainer',
                 type: 'ESOlViewer',

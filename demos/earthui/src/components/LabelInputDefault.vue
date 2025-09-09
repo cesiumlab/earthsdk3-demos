@@ -70,7 +70,7 @@ const mouseFlag = ref(false)
     <div class="label_input">
         <label class="label" for="" :title="label">{{ label }}</label>
         <div :class="inpClass">
-            <input :type="inputType" :placeholder="placeholder" v-model="newValue" @input="onInput" :disabled=disabled
+            <input :type="inputType" :placeholder="placeholder" v-model="newValue" @change="onInput" :disabled=disabled
                 @keydown.enter="onKeydownEnter($event)">
         </div>
         <div class="unit" v-if="unit">{{ unit }}</div>

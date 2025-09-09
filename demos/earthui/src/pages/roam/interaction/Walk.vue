@@ -2,8 +2,8 @@
     <PopList :title="'第一人称'">
         <LabelInput v-if="ueIsShow" v-model="jumpZVelocity" :inputType="'number'" :min="0" :label="'跳跃初始速度'"
             :unit="'m/s'"></LabelInput>
-        <LabelInput v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :unit="'m'">
-        </LabelInput>
+        <LabelInputDefault v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :unit="'m'" :defaultValue="1.6">
+        </LabelInputDefault>
         <div class="interation_text" :style="{ marginTop: ueIsShow ? '20px' : '0' }">
             <div><span>W( ↑ )</span><span>水平方向前进</span></div>
             <div><span>A</span><span>水平方向左移</span></div>
@@ -22,6 +22,7 @@ import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { inject, ref, watch, onMounted, onBeforeUnmount } from 'vue';
 import PopList from '../../../components/PopList.vue';
 import LabelInput from "../../../components/LabelInput.vue";
+import LabelInputDefault from "../../../components/LabelInputDefault.vue";
 const d = createVueDisposer(onBeforeUnmount);
 const jumpZVelocity = ref<number>(4.2)
 const eyeHeight = ref<number>(1.6)

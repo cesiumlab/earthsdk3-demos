@@ -2020,10 +2020,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.yarnpkg.com/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.4.0-beta.8:
-  version "3.4.0-beta.8"
-  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.4.0-beta.8.tgz#039b8870684fa87a246ff3d74df658504ba033da"
-  integrity sha512-qTI74KTuYHx8z/G0hcWoXNRAYsVyug+1vlhSt9TpBLs3vTQ3L9TnnXgHTpt29JZI+/wmv5AzjQysUuu1xBa6bQ==
+earthsdk3-cesium@3.4.0-beta.10:
+  version "3.4.0-beta.10"
+  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.4.0-beta.10.tgz#83d7128425d7c36992a2e1da17c21dd7eaf6a3a1"
+  integrity sha512-CjJiN1IT9mDHMlWViD9pI46t9g6T0pIam/Aqq2+427IG0a4LNg2VmNcSQGBTfYn+FtlmMNbJMLjR8XTCkZLcrw==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
@@ -2036,18 +2036,18 @@ earthsdk3-ol@0.0.1-beta.0.4:
   resolved "https://registry.yarnpkg.com/earthsdk3-ol/-/earthsdk3-ol-0.0.1-beta.0.4.tgz#e71bac39449f4bf464e738c973b6e1024f219bca"
   integrity sha512-cAUXwSIrWDGwJY9ypEIqszVjGnB81aoaNpXV0Thp2W5+/AGNvO7R2Dpw+pWVfIeVAvoVh1JqX1VHB/Dt8UBozQ==
 
-earthsdk3-ue@3.4.0-beta.7:
-  version "3.4.0-beta.7"
-  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.4.0-beta.7.tgz#b00a6cbb4b3e04fa1d7ad37736652aceeec25765"
-  integrity sha512-pisOtrj9AJ0Y3SyD+b8gMN0U5USp4wvFsdnT06JA+/w65E1pQTUdYCdt0x+uwrr9auxopUp21WLXgMchmZhB2w==
+earthsdk3-ue@3.4.0-beta.9:
+  version "3.4.0-beta.9"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.4.0-beta.9.tgz#7d6c2fb8b42b4e1b99aeb1c6f2a6fc5bc8fa2b1c"
+  integrity sha512-VGNbblXJF3hWjwoq/vhhXMmyJqsw/qKgcdj08VCfmvARtvlJEOmFLMQl3nm6rvKuHspeATXIiUTgHXXYTKyvpg==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.4.0-beta.13:
-  version "3.4.0-beta.13"
-  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.4.0-beta.13.tgz#b7ae4da58ae84dcd1d15ffd3d18821330720ff45"
-  integrity sha512-RIjRYC07TJtH8R6WFIpHcgn4CyNDp7MltDkC+sCHPEKn9/TY985BX9sVFsz5EH2KvZ6x6SYAUS/kzbgl8As5KQ==
+earthsdk3@3.4.0-beta.18:
+  version "3.4.0-beta.18"
+  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.4.0-beta.18.tgz#087f0818e94dd1aeeef15285de2968e88fd98627"
+  integrity sha512-mYXT77QZpAPKFqrRPe/FrFIUiJUQwCXDm+ehk+6omYVlgtIBL5PZSb/N6eKI6Y1wyoqssPhr5vSUm995J9J98A==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

@@ -18,20 +18,20 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ol:
         specifier: workspace:^
         version: link:../earthsdk3-openlayers
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -55,8 +55,8 @@ importers:
   demos/earthsdk3-openlayers:
     dependencies:
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       ol:
         specifier: ^7.1.0
         version: 7.5.2
@@ -89,17 +89,17 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       monaco-editor:
         specifier: ^0.30.1
         version: 0.30.1
@@ -141,20 +141,20 @@ importers:
         specifier: 1.0.2-beta.2
         version: 1.0.2-beta.2(typescript@4.9.5)
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ol:
         specifier: 0.0.1-beta.0.4
-        version: 0.0.1-beta.0.4(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(ol@7.5.2)(xbsj-base@1.0.6)
+        version: 0.0.1-beta.0.4(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(ol@7.5.2)(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -199,14 +199,14 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       vue:
         specifier: ^3.5.13
         version: 3.5.18(typescript@5.6.3)
@@ -248,17 +248,17 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
     devDependencies:
       '@eslint/js':
         specifier: ^9.25.0
@@ -312,17 +312,17 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -349,17 +349,17 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.1.4
@@ -383,17 +383,17 @@ importers:
         specifier: '1.132'
         version: 1.132.0
       earthsdk3:
-        specifier: 3.4.0-beta.19
-        version: 3.4.0-beta.19(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.24
+        version: 3.4.0-beta.24(xbsj-base@1.0.6)
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.4.0-beta.11
-        version: 3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.14
+        version: 3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
       earthsdk3-ue:
-        specifier: 3.4.0-beta.10
-        version: 3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6)
+        specifier: 3.4.0-beta.12
+        version: 3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6)
     devDependencies:
       '@vue/cli-plugin-babel':
         specifier: ~5.0.0
@@ -3244,11 +3244,11 @@ packages:
   earthsdk3-assets@3.0.6:
     resolution: {integrity: sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==}
 
-  earthsdk3-cesium@3.4.0-beta.11:
-    resolution: {integrity: sha512-YsUXQz97WhJAA/+i7DsAO/6ws32f1iotD5FC7T45jL7WSapbMss7QSj4C8oao5Qz2uFFyYBnsCMQRPdkR7y9hA==}
+  earthsdk3-cesium@3.4.0-beta.14:
+    resolution: {integrity: sha512-UE8u7LOhgvSC6TUA7i7DVYYaCjI8s4eWGPATsL3q+IeOyL228HXpjxzyO8gGfZiLza5Zkz/RdtptP9LfO4QQZQ==}
     peerDependencies:
       cesium: '1.132'
-      earthsdk3: 3.4.0-beta.19
+      earthsdk3: 3.4.0-beta.24
       xbsj-base: 1.0.6
 
   earthsdk3-ol@0.0.1-beta.0.4:
@@ -3258,10 +3258,10 @@ packages:
       ol: ^7.1.0
       xbsj-base: 1.0.6
 
-  earthsdk3-ue@3.4.0-beta.10:
-    resolution: {integrity: sha512-SM+7m5VJX7gVDR0Yd4p7NupYPGGm+MKXY/1SFnX9H81C+WxaeiYU62UFMY0xkFLC1I4H3J0KPGNgpTrk0/rssg==}
+  earthsdk3-ue@3.4.0-beta.12:
+    resolution: {integrity: sha512-cFubcIzmaHisMLksb2UVjAv6g8n3NCNwSk8YVyY+oAkgmBP7c3L4kMZ3NZSoP8fG32bG6V6otu6fHG2SCHZtvg==}
     peerDependencies:
-      earthsdk3: 3.4.0-beta.19
+      earthsdk3: 3.4.0-beta.23
       xbsj-base: 1.0.6
 
   earthsdk3@3.3.1:
@@ -3269,8 +3269,8 @@ packages:
     peerDependencies:
       xbsj-base: 1.0.3
 
-  earthsdk3@3.4.0-beta.19:
-    resolution: {integrity: sha512-5OH2+1aqxFykmgwWhhR+dlmXVC7Y7FZbN9j8/vlSE2/NaVIdh8UD6Rv4IiAb6dkAQiZ7ciKSJfAta0A+53LncQ==}
+  earthsdk3@3.4.0-beta.24:
+    resolution: {integrity: sha512-K7TJtlOBPFU29X8oWZQjBujbAmEawnzbiZ9ZkUEG1N3YEocieG9niGHHsobvADtwbeqSkGeNKd07oBCeOdz2AA==}
     peerDependencies:
       xbsj-base: 1.0.6
 
@@ -9473,27 +9473,27 @@ snapshots:
 
   earthsdk3-assets@3.0.6: {}
 
-  earthsdk3-cesium@3.4.0-beta.11(cesium@1.132.0)(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6):
+  earthsdk3-cesium@3.4.0-beta.14(cesium@1.132.0)(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6):
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.132.0
       delaunator: 5.0.1
       earcut: 2.2.4
-      earthsdk3: 3.4.0-beta.19(xbsj-base@1.0.6)
+      earthsdk3: 3.4.0-beta.24(xbsj-base@1.0.6)
       html2canvas: 1.4.1
       mvt-basic-render: 0.3.5
       xbsj-base: 1.0.6
 
-  earthsdk3-ol@0.0.1-beta.0.4(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(ol@7.5.2)(xbsj-base@1.0.6):
+  earthsdk3-ol@0.0.1-beta.0.4(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(ol@7.5.2)(xbsj-base@1.0.6):
     dependencies:
-      earthsdk3: 3.4.0-beta.19(xbsj-base@1.0.6)
+      earthsdk3: 3.4.0-beta.24(xbsj-base@1.0.6)
       ol: 7.5.2
       xbsj-base: 1.0.6
 
-  earthsdk3-ue@3.4.0-beta.10(earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6))(xbsj-base@1.0.6):
+  earthsdk3-ue@3.4.0-beta.12(earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6))(xbsj-base@1.0.6):
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.8
-      earthsdk3: 3.4.0-beta.19(xbsj-base@1.0.6)
+      earthsdk3: 3.4.0-beta.24(xbsj-base@1.0.6)
       html2canvas: 1.4.1
       xbsj-base: 1.0.6
 
@@ -9504,7 +9504,7 @@ snapshots:
       proj4: 2.19.10
       xbsj-base: 1.0.6
 
-  earthsdk3@3.4.0-beta.19(xbsj-base@1.0.6):
+  earthsdk3@3.4.0-beta.24(xbsj-base@1.0.6):
     dependencies:
       '@turf/turf': 6.5.0
       '@types/proj4': 2.19.0

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>2DPoi</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                105.18678785237122,
+                29.978662335966686,
+                17654468.84450531
+            ], [
+                359.99999999999994,
+                -89.89954299853517,
+                0
+            ], 3)
+        });
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 16,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------图标标记------------------------------------**/
+        const sceneObject = objm.createSceneObject('ESPoi2D')
+        // 设置显示文本名称
+        sceneObject.name = "2DPoi标记"
+        // 位置
+        sceneObject.position = [120.8519127602077, 29.58070001714595, 0]
+        // 设置不同样式
+        sceneObject.mode = "Custom"
+        // 自定义样式
+        /**
+            fontSize?: number;
+            image?: string;
+            imageSize?: ESJVector2D;
+            text?: string;
+            textBackground?: string;
+            textBackgroundColor?: ESJVector4D;
+            textBackgroundSize?: ESJVector2D;
+            textBoxAlign?: "start" | "center" | "end";
+            textBoxMode?: "default" | "hover";
+            textBoxOffset?: ESJVector2D;
+            textBoxShow?: boolean;
+            textColor?: ESJVector4D;
+            textOffset?: ESJVector2D;
+         */
+        sceneObject.style = {
+            "fontSize": 14, // 字体大小
+            "image": "https://www.earthsdk.com/example3/thumbnail/zuo.png",// 图片
+            "imageSize": [// 图片大小
+                44,
+                44
+            ],
+            "text": "12312123",// 文字
+            "textBackground": "https://www.earthsdk.com/example3/thumbnail/you.png",    // 文字背景
+            "textBackgroundColor": [// 文字背景颜色
+                1,
+                1,
+                1,
+                1
+            ],
+            "textBackgroundSize": [// 文字背景大小
+                180,
+                66
+            ],
+            "textColor": [// 文字颜色
+                1,
+                1,
+                1,
+                1
+            ],
+            "textOffset": [// 文字偏移
+                40,
+                8
+            ],
+            "textBoxOffset": [// 文字背景偏移
+                40,
+                0
+            ],
+            "textBoxAlign": "start",// 文字背景对齐
+            "useDefault": true,// 是否使用默认样式
+            "textBoxMode": "default",// 文字背景模式
+        }
+
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

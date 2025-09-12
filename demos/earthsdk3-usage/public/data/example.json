@@ -644,6 +644,11 @@
                         "path": "plot/poi/2DPoi"
                     },
                     {
+                        "name": "自定义2DPoi",
+                        "thumbnail": "plot-poi-2DPoicustom.webp",
+                        "path": "plot/poi/2DPoicustom"
+                    },
+                    {
                         "name": "Poi聚合",
                         "thumbnail": "plot-poi-clusterPoi.webp",
                         "path": "plot/poi/clusterPoi"

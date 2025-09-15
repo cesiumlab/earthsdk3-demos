@@ -160,37 +160,37 @@
                 ]
             },
             {
-                "name": "拾取方法",
+                "name": "pick拾取",
                 "details": "对象被点击等等拾取事件的监听",
                 "children": [
                     {
-                        "name": "视口pick拾取方法",
+                        "name": "pick拾取",
                         "thumbnail": "earth-pick-object.webp",
                         "path": "earth/pick/object"
                     },
                     {
-                        "name": "全局拾取场景元素",
+                        "name": "pick拾取应用",
                         "thumbnail": "earth-pick-object2.webp",
                         "path": "earth/pick/object2"
                     },
                     {
-                        "name": "视口pickPosition拾取位置方法",
+                        "name": "pickPosition拾取位置",
                         "thumbnail": "earth-pick-position.webp",
                         "path": "earth/pick/position"
                     }
                 ]
             },
             {
-                "name": "对象被拾取事件",
+                "name": "单一对象被拾取",
                 "details": "对象被点击等等拾取事件的监听",
                 "children": [
                     {
-                        "name": "pickedEvent被拾取事件",
+                        "name": "pickedEvent事件",
                         "thumbnail": "earth-sceneEvent-picked.webp",
                         "path": "earth/sceneEvent/picked"
                     },
                     {
-                        "name": "widgetEvent图片对象被拾取事件",
+                        "name": "widgetEvent事件(图片对象被拾取)",
                         "thumbnail": "earth-sceneEvent-widget.webp",
                         "path": "earth/sceneEvent/widget"
                     }

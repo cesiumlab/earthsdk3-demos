@@ -8,20 +8,24 @@
         </div>
 
         <div class="poplist_head">
-            <div class="roam_custom_head_left"><span></span> 地理坐标包围盒（测试） </div>
+            <div class="roam_custom_head_left"><span></span> 相机可运动范围（测试） </div>
         </div>
         <div>
-            <LabelInputDefault v-model="west" :inputType="'number'" :min="0" :max="180" :label="'西经'" :unit="'°'">
+            <LabelInputDefault v-model="west" :inputType="'number'" :min="0" :max="180" :label="'西经'" :unit="'°'"
+                :defaultValue="0">
             </LabelInputDefault>
-            <LabelInputDefault v-model="south" :inputType="'number'" :min="0" :max="90" :label="'南纬'" :unit="'°'">
+            <LabelInputDefault v-model="south" :inputType="'number'" :min="0" :max="90" :label="'南纬'" :unit="'°'"
+                :defaultValue="0">
             </LabelInputDefault>
-            <LabelInputDefault v-model="east" :inputType="'number'" :min="0" :max="180" :label="'东经'" :unit="'°'">
+            <LabelInputDefault v-model="east" :inputType="'number'" :min="0" :max="180" :label="'东经'" :unit="'°'"
+                :defaultValue="0">
             </LabelInputDefault>
-            <LabelInputDefault v-model="north" :inputType="'number'" :min="0" :max="90" :label="'北纬'" :unit="'°'">
+            <LabelInputDefault v-model="north" :inputType="'number'" :min="0" :max="90" :label="'北纬'" :unit="'°'"
+                :defaultValue="0">
             </LabelInputDefault>
-            <LabelInputDefault v-model="minHeight" :inputType="'number'" :label="'最低高度'" :unit="'m'">
+            <LabelInputDefault v-model="minHeight" :inputType="'number'" :label="'最低高度'" :unit="'m'" :defaultValue="0">
             </LabelInputDefault>
-            <LabelInputDefault v-model="maxHeight" :inputType="'number'" :label="'最高高度'" :unit="'m'">
+            <LabelInputDefault v-model="maxHeight" :inputType="'number'" :label="'最高高度'" :unit="'m'" :defaultValue="0">
             </LabelInputDefault>
         </div>
     </PopList>
@@ -33,22 +37,36 @@ import PopList from '../../../components/PopList.vue';
 import LabelInputDefault from "../../../components/LabelInputDefault.vue"
 import { ref, onMounted, watch, inject } from "vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
+import { ESViewer } from 'earthsdk3';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const west = ref()//西经
-const south = ref()//南纬
-const east = ref()//东经
-const north = ref()//北纬
-const minHeight = ref()//最低高度
-const maxHeight = ref()//最高高度
+const west = ref(0)//西经
+const south = ref(0)//南纬
+const east = ref(0)//东经
+const north = ref(0)//北纬
+const minHeight = ref(0)//最低高度
+const maxHeight = ref(0)//最高高度
 onMounted(() => {
+    const defaults = ESViewer.defaults.cameraMovableRegion
+    console.log('defaults', defaults);
+
     if (xbsjEarthUi.activeViewer?.cameraMovableRegion) {
+        console.log(1111111111111);
         const cameraMovableRegion = xbsjEarthUi.activeViewer.cameraMovableRegion
-        west.value = cameraMovableRegion[0]
-        south.value = cameraMovableRegion[1]
-        east.value = cameraMovableRegion[2]
-        north.value = cameraMovableRegion[3]
-        minHeight.value = cameraMovableRegion[4]
-        maxHeight.value = cameraMovableRegion[5]
+        west.value = cameraMovableRegion[0] ?? defaults[0]
+        south.value = cameraMovableRegion[1] ?? defaults[1]
+        east.value = cameraMovableRegion[2] ?? defaults[2]
+        north.value = cameraMovableRegion[3] ?? defaults[3]
+        minHeight.value = cameraMovableRegion[4] ?? defaults[4]
+        maxHeight.value = cameraMovableRegion[5] ?? defaults[5]
+    } else {
+        console.log(22222222222);
+
+        west.value = defaults[0]
+        south.value = defaults[1]
+        east.value = defaults[2]
+        north.value = defaults[3]
+        minHeight.value = defaults[4]
+        maxHeight.value = defaults[5]
     }
 })
 watch([west, south, east, north, minHeight, maxHeight], () => {

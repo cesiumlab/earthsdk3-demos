@@ -56,9 +56,8 @@ function getStatus() {
 }
 const newValue = ref<undefined | number>(undefined)
 watch(() => props.modelValue, (val: any) => {
-    if (val) {
-        newValue.value = val
-    }
+    newValue.value = val
+
 }, { immediate: true })
 const resetDefult = () => {
     newValue.value = props.defaultValue

@@ -127,30 +127,6 @@ export class XbsjEarthUi extends ESObjectsManager {
             }
 
         }
-        {//禁止拾取
-            //@ts-ignore
-            //TODO:editingOnPicking
-            // this._projectManager.editingOnPicking = false
-        }
-        {//设置此项目的编辑配置
-            // PositionsEditing.defaultConfig = { // 多点编辑
-            //     "editor": { // 编辑状态的配置
-            //         "showCoordinates": true, // 是否显示坐标架
-            //         "showCircle": true, // 是否显示辅助圈
-            //         "disableX": false, // 是否取消X轴向的平移
-            //         "disableY": false, // 是否取消Y轴向的平移
-            //         "disableXY": false, // 是否取消XY平面上的平移操作
-            //         "disableZ": false, // 是否取消Z轴上的平移操作
-            //         "disableZAxis": false // 是否取消Z轴上的旋转操作，注意是旋转操作
-            //     },
-            //     "picker": { // 拾取状态的配置
-            //         "clickEnabled": true, // 单击拾取点
-            //         "dbClickEnabled": true // 双击拾取点
-            //     },
-            //     "noModifingAfterAdding": false, // 新增结束以后不进入修改状态
-            //     "hideCursorInfo": true, // 关闭鼠标提示
-            // }
-        }
         {//判断视口
             this.d(this.activeViewerChanged.don(() => {
                 if (!this.activeViewer) return

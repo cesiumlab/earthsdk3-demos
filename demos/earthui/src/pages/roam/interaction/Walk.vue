@@ -2,7 +2,7 @@
     <PopList :title="'第一人称'">
         <LabelInput v-if="ueIsShow" v-model="jumpZVelocity" :inputType="'number'" :min="0" :label="'跳跃初始速度'"
             :unit="'m/s'"></LabelInput>
-        <LabelInputDefault v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :unit="'m'" :defaultValue="1.6">
+        <LabelInputDefault v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :min="0" :unit="'m'" :defaultValue="1.6">
         </LabelInputDefault>
         <div class="interation_text" :style="{ marginTop: ueIsShow ? '20px' : '0' }">
             <div><span>W( ↑ )</span><span>水平方向前进</span></div>

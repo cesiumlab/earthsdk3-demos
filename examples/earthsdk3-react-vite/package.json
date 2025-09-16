@@ -32,5 +32,13 @@
     "react-dom": "^19.1.0",
     "vite-plugin-cesium": "^1.2.23",
     "vite-plugin-static-copy": "^1.0.1"
+  },
+  "overrides": {
+    "@zip.js/zip.js": "2.7.72",
+    "@cesium/widgets": "13.0.0"
+  },
+  "resolutions": {
+    "@zip.js/zip.js": "2.7.72",
+    "@cesium/widgets": "13.0.0"
   }
 }

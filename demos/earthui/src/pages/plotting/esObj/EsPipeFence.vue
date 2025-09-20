@@ -39,7 +39,7 @@ const modes = [
     },
     {
         img: new URL('../../../assets/plotting/pureColor.png', import.meta.url).href,
-        name: '纯色路径',
+        name: '纯色管道围栏',
         materialMode: 'color',
     }
 ]

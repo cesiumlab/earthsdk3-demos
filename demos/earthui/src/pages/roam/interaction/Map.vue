@@ -47,10 +47,7 @@ const minHeight = ref(0)//最低高度
 const maxHeight = ref(0)//最高高度
 onMounted(() => {
     const defaults = ESViewer.defaults.cameraMovableRegion
-    console.log('defaults', defaults);
-
     if (xbsjEarthUi.activeViewer?.cameraMovableRegion) {
-        console.log(1111111111111);
         const cameraMovableRegion = xbsjEarthUi.activeViewer.cameraMovableRegion
         west.value = cameraMovableRegion[0] ?? defaults[0]
         south.value = cameraMovableRegion[1] ?? defaults[1]
@@ -59,8 +56,6 @@ onMounted(() => {
         minHeight.value = cameraMovableRegion[4] ?? defaults[4]
         maxHeight.value = cameraMovableRegion[5] ?? defaults[5]
     } else {
-        console.log(22222222222);
-
         west.value = defaults[0]
         south.value = defaults[1]
         east.value = defaults[2]

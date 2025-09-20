@@ -18,8 +18,8 @@ const floatShow = ref(false)
         <Button :name="'shendujiance'" :content="'深度检测'"
             :click="() => { depthTestAgainstTerrain = !depthTestAgainstTerrain }"
             :actived="depthTestAgainstTerrain"></Button>
-        <Button :size="17" :name="'a-juxing2221'" :content="'地形透明度'" :click="() => { floatShow = !floatShow }" :left-button="true"
-            :actived="floatShow"></Button>
+        <Button :size="17" :name="'a-juxing2221'" :content="'地形透明度'" :click="() => { floatShow = !floatShow }"
+            :left-button="true" :actived="floatShow"></Button>
         <Float v-if="floatShow"></Float>
     </RightList>
 </template>

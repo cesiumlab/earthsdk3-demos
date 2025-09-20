@@ -884,7 +884,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
             }
         },
     }
-    if (treeItem.sceneObject && treeItem.sceneObject.viewer?.getEngineType() == "ESCesiumViewer") {
+    if (treeItem.sceneObject && xbsjEarthUi.activeViewer?.typeName == "ESCesiumViewer") {
         if ((treeItem.sceneObject instanceof ESImageryLayer || treeItem.sceneObject instanceof ES3DTileset || treeItem.sceneObject instanceof ESTerrainLayer)) {
             baseItems.splice(1, 0, openCesium)
         }

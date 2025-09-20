@@ -27,15 +27,15 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@cesium/engine@^19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@cesium/engine/-/engine-19.0.0.tgz#fd394c163c5bc176f276aa015d80b2a32352bdd6"
-  integrity sha512-ymBxCUEV2HfQLmAp3qou0AlKkChIaMNkKQa/bCLLScfoCj0EBVtQH6Zgk8hP8MWreuR+vzmGOjdPsWLMkKgnrQ==
+"@cesium/engine@^20.0.1":
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/@cesium/engine/-/engine-20.0.1.tgz#ab3627b42df602dbd7f10d3fa97e48b365481161"
+  integrity sha512-B2TQ9VtVb791dUJatgx6SCRZg3tFPcRi8QseWg9flovaFOHJY0o+LX5BN2J5plFKRO5r5v7g+M2OyjcUYwaRDQ==
   dependencies:
     "@cesium/wasm-splats" "^0.1.0-alpha.2"
     "@spz-loader/core" "0.3.0"
     "@tweenjs/tween.js" "^25.0.0"
-    "@zip.js/zip.js" "^2.7.70"
+    "@zip.js/zip.js" "^2.7.70 <2.8.0"
     autolinker "^4.0.0"
     bitmap-sdf "^1.0.3"
     dompurify "^3.0.2"
@@ -47,7 +47,7 @@
     ktx-parse "^1.0.0"
     lerc "^2.0.0"
     mersenne-twister "^1.1.0"
-    meshoptimizer "^0.24.0"
+    meshoptimizer "^0.25.0"
     pako "^2.0.4"
     protobufjs "^7.1.0"
     rbush "^4.0.1"
@@ -59,12 +59,12 @@
   resolved "https://registry.npmmirror.com/@cesium/wasm-splats/-/wasm-splats-0.1.0-alpha.2.tgz"
   integrity sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==
 
-"@cesium/widgets@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/@cesium/widgets/-/widgets-13.0.0.tgz#14bca792a2af5d86b439366ae90eee14bdf5ed0e"
-  integrity sha512-Gc/ffnu4anzn6wDjLviYYOydb0OrGWY6ie5pKV+cNWbL48tfLRUZL6D3MJVS+qhSB3NhyA050v82NvPzYbqnuQ==
+"@cesium/widgets@^13.1.1":
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/@cesium/widgets/-/widgets-13.1.1.tgz#29996c409fca3092a419914e378e220ef0eefd18"
+  integrity sha512-EIZCSLLJzG0BeNcKjDfQcNv+9KiI9TqqN0RveuZIu++FCs2kL29neImicWEZlSfX38xxQLaogmhZLh2pO73NPg==
   dependencies:
-    "@cesium/engine" "^19.0.0"
+    "@cesium/engine" "^20.0.1"
     nosleep.js "^0.12.0"
 
 "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2@^0.5.8":
@@ -1725,10 +1725,10 @@
   resolved "https://registry.npmmirror.com/@xmldom/xmldom/-/xmldom-0.8.10.tgz"
   integrity sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==
 
-"@zip.js/zip.js@^2.7.70":
-  version "2.7.72"
-  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.7.72.tgz#2c53887c2a3b79e9d9f1c63f048bc0cf485703c3"
-  integrity sha512-3/A4JwrgkvGBlCxtItjxs8HrNbuTAAl/zlGkV6tC5Fb5k5nk4x2Dqxwl/YnUys5Ch+QB01eJ8Q5K/J2uXfy9Vw==
+"@zip.js/zip.js@^2.7.70 <2.8.0":
+  version "2.7.73"
+  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.7.73.tgz#56b215ac9fb8511ffb3073d33cd8108f1360a0f9"
+  integrity sha512-I2UP8/rdQE5hTtVVL08B7P8XuwXiKuuMUPjNuFOVL/9b+8IsExR9S5jz2H58u0rJjU4M1BikLgqEMG8gZJZVBw==
 
 anymatch@~3.1.2:
   version "3.1.3"
@@ -1812,13 +1812,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
-cesium@1.132:
-  version "1.132.0"
-  resolved "https://registry.yarnpkg.com/cesium/-/cesium-1.132.0.tgz#04775ec36b8d58f4689efbe7d9f522e32dd28dcd"
-  integrity sha512-FOurvzkUhnbXn/gqruBMkHqVpen7URNd5xemEhD76VzoYpRvOwWJWNaFeuBuB5AEJpFfGs5hVicGKFMzX/sUlw==
+cesium@1.133.1:
+  version "1.133.1"
+  resolved "https://registry.yarnpkg.com/cesium/-/cesium-1.133.1.tgz#00a002e406556d065da4f007890fb825c9b32377"
+  integrity sha512-cbxsvAii7GE1D9OQIFjCKtkjDxm5WIVz5R47jswkhJ11sI3dEgSqZJi/e+C4PIulpdchwij+PEWE7nI0IQX7yw==
   dependencies:
-    "@cesium/engine" "^19.0.0"
-    "@cesium/widgets" "^13.0.0"
+    "@cesium/engine" "^20.0.1"
+    "@cesium/widgets" "^13.1.1"
 
 chokidar@^3.5.3:
   version "3.6.0"
@@ -2020,10 +2020,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.yarnpkg.com/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.4.0-beta.14:
-  version "3.4.0-beta.14"
-  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.4.0-beta.14.tgz#c6409fc389e62f34180b68bfeec725d838d5c7c6"
-  integrity sha512-UE8u7LOhgvSC6TUA7i7DVYYaCjI8s4eWGPATsL3q+IeOyL228HXpjxzyO8gGfZiLza5Zkz/RdtptP9LfO4QQZQ==
+earthsdk3-cesium@3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.4.2.tgz#3bd4083bc0e96814824ec71e9e6a1f69c1151db2"
+  integrity sha512-zUn4IWafiulCdFLxtmGgbIpLChvf9JhwC3yLcq1Uqt5qzDQrKMdB8nOjSOKSM+MJvSK1ciGTL6XI60I4C7tuRw==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
@@ -2036,18 +2036,18 @@ earthsdk3-ol@0.0.1-beta.0.4:
   resolved "https://registry.yarnpkg.com/earthsdk3-ol/-/earthsdk3-ol-0.0.1-beta.0.4.tgz#e71bac39449f4bf464e738c973b6e1024f219bca"
   integrity sha512-cAUXwSIrWDGwJY9ypEIqszVjGnB81aoaNpXV0Thp2W5+/AGNvO7R2Dpw+pWVfIeVAvoVh1JqX1VHB/Dt8UBozQ==
 
-earthsdk3-ue@3.4.0-beta.12:
-  version "3.4.0-beta.12"
-  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.4.0-beta.12.tgz#39706ed4a4f13ba257b5732c1ba83419135eb6f3"
-  integrity sha512-cFubcIzmaHisMLksb2UVjAv6g8n3NCNwSk8YVyY+oAkgmBP7c3L4kMZ3NZSoP8fG32bG6V6otu6fHG2SCHZtvg==
+earthsdk3-ue@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.4.1.tgz#59a51a4d08c4ec36e6150f52e87fbb2eac1dc6ad"
+  integrity sha512-mHCED1atL70ES1ES/Hvwe4khCt+3J9wMvSjpM3Yguwb4yx8YHcqfImyiws1P5bwS69+SPW1e411/ucjMDQ3u+Q==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.4.0-beta.24:
-  version "3.4.0-beta.24"
-  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.4.0-beta.24.tgz#f4f2efd37c9a77b6971d583b1b6d695c98c534c3"
-  integrity sha512-K7TJtlOBPFU29X8oWZQjBujbAmEawnzbiZ9ZkUEG1N3YEocieG9niGHHsobvADtwbeqSkGeNKd07oBCeOdz2AA==
+earthsdk3@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.4.1.tgz#0c68c8698819a2853993c245a91a5ed3101af5b3"
+  integrity sha512-H2bXGXM7naq9wINVcSPMzg+YFEIaT3muxgI5avUTH6DEWlQ1UZnHsn4tPridOZbSLYotcO9srPxsCuU5KX+sag==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -2518,10 +2518,10 @@ mersenne-twister@^1.1.0:
   resolved "https://registry.npmmirror.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz"
   integrity sha512-mUYWsMKNrm4lfygPkL3OfGzOPTR2DBlTkBNHM//F6hGp8cLThY897crAlk3/Jo17LEOOjQUrNAx6DvgO77QJkA==
 
-meshoptimizer@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.npmmirror.com/meshoptimizer/-/meshoptimizer-0.24.0.tgz"
-  integrity sha512-Iq/8cM5cK2B0P0QdKHexr30zEJn5sQxjXKtQJGp6LO7r1VUPwhgxau18pvybVDnEDsKE49GdlJYwqPX9A/P9Sw==
+meshoptimizer@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/meshoptimizer/-/meshoptimizer-0.25.0.tgz#1234446e55e50beed2b613424330ac5102130ae4"
+  integrity sha512-ewwuAo3ujPZ7T3Y2oTkEoLlXvNOqnr0cjyAxfv5djXJqwD9QlxDDO0qGtsqB4Z9QUVvhruKXg9q/xfK9I5S1xQ==
 
 mgrs@1.0.0:
   version "1.0.0"

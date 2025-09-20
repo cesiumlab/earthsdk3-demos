@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{ closeSceneobject: number }>(), {})
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const objType = ref<string>('')
 const disposer = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(disposer, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(disposer, [xbsjEarthUi, 'activeViewerType'])
 const createlList: { zh: string, type: string, icon: string, leftButton: boolean, hiddenFromUE?: boolean }[] = [
     {
         zh: '视阈',
@@ -128,9 +128,9 @@ watch(() => props.closeSceneobject, () => {
 </script>
 <template>
     <RightList :title="'空间分析1'">
-        <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in createlList" :name="item.icon"
-            :content="item.zh" :click="() => { createClippingPlane(item) }" :actived="objType === item.type"
-            :left-button="item.leftButton"></Button>
+        <Button v-show="activeViewerType !== 'ESUeViewer' || !item.hiddenFromUE" v-for="item in createlList"
+            :name="item.icon" :content="item.zh" :click="() => { createClippingPlane(item) }"
+            :actived="objType === item.type" :left-button="item.leftButton"></Button>
 
     </RightList>
 </template>

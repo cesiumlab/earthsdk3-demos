@@ -7,7 +7,8 @@ import { XbsjEarthUi } from '../../scripts/xbsjEarthUi';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
 const d = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
 const globeShow = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'globeShow'])//显示地球
 const depthTestAgainstTerrain = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'depthTestAgainstTerrain'])//深度检测
 </script>
@@ -17,6 +18,6 @@ const depthTestAgainstTerrain = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'dep
             :left-button="true"></Button>
         <Button :name="'shendujiance'" :content="'深度检测'"
             :click="() => { depthTestAgainstTerrain = !depthTestAgainstTerrain }" :actived="depthTestAgainstTerrain"
-            v-if="!ueIsShow"></Button>
+            v-if="activeViewerType !== 'ESUeViewer'"></Button>
     </RightList>
 </template>

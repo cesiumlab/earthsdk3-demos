@@ -12,7 +12,7 @@ const depthOfFieldShow = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'depthOfFie
 // const autoExposure = toVR<boolean>(d, [xbsjEarthUi.activeViewer, 'autoExposure']);//自动曝光
 const ambientOcclusionShow = toVR<boolean>(d, [reprocess, 'ambientOcclusionShow']);//环境遮蔽
 const floodlightShow = toVR<boolean>(d, [reprocess, 'floodlightShow']);//泛光
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 
 </script>
 <template>
@@ -20,14 +20,14 @@ const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
         <Button :name="'jingshen'" :content="'景深'" :actived="depthOfFieldShow === true"
             :click="() => { depthOfFieldShow = !depthOfFieldShow }" :left-button="true"></Button>
         <Button :name="'yinying'" :content="'阴影'" :actived="shadowsShow" :click="() => { shadowsShow = !shadowsShow }"
-            v-if="!ueIsShow"></Button>
+            v-if="activeViewerType !== 'ESUeViewer'"></Button>
         <Button :name="'huanjingzhebi'" :content="'环境遮蔽'" :actived="ambientOcclusionShow"
-            :click="() => { ambientOcclusionShow = !ambientOcclusionShow }" v-if="!ueIsShow"
+            :click="() => { ambientOcclusionShow = !ambientOcclusionShow }" v-if="activeViewerType !== 'ESUeViewer'"
             :left-button="true"></Button>
         <Button :name="'fanguang'" :content="'泛光'" :actived="floodlightShow"
-            :click="() => { floodlightShow = !floodlightShow }" v-if="!ueIsShow"></Button>
+            :click="() => { floodlightShow = !floodlightShow }" v-if="activeViewerType !== 'ESUeViewer'"></Button>
         <!-- <Button :name="'zidongbaoguang'" :content="'自动曝光'" :actived="autoExposure"
-            :click="() => { autoExposure = !autoExposure }" v-if="ueIsShow"></Button> -->
+            :click="() => { autoExposure = !autoExposure }" v-if="activeViewerType === 'ESUeViewer'"></Button> -->
     </RightList>
 </template>
 <style scoped></style>

@@ -9,7 +9,8 @@ import ImgVisualization from './Imgvisualization.vue';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const d = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
 
 const gugeIsShow = ref(false)
 const chlastSelectedItem = () => {
@@ -37,9 +38,9 @@ onMounted(() => {
 <template>
     <!-- 影像 -->
     <div class="roam">
-        <ImgDataDource ></ImgDataDource>
-        <ImgVisualization  v-if="!ueIsShow && largeScreen"></ImgVisualization>
-        <Gugevisualization  v-if="gugeIsShow"></Gugevisualization>
+        <ImgDataDource></ImgDataDource>
+        <ImgVisualization v-if="activeViewerType !== 'ESUeViewer' && largeScreen"></ImgVisualization>
+        <Gugevisualization v-if="gugeIsShow"></Gugevisualization>
     </div>
 </template>
 

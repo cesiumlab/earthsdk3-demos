@@ -10,7 +10,7 @@ import ModelVisualization from './Modelvisualization.vue';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const d = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 const debugIsShow = ref(false)
 const chlastSelectedItem = () => {
     debugIsShow.value = false
@@ -39,9 +39,9 @@ onMounted(() => {
     <!-- 瓦片 -->
     <div class="roam">
         <ModelDataDource></ModelDataDource>
-        <Editing v-if="!ueIsShow && largeScreen"></Editing>
+        <Editing v-if="activeViewerType !== 'ESUeViewer' && largeScreen"></Editing>
         <ModelVisualization></ModelVisualization>
-        <DebugInformation v-if="!ueIsShow && debugIsShow && largeScreen"></DebugInformation>
+        <DebugInformation v-if="activeViewerType !== 'ESUeViewer' && debugIsShow && largeScreen"></DebugInformation>
     </div>
 </template>
 <style src="../../css/ModelObj.css"></style>

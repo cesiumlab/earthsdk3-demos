@@ -8,6 +8,8 @@ import { Reprocess } from "./Reprocess";
 import { $config } from './getConfig';
 import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreatorUI';
 import { ESUeViewer } from 'earthsdk3-ue';
+import { ESCesiumViewer } from 'earthsdk3-cesium';
+import { ESOlViewer } from 'earthsdk3-ol';
 
 export class XbsjEarthUi extends ESObjectsManager {
     private _showSceneTreeView = this.dv(react<boolean>(true));//图层管理
@@ -49,10 +51,10 @@ export class XbsjEarthUi extends ESObjectsManager {
     get czmlabPath() { return ESSceneObject.context.getStrFromEnv('${czmlab-path}'); }//环境变量
     set czmlabPath(target: string) { ESSceneObject.context.setEnv('czmlab-path', target); }
 
-    private _ueIsShow = this.dv(react<boolean>(false));//视口
-    get ueIsShow() { return this._ueIsShow.value; }
-    set ueIsShow(value: boolean) { this._ueIsShow.value = value; }
-    get ueIsShowChanged() { return this._ueIsShow.changed; }
+    private _activeViewerType = this.dv(react<string>('ESCesiumViewer'));//视口
+    get activeViewerType() { return this._activeViewerType.value; }
+    set activeViewerType(value: string) { this._activeViewerType.value = value; }
+    get activeViewerTypeChanged() { return this._activeViewerType.changed; }
 
     private _animationShow = this.dv(react<boolean>(false));//动画时间线
     get animationShow() { return this._animationShow.value; }
@@ -74,7 +76,7 @@ export class XbsjEarthUi extends ESObjectsManager {
     set roamMode(value: string) { this._roamMode.value = value; }
     get roamModeChanged() { return this._roamMode.changed; }
 
-    private _pickResult = this.dv(react<any>({name:'3DTileset对象属性',value:{}}));//拾取到的信息
+    private _pickResult = this.dv(react<any>({ name: '3DTileset对象属性', value: {} }));//拾取到的信息
     get pickResult() { return this._pickResult.value; }
     set pickResult(value: any) { this._pickResult.value = value; }
     get pickResultChanged() { return this._pickResult.changed; }
@@ -131,9 +133,11 @@ export class XbsjEarthUi extends ESObjectsManager {
             this.d(this.activeViewerChanged.don(() => {
                 if (!this.activeViewer) return
                 if (this.activeViewer instanceof ESUeViewer) {
-                    this.ueIsShow = true
+                    this.activeViewerType = 'ESUeViewer'
+                } else if (this.activeViewer instanceof ESOlViewer) {
+                    this.activeViewerType = 'ESOlViewer'
                 } else {
-                    this.ueIsShow = false
+                    this.activeViewerType = 'ESCesiumViewer'
                 }
                 console.log(this.activeViewer);
 

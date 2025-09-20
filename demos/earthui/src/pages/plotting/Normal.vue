@@ -7,7 +7,8 @@ import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
 const objType = ref<string>('')
 const largeScreen = ref(true)
 onMounted(() => {
@@ -85,10 +86,10 @@ const scrollDownAndClick2 = (item: any) => {
             :left-button="item.leftButton"></Button>
         <component :is="effectCom" @close="objType = ''"></component>
     </RightList>
-    <RightList :title="'ue引擎'" v-if="ueIsShow">
+    <RightList :title="'ue引擎'" v-if="activeViewerType === 'ESUeViewer'">
         <Button v-for="item in ueObjectList" :name="item.icon" :content="item.zh"
-            :click="() => scrollDownAndClick2(item)" :actived="objType === item.type"
-            :left-button="item.leftButton" :font-size="item.fontSize"></Button>
+            :click="() => scrollDownAndClick2(item)" :actived="objType === item.type" :left-button="item.leftButton"
+            :font-size="item.fontSize"></Button>
         <component :is="ueCom" @close="objType = ''"></component>
     </RightList>
 </template>

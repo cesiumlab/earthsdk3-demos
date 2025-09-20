@@ -10,7 +10,7 @@ import ViewManager from "./cameraViews/ViewManager.vue";
 import { ESJVector3D } from 'earthsdk3';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount)
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 
 const changeToMap = () => {
     const viewer = xbsjEarthUi.activeViewer
@@ -57,7 +57,7 @@ const startView = () => {
     <RightList :title="'视角'" :isTop="true">
         <Button v-for="item in sceneList" :name="item.icon" :content="item.zh" :click="item.func"
             :left-button="item.leftButton"></Button>
-        <Button :name="'chushi'" :content="'初始'" :click="startView" v-if="ueIsShow"></Button>
+        <Button :name="'chushi'" :content="'初始'" :click="startView" v-if="activeViewerType == 'ESUeViewer'"></Button>
         <ViewManager></ViewManager>
     </RightList>
 </template>

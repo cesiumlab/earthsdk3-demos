@@ -1,17 +1,18 @@
 <template>
     <PopList :title="'第一人称'">
-        <LabelInput v-if="ueIsShow" v-model="jumpZVelocity" :inputType="'number'" :min="0" :label="'跳跃初始速度'"
-            :unit="'m/s'"></LabelInput>
-        <LabelInputDefault v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :min="0" :unit="'m'" :defaultValue="1.6">
+        <LabelInput v-if="activeViewerType === 'ESUeViewer'" v-model="jumpZVelocity" :inputType="'number'" :min="0"
+            :label="'跳跃初始速度'" :unit="'m/s'"></LabelInput>
+        <LabelInputDefault v-model="eyeHeight" :inputType="'number'" :label="'人眼高度'" :min="0" :unit="'m'"
+            :defaultValue="1.6">
         </LabelInputDefault>
-        <div class="interation_text" :style="{ marginTop: ueIsShow ? '20px' : '0' }">
+        <div class="interation_text" :style="{ marginTop: activeViewerType === 'ESUeViewer' ? '20px' : '0' }">
             <div><span>W( ↑ )</span><span>水平方向前进</span></div>
             <div><span>A</span><span>水平方向左移</span></div>
             <div><span>S ( ↓ )</span><span>水平方向后退</span></div>
             <div><span>D</span><span>水平方向右移</span></div>
             <div><span>←</span><span>水平方向左转</span></div>
             <div><span>→</span><span>水平方向右转</span></div>
-            <div v-if="ueIsShow"><span>Space</span><span>空格跳跃</span></div>
+            <div v-if="activeViewerType === 'ESUeViewer'"><span>Space</span><span>空格跳跃</span></div>
         </div>
     </PopList>
 </template>
@@ -27,7 +28,7 @@ const d = createVueDisposer(onBeforeUnmount);
 const jumpZVelocity = ref<number>(4.2)
 const eyeHeight = ref<number>(1.6)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 const position = ref<[number, number, number]>([0, 0, 0])
 const ueActorResult = () => {
     const viewer = xbsjEarthUi.activeViewer

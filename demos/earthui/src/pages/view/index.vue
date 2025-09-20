@@ -9,7 +9,8 @@ import Debug from "./Debug.vue";
 import EffectAdjustment from './EffectAdjustment.vue';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
 const largeScreen = ref(true)
 onMounted(() => {
     //@ts-ignore
@@ -22,7 +23,7 @@ onMounted(() => {
     <!-- 视图 -->
     <div class="roam">
         <Control></Control>
-        <Debug v-if="!ueIsShow && largeScreen && $config.modelShow"></Debug>
+        <Debug v-if="activeViewerType !== 'ESUeViewer' && largeScreen && $config.modelShow"></Debug>
         <Animation></Animation>
         <EffectAdjustment></EffectAdjustment>
     </div>

@@ -16,7 +16,7 @@ import RightList from '../../components/RightList.vue';
 import Button from '../../components/Button.vue';
 const disposer = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const ueIsShow = toVR<boolean>(disposer, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(disposer, [xbsjEarthUi, 'activeViewerType'])
 const rollerShutter = toVR<boolean>(disposer, [xbsjEarthUi.activeViewer, 'rollerShutter'])
 const controlList: { zh: string, type: string, icon: string, leftButton: boolean, hiddenFromUE?: boolean }[] = [
     {
@@ -39,33 +39,33 @@ const type = ref('')
 const changeType = (value: string) => {
     type.value = type.value === value ? '' : value
     cancelEditing()
-    if(value=='ScreenQuery'){
+    if (value == 'ScreenQuery') {
         if (xbsjEarthUi.activeViewer) {
-        xbsjEarthUi.activeViewer.stopEditing()
-    }
+            xbsjEarthUi.activeViewer.stopEditing()
+        }
 
-    openEditing()
+        openEditing()
     }
 }
 
-let dispose: (() => void) | null=null
+let dispose: (() => void) | null = null
 
 
 onBeforeUnmount(() => {
     cancelEditing()
 })
 
-const openEditing=()=>{
+const openEditing = () => {
     if (!xbsjEarthUi.activeViewer) return
     dispose = xbsjEarthUi.activeViewer.editingEvent.don(() => {
         type.value = ""
     })
 }
 
-const cancelEditing=()=>{
-    if(dispose){
+const cancelEditing = () => {
+    if (dispose) {
         dispose()
-        dispose=null
+        dispose = null
     }
 }
 
@@ -77,10 +77,10 @@ const cancelEditing=()=>{
 
 <template>
     <RightList :title="'空间分析2'">
-        <Button v-show="!ueIsShow" :name="'jiancai'" :content="'卷帘分割'" :click="() => { rollerShutter = !rollerShutter }"
-            :actived="rollerShutter" :left-button="true"></Button>
-        <Button v-show="!ueIsShow || !item.hiddenFromUE" v-for="item in controlList" :name="item.icon"
-            :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
+        <Button v-show="activeViewerType !== 'ESUeViewer'" :name="'jiancai'" :content="'卷帘分割'"
+            :click="() => { rollerShutter = !rollerShutter }" :actived="rollerShutter" :left-button="true"></Button>
+        <Button v-show="activeViewerType !== 'ESUeViewer' || !item.hiddenFromUE" v-for="item in controlList"
+            :name="item.icon" :content="item.zh" :click="() => { changeType(item.type) }" :actived="type === item.type"
             :left-button="item.leftButton"></Button>
 
         <component :is="type" />

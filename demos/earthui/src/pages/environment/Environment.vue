@@ -18,7 +18,7 @@ const atmosphereShow = toVR<boolean>(d, [activeViewer, 'atmosphere']);//大气
 const currentTime = toVR<number>(d, [activeViewer, 'currentTime']);//时间
 const sceneControlled = toVR<boolean>(d, [activeViewer, 'sceneControlled']);
 const newSceneControlled = ref(true)
-const ueIsShow = toVR<boolean>(d, [xbsjEarthUi, 'ueIsShow'])
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 const time = ref(210)//时间
 const timeStr = ref('12:00')
 const cloudShow = toVR<number>(d, [activeViewer, 'cloud']);
@@ -87,13 +87,14 @@ onMounted(() => {
             </LabelInputSliderReset>
         </div>
 
-        <Button :name="'taiyang'" :content="'太阳'" :click="() => { sunShow = !sunShow }" :actived="sunShow!=false"
+        <Button :name="'taiyang'" :content="'太阳'" :click="() => { sunShow = !sunShow }" :actived="sunShow != false"
             :left-button="true"></Button>
-        <Button :name="'yueliang'" :content="'月亮'" :click="() => { moonShow = !moonShow }" :actived="moonShow!=false"></Button>
+        <Button :name="'yueliang'" :content="'月亮'" :click="() => { moonShow = !moonShow }"
+            :actived="moonShow != false"></Button>
         <Button :name="'quanqiu'" :content="'大气'" :click="() => { atmosphereShow = !atmosphereShow }"
             :actived="atmosphereShow" :left-button="true"></Button>
-        <Button :name="'guangzhao'" :content="'光照控制'" v-if="ueIsShow" :click="changeSceneControlled"
-            :actived="newSceneControlled" :left-button="false"></Button>
-        <Control v-if="ueIsShow&&newSceneControlled"></Control>
+        <Button :name="'guangzhao'" :content="'光照控制'" v-if="activeViewerType === 'ESUeViewer'"
+            :click="changeSceneControlled" :actived="newSceneControlled" :left-button="false"></Button>
+        <Control v-if="activeViewerType === 'ESUeViewer' && newSceneControlled"></Control>
     </RightList>
 </template>

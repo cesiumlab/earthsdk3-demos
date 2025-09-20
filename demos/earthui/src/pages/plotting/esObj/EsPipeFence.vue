@@ -9,7 +9,7 @@
                     <span v-show="iconIsShow == index ? true : false">{{ item.name ?? '模式' }}</span>
                 </div>
                 <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">{{
-        item.name ?? '模式' }}</div>
+                    item.name ?? '模式' }}</div>
             </div>
         </div>
     </PopList>
@@ -26,16 +26,21 @@ import { Message } from "earthsdk-ui";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
     {
-        img: new URL('../../../assets/plotting/singleArrow.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/singleArrow.png', import.meta.url).href,
         name: '单箭头管道围栏',
         materialMode: 'singleArrow'
 
     },
     {
-        img: new URL('../../../assets/plotting/multipleArrows.png',import.meta.url).href,
+        img: new URL('../../../assets/plotting/multipleArrows.png', import.meta.url).href,
         name: '多箭头管道围栏',
         materialMode: 'multipleArrows'
 
+    },
+    {
+        img: new URL('../../../assets/plotting/pureColor.png', import.meta.url).href,
+        name: '纯色路径',
+        materialMode: 'color',
     }
 ]
 const iconIsShow: any = ref()
@@ -60,7 +65,7 @@ const createSceneObject = () => {
         Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
         editingDispose = (sceneObject.editingChanged.disposableOnce(() => {
             if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
+                Message.remove('xxx')
                 const json = sceneObject.json
                 const pos = sceneObject.points?.length
                 xbsjEarthUi.destroySceneObject(sceneObject)

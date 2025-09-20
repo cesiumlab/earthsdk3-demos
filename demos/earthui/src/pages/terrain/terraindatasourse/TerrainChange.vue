@@ -5,7 +5,7 @@
                 <label>服务地址</label>
                 <textarea v-model="serveUrl" rows="4"></textarea>
             </div>
-            <LabelInput v-model="terrainName" :label="'名称'" ></LabelInput>
+            <LabelInput v-model="terrainName" :label="'名称'"></LabelInput>
             <div class="images_servelocation" v-if="cesiumTerrain">
                 <label>官方token</label><input type="text" v-model="ionAccessToken">
             </div>
@@ -38,7 +38,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 
 const d = createVueDisposer(onBeforeUnmount);
-const imageUrl = new URL('../../../assets/images/labimages/cesiumterrain.jpg',import.meta.url).href
+const imageUrl = new URL('../../../assets/images/labimages/cesiumterrain.jpg', import.meta.url).href
 const ionAccessToken = toVR<string>(d, [xbsjEarthUi.activeViewer, 'ionAccessToken']);//token
 const serveUrl = ref()
 const checkedactive = ref()
@@ -46,7 +46,7 @@ const NormalVector = ref(false)
 const WaterSurface = ref(false)
 const iconIsShow = ref()
 const modellist = ref()
-const terrainName=ref('未命名地形')
+const terrainName = ref('未命名地形')
 const emits = defineEmits(['close']);
 const cesiumTerrain = ref(false)
 const changeServeUrl = (item: any, index: any) => {
@@ -96,7 +96,7 @@ const addSceneObjects = () => {
     xbsjEarthUi.propSceneTree = newTreeItem
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESTerrainLayer')
 
-    newTreeItem.name =  (terrainName.value==='' ? '未命名地形':terrainName.value) + objNum;
+    newTreeItem.name = (terrainName.value === '' ? '未命名地形' : terrainName.value) + objNum;
     sceneObject.url = serveUrl.value
     sceneObject.zIndex = maxZindex + 1
 }

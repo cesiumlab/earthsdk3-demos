@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "40611761",
+      "name": "透明度",
+      "font_class": "a-juxing2221",
+      "unicode": "e722",
+      "unicode_decimal": 59170
+    },
+    {
       "icon_id": "45463493",
       "name": "Openlayers",
       "font_class": "Openlayers",

@@ -1,7 +1,7 @@
 import { ESObjectsManager, ESSceneObject } from 'earthsdk3';
 // import { PositionsEditing, CzmGlobeMaterial, ESCesiumViewer } from 'earthsdk3-cesium';
 import { parse } from 'search-params';
-import { react } from "xbsj-base";
+import { react } from "earthsdk3";
 import { ClassicNavigatorManager } from "./ClassicNavigator";
 import { MeasurementManager } from "./MeasurementManager";
 import { Reprocess } from "./Reprocess";

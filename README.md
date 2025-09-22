@@ -58,7 +58,6 @@ const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer);
       rel="stylesheet"
     />
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"></script>
-    <script src="js/xbsj-base.js"></script>
     <script src="js/earthsdk3.iife.js"></script>
     <script src="js/earthsdk3-cesium.iife.js"></script>
     <script src="js/earthsdk3-ue.iife.js"></script>

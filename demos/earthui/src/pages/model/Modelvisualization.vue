@@ -2,7 +2,7 @@
 import { vue3Xe2Bind } from 'earthsdk-ui';
 import { ES3DTileset, SceneTree } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
-import { Destroyable, ObjResettingWithEvent } from "xbsj-base";
+import { Destroyable, ObjResettingWithEvent } from "earthsdk3";
 import RightList from '../../components/RightList.vue';
 import SliderTime from '../../components/SliderTime.vue';
 const sceneTree = inject('sceneTree') as SceneTree

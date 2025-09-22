@@ -1,5 +1,5 @@
 import { ES3DTileset, ESImageryLayer, ESTerrainLayer } from "earthsdk3";
-import { Destroyable, react } from "xbsj-base";
+import { Destroyable, react } from "earthsdk3";
 import type { VisObjectsManager } from "./VisObjectsManager";
 
 export class LayerManager extends Destroyable {
@@ -60,7 +60,7 @@ export class LayerManager extends Destroyable {
             }
             setTimeout(() => {
                 this.createCesiumObjects(false, false)
-                this.createTiandituLayer(false, false,false)
+                this.createTiandituLayer(false, false, false)
             })
         })
     }

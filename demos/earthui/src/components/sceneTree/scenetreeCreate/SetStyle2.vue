@@ -65,7 +65,7 @@
                         <div class="header_item3" @click="changeCurrentEdit">
                             <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{
                                 '规则可视化编辑器'
-                            }}</span>
+                                }}</span>
                         </div>
                         <div class="header_item3" @click="currentMenu = 'JsonEdit'">
                             <span class="header_item_span3"
@@ -188,7 +188,7 @@
 <script setup lang="ts">
 import { Message, messageBox } from "earthsdk-ui";
 import { inject, ref, onMounted, watch, onBeforeUnmount } from "vue";
-import { SceneObject } from "xbsj-base";
+import { SceneObject } from "earthsdk3";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import ContextMenuCom from '../../../components/commom/ContextMenuCom.vue';
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";

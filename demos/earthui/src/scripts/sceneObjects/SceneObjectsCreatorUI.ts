@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 
 import { ESCustomDiv, ESSceneObject, ESViewer, FunctionProperty, GroupProperty, StringProperty } from "earthsdk3";
-import { Destroyable, PartialWithUndefinedReactivePropsToNativeProps, ReactivePropsToNativePropsAndChanged, bind, createProcessingFromAsyncFunc, extendClassProps, react, track } from "xbsj-base";
+import { Destroyable, PartialWithUndefinedReactivePropsToNativeProps, ReactivePropsToNativePropsAndChanged, bind, createProcessingFromAsyncFunc, extendClassProps, react, track } from "earthsdk3";
 import SceneObjectsCreator from "../../components/SceneObjectsCreator.vue";
 import { SceneObjectTypeGetting } from './SceneObjectTypeGetting';
 

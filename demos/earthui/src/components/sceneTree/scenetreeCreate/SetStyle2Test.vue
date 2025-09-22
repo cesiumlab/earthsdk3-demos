@@ -64,7 +64,7 @@
 <script setup lang="ts">
 import { Message, messageBox } from "earthsdk-ui";
 import { inject, ref, onMounted, watch, onBeforeUnmount } from "vue";
-import { SceneObject } from "xbsj-base";
+import { SceneObject } from "earthsdk3";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import ContextMenuCom from '../../../components/commom/ContextMenuCom.vue';
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";

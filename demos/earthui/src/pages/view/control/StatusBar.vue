@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { inject, onMounted, onBeforeUnmount, ref } from "vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import { createAnimateFrameWithStartValues } from 'xbsj-base';
+import { createAnimateFrameWithStartValues } from "earthsdk3";
 import { Message } from "earthsdk-ui";
 import { $config } from "../../../scripts/getConfig";
 import Version from "./Version.vue"

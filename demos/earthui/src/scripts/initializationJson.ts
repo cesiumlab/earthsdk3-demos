@@ -6,7 +6,7 @@ import { parse } from 'search-params';
 import { get, getNoToken } from '../api/service';
 import { $config } from './getConfig';
 import { XbsjEarthUi } from './xbsjEarthUi';
-import { JsonValue } from "xbsj-base";
+import { JsonValue } from "earthsdk3";
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)
 //scene

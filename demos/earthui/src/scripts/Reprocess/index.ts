@@ -1,4 +1,4 @@
-import { Destroyable, react } from "xbsj-base";
+import { Destroyable, react } from "earthsdk3";
 import { ESCesiumViewer } from "earthsdk3-cesium";
 
 import { XbsjEarthUi } from "../xbsjEarthUi";

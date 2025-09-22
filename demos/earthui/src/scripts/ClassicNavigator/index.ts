@@ -1,4 +1,4 @@
-import { Destroyable, react } from "xbsj-base";
+import { Destroyable, react } from "earthsdk3";
 import { XbsjEarthUi } from "../xbsjEarthUi";
 
 export class ClassicNavigatorManager extends Destroyable {

@@ -41,7 +41,7 @@ import { FileHandleType, Message, createVueDisposer, getSaveFileHandle, messageB
 import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, ESTextLabel, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { ESKml } from 'earthsdk3-cesium'
 import { Ref, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { JsonValue, Tree, TreeItem, TreeItemInsertFlag } from "xbsj-base";
+import { JsonValue, Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
 import { getNoToken, getNoTokenText } from "../../api/service";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import DraggablePopup2 from '../DraggablePopup2.vue';

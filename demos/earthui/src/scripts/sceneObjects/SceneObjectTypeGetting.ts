@@ -1,4 +1,4 @@
-import { Destroyable, Event, react,ObjResettingWithEvent } from 'xbsj-base';
+import { Destroyable, Event, react, ObjResettingWithEvent } from "earthsdk3";
 import { XbsjEarthUi } from '../xbsjEarthUi';
 
 class SceneObjectTypeGettingResetting extends Destroyable {

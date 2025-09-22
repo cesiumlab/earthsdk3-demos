@@ -8,7 +8,7 @@
             :actived="positionEditing" :left-button="true"></Button>
         <Button :name="'shuangmianxianshi'" :color="!isDisabled ? 'rgba(88, 88, 93, 1)' : 'rgba(58, 118, 229, 1)'"
             :content="'双面显示'" :click="() => { czmBackFaceCulling = !czmBackFaceCulling }" :disabled="!isDisabled"
-            :actived="!czmBackFaceCulling" ></Button>
+            :actived="!czmBackFaceCulling"></Button>
         <Button :name="'SkipLOD'" :content="'SkipLOD'"
             :color="!isDisabled ? 'rgba(88, 88, 93, 1)' : 'rgba(58, 118, 229, 1)'"
             :click="() => { czmskipLevelOfDetail = !czmskipLevelOfDetail }" :disabled="!isDisabled"
@@ -16,7 +16,7 @@
         <Button :name="'baoweihe'" :content="'包围盒'"
             :color="!isDisabled ? 'rgba(88, 88, 93, 1)' : 'rgba(58, 118, 229, 1)'"
             :click="() => { czmDebugShowBoundingVolume = !czmDebugShowBoundingVolume }" :disabled="!isDisabled"
-            :actived="czmDebugShowBoundingVolume" ></Button>
+            :actived="czmDebugShowBoundingVolume"></Button>
         <Button :name="'neirongbaoweihe'" :content="'内容包围盒'"
             :color="!isDisabled ? 'rgba(88, 88, 93, 1)' : 'rgba(58, 118, 229, 1)'"
             :click="() => { czmDebugShowContentBoundingVolume = !czmDebugShowContentBoundingVolume }"
@@ -29,7 +29,7 @@
 import { vue3Xe2Bind } from 'earthsdk-ui';
 import { ES3DTileset, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
-import { Destroyable, ObjResettingWithEvent } from "xbsj-base";
+import { Destroyable, ObjResettingWithEvent } from "earthsdk3";
 import Button from '../../components/Button.vue';
 import RightList from '../../components/RightList.vue';
 const sceneTree = inject('sceneTree') as SceneTree

@@ -6,8 +6,8 @@ import {
   ESAreaMeasurement,
   ESSurfaceAreaMeasurement,
 } from "earthsdk3";
-import { Destroyable, react } from "xbsj-base";
-import { createProcessingFromAsyncFunc } from "xbsj-base";
+import { Destroyable, react } from "earthsdk3";
+import { createProcessingFromAsyncFunc } from "earthsdk3";
 import { XbsjEarthUi } from "../xbsjEarthUi";
 import { Message } from "earthsdk-ui";
 export type MeasureType =

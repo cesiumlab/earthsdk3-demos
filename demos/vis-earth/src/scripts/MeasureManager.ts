@@ -1,4 +1,4 @@
-import { Destroyable, react } from "xbsj-base"
+import { Destroyable, react } from "earthsdk3"
 import type { VisObjectsManager } from "./VisObjectsManager";
 import { EngineObject, ESAreaMeasurement, ESDistanceMeasurement, ESPoi2D, ESViewer } from "earthsdk3";
 export type MeasureType = ESDistanceMeasurement | ESAreaMeasurement

@@ -53,7 +53,7 @@ import { Message, toVR, createVueDisposer } from "earthsdk-ui";
 import { parse } from 'search-params';
 import { inject, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
 import { getSaveFileHandle, saveFile } from "earthsdk-ui";
-import { JsonValue } from "xbsj-base";
+import { JsonValue } from "earthsdk3";
 import { post, put, get } from '../api/service';
 import { XbsjEarthUi } from '../scripts/xbsjEarthUi';
 import { $config } from "../scripts/getConfig"

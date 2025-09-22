@@ -1,17 +1,15 @@
 {
-  "name": "earthsdk3-demos-workspace",
+  "name": "earthsdk3-demos",
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "dev:earthui": "pnpm -F earthui dev",
-    "build:earthui": "pnpm -F earthui build",
-    "build:usage": "pnpm -F earthsdk3-usage build",
     "update:version": "node update-version.js",
-    "clean_node_modules": "pnpm run ce & pnpm run cea & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj",
+    "clean_node_modules": "pnpm run cu & pnpm run ce & pnpm run cea & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj",
     "cnm": "rimraf node_modules",
+    "cu": "rimraf demos/earthsdk3-usage/node_modules",
     "ce": "rimraf demos/earthui/node_modules",
-    "cea": "rimraf demos/earthsdk-all-engine/node_modules",
-    "ceo": "rimraf demos/earthsdk3-openlayers/node_modules",
+    "cea": "rimraf demos/vis-earth/node_modules",
+    "ceo": "rimraf examples/earthsdk3-react-vite/node_modules",
     "cev": "rimraf examples/earthsdk3-vite/node_modules",
     "cevj": "rimraf examples/earthsdk3-vite-js/node_modules",
     "cew": "rimraf examples/earthsdk3-wbpk/node_modules"

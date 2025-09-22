@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { inject, onMounted, onBeforeUnmount, ref, watch } from "vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import { createAnimateFrameWithStartValues } from 'xbsj-base';
+import { createAnimateFrameWithStartValues } from "earthsdk3";
 const props = withDefaults(defineProps<{
     navigatorScaleRight: number
 }>(), {})

@@ -1,10 +1,10 @@
 import { Ref } from "vue";
-import { Destroyable } from "xbsj-base";
+import { Destroyable } from "earthsdk3";
 export abstract class Dragger extends Destroyable {
     protected _startX = this._event.offsetX
     protected _target = this._event.target as HTMLElement
     protected _pointerId = this._event.pointerId
-    constructor(protected _event: PointerEvent, ) {
+    constructor(protected _event: PointerEvent,) {
         super();
         this._target.setPointerCapture(this._pointerId)
         this.dispose(() => this._target.releasePointerCapture(this._pointerId))

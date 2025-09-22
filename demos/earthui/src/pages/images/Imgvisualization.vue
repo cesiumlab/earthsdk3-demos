@@ -2,7 +2,7 @@
 import { vue3Xe2Bind } from 'earthsdk-ui';
 import { ESImageryLayer, SceneTree } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { Destroyable, ObjResettingWithEvent } from "xbsj-base";
+import { Destroyable, ObjResettingWithEvent } from "earthsdk3";
 import RightList from "../../components/RightList.vue";
 import SliderTime from "../../components/SliderTime.vue";
 const sceneTree = inject('sceneTree') as SceneTree
@@ -16,9 +16,9 @@ const chlastSelectedItem = () => {
     const lastSelectedItem = sceneTree.lastSelectedItem
     if (!lastSelectedItem) return
     if (lastSelectedItem?.type == 'ESImageryLayer') {
-        setTimeout(()=>{
+        setTimeout(() => {
             showName.value = lastSelectedItem.name
-        },100)
+        }, 100)
         isshow.value = true
     } else {
         showName.value = '请选中影像图层'

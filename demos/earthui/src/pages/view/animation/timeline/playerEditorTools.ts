@@ -1,5 +1,5 @@
 import { Ref } from "vue";
-import { Destroyable } from "xbsj-base";
+import { Destroyable } from "earthsdk3";
 import { XbsjEarthUi } from "../../../../scripts/xbsjEarthUi";
 import { ESPath, ESSceneObject } from "earthsdk3";
 export abstract class Dragger extends Destroyable {

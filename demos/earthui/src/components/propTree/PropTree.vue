@@ -13,8 +13,8 @@
 <script setup lang="ts">
 
 import TreeComp from "../commom/Tree.vue";
-import {  LeafPropTreeItem, GroupPropTreeItem, PropTree } from "earthsdk3";
-import { TreeItem, Tree } from "xbsj-base";
+import { LeafPropTreeItem, GroupPropTreeItem, PropTree } from "earthsdk3";
+import { TreeItem, Tree } from "earthsdk3";
 import PropTreeItemCom from "./PropTreeItem.vue";
 import { PropertyCompCallbackFuncParamsType } from "../eSPropPanel/propertiesMenu/commons";
 

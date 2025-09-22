@@ -15,11 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import { TreeItem } from "xbsj-base";
+import { TreeItem } from "earthsdk3";
 import { createVueDisposer } from "earthsdk-ui";
 import { onBeforeUnmount, onMounted, ref } from "vue";
-import { Tree, createAnimateFrameWithStartValues } from "xbsj-base";
-import { setExtProp, getExtProp } from "xbsj-base";
+import { Tree, createAnimateFrameWithStartValues } from "earthsdk3";
+import { setExtProp, getExtProp } from "earthsdk3";
 
 const props = withDefaults(defineProps<{
   tree: Tree<TreeItem>,

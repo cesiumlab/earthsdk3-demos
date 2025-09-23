@@ -21,8 +21,8 @@ importers:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.5.0-beta.1
-        version: 3.5.0-beta.1(cesium@1.133.1)(earthsdk3@3.5.0-beta.1)
+        specifier: 3.5.0-beta.2
+        version: 3.5.0-beta.2(cesium@1.133.1)(earthsdk3@3.5.0-beta.1)
       earthsdk3-ue:
         specifier: 3.5.0-beta.1
         version: 3.5.0-beta.1(earthsdk3@3.5.0-beta.1)
@@ -881,8 +881,8 @@ packages:
   earthsdk3-assets@3.0.6:
     resolution: {integrity: sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==}
 
-  earthsdk3-cesium@3.5.0-beta.1:
-    resolution: {integrity: sha512-DggWKBiybES/Y0X8lDmpMgTWKVxFezDmY61d9NujWmZsCOaYLWwYP8NCGCVymk6F18M1EhUdtZDP/qTNe1Boow==}
+  earthsdk3-cesium@3.5.0-beta.2:
+    resolution: {integrity: sha512-isf83E1sgOFOFqIkclpqYFAjfAHSeDElckO3zimNp7Lay7XpnHCqPvUzeHcVDZTu12iW54+xXlWM6oNSz7S7AA==}
     peerDependencies:
       cesium: 1.133.1
       earthsdk3: 3.5.0-beta.1
@@ -2570,7 +2570,7 @@ snapshots:
 
   earthsdk3-assets@3.0.6: {}
 
-  earthsdk3-cesium@3.5.0-beta.1(cesium@1.133.1)(earthsdk3@3.5.0-beta.1):
+  earthsdk3-cesium@3.5.0-beta.2(cesium@1.133.1)(earthsdk3@3.5.0-beta.1):
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.133.1

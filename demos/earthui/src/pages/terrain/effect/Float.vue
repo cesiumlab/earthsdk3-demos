@@ -14,5 +14,5 @@ import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 
 const d = createVueDisposer(onBeforeUnmount);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const float = toVR<number>(d, [xbsjEarthUi.activeViewer, 'float']);//文字避让
+const float = toVR<number>(d, [xbsjEarthUi.activeViewer, 'terrainOpacity']);//地形透明度
 </script>

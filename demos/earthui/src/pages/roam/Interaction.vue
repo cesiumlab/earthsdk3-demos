@@ -28,6 +28,7 @@ onMounted(() => {
 })
 //修改模式为第一人称
 const changeWalkMode = () => {
+    if (mode.value === 'Walk') return
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     viewer.changeToMap()
@@ -43,6 +44,7 @@ const changeMapMode = () => {
 }
 //修改模式为沿线运动
 const changeLineMode = () => {
+    if (mode.value === 'Line') return
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     viewer.changeToMap()
@@ -54,6 +56,7 @@ const changeRotateGlobeMode = () => {
 }
 //修改模式为环绕跟随
 const changeFollowMode = () => {
+    if (mode.value === 'Follow') return
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     viewer.changeToMap()

@@ -4,7 +4,7 @@ import BasicProprties from './propertiesMenu/basicProprties/index.vue';
 import CoordinateProprties from './propertiesMenu/coordinateProprties/index.vue';
 import GeneralProprties from './propertiesMenu/generalProprties/index.vue';
 import LocationProprties from './propertiesMenu/locationProprties/index.vue';
-import { createVueDisposer, toReadonlyVueRef, toVR } from 'earthsdk-ui';
+import { createVueDisposer, Message, toReadonlyVueRef, toVR } from 'earthsdk-ui';
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi"
 import { ES3DTileset } from "earthsdk3";
 
@@ -95,9 +95,19 @@ onMounted(() => {
     var dispose = xbsjEarthUi.propSceneTreeChanged.disposableOn((val) => {
         updateProp()
     })
+    const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
+    var disposeEditing = sceneObject.editingChanged.disposableOn((res: boolean) => {
+        if (res) {
+            Message.loading({ id: 'xxx', content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换' })
+        } else {
+            Message.remove('xxx')
+        }
+    })
     onBeforeUnmount(() => {
         if (dispose) dispose()
         if (urlChang) urlChang()
+        if (disposeEditing) disposeEditing()
+        Message.remove('xxx')
     })
 })
 
@@ -110,7 +120,7 @@ onMounted(() => {
                 @click="currentMenu = item.component">
                 <span class="header_item_span1" :class="currentMenu === item.component ? 'header_active1' : ''">{{
                     item.name
-                    }}</span>
+                }}</span>
             </div>
         </div>
         <div class="Property_content">
@@ -124,8 +134,7 @@ onMounted(() => {
                 </GeneralProprties>
             </div>
             <div :class="{ 'eS3DTileset_supportEdit1': disabled3DTileset }">
-                <div v-if="currentMenu === 'coordinate'"
-                    :class="{ 'eS3DTileset_supportEdit': disabled3DTileset }">
+                <div v-if="currentMenu === 'coordinate'" :class="{ 'eS3DTileset_supportEdit': disabled3DTileset }">
                     <CoordinateProprties :properties="coordinate" @callback="propTreeCallback"
                         :type="treeItem.sceneObject.typeName" :lonLatFormat="lonLatFormat">
                     </CoordinateProprties>

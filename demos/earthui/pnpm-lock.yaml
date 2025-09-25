@@ -16,22 +16,22 @@ dependencies:
     version: 1.10.3
   earthsdk-ui:
     specifier: 1.0.2-beta.3
-    version: 1.0.2-beta.3(earthsdk3@3.5.0-beta.3)(typescript@4.9.5)(vue@3.5.18)
+    version: 1.0.2-beta.3(earthsdk3@3.4.2)(typescript@4.9.5)(vue@3.5.18)
   earthsdk3:
-    specifier: 3.5.0-beta.3
-    version: 3.5.0-beta.3
+    specifier: 3.4.2
+    version: 3.4.2
   earthsdk3-assets:
     specifier: 3.0.6
     version: 3.0.6
   earthsdk3-cesium:
-    specifier: 3.5.0-beta.5
-    version: 3.5.0-beta.5(cesium@1.133.1)(earthsdk3@3.5.0-beta.3)
+    specifier: 3.4.4
+    version: 3.4.4(cesium@1.133.1)(earthsdk3@3.4.2)
   earthsdk3-ol:
     specifier: 3.5.0-beta.1
-    version: 3.5.0-beta.1(earthsdk3@3.5.0-beta.3)(ol@7.1.0)
+    version: 3.5.0-beta.1(earthsdk3@3.4.2)(ol@7.1.0)
   earthsdk3-ue:
-    specifier: 3.5.0-beta.1
-    version: 3.5.0-beta.1(earthsdk3@3.5.0-beta.3)
+    specifier: 3.4.2
+    version: 3.4.2(earthsdk3@3.4.2)
   echarts:
     specifier: ^5.5.1
     version: 5.5.1
@@ -2045,7 +2045,7 @@ packages:
       - typescript
     dev: false
 
-  /earthsdk-ui@1.0.2-beta.3(earthsdk3@3.5.0-beta.3)(typescript@4.9.5)(vue@3.5.18):
+  /earthsdk-ui@1.0.2-beta.3(earthsdk3@3.4.2)(typescript@4.9.5)(vue@3.5.18):
     resolution: {integrity: sha512-dmqDPZCMGvCiRNwxLckaq+ZJNSS8b53KP1KHke3s0CzCLuDgCqSS2A6vGwjjZdSjvEdJpsiO+O3xb6ZudpVjAA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -2053,7 +2053,7 @@ packages:
       vue: ^3.5.18
     dependencies:
       earthsdk-icon: 0.0.10(typescript@4.9.5)
-      earthsdk3: 3.5.0-beta.3
+      earthsdk3: 3.4.2
       tiny-emitter: 2.1.0
       vue: 3.5.18(typescript@4.9.5)
     transitivePeerDependencies:
@@ -2064,43 +2064,43 @@ packages:
     resolution: {integrity: sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==}
     dev: false
 
-  /earthsdk3-cesium@3.5.0-beta.5(cesium@1.133.1)(earthsdk3@3.5.0-beta.3):
-    resolution: {integrity: sha512-/i9lVXxWxdtXoFcYpMltNrJySpFR3VPqSfrnF+nZJLBMDUKnf1jpvoS0LREAjyT7jqkEMz30eU+m3KqugoUquQ==}
+  /earthsdk3-cesium@3.4.4(cesium@1.133.1)(earthsdk3@3.4.2):
+    resolution: {integrity: sha512-5n2zjmNmKpxPkpx2jV+zxWjs79oQXvA0ZJvpVmZgGz0EtPs4sguEXXf9OPYzgVGeeWJlf3T7wWY3AfBvDjuNig==}
     peerDependencies:
       cesium: 1.133.1
-      earthsdk3: 3.5.0-beta.2
+      earthsdk3: 3.4.2
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.133.1
       delaunator: 5.0.1
       earcut: 2.2.4
-      earthsdk3: 3.5.0-beta.3
+      earthsdk3: 3.4.2
       html2canvas: 1.4.1
       mvt-basic-render: 0.3.5
     dev: false
 
-  /earthsdk3-ol@3.5.0-beta.1(earthsdk3@3.5.0-beta.3)(ol@7.1.0):
+  /earthsdk3-ol@3.5.0-beta.1(earthsdk3@3.4.2)(ol@7.1.0):
     resolution: {integrity: sha512-VNU/T1WlrhMuSVPHZIXTT6ODdkAZasVwBbdNB+vQxb+8c4JNwxycOCfLxKDrHCoyLn8A95mIY4VRqeu9lKr2xw==}
     peerDependencies:
       earthsdk3: 3.5.0-beta.1
       ol: ^7.1.0
     dependencies:
-      earthsdk3: 3.5.0-beta.3
+      earthsdk3: 3.4.2
       ol: 7.1.0
     dev: false
 
-  /earthsdk3-ue@3.5.0-beta.1(earthsdk3@3.5.0-beta.3):
-    resolution: {integrity: sha512-RuZXzOKcZYr+5jO4fbh0PrF/2ys82x2todQrHMb6TPKAa99Keb2Sy6XSeT6mDrUP1p7aNAQWaqezFtN9zN4S/w==}
+  /earthsdk3-ue@3.4.2(earthsdk3@3.4.2):
+    resolution: {integrity: sha512-EROhtHYzeFK88UxWThAlvPy1PILleZq2ko71Y0p4U8uapReb90a7UMrWaHEqE6DO26/aQZqpVpLjYAnSs8aRdw==}
     peerDependencies:
-      earthsdk3: 3.5.0-beta.1
+      earthsdk3: 3.4.2
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.8
-      earthsdk3: 3.5.0-beta.3
+      earthsdk3: 3.4.2
       html2canvas: 1.4.1
     dev: false
 
-  /earthsdk3@3.5.0-beta.3:
-    resolution: {integrity: sha512-GdQqyXmrC8cbopqXXdCHrwkZWcayVifzZvPTT4l2cgSWrwKbudKbC7BGSHzpP0kRFOOnweDybZP34EUJh+rwGA==}
+  /earthsdk3@3.4.2:
+    resolution: {integrity: sha512-7rTSdvaC+cpdDgKMVXrRKZUTCF8QZmXw5ZUxeYGpeEYmFnIY3LviQmyXid03pWWcRByPZQ4ZbYVchzim55Q+Bg==}
     dependencies:
       '@turf/turf': 6.5.0
       '@types/proj4': 2.19.0

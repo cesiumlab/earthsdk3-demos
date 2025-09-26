@@ -883,6 +883,16 @@
                 "details": "人员、车辆、建筑、摄像头、路灯、配电箱、线杆等标注",
                 "children": [
                     {
+                        "name": "glb模型加载",
+                        "thumbnail": "industry-park-glb.webp",
+                        "path": "industry/park/glb"
+                    },
+                    {
+                        "name": "glb模型实例化（批量）",
+                        "thumbnail": "industry-park-glbinstance.webp",
+                        "path": "industry/park/glbinstance"
+                    },
+                    {
                         "name": "人员",
                         "thumbnail": "industry-park-human.webp",
                         "path": "industry/park/human"

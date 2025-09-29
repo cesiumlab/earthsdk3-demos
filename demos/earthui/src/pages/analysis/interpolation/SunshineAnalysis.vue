@@ -47,6 +47,7 @@ import { createVueDisposer, toVR } from 'earthsdk-ui';
 import LabelInput from "../../../components/LabelInput.vue";
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
+import { ESSunshineAnalysis } from "earthsdk3";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
 function dateToTimestamp(date: any) {//时间转为时间戳
@@ -54,7 +55,8 @@ function dateToTimestamp(date: any) {//时间转为时间戳
 }
 const a = new Date(new Date(new Date().toLocaleDateString()).getTime());
 const b = new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1)
-let sunshineAnalysis = xbsjEarthUi.createSceneObject("ESSunshineAnalysis") as any;
+let sunshineAnalysis = xbsjEarthUi.createSceneObject("ESSunshineAnalysis") as ESSunshineAnalysis;
+sunshineAnalysis.stroked = true;
 // 计算进度
 let progress = toVR<number>(d, [sunshineAnalysis, "progress"])
 //分析高度
@@ -89,43 +91,8 @@ const inputHandler1 = (e: any) => {//更新开始时间
 const inputHandler2 = (e: any) => {//更新结束时间
     endTime.value = toTimetampTimes(e.target.value)
 }
-const startColorRef = computed(() => {
-    if (startColor.value === undefined) {
-        return {
-            r: 255, g: 255, b: 255, a: 1
-        }
-    } else {
-        return {
-            r: startColor.value[0] * 255,
-            g: startColor.value[1] * 255,
-            b: startColor.value[2] * 255,
-            a: startColor.value[3]
-        }
-    }
-})
-const endColorRef = computed(() => {
-    if (endColor.value === undefined) {
-        return {
-            r: 255, g: 255, b: 255, a: 1
-        }
-    } else {
-        return {
-            r: endColor.value[0] * 255,
-            g: endColor.value[1] * 255,
-            b: endColor.value[2] * 255,
-            a: endColor.value[3]
-        }
-    }
-})
+
 type ColorType = [number, number, number, number]
-const startColorOk = (rgba: { r: number, g: number, b: number, a: number }) => {//更新起始颜色
-    const rgbaArr: ColorType = [rgba.r / 255, rgba.g / 255, rgba.b / 255, rgba.a]
-    startColor.value = rgbaArr
-}
-const endColorOk = (rgba: { r: number, g: number, b: number, a: number }) => {//更新结束颜色
-    const rgbaArr: ColorType = [rgba.r / 255, rgba.g / 255, rgba.b / 255, rgba.a]
-    endColor.value = rgbaArr
-}
 
 const restart = () => {
     sunshineAnalysis.stop()
@@ -179,7 +146,7 @@ onMounted(() => {
             }
             let a: number[] = []
             const points = sunshineAnalysis.points
-            if (points.length > 1) {
+            if (points && points.length > 1) {
                 points.forEach((element: any) => {
                     a.push(element[2])
                 });
@@ -199,7 +166,6 @@ onBeforeUnmount(() => {
         sunshineAnalysis.editing = false
         sunshineAnalysis.stop()
         xbsjEarthUi.destroySceneObject(sunshineAnalysis)
-        sunshineAnalysis = undefined
     }
     if (dispose) {
         dispose()

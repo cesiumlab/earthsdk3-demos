@@ -3,7 +3,7 @@
     <PopList :title="'日照分析'" :showButton="true" @close="restart" @ok="start" :leftButton="'重新绘制'"
         :rightButton="flag ? '开始分析' : '结束分析'" :showLeftButton="true">
         <div class="analysis_volume_top">
-            <div class="row">
+            <!-- <div class="row">
                 <label for="">起始颜色</label>
                 <div class="color">
                     <ESColor :color="startColorRef" @ok="startColorOk" :key="2"></ESColor>
@@ -13,6 +13,12 @@
                 <label for="">结束颜色</label>
                 <div class="color">
                     <ESColor :color="endColorRef" @ok="endColorOk" :key="2"></ESColor>
+                </div>
+            </div> -->
+            <div class="row">
+                <label for="">日照强度</label>
+                <div class="color">
+                    <!-- <ESColor :color="endColorRef" @ok="endColorOk" :key="2"></ESColor> -->
                 </div>
             </div>
             <div class="row">
@@ -26,8 +32,8 @@
                     @input="inputHandler2($event)">
             </div>
         </div>
-        <LabelInput v-model="extrudedHeight" :inputType="'number'" :label="'底面高度'" :unit="'m'"></LabelInput>
-        <LabelInput v-model="height" :inputType="'number'" :label="'高度'" :unit="'m'"></LabelInput>
+        <LabelInput v-model="extrudedHeight" :inputType="'number'" :label="'分析高度'" :unit="'m'"></LabelInput>
+        <LabelInput v-model="height" :inputType="'number'" :label="'底面高度'" :unit="'m'"></LabelInput>
         <LabelInput v-model="spanTime" :inputType="'number'" :label="'间隔时间'" :unit="'h'"></LabelInput>
         <LabelInput v-model="sampleDistance" :inputType="'number'" :label="'采样间距'" :unit="'m'">
         </LabelInput>
@@ -51,9 +57,9 @@ const b = new Date(new Date(new Date().toLocaleDateString()).getTime() + 24 * 60
 let sunshineAnalysis = xbsjEarthUi.createSceneObject("ESSunshineAnalysis") as any;
 // 计算进度
 let progress = toVR<number>(d, [sunshineAnalysis, "progress"])
-// 底面高度：
+//分析高度
 let extrudedHeight = toVR<number>(d, [sunshineAnalysis, "extrudedHeight"])
-// 高度：
+// // 底面高度：
 let height = toVR<number>(d, [sunshineAnalysis, "height"])
 // 开始时间：
 let startTime = toVR<number>(d, [sunshineAnalysis, "startTime"])
@@ -69,6 +75,8 @@ let sampleDistance = toVR<number>(d, [sunshineAnalysis, "sampleDistance"])
 let startColor = toVR<ColorType>(d, [sunshineAnalysis, "startColor"])
 // 结束颜色：
 let endColor = toVR<ColorType>(d, [sunshineAnalysis, "endColor"])
+console.log(startColor, endColor);
+
 const startTimeRef = computed(() => {
     return timestampToTime(startTime.value)
 })
@@ -161,7 +169,7 @@ let dispose2: any
 onMounted(() => {
     if (sunshineAnalysis) {
         sunshineAnalysis.editing = true
-        Message.warning('结束编辑之后请点击开始分析')
+        Message.warning('请绘制分析区域，双击结束编辑之后点击 开始分析')
     }
     dispose = sunshineAnalysis.editingChanged.disposableOn(() => {
         if (sunshineAnalysis.editing === false) {
@@ -169,13 +177,13 @@ onMounted(() => {
             if (sampleDistance.value < 10) {
                 sampleDistance.value = 10
             }
-            let a = 0
+            let a: number[] = []
             const points = sunshineAnalysis.points
             if (points.length > 1) {
                 points.forEach((element: any) => {
-                    a += element[2]
+                    a.push(element[2])
                 });
-                extrudedHeight.value = Number((a / points.length).toFixed(5))
+                height.value = Number((Math.min(...a)).toFixed(5))
             }
         }
     })

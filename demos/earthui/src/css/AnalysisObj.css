@@ -54,6 +54,8 @@
 
 .analysis_volume_top>.row>.color {
     width: 190px;
+    height: 16px;
+    background: linear-gradient(to right, rgba(255,255,0,255), rgba(255,0,0,255));
 }
 
 .analysis_volume_top>.row>.analysis_volume_id {

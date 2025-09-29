@@ -10,10 +10,6 @@ import { getEarthuiVersion } from "../../../scripts/earthuiVersion";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const version = ref<{ name: string, version: string }[]>([])
-function getValueBeforeFirstComma(str: string) {
-    var parts = str.split('  ');
-    return parts[0];
-}
 function getValueBeforeFirstComma2(str: string) {
     var parts = str.split('  ');
     return parts[1];
@@ -28,16 +24,16 @@ const getVersion = async () => {
         if (versions.hasOwnProperty(key)) { // 确保是对象自有属性，不是原型链上的属性
             if (key === 'esforue') {
                 if (viewer instanceof ESUeViewer) {
-                    v.push({ name: getValueBeforeFirstComma(versions[key]), version: getValueBeforeFirstComma2(versions[key]) })
+                    v.push({ name: key, version: getValueBeforeFirstComma2(versions[key]) })
                 }
+            } else if (key == 'cesium') {
+                v.push({ name: key, version: versions[key] })
             } else {
                 v.push({ name: key, version: versions[key].version })
             }
         }
     }
     v.push({ name: 'earth-ui', version: getEarthuiVersion() })
-    //@ts-ignore
-    v.push({ name: 'cesium', version: window.CESIUM_VERSION })
     version.value = v
 }
 onMounted(() => {

@@ -7,6 +7,7 @@ import { get, getNoToken } from '../api/service';
 import { $config } from './getConfig';
 import { XbsjEarthUi } from './xbsjEarthUi';
 import { JsonValue } from "earthsdk3";
+import { ESMVTLayer } from "earthsdk3-cesium";
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)
 //scene
@@ -296,6 +297,25 @@ export function initSceneWithType(xbsjEarthUi: XbsjEarthUi) {
             treeItem.uiTreeObject.selected = true
             const { sceneObject } = treeItem
             if (!(sceneObject instanceof ES3DTileset)) return
+            setTimeout(() => {
+                sceneObject.flyTo()
+            }, 1000);
+        } else if (parseSearch.type === "vecImages") {//vecImages
+            let newUrl = parseSearch.url
+            const rectangle = [+(parseSearch.west ?? -180), +(parseSearch.south ?? -90), +(parseSearch.east ?? 180), +(parseSearch.north ?? 90)]
+            const tilesetJson = {
+                "type": "ESMVTLayer",
+                "url": newUrl,
+                "rectangle": rectangle,
+                "allowPicking": true,
+                "name": `${parseSearch.name}`,
+            }
+            const treeItem = sceneTree.createSceneObjectTreeItemFromJson<ESMVTLayer>(tilesetJson);
+            if (!treeItem) return
+            sceneTree.uiTree.clearAllSelectedItems()
+            treeItem.uiTreeObject.selected = true
+            const { sceneObject } = treeItem
+            if (!(sceneObject instanceof ESMVTLayer)) return
             setTimeout(() => {
                 sceneObject.flyTo()
             }, 1000);

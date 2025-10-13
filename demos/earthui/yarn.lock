@@ -2016,10 +2016,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@1.0.2-beta.3:
-  version "1.0.2-beta.3"
-  resolved "https://registry.npmjs.org/earthsdk-ui/-/earthsdk-ui-1.0.2-beta.3.tgz#660ef172cc0bf24abbc4464a09d01d2c870f6f1c"
-  integrity sha512-dmqDPZCMGvCiRNwxLckaq+ZJNSS8b53KP1KHke3s0CzCLuDgCqSS2A6vGwjjZdSjvEdJpsiO+O3xb6ZudpVjAA==
+earthsdk-ui@1.0.2-beta.4:
+  version "1.0.2-beta.4"
+  resolved "https://registry.yarnpkg.com/earthsdk-ui/-/earthsdk-ui-1.0.2-beta.4.tgz#ecb9cce9da2978ebba8b013b82de3bbbe1d303e3"
+  integrity sha512-eHcrL1xd2Tkm3YOJ93E6j9N0/j/xG60aLF47o5uRgytLp3TdhXNhfONanXtVcwVOsHgrqtQVEU9lqijZ3gIZ3g==
   dependencies:
     earthsdk-icon "^0.0.10"
     tiny-emitter "^2.1.0"

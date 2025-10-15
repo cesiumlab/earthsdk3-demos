@@ -6,24 +6,68 @@
             <a :href="$config.logoLink" target="_blank">{{ $config.logoTitle }}</a>
         </div>
         <!-- 导航栏 -->
-        <div class="neck_nav">
-            <div v-for="(item, index) in navList" v-show="item.isShow" :key="item.id" @click="change(item)"
+        <div class="neck_nav" ref="menuRef">
+            <div v-for="(item, index) in defalutNavList" v-show="item.isShow" :key="item.id" @click="change(item)"
                 class="neck_title" @mouseover="iconheight = index" @mouseout="iconheight = -1"
-                :class="navType === item.value ? 'activated' : ''">
-                <span style="margin-top: 3px;"><es-icon :name="item.icon"
+                :class="navType === item.value ? 'activated' : ''" :title="item.title">
+                <span style="margin-top: 3px;" class="ctm-svg">
+                    <es-icon :name="item.icon"
                         :color="navType === item.value ? 'rgba(87, 136, 255, 1)' : iconheight === index ? 'rgba(87, 136, 255, 1)' : '#fff'"
-                        :size="14" /></span>
-                <span style="margin-left: 6px;">{{ item.title }}</span>
+                        :size="14" />
+                </span>
+                <span style="margin-left: 6px;" class="ctm-title">{{ item.title }}</span>
+            </div>
+            <div class="neck_title" :class="moreMenuShow ? 'activated' : ''" v-if="noneNavList.length !== 0"
+                ref="moreNavRef" @click="changeMore(true)">
+                <span style="margin-top: 3px;" class="ctm-svg">
+                    <svg t="1760181802183" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="8086" width="18" height="18" fill="currentColor">
+                        <path
+                            d="M511.998977 113.725134c219.514529 0 398.103974 178.588421 398.103974 398.103974S731.513506 909.933081 511.998977 909.933081 113.895003 731.34466 113.895003 511.829108 292.485471 113.725134 511.998977 113.725134M511.998977 63.961754c-246.947322 0-447.867354 200.919009-447.867354 447.867354s200.920032 447.867354 447.867354 447.867354c246.944252 0 447.867354-200.919009 447.867354-447.867354S758.943228 63.961754 511.998977 63.961754L511.998977 63.961754z"
+                            p-id="8087"></path>
+                        <path
+                            d="M327.384305 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
+                            p-id="8088"></path>
+                        <path
+                            d="M511.997953 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
+                            p-id="8089"></path>
+                        <path
+                            d="M696.612625 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
+                            p-id="8090"></path>
+                    </svg>
+                </span>
+                <span style="margin-left: 6px;">{{ '更多' }}</span>
+
+            </div>
+
+
+        </div>
+
+        <!-- 隐藏菜单展开 -->
+
+        <div class="none_menu_box" ref="moreMenuRef" v-show="moreMenuShow" v-click-outside="clickOutside">
+            <div v-for="(item, index) in noneNavList" v-show="item.isShow" :key="item.id" @click="change(item, true)"
+                class="neck_title" @mouseover="iconheight1 = index" @mouseout="iconheight1 = -1"
+                :class="navType === item.value ? 'activated' : ''" :title="item.title">
+                <span style="margin-top: 3px;" class="ctm-svg">
+                    <!-- <es-icon :name="item.icon" :size="14" /></span> -->
+
+                    <es-icon :name="item.icon"
+                        :color="navType === item.value ? 'rgba(87, 136, 255, 1)' : iconheight1 === index ? 'rgba(87, 136, 255, 1)' : '#fff'"
+                        :size="14" />
+                </span>
+                <span style="margin-left: 6px;" class="ctm-title">{{ item.title }}</span>
             </div>
         </div>
+
+
         <!-- 保存按钮 -->
-        <div class="neck_save" v-if="fromIsExist">
-            <div class="neck_scene" @click="scene">
+        <div class="neck_save" v-if="fromIsExist" title="保存场景">
+            <div class="neck_scene" @click.stop.prevent="xiaosanjiao = !xiaosanjiao">
+                <!-- <div class="neck_scene" @click="scene"> -->
                 <es-icon :name="'baocun'" :color="'#fff'" :size="14" />
-                <div class="right_button_content">{{ '保存场景' }}</div>
-                <div class="right_button_span" @click.stop.prevent="xiaosanjiao = !xiaosanjiao">
-                    <span class="xiaosanjiao" :class="xiaosanjiao ? 'xiaosanjiao_transform' : ''"></span>
-                </div>
+                <!-- <div class="right_button_content">{{ '' }}</div> -->
+                <span class="xiaosanjiao"></span>
             </div>
             <ul class="neck_ft_ul" v-if="!xiaosanjiao">
                 <li v-for="item in sceneList" @click="item.fun()">
@@ -31,10 +75,10 @@
                 </li>
             </ul>
         </div>
-        <div class="neck_save" v-else>
+        <div class="neck_save" v-else title="保存场景">
             <div class="neck_scene" @click="saveAs(xbsjEarthUi.json, '场景文件')">
                 <es-icon :name="'baocun'" :color="'#fff'" :size="14" />
-                <div class="right_button_content">{{ '保存到本地' }}</div>
+                <!-- <div class="right_button_content">{{ '' }}</div> -->
             </div>
         </div>
     </div>
@@ -49,9 +93,10 @@
 </template>
 
 <script setup lang="ts">
+import { vClickOutside } from 'earthsdk-ui';
 import { Message, toVR, createVueDisposer } from "earthsdk-ui";
 import { parse } from 'search-params';
-import { inject, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+import { inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue';
 import { getSaveFileHandle, saveFile } from "earthsdk-ui";
 import { JsonValue } from "earthsdk3";
 import { post, put, get } from '../api/service';
@@ -69,6 +114,7 @@ const navType = ref('roam')
 const cesiumLabUrl = ref()
 const esssUrl = ref()
 const iconheight = ref(-1)
+const iconheight1 = ref(-1)
 const { navList } = props
 const disposer = createVueDisposer(onBeforeUnmount);
 const rightModuleShow = toVR<boolean>(disposer, [xbsjEarthUi, 'rightModuleShow'])
@@ -191,6 +237,14 @@ const scene = () => {
 const xiaosanjiao = ref(true)
 const sceneList = [
     {
+        content: '保存到服务',
+        fun: () => {
+            console.log(xbsjEarthUi.json);
+            // saveAs(xbsjEarthUi.json, '场景文件')
+            scene()
+        }
+    },
+    {
         content: '保存到本地',
         fun: () => {
             console.log(xbsjEarthUi.json);
@@ -202,12 +256,12 @@ const sceneList = [
 const saveAs = async (json: JsonValue, name: string) => {
     try {
         const handle = await getSaveFileHandle('json', name);
-        if (!handle) return;
+        if (!handle) throw new Error('选择文件目录异常');
         const jsonStr = JSON.stringify(json, undefined, '    ');
         await saveFile(handle, jsonStr);
         Message.success('另存成功!');
     } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
+        Message.error(`另存失败! ${error}`);
     }
 }
 onMounted(() => {
@@ -235,7 +289,7 @@ onMounted(() => {
 
 //////////////////////////////////组件栏逻辑
 const com = shallowRef(navList[0].component)
-const change = (item: any) => {
+const change = (item: any, flag?: boolean) => {
     if (item.value === navType.value) {
         rightModuleShow.value = !rightModuleShow.value
     } else {
@@ -243,6 +297,8 @@ const change = (item: any) => {
         com.value = item.component
         navType.value = item.value
     }
+
+    flag && (moreMenuShow.value = false)
 }
 const getsubMenuStyle = () => ({
     right: rightModuleShow.value ? '0px' : '-280px'
@@ -257,6 +313,60 @@ watch(rightModuleShow, () => {
         xbsjEarthUi.navigatorManager.timeLineWidth = '100%'
     }
 }, { immediate: true })
+
+
+
+const menuRef = useTemplateRef('menuRef');
+const moreNavRef = useTemplateRef('moreNavRef');
+const moreMenuRef = useTemplateRef('moreMenuRef');
+const moreMenuShow = ref(false);
+
+const defalutNavList = shallowRef<any>([]);
+const noneNavList = shallowRef<any>([]);
+
+const changeMore = (flag?: boolean) => {
+    if (!moreNavRef.value || !moreMenuRef.value) return;
+    const navRect = moreNavRef.value.getBoundingClientRect();
+    const { top, left, height } = navRect;
+    moreMenuRef.value.style.top = `${top + height}px`;
+    moreMenuRef.value.style.left = `${left}px`;
+    setTimeout(() => {
+        flag && (moreMenuShow.value = !moreMenuShow.value);
+    }, 0);
+}
+
+const clickOutside = () => {
+    if (moreMenuShow.value) {
+        moreMenuShow.value = false;
+    };
+}
+
+onMounted(() => {
+
+    nextTick(() => {
+        const onresize = () => {
+            if (!menuRef.value) return;
+            const width = menuRef.value.getBoundingClientRect().width;
+            const itemWidth = 100;//TODO 待完善 每个菜单的宽度
+            //向下取整
+            const count = Math.floor(width / itemWidth);
+            if (count <= 0) {
+                defalutNavList.value = [];
+                noneNavList.value = [...navList];
+                return;
+            }
+
+            defalutNavList.value = [...navList.slice(0, count - 1)];
+            noneNavList.value = [...navList.slice(count - 1)];
+            changeMore();
+        }
+        onresize();
+        addEventListener('resize', onresize);
+        onBeforeUnmount(() => { removeEventListener('resize', onresize); });
+    })
+
+})
+
 </script>
 <style src="../css/General.css"></style>
 <style scoped>
@@ -308,10 +418,11 @@ watch(rightModuleShow, () => {
     width: 100%;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .neck_ft>.neck_loge {
-    width: 270px;
+    width: 250px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -334,27 +445,33 @@ watch(rightModuleShow, () => {
     flex: 1;
     height: 28px;
     border-left: 1px solid rgba(87, 91, 102, 0.3);
-    margin-left: 10px;
-    padding-left: 20px;
+    /* margin-left: 10px; */
+    padding-left: 10px;
     font-size: 16px;
     font-family: SourceHanSansCN, SourceHanSansCN;
     font-weight: 500;
     color: #fff;
     line-height: 28px;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .neck_ft>.neck_nav {
-    flex: 1;
+    /* flex: 1; */
+    width: calc(100% - 250px - 40px);
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
-.neck_ft>.neck_nav>.neck_title {
-    width: 105px;
-    height: 100%;
+
+.neck_title {
+    width: 100px;
+    min-width: 100px;
+    height: 40px;
     font-size: 14px;
     font-family: SourceHanSansCN, SourceHanSansCN;
     font-weight: 500;
@@ -366,9 +483,38 @@ watch(rightModuleShow, () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+
+    &:hover .ctm-svg {
+        color: #5788FF;
+    }
+
 }
 
-.neck_ft>.neck_nav>.neck_title:hover {
+.ctm-title {
+    width: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.neck_more {
+    width: 100px;
+    min-width: 100px;
+    height: auto;
+    position: absolute;
+    z-index: 200;
+}
+
+.none_menu_box {
+    width: 100px;
+    height: auto;
+    position: fixed;
+    z-index: 99999;
+    background-color: #2D2D31;
+}
+
+.neck_title:hover {
     background: linear-gradient(180deg, rgba(87, 136, 255, 0) 0%, rgba(87, 136, 255, 0.26) 100%, #5788FF 100%);
     color: #5788FF;
 }
@@ -378,8 +524,8 @@ watch(rightModuleShow, () => {
     color: #5788FF !important;
 }
 
-.neck_ft>.neck_save {
-    width: 270px;
+.neck_save {
+    width: 30px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -388,21 +534,18 @@ watch(rightModuleShow, () => {
 }
 
 .neck_scene {
-    width: 100px;
+    position: relative;
+    width: 30px;
     height: 28px;
-    position: absolute;
-    right: 15px;
-    top: 6px;
-    background: rgba(28, 28, 30, 0.9);
     border-radius: 8px;
     display: flex;
-    padding: 0 0 0 6px;
+    /* padding-left: 6px; */
     box-sizing: border-box;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     cursor: pointer;
     user-select: none;
-    border: 1px solid rgba(28, 28, 30, 0.9);
+    border: 1px solid rgba(28, 28, 30, 0.0);
     color: #fff;
     font-size: 14px;
 }
@@ -411,15 +554,10 @@ watch(rightModuleShow, () => {
     border: 1px solid #2C68F7;
 }
 
-.right_button_span {
-    width: 18px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .xiaosanjiao {
+    position: absolute;
+    right: 4px;
+    top: 4px;
     width: 6px;
     height: 6px;
     transition: .5s;
@@ -442,10 +580,9 @@ watch(rightModuleShow, () => {
 
 .neck_ft_ul {
     position: absolute;
-    z-index: 20;
-    max-height: 100px;
-    right: 15px;
-    top: 36px;
+    z-index: 200;
+    right: 5px;
+    top: 40px;
     overflow-y: auto;
     background: #292a2e;
     box-shadow: 0px 2px 6px 0px rgba(26, 26, 28, 0.68);
@@ -458,13 +595,14 @@ watch(rightModuleShow, () => {
 
 .neck_ft_ul>li {
     list-style: none;
-    width: 120px;
+    text-align: center;
+    width: 100px;
     height: 26px;
     font-size: 12px;
     line-height: 26px;
     cursor: pointer;
-    text-align: left;
-    padding-left: 10px;
+    /* text-align: left; */
+    /* padding-left: 10px; */
     margin: 0;
     white-space: nowrap;
     color: rgba(230, 230, 230, 1);

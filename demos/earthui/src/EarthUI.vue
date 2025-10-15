@@ -70,7 +70,7 @@ const props = withDefaults(defineProps<{
     navType?: string
 }>(), {});
 const clickEmpty = ref(false)
-const xbsjEarthUi = new XbsjEarthUi(ESUeViewer, ESCesiumViewer,ESOlViewer);
+const xbsjEarthUi = new XbsjEarthUi(ESUeViewer, ESCesiumViewer, ESOlViewer);
 const sceneTree = xbsjEarthUi.getSceneTree()
 xbsjEarthUi.czmlabPath = location.origin
 // @ts-ignore

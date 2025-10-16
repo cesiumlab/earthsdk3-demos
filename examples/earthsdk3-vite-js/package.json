@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "cesium": "1.133.1",
-    "earthsdk3": "3.4.2",
-    "earthsdk3-cesium": "3.4.6",
-    "earthsdk3-ue": "3.4.2",
+    "cesium": "1.134.1",
+    "earthsdk3": "3.4.3",
+    "earthsdk3-cesium": "3.4.8",
+    "earthsdk3-ue": "3.4.3",
     "earthsdk3-assets": "3.0.6"
   },
   "devDependencies": {

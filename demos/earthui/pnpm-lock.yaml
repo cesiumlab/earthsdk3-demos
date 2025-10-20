@@ -1,5 +1,4 @@
 lockfileVersion: '9.0'
-lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
@@ -20,22 +19,22 @@ importers:
         version: 1.11.18
       earthsdk-ui:
         specifier: 1.0.2-beta.4
-        version: 1.0.2-beta.4(earthsdk3@3.5.0-beta.13)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
+        version: 1.0.2-beta.4(earthsdk3@3.5.0-beta.15)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
       earthsdk3:
-        specifier: 3.5.0-beta.13
-        version: 3.5.0-beta.13
+        specifier: 3.5.0-beta.15
+        version: 3.5.0-beta.15
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.5.0-beta.14
-        version: 3.5.0-beta.14(cesium@1.134.1)(earthsdk3@3.5.0-beta.13)
+        specifier: 3.5.0-beta.15
+        version: 3.5.0-beta.15(cesium@1.134.1)(earthsdk3@3.5.0-beta.15)
       earthsdk3-ol:
-        specifier: 3.5.0-beta.1
-        version: 3.5.0-beta.1(earthsdk3@3.5.0-beta.13)(ol@7.5.2)
+        specifier: 3.5.0-beta.15
+        version: 3.5.0-beta.15(earthsdk3@3.5.0-beta.15)(ol@7.5.2)
       earthsdk3-ue:
-        specifier: 3.5.0-beta.13
-        version: 3.5.0-beta.13(earthsdk3@3.5.0-beta.13)
+        specifier: 3.5.0-beta.15
+        version: 3.5.0-beta.15(earthsdk3@3.5.0-beta.15)
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -77,47 +76,32 @@ importers:
 packages:
 
   '@babel/helper-string-parser@7.27.1':
-  '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@7.27.1':
-  '@babel/helper-validator-identifier@7.27.1':
     resolution: {integrity: sha512-D2hP9eA+Sqx1kBZgzxZh0y1trbuU+JoDkiEwqhQ36nodYqJwyEIhPSdMNd7lOm/4io72luTPWH20Yda0xOuUow==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.28.4':
   '@babel/parser@7.28.4':
     resolution: {integrity: sha512-yZbBqeM6TkpP9du/I2pUZnJsRMGGvOuIrhjzC1AwHwW+6he4mni6Bp/m8ijn0iOuZuPI2BfkCoSRunpyjnrQKg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
   '@babel/types@7.28.4':
-  '@babel/types@7.28.4':
     resolution: {integrity: sha512-bkFqkLhh3pMBUQQkpVgWDWq/lqzc2678eUyDlTBhRqhCHFguYYGM0Efga7tYk4TogG/3x0EEl66/OQ+WGbWB/Q==}
     engines: {node: '>=6.9.0'}
 
   '@cesium/engine@21.0.1':
     resolution: {integrity: sha512-V4MEHOcYMcg+zCxrPjPAVpUyJxmIw6K9qPz5Fd2fnYPoMSPV7FJsiZYoFns03yoPHOPIeqnXQNspZKLX5Xzgfw==}
-  '@cesium/engine@21.0.1':
-    resolution: {integrity: sha512-V4MEHOcYMcg+zCxrPjPAVpUyJxmIw6K9qPz5Fd2fnYPoMSPV7FJsiZYoFns03yoPHOPIeqnXQNspZKLX5Xzgfw==}
     engines: {node: '>=20.19.0'}
-
-  '@cesium/wasm-splats@0.1.0-alpha.2':
 
   '@cesium/wasm-splats@0.1.0-alpha.2':
     resolution: {integrity: sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==}
 
   '@cesium/widgets@13.2.1':
     resolution: {integrity: sha512-VwJvw4UmEyK9slrDUImVcz3GFs5FDITH21BOiTVMSWuSsoqVDtMV0vTsoggFpIIqdYj6usHZjKuDnD9BT3vZAQ==}
-  '@cesium/widgets@13.2.1':
-    resolution: {integrity: sha512-VwJvw4UmEyK9slrDUImVcz3GFs5FDITH21BOiTVMSWuSsoqVDtMV0vTsoggFpIIqdYj6usHZjKuDnD9BT3vZAQ==}
     engines: {node: '>=20.19.0'}
-
-  '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2@0.5.9':
-    resolution: {integrity: sha512-c32PaTWugV1+FEYw68aS/t1l7ulEQ311P9gd4wuqw/Tn/zk0hzc8O3W3ucPztjiD2D9AKZPmxLx6+RMWUzXyaA==}
-
-  '@esbuild/aix-ppc64@0.21.5':
 
   '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2@0.5.9':
     resolution: {integrity: sha512-c32PaTWugV1+FEYw68aS/t1l7ulEQ311P9gd4wuqw/Tn/zk0hzc8O3W3ucPztjiD2D9AKZPmxLx6+RMWUzXyaA==}
@@ -129,13 +113,11 @@ packages:
     os: [aix]
 
   '@esbuild/android-arm64@0.21.5':
-  '@esbuild/android-arm64@0.21.5':
     resolution: {integrity: sha512-c0uX9VAUBQ7dTDCjq+wdyGLowMdtR/GoC2U5IYk/7D1H1JYC0qseD7+11iMP2mRLN9RcCMRcjC4YMclCzGwS/A==}
     engines: {node: '>=12'}
     cpu: [arm64]
     os: [android]
 
-  '@esbuild/android-arm@0.21.5':
   '@esbuild/android-arm@0.21.5':
     resolution: {integrity: sha512-vCPvzSjpPHEi1siZdlvAlsPxXl7WbOVUBBAowWug4rJHb68Ox8KualB+1ocNvT5fjv6wpkX6o/iEpbDrf68zcg==}
     engines: {node: '>=12'}
@@ -143,13 +125,11 @@ packages:
     os: [android]
 
   '@esbuild/android-x64@0.21.5':
-  '@esbuild/android-x64@0.21.5':
     resolution: {integrity: sha512-D7aPRUUNHRBwHxzxRvp856rjUHRFW1SdQATKXH2hqA0kAZb1hKmi02OpYRacl0TxIGz/ZmXWlbZgjwWYaCakTA==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [android]
 
-  '@esbuild/darwin-arm64@0.21.5':
   '@esbuild/darwin-arm64@0.21.5':
     resolution: {integrity: sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==}
     engines: {node: '>=12'}
@@ -157,13 +137,11 @@ packages:
     os: [darwin]
 
   '@esbuild/darwin-x64@0.21.5':
-  '@esbuild/darwin-x64@0.21.5':
     resolution: {integrity: sha512-se/JjF8NlmKVG4kNIuyWMV/22ZaerB+qaSi5MdrXtd6R08kvs2qCN4C09miupktDitvh8jRFflwGFBQcxZRjbw==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [darwin]
 
-  '@esbuild/freebsd-arm64@0.21.5':
   '@esbuild/freebsd-arm64@0.21.5':
     resolution: {integrity: sha512-5JcRxxRDUJLX8JXp/wcBCy3pENnCgBR9bN6JsY4OmhfUtIHe3ZW0mawA7+RDAcMLrMIZaf03NlQiX9DGyB8h4g==}
     engines: {node: '>=12'}
@@ -171,13 +149,11 @@ packages:
     os: [freebsd]
 
   '@esbuild/freebsd-x64@0.21.5':
-  '@esbuild/freebsd-x64@0.21.5':
     resolution: {integrity: sha512-J95kNBj1zkbMXtHVH29bBriQygMXqoVQOQYA+ISs0/2l3T9/kj42ow2mpqerRBxDJnmkUDCaQT/dfNXWX/ZZCQ==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [freebsd]
 
-  '@esbuild/linux-arm64@0.21.5':
   '@esbuild/linux-arm64@0.21.5':
     resolution: {integrity: sha512-ibKvmyYzKsBeX8d8I7MH/TMfWDXBF3db4qM6sy+7re0YXya+K1cem3on9XgdT2EQGMu4hQyZhan7TeQ8XkGp4Q==}
     engines: {node: '>=12'}
@@ -185,13 +161,11 @@ packages:
     os: [linux]
 
   '@esbuild/linux-arm@0.21.5':
-  '@esbuild/linux-arm@0.21.5':
     resolution: {integrity: sha512-bPb5AHZtbeNGjCKVZ9UGqGwo8EUu4cLq68E95A53KlxAPRmUyYv2D6F0uUI65XisGOL1hBP5mTronbgo+0bFcA==}
     engines: {node: '>=12'}
     cpu: [arm]
     os: [linux]
 
-  '@esbuild/linux-ia32@0.21.5':
   '@esbuild/linux-ia32@0.21.5':
     resolution: {integrity: sha512-YvjXDqLRqPDl2dvRODYmmhz4rPeVKYvppfGYKSNGdyZkA01046pLWyRKKI3ax8fbJoK5QbxblURkwK/MWY18Tg==}
     engines: {node: '>=12'}
@@ -199,13 +173,11 @@ packages:
     os: [linux]
 
   '@esbuild/linux-loong64@0.21.5':
-  '@esbuild/linux-loong64@0.21.5':
     resolution: {integrity: sha512-uHf1BmMG8qEvzdrzAqg2SIG/02+4/DHB6a9Kbya0XDvwDEKCoC8ZRWI5JJvNdUjtciBGFQ5PuBlpEOXQj+JQSg==}
     engines: {node: '>=12'}
     cpu: [loong64]
     os: [linux]
 
-  '@esbuild/linux-mips64el@0.21.5':
   '@esbuild/linux-mips64el@0.21.5':
     resolution: {integrity: sha512-IajOmO+KJK23bj52dFSNCMsz1QP1DqM6cwLUv3W1QwyxkyIWecfafnI555fvSGqEKwjMXVLokcV5ygHW5b3Jbg==}
     engines: {node: '>=12'}
@@ -213,13 +185,11 @@ packages:
     os: [linux]
 
   '@esbuild/linux-ppc64@0.21.5':
-  '@esbuild/linux-ppc64@0.21.5':
     resolution: {integrity: sha512-1hHV/Z4OEfMwpLO8rp7CvlhBDnjsC3CttJXIhBi+5Aj5r+MBvy4egg7wCbe//hSsT+RvDAG7s81tAvpL2XAE4w==}
     engines: {node: '>=12'}
     cpu: [ppc64]
     os: [linux]
 
-  '@esbuild/linux-riscv64@0.21.5':
   '@esbuild/linux-riscv64@0.21.5':
     resolution: {integrity: sha512-2HdXDMd9GMgTGrPWnJzP2ALSokE/0O5HhTUvWIbD3YdjME8JwvSCnNGBnTThKGEB91OZhzrJ4qIIxk/SBmyDDA==}
     engines: {node: '>=12'}
@@ -227,13 +197,11 @@ packages:
     os: [linux]
 
   '@esbuild/linux-s390x@0.21.5':
-  '@esbuild/linux-s390x@0.21.5':
     resolution: {integrity: sha512-zus5sxzqBJD3eXxwvjN1yQkRepANgxE9lgOW2qLnmr8ikMTphkjgXu1HR01K4FJg8h1kEEDAqDcZQtbrRnB41A==}
     engines: {node: '>=12'}
     cpu: [s390x]
     os: [linux]
 
-  '@esbuild/linux-x64@0.21.5':
   '@esbuild/linux-x64@0.21.5':
     resolution: {integrity: sha512-1rYdTpyv03iycF1+BhzrzQJCdOuAOtaqHTWJZCWvijKD2N5Xu0TtVC8/+1faWqcP9iBCWOmjmhoH94dH82BxPQ==}
     engines: {node: '>=12'}
@@ -241,13 +209,11 @@ packages:
     os: [linux]
 
   '@esbuild/netbsd-x64@0.21.5':
-  '@esbuild/netbsd-x64@0.21.5':
     resolution: {integrity: sha512-Woi2MXzXjMULccIwMnLciyZH4nCIMpWQAs049KEeMvOcNADVxo0UBIQPfSmxB3CWKedngg7sWZdLvLczpe0tLg==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [netbsd]
 
-  '@esbuild/openbsd-x64@0.21.5':
   '@esbuild/openbsd-x64@0.21.5':
     resolution: {integrity: sha512-HLNNw99xsvx12lFBUwoT8EVCsSvRNDVxNpjZ7bPn947b8gJPzeHWyNVhFsaerc0n3TsbOINvRP2byTZ5LKezow==}
     engines: {node: '>=12'}
@@ -255,13 +221,11 @@ packages:
     os: [openbsd]
 
   '@esbuild/sunos-x64@0.21.5':
-  '@esbuild/sunos-x64@0.21.5':
     resolution: {integrity: sha512-6+gjmFpfy0BHU5Tpptkuh8+uw3mnrvgs+dSPQXQOv3ekbordwnzTVEb4qnIvQcYXq6gzkyTnoZ9dZG+D4garKg==}
     engines: {node: '>=12'}
     cpu: [x64]
     os: [sunos]
 
-  '@esbuild/win32-arm64@0.21.5':
   '@esbuild/win32-arm64@0.21.5':
     resolution: {integrity: sha512-Z0gOTd75VvXqyq7nsl93zwahcTROgqvuAcYDUr+vOv8uHhNSKROyU961kgtCD1e95IqPKSQKH7tBTslnS3tA8A==}
     engines: {node: '>=12'}
@@ -269,13 +233,11 @@ packages:
     os: [win32]
 
   '@esbuild/win32-ia32@0.21.5':
-  '@esbuild/win32-ia32@0.21.5':
     resolution: {integrity: sha512-SWXFF1CL2RVNMaVs+BBClwtfZSvDgtL//G/smwAc5oVK/UPu2Gu9tIaRgFmYFFKrmg3SyAjSrElf0TiJ1v8fYA==}
     engines: {node: '>=12'}
     cpu: [ia32]
     os: [win32]
 
-  '@esbuild/win32-x64@0.21.5':
   '@esbuild/win32-x64@0.21.5':
     resolution: {integrity: sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==}
     engines: {node: '>=12'}
@@ -283,116 +245,86 @@ packages:
     os: [win32]
 
   '@jridgewell/sourcemap-codec@1.5.5':
-  '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
-  '@mapbox/jsonlint-lines-primitives@2.0.2':
   '@mapbox/jsonlint-lines-primitives@2.0.2':
     resolution: {integrity: sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==}
     engines: {node: '>= 0.6'}
 
   '@mapbox/mapbox-gl-style-spec@13.28.0':
-  '@mapbox/mapbox-gl-style-spec@13.28.0':
     resolution: {integrity: sha512-B8xM7Fp1nh5kejfIl4SWeY0gtIeewbuRencqO3cJDrCHZpaPg7uY+V8abuR+esMeuOjRl5cLhVTP40v+1ywxbg==}
     hasBin: true
-
-  '@mapbox/point-geometry@0.1.0':
 
   '@mapbox/point-geometry@0.1.0':
     resolution: {integrity: sha512-6j56HdLTwWGO0fJPlrZtdU/B13q8Uwmo18Ck2GnGgN9PCFyKTZ3UbXeEdRFh18i9XQ92eH2VdtpJHpBD3aripQ==}
 
   '@mapbox/unitbezier@0.0.0':
-  '@mapbox/unitbezier@0.0.0':
     resolution: {integrity: sha512-HPnRdYO0WjFjRTSwO3frz1wKaU649OBFPX3Zo/2WZvuRi6zMiRGui8SnPQiQABgqCf8YikDe5t3HViTVw1WUzA==}
 
-  '@nodelib/fs.scandir@2.1.5':
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
 
   '@nodelib/fs.stat@2.0.5':
-  '@nodelib/fs.stat@2.0.5':
     resolution: {integrity: sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==}
     engines: {node: '>= 8'}
 
-  '@nodelib/fs.walk@1.2.8':
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
   '@petamoriken/float16@3.9.3':
     resolution: {integrity: sha512-8awtpHXCx/bNpFt4mt2xdkgtgVvKqty8VbjHI/WWWQuEw+KLzFot3f4+LkQY9YmOtq7A5GdOnqoIC8Pdygjk2g==}
-  '@petamoriken/float16@3.9.3':
-    resolution: {integrity: sha512-8awtpHXCx/bNpFt4mt2xdkgtgVvKqty8VbjHI/WWWQuEw+KLzFot3f4+LkQY9YmOtq7A5GdOnqoIC8Pdygjk2g==}
 
-  '@protobufjs/aspromise@1.1.2':
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
 
   '@protobufjs/base64@1.1.2':
-  '@protobufjs/base64@1.1.2':
     resolution: {integrity: sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==}
 
-  '@protobufjs/codegen@2.0.4':
   '@protobufjs/codegen@2.0.4':
     resolution: {integrity: sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==}
 
   '@protobufjs/eventemitter@1.1.0':
-  '@protobufjs/eventemitter@1.1.0':
     resolution: {integrity: sha512-j9ednRT81vYJ9OfVuXG6ERSTdEL1xVsNgqpkxMsbIabzSo3goCjDIveeGv5d03om39ML71RdmrGNjG5SReBP/Q==}
 
-  '@protobufjs/fetch@1.1.0':
   '@protobufjs/fetch@1.1.0':
     resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
 
   '@protobufjs/float@1.0.2':
-  '@protobufjs/float@1.0.2':
     resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
 
-  '@protobufjs/inquire@1.1.0':
   '@protobufjs/inquire@1.1.0':
     resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
 
   '@protobufjs/path@1.1.2':
-  '@protobufjs/path@1.1.2':
     resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
 
-  '@protobufjs/pool@1.1.0':
   '@protobufjs/pool@1.1.0':
     resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
 
   '@protobufjs/utf8@1.1.0':
-  '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@rollup/pluginutils@4.2.1':
   '@rollup/pluginutils@4.2.1':
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
 
   '@rollup/rollup-android-arm-eabi@4.52.4':
     resolution: {integrity: sha512-BTm2qKNnWIQ5auf4deoetINJm2JzvihvGb9R6K/ETwKLql/Bb3Eg2H1FBp1gUb4YGbydMA3jcmQTR73q7J+GAA==}
-  '@rollup/rollup-android-arm-eabi@4.52.4':
-    resolution: {integrity: sha512-BTm2qKNnWIQ5auf4deoetINJm2JzvihvGb9R6K/ETwKLql/Bb3Eg2H1FBp1gUb4YGbydMA3jcmQTR73q7J+GAA==}
     cpu: [arm]
     os: [android]
 
   '@rollup/rollup-android-arm64@4.52.4':
     resolution: {integrity: sha512-P9LDQiC5vpgGFgz7GSM6dKPCiqR3XYN1WwJKA4/BUVDjHpYsf3iBEmVz62uyq20NGYbiGPR5cNHI7T1HqxNs2w==}
-  '@rollup/rollup-android-arm64@4.52.4':
-    resolution: {integrity: sha512-P9LDQiC5vpgGFgz7GSM6dKPCiqR3XYN1WwJKA4/BUVDjHpYsf3iBEmVz62uyq20NGYbiGPR5cNHI7T1HqxNs2w==}
     cpu: [arm64]
     os: [android]
 
   '@rollup/rollup-darwin-arm64@4.52.4':
     resolution: {integrity: sha512-QRWSW+bVccAvZF6cbNZBJwAehmvG9NwfWHwMy4GbWi/BQIA/laTIktebT2ipVjNncqE6GLPxOok5hsECgAxGZg==}
-  '@rollup/rollup-darwin-arm64@4.52.4':
-    resolution: {integrity: sha512-QRWSW+bVccAvZF6cbNZBJwAehmvG9NwfWHwMy4GbWi/BQIA/laTIktebT2ipVjNncqE6GLPxOok5hsECgAxGZg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@rollup/rollup-darwin-x64@4.52.4':
-    resolution: {integrity: sha512-hZgP05pResAkRJxL1b+7yxCnXPGsXU0fG9Yfd6dUaoGk+FhdPKCJ5L1Sumyxn8kvw8Qi5PvQ8ulenUbRjzeCTw==}
   '@rollup/rollup-darwin-x64@4.52.4':
     resolution: {integrity: sha512-hZgP05pResAkRJxL1b+7yxCnXPGsXU0fG9Yfd6dUaoGk+FhdPKCJ5L1Sumyxn8kvw8Qi5PvQ8ulenUbRjzeCTw==}
     cpu: [x64]
@@ -400,20 +332,14 @@ packages:
 
   '@rollup/rollup-freebsd-arm64@4.52.4':
     resolution: {integrity: sha512-xmc30VshuBNUd58Xk4TKAEcRZHaXlV+tCxIXELiE9sQuK3kG8ZFgSPi57UBJt8/ogfhAF5Oz4ZSUBN77weM+mQ==}
-  '@rollup/rollup-freebsd-arm64@4.52.4':
-    resolution: {integrity: sha512-xmc30VshuBNUd58Xk4TKAEcRZHaXlV+tCxIXELiE9sQuK3kG8ZFgSPi57UBJt8/ogfhAF5Oz4ZSUBN77weM+mQ==}
     cpu: [arm64]
     os: [freebsd]
 
   '@rollup/rollup-freebsd-x64@4.52.4':
     resolution: {integrity: sha512-WdSLpZFjOEqNZGmHflxyifolwAiZmDQzuOzIq9L27ButpCVpD7KzTRtEG1I0wMPFyiyUdOO+4t8GvrnBLQSwpw==}
-  '@rollup/rollup-freebsd-x64@4.52.4':
-    resolution: {integrity: sha512-WdSLpZFjOEqNZGmHflxyifolwAiZmDQzuOzIq9L27ButpCVpD7KzTRtEG1I0wMPFyiyUdOO+4t8GvrnBLQSwpw==}
     cpu: [x64]
     os: [freebsd]
 
-  '@rollup/rollup-linux-arm-gnueabihf@4.52.4':
-    resolution: {integrity: sha512-xRiOu9Of1FZ4SxVbB0iEDXc4ddIcjCv2aj03dmW8UrZIW7aIQ9jVJdLBIhxBI+MaTnGAKyvMwPwQnoOEvP7FgQ==}
   '@rollup/rollup-linux-arm-gnueabihf@4.52.4':
     resolution: {integrity: sha512-xRiOu9Of1FZ4SxVbB0iEDXc4ddIcjCv2aj03dmW8UrZIW7aIQ9jVJdLBIhxBI+MaTnGAKyvMwPwQnoOEvP7FgQ==}
     cpu: [arm]
@@ -422,14 +348,10 @@ packages:
 
   '@rollup/rollup-linux-arm-musleabihf@4.52.4':
     resolution: {integrity: sha512-FbhM2p9TJAmEIEhIgzR4soUcsW49e9veAQCziwbR+XWB2zqJ12b4i/+hel9yLiD8pLncDH4fKIPIbt5238341Q==}
-  '@rollup/rollup-linux-arm-musleabihf@4.52.4':
-    resolution: {integrity: sha512-FbhM2p9TJAmEIEhIgzR4soUcsW49e9veAQCziwbR+XWB2zqJ12b4i/+hel9yLiD8pLncDH4fKIPIbt5238341Q==}
     cpu: [arm]
     os: [linux]
     libc: [musl]
 
-  '@rollup/rollup-linux-arm64-gnu@4.52.4':
-    resolution: {integrity: sha512-4n4gVwhPHR9q/g8lKCyz0yuaD0MvDf7dV4f9tHt0C73Mp8h38UCtSCSE6R9iBlTbXlmA8CjpsZoujhszefqueg==}
   '@rollup/rollup-linux-arm64-gnu@4.52.4':
     resolution: {integrity: sha512-4n4gVwhPHR9q/g8lKCyz0yuaD0MvDf7dV4f9tHt0C73Mp8h38UCtSCSE6R9iBlTbXlmA8CjpsZoujhszefqueg==}
     cpu: [arm64]
@@ -438,14 +360,10 @@ packages:
 
   '@rollup/rollup-linux-arm64-musl@4.52.4':
     resolution: {integrity: sha512-u0n17nGA0nvi/11gcZKsjkLj1QIpAuPFQbR48Subo7SmZJnGxDpspyw2kbpuoQnyK+9pwf3pAoEXerJs/8Mi9g==}
-  '@rollup/rollup-linux-arm64-musl@4.52.4':
-    resolution: {integrity: sha512-u0n17nGA0nvi/11gcZKsjkLj1QIpAuPFQbR48Subo7SmZJnGxDpspyw2kbpuoQnyK+9pwf3pAoEXerJs/8Mi9g==}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@rollup/rollup-linux-loong64-gnu@4.52.4':
-    resolution: {integrity: sha512-0G2c2lpYtbTuXo8KEJkDkClE/+/2AFPdPAbmaHoE870foRFs4pBrDehilMcrSScrN/fB/1HTaWO4bqw+ewBzMQ==}
   '@rollup/rollup-linux-loong64-gnu@4.52.4':
     resolution: {integrity: sha512-0G2c2lpYtbTuXo8KEJkDkClE/+/2AFPdPAbmaHoE870foRFs4pBrDehilMcrSScrN/fB/1HTaWO4bqw+ewBzMQ==}
     cpu: [loong64]
@@ -454,30 +372,22 @@ packages:
 
   '@rollup/rollup-linux-ppc64-gnu@4.52.4':
     resolution: {integrity: sha512-teSACug1GyZHmPDv14VNbvZFX779UqWTsd7KtTM9JIZRDI5NUwYSIS30kzI8m06gOPB//jtpqlhmraQ68b5X2g==}
-  '@rollup/rollup-linux-ppc64-gnu@4.52.4':
-    resolution: {integrity: sha512-teSACug1GyZHmPDv14VNbvZFX779UqWTsd7KtTM9JIZRDI5NUwYSIS30kzI8m06gOPB//jtpqlhmraQ68b5X2g==}
     cpu: [ppc64]
     os: [linux]
     libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.52.4':
     resolution: {integrity: sha512-/MOEW3aHjjs1p4Pw1Xk4+3egRevx8Ji9N6HUIA1Ifh8Q+cg9dremvFCUbOX2Zebz80BwJIgCBUemjqhU5XI5Eg==}
-  '@rollup/rollup-linux-riscv64-gnu@4.52.4':
-    resolution: {integrity: sha512-/MOEW3aHjjs1p4Pw1Xk4+3egRevx8Ji9N6HUIA1Ifh8Q+cg9dremvFCUbOX2Zebz80BwJIgCBUemjqhU5XI5Eg==}
     cpu: [riscv64]
     os: [linux]
     libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.52.4':
     resolution: {integrity: sha512-1HHmsRyh845QDpEWzOFtMCph5Ts+9+yllCrREuBR/vg2RogAQGGBRC8lDPrPOMnrdOJ+mt1WLMOC2Kao/UwcvA==}
-  '@rollup/rollup-linux-riscv64-musl@4.52.4':
-    resolution: {integrity: sha512-1HHmsRyh845QDpEWzOFtMCph5Ts+9+yllCrREuBR/vg2RogAQGGBRC8lDPrPOMnrdOJ+mt1WLMOC2Kao/UwcvA==}
     cpu: [riscv64]
     os: [linux]
     libc: [musl]
 
-  '@rollup/rollup-linux-s390x-gnu@4.52.4':
-    resolution: {integrity: sha512-seoeZp4L/6D1MUyjWkOMRU6/iLmCU2EjbMTyAG4oIOs1/I82Y5lTeaxW0KBfkUdHAWN7j25bpkt0rjnOgAcQcA==}
   '@rollup/rollup-linux-s390x-gnu@4.52.4':
     resolution: {integrity: sha512-seoeZp4L/6D1MUyjWkOMRU6/iLmCU2EjbMTyAG4oIOs1/I82Y5lTeaxW0KBfkUdHAWN7j25bpkt0rjnOgAcQcA==}
     cpu: [s390x]
@@ -486,14 +396,10 @@ packages:
 
   '@rollup/rollup-linux-x64-gnu@4.52.4':
     resolution: {integrity: sha512-Wi6AXf0k0L7E2gteNsNHUs7UMwCIhsCTs6+tqQ5GPwVRWMaflqGec4Sd8n6+FNFDw9vGcReqk2KzBDhCa1DLYg==}
-  '@rollup/rollup-linux-x64-gnu@4.52.4':
-    resolution: {integrity: sha512-Wi6AXf0k0L7E2gteNsNHUs7UMwCIhsCTs6+tqQ5GPwVRWMaflqGec4Sd8n6+FNFDw9vGcReqk2KzBDhCa1DLYg==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@rollup/rollup-linux-x64-musl@4.52.4':
-    resolution: {integrity: sha512-dtBZYjDmCQ9hW+WgEkaffvRRCKm767wWhxsFW3Lw86VXz/uJRuD438/XvbZT//B96Vs8oTA8Q4A0AfHbrxP9zw==}
   '@rollup/rollup-linux-x64-musl@4.52.4':
     resolution: {integrity: sha512-dtBZYjDmCQ9hW+WgEkaffvRRCKm767wWhxsFW3Lw86VXz/uJRuD438/XvbZT//B96Vs8oTA8Q4A0AfHbrxP9zw==}
     cpu: [x64]
@@ -502,20 +408,14 @@ packages:
 
   '@rollup/rollup-openharmony-arm64@4.52.4':
     resolution: {integrity: sha512-1ox+GqgRWqaB1RnyZXL8PD6E5f7YyRUJYnCqKpNzxzP0TkaUh112NDrR9Tt+C8rJ4x5G9Mk8PQR3o7Ku2RKqKA==}
-  '@rollup/rollup-openharmony-arm64@4.52.4':
-    resolution: {integrity: sha512-1ox+GqgRWqaB1RnyZXL8PD6E5f7YyRUJYnCqKpNzxzP0TkaUh112NDrR9Tt+C8rJ4x5G9Mk8PQR3o7Ku2RKqKA==}
     cpu: [arm64]
     os: [openharmony]
 
   '@rollup/rollup-win32-arm64-msvc@4.52.4':
     resolution: {integrity: sha512-8GKr640PdFNXwzIE0IrkMWUNUomILLkfeHjXBi/nUvFlpZP+FA8BKGKpacjW6OUUHaNI6sUURxR2U2g78FOHWQ==}
-  '@rollup/rollup-win32-arm64-msvc@4.52.4':
-    resolution: {integrity: sha512-8GKr640PdFNXwzIE0IrkMWUNUomILLkfeHjXBi/nUvFlpZP+FA8BKGKpacjW6OUUHaNI6sUURxR2U2g78FOHWQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@rollup/rollup-win32-ia32-msvc@4.52.4':
-    resolution: {integrity: sha512-AIy/jdJ7WtJ/F6EcfOb2GjR9UweO0n43jNObQMb6oGxkYTfLcnN7vYYpG+CN3lLxrQkzWnMOoNSHTW54pgbVxw==}
   '@rollup/rollup-win32-ia32-msvc@4.52.4':
     resolution: {integrity: sha512-AIy/jdJ7WtJ/F6EcfOb2GjR9UweO0n43jNObQMb6oGxkYTfLcnN7vYYpG+CN3lLxrQkzWnMOoNSHTW54pgbVxw==}
     cpu: [ia32]
@@ -523,24 +423,18 @@ packages:
 
   '@rollup/rollup-win32-x64-gnu@4.52.4':
     resolution: {integrity: sha512-UF9KfsH9yEam0UjTwAgdK0anlQ7c8/pWPU2yVjyWcF1I1thABt6WXE47cI71pGiZ8wGvxohBoLnxM04L/wj8mQ==}
-  '@rollup/rollup-win32-x64-gnu@4.52.4':
-    resolution: {integrity: sha512-UF9KfsH9yEam0UjTwAgdK0anlQ7c8/pWPU2yVjyWcF1I1thABt6WXE47cI71pGiZ8wGvxohBoLnxM04L/wj8mQ==}
     cpu: [x64]
     os: [win32]
 
   '@rollup/rollup-win32-x64-msvc@4.52.4':
     resolution: {integrity: sha512-bf9PtUa0u8IXDVxzRToFQKsNCRz9qLYfR/MpECxl4mRoWYjAeFjgxj1XdZr2M/GNVpT05p+LgQOHopYDlUu6/w==}
-  '@rollup/rollup-win32-x64-msvc@4.52.4':
-    resolution: {integrity: sha512-bf9PtUa0u8IXDVxzRToFQKsNCRz9qLYfR/MpECxl4mRoWYjAeFjgxj1XdZr2M/GNVpT05p+LgQOHopYDlUu6/w==}
     cpu: [x64]
     os: [win32]
 
-  '@spz-loader/core@0.3.0':
   '@spz-loader/core@0.3.0':
     resolution: {integrity: sha512-sbStwMHb/MIE29st7rRuMYWqhX1UmLSFzdpyGtUZUXLkFNIuYKblzjQdtiet8bau8sUf21uL1DQ451zuySGmcA==}
     engines: {node: '>=16', pnpm: '>=8'}
 
-  '@turf/along@6.5.0':
   '@turf/along@6.5.0':
     resolution: {integrity: sha512-LLyWQ0AARqJCmMcIEAXF4GEu8usmd4Kbz3qk1Oy5HoRNpZX47+i5exQtmIWKdqJ1MMhW26fCTXgpsEs5zgJ5gw==}
 
@@ -1091,25 +985,25 @@ packages:
   earthsdk3-assets@3.0.6:
     resolution: {integrity: sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==}
 
-  earthsdk3-cesium@3.5.0-beta.14:
-    resolution: {integrity: sha512-747o6idE3keRmDkri8838gHM54oxOBPWJKjrXWZVyNcMS/1J5TxKRz/LTuobGWxIQ3xcaZxxZDdN5U89W839kg==}
+  earthsdk3-cesium@3.5.0-beta.15:
+    resolution: {integrity: sha512-wH4VmVMKF8a1u2gOpTweohu0nUBOSEP+sIPMEDbHfsWoi0niqbA4YJycYr4/inFQIrbCHhjpNzP59TqObeFjTQ==}
     peerDependencies:
       cesium: 1.134.1
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
 
-  earthsdk3-ol@3.5.0-beta.1:
-    resolution: {integrity: sha512-VNU/T1WlrhMuSVPHZIXTT6ODdkAZasVwBbdNB+vQxb+8c4JNwxycOCfLxKDrHCoyLn8A95mIY4VRqeu9lKr2xw==}
+  earthsdk3-ol@3.5.0-beta.15:
+    resolution: {integrity: sha512-drspWc+HWkatTpSj9pJYgN7nQubljN2USojnZj7Dcv+tT4r+lKUtHyn7Qd+n7efIrLqW6jmyGJYfdbnUbZm5Zw==}
     peerDependencies:
-      earthsdk3: 3.5.0-beta.1
+      earthsdk3: 3.5.0-beta.15
       ol: ^7.1.0
 
-  earthsdk3-ue@3.5.0-beta.13:
-    resolution: {integrity: sha512-2gCK0paY+ZohAx1q6vP8gy1+ZzFvH+w5B3cZoMCa0nF3g2ChIiDAhOqBTdPfy1aNL2Cpa7LTGZDGKNKDyDpiUA==}
+  earthsdk3-ue@3.5.0-beta.15:
+    resolution: {integrity: sha512-ayRNPDTY0s11085ISzrAq9JdyxsMXGbAzbc1x2AFJfit8HXcOa4RMX2TZG2uKzw3suh4Bc3uv2LBn0Zap7D27g==}
     peerDependencies:
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
 
-  earthsdk3@3.5.0-beta.13:
-    resolution: {integrity: sha512-7BqsqR0VZ+0JRq9UkdMNoRr2fzZLuc1mAUqzfYUt4DYkchYUxjT7xVS1enN6L6lCkRjWXUlhJFqsPhwIx5Q68g==}
+  earthsdk3@3.5.0-beta.15:
+    resolution: {integrity: sha512-ACi2P0VOQKtRM+vEm+O1JBbNuc8iJGlytVWIXBAcsgls04v/iBEPPTt45bxdj0qTc+CLLBm2UdMGbtKExsnvsA==}
 
   echarts@5.6.0:
     resolution: {integrity: sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA==}
@@ -1958,7 +1852,6 @@ snapshots:
       '@turf/invariant': 6.5.0
 
   '@turf/angle@6.5.0':
-  '@turf/angle@6.5.0':
     dependencies:
       '@turf/bearing': 6.5.0
       '@turf/helpers': 6.5.0
@@ -1966,47 +1859,39 @@ snapshots:
       '@turf/rhumb-bearing': 6.5.0
 
   '@turf/area@6.5.0':
-  '@turf/area@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/bbox-clip@6.5.0':
   '@turf/bbox-clip@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/bbox-polygon@6.5.0':
-  '@turf/bbox-polygon@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/bbox@6.5.0':
   '@turf/bbox@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
   '@turf/bearing@6.5.0':
-  '@turf/bearing@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/bezier-spline@6.5.0':
   '@turf/bezier-spline@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/boolean-clockwise@6.5.0':
-  '@turf/boolean-clockwise@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/boolean-contains@6.5.0':
   '@turf/boolean-contains@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2016,7 +1901,6 @@ snapshots:
       '@turf/invariant': 6.5.0
 
   '@turf/boolean-crosses@6.5.0':
-  '@turf/boolean-crosses@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2025,7 +1909,6 @@ snapshots:
       '@turf/polygon-to-line': 6.5.0
 
   '@turf/boolean-disjoint@6.5.0':
-  '@turf/boolean-disjoint@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2033,7 +1916,6 @@ snapshots:
       '@turf/meta': 6.5.0
       '@turf/polygon-to-line': 6.5.0
 
-  '@turf/boolean-equal@6.5.0':
   '@turf/boolean-equal@6.5.0':
     dependencies:
       '@turf/clean-coords': 6.5.0
@@ -2042,13 +1924,11 @@ snapshots:
       geojson-equality: 0.1.6
 
   '@turf/boolean-intersects@6.5.0':
-  '@turf/boolean-intersects@6.5.0':
     dependencies:
       '@turf/boolean-disjoint': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/boolean-overlap@6.5.0':
   '@turf/boolean-overlap@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
@@ -2059,7 +1939,6 @@ snapshots:
       geojson-equality: 0.1.6
 
   '@turf/boolean-parallel@6.5.0':
-  '@turf/boolean-parallel@6.5.0':
     dependencies:
       '@turf/clean-coords': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2067,18 +1946,15 @@ snapshots:
       '@turf/rhumb-bearing': 6.5.0
 
   '@turf/boolean-point-in-polygon@6.5.0':
-  '@turf/boolean-point-in-polygon@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/boolean-point-on-line@6.5.0':
-  '@turf/boolean-point-on-line@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/boolean-within@6.5.0':
   '@turf/boolean-within@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2087,7 +1963,6 @@ snapshots:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/buffer@6.5.0':
   '@turf/buffer@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2099,13 +1974,11 @@ snapshots:
       turf-jsts: 1.2.3
 
   '@turf/center-mean@6.5.0':
-  '@turf/center-mean@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/center-median@6.5.0':
   '@turf/center-median@6.5.0':
     dependencies:
       '@turf/center-mean': 6.5.0
@@ -2115,7 +1988,6 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/center-of-mass@6.5.0':
-  '@turf/center-of-mass@6.5.0':
     dependencies:
       '@turf/centroid': 6.5.0
       '@turf/convex': 6.5.0
@@ -2124,35 +1996,29 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/center@6.5.0':
-  '@turf/center@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
       '@turf/helpers': 6.5.0
 
-  '@turf/centroid@6.5.0':
   '@turf/centroid@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
   '@turf/circle@6.5.0':
-  '@turf/circle@6.5.0':
     dependencies:
       '@turf/destination': 6.5.0
       '@turf/helpers': 6.5.0
 
-  '@turf/clean-coords@6.5.0':
   '@turf/clean-coords@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/clone@6.5.0':
-  '@turf/clone@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/clusters-dbscan@6.5.0':
   '@turf/clusters-dbscan@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
@@ -2162,7 +2028,6 @@ snapshots:
       density-clustering: 1.3.0
 
   '@turf/clusters-kmeans@6.5.0':
-  '@turf/clusters-kmeans@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2171,12 +2036,10 @@ snapshots:
       skmeans: 0.9.7
 
   '@turf/clusters@6.5.0':
-  '@turf/clusters@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/collect@6.5.0':
   '@turf/collect@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2185,12 +2048,10 @@ snapshots:
       rbush: 2.0.2
 
   '@turf/combine@6.5.0':
-  '@turf/combine@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/concave@6.5.0':
   '@turf/concave@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
@@ -2203,26 +2064,22 @@ snapshots:
       topojson-server: 3.0.1
 
   '@turf/convex@6.5.0':
-  '@turf/convex@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
       concaveman: 2.0.0
 
   '@turf/destination@6.5.0':
-  '@turf/destination@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/difference@6.5.0':
   '@turf/difference@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       polygon-clipping: 0.15.7
 
-  '@turf/dissolve@6.5.0':
   '@turf/dissolve@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
@@ -2230,7 +2087,6 @@ snapshots:
       '@turf/meta': 6.5.0
       polygon-clipping: 0.15.7
 
-  '@turf/distance-weight@6.5.0':
   '@turf/distance-weight@6.5.0':
     dependencies:
       '@turf/centroid': 6.5.0
@@ -2239,12 +2095,10 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/distance@6.5.0':
-  '@turf/distance@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/ellipse@6.5.0':
   '@turf/ellipse@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
@@ -2253,25 +2107,21 @@ snapshots:
       '@turf/transform-rotate': 6.5.0
 
   '@turf/envelope@6.5.0':
-  '@turf/envelope@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
       '@turf/bbox-polygon': 6.5.0
       '@turf/helpers': 6.5.0
 
   '@turf/explode@6.5.0':
-  '@turf/explode@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
   '@turf/flatten@6.5.0':
-  '@turf/flatten@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/flip@6.5.0':
   '@turf/flip@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
@@ -2279,15 +2129,12 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/great-circle@6.5.0':
-  '@turf/great-circle@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/helpers@6.5.0': {}
-  '@turf/helpers@6.5.0': {}
 
-  '@turf/hex-grid@6.5.0':
   '@turf/hex-grid@6.5.0':
     dependencies:
       '@turf/distance': 6.5.0
@@ -2295,7 +2142,6 @@ snapshots:
       '@turf/intersect': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/interpolate@6.5.0':
   '@turf/interpolate@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2311,18 +2157,15 @@ snapshots:
       '@turf/triangle-grid': 6.5.0
 
   '@turf/intersect@6.5.0':
-  '@turf/intersect@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       polygon-clipping: 0.15.7
 
   '@turf/invariant@6.5.0':
-  '@turf/invariant@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/isobands@6.5.0':
   '@turf/isobands@6.5.0':
     dependencies:
       '@turf/area': 6.5.0
@@ -2335,7 +2178,6 @@ snapshots:
       object-assign: 4.1.1
 
   '@turf/isolines@6.5.0':
-  '@turf/isolines@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2344,11 +2186,9 @@ snapshots:
       object-assign: 4.1.1
 
   '@turf/kinks@6.5.0':
-  '@turf/kinks@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/length@6.5.0':
   '@turf/length@6.5.0':
     dependencies:
       '@turf/distance': 6.5.0
@@ -2356,13 +2196,11 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/line-arc@6.5.0':
-  '@turf/line-arc@6.5.0':
     dependencies:
       '@turf/circle': 6.5.0
       '@turf/destination': 6.5.0
       '@turf/helpers': 6.5.0
 
-  '@turf/line-chunk@6.5.0':
   '@turf/line-chunk@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
@@ -2370,7 +2208,6 @@ snapshots:
       '@turf/line-slice-along': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/line-intersect@6.5.0':
   '@turf/line-intersect@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
@@ -2380,13 +2217,11 @@ snapshots:
       geojson-rbush: 3.2.0
 
   '@turf/line-offset@6.5.0':
-  '@turf/line-offset@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/line-overlap@6.5.0':
   '@turf/line-overlap@6.5.0':
     dependencies:
       '@turf/boolean-point-on-line': 6.5.0
@@ -2399,13 +2234,11 @@ snapshots:
       geojson-rbush: 3.2.0
 
   '@turf/line-segment@6.5.0':
-  '@turf/line-segment@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/line-slice-along@6.5.0':
   '@turf/line-slice-along@6.5.0':
     dependencies:
       '@turf/bearing': 6.5.0
@@ -2414,13 +2247,11 @@ snapshots:
       '@turf/helpers': 6.5.0
 
   '@turf/line-slice@6.5.0':
-  '@turf/line-slice@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       '@turf/nearest-point-on-line': 6.5.0
 
-  '@turf/line-split@6.5.0':
   '@turf/line-split@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2435,7 +2266,6 @@ snapshots:
       geojson-rbush: 3.2.0
 
   '@turf/line-to-polygon@6.5.0':
-  '@turf/line-to-polygon@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
       '@turf/clone': 6.5.0
@@ -2443,17 +2273,14 @@ snapshots:
       '@turf/invariant': 6.5.0
 
   '@turf/mask@6.5.0':
-  '@turf/mask@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       polygon-clipping: 0.15.7
 
   '@turf/meta@6.5.0':
-  '@turf/meta@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/midpoint@6.5.0':
   '@turf/midpoint@6.5.0':
     dependencies:
       '@turf/bearing': 6.5.0
@@ -2462,13 +2289,11 @@ snapshots:
       '@turf/helpers': 6.5.0
 
   '@turf/moran-index@6.5.0':
-  '@turf/moran-index@6.5.0':
     dependencies:
       '@turf/distance-weight': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/nearest-point-on-line@6.5.0':
   '@turf/nearest-point-on-line@6.5.0':
     dependencies:
       '@turf/bearing': 6.5.0
@@ -2480,7 +2305,6 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/nearest-point-to-line@6.5.0':
-  '@turf/nearest-point-to-line@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
@@ -2489,7 +2313,6 @@ snapshots:
       object-assign: 4.1.1
 
   '@turf/nearest-point@6.5.0':
-  '@turf/nearest-point@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
       '@turf/distance': 6.5.0
@@ -2497,12 +2320,10 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/planepoint@6.5.0':
-  '@turf/planepoint@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/point-grid@6.5.0':
   '@turf/point-grid@6.5.0':
     dependencies:
       '@turf/boolean-within': 6.5.0
@@ -2511,7 +2332,6 @@ snapshots:
       '@turf/invariant': 6.5.0
 
   '@turf/point-on-feature@6.5.0':
-  '@turf/point-on-feature@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
       '@turf/center': 6.5.0
@@ -2519,7 +2339,6 @@ snapshots:
       '@turf/helpers': 6.5.0
       '@turf/nearest-point': 6.5.0
 
-  '@turf/point-to-line-distance@6.5.0':
   '@turf/point-to-line-distance@6.5.0':
     dependencies:
       '@turf/bearing': 6.5.0
@@ -2532,19 +2351,16 @@ snapshots:
       '@turf/rhumb-distance': 6.5.0
 
   '@turf/points-within-polygon@6.5.0':
-  '@turf/points-within-polygon@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
   '@turf/polygon-smooth@6.5.0':
-  '@turf/polygon-smooth@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/polygon-tangents@6.5.0':
   '@turf/polygon-tangents@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2555,12 +2371,10 @@ snapshots:
       '@turf/nearest-point': 6.5.0
 
   '@turf/polygon-to-line@6.5.0':
-  '@turf/polygon-to-line@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/polygonize@6.5.0':
   '@turf/polygonize@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
@@ -2570,25 +2384,21 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/projection@6.5.0':
-  '@turf/projection@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
   '@turf/random@6.5.0':
-  '@turf/random@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/rectangle-grid@6.5.0':
   '@turf/rectangle-grid@6.5.0':
     dependencies:
       '@turf/boolean-intersects': 6.5.0
       '@turf/distance': 6.5.0
       '@turf/helpers': 6.5.0
 
-  '@turf/rewind@6.5.0':
   '@turf/rewind@6.5.0':
     dependencies:
       '@turf/boolean-clockwise': 6.5.0
@@ -2598,29 +2408,24 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/rhumb-bearing@6.5.0':
-  '@turf/rhumb-bearing@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
-  '@turf/rhumb-destination@6.5.0':
   '@turf/rhumb-destination@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/rhumb-distance@6.5.0':
-  '@turf/rhumb-distance@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
 
   '@turf/sample@6.5.0':
-  '@turf/sample@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/sector@6.5.0':
   '@turf/sector@6.5.0':
     dependencies:
       '@turf/circle': 6.5.0
@@ -2629,7 +2434,6 @@ snapshots:
       '@turf/line-arc': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/shortest-path@6.5.0':
   '@turf/shortest-path@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2643,7 +2447,6 @@ snapshots:
       '@turf/transform-scale': 6.5.0
 
   '@turf/simplify@6.5.0':
-  '@turf/simplify@6.5.0':
     dependencies:
       '@turf/clean-coords': 6.5.0
       '@turf/clone': 6.5.0
@@ -2651,18 +2454,15 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/square-grid@6.5.0':
-  '@turf/square-grid@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/rectangle-grid': 6.5.0
 
   '@turf/square@6.5.0':
-  '@turf/square@6.5.0':
     dependencies:
       '@turf/distance': 6.5.0
       '@turf/helpers': 6.5.0
 
-  '@turf/standard-deviational-ellipse@6.5.0':
   '@turf/standard-deviational-ellipse@6.5.0':
     dependencies:
       '@turf/center-mean': 6.5.0
@@ -2673,7 +2473,6 @@ snapshots:
       '@turf/points-within-polygon': 6.5.0
 
   '@turf/tag@6.5.0':
-  '@turf/tag@6.5.0':
     dependencies:
       '@turf/boolean-point-in-polygon': 6.5.0
       '@turf/clone': 6.5.0
@@ -2681,17 +2480,14 @@ snapshots:
       '@turf/meta': 6.5.0
 
   '@turf/tesselate@6.5.0':
-  '@turf/tesselate@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       earcut: 2.2.4
 
   '@turf/tin@6.5.0':
-  '@turf/tin@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
 
-  '@turf/transform-rotate@6.5.0':
   '@turf/transform-rotate@6.5.0':
     dependencies:
       '@turf/centroid': 6.5.0
@@ -2703,7 +2499,6 @@ snapshots:
       '@turf/rhumb-destination': 6.5.0
       '@turf/rhumb-distance': 6.5.0
 
-  '@turf/transform-scale@6.5.0':
   '@turf/transform-scale@6.5.0':
     dependencies:
       '@turf/bbox': 6.5.0
@@ -2718,7 +2513,6 @@ snapshots:
       '@turf/rhumb-distance': 6.5.0
 
   '@turf/transform-translate@6.5.0':
-  '@turf/transform-translate@6.5.0':
     dependencies:
       '@turf/clone': 6.5.0
       '@turf/helpers': 6.5.0
@@ -2727,19 +2521,16 @@ snapshots:
       '@turf/rhumb-destination': 6.5.0
 
   '@turf/triangle-grid@6.5.0':
-  '@turf/triangle-grid@6.5.0':
     dependencies:
       '@turf/distance': 6.5.0
       '@turf/helpers': 6.5.0
       '@turf/intersect': 6.5.0
 
   '@turf/truncate@6.5.0':
-  '@turf/truncate@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/meta': 6.5.0
 
-  '@turf/turf@6.5.0':
   '@turf/turf@6.5.0':
     dependencies:
       '@turf/along': 6.5.0
@@ -2849,13 +2640,11 @@ snapshots:
       '@turf/voronoi': 6.5.0
 
   '@turf/union@6.5.0':
-  '@turf/union@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       polygon-clipping: 0.15.7
 
-  '@turf/unkink-polygon@6.5.0':
   '@turf/unkink-polygon@6.5.0':
     dependencies:
       '@turf/area': 6.5.0
@@ -2865,87 +2654,62 @@ snapshots:
       rbush: 2.0.2
 
   '@turf/voronoi@6.5.0':
-  '@turf/voronoi@6.5.0':
     dependencies:
       '@turf/helpers': 6.5.0
       '@turf/invariant': 6.5.0
       d3-voronoi: 1.1.2
 
   '@tweenjs/tween.js@25.0.0': {}
-  '@tweenjs/tween.js@25.0.0': {}
 
-  '@types/delaunator@5.0.3': {}
   '@types/delaunator@5.0.3': {}
 
   '@types/estree@1.0.8': {}
-  '@types/estree@1.0.8': {}
 
-  '@types/geojson@7946.0.16': {}
   '@types/geojson@7946.0.16': {}
 
   '@types/geojson@7946.0.8': {}
-  '@types/geojson@7946.0.8': {}
 
-  '@types/node@24.7.2':
   '@types/node@24.7.2':
     dependencies:
       undici-types: 7.14.0
-      undici-types: 7.14.0
 
-  '@types/proj4@2.19.0':
   '@types/proj4@2.19.0':
     dependencies:
       proj4: 2.19.10
 
-  '@types/topojson-client@3.1.5':
   '@types/topojson-client@3.1.5':
     dependencies:
       '@types/geojson': 7946.0.16
       '@types/topojson-specification': 1.0.5
 
   '@types/topojson-specification@1.0.5':
-  '@types/topojson-specification@1.0.5':
     dependencies:
       '@types/geojson': 7946.0.16
 
   '@types/trusted-types@2.0.7':
-  '@types/trusted-types@2.0.7':
     optional: true
 
   '@vitejs/plugin-vue@5.2.4(vite@5.4.20(@types/node@24.7.2))(vue@3.5.22(typescript@4.9.5))':
-  '@vitejs/plugin-vue@5.2.4(vite@5.4.20(@types/node@24.7.2))(vue@3.5.22(typescript@4.9.5))':
     dependencies:
-      vite: 5.4.20(@types/node@24.7.2)
-      vue: 3.5.22(typescript@4.9.5)
       vite: 5.4.20(@types/node@24.7.2)
       vue: 3.5.22(typescript@4.9.5)
 
   '@vue/compiler-core@3.5.22':
-  '@vue/compiler-core@3.5.22':
     dependencies:
       '@babel/parser': 7.28.4
-      '@vue/shared': 3.5.22
       '@vue/shared': 3.5.22
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
   '@vue/compiler-dom@3.5.22':
-  '@vue/compiler-dom@3.5.22':
     dependencies:
-      '@vue/compiler-core': 3.5.22
-      '@vue/shared': 3.5.22
       '@vue/compiler-core': 3.5.22
       '@vue/shared': 3.5.22
 
   '@vue/compiler-sfc@3.5.22':
-  '@vue/compiler-sfc@3.5.22':
     dependencies:
       '@babel/parser': 7.28.4
-      '@vue/compiler-core': 3.5.22
-      '@vue/compiler-dom': 3.5.22
-      '@vue/compiler-ssr': 3.5.22
-      '@vue/shared': 3.5.22
       '@vue/compiler-core': 3.5.22
       '@vue/compiler-dom': 3.5.22
       '@vue/compiler-ssr': 3.5.22
@@ -2956,52 +2720,28 @@ snapshots:
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.22':
-  '@vue/compiler-ssr@3.5.22':
     dependencies:
-      '@vue/compiler-dom': 3.5.22
-      '@vue/shared': 3.5.22
       '@vue/compiler-dom': 3.5.22
       '@vue/shared': 3.5.22
 
   '@vue/reactivity@3.5.22':
-  '@vue/reactivity@3.5.22':
     dependencies:
-      '@vue/shared': 3.5.22
       '@vue/shared': 3.5.22
 
   '@vue/runtime-core@3.5.22':
-  '@vue/runtime-core@3.5.22':
     dependencies:
-      '@vue/reactivity': 3.5.22
-      '@vue/shared': 3.5.22
       '@vue/reactivity': 3.5.22
       '@vue/shared': 3.5.22
 
   '@vue/runtime-dom@3.5.22':
-  '@vue/runtime-dom@3.5.22':
     dependencies:
-      '@vue/reactivity': 3.5.22
-      '@vue/runtime-core': 3.5.22
-      '@vue/shared': 3.5.22
       '@vue/reactivity': 3.5.22
       '@vue/runtime-core': 3.5.22
       '@vue/shared': 3.5.22
       csstype: 3.1.3
 
   '@vue/server-renderer@3.5.22(vue@3.5.22(typescript@4.9.5))':
-  '@vue/server-renderer@3.5.22(vue@3.5.22(typescript@4.9.5))':
     dependencies:
-      '@vue/compiler-ssr': 3.5.22
-      '@vue/shared': 3.5.22
-      vue: 3.5.22(typescript@4.9.5)
-
-  '@vue/shared@3.5.22': {}
-
-  '@xmldom/xmldom@0.8.11': {}
-
-  '@zip.js/zip.js@2.8.7': {}
-
-  anymatch@3.1.3:
       '@vue/compiler-ssr': 3.5.22
       '@vue/shared': 3.5.22
       vue: 3.5.22(typescript@4.9.5)
@@ -3018,17 +2758,13 @@ snapshots:
       picomatch: 2.3.1
 
   asynckit@0.4.0: {}
-  asynckit@0.4.0: {}
 
   at-least-node@1.0.0: {}
-  at-least-node@1.0.0: {}
 
-  autolinker@4.1.5:
   autolinker@4.1.5:
     dependencies:
       tslib: 2.8.1
 
-  axios@1.12.2:
   axios@1.12.2:
     dependencies:
       follow-redirects: 1.15.11
@@ -3038,26 +2774,20 @@ snapshots:
       - debug
 
   base64-arraybuffer@1.0.2: {}
-  base64-arraybuffer@1.0.2: {}
 
-  binary-extensions@2.3.0: {}
   binary-extensions@2.3.0: {}
 
   bitmap-sdf@1.0.4: {}
-  bitmap-sdf@1.0.4: {}
 
-  braces@3.0.3:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
 
   call-bind-apply-helpers@1.0.2:
-  call-bind-apply-helpers@1.0.2:
     dependencies:
       es-errors: 1.3.0
       function-bind: 1.1.2
 
-  call-bind@1.0.8:
   call-bind@1.0.8:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3066,20 +2796,15 @@ snapshots:
       set-function-length: 1.2.2
 
   call-bound@1.0.4:
-  call-bound@1.0.4:
     dependencies:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
   cesium@1.134.1:
-  cesium@1.134.1:
     dependencies:
       '@cesium/engine': 21.0.1
       '@cesium/widgets': 13.2.1
-      '@cesium/engine': 21.0.1
-      '@cesium/widgets': 13.2.1
 
-  chokidar@3.6.0:
   chokidar@3.6.0:
     dependencies:
       anymatch: 3.1.3
@@ -3093,14 +2818,11 @@ snapshots:
       fsevents: 2.3.3
 
   combined-stream@1.0.8:
-  combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
 
   commander@2.20.3: {}
-  commander@2.20.3: {}
 
-  concaveman@2.0.0:
   concaveman@2.0.0:
     dependencies:
       point-in-polygon: 1.1.0
@@ -3109,32 +2831,20 @@ snapshots:
       tinyqueue: 3.0.0
 
   core-js@3.46.0: {}
-  core-js@3.46.0: {}
 
-  css-line-break@2.1.0:
   css-line-break@2.1.0:
     dependencies:
       utrie: 1.0.2
 
   csscolorparser@1.0.3: {}
-  csscolorparser@1.0.3: {}
 
-  csstype@3.1.3: {}
   csstype@3.1.3: {}
 
   d3-array@1.2.4: {}
-  d3-array@1.2.4: {}
 
-  d3-geo@1.7.1:
   d3-geo@1.7.1:
     dependencies:
       d3-array: 1.2.4
-
-  d3-voronoi@1.1.2: {}
-
-  dayjs@1.11.18: {}
-
-  debug@2.6.9:
 
   d3-voronoi@1.1.2: {}
 
@@ -3145,7 +2855,6 @@ snapshots:
       ms: 2.0.0
 
   deep-equal@1.1.2:
-  deep-equal@1.1.2:
     dependencies:
       is-arguments: 1.2.0
       is-date-object: 1.1.0
@@ -3155,13 +2864,11 @@ snapshots:
       regexp.prototype.flags: 1.5.4
 
   define-data-property@1.1.4:
-  define-data-property@1.1.4:
     dependencies:
       es-define-property: 1.0.1
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  define-properties@1.2.1:
   define-properties@1.2.1:
     dependencies:
       define-data-property: 1.1.4
@@ -3169,31 +2876,23 @@ snapshots:
       object-keys: 1.1.1
 
   delaunator@5.0.1:
-  delaunator@5.0.1:
     dependencies:
       robust-predicates: 3.0.2
 
   delayed-stream@1.0.0: {}
-  delayed-stream@1.0.0: {}
 
-  density-clustering@1.3.0: {}
   density-clustering@1.3.0: {}
 
   depd@2.0.0: {}
-  depd@2.0.0: {}
 
   destroy@1.2.0: {}
-  destroy@1.2.0: {}
 
-  dompurify@3.3.0:
   dompurify@3.3.0:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
   draco3d@1.5.7: {}
-  draco3d@1.5.7: {}
 
-  dunder-proto@1.0.1:
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3201,56 +2900,49 @@ snapshots:
       gopd: 1.2.0
 
   earcut@2.2.4: {}
-  earcut@2.2.4: {}
 
   earcut@3.0.2: {}
-  earcut@3.0.2: {}
 
-  earthsdk-icon@0.0.10(typescript@4.9.5):
   earthsdk-icon@0.0.10(typescript@4.9.5):
     dependencies:
-      core-js: 3.46.0
-      vue: 3.5.22(typescript@4.9.5)
       core-js: 3.46.0
       vue: 3.5.22(typescript@4.9.5)
     transitivePeerDependencies:
       - typescript
 
-  earthsdk-ui@1.0.2-beta.4(earthsdk3@3.5.0-beta.13)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)):
+  earthsdk-ui@1.0.2-beta.4(earthsdk3@3.5.0-beta.15)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)):
     dependencies:
       earthsdk-icon: 0.0.10(typescript@4.9.5)
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
       tiny-emitter: 2.1.0
-      vue: 3.5.22(typescript@4.9.5)
       vue: 3.5.22(typescript@4.9.5)
     transitivePeerDependencies:
       - typescript
 
   earthsdk3-assets@3.0.6: {}
 
-  earthsdk3-cesium@3.5.0-beta.14(cesium@1.134.1)(earthsdk3@3.5.0-beta.13):
+  earthsdk3-cesium@3.5.0-beta.15(cesium@1.134.1)(earthsdk3@3.5.0-beta.15):
     dependencies:
       '@types/delaunator': 5.0.3
       cesium: 1.134.1
-      cesium: 1.134.1
       delaunator: 5.0.1
       earcut: 2.2.4
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
       html2canvas: 1.4.1
       mvt-basic-render: 0.3.5
 
-  earthsdk3-ol@3.5.0-beta.1(earthsdk3@3.5.0-beta.13)(ol@7.5.2):
+  earthsdk3-ol@3.5.0-beta.15(earthsdk3@3.5.0-beta.15)(ol@7.5.2):
     dependencies:
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
       ol: 7.5.2
 
-  earthsdk3-ue@3.5.0-beta.13(earthsdk3@3.5.0-beta.13):
+  earthsdk3-ue@3.5.0-beta.15(earthsdk3@3.5.0-beta.15):
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.9
-      earthsdk3: 3.5.0-beta.13
+      earthsdk3: 3.5.0-beta.15
       html2canvas: 1.4.1
 
-  earthsdk3@3.5.0-beta.13:
+  earthsdk3@3.5.0-beta.15:
     dependencies:
       '@turf/turf': 6.5.0
       '@types/proj4': 2.19.0
@@ -3258,36 +2950,26 @@ snapshots:
       proj4: 2.19.10
 
   echarts@5.6.0:
-  echarts@5.6.0:
     dependencies:
       tslib: 2.3.0
       zrender: 5.6.1
-      zrender: 5.6.1
 
-  ee-first@1.1.1: {}
   ee-first@1.1.1: {}
 
   encodeurl@1.0.2: {}
-  encodeurl@1.0.2: {}
 
-  encodeurl@2.0.0: {}
   encodeurl@2.0.0: {}
 
   entities@4.5.0: {}
-  entities@4.5.0: {}
 
-  es-define-property@1.0.1: {}
   es-define-property@1.0.1: {}
 
   es-errors@1.3.0: {}
-  es-errors@1.3.0: {}
 
-  es-object-atoms@1.1.1:
   es-object-atoms@1.1.1:
     dependencies:
       es-errors: 1.3.0
 
-  es-set-tostringtag@2.1.0:
   es-set-tostringtag@2.1.0:
     dependencies:
       es-errors: 1.3.0
@@ -3295,7 +2977,6 @@ snapshots:
       has-tostringtag: 1.0.2
       hasown: 2.0.2
 
-  esbuild@0.21.5:
   esbuild@0.21.5:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.21.5
@@ -3323,15 +3004,11 @@ snapshots:
       '@esbuild/win32-x64': 0.21.5
 
   escape-html@1.0.3: {}
-  escape-html@1.0.3: {}
 
-  estree-walker@2.0.2: {}
   estree-walker@2.0.2: {}
 
   etag@1.8.1: {}
-  etag@1.8.1: {}
 
-  fast-glob@3.3.3:
   fast-glob@3.3.3:
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -3341,18 +3018,13 @@ snapshots:
       micromatch: 4.0.8
 
   fastq@1.19.1:
-  fastq@1.19.1:
     dependencies:
       reusify: 1.1.0
 
   fill-range@7.1.1:
-  fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
 
-  follow-redirects@1.15.11: {}
-
-  form-data@4.0.4:
   follow-redirects@1.15.11: {}
 
   form-data@4.0.4:
@@ -3364,16 +3036,13 @@ snapshots:
       mime-types: 2.1.35
 
   fresh@0.5.2: {}
-  fresh@0.5.2: {}
 
-  fs-extra@11.3.2:
   fs-extra@11.3.2:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.0
       universalify: 2.0.1
 
-  fs-extra@9.1.0:
   fs-extra@9.1.0:
     dependencies:
       at-least-node: 1.0.0
@@ -3382,21 +3051,16 @@ snapshots:
       universalify: 2.0.1
 
   fsevents@2.3.3:
-  fsevents@2.3.3:
     optional: true
 
   function-bind@1.1.2: {}
-  function-bind@1.1.2: {}
 
   functions-have-names@1.2.3: {}
-  functions-have-names@1.2.3: {}
 
-  geojson-equality@0.1.6:
   geojson-equality@0.1.6:
     dependencies:
       deep-equal: 1.1.2
 
-  geojson-rbush@3.2.0:
   geojson-rbush@3.2.0:
     dependencies:
       '@turf/bbox': 6.5.0
@@ -3406,21 +3070,16 @@ snapshots:
       rbush: 3.0.1
 
   geotiff@2.1.3:
-  geotiff@2.1.3:
     dependencies:
-      '@petamoriken/float16': 3.9.3
       '@petamoriken/float16': 3.9.3
       lerc: 3.0.0
       pako: 2.1.0
       parse-headers: 2.0.6
       quick-lru: 6.1.2
-      quick-lru: 6.1.2
       web-worker: 1.5.0
       xml-utils: 1.10.2
       zstddec: 0.1.0
-      zstddec: 0.1.0
 
-  get-intrinsic@1.3.0:
   get-intrinsic@1.3.0:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3435,50 +3094,39 @@ snapshots:
       math-intrinsics: 1.1.0
 
   get-proto@1.0.1:
-  get-proto@1.0.1:
     dependencies:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.1
 
   glob-parent@5.1.2:
-  glob-parent@5.1.2:
     dependencies:
       is-glob: 4.0.3
 
   gopd@1.2.0: {}
-  gopd@1.2.0: {}
 
-  graceful-fs@4.2.11: {}
   graceful-fs@4.2.11: {}
 
   grapheme-splitter@1.0.4: {}
-  grapheme-splitter@1.0.4: {}
 
-  has-property-descriptors@1.0.2:
   has-property-descriptors@1.0.2:
     dependencies:
       es-define-property: 1.0.1
 
   has-symbols@1.1.0: {}
-  has-symbols@1.1.0: {}
 
-  has-tostringtag@1.0.2:
   has-tostringtag@1.0.2:
     dependencies:
       has-symbols: 1.1.0
 
   hasown@2.0.2:
-  hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
 
-  html2canvas@1.4.1:
   html2canvas@1.4.1:
     dependencies:
       css-line-break: 2.1.0
       text-segmentation: 1.0.3
 
-  http-errors@2.0.0:
   http-errors@2.0.0:
     dependencies:
       depd: 2.0.0
@@ -3488,45 +3136,35 @@ snapshots:
       toidentifier: 1.0.1
 
   ieee754@1.2.1: {}
-  ieee754@1.2.1: {}
 
   inherits@2.0.4: {}
-  inherits@2.0.4: {}
 
-  is-arguments@1.2.0:
   is-arguments@1.2.0:
     dependencies:
       call-bound: 1.0.4
       has-tostringtag: 1.0.2
 
-  is-binary-path@2.1.0:
   is-binary-path@2.1.0:
     dependencies:
       binary-extensions: 2.3.0
 
   is-date-object@1.1.0:
-  is-date-object@1.1.0:
     dependencies:
       call-bound: 1.0.4
       has-tostringtag: 1.0.2
 
   is-extglob@2.1.1: {}
-  is-extglob@2.1.1: {}
 
-  is-glob@4.0.3:
   is-glob@4.0.3:
     dependencies:
       is-extglob: 2.1.1
 
   is-number@7.0.0: {}
-  is-number@7.0.0: {}
 
-  is-reference@1.2.1:
   is-reference@1.2.1:
     dependencies:
       '@types/estree': 1.0.8
 
-  is-regex@1.2.1:
   is-regex@1.2.1:
     dependencies:
       call-bound: 1.0.4
@@ -3535,15 +3173,11 @@ snapshots:
       hasown: 2.0.2
 
   js-binary-schema-parser@2.0.3: {}
-  js-binary-schema-parser@2.0.3: {}
 
-  jsep@1.4.0: {}
   jsep@1.4.0: {}
 
   json-stringify-pretty-compact@2.0.0: {}
-  json-stringify-pretty-compact@2.0.0: {}
 
-  jsonfile@6.2.0:
   jsonfile@6.2.0:
     dependencies:
       universalify: 2.0.1
@@ -3561,54 +3195,32 @@ snapshots:
   long@5.3.2: {}
 
   magic-string@0.25.9:
-
-  kdbush@4.0.2: {}
-
-  ktx-parse@1.1.0: {}
-
-  lerc@2.0.0: {}
-
-  lerc@3.0.0: {}
-
-  long@5.3.2: {}
-
-  magic-string@0.25.9:
     dependencies:
       sourcemap-codec: 1.4.8
 
-  magic-string@0.30.19:
   magic-string@0.30.19:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   mapbox-to-css-font@2.4.5: {}
-  mapbox-to-css-font@2.4.5: {}
 
-  math-intrinsics@1.1.0: {}
   math-intrinsics@1.1.0: {}
 
   merge2@1.4.1: {}
-  merge2@1.4.1: {}
 
-  mersenne-twister@1.1.0: {}
   mersenne-twister@1.1.0: {}
 
   meshoptimizer@0.25.0: {}
-  meshoptimizer@0.25.0: {}
 
   mgrs@1.0.0: {}
-  mgrs@1.0.0: {}
 
-  micromatch@4.0.8:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
 
   mime-db@1.52.0: {}
-  mime-db@1.52.0: {}
 
-  mime-types@2.1.35:
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
@@ -3632,88 +3244,52 @@ snapshots:
   object-assign@4.1.1: {}
 
   object-is@1.1.6:
-
-  mime@1.6.0: {}
-
-  minimist@1.2.8: {}
-
-  ms@2.0.0: {}
-
-  ms@2.1.3: {}
-
-  mvt-basic-render@0.3.5: {}
-
-  nanoid@3.3.11: {}
-
-  normalize-path@3.0.0: {}
-
-  nosleep.js@0.12.0: {}
-
-  object-assign@4.1.1: {}
-
-  object-is@1.1.6:
     dependencies:
       call-bind: 1.0.8
       define-properties: 1.2.1
 
   object-keys@1.1.1: {}
-  object-keys@1.1.1: {}
 
-  ol-mapbox-style@10.7.0:
   ol-mapbox-style@10.7.0:
     dependencies:
       '@mapbox/mapbox-gl-style-spec': 13.28.0
       mapbox-to-css-font: 2.4.5
       ol: 7.5.2
-      ol: 7.5.2
 
-  ol@7.5.2:
   ol@7.5.2:
     dependencies:
       earcut: 2.2.4
-      geotiff: 2.1.3
-      ol-mapbox-style: 10.7.0
       geotiff: 2.1.3
       ol-mapbox-style: 10.7.0
       pbf: 3.2.1
       rbush: 3.0.1
 
   on-finished@2.4.1:
-  on-finished@2.4.1:
     dependencies:
       ee-first: 1.1.1
 
   pako@2.1.0: {}
-  pako@2.1.0: {}
 
-  parse-headers@2.0.6: {}
   parse-headers@2.0.6: {}
 
   parseurl@1.3.3: {}
-  parseurl@1.3.3: {}
 
-  pbf@3.2.1:
   pbf@3.2.1:
     dependencies:
       ieee754: 1.2.1
       resolve-protobuf-schema: 2.1.0
 
   picocolors@1.1.1: {}
-  picocolors@1.1.1: {}
 
-  picomatch@2.3.1: {}
   picomatch@2.3.1: {}
 
   point-in-polygon@1.1.0: {}
-  point-in-polygon@1.1.0: {}
 
-  polygon-clipping@0.15.7:
   polygon-clipping@0.15.7:
     dependencies:
       robust-predicates: 3.0.2
       splaytree: 3.1.2
 
-  postcss@8.5.6:
   postcss@8.5.6:
     dependencies:
       nanoid: 3.3.11
@@ -3721,12 +3297,10 @@ snapshots:
       source-map-js: 1.2.1
 
   proj4@2.19.10:
-  proj4@2.19.10:
     dependencies:
       mgrs: 1.0.0
       wkt-parser: 1.5.2
 
-  protobufjs@7.5.4:
   protobufjs@7.5.4:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
@@ -3740,33 +3314,22 @@ snapshots:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/node': 24.7.2
-      '@types/node': 24.7.2
       long: 5.3.2
 
   protocol-buffers-schema@3.6.0: {}
-  protocol-buffers-schema@3.6.0: {}
 
-  proxy-from-env@1.1.0: {}
   proxy-from-env@1.1.0: {}
 
   queue-microtask@1.2.3: {}
-  queue-microtask@1.2.3: {}
 
-  quick-lru@6.1.2: {}
   quick-lru@6.1.2: {}
 
   quickselect@1.1.1: {}
-  quickselect@1.1.1: {}
 
-  quickselect@2.0.0: {}
   quickselect@2.0.0: {}
 
   quickselect@3.0.0: {}
-  quickselect@3.0.0: {}
 
-  range-parser@1.2.1: {}
-
-  rbush@2.0.2:
   range-parser@1.2.1: {}
 
   rbush@2.0.2:
@@ -3774,21 +3337,17 @@ snapshots:
       quickselect: 1.1.1
 
   rbush@3.0.1:
-  rbush@3.0.1:
     dependencies:
       quickselect: 2.0.0
 
-  rbush@4.0.1:
   rbush@4.0.1:
     dependencies:
       quickselect: 3.0.0
 
   readdirp@3.6.0:
-  readdirp@3.6.0:
     dependencies:
       picomatch: 2.3.1
 
-  regexp.prototype.flags@1.5.4:
   regexp.prototype.flags@1.5.4:
     dependencies:
       call-bind: 1.0.8
@@ -3799,26 +3358,19 @@ snapshots:
       set-function-name: 2.0.2
 
   resolve-protobuf-schema@2.1.0:
-  resolve-protobuf-schema@2.1.0:
     dependencies:
       protocol-buffers-schema: 3.6.0
 
   reusify@1.1.0: {}
-  reusify@1.1.0: {}
 
   robust-predicates@3.0.2: {}
-  robust-predicates@3.0.2: {}
 
-  rollup-plugin-external-globals@0.6.1(rollup@4.52.4):
   rollup-plugin-external-globals@0.6.1(rollup@4.52.4):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       estree-walker: 2.0.2
       is-reference: 1.2.1
       magic-string: 0.25.9
-      rollup: 4.52.4
-
-  rollup@4.52.4:
       rollup: 4.52.4
 
   rollup@4.52.4:
@@ -3847,45 +3399,18 @@ snapshots:
       '@rollup/rollup-win32-ia32-msvc': 4.52.4
       '@rollup/rollup-win32-x64-gnu': 4.52.4
       '@rollup/rollup-win32-x64-msvc': 4.52.4
-      '@rollup/rollup-android-arm-eabi': 4.52.4
-      '@rollup/rollup-android-arm64': 4.52.4
-      '@rollup/rollup-darwin-arm64': 4.52.4
-      '@rollup/rollup-darwin-x64': 4.52.4
-      '@rollup/rollup-freebsd-arm64': 4.52.4
-      '@rollup/rollup-freebsd-x64': 4.52.4
-      '@rollup/rollup-linux-arm-gnueabihf': 4.52.4
-      '@rollup/rollup-linux-arm-musleabihf': 4.52.4
-      '@rollup/rollup-linux-arm64-gnu': 4.52.4
-      '@rollup/rollup-linux-arm64-musl': 4.52.4
-      '@rollup/rollup-linux-loong64-gnu': 4.52.4
-      '@rollup/rollup-linux-ppc64-gnu': 4.52.4
-      '@rollup/rollup-linux-riscv64-gnu': 4.52.4
-      '@rollup/rollup-linux-riscv64-musl': 4.52.4
-      '@rollup/rollup-linux-s390x-gnu': 4.52.4
-      '@rollup/rollup-linux-x64-gnu': 4.52.4
-      '@rollup/rollup-linux-x64-musl': 4.52.4
-      '@rollup/rollup-openharmony-arm64': 4.52.4
-      '@rollup/rollup-win32-arm64-msvc': 4.52.4
-      '@rollup/rollup-win32-ia32-msvc': 4.52.4
-      '@rollup/rollup-win32-x64-gnu': 4.52.4
-      '@rollup/rollup-win32-x64-msvc': 4.52.4
       fsevents: 2.3.3
 
-  run-parallel@1.2.0:
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
 
   rw@1.3.3: {}
-  rw@1.3.3: {}
 
-  sdp@3.2.1: {}
   sdp@3.2.1: {}
 
   search-params@4.0.1: {}
-  search-params@4.0.1: {}
 
-  send@0.19.0:
   send@0.19.0:
     dependencies:
       debug: 2.6.9
@@ -3905,7 +3430,6 @@ snapshots:
       - supports-color
 
   serve-static@1.16.2:
-  serve-static@1.16.2:
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
@@ -3914,7 +3438,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  set-function-length@1.2.2:
   set-function-length@1.2.2:
     dependencies:
       define-data-property: 1.1.4
@@ -3925,7 +3448,6 @@ snapshots:
       has-property-descriptors: 1.0.2
 
   set-function-name@2.0.2:
-  set-function-name@2.0.2:
     dependencies:
       define-data-property: 1.1.4
       es-errors: 1.3.0
@@ -3933,106 +3455,77 @@ snapshots:
       has-property-descriptors: 1.0.2
 
   setprototypeof@1.2.0: {}
-  setprototypeof@1.2.0: {}
 
-  skmeans@0.9.7: {}
   skmeans@0.9.7: {}
 
   sort-asc@0.1.0: {}
-  sort-asc@0.1.0: {}
 
   sort-desc@0.1.1: {}
-  sort-desc@0.1.1: {}
 
-  sort-object@0.3.2:
   sort-object@0.3.2:
     dependencies:
       sort-asc: 0.1.0
       sort-desc: 0.1.1
 
   source-map-js@1.2.1: {}
-  source-map-js@1.2.1: {}
 
-  sourcemap-codec@1.4.8: {}
   sourcemap-codec@1.4.8: {}
 
   splaytree@3.1.2: {}
-  splaytree@3.1.2: {}
 
   statuses@2.0.1: {}
-  statuses@2.0.1: {}
 
-  text-segmentation@1.0.3:
   text-segmentation@1.0.3:
     dependencies:
       utrie: 1.0.2
 
   tiny-emitter@2.1.0: {}
-  tiny-emitter@2.1.0: {}
 
   tinyqueue@3.0.0: {}
-  tinyqueue@3.0.0: {}
 
-  to-regex-range@5.0.1:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
 
   toidentifier@1.0.1: {}
-  toidentifier@1.0.1: {}
 
-  topojson-client@3.1.0:
   topojson-client@3.1.0:
     dependencies:
       commander: 2.20.3
 
   topojson-server@3.0.1:
-  topojson-server@3.0.1:
     dependencies:
       commander: 2.20.3
 
   tslib@2.3.0: {}
-  tslib@2.3.0: {}
 
-  tslib@2.8.1: {}
   tslib@2.8.1: {}
 
   turf-jsts@1.2.3: {}
-  turf-jsts@1.2.3: {}
 
-  typescript@4.9.5: {}
   typescript@4.9.5: {}
 
   undici-types@7.14.0: {}
-  undici-types@7.14.0: {}
 
-  universalify@2.0.1: {}
   universalify@2.0.1: {}
 
   urijs@1.19.11: {}
-  urijs@1.19.11: {}
 
-  utrie@1.0.2:
   utrie@1.0.2:
     dependencies:
       base64-arraybuffer: 1.0.2
 
   vite-plugin-cesium@1.2.23(cesium@1.134.1)(rollup@4.52.4)(vite@5.4.20(@types/node@24.7.2)):
-  vite-plugin-cesium@1.2.23(cesium@1.134.1)(rollup@4.52.4)(vite@5.4.20(@types/node@24.7.2)):
     dependencies:
-      cesium: 1.134.1
       cesium: 1.134.1
       fs-extra: 9.1.0
       rollup-plugin-external-globals: 0.6.1(rollup@4.52.4)
-      rollup-plugin-external-globals: 0.6.1(rollup@4.52.4)
       serve-static: 1.16.2
-      vite: 5.4.20(@types/node@24.7.2)
       vite: 5.4.20(@types/node@24.7.2)
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-static-copy@1.0.6(vite@5.4.20(@types/node@24.7.2)):
   vite-plugin-static-copy@1.0.6(vite@5.4.20(@types/node@24.7.2)):
     dependencies:
       chokidar: 3.6.0
@@ -4042,28 +3535,16 @@ snapshots:
       vite: 5.4.20(@types/node@24.7.2)
 
   vite@5.4.20(@types/node@24.7.2):
-      vite: 5.4.20(@types/node@24.7.2)
-
-  vite@5.4.20(@types/node@24.7.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
       rollup: 4.52.4
-      rollup: 4.52.4
     optionalDependencies:
-      '@types/node': 24.7.2
       '@types/node': 24.7.2
       fsevents: 2.3.3
 
   vue@3.5.22(typescript@4.9.5):
-  vue@3.5.22(typescript@4.9.5):
     dependencies:
-      '@vue/compiler-dom': 3.5.22
-      '@vue/compiler-sfc': 3.5.22
-      '@vue/runtime-dom': 3.5.22
-      '@vue/server-renderer': 3.5.22(vue@3.5.22(typescript@4.9.5))
-      '@vue/shared': 3.5.22
-    optionalDependencies:
       '@vue/compiler-dom': 3.5.22
       '@vue/compiler-sfc': 3.5.22
       '@vue/runtime-dom': 3.5.22
@@ -4073,19 +3554,11 @@ snapshots:
       typescript: 4.9.5
 
   web-worker@1.5.0: {}
-  web-worker@1.5.0: {}
 
   wkt-parser@1.5.2: {}
-  wkt-parser@1.5.2: {}
 
-  x2js@3.4.4:
   x2js@3.4.4:
     dependencies:
-      '@xmldom/xmldom': 0.8.11
-
-  xml-utils@1.10.2: {}
-
-  zrender@5.6.1:
       '@xmldom/xmldom': 0.8.11
 
   xml-utils@1.10.2: {}
@@ -4093,7 +3566,5 @@ snapshots:
   zrender@5.6.1:
     dependencies:
       tslib: 2.3.0
-
-  zstddec@0.1.0: {}
 
   zstddec@0.1.0: {}

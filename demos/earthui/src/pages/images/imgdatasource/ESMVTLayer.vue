@@ -83,9 +83,8 @@ const addSceneObjects = () => {
     const { sceneObject } = treeItem
     sceneObject.url = url.value
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESMVTLayer')
-    const objNum2 = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESGeoJson')
     sceneObject.name = '矢量图层' + (objNum)
-    sceneObject.zIndex = objNum + objNum2 + 1
+    sceneObject.zIndex = objNum + 1
     accessToken.value && (sceneObject.accessToken = accessToken.value)
     tileSize.value && (sceneObject.tileSize = tileSize.value)
     maximumLevel.value && (sceneObject.maximumLevel = maximumLevel.value)

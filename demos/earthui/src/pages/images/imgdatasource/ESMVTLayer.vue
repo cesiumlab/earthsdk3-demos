@@ -83,7 +83,9 @@ const addSceneObjects = () => {
     const { sceneObject } = treeItem
     sceneObject.url = url.value
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESMVTLayer')
+    const objNum2 = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESGeoJson')
     sceneObject.name = '矢量图层' + (objNum)
+    sceneObject.zIndex = objNum + objNum2 + 1
     accessToken.value && (sceneObject.accessToken = accessToken.value)
     tileSize.value && (sceneObject.tileSize = tileSize.value)
     maximumLevel.value && (sceneObject.maximumLevel = maximumLevel.value)
@@ -91,7 +93,6 @@ const addSceneObjects = () => {
     north.value && east.value && west.value && south.value && (sceneObject.rectangle = [west.value, south.value, east.value, north.value])
     jsonStr.value && (sceneObject.style = jsonStr.value)
     emits("close")
-
 }
 function getUuid() {
     var d = new Date().getTime();
@@ -167,7 +168,7 @@ const loadIframe = async (json: any) => {
     const newJson = JSON.stringify(json)
     await setJson(newJson)
 }
-const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
+const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 const changeOk = async () => {
     const str = await getJson()
     try {

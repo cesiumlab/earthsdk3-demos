@@ -1,6 +1,7 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
+import { createVueDisposer, toVR } from 'earthsdk-ui';
 import { createAnimateFrameWithStartValues, ESJVector3D, Processing } from "earthsdk3";
-import { ref } from "vue";
+import { onBeforeUnmount, ref, ShallowRef, watch } from "vue";
 
 // 类型定义
 interface CameraInfo {
@@ -13,11 +14,29 @@ interface CameraInfo {
  * @param xbsjEarthUi EarthUI 实例
  * @returns 指南针相关的响应式数据和方法
  */
-export function useNavigator(xbsjEarthUi: XbsjEarthUi) {
+export function useNavigator(xbsjEarthUi: XbsjEarthUi, navigatorRef: Readonly<ShallowRef<HTMLDivElement | null>>) {
     // 响应式数据
     const rotation = ref<number>(0);
     let animateFrame: Processing | null = null;
     let disposeViewerChanged: (() => void) | null = null;
+
+    const disposer = createVueDisposer(onBeforeUnmount);
+    const navigatorScaleRight = toVR<number>(disposer, [xbsjEarthUi.navigatorManager, "navigatorScaleRight"]);
+
+    // 监听右侧位置变化
+    watch(() => navigatorScaleRight.value, (val) => {
+        if (navigatorRef.value) {
+            navigatorRef.value.style.right = val + 'px';
+        }
+    }, { immediate: true });
+
+    // 监听旋转角度变化并更新样式
+    watch(rotation, (newRotation) => {
+        if (navigatorRef.value) {
+            navigatorRef.value.style.transform = `rotate(${-newRotation}deg)`;
+        }
+    });
+
 
     /**
      * 更新指南针旋转角度
@@ -119,6 +138,7 @@ export function useNavigator(xbsjEarthUi: XbsjEarthUi) {
     return {
         // 数据
         rotation,
+        navigatorScaleRight,
 
         // 方法
         updateRotation,

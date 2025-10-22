@@ -22,7 +22,7 @@ import { vClickOutside } from 'earthsdk-ui';
 import { computed, inject, onBeforeUnmount, onMounted, ref } from "vue";
 import { $config } from "@/scripts/getConfig";
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
-import Version from "../Version.vue";
+import Version from "./Version.vue";
 import { useStatusBar } from "./useStatusBar";
 
 // 响应式数据

@@ -6,49 +6,23 @@
 
 <script setup lang="ts">
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
-import { inject, onBeforeUnmount, onMounted, useTemplateRef, watch } from "vue";
+import { inject, onBeforeUnmount, onMounted, useTemplateRef } from "vue";
 import { useNavigator } from './useNavigator';
 
 // 注入 EarthUI 实例
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
 
-// 定义组件属性
-const props = withDefaults(defineProps<{ navigatorScaleRight: number }>(), {});
-
 // DOM 引用
 const navigatorRef = useTemplateRef('navigatorRef');
 
 // 使用自定义 Hook
-const {
-    rotation,
-    flyToNorth,
-    initNavigator,
-    destroy
-} = useNavigator(xbsjEarthUi);
-
-// 监听右侧位置变化
-watch(() => props.navigatorScaleRight, (val) => {
-    if (navigatorRef.value) {
-        navigatorRef.value.style.right = val + 'px';
-    }
-}, { immediate: true });
-
-// 监听旋转角度变化并更新样式
-watch(rotation, (newRotation) => {
-    if (navigatorRef.value) {
-        navigatorRef.value.style.transform = `rotate(${-newRotation}deg)`;
-    }
-});
+const { flyToNorth, initNavigator, destroy } = useNavigator(xbsjEarthUi, navigatorRef);
 
 // 组件挂载时初始化
-onMounted(() => {
-    initNavigator();
-});
+onMounted(() => { initNavigator(); });
 
 // 组件销毁前清理资源
-onBeforeUnmount(() => {
-    destroy();
-});
+onBeforeUnmount(() => { destroy(); });
 </script>
 
 <style scoped>

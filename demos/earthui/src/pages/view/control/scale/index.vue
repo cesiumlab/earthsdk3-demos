@@ -6,16 +6,14 @@
 </template>
 <script setup lang="ts">
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
-import { inject, ref, useTemplateRef } from "vue";
+import { inject, useTemplateRef } from "vue";
 import { useScale } from './useScale';
-
-const props = withDefaults(defineProps<{ navigatorScaleRight: number }>(), {})
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const scaleRef = useTemplateRef('scaleRef')
 
 // 使用比例尺hook
-const { lengthInPixel } = useScale(xbsjEarthUi, ref(props.navigatorScaleRight), scaleRef)
+const { lengthInPixel } = useScale(xbsjEarthUi, scaleRef);
 </script>
 <style scoped>
 .scale {

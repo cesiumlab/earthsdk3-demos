@@ -1,15 +1,12 @@
-import { ESObjectsManager, ESSceneObject } from 'earthsdk3';
-// import { PositionsEditing, CzmGlobeMaterial, ESCesiumViewer } from 'earthsdk3-cesium';
+import { ESObjectsManager, ESSceneObject, react } from "earthsdk3";
+import { ESOlViewer } from 'earthsdk3-ol';
+import { ESUeViewer } from 'earthsdk3-ue';
 import { parse } from 'search-params';
-import { react } from "earthsdk3";
+import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreatorUI';
 import { ClassicNavigatorManager } from "./ClassicNavigator";
 import { MeasurementManager } from "./MeasurementManager";
 import { Reprocess } from "./Reprocess";
 import { $config } from './getConfig';
-import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreatorUI';
-import { ESUeViewer } from 'earthsdk3-ue';
-import { ESCesiumViewer } from 'earthsdk3-cesium';
-import { ESOlViewer } from 'earthsdk3-ol';
 
 export class XbsjEarthUi extends ESObjectsManager {
     private _showSceneTreeView = this.dv(react<boolean>(true));//图层管理

@@ -65,7 +65,7 @@ function createDivClass(sceneObject: SceneObjectsCreatorUI) {
 }
 
 export class SceneObjectsCreatorUI extends ESSceneObject {
-    static readonly type = this.register('SceneObjectsCreatorUI', this, { chsName: 'SceneObjectsCreatorUI', tags: ['MiscObjects'], description: "SceneObjectsCreatorUI" });
+    static readonly type: string = this.register('SceneObjectsCreatorUI', this, { chsName: 'SceneObjectsCreatorUI', tags: ['MiscObjects'], description: "SceneObjectsCreatorUI" });
     get typeName() { return 'SceneObjectsCreatorUI'; }
     override get defaultProps() { return SceneObjectsCreatorUI.createDefaultProps(); }
     get json() { return this._innerGetJson() as JsonType; }

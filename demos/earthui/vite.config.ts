@@ -4,12 +4,15 @@ import cesium from 'vite-plugin-cesium';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import path from 'path';
 import htmlModifier from './plugins/htmlModifier';
+
 export default defineConfig({
   base: './', // 默认值，应用部署在根路径
   resolve: {
     alias: {
       // 配置Cesium的访问
-      cesium: path.resolve(__dirname, 'node_modules/cesium/Source/Cesium')
+      cesium: path.resolve(__dirname, 'node_modules/cesium/Source/Cesium'),
+      // 配置@别名指向src目录
+      '@': path.resolve(__dirname, 'src')
     }
   },
   plugins: [
@@ -28,4 +31,3 @@ export default defineConfig({
     })
   ],
 })
-

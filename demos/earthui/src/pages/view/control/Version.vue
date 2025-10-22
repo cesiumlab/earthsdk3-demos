@@ -1,53 +1,134 @@
 <template>
-    <div class="versiuo_info_list">
-        <div v-for="item in version" :title="`${item.name}:${item.version}`">{{ item.name }} : {{ item.version }}</div>
+    <div class="version_info_list">
+        <div v-for="item in versionItems" :key="item.name" :title="`${item.name}: ${item.version}`">
+            {{ item.name }} : {{ item.version }}
+        </div>
     </div>
 </template>
+
 <script setup lang="ts">
+import { getEarthuiVersion } from "@/scripts/earthuiVersion";
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
 import { ESUeViewer } from "earthsdk3-ue";
-import { inject, onMounted, ref } from "vue";
-import { getEarthuiVersion } from "../../../scripts/earthuiVersion";
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const version = ref<{ name: string, version: string }[]>([])
-function getValueBeforeFirstComma2(str: string) {
-    var parts = str.split('  ');
-    return parts[1];
+import { inject, onMounted, ref, Ref } from "vue";
+// 定义版本项接口
+interface VersionItem {
+    name: string;
+    version: string;
 }
-const getVersion = async () => {
-    const viewer = xbsjEarthUi.activeViewer
-    if (!viewer) return
-    const v: any = []
-    const versions = await viewer.getVersion()
-    if (!versions) return
-    for (let key in versions) {
-        if (versions.hasOwnProperty(key)) { // 确保是对象自有属性，不是原型链上的属性
-            if (key === 'esforue') {
-                if (viewer instanceof ESUeViewer) {
-                    v.push({ name: key, version: getValueBeforeFirstComma2(versions[key]) })
+
+// 注入地球UI实例
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
+
+// 响应式版本数据
+const versionItems: Ref<VersionItem[]> = ref([]);
+
+/**
+ * 从字符串中提取版本信息（针对UE引擎）
+ * @param versionStr 包含版本信息的字符串
+ * @returns 提取的版本号
+ */
+function extractUeVersion(versionStr: string): string {
+    const parts = versionStr.split('  ');
+    return parts[1] || versionStr;
+}
+
+/**
+ * 处理不同类型的版本信息
+ * @param versions 原始版本对象
+ * @param viewer 当前视图器实例
+ * @returns 格式化后的版本数组
+ */
+function processVersions(versions: any, viewer: any): VersionItem[] {
+    const items: VersionItem[] = [];
+
+    for (const key in versions) {
+        if (versions.hasOwnProperty(key)) {
+            try {
+                switch (key) {
+                    case 'esforue':
+                        // 仅当使用UE视图器时添加UE版本信息
+                        if (viewer instanceof ESUeViewer) {
+                            items.push({
+                                name: key,
+                                version: extractUeVersion(versions[key])
+                            });
+                        }
+                        break;
+                    case 'cesium':
+                        // Cesium版本信息
+                        items.push({
+                            name: key,
+                            version: versions[key]
+                        });
+                        break;
+                    default:
+                        // 其他组件版本信息
+                        items.push({
+                            name: key,
+                            version: versions[key].version || versions[key]
+                        });
                 }
-            } else if (key == 'cesium') {
-                v.push({ name: key, version: versions[key] })
-            } else {
-                v.push({ name: key, version: versions[key].version })
+            } catch (error) {
+                console.warn(`处理版本信息 ${key} 时出错:`, error);
+                // 即使某个版本信息处理失败，也继续处理其他版本信息
+                items.push({
+                    name: key,
+                    version: 'unknown'
+                });
             }
         }
     }
-    v.push({ name: 'earth-ui', version: getEarthuiVersion() })
-    version.value = v
+
+    // 添加EarthUI版本信息
+    items.push({
+        name: 'earth-ui',
+        version: getEarthuiVersion()
+    });
+
+    return items;
 }
+
+/**
+ * 获取并设置版本信息
+ */
+const loadVersions = async (): Promise<void> => {
+    try {
+        const viewer = xbsjEarthUi.activeViewer;
+        if (!viewer) {
+            console.warn('未找到活动的视图器实例');
+            return;
+        }
+
+        const versions = await viewer.getVersion();
+        if (!versions) {
+            console.warn('未能获取到版本信息');
+            return;
+        }
+
+        versionItems.value = processVersions(versions, viewer);
+    } catch (error) {
+        console.error('获取版本信息时发生错误:', error);
+        versionItems.value = [{
+            name: 'error',
+            version: '无法获取版本信息'
+        }];
+    }
+};
+
+// 组件挂载时加载版本信息
 onMounted(() => {
-    getVersion()
-})
+    loadVersions();
+});
 </script>
+
 <style scoped>
-.versiuo_info_list {
+.version_info_list {
     position: fixed;
     right: 5px;
     bottom: 35px;
     min-width: 200px;
     max-width: 300px;
-    /* height: 200px; */
     background: rgba(37, 38, 42, 1);
     z-index: 2000;
     border: 1px solid rgba(180, 180, 180, 1);
@@ -60,7 +141,7 @@ onMounted(() => {
     padding: 3px 10px;
 }
 
-.versiuo_info_list>div {
+.version_info_list>div {
     width: 100%;
     height: 25px;
     line-height: 25px;

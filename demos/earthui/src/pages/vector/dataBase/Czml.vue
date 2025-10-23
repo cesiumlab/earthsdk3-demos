@@ -54,7 +54,7 @@ const addSceneObjects = () => {
   const sceneObject = newTreeItem.sceneObject as ESCzml;
   xbsjEarthUi.propSceneTree = newTreeItem;
   // if (serveUrl.value.trim().startsWith("http")) {
-  sceneObject.uri = isJSON(serveUrl.value)
+  sceneObject.url = isJSON(serveUrl.value)
     ? JSON.parse(serveUrl.value)
     : serveUrl.value;
   // } else {

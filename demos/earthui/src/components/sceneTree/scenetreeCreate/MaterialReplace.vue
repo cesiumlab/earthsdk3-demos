@@ -129,6 +129,7 @@ const getMaterialNameList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
     const temp = await sceneObject.getMaterialNameList() as any
     list.value = temp.map((item: any) => {
+        //@ts-ignore
         return { key: item, value: sceneObject.materialOverrideMap ? sceneObject.materialOverrideMap[item] : undefined, select: false }
     })
 }
@@ -138,8 +139,9 @@ const getMaterialNameList = async () => {
  */
 const getTilesetMaterialIDList = async () => {
     const sceneObject = props.setStyleTreeItem?.sceneObject as ES3DTileset
-    if (sceneObject.viewer instanceof ESUeViewer) {
-        tilesetUEMaterial.value = await sceneObject.viewer.getTilesetMaterialIDList() as any
+    if (sceneObject.activeViewer instanceof ESUeViewer) {
+        tilesetUEMaterial.value = await sceneObject.activeViewer.getTilesetMaterialIDList() as any
+        
     }
 }
 

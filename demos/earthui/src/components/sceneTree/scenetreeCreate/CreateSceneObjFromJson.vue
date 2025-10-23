@@ -1,49 +1,32 @@
 <template>
-    <Window :title="'编辑器'" :show="props.isShow" @cancel="changeCancel" @ok="changeOk" :width="800" :height="500">
-        <div style="margin-left:10px">
-            <button @click="copyJson">复制</button>
-            <button @click="importJsonFile">导入</button>
-            <button @click="exportJsonFile">导出</button>
-        </div>
+    <Window :minWidthHeight="[300, 200]" :title="'编辑器'" :show="props.isShow" @cancel="changeCancel" @ok="changeOk"
+        :width="800" :height="500">
         <iframe :src="iframeSrc" frameborder="0" @load="loadIframe" ref="mainIframe"
             style="width:100%;  height:calc(100% - 50px);cursor: not-allowed"></iframe>
     </Window>
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
-import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
+import { ref } from "vue";
 import { Message } from "earthsdk-ui"
 import Window from "../../../components/commom/Window.vue";
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import { createSceneObjTreeItemFromJson } from "../../../pages/plotting/esObj/fun"
 import { ESSceneObject } from "earthsdk3";
-const emits = defineEmits(["changeShow"]);
-const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
-
+const emits = defineEmits(["changeShow", "confirm"]);
 const mainIframe = ref<HTMLIFrameElement>();
-
 const props = withDefaults(defineProps<{
     isShow: boolean,
-}>(), {});
-const copyClipboard = async (text: string) => {//复制
-    navigator.clipboard.writeText(text)
-        .then(function () {
-            Message.success('复制成功');
-        }, function (e) {
-            Message.error(`复制失败!error:${e}`);
-        });
-}
-const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
+    json?: any
+}>(), { json: {} });
+const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 const loadIframe = async () => {
-    await setJson(JSON.stringify({}, undefined, '    '))
+    await setJson(JSON.stringify(props.json, undefined, '    '))
 }
 const changeOk = async () => {
     const str = await getJson()
     try {
         const json = JSON.parse(str);
         if (json) {
-            createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+            emits("confirm", json)
         }
         changeCancel()
     } catch (error) {
@@ -55,45 +38,6 @@ const changeOk = async () => {
 const changeCancel = () => {
     emits("changeShow", false);
 }
-
-const copyJson = async () => {
-    const str = await getJson()
-    copyClipboard(str)//复制
-}
-
-const importSetJson = async (str: string) => {
-    await setJson(str)
-}
-
-const importJsonFile = async () => { //导入文件
-    try {
-        Message.warning('正在打开..')
-        const handle = await getOpenFileHandle('json');
-        if (!handle) return;
-        const jsonStr = await getTextFromFile(handle);
-        if (!jsonStr) return;
-        importSetJson(jsonStr)
-        Message.success('导入成功！')
-    } catch (error) {
-        Message.error(`打开失败！ error: ${error}`);
-    }
-}
-const exportJsonFile = async () => {
-    const str = await getJson()
-    saveAs(str)
-}
-const saveAs = async (jsonStr: string, name?: string) => {
-    try {
-        Message.warning('正在另存为..');
-        const handle = await getSaveFileHandle('json', name);
-        if (!handle) return;
-        await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
-    }
-}
-
 function getUuid() {
     var d = new Date().getTime();
     if (window.performance && typeof window.performance.now === "function") {

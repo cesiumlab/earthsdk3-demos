@@ -1,4 +1,3 @@
-
 <script setup lang='ts'>
 import { nextTick, reactive, ref, watch } from 'vue';
 const props = withDefaults(defineProps<{
@@ -10,7 +9,8 @@ const props = withDefaults(defineProps<{
     readonly?: boolean,
     width?: number,
     height?: number,
-    isFocus?: boolean
+    isFocus?: boolean,
+    minWidthHeight?: number[]
 }>(), {
     modelValue: true,
     title: '设置',
@@ -20,7 +20,8 @@ const props = withDefaults(defineProps<{
     readonly: false,
     width: 700,
     height: 400,
-    isFocus: true
+    isFocus: true,
+    minWidthHeight: () => [300, 70]
 });
 const emits = defineEmits(['ok', 'cancel']);
 
@@ -144,10 +145,10 @@ const resize = (e: MouseEvent) => {
         const w = e.movementX + containerStyle.width;
         const h = e.movementY + containerStyle.height;
 
-        if (w >= 300 && w <= maxWidth) {
+        if (w >= props.minWidthHeight[0] && w <= maxWidth) {
             containerStyle.width = w;
         }
-        if (h >= 70 && h <= maxHeight) {
+        if (h >=  props.minWidthHeight[1] && h <= maxHeight) {
             containerStyle.height = h;
         }
         setSize();
@@ -225,7 +226,8 @@ const resize = (e: MouseEvent) => {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: rgba(27, 27, 27, 1);;
+    background-color: rgba(27, 27, 27, 1);
+    ;
 }
 
 .modal-body {

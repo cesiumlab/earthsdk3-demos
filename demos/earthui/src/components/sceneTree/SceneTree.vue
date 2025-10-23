@@ -24,7 +24,11 @@
         <PropTreeWrapper v-if="propIsShow" :nameTitle="'属性管理器'" :propTree="propTreeRef" :key="propTreeKey">
         </PropTreeWrapper>
     </DraggablePopup2>
-    <CreateSceneObjFromJson :isShow="createSceneObjFromJsonShow" @changeShow="createSceneObjFromJsonShow = false">
+    <CreateSceneObjFromJson :isShow="createSceneObjFromJsonShow" @changeShow="createSceneObjFromJsonShow = false"
+        @confirm="createSceneObjFromJson">
+    </CreateSceneObjFromJson>
+    <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObj.json"
+        @changeShow="editSceneObjShow = false" @confirm="editSceneObjFromJson">
     </CreateSceneObjFromJson>
     <LiftHeight :isShow="liftHeightShow" @changeShow="liftHeightShow = false" :liftHeightTreeItem="liftHeightTreeItem"
         :key="liftHeightType" :liftHeightType="liftHeightType" :liftHeightName="liftHeightName">
@@ -41,6 +45,7 @@ import { FileHandleType, Message, createVueDisposer, getSaveFileHandle, messageB
 import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, ESTextLabel, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { ESKml } from 'earthsdk3-cesium'
 import { Ref, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
+
 import { JsonValue, Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
 import { getNoToken, getNoTokenText } from "../../api/service";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
@@ -56,7 +61,7 @@ import SetStyle from "./scenetreeCreate/SetStyle.vue";
 import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
 import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
 import { ESUeViewer } from "earthsdk3-ue";
-
+import { createSceneObjTreeItemFromJson } from "../../pages/plotting/esObj/fun";
 const props = withDefaults(defineProps<{
     showCheckBox: boolean
     clickEmpty: boolean,
@@ -83,15 +88,17 @@ const close = () => {
     propIsShow.value = false
     xbsjEarthUi.propUiTreeManager.sceneObject = undefined;
 }
-const createSceneObjFromJsonShow = ref(false)
+const createSceneObjFromJsonShow = ref(false)//创建场景对象
+const editSceneObjShow = ref(false)//编辑场景对象
 const liftHeightShow = ref(false)//抬升高度
 const setStyleShow = ref(false)//设置样式
 const materialReplaceShow = ref(false)//材质替换
-const liftHeightTreeItem = ref<any>(undefined)
-const setStyleTreeItem = ref<any>(undefined)
-const liftHeightType = ref<string>('')
-const liftHeightName = ref<string>('')
-const popTreeItem = ref()
+const liftHeightTreeItem = ref<any>(undefined)//抬升高度
+const setStyleTreeItem = ref<any>(undefined)//设置样式
+const editSceneObj = ref<any>({ json: {} })//编辑场景对象的json
+const liftHeightType = ref<string>('')//抬升高度类型
+const liftHeightName = ref<string>('')//抬升高度名称
+const popTreeItem = ref()//右键菜单
 type menuContentType = {
     text: string;
     keys: string;
@@ -546,16 +553,6 @@ const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {
             },
         },
         {
-            text: "打印配置",
-            keys: "",
-            func: () => {
-                const jsonStr = treeItem?.jsonStr;
-                if (jsonStr) {
-                    console.log(jsonStr);
-                }
-            },
-        },
-        {
             text: "下载配置",
             keys: "",
             func: () => {
@@ -684,13 +681,17 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
             },
         },
         {
-            text: "打印配置",
+            text: "编辑对象json",
             keys: "",
             func: () => {
-                const jsonStr = treeItem.sceneObject?.json;
-                if (jsonStr) {
-                    console.log(jsonStr);
-                }
+                editSceneObjShow.value = false
+                const sceneObject = treeItem.sceneObject;
+                if (!sceneObject) return Message.warning('当前节点没有对象')
+                editSceneObj.value = sceneObject
+                setTimeout(() => {
+                    editSceneObjShow.value = true
+                }, 100)
+
             },
         }, {
             text: "复制对象json",
@@ -1161,9 +1162,20 @@ const itemGeoJsonTOESObjects = (a: any) => {
         }
     }, 100)
 }
-
-
-
+/**
+ * 通过json创建对象
+ * @param json 
+ */
+const createSceneObjFromJson = (json: any) => {
+    createSceneObjTreeItemFromJson(xbsjEarthUi, json)
+}
+/**
+ * 编辑对象json
+ * @param json 
+ */
+const editSceneObjFromJson = (json: any) => {
+    editSceneObj.value.json = json
+}
 /**
  * Kml转ES对象
  * @param url

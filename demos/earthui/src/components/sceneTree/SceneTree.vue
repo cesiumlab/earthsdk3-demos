@@ -27,7 +27,7 @@
     <CreateSceneObjFromJson :isShow="createSceneObjFromJsonShow" @changeShow="createSceneObjFromJsonShow = false"
         @confirm="createSceneObjFromJson">
     </CreateSceneObjFromJson>
-    <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObjTreeItem.json"
+    <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObj.json"
         @changeShow="editSceneObjShow = false" @confirm="editSceneObjFromJson">
     </CreateSceneObjFromJson>
     <LiftHeight :isShow="liftHeightShow" @changeShow="liftHeightShow = false" :liftHeightTreeItem="liftHeightTreeItem"
@@ -62,8 +62,6 @@ import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
 import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
 import { ESUeViewer } from "earthsdk3-ue";
 import { createSceneObjTreeItemFromJson } from "../../pages/plotting/esObj/fun";
-import { log } from "echarts/types/src/util/log.js";
-
 const props = withDefaults(defineProps<{
     showCheckBox: boolean
     clickEmpty: boolean,
@@ -97,7 +95,7 @@ const setStyleShow = ref(false)//设置样式
 const materialReplaceShow = ref(false)//材质替换
 const liftHeightTreeItem = ref<any>(undefined)//抬升高度
 const setStyleTreeItem = ref<any>(undefined)//设置样式
-const editSceneObjTreeItem = ref<any>({ json: {} })//编辑场景对象的json
+const editSceneObj = ref<any>({ json: {} })//编辑场景对象的json
 const liftHeightType = ref<string>('')//抬升高度类型
 const liftHeightName = ref<string>('')//抬升高度名称
 const popTreeItem = ref()//右键菜单
@@ -555,20 +553,6 @@ const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {
             },
         },
         {
-            text: "编辑对象json",
-            keys: "",
-            func: () => {
-                editSceneObjShow.value = false
-                const jsonStr = treeItem.json;
-                if (jsonStr) {
-                    editSceneObjTreeItem.value = treeItem
-                    setTimeout(() => {
-                        editSceneObjShow.value = true
-                    }, 100)
-                }
-            },
-        },
-        {
             text: "下载配置",
             keys: "",
             func: () => {
@@ -701,13 +685,13 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
             keys: "",
             func: () => {
                 editSceneObjShow.value = false
-                const jsonStr = treeItem.json;
-                if (jsonStr) {
-                    editSceneObjTreeItem.value = treeItem
-                    setTimeout(() => {
-                        editSceneObjShow.value = true
-                    }, 100)
-                }
+                const sceneObject = treeItem.sceneObject;
+                if (!sceneObject) return Message.warning('当前节点没有对象')
+                editSceneObj.value = sceneObject
+                setTimeout(() => {
+                    editSceneObjShow.value = true
+                }, 100)
+
             },
         }, {
             text: "复制对象json",
@@ -1190,7 +1174,7 @@ const createSceneObjFromJson = (json: any) => {
  * @param json 
  */
 const editSceneObjFromJson = (json: any) => {
-    editSceneObjTreeItem.value.json = json
+    editSceneObj.value.json = json
 }
 /**
  * Kml转ES对象

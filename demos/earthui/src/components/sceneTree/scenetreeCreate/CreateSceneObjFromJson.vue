@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<{
 }>(), { json: {} });
 const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 const loadIframe = async () => {
-    await setJson(JSON.stringify(props.json, undefined, '    '))
+    await setJson(JSON.stringify(props.json ?? {}, undefined, '    '))
 }
 const changeOk = async () => {
     const str = await getJson()

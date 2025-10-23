@@ -45,7 +45,7 @@ import LabelInput from "../../../components/LabelInput.vue";
 import PopList from '../../../components/PopList.vue';
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
+import { getsceneObjNumfromSceneTree, searchMaxZindex } from "../../../scripts/general"
 import { ESSceneObject } from "earthsdk3";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
@@ -63,6 +63,8 @@ const windowShow = ref(false)
 const urlWindowShow = ref(false)
 const emits = defineEmits(['close']);
 const addSceneObjects = () => {
+    let maxZindex = searchMaxZindex(sceneTree, 'ESMVTLayer');
+
     if (!url.value) {
         Message.warning('请输入地址')
         return
@@ -81,10 +83,11 @@ const addSceneObjects = () => {
     sceneTree.uiTree.clearAllSelectedItems()
     treeItem.uiTreeObject.selected = true
     const { sceneObject } = treeItem
+    xbsjEarthUi.propSceneTree = treeItem
     sceneObject.url = url.value
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESMVTLayer')
     sceneObject.name = '矢量图层' + (objNum)
-    sceneObject.zIndex = objNum + 1
+    sceneObject.zIndex = maxZindex + 1
     accessToken.value && (sceneObject.accessToken = accessToken.value)
     tileSize.value && (sceneObject.tileSize = tileSize.value)
     maximumLevel.value && (sceneObject.maximumLevel = maximumLevel.value)

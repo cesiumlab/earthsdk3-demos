@@ -27,15 +27,15 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
 
-"@cesium/engine@^20.0.1":
-  version "20.0.1"
-  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-20.0.1.tgz#ab3627b42df602dbd7f10d3fa97e48b365481161"
-  integrity sha512-B2TQ9VtVb791dUJatgx6SCRZg3tFPcRi8QseWg9flovaFOHJY0o+LX5BN2J5plFKRO5r5v7g+M2OyjcUYwaRDQ==
+"@cesium/engine@^21.0.1":
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/@cesium/engine/-/engine-21.0.1.tgz#316edc19a84a045ee304912c3a2f7bf5d7b8e20a"
+  integrity sha512-V4MEHOcYMcg+zCxrPjPAVpUyJxmIw6K9qPz5Fd2fnYPoMSPV7FJsiZYoFns03yoPHOPIeqnXQNspZKLX5Xzgfw==
   dependencies:
     "@cesium/wasm-splats" "^0.1.0-alpha.2"
     "@spz-loader/core" "0.3.0"
     "@tweenjs/tween.js" "^25.0.0"
-    "@zip.js/zip.js" "^2.7.70 <2.8.0"
+    "@zip.js/zip.js" "^2.8.1"
     autolinker "^4.0.0"
     bitmap-sdf "^1.0.3"
     dompurify "^3.0.2"
@@ -59,12 +59,12 @@
   resolved "https://registry.npmjs.org/@cesium/wasm-splats/-/wasm-splats-0.1.0-alpha.2.tgz#f2d0d717d46f5f3d6d923549e90fb5ab4d429cab"
   integrity sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==
 
-"@cesium/widgets@^13.1.1":
-  version "13.1.1"
-  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-13.1.1.tgz#29996c409fca3092a419914e378e220ef0eefd18"
-  integrity sha512-EIZCSLLJzG0BeNcKjDfQcNv+9KiI9TqqN0RveuZIu++FCs2kL29neImicWEZlSfX38xxQLaogmhZLh2pO73NPg==
+"@cesium/widgets@^13.2.1":
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/@cesium/widgets/-/widgets-13.2.1.tgz#4b6f4f163aa3ca2474bfbdbeedc15f82abce98ec"
+  integrity sha512-VwJvw4UmEyK9slrDUImVcz3GFs5FDITH21BOiTVMSWuSsoqVDtMV0vTsoggFpIIqdYj6usHZjKuDnD9BT3vZAQ==
   dependencies:
-    "@cesium/engine" "^20.0.1"
+    "@cesium/engine" "^21.0.1"
     nosleep.js "^0.12.0"
 
 "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2@^0.5.8":
@@ -1737,10 +1737,10 @@
   resolved "https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.8.11.tgz#b79de2d67389734c57c52595f7a7305e30c2d608"
   integrity sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==
 
-"@zip.js/zip.js@^2.7.70 <2.8.0":
-  version "2.7.73"
-  resolved "https://registry.npmjs.org/@zip.js/zip.js/-/zip.js-2.7.73.tgz#56b215ac9fb8511ffb3073d33cd8108f1360a0f9"
-  integrity sha512-I2UP8/rdQE5hTtVVL08B7P8XuwXiKuuMUPjNuFOVL/9b+8IsExR9S5jz2H58u0rJjU4M1BikLgqEMG8gZJZVBw==
+"@zip.js/zip.js@^2.8.1":
+  version "2.8.8"
+  resolved "https://registry.yarnpkg.com/@zip.js/zip.js/-/zip.js-2.8.8.tgz#93674320bb63c6f3247aaa5b6aef891e0a8cad53"
+  integrity sha512-v0KutehhSAuaoFAFGLp+V4+UiZ1mIxQ8vNOYMD7k9ZJaBbtQV49MYlg568oRLiuwWDg2Di58Iw3Q0ESNWR+5JA==
 
 anymatch@~3.1.2:
   version "3.1.3"
@@ -1824,13 +1824,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
-cesium@1.133.1:
-  version "1.133.1"
-  resolved "https://registry.npmjs.org/cesium/-/cesium-1.133.1.tgz#00a002e406556d065da4f007890fb825c9b32377"
-  integrity sha512-cbxsvAii7GE1D9OQIFjCKtkjDxm5WIVz5R47jswkhJ11sI3dEgSqZJi/e+C4PIulpdchwij+PEWE7nI0IQX7yw==
+cesium@1.134.1:
+  version "1.134.1"
+  resolved "https://registry.yarnpkg.com/cesium/-/cesium-1.134.1.tgz#b5369211ecbb6788a0477ba43e6527b6f2a51e1b"
+  integrity sha512-5gbpwdFRV4zwujGeX/xlrItx2xbI20ZM+rKMUwdKc5dfLqt3uVEVzFewm+lOKLGLRJRBcH7XbDgqtmD63l18Yw==
   dependencies:
-    "@cesium/engine" "^20.0.1"
-    "@cesium/widgets" "^13.1.1"
+    "@cesium/engine" "^21.0.1"
+    "@cesium/widgets" "^13.2.1"
 
 chokidar@^3.5.3:
   version "3.6.0"
@@ -2029,10 +2029,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.4.6:
-  version "3.4.6"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.4.6.tgz#8be01d1d3c1ba1bb8306d6387b8a58a458ce6a73"
-  integrity sha512-8jHbi8bOLcG45GNd1h9VhfM8WNQPS95M56Bwqj4XkjcSO9vnNRiet/4/gg6XjLOZIPxdrggCm2gpqN0GEqF+Bw==
+earthsdk3-cesium@3.5.0-beta.17:
+  version "3.5.0-beta.17"
+  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.5.0-beta.17.tgz#2921804427afd926b100466ab1d71d229f901c9a"
+  integrity sha512-FZREwAysbww8pXcqr9KsfEvEZlG23YkPjyj6Z53HSla1bXI6C4whWnVnY7zfSV/Su0IFzvobTH2WEFEw0px7sw==
   dependencies:
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
@@ -2040,23 +2040,23 @@ earthsdk3-cesium@3.4.6:
     html2canvas "^1.4.1"
     mvt-basic-render "^0.3.5"
 
-earthsdk3-ol@3.5.0-beta.1:
-  version "3.5.0-beta.1"
-  resolved "https://registry.npmjs.org/earthsdk3-ol/-/earthsdk3-ol-3.5.0-beta.1.tgz#abedb68374ff74cb49cd3b1fc76ce2db61f64834"
-  integrity sha512-VNU/T1WlrhMuSVPHZIXTT6ODdkAZasVwBbdNB+vQxb+8c4JNwxycOCfLxKDrHCoyLn8A95mIY4VRqeu9lKr2xw==
+earthsdk3-ol@3.5.0-beta.15:
+  version "3.5.0-beta.15"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ol/-/earthsdk3-ol-3.5.0-beta.15.tgz#e94bc4111d8c43d242930640c36db33f62c50594"
+  integrity sha512-drspWc+HWkatTpSj9pJYgN7nQubljN2USojnZj7Dcv+tT4r+lKUtHyn7Qd+n7efIrLqW6jmyGJYfdbnUbZm5Zw==
 
-earthsdk3-ue@3.4.2:
-  version "3.4.2"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.4.2.tgz#af8afbb9617ce77419d62aa6a91f1ab52a61efb9"
-  integrity sha512-EROhtHYzeFK88UxWThAlvPy1PILleZq2ko71Y0p4U8uapReb90a7UMrWaHEqE6DO26/aQZqpVpLjYAnSs8aRdw==
+earthsdk3-ue@3.5.0-beta.15:
+  version "3.5.0-beta.15"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.5.0-beta.15.tgz#5a6c881b832f82eb16fdcfd3a5bc30d041bffee0"
+  integrity sha512-ayRNPDTY0s11085ISzrAq9JdyxsMXGbAzbc1x2AFJfit8HXcOa4RMX2TZG2uKzw3suh4Bc3uv2LBn0Zap7D27g==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.4.2:
-  version "3.4.2"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.4.2.tgz#508332351fe9a79afa50cfbb6ed01a5b4803260f"
-  integrity sha512-7rTSdvaC+cpdDgKMVXrRKZUTCF8QZmXw5ZUxeYGpeEYmFnIY3LviQmyXid03pWWcRByPZQ4ZbYVchzim55Q+Bg==
+earthsdk3@3.5.0-beta.17:
+  version "3.5.0-beta.17"
+  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.5.0-beta.17.tgz#a20f21847dcd2578f93223503c5f70b1a4167209"
+  integrity sha512-WtWz5gpRMVW6uaxbqZueUoc5VgxCxg8WMZTYMRX+fylf+dUuAY1ZU4IaTtIuQZ5Iwf6yerLZNbTIwXHffs/WYA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

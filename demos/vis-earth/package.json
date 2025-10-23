@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "cesium": "1.134.1",
-    "earthsdk3": "3.5.0-beta.18",
-    "earthsdk3-cesium": "3.5.0-beta.19",
+    "earthsdk3": "3.5.0-beta.19",
+    "earthsdk3-cesium": "3.5.0-beta.20",
     "earthsdk3-assets": "3.0.6"
   },
   "devDependencies": {

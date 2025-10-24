@@ -5,7 +5,7 @@ const path = require('path');
 const newVersion = {
     // "xbsj-base": "1.0.6", 3.5.0-beta.1 之后版本移除 xbsj-base
     "earthsdk3": "3.5.0-beta.19",
-    "earthsdk3-cesium": "3.5.0-beta.20",
+    "earthsdk3-cesium": "3.5.0-beta.21",
     "earthsdk3-ue": "3.5.0-beta.15",
     "earthsdk3-ol": "3.5.0-beta.15",
     "earthsdk3-assets": "3.0.6",

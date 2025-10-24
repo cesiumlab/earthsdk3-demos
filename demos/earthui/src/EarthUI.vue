@@ -51,7 +51,7 @@ import Editing from './components/editing/Editing.vue';
 import ESPropPanel from './components/eSPropPanel/ESPropPanel.vue';
 import SceneTree from "./components/sceneTree/SceneTree.vue";
 import ViewersComp from './components/viewers/Viewers.vue';
-import { analysis, engine, environment, images, model, plotting, roam, search, service, terrain, vector, view } from './pages';
+import { mcpserver, analysis, engine, environment, images, model, plotting, roam, search, service, terrain, vector, view } from './pages';
 import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
 import CzmPickResult from "./pages/roam/cousePicking/CzmPickResult.vue";
 import TimeLine from "./pages/view/animation/TimeLine.vue";
@@ -202,6 +202,14 @@ const originalList: list = [
         component: service,
         isShow: true
     },
+    {
+        id: 14,
+        title: "Agent",
+        value: 'mcp',
+        icon: 'shitu',
+        component: mcpserver,
+        isShow: true
+    }
 ]
 const navList = shallowRef()
 navList.value = originalList

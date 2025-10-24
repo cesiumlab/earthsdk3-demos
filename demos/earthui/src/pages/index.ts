@@ -10,4 +10,5 @@ import terrain from './terrain/index.vue';
 import view from './view/index.vue';
 import service from './service/index.vue';
 import search from './search/index.vue';
-export { analysis, engine, environment, images, model, vector, plotting, roam, terrain, view, service, search }
+import mcpserver from './mcpserver/index.vue';
+export { mcpserver, analysis, engine, environment, images, model, vector, plotting, roam, terrain, view, service, search }

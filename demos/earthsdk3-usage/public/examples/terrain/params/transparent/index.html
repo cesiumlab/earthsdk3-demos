@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cesium示例</title>
+</head>
+<!--Cesium js文件引入 -->
+<script src="./js/earthsdk.js"></script>
+<!-- 自定义Css样式 -->
+<link rel="stylesheet" href="./css/example1.css" />
+
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 999;
+    }
+</style>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <input id="transparent" type="range" value="0.2" step="0.01" min="0" max="1" oninput="setTransparent()" />
+        <div class="rangeNum" id="transparentBox">0.2</div>
+    </div>
+
+    <script>
+
+        /** -----------------------------------------地球创建----------------------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window["EarthSDK3"];
+        const { ESCesiumViewer } = window["EarthSDK3_Cesium"];
+        const { ESUeViewer } = window["EarthSDK3_UE"];
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([120.15487432479986, 30.10734187072578, 11267.53961605032], [8.142219984546603e-13, -45.09919939073693, 359.9999999999594], 3)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        /**-------------------------------------cesium地形-------------------------------**/
+        Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k";
+        const terrain = objm.createSceneObject("ESTerrainLayer");
+        terrain.url = "ion://1";
+        // 设置透明模式
+        terrain.renderMode = "transparent";
+        // 透明度设置
+        objm.activeViewer.terrainOpacity = 0.2;
+
+        // 设置透明函数
+        const setTransparent = () => {
+            let value = Number(document.querySelector("#transparent").value);
+            document.querySelector("#transparentBox").innerHTML = value;
+            // 视口透明属性
+            objm.activeViewer.terrainOpacity = value;
+        };
+
+        /**-----------------------------创建一个ES3DTileset对象-------------------------------**/
+        const { ES3DTileset } = window['EarthSDK3']
+        const tileset = objm.createSceneObject(ES3DTileset)
+        tileset.url = "https://www.earthsdk.com/assets/tileset/hangzhouShp/tileset.json"
+
+
+        /**-----------------------------通过json创建一个影像图层-------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            maximumLevel: 16,
+        });
+
+
+    </script>
+</body>
+
+</html>

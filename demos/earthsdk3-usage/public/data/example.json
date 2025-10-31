@@ -592,6 +592,16 @@
                 "details": "地形分析",
                 "children": [
                     {
+                        "name": "地形透明",
+                        "thumbnail": "terrain-params-transparent.webp",
+                        "path": "terrain/params/transparent"
+                    },
+                    {
+                        "name": "深度检测",
+                        "thumbnail": "terrain-params-depth.webp",
+                        "path": "terrain/params/trans"
+                    },
+                    {
                         "name": "挖坑",
                         "thumbnail": "terrain-params-excavate.webp",
                         "path": "terrain/params/excavate"
@@ -1153,11 +1163,6 @@
                         "name": "Cesium原生viewer获取",
                         "thumbnail": "cesium-viewer-viewer.webp",
                         "path": "cesium/viewer/viewer"
-                    },
-                    {
-                        "name": "Cesium深度检测",
-                        "thumbnail": "cesium-viewer-depth.webp",
-                        "path": "cesium/viewer/depth"
                     }
                 ]
             },

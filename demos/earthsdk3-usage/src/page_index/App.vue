@@ -95,11 +95,7 @@ function toggleTheme() {
     border-radius: 12px;
     box-shadow: var(--shadow-md);
     overflow-y: auto;
-    /* hide scrollbar but keep scrollable */
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
 }
-.right::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 /* Smooth scrollbars */
 .left::-webkit-scrollbar,

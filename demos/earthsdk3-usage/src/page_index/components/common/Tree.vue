@@ -2,6 +2,7 @@
     <div class="tree-root">
         <TreeItem v-for="(item, index) in visibleItems" :key="index" :item="item" @toggleExpand="toggleExpand"
             @onclick="onclick" />
+        <div class="tree-footer">总示例：{{ totalExamples }}</div>
     </div>
     
 </template>
@@ -65,6 +66,22 @@ const visibleItems = computed(() =>
     })
 )
 
+// 统计叶子节点数量（示例总数）
+function countLeafNodes(nodes) {
+    let count = 0;
+    nodes.forEach((n) => {
+        const hasChildren = n.children && n.children.length > 0;
+        if (hasChildren) {
+            count += countLeafNodes(n.children);
+        } else {
+            count += 1;
+        }
+    });
+    return count;
+}
+
+const totalExamples = computed(() => countLeafNodes(props.tree || []))
+
 function toggleExpand(item) {
     // 只允许一个二级节点（level==1）展开
     if (item.level === 1) {
@@ -94,5 +111,13 @@ function onclick(item) {
 .tree-root {
     padding: 10px 8px 16px 8px;
     color: var(--text);
+}
+
+.tree-footer {
+    margin-top: 12px;
+    padding: 8px 4px 0 4px;
+    border-top: 1px dashed var(--border);
+    color: var(--muted);
+    font-size: 12px;
 }
 </style>

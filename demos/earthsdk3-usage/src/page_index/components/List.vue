@@ -96,7 +96,7 @@ function trunToEditor(item) {
   gap: 16px 14px;
 }
 .card {
-  width: clamp(200px, 24vw, 260px);
+  width: clamp(200px, 24vw, 270px);
   min-height: 220px;
   display: flex;
   flex-direction: column;
@@ -107,6 +107,7 @@ function trunToEditor(item) {
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
   margin-bottom: 0;
+  padding-top: 7px;
   transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease, background 0.25s ease;
   cursor: pointer;
   position: relative;
@@ -162,7 +163,6 @@ function trunToEditor(item) {
   transform: scale(1);
   transition: transform 0.35s ease;
 }
-.card:hover > img { transform: scale(1.04); }
 .highlight {
   outline: 2px solid rgba(49,115,246,0.35);
   outline-offset: 0px;

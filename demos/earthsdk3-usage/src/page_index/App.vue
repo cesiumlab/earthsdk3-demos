@@ -23,7 +23,7 @@ import { guid } from '@/scripts/utils'
 const data = ref([])
 const list = ref(null)
 const activeId = ref(null);
-const theme = ref('light')
+const theme = ref('dark')
 
 onMounted(() => {
     axios.get("./data/example.json").then(res => {

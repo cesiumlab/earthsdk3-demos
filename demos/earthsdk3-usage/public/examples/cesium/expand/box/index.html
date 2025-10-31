@@ -107,13 +107,10 @@
           boxEnt = undefined;
         });
 
-
         {
           //对象position更新后执行内容
           const updatePosition = () => {
-            //@ts-ignore
-            boxEnt &&
-              (boxEnt.position = positionToCartesian(sceneObject.position));
+            boxEnt &&(boxEnt.position = positionToCartesian(sceneObject.position));
           };
           // position位置更新事件监听
           this.autoDispose(
@@ -126,7 +123,6 @@
           const updateShow = () => {
             boxEnt && (boxEnt.show = sceneObject.show);
           };
-
           //show更新事件监听
           this.autoDispose(sceneObject.showChanged.disposableOn(updateShow));
         }
@@ -134,14 +130,8 @@
         {
           //任意属性变化更新后执行内容
           const update = () => {
-            //@ts-ignore
-            boxEnt &&
-              boxEnt.box &&
-              (boxEnt.box.dimensions = toCartesian3(sceneObject.size));
-            //@ts-ignore
-            boxEnt &&
-              boxEnt.box &&
-              (boxEnt.box.material = toColor(sceneObject.color));
+            boxEnt &&boxEnt.box &&(boxEnt.box.dimensions = toCartesian3(sceneObject.size));
+            boxEnt && boxEnt.box &&(boxEnt.box.material = toColor(sceneObject.color));
           };
           // 任意属性变化事件监听
           this.autoDispose(sceneObject.sizeChanged.disposableOn(update));
@@ -162,9 +152,9 @@
 
     /*——————————————————————————————创建新扩展对象——————————————————————————————————————*/
     const sceneObject = objm.createSceneObject("ESBoxEntity");
-    sceneObject.position = [
-      109.4417022657498, 25.57833302387201, -0.008417248522944924,
-    ];
+    sceneObject.position = [109.4417022657498, 25.57833302387201, -0.008417248522944924];
+    sceneObject.size=[200,200,200]
+    sceneObject.color=[1,1,0,1]
   </script>
 </body>
 

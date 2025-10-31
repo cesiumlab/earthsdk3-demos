@@ -1146,11 +1146,11 @@
         "icon": "globe",
         "children": [
             {
-                "name": "Cesium底层viewer获取",
-                "details": "Cesium底层viewer获取",
+                "name": "Cesium原生viewer获取",
+                "details": "Cesium原生viewer获取",
                 "children": [
                     {
-                        "name": "Cesium底层viewer获取",
+                        "name": "Cesium原生viewer获取",
                         "thumbnail": "cesium-viewer-viewer.webp",
                         "path": "cesium/viewer/viewer"
                     },
@@ -1162,11 +1162,11 @@
                 ]
             },
             {
-                "name": "Cesium对象扩展",
-                "details": "Cesium对象扩展",
+                "name": "自定义ES对象",
+                "details": "自定义ES对象",
                 "children": [
                     {
-                        "name": "Cesium对象扩展",
+                        "name": "扩展Box",
                         "thumbnail": "cesium-expand-box.webp",
                         "path": "cesium/expand/box"
                     }

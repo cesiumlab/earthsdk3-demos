@@ -597,7 +597,7 @@
                         "path": "terrain/params/transparent"
                     },
                     {
-                        "name": "深度检测",
+                        "name": "深度检测开启/关闭",
                         "thumbnail": "terrain-params-depth.webp",
                         "path": "terrain/params/trans"
                     },

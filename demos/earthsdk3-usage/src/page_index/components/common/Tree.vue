@@ -1,6 +1,9 @@
 <template>
-    <TreeItem v-for="(item, index) in visibleItems" :key="index" :item="item" @toggleExpand="toggleExpand"
-        @onclick="onclick" />
+    <div class="tree-root">
+        <TreeItem v-for="(item, index) in visibleItems" :key="index" :item="item" @toggleExpand="toggleExpand"
+            @onclick="onclick" />
+    </div>
+    
 </template>
 <script setup>
 import TreeItem from "./TreeItem.vue";
@@ -87,4 +90,9 @@ function onclick(item) {
     }
 }
 </script>
-<style scoped></style>
+<style scoped>
+.tree-root {
+    padding: 10px 8px 16px 8px;
+    color: var(--text);
+}
+</style>

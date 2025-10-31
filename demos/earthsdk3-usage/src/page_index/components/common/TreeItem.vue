@@ -43,30 +43,35 @@ function onItemClickOrToggle() {
 </script>
 <style scoped>
 .item {
-    color: #000;
-    padding: 3px 0px;
+    color: var(--text);
+    padding: 8px 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .item:hover {
-    color: #038bfe !important;
+    background: rgba(49, 115, 246, 0.08);
+    color: var(--primary) !important;
 }
 
 .selected {
-    color: #038bfe !important;
+    color: var(--primary) !important;
+    background: rgba(49, 115, 246, 0.12);
+    border: 1px solid var(--border);
 }
 
 .label {
-    color: #038bfe;
-    padding-left: 2px;
+    color: var(--primary);
+    padding-left: 6px;
 }
 
 .leaf-icon {
-    margin-right: 8px;
-    font-size: 12px;
-    opacity: 0.7;
+    margin-right: 10px;
+    font-size: 11px;
+    opacity: 0.85;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
@@ -74,23 +79,23 @@ function onItemClickOrToggle() {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #e8f4fd;
-    color: #038bfe;
-    font-weight: bold;
+    background: rgba(49, 115, 246, 0.12);
+    color: var(--primary);
+    font-weight: 700;
     line-height: 1;
 }
 
 .item:hover .leaf-icon {
-    opacity: 0.9;
-    background: #d1e7fd;
-    transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(3, 139, 254, 0.2);
+    opacity: 1;
+    background: rgba(49, 115, 246, 0.24);
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(3, 139, 254, 0.18);
 }
 
 .selected .leaf-icon {
     opacity: 1;
-    background: #038bfe;
+    background: var(--primary);
     color: #fff;
-    box-shadow: 0 2px 6px rgba(3, 139, 254, 0.3);
+    box-shadow: 0 2px 6px rgba(3, 139, 254, 0.22);
 }
 </style>

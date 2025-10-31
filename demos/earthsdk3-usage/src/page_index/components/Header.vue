@@ -27,6 +27,9 @@
                     <div>"earthsdk3-assets": "{{ data["earthsdk3-assets"] }}"</div>
                 </div>
             </div>
+            <div class="box">
+                <button class="toggle" @click="$emit('toggleTheme')">切换主题</button>
+            </div>
         </div>
     </div>
 </template>
@@ -50,33 +53,41 @@ const viewVersion = () => {
 
 .box-info {
     position: relative;
-    background: #232a34;
-    font-size: 16px;
-    border: none;
-    color: #1690d9;
+    background: #2a313b;
+    font-size: 14px;
+    border: 1px solid #3b4654;
+    color: #d8e8ff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .box-version {
     position: absolute;
-    top: 8%;
-    right: 2%;
-    width: 15%;
-    background-color: #525455;
-    color: #fff;
-    padding: 10px;
-    border-radius: 4px;
+    top: 36px;
+    right: 0;
+    width: 260px;
+    background-color: #1f2630;
+    color: #e8f0fb;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #2e3846;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    z-index: 10;
 }
 
 .header {
     width: 100%;
     height: 56px;
-    background: #232a34;
+    background: linear-gradient(180deg, #232a34 0%, #1e242c 100%);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 32px;
+    padding: 0 20px 0 24px;
     box-sizing: border-box;
     color: #fff !important;
+    border-bottom: 1px solid #2c333d;
 }
 
 h2 {
@@ -91,19 +102,39 @@ h2 {
 }
 
 a {
-    color: #1690d9;
-    font-size: 16px;
+    color: #cfe1ff;
+    font-size: 14px;
     text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 a:hover {
-    color: #2fb3ff;
+    color: #ffffff;
+    background: rgba(255,255,255,0.08);
 }
 
 .box {
     line-height: 30px;
     display: flex;
     align-items: center;
-    padding-right: 10px;
+    gap: 8px;
+    padding-right: 14px;
+}
+
+.box-info:hover {
+    background: #353e4a;
+    border-color: #465365;
+    color: #ffffff;
+}
+
+.toggle {
+    background: var(--bg-surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 </style>

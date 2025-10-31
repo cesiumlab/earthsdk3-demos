@@ -1162,6 +1162,17 @@
                 ]
             },
             {
+                "name": "Cesium对象扩展",
+                "details": "Cesium对象扩展",
+                "children": [
+                    {
+                        "name": "Cesium对象扩展",
+                        "thumbnail": "cesium-expand-box.webp",
+                        "path": "cesium/expand/box"
+                    }
+                ]
+            },
+            {
                 "name": "背景设置",
                 "details": "Cesium宇宙背景设置",
                 "children": [

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cesium示例</title>
+  </head>
+  <!--Cesium js文件引入 -->
+  <script src="./js/earthsdk.js"></script>
+  <!-- 自定义Css样式 -->
+  <link rel="stylesheet" href="./css/example1.css" />
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+    }
+  </style>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      Cesium.Ion.defaultAccessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NWNkNmNmNi0xNWMyLTQ3NGYtYjI4Ny01Mjc2ZGE4NGQxNWMiLCJpZCI6Mzg3NTMsImlhdCI6MTYwNjc5NDUwOX0.SIxmCg6USCh-b6mRyuSrWnxqMvUMbVwYrsSVTpi0H0k";
+      /** -----------------------------------------地球创建----------------------------------------------------**/
+      // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+      const { ESObjectsManager } = window["EarthSDK3"];
+      const { ESCesiumViewer } = window["EarthSDK3_Cesium"];
+      const { ESUeViewer } = window["EarthSDK3_UE"];
+      const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+      window.g_objm = objm;
+      // 监听视口状态
+      objm.viewerCreatedEvent.don((viewer) => {
+        viewer.flyIn(
+          [109.46897209738209, 25.60243318325431, 3839.701612002899],
+          [231.08300859259978, -43.52794875463852, 359.9990378129368],
+          3
+        );
+      });
+      // 创建Cesium视口
+      const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+      // 通过json创建一个影像图层
+      const imageryLayer = objm.createSceneObjectFromJson({
+        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+        type: "ESImageryLayer",
+        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "maximumLevel":16
+      });
+
+      /**————————————————————————————ESBoxEntity类的定义————————————————————————————————————————————————————————————*/
+      const { ESObjectWithLocation, UniteChanged } = window["EarthSDK3"];
+      class ESBoxEntity extends window["EarthSDK3"].ESObjectWithLocation {
+        static createDefaultProps = () => ({
+          ...window["EarthSDK3"].ESObjectWithLocation.createDefaultProps(),
+          size: [50, 50, 50],
+          color: [1, 1, 1, 1],
+        });
+        //tags: ['ESObjects', '_ES_Impl_Cesium', '_ES_Impl_UE']; 代表有Cesium实现
+        static type = this.register("ESBoxEntity", this, {
+          chsName: "实例盒子",
+          tags: ["ESObjects", "_ES_Impl_Cesium"],
+          description: "Cesium Entity box",
+        });
+        constructor(id) {
+          super(id);
+        }
+      }
+
+      /**——————————————————————————CzmESBoxEntity实现类的定义————————————————————————————————————————————————*/
+      const {
+        CzmESObjectWithLocation,
+        positionToCartesian,
+        toCartesian3,
+        toColor,
+      } = window["EarthSDK3_Cesium"];
+      //ESBoxEntity对象的实现类
+      class CzmESBoxEntity extends CzmESObjectWithLocation {
+        //注册ESBoxEntity的Cesium引擎实现类
+        static type = this.register("ESCesiumViewer", ESBoxEntity.type, this);
+        constructor(sceneObject, czmViewer) {
+          super(sceneObject, czmViewer);
+          //获取Cesium本身的Viewer视口
+          const viewer = czmViewer.viewer;
+          if (!viewer) {
+            console.warn(`viewer is undefined!`);
+            return;
+          }
+          // 在Cesium实现类中，获取到原生Cesium的Viewer即可进行创建
+          const entities = viewer.entities;
+          let boxEnt;
+          boxEnt = entities.add({
+            show: sceneObject.show,
+            position: positionToCartesian(sceneObject.position),
+            box: {
+              dimensions: toCartesian3(sceneObject.size),
+              material: toColor(sceneObject.color),
+            },
+          });
+
+          //对象销毁时移除对象
+          this.autoDispose(() => {
+            boxEnt && entities.remove(boxEnt);
+            boxEnt = undefined;
+          });
+          {
+            //position
+            const updatePosition = () => {
+              //@ts-ignore
+              boxEnt &&
+                (boxEnt.position = positionToCartesian(sceneObject.position));
+            };
+            this.autoDispose(
+              sceneObject.positionChanged.disposableOn(updatePosition)
+            );
+          }
+
+          {
+            //show控制
+            const updateShow = () => {
+              boxEnt && (boxEnt.show = sceneObject.show);
+            };
+            this.autoDispose(sceneObject.showChanged.disposableOn(updateShow));
+          }
+
+          {
+            //属性变化
+            const update = () => {
+              //@ts-ignore
+              boxEnt &&
+                boxEnt.box &&
+                (boxEnt.box.dimensions = toCartesian3(sceneObject.size));
+              //@ts-ignore
+              boxEnt &&
+                boxEnt.box &&
+                (boxEnt.box.material = toColor(sceneObject.color));
+            };
+            this.autoDispose(sceneObject.sizeChanged.disposableOn(update));
+            this.autoDispose(sceneObject.colorChanged.disposableOn(update));
+          }
+
+          {
+            //flyTo
+            this.autoDispose(
+              sceneObject.flyToEvent.disposableOn(() => {
+                boxEnt && viewer.flyTo(boxEnt);
+              })
+            );
+          }
+        }
+      }
+   
+      const sceneObject = objm.createSceneObject("ESBoxEntity");
+      sceneObject.position=[109.4417022657498, 25.57833302387201, -0.008417248522944924]
+   
+   </script>
+  </body>
+</html>

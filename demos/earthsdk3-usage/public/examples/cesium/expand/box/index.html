@@ -58,10 +58,10 @@
     });
 
     /**————————————————————————————ESBoxEntity类的定义————————————————————————————————————————————————————————————*/
-    const { ESObjectWithLocation, UniteChanged } = window["EarthSDK3"];
-    class ESBoxEntity extends window["EarthSDK3"].ESObjectWithLocation {
+    const { ESObjectWithLocation } = window["EarthSDK3"];
+    class ESBoxEntity extends ESObjectWithLocation {
       static createDefaultProps = () => ({
-        ...window["EarthSDK3"].ESObjectWithLocation.createDefaultProps(),
+        ...ESObjectWithLocation.createDefaultProps(),
         size: [50, 50, 50],
         color: [1, 1, 1, 1],
       });

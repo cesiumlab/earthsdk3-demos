@@ -32,8 +32,8 @@
                     @input="inputHandler2($event)">
             </div>
         </div>
-        <LabelInput v-model="extrudedHeight" :inputType="'number'" :label="'分析高度'" :unit="'m'"></LabelInput>
-        <LabelInput v-model="height" :inputType="'number'" :label="'底面高度'" :unit="'m'"></LabelInput>
+        <LabelInput v-model="height" :inputType="'number'" :label="'分析高度'" :unit="'m'"></LabelInput>
+        <LabelInput :disabled="true" v-model="groundHeight" :inputType="'number'" :label="'底面高度'" :unit="'m'"></LabelInput>
         <LabelInput v-model="spanTime" :inputType="'number'" :label="'间隔时间'" :unit="'h'"></LabelInput>
         <LabelInput v-model="sampleDistance" :inputType="'number'" :label="'采样间距'" :unit="'m'">
         </LabelInput>
@@ -60,9 +60,9 @@ sunshineAnalysis.stroked = true;
 // 计算进度
 let progress = toVR<number>(d, [sunshineAnalysis, "progress"])
 //分析高度
-let extrudedHeight = toVR<number>(d, [sunshineAnalysis, "extrudedHeight"])
-// // 底面高度：
 let height = toVR<number>(d, [sunshineAnalysis, "height"])
+// // 底面高度：
+let groundHeight = toVR<number>(d, [sunshineAnalysis, "groundHeight"])
 // 开始时间：
 let startTime = toVR<number>(d, [sunshineAnalysis, "startTime"])
 startTime.value = dateToTimestamp(a)
@@ -144,14 +144,14 @@ onMounted(() => {
             if (sampleDistance.value < 10) {
                 sampleDistance.value = 10
             }
-            let a: number[] = []
-            const points = sunshineAnalysis.points
-            if (points && points.length > 1) {
-                points.forEach((element: any) => {
-                    a.push(element[2])
-                });
-                height.value = Number((Math.min(...a)).toFixed(5))
-            }
+            // let a: number[] = []
+            // const points = sunshineAnalysis.points
+            // if (points && points.length > 1) {
+            //     points.forEach((element: any) => {
+            //         a.push(element[2])
+            //     });
+            //     height.value = Number((Math.min(...a)).toFixed(5))
+            // }
         }
     })
     dispose2 = sunshineAnalysis.dispose(sunshineAnalysis.progressChanged.disposableOn((res: any) => {

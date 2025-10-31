@@ -16,7 +16,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { ESVolumeMeasurement } from "earthsdk3";
+import { ESVolumeMeasurement, nextAnimateFrame } from "earthsdk3";
 import { onBeforeUnmount, onMounted, onUnmounted, inject, computed } from "vue";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import PopList from "../../../components/PopList.vue";
@@ -57,13 +57,15 @@ const CutAndFillAreaRef = computed(() => {
 // 计算进度
 let schedule = toVR<number>(d, [volumeSceneObject, "progress"])
 const restart = () => {
-    volumeSceneObject.points = []
-    volumeSceneObject.clear()
-    schedule.value = 0
-    planeHight.value = 0
-    sampling.value = 0
-    volumeSceneObject.editing = true
-    Message.warning('结束编辑之后请点击开始分析')
+    volumeSceneObject.points = [];
+    nextAnimateFrame(() => { 
+        volumeSceneObject.clear()
+        schedule.value = 0
+        planeHight.value = 0
+        sampling.value = 0
+        volumeSceneObject.editing = true
+        Message.warning('结束编辑之后请点击开始分析')
+    });
 }
 const start = () => {
     if (volumeSceneObject && volumeSceneObject.editing) {

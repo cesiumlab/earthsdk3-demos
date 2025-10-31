@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
+    "ieu": "pnpm install:earthui",
+    "deu": "pnpm dev:earthui",
     "install:earthui": "cd ./demos/earthui && pnpm i",
     "dev:earthui": "pnpm -F earthui dev",
     "build:earthui": "pnpm -F earthui build",

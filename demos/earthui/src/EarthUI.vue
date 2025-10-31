@@ -33,37 +33,33 @@
         <TimeLine v-show="animationShow"></TimeLine>
         <!-- 拾取面板 -->
         <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult>
+
         <!-- 状态栏 指北针 比例尺-->
-        <StatusBar v-if="statusBarShow"></StatusBar>
-        <Navigator v-if="navigatorShow" :navigatorScaleRight="navigatorScaleRight"></Navigator>
-        <Scale v-if="scaleShow" :navigatorScaleRight="navigatorScaleRight"></Scale>
+        <ControlComponent />
     </div>
     <!-- <NewTime></NewTime> -->
 </template>
 
 <script setup lang="ts">
 import { createVueDisposer, toRefKey, toVR } from 'earthsdk-ui';
+import { ESCesiumViewer, merge3dTilesServer } from 'earthsdk3-cesium';
+import { ESOlViewer } from 'earthsdk3-ol';
+import { ESUeViewer } from 'earthsdk3-ue';
 import { onBeforeUnmount, onMounted, provide, ref, shallowRef, watch } from "vue";
 import DraggablePopup2 from "./components/DraggablePopup2.vue";
+import Editing from './components/editing/Editing.vue';
 import ESPropPanel from './components/eSPropPanel/ESPropPanel.vue';
 import SceneTree from "./components/sceneTree/SceneTree.vue";
 import ViewersComp from './components/viewers/Viewers.vue';
 import { analysis, engine, environment, images, model, plotting, roam, search, service, terrain, vector, view } from './pages';
+import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
 import CzmPickResult from "./pages/roam/cousePicking/CzmPickResult.vue";
+import TimeLine from "./pages/view/animation/TimeLine.vue";
+import ControlComponent from "./pages/view/control/index.vue";
+import { $config } from "./scripts/getConfig";
 import { initSceneJson, initSceneWithType, initurl } from './scripts/initializationJson';
 import { XbsjEarthUi } from './scripts/xbsjEarthUi';
-import TimeLine from "./pages/view/animation/TimeLine.vue";
-import { ESCesiumViewer } from 'earthsdk3-cesium';
-import { ESUeViewer } from 'earthsdk3-ue';
-import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
-import Navigator from "./pages/view/control/Navigator.vue";
-import Scale from "./pages/view/control/Scale.vue";
-import StatusBar from "./pages/view/control/StatusBar.vue";
-import { $config } from "./scripts/getConfig";
 import Menu from "./views/Menu.vue";
-import Editing from './components/editing/Editing.vue';
-import { merge3dTilesServer } from "earthsdk3-cesium";
-import { ESOlViewer } from 'earthsdk3-ol';
 
 const props = withDefaults(defineProps<{
     newList?: any
@@ -99,10 +95,7 @@ const propSceneTree = toVR<any>(disposer, [xbsjEarthUi, "propSceneTree"])
 const propTreeKey = toRefKey(propSceneTree);
 const animationShow = toVR<boolean>(disposer, [xbsjEarthUi, "animationShow"])
 const sceneTreeCheckedIcon = toVR<boolean>(disposer, [xbsjEarthUi, "sceneTreeCheckedIcon"])
-const navigatorShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "navigatorShow"])
-const scaleShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "scaleShow"])
-const statusBarShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, "statusBarShow"])
-const navigatorScaleRight = toVR<number>(disposer, [xbsjEarthUi.navigatorManager, "navigatorScaleRight"])
+
 type list = {
     id: number,
     title: string,

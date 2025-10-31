@@ -12,10 +12,6 @@
           <span class="history_chsName"> {{ item.chsName }}({{ item.typeName }})</span>
         </div>
       </div>
-      <div class="type_screen">
-        <button @click="searchScreen = false" :class="!searchScreen ? 'height_light' : ''">全部对象</button>
-        <button @click="searchScreen = true" :class="searchScreen ? 'height_light' : ''">常规对象</button>
-      </div>
     </div>
     <div class="type_lists" ref="typeListsRef">
       <div v-for="(item, index) in typeLists" :key="index" class="type_lists_sceneObject">
@@ -69,7 +65,6 @@ const searchKey = ref("")
 let allItemList: ItemType[] = []
 const typeLists = ref<ItemType[]>([])
 const storageLists = reactive<{ list: StorageType[] }>({ list: [] })
-const searchScreen = ref(true)
 
 const searchForKey = (key: string) => {
   if (key.trim() === '') {
@@ -167,15 +162,11 @@ const updateAllItemList = () => {
     itemList.push(item)
   });
   let itemArr: ItemType[] = [];
-  if (searchScreen.value) {
-    const regExp = new RegExp('ESObjects'.trim().replace(/([,.+?:()*\[\]^$|{}\\-])/g, '\\$1'), 'i')
-    const tagsList = itemList.filter(item => item.tags && item.tags.some(e => e.search(regExp) !== -1))
-    const lists: ItemType[] = [];
-    tagsList.forEach(e => !lists.includes(e) && lists.push(e));
-    itemArr = [...lists]
-  } else {
-    itemArr = [...itemList]
-  }
+  const regExp = new RegExp('ESObjects'.trim().replace(/([,.+?:()*\[\]^$|{}\\-])/g, '\\$1'), 'i')
+  const tagsList = itemList.filter(item => item.tags && item.tags.some(e => e.search(regExp) !== -1))
+  const lists: ItemType[] = [];
+  tagsList.forEach(e => !lists.includes(e) && lists.push(e));
+  itemArr = [...lists]
   allItemList = itemArr
   typeLists.value = itemArr
   searchForKey(searchKey.value)
@@ -214,7 +205,6 @@ const setCommonSceneObjects = (type: string) => {
   localStorage.setItem("XE2StorageSceneObjects", JSON.stringify(list));
 }
 
-watch(searchScreen, updateAllItemList);
 watch(() => props.show, (val) => {
   updateAllItemList();
   if (!val) return
@@ -257,6 +247,7 @@ watch(searchKey, searchForKey);
   user-select: none;
   overflow: auto;
 }
+
 .type_lists::-webkit-scrollbar {
   width: 3px;
   background-color: rgba(41, 42, 46, 1);
@@ -308,9 +299,11 @@ watch(searchKey, searchForKey);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.lists_sceneObject:hover{
+
+.lists_sceneObject:hover {
   border: 1px solid #2C68F7;
 }
+
 .history_box {
   width: auto;
   height: 100%;
@@ -361,7 +354,7 @@ watch(searchKey, searchForKey);
 
 
 .type_lists_tags {
-  color:rgb(142, 137, 137);
+  color: rgb(142, 137, 137);
   border-radius: 5px;
   text-align: center;
   margin: 0 10px;

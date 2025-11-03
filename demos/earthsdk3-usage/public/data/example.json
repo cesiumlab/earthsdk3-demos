@@ -752,6 +752,11 @@
                         "path": "plot/effect/fence"
                     },
                     {
+                        "name": "自定义颜色围栏",
+                        "thumbnail": "plot-effect-fencecolor.webp",
+                        "path": "plot/effect/fencecolor"
+                    },
+                    {
                         "name": "管道电子围栏",
                         "thumbnail": "plot-effect-pipefence.webp",
                         "path": "plot/effect/pipefence"

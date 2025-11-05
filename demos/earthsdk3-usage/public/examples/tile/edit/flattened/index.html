@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>加载3dtileset</title>
+    <style>
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .box {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <div id="panel">
+      <button id="flattened" onclick="setFlattened()">压平隐藏</button>
+    </div>
+    <script>
+      /** -----------------------------------------地球创建----------------------------------------------------**/
+
+      // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+      const { ESObjectsManager } = window["EarthSDK3"];
+      const { ESCesiumViewer } = window["EarthSDK3_Cesium"];
+      const { ESUeViewer } = window["EarthSDK3_UE"];
+      const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+      window.g_objm = objm;
+      // 监听视口状态
+      objm.viewerCreatedEvent.don((viewer) => {
+        viewer.flyIn(
+          [108.9635372579075, 34.215765456049205, 809.1519880309244],
+          [315.79945310620036, -35.668819584682595, 0.0004962989500816943],
+          3
+        );
+      });
+      // 创建Cesium视口
+      const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+      // 通过json创建一个影像图层
+      const imageryLayer = objm.createSceneObjectFromJson({
+        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+        type: "ESImageryLayer",
+        maximumLevel: 16,
+        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      });
+
+      /**-----------------------------根据类（Class）创建一个ES3DTileset对象-------------------------------**/
+      const { ES3DTileset } = window["EarthSDK3"];
+      const sceneObject = objm.createSceneObject(ES3DTileset);
+      sceneObject.url =
+        "https://www.earthsdk.com/assets/tileset/osgb_dayanta/tileset.json";
+
+      let flattened = undefined;
+
+      // 对象加载完成
+      sceneObject.tilesetReady.don(() => {
+        /**-----------------------------创建贴地面对象-------------------------------**/
+        const polygon = objm.createSceneObjectFromJson({
+          id: "af656aea-3412-4627-80b5-a77dfc9cf969",
+          type: "ESGeoPolygon",
+          name: "压平多边形",
+          fillStyle: {
+            color: [
+              0.11764705882352941, 0.9882352941176471, 0.0196078431372549, 0.5,
+            ],
+            material: "",
+            materialParams: {},
+            ground: true,
+          },
+          points: [
+            [108.95910923307565, 34.22007925401041, 425.92324493461103],
+            [108.95910911472332, 34.21953576681746, 425.17307165011556],
+            [108.95979097313653, 34.219519452264635, 425.56365163115623],
+            [108.95975819932849, 34.22009270778053, 425.23650017154495],
+          ],
+        });
+
+        /**-----------------------------创建压平对象-------------------------------**/
+        flattened = objm.createSceneObjectFromJson({
+          id: "dee0779f-8928-49d0-8263-eabbd61e547e",
+          type: "ESPolygonFlattenedPlane",
+          name: "压平1",
+          points: [
+            [108.95910923307565, 34.22007925401041, 424.92324493461103],
+            [108.95910911472332, 34.21953576681746, 425.17307165011556],
+            [108.95979097313653, 34.219519452264635, 425.56365163115623],
+            [108.95975819932849, 34.22009270778053, 424.23650017154495],
+          ],
+          targetID: sceneObject.id,
+        });
+      });
+
+      const setFlattened = () => {
+        flattened.show = !flattened.show;
+        document.getElementById("flattened").innerHTML = flattened.show
+          ? "压平隐藏"
+          : "压平显示";
+      };
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+      <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+  </body>
+</html>

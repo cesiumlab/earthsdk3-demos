@@ -505,7 +505,29 @@
                         "name": "位置移动",
                         "thumbnail": "tile-edit-offset.webp",
                         "path": "tile/edit/offset"
+                    },
+                    {
+                        "name": "模型挖洞裁剪（支持多个）",
+                        "thumbnail": "tile-edit-excavate.webp",
+                        "path": "tile/edit/excavate"
+                    },
+                    {
+                        "name": "模型平面裁剪（支持多个）",
+                        "thumbnail": "tile-edit-clipping.webp",
+                        "path": "tile/edit/clipping"
+                    },
+                    {
+                        "name": "模型体裁剪（仅支持1个）",
+                        "thumbnail": "tile-edit-boxclipping.webp",
+                        "path": "tile/edit/boxclipping"
+                    },
+                    {
+                        "name": "模型压平（仅支持1个）",
+                        "thumbnail": "tile-edit-flattened.webp",
+                        "path": "tile/edit/flattened"
                     }
+                    
+
                 ]
             },
             {

@@ -19,22 +19,22 @@ importers:
         version: 1.11.18
       earthsdk-ui:
         specifier: 1.0.2-beta.8
-        version: 1.0.2-beta.8(earthsdk3@3.6.0-beta.5)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
+        version: 1.0.2-beta.8(earthsdk3@3.6.0-beta.7)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5))
       earthsdk3:
-        specifier: 3.6.0-beta.5
-        version: 3.6.0-beta.5
+        specifier: 3.6.0-beta.7
+        version: 3.6.0-beta.7
       earthsdk3-assets:
         specifier: 3.0.6
         version: 3.0.6
       earthsdk3-cesium:
-        specifier: 3.6.0-beta.3
-        version: 3.6.0-beta.3(cesium@1.134.1)(earthsdk3@3.6.0-beta.5)
+        specifier: 3.6.0-beta.6
+        version: 3.6.0-beta.6(cesium@1.134.1)(earthsdk3@3.6.0-beta.7)
       earthsdk3-ol:
-        specifier: 3.6.0-beta.4
-        version: 3.6.0-beta.4(earthsdk3@3.6.0-beta.5)(ol@7.5.2)
+        specifier: 3.6.0-beta.5
+        version: 3.6.0-beta.5(earthsdk3@3.6.0-beta.7)(ol@7.5.2)
       earthsdk3-ue:
-        specifier: 3.6.0-beta.2
-        version: 3.6.0-beta.2(earthsdk3@3.6.0-beta.5)
+        specifier: 3.6.0-beta.3
+        version: 3.6.0-beta.3(earthsdk3@3.6.0-beta.7)
       echarts:
         specifier: ^5.5.1
         version: 5.6.0
@@ -1115,25 +1115,25 @@ packages:
   earthsdk3-assets@3.0.6:
     resolution: {integrity: sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==}
 
-  earthsdk3-cesium@3.6.0-beta.3:
-    resolution: {integrity: sha512-XMj07e/kwWm95LMVg4FH3zaziQUfb7/IV61Ti45u4CnpU6XKsubrkz6iU+QAUErW6dD1PNr+jbE4gh7AkfH7Eg==}
+  earthsdk3-cesium@3.6.0-beta.6:
+    resolution: {integrity: sha512-wMcjLDXVscgPIkZcg64qnJ7dkzUgj5YbPtYZEjP/NOnXl64O7B78/t0W7ui8dn92BYHmMLkTPLgTlOaRbc+wTA==}
     peerDependencies:
       cesium: 1.134.1
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
 
-  earthsdk3-ol@3.6.0-beta.4:
-    resolution: {integrity: sha512-8z79cx25kv1P5GKUYoZEw8KEyIT4N0lwJsTAHTSbifVbVFsMf6xAGVXqjYx/B+rqFMpE15G3gLgJy14LutAExg==}
+  earthsdk3-ol@3.6.0-beta.5:
+    resolution: {integrity: sha512-unArfKo2DOZaP8Af8gwUVbSFC8WOWeRfXXYX6WeV3KU624Q4rzuZxy2m9h6MrA1+7TLgY3arsB63JMy9iz7Awg==}
     peerDependencies:
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
       ol: ^7.1.0
 
-  earthsdk3-ue@3.6.0-beta.2:
-    resolution: {integrity: sha512-zf91fJwN8ZFUfomXh83IruR0RaZW9T7/CDkPqEJRshahdjxYB5I/4mN17MBvd/nGjTNLKRh/jDcH6zlolvDxsQ==}
+  earthsdk3-ue@3.6.0-beta.3:
+    resolution: {integrity: sha512-hQpIZGcOzaBTBny1pDu6MHRByw75o6N6y/M4jjrmEtaC624VJfl5letYy91YkwnU7p+Jwc8JGLV3u3bWwSLw5w==}
     peerDependencies:
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
 
-  earthsdk3@3.6.0-beta.5:
-    resolution: {integrity: sha512-9K5yZLTcBQJK8VsYni3Rukx0VE5pCCKaTy9ZjfFMBWI3kMCWqKOPKkLKg1Vvt7utojL37nyFD+4yK+kyeoDryQ==}
+  earthsdk3@3.6.0-beta.7:
+    resolution: {integrity: sha512-onYfPKHFoNEDMHv/KGIZ6qlmCWn0zLkFEnBgtlXx3RHf2K+NI28nF3tnM0wfxFnqagBEqPgOMcD1mdQ5oGQ83Q==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -3371,7 +3371,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  earthsdk-ui@1.0.2-beta.8(earthsdk3@3.6.0-beta.5)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)):
+  earthsdk-ui@1.0.2-beta.8(earthsdk3@3.6.0-beta.7)(typescript@4.9.5)(vue@3.5.22(typescript@4.9.5)):
     dependencies:
       '@codemirror/lang-html': 6.4.11
       '@codemirror/lang-javascript': 6.2.4
@@ -3381,7 +3381,7 @@ snapshots:
       '@codemirror/view': 6.38.6
       codemirror: 6.0.2
       earthsdk-icon: 0.0.10(typescript@4.9.5)
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
       js-beautify: 1.15.4
       tiny-emitter: 2.1.0
       vue: 3.5.22(typescript@4.9.5)
@@ -3390,7 +3390,7 @@ snapshots:
 
   earthsdk3-assets@3.0.6: {}
 
-  earthsdk3-cesium@3.6.0-beta.3(cesium@1.134.1)(earthsdk3@3.6.0-beta.5):
+  earthsdk3-cesium@3.6.0-beta.6(cesium@1.134.1)(earthsdk3@3.6.0-beta.7):
     dependencies:
       '@mapbox/sphericalmercator': 2.0.1
       '@mapbox/vector-tile': 2.0.4
@@ -3398,23 +3398,23 @@ snapshots:
       cesium: 1.134.1
       delaunator: 5.0.1
       earcut: 2.2.4
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
       html2canvas: 1.4.1
       mvt-basic-render: 0.3.5
       pbf: 4.0.1
 
-  earthsdk3-ol@3.6.0-beta.4(earthsdk3@3.6.0-beta.5)(ol@7.5.2):
+  earthsdk3-ol@3.6.0-beta.5(earthsdk3@3.6.0-beta.7)(ol@7.5.2):
     dependencies:
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
       ol: 7.5.2
 
-  earthsdk3-ue@3.6.0-beta.2(earthsdk3@3.6.0-beta.5):
+  earthsdk3-ue@3.6.0-beta.3(earthsdk3@3.6.0-beta.7):
     dependencies:
       '@epicgames-ps/lib-pixelstreamingfrontend-ue5.2': 0.5.9
-      earthsdk3: 3.6.0-beta.5
+      earthsdk3: 3.6.0-beta.7
       html2canvas: 1.4.1
 
-  earthsdk3@3.6.0-beta.5:
+  earthsdk3@3.6.0-beta.7:
     dependencies:
       '@turf/turf': 6.5.0
       '@types/proj4': 2.19.0

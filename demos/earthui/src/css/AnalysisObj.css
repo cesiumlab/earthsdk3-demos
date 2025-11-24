@@ -6,7 +6,7 @@
 }
 
 .analysis_volume_top {
-    width: 250px;
+    width: 100%;
     display: flex;
     flex-flow: column;
     color: #ffffff;
@@ -98,7 +98,7 @@
     position: fixed;
     left: 0;
     bottom: 32px;
-    width: calc(100% - 280px);
+    width: calc(100% - 400px);
     height: 200px;
     background: rgba(37, 38, 42, 0.98);
     transition: width 0.4s linear;

@@ -30,7 +30,7 @@
 }
 
 .model_style_textarea {
-  width: 250px;
+  width: 100%;
   height: 165px;
   background: rgba(28, 28, 29, 0.80);
   border: none;

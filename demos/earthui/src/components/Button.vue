@@ -1,4 +1,3 @@
-
 <script setup lang='ts'>
 import { onMounted, ref } from "vue";
 interface Props {
@@ -40,7 +39,7 @@ const xiaosanjiaoClick = () => {
     <div class="right_button" :class="{ 'active': actived, 'disable': disabled, 'right_button_left': leftButton }"
         @click.prevent.stop="click()" @mouseover="spanIsShow = true" @mouseout="spanIsShow = false">
         <div class="right_button_icon"><es-icon :name="name" :color="color" :size="size" /></div>
-        <div class="right_button_content" :style="{fontSize:`${fontSize}px`}">{{ content }}</div>
+        <div class="right_button_content" :style="{ fontSize: `${fontSize}px` }">{{ content }}</div>
         <span v-show="spanIsShow && showSpan" class="xiaosanjiao" :class="xiaosanjiao ? '' : 'xiaosanjiao_transform'"
             @click.stop.prevent="xiaosanjiaoClick()"></span>
     </div>
@@ -61,12 +60,12 @@ const xiaosanjiaoClick = () => {
     cursor: pointer;
     user-select: none;
     border: 1px solid rgba(183, 183, 183, 0.22);
-    margin: 0 0 10px 10px;
+    margin: 0 0 15px 10px;
     color: rgba(230, 230, 230, 1);
 }
 
 .right_button_left {
-    margin: 0 0 10px 15px;
+    /* margin: 0 0 10px 15px; */
 }
 
 .right_button>.right_button_content {

@@ -60,7 +60,7 @@ const setCurrentTitle = (item: itemType) => {
 }
 
 .menu-box {
-  width: 250px;
+  width: 100%;
   margin: 0 15px 0 15px;
   color: rgba(230, 230, 230, 1);
 }
@@ -90,7 +90,7 @@ const setCurrentTitle = (item: itemType) => {
   position: absolute;
   right: -265px;
   top: 0px;
-  width: 250px;
+  width: 100%;
   background: #001a23;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;

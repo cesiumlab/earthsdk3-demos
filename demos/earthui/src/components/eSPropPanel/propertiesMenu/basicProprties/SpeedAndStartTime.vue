@@ -21,14 +21,14 @@ import PopList from "../../../../components/PopList.vue";
 import { timestampToTime, toTimetampTimes } from "./tool";
 const p = withDefaults(defineProps<{ sceneObject?: ESPath }>(), {});
 const { sceneObject } = p
-const emits=defineEmits(['close'])
+const emits = defineEmits(['close'])
 //速度
 const speed = ref(1)
 //开始时间
 const startTime = ref()
-const oninput=()=>{
-    if(speed.value<0){
-        speed.value=1
+const oninput = () => {
+    if (speed.value < 0) {
+        speed.value = 1
     }
 }
 const ok = () => {
@@ -58,13 +58,13 @@ onMounted(() => {
 </script>
 <style scoped>
 .roam_moveOnLineMode {
-    width: 250px;
+    width: 100%;
     box-sizing: border-box;
     position: relative;
 }
 
 .roam_moveOnLineMode>div {
-    width: 250px;
+    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 10px;

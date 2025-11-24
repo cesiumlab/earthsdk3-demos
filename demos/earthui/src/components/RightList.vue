@@ -1,26 +1,25 @@
-
 <script setup lang='ts'>
 import { ref } from "vue";
 interface Props {
     title?: string,
-    isTop?:boolean,
+    isTop?: boolean,
 }
 const props = withDefaults(defineProps<Props>(), {
     title: "设置",
-    isTop:false,
+    isTop: false,
 })
 const developContent = ref(true)
 </script>
 <template>
     <div class="relative">
-        <div class="relative_type" @click.stop="developContent = !developContent" :class="{'relative_type_top':isTop}">
+        <div class="relative_type" @click.stop="developContent = !developContent" :class="{ 'relative_type_top': isTop }">
             <span class="relative_type_title">{{ title }}</span>
             <span class="develop_icon" :class="developContent ? '' : 'icon_transform'">
                 <es-icon :name="'shouqi'" :color="'#fff'" :size="12" />
             </span>
         </div>
         <es-fold :show="developContent">
-            <div class="relative_box" >
+            <div class="relative_box">
                 <slot></slot>
             </div>
         </es-fold>
@@ -53,18 +52,22 @@ const developContent = ref(true)
     border-top: 1px solid rgba(183, 183, 183, 0.28);
     cursor: pointer;
 }
+
 .relative_type_top {
     border-top: none;
 }
+
 .relative_box {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    /* height: auto; */
+    height: auto;
 }
+
 .relative_box_padding {
     padding-left: 0px;
 }
+
 .relative_type_title {
     margin-right: 5px;
     flex: 1;

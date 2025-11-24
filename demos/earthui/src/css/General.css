@@ -47,16 +47,15 @@
 /* 影像瓦片地形公用css */
 
 .images_bottom_content {
-    width: 250px;
+    width: 100%;
     /* max-height: 500px; */
     font-size: 12px;
 }
 
 .images_servelocation {
-    width: 250px;
-    /* width: 100%; */
+    width: 100%;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     margin-top: 10px;
     font-size: 12px;
     line-height: 26px;
@@ -233,7 +232,7 @@
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 250px;
+    width: 100%;
     height: auto;
     max-height: 200px;
     margin: 15px 0 0 0;
@@ -256,15 +255,15 @@
 .images_lab_son>.images_lab_son_list>.images_img_lilist {
     width: 78px;
     height: 100px;
-    margin-right: 6px;
+    margin-right: 10px;
     border-radius: 5px;
     position: relative;
 }
 
-.images_img_list>.images_img_lilist:nth-child(3n),
+/* .images_img_list>.images_img_lilist:nth-child(3n),
 .images_lab_son>.images_lab_son_list>.images_img_lilist:nth-child(3n) {
     margin-right: 0;
-}
+} */
 
 .images_imgposition {
     border-radius: 5px;
@@ -419,13 +418,13 @@
 }
 
 .roam_moveOnLineMode {
-    width: 250px;
+    width: 100%;
     box-sizing: border-box;
     position: relative;
 }
 
 .roam_moveOnLineMode>div {
-    width: 250px;
+    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -547,8 +546,10 @@
 }
 
 .roam_moveOnLineMode>div>.span {
-    width: 26px;
+    /* width: 26px; */
     height: 26px;
+    line-height: 26px;
+    padding: 0 10px;
     margin-left: 10px;
     border: 1px solid #3b3c40;
     box-sizing: border-box;

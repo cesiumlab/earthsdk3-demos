@@ -1,6 +1,6 @@
 
 .environment_slider {
-  width: 250px;
+  width: 100%;
   height: 26px;
   display: flex;
   align-items: center;
@@ -10,7 +10,7 @@
   color: rgba(230, 230, 230, 1);
 }
 .environment_slider_time {
-  width: 250px;
+  width: 100%;
   margin: 0 15px 10px 15px;
   font-size: 12px;
   line-height: 26px;

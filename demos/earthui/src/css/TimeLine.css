@@ -2,7 +2,7 @@
     position: fixed;
     left: 0;
     bottom: 32px;
-    width: calc(100% - 280px);
+    width: calc(100% - 400px);
     height: 146px;
     /* background: rgba(37, 38, 42, 0.9); */
     transition: width 0.4s linear;

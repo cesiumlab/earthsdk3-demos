@@ -2,7 +2,7 @@
     <div class="xbsj_box">
         <!-- 导航以及模块面板 -->
         <div class="xbsj_header">
-            <Menu :navList="navList" :navType="navType" :key="navList"></Menu>
+            <Menu :navList="navList" :navType="navType" :key="navList.length"></Menu>
         </div>
         <!-- 视口 -->
         <div class="xbsj_earth">
@@ -51,12 +51,11 @@ import Editing from './components/editing/Editing.vue';
 import ESPropPanel from './components/eSPropPanel/ESPropPanel.vue';
 import SceneTree from "./components/sceneTree/SceneTree.vue";
 import ViewersComp from './components/viewers/Viewers.vue';
-import { analysis, engine, environment, images, model, plotting, roam, search, service, terrain, vector, view } from './pages';
+import { originalNavList } from './pages';
 import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
 import CzmPickResult from "./pages/roam/cousePicking/CzmPickResult.vue";
 import TimeLine from "./pages/view/animation/TimeLine.vue";
 import ControlComponent from "./pages/view/control/index.vue";
-import { $config } from "./scripts/getConfig";
 import { initSceneJson, initSceneWithType, initurl } from './scripts/initializationJson';
 import { XbsjEarthUi } from './scripts/xbsjEarthUi';
 import Menu from "./views/Menu.vue";
@@ -96,118 +95,12 @@ const propTreeKey = toRefKey(propSceneTree);
 const animationShow = toVR<boolean>(disposer, [xbsjEarthUi, "animationShow"])
 const sceneTreeCheckedIcon = toVR<boolean>(disposer, [xbsjEarthUi, "sceneTreeCheckedIcon"])
 
-type list = {
-    id: number,
-    title: string,
-    value: string,
-    icon: string,
-    component: any,
-    isShow?: boolean
-}[]
-const originalList: list = [
-    {
-        id: 1,
-        title: "搜索",
-        value: 'search',
-        icon: 'sousuo',
-        component: search,
-        isShow: true
-    },
-    {
-        id: 2,
-        title: "漫游",
-        value: 'roam',
-        icon: 'manyou',
-        component: roam,
-        isShow: true
-    },
-    {
-        id: 3,
-        title: "视图",
-        value: 'view',
-        icon: 'shitu',
-        component: view,
-        isShow: true
-    },
 
-    {
-        id: 4,
-        title: "影像",
-        value: 'images',
-        icon: 'yingxiang',
-        component: images,
-        isShow: true
-    },
-    {
-        id: 5,
-        title: "瓦片",
-        value: 'model',
-        icon: 'wapian',
-        component: model,
-        isShow: true
-    },
-    {
-        id: 6,
-        title: "地形",
-        value: 'terrain',
-        icon: 'dixing',
-        component: terrain,
-        isShow: true
-    },
-    {
-        id: 7,
-        title: "矢量",
-        value: 'vector',
-        icon: 'shiliang',
-        component: vector,
-        isShow: true
-    },
-    {
-        id: 8,
-        title: "分析",
-        value: 'analysis',
-        icon: 'fenxi',
-        component: analysis,
-        isShow: true
-    },
-    {
-        id: 9,
-        title: "标绘",
-        value: 'plotting',
-        icon: 'biaohui',
-        component: plotting,
-        isShow: true
-    },
-    {
-        id: 11,
-        title: "环境",
-        value: 'environment',
-        icon: 'huanjing',
-        component: environment,
-        isShow: true
-    },
-    {
-        id: 12,
-        title: "引擎",
-        value: 'engine',
-        icon: 'yinqing',
-        component: engine,
-        isShow: $config.modelShow
-    },
-    {
-        id: 13,
-        title: "服务",
-        value: 'service',
-        icon: 'fuwu',
-        component: service,
-        isShow: true
-    },
-]
-const navList = shallowRef()
-navList.value = originalList
+const navList = shallowRef([...originalNavList]);
+
 watch(() => props.newList, () => {
     if (props.newList) {
-        navList.value = originalList.concat(props.newList)
+        navList.value = originalNavList.concat(props.newList)
     }
 }, { immediate: true, deep: true })
 

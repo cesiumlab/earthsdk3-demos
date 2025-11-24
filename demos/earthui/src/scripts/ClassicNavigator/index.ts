@@ -6,7 +6,7 @@ export class ClassicNavigatorManager extends Destroyable {
     get timeLine() { return this._timeLine.value; }
     set timeLine(value: boolean) { this._timeLine.value = value; }
 
-    private _timeLineWidth = this.dv(react<string>('calc(100% - 280px)'));
+    private _timeLineWidth = this.dv(react<string>('calc(100% - 400px)'));
     get timeLineWidth() { return this._timeLineWidth.value; }
     set timeLineWidth(value: string) { this._timeLineWidth.value = value; }
     get timeLineWidthChanged() { return this._timeLineWidth.changed; }
@@ -26,7 +26,7 @@ export class ClassicNavigatorManager extends Destroyable {
     set statusBarShow(value: boolean) { this._statusBarShow.value = value; }
     get statusBarShowChanged() { return this._statusBarShow.changed; }
 
-    private _navigatorScaleRight = this.dv(react<number>(290))//导航比例尺的right
+    private _navigatorScaleRight = this.dv(react<number>(410))//导航比例尺的right
     get navigatorScaleRight() { return this._navigatorScaleRight.value; }
     set navigatorScaleRight(value: number) { this._navigatorScaleRight.value = value; }
     get navigatorScaleRightChanged() { return this._navigatorScaleRight.changed; }

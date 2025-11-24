@@ -23,7 +23,7 @@ const p = withDefaults(defineProps<{ sceneObject?: ESPath }>(), {});
 const { sceneObject } = p
 const startTime = ref()
 const stopTime = ref()
-const emits=defineEmits(['close'])
+const emits = defineEmits(['close'])
 
 const ok = () => {
     const start = toTimetampTimes(startTime.value)
@@ -67,13 +67,13 @@ onMounted(() => {
 </script>
 <style scoped>
 .roam_moveOnLineMode {
-    width: 250px;
+    width: 100%;
     box-sizing: border-box;
     position: relative;
 }
 
 .roam_moveOnLineMode>div {
-    width: 250px;
+    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 10px;

@@ -1,11 +1,10 @@
-
 <script setup lang='ts'>
 interface Props {
     title?: string,
     showButton?: boolean,
     link?: string,
     leftButton?: string,
-    showLeftButton?:boolean,
+    showLeftButton?: boolean,
     rightButton?: string,
 }
 withDefaults(defineProps<Props>(), {
@@ -14,7 +13,7 @@ withDefaults(defineProps<Props>(), {
     link: '',
     leftButton: '取消',
     rightButton: '确认',
-    showLeftButton:false
+    showLeftButton: false
 })
 const emits = defineEmits(['close', 'ok']);
 </script>
@@ -47,7 +46,8 @@ const emits = defineEmits(['close', 'ok']);
 }
 
 .poplist_head {
-    width: 250px;
+    /* width: 100%; */
+    /* flex: 1; */
     height: 30px;
     box-sizing: border-box;
     display: flex;
@@ -55,10 +55,10 @@ const emits = defineEmits(['close', 'ok']);
     align-items: center;
     flex-wrap: nowrap;
     overflow: hidden;
-    margin-left: 15px;
+    margin: 0 15px;
     border-bottom: 1px solid rgba(183, 183, 183, 0.5);
     font-size: 12px;
-    
+
 }
 
 .roam_custom_head_left {
@@ -104,7 +104,7 @@ const emits = defineEmits(['close', 'ok']);
     display: flex;
     align-items: center;
     padding: 0px 20px 0px 10px;
-    justify-content:flex-end;
+    justify-content: flex-end;
 }
 
 .poplist_footer>button {

@@ -65,7 +65,7 @@
                         <div class="header_item3" @click="changeCurrentEdit">
                             <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{
                                 '规则可视化编辑器'
-                                }}</span>
+                            }}</span>
                         </div>
                         <div class="header_item3" @click="currentMenu = 'JsonEdit'">
                             <span class="header_item_span3"
@@ -882,7 +882,7 @@ function getUuid() {//设置随机id
 }
 
 .set_style_list {
-    width: 250px;
+    width: 100%;
     height: 100%;
     padding: 10px;
     box-sizing: border-box;

@@ -32,7 +32,7 @@ onBeforeUnmount(() => { destroy(); });
     width: 100px;
     height: 100px;
     top: 90px;
-    right: 410px;
+    right: calc(var(--right-sidebar-width) + 10px);
     transition: right 0.4s linear;
     user-select: none;
 }

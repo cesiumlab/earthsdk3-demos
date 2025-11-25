@@ -1,5 +1,5 @@
 <template>
-    <PopList :title="'地形平球高程'" :showButton="true" :link="$config.modelShow?'http://bjxbsj.cn':''" @ok="ok">
+    <PopList :title="'地形平球高程'" :showButton="true" :link="$config.modelShow ? 'http://bjxbsj.cn' : ''" @ok="ok">
         <LabelInput v-model="horizontalElevation" :inputType="'number'" :label="'水平高程'"></LabelInput>
         <LabelInput v-model="terrainName" :label="'名称'"></LabelInput>
     </PopList>
@@ -14,7 +14,7 @@ import { searchMaxZindex } from '../../../scripts/general';
 import LabelInput from "../../../components/LabelInput.vue"
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
-import { $config } from "../../../scripts/getConfig";
+import { $config } from "@/global";
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
@@ -43,7 +43,7 @@ const ok = () => {
     sceneObject.url = `http://inner.earthsdk.com/layer.json?h=${horizontalElevation.value}`
     const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESTerrainLayer')
 
-    sceneObject.name =(terrainName.value==='' ? '平球地形':terrainName.value) + objNum;
+    sceneObject.name = (terrainName.value === '' ? '平球地形' : terrainName.value) + objNum;
     sceneObject.zIndex = maxZindex + 1;
     setTimeout(() => {
         sceneObject.flyTo()

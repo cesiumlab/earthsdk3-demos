@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
-import { $config } from "../../scripts/getConfig";
+import { $config } from "@/global";
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi';
 import Animation from "./Animation.vue";
 import Control from "./Control.vue";

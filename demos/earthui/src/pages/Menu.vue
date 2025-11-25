@@ -101,7 +101,8 @@ import { getSaveFileHandle, saveFile } from "earthsdk-ui";
 import { JsonValue } from "earthsdk3";
 import { post, put, get } from '../api/service';
 import { XbsjEarthUi } from '../scripts/xbsjEarthUi';
-import { $config } from "../scripts/getConfig"
+import { $config } from '@/global';
+import { rightSidebarWidth } from '@/global';
 const props = withDefaults(defineProps<{
     navList: any[],
     navType: string | undefined,
@@ -301,13 +302,13 @@ const change = (item: any, flag?: boolean) => {
     flag && (moreMenuShow.value = false)
 }
 const getsubMenuStyle = () => ({
-    right: rightModuleShow.value ? '0px' : '-400px'
+    right: rightModuleShow.value ? '0px' : `${-rightSidebarWidth}px`
 })
 // //////////////////////////////////属性逻辑
 watch(rightModuleShow, () => {
     if (rightModuleShow.value) {
-        xbsjEarthUi.navigatorManager.navigatorScaleRight = 410
-        xbsjEarthUi.navigatorManager.timeLineWidth = 'calc(100% - 400px)'
+        xbsjEarthUi.navigatorManager.navigatorScaleRight = rightSidebarWidth + 10
+        xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${rightSidebarWidth}px)`
     } else {
         xbsjEarthUi.navigatorManager.navigatorScaleRight = 10
         xbsjEarthUi.navigatorManager.timeLineWidth = '100%'
@@ -379,7 +380,7 @@ onMounted(() => {
 }
 
 .sub_menu {
-    width: 400px;
+    width: var(--right-sidebar-width);
     height: calc(100% - 70px);
     position: fixed;
     transition: right 0.4s linear;

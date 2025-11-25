@@ -22,7 +22,7 @@ const { lengthInPixel } = useScale(xbsjEarthUi, scaleRef);
     width: 125px;
     height: 30px;
     bottom: 50px;
-    right: 410px;
+    right: calc(var(--right-sidebar-width) + 10px);
     transition: right 0.4s linear;
     border: 1px solid rgba(49, 50, 56, .8);
     background: rgba(37, 38, 42, .8);

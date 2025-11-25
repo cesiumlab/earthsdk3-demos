@@ -16,7 +16,7 @@
                 @click="changePropertiesMenu(item.component)">
                 <span class="header_item_span" :class="currentMenu === item.component ? 'header_active' : ''">{{
                     item.name
-                }}</span>
+                    }}</span>
             </div>
         </div>
         <div v-if="serverList.length > 0">
@@ -84,7 +84,7 @@ import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { post } from '../../../api/service';
 import LabelInput from "../../../components/LabelInput.vue";
-import { $config } from '../../../scripts/getConfig';
+import { $config } from '@/global';
 import { Message } from "earthsdk-ui"
 import { imageType, terrainType, modelType, imageServe, createModel, createTerrain, createImage } from "./tools"
 const d = createVueDisposer(onBeforeUnmount)

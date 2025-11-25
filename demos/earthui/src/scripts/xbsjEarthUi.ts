@@ -6,7 +6,7 @@ import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreat
 import { ClassicNavigatorManager } from "./ClassicNavigator";
 import { MeasurementManager } from "./MeasurementManager";
 import { Reprocess } from "./Reprocess";
-import { $config } from './getConfig';
+import { $config } from '@/global';
 
 export class XbsjEarthUi extends ESObjectsManager {
     private _showSceneTreeView = this.dv(react<boolean>(true));//图层管理

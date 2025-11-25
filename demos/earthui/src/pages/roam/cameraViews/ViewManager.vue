@@ -2,8 +2,8 @@
     <div class="view_panel">
 
         <div class="view-header" @click.stop="addView()">
-            <span>+</span>
-            <span>视点书签</span>
+            <span class="add-icon">+</span>
+            <span class="view-title">视点书签</span>
             <div class="play" @click.stop="loopplying = !loopplying" :title="loopplying ? '暂停' : '播放'"><es-icon
                     :name="loopplying ? 'zanting' : 'bofang'" :color="'rgba(216, 216, 216, 1)'" :size="12" />
             </div>
@@ -11,14 +11,42 @@
         <div class="view-content">
             <div class="view_item" :class="{ 'view_selected': currentViewIndex === index }"
                 v-for="(item, index) in viewsRef" @click.stop="flyInByIndex(index)">
-                <img :src="item.thumbnail" alt="" width="40" height="40" :title="item.name">
+                <img class="view_item_img" :src="item.thumbnail" alt="" :title="item.name">
                 <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
                     @blur="editingChange(item.name, index)" @keydown.enter="handleEnterKey"
                     :ref="el => setInputRef(el, index)">
-                <span v-else>{{ item.name }}</span>
-                <es-icon @click.stop="updateView(index)" :name="'gengxin'" :size="16" />
-                <es-icon @click.stop="startEditing(index)" :name="'bianji'" :size="16" />
-                <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" />
+                <span class="view_item_text" v-else>{{ item.name }}</span>
+                <!-- <es-icon @click.stop="updateView(index)" :name="'gengxin'" :size="16" /> -->
+
+                <span class="update-icon" @click.stop="updateView(index)">
+                    <svg t="1764034594044" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="10350" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M641.28 160a64 64 0 0 1 49.92 24L748.8 256h115.2a64 64 0 0 1 64 64v480a64 64 0 0 1-64 64h-704a64 64 0 0 1-64-64V320a64 64 0 0 1 64-64h115.2l57.6-72a64 64 0 0 1 49.92-24h258.56zM512 352a192 192 0 1 0 0 384 192 192 0 0 0 0-384z m0 64a128 128 0 1 1 0 256 128 128 0 0 1 0-256z"
+                            p-id="10351"></path>
+                    </svg>
+                </span>
+
+                <!-- <es-icon @click.stop="startEditing(index)" :name="'bianji'" :size="16" /> -->
+
+                <span class="update-icon" @click.stop="startEditing(index)">
+                    <svg t="1764035057981" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="19426" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M752.224 128A143.776 143.776 0 0 1 896 272.224v480A143.776 143.776 0 0 1 752.224 896h-480A143.776 143.776 0 0 1 128 752.224v-480A143.776 143.776 0 0 1 272.224 128h480z m-350.72 576H656a26.656 26.656 0 1 0 0-53.344H448l181.344-181.312-80.64-80.64-227.84 232.512V704h80.64z m295.68-307.2v-0.864a20.896 20.896 0 0 0 0.416-29.856l-48.64-48.64a20.896 20.896 0 0 0-29.856 0l-38.4 38.4 80.64 81.504 35.84-40.544z"
+                            p-id="19427"></path>
+                    </svg>
+                </span>
+
+                <!-- <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" /> -->
+                <span class="update-icon" @click.stop="deleteViewer(index)">
+                    <svg t="1764034971236" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="16627" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M180.7 289.1v-61c0-18.4 14.9-33.2 33.2-33.2h190.6v-33.2c0-18.4 14.9-33.2 33.2-33.2h150.7c18.4 0 33.2 14.9 33.2 33.2v33.2h190.6c18.4 0 33.2 14.9 33.2 33.2v61H180.7zM752.6 861c0 18.4-14.9 33.2-33.2 33.2H307c-18.4 0-33.2-14.9-33.2-33.2l-66.5-548.6h611.8L752.6 861zM420.1 438.7c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z m124.1 0c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z m126.4 0c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z"
+                            p-id="16628"></path>
+                    </svg>
+                </span>
             </div>
         </div>
     </div>
@@ -154,6 +182,19 @@ const updateView = (index: number) => {
     padding: 6px;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.view-title {
+    font-size: 14px;
+    line-height: 24px;
 }
 
 .play {
@@ -178,6 +219,31 @@ const updateView = (index: number) => {
     margin-bottom: 10px;
     cursor: pointer;
     padding: 5px;
+    background-color: rgba(28, 28, 30, 0.9);
+    border-radius: 5px;
+}
+
+.view_item_img {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.update-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #fff;
+
+    &:hover {
+        color: #2cf736;
+    }
 }
 
 .view_selected,
@@ -192,37 +258,25 @@ const updateView = (index: number) => {
 
 
 
-.view_item span,
+.view_item .view_item_text,
 .view_item input {
-    width: calc(100% - 100px);
+    width: calc(100% - 200px);
     margin-left: 10px;
     height: 30px;
-
     box-sizing: border-box;
-    background: rgba(28, 28, 30, 0.9);
     outline: none;
     border: none;
     color: #fff;
     text-indent: 10px;
-    border: 1px solid #5c5c5c;
     border-radius: 5px;
 }
 
-.view_item span {
+.view_item .view_item_text {
     line-height: 30px;
 }
 
 .view_item input {
     border: 1px solid #2C68F7;
-}
-
-.es-icon {
-    margin-left: 5px;
-    cursor: pointer;
-    color: #fff !important;
-}
-
-.es-icon:hover {
-    color: #2cf736 !important;
+    background: rgba(28, 28, 30, 0.9);
 }
 </style>

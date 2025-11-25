@@ -1,5 +1,6 @@
 import { Destroyable, react } from "earthsdk3";
 import { XbsjEarthUi } from "../xbsjEarthUi";
+import { rightSidebarWidth } from "@/global";
 
 export class ClassicNavigatorManager extends Destroyable {
     private _timeLine = this.dv(react<boolean>(false));//时间线显影
@@ -26,7 +27,7 @@ export class ClassicNavigatorManager extends Destroyable {
     set statusBarShow(value: boolean) { this._statusBarShow.value = value; }
     get statusBarShowChanged() { return this._statusBarShow.changed; }
 
-    private _navigatorScaleRight = this.dv(react<number>(410))//导航比例尺的right
+    private _navigatorScaleRight = this.dv(react<number>(rightSidebarWidth + 10))//导航比例尺的right
     get navigatorScaleRight() { return this._navigatorScaleRight.value; }
     set navigatorScaleRight(value: number) { this._navigatorScaleRight.value = value; }
     get navigatorScaleRightChanged() { return this._navigatorScaleRight.changed; }

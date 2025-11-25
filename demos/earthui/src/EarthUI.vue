@@ -53,12 +53,12 @@ import SceneTree from "./components/sceneTree/SceneTree.vue";
 import ViewersComp from './components/viewers/Viewers.vue';
 import { originalNavList } from './pages';
 import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
+import Menu from "./pages/Menu.vue";
 import CzmPickResult from "./pages/roam/cousePicking/CzmPickResult.vue";
 import TimeLine from "./pages/view/animation/TimeLine.vue";
 import ControlComponent from "./pages/view/control/index.vue";
 import { initSceneJson, initSceneWithType, initurl } from './scripts/initializationJson';
 import { XbsjEarthUi } from './scripts/xbsjEarthUi';
-import Menu from "./views/Menu.vue";
 
 const props = withDefaults(defineProps<{
     newList?: any

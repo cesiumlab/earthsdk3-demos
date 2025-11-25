@@ -1,4 +1,4 @@
-import { $config } from '@/scripts/getConfig';
+import { $config } from '@/global';
 import analysis from './analysis/index.vue';
 import engine from './engine/index.vue';
 import environment from './environment/index.vue';

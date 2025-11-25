@@ -1,34 +1,14 @@
 <template>
   <div class="earthui_box">
-    <!-- 示例 -->
     <EarthUI :newList="newList"></EarthUI>
-    <!-- <EarthUI></EarthUI> -->
   </div>
 </template>
 
 <script setup lang="ts">
+import { shallowRef } from "vue";
 import EarthUI from "./EarthUI.vue";
-import { shallowRef } from "vue"
-// // 自定义添加菜单示例
-// import engine from './pages/engine/index.vue';
-type list = {
-  id: number,
-  title: string,
-  value: string,
-  icon: string,
-  component: any
-}[]
-const newList = shallowRef<list>([])
-// setTimeout(() => {
-//   newList.value = [{
-//     id: 17,
-//     title: "引擎",
-//     value: 'engin',
-//     icon: 'yinqing',
-//     component: engine
-//   }]
-// }, 5000);
-
+import { NavType } from "./types";
+const newList = shallowRef<NavType[]>([])
 </script>
 
 <style>
@@ -58,6 +38,6 @@ html {
 }
 
 .es-mask-message {
-    z-index: 99999 !important;
+  z-index: 99999 !important;
 }
 </style>

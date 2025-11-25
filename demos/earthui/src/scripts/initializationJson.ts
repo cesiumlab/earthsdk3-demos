@@ -4,9 +4,8 @@ import { ES3DTileset, ESImageryLayer, ESJSwitchToUEViewerOptionType, ESTerrainLa
 import { ESUeViewer } from 'earthsdk3-ue';
 import { parse } from 'search-params';
 import { get, getNoToken } from '../api/service';
-import { $config } from './getConfig';
+import { $config } from '@/global';
 import { XbsjEarthUi } from './xbsjEarthUi';
-import { JsonValue } from "earthsdk3";
 import { ESMVTLayer } from "earthsdk3-cesium";
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)

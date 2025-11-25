@@ -1,13 +1,8 @@
 //@ts-nocheck
-// function gV(configValue: any, defaultValue: any) {
-//     return typeof configValue !== 'undefined' ? configValue : defaultValue
-// }
-// export const $config = {
-//     title: gV(g_title, 'EarthSDK地球可视化开发包-免费开源'),
-//     // title: typeof g_title !== 'undefined' ? g_title : 'EarthSDK地球可视化开发包-免费开源',
-//     logoTitle: gV(g_logoTitle, 'EarthSDK 三维地球开发包'),
-//     logo: gV(g_logo, 'EarthSDK 三维地球开发包'),
-// }
+/** 右侧边栏宽度 */
+export const rightSidebarWidth = 400;
+
+/** 全局配置信息 */
 export const $config = {
     title: typeof g_title !== 'undefined' ? g_title : 'EarthSDK地球可视化开发包-免费开源',
     logoTitle: typeof g_logoTitle !== 'undefined' ? g_logoTitle : 'EarthSDK 三维地球开发包',

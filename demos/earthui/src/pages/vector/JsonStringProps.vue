@@ -57,10 +57,6 @@ const changeCancel = () => {
     }
 }
 
-const copyJson = () => {
-    const str = editorContainer.value?.getVal()
-    copyClipboard(str)//复制
-}
 
 const importSetJson = (str: string) => {
     editorContainer.value?.setVal(str);

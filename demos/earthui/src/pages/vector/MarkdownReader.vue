@@ -5,7 +5,7 @@ import { ESEditor } from "earthsdk-ui"
 const props = withDefaults(defineProps<{ markdownStr?: string, isJson?: boolean }>(), { isJson: false });
 const editorContainer = useTemplateRef('editorContainer')
 const loadIframe = async () => {
-    editorContainer.value?.setVal(props.markdownStr)
+    editorContainer.value?.setVal(props.markdownStr ?? '<center>暂无数据</center>')
 }
 
 watch(() => props.markdownStr, () => {

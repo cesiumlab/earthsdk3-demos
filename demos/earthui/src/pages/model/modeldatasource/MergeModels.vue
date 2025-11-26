@@ -24,13 +24,13 @@
                                         :color="hoverlideleteIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
                             </div>
                             <div class="mergemodel_list_head_tip" :title="getTipMessage(index)">{{ getTipMessage(index)
-                            }}</div>
+                                }}</div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <iframe :src="iframeSrc" frameborder="0" @load="loadIframe" ref="mainIframe"
-                        style="width:100%; height:100%;cursor: not-allowed"></iframe>
+                    <ESEditor :language="'json'" :readonly="false" @load="loadIframe" ref="editorContainer">
+                    </ESEditor>
                 </div>
             </div>
             <div class="mergemodel_bottom">
@@ -44,9 +44,9 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { FileHandleType, getSaveFileHandle, Message, messageBox, saveFile } from "earthsdk-ui";
+import { ESEditor, FileHandleType, getSaveFileHandle, Message, messageBox, saveFile } from "earthsdk-ui";
 import { merge3dTilesServer } from "earthsdk3-cesium";
-import { inject, ref } from 'vue';
+import { inject, ref, useTemplateRef } from 'vue';
 import { ESSceneObject } from "earthsdk3";
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import { copyClipboard } from "../../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
@@ -54,12 +54,11 @@ const emits = defineEmits(['close']);
 const close = () => {
     emits("close")
 }
+const editorContainer = useTemplateRef('editorContainer')
 const hoverlideleteIndex = ref(-2)
 const hoverliIndex = ref(false)
 const modelListsData = ref<any[]>(['', ''])
 const tipListsData = ref<any[]>([])
-
-const iframeSrc =ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html') ;
 const changeValue = (event: any, index: number) => {
     tipListsData.value = []
     const v = event.target.value
@@ -103,21 +102,21 @@ const generate = () => {//生成
         Message.error('服务地址不能为空')
         return
     }
-    merge3dTilesServer(modelListsData.value).then(async res => {
+    merge3dTilesServer(modelListsData.value).then(res => {
         if (res.state === 'success') {
             if (res.tilesUrl) {
                 tipListsData.value = []
                 Message.success('生成成功')
-                await setJson(JSON.stringify(res.tilesUrl, undefined, '    '))
+                editorContainer.value?.setVal(JSON.stringify(res.tilesUrl, undefined, '    '));
             }
         } else {
             if (res.info) {
                 tipListsData.value = res.info
             }
             if (res.tilesUrl) {
-                await setJson(JSON.stringify(res.tilesUrl, undefined, '    '))
+                editorContainer.value?.setVal(JSON.stringify(res.tilesUrl, undefined, '    '));
             } else {
-                await setJson(JSON.stringify('', undefined, '    '))
+                editorContainer.value?.setVal(JSON.stringify('', undefined, '    '));
             }
             Message.error('存在错误服务，请检查')
             return
@@ -128,9 +127,9 @@ const generate = () => {//生成
 
     })
 }
-const copy = async () => {//复制
+const copy = () => {//复制
     try {
-        const str = await getJson()
+        const str = editorContainer.value?.getVal()
         copyClipboard(str)
     } catch (error) {
         console.log('JSON格式错误!!!', error);
@@ -139,9 +138,9 @@ const copy = async () => {//复制
     }
 
 }
-const download = async () => {//下载
+const download = () => {//下载
     try {
-        const str = await getJson()
+        const str = editorContainer.value?.getVal()
         const json = JSON.parse(str);
         saveAs(json, 'tileset');
     } catch (error) {
@@ -149,82 +148,11 @@ const download = async () => {//下载
         Message.error(`JSON格式错误！ error: ${error}`);
     }
 }
-const mergeModelData = ref()
-const mainIframe = ref<HTMLIFrameElement>();//json对应的元素
-
 //json编辑器初始化
-const loadIframe = async () => {
-    await setJson(JSON.stringify(mergeModelData.value, undefined, '    '))
+const loadIframe = () => {
+    editorContainer.value?.setVal(JSON.stringify('', undefined, '    '));
 }
-function setJson(value: string) {//设置json
-    return new Promise<void>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const setKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'setJson', id: setKey, value })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageSetEventWatch, false);
-            reject();
-        }, 10000);
 
-        const messageSetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'setJsonReturn') || (data.id && data.id !== setKey)) {
-                return;
-            }
-            removeEventListener('message', messageSetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok') {
-                resolve();
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageSetEventWatch, false);
-    })
-}
-function getJson() {//获取json上面的内容
-    return new Promise<string>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const getKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'getJson', id: getKey })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageGetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageGetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string, value: string | undefined } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'getJsonReturn') || (data.id && data.id !== getKey)) {
-                return;
-            }
-            removeEventListener('message', messageGetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok' && data.value) {
-                resolve(data.value);
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageGetEventWatch, false);
-    })
-
-}
-function getUuid() {//设置随机id
-    var d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === "function") {
-        d += performance.now();
-    }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-}
 const saveAs = async (json: any, name?: string) => {
     try {
         let handle: FileHandleType | undefined

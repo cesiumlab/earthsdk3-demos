@@ -60,7 +60,7 @@ const toggleVersionInfo = () => {
     versionInfoListShow.value = !versionInfoListShow.value;
 };
 const clickOutside = () => {
-    console.log('clickOutside');
+    // console.log('clickOutside');
     versionInfoListShow.value = false;
 };
 

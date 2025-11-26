@@ -5,8 +5,6 @@
             <label for="" style="width: 60px;display: inline-block;">地址</label><span style="cursor: pointer;"
                 @click="urlWindowShow = true">⚙</span>
         </div>
-        <!-- <LabelInput v-model="url" :label="'地址'"></LabelInput> -->
-        <!-- accessToken -->
         <LabelInput v-model="accessToken" :label="'accessToken'"></LabelInput>
         <!-- 瓦片尺寸 -->
         <LabelInput v-model="tileSize" :label="'瓦片尺寸'"></LabelInput>
@@ -25,21 +23,21 @@
         </div>
         <Window :title="'样式--编辑器'" :show="windowShow" @ok="changeOk" :width="800" :height="500"
             @cancel="windowShow = false">
-            <iframe :src="iframeSrc" frameborder="0" @load="loadIframe(jsonStr)" ref="mainIframe"
-                style="width:100%;height:calc(100% - 50px);cursor: not-allowed;"></iframe>
+            <ESEditor :language="'json'" :readonly="false" @load="load" ref="editorContainer">
+            </ESEditor>
         </Window>
         <Window :title="'地址--编辑器'" :show="urlWindowShow" @ok="urlChangeOk" :width="800" :height="500"
             @cancel="urlWindowShow = false">
-            <iframe :src="iframeSrc" frameborder="0" @load="loadIframe(url)" ref="mainIframe"
-                style="width:100%;height:calc(100% - 50px);cursor: not-allowed;"></iframe>
+            <ESEditor :language="'json'" :readonly="false" @load="load2" ref="editorContainer2">
+            </ESEditor>
         </Window>
     </PopList>
 </template>
 
 <script setup lang="ts">
-import { Message } from 'earthsdk-ui';
+import { ESEditor, Message } from 'earthsdk-ui';
 import { ESMVTLayer } from 'earthsdk3-cesium';
-import { inject, ref } from 'vue';
+import { inject, ref, useTemplateRef } from 'vue';
 import { SceneTree } from 'earthsdk3';
 import LabelInput from "../../../components/LabelInput.vue";
 import PopList from '../../../components/PopList.vue';
@@ -47,6 +45,8 @@ import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { getsceneObjNumfromSceneTree, searchMaxZindex } from "../../../scripts/general"
 import { ESSceneObject } from "earthsdk3";
+const editorContainer = useTemplateRef('editorContainer')
+const editorContainer2 = useTemplateRef('editorContainer2')
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const url = ref()
@@ -64,7 +64,6 @@ const urlWindowShow = ref(false)
 const emits = defineEmits(['close']);
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESMVTLayer');
-
     if (!url.value) {
         Message.warning('请输入地址')
         return
@@ -96,101 +95,30 @@ const addSceneObjects = () => {
     jsonStr.value && (sceneObject.style = jsonStr.value)
     emits("close")
 }
-function getUuid() {
-    var d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === "function") {
-        d += performance.now();
-    }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
+const load = () => {
+    editorContainer.value?.setVal(JSON.stringify(jsonStr.value, undefined, '    '));
 }
-const mainIframe = ref<HTMLIFrameElement>();
-function setJson(value: string) {
-    return new Promise<void>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const setKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'setJson', id: setKey, value })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageSetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageSetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'setJsonReturn') || (data.id && data.id !== setKey)) {
-                return;
-            }
-            removeEventListener('message', messageSetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok') {
-                resolve();
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageSetEventWatch, false);
-    })
+const load2 = () => {
+    editorContainer2.value?.setVal(JSON.stringify(url.value, undefined, '    '));
 }
-function getJson() {
-    return new Promise<string>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const getKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'getJson', id: getKey })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageGetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageGetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string, value: string | undefined } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'getJsonReturn') || (data.id && data.id !== getKey)) {
-                return;
-            }
-            removeEventListener('message', messageGetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok' && data.value) {
-                resolve(data.value);
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageGetEventWatch, false);
-    })
-
-}
-const loadIframe = async (json: any) => {
-    const newJson = JSON.stringify(json)
-    await setJson(newJson)
-}
-const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
-const changeOk = async () => {
-    const str = await getJson()
+const changeOk = () => {
+    const str = editorContainer.value?.getVal()
     try {
         const json = JSON.parse(str);
         jsonStr.value = json
         windowShow.value = false
-
     } catch (error) {
         console.log('JSON格式错误!!!', error);
         Message.error(`JSON格式错误！error:${error}`);
         return
     }
 }
-const urlChangeOk = async () => {
-    const str = await getJson()
+const urlChangeOk = () => {
+    const str = editorContainer2.value?.getVal()
     try {
         const json = JSON.parse(str);
         url.value = json
         urlWindowShow.value = false
-
     } catch (error) {
         console.log('JSON格式错误!!!', error);
         Message.error(`JSON格式错误！error:${error}`);

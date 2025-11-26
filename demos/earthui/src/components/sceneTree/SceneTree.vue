@@ -27,8 +27,8 @@
     <CreateSceneObjFromJson :isShow="createSceneObjFromJsonShow" @changeShow="createSceneObjFromJsonShow = false"
         @confirm="createSceneObjFromJson">
     </CreateSceneObjFromJson>
-    <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObj.json"
-        @changeShow="editSceneObjShow = false" @confirm="editSceneObjFromJson">
+    <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObj.json" @changeShow="editSceneObjShow = false"
+        @confirm="editSceneObjFromJson">
     </CreateSceneObjFromJson>
     <LiftHeight :isShow="liftHeightShow" @changeShow="liftHeightShow = false" :liftHeightTreeItem="liftHeightTreeItem"
         :key="liftHeightType" :liftHeightType="liftHeightType" :liftHeightName="liftHeightName">

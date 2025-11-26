@@ -140,37 +140,37 @@ onMounted(() => {
     <RightList :title="`可视化--${showName}`">
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmAlpha')"> {{ '透明度' }}</label>
-            <SliderTime :width="154" v-model:value="czmAlphaSlider" @change="czmAlphaChange" :realVal="`${czmAlpha}`"
+            <SliderTime :width="280" v-model:value="czmAlphaSlider" @change="czmAlphaChange" :realVal="`${czmAlpha}`"
                 :disabled="!isshow" />
             <span>{{ czmAlpha }}</span>
         </div>
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmContrast')"> {{ '对比度' }}</label>
-            <SliderTime :width="154" v-model:value="czmContrastSlider" @change="czmContrastChange"
+            <SliderTime :width="280" v-model:value="czmContrastSlider" @change="czmContrastChange"
                 :realVal="`${czmContrast}`" :disabled="!isshow" />
             <span>{{ czmContrast }}</span>
         </div>
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmBrightness')"> {{ '亮度' }}</label>
-            <SliderTime :width="154" v-model:value="czmBrightnessSlider" @change="czmBrightnessChange"
+            <SliderTime :width="280" v-model:value="czmBrightnessSlider" @change="czmBrightnessChange"
                 :realVal="`${czmBrightness}`" :disabled="!isshow" />
             <span>{{ czmBrightness }}</span>
         </div>
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmHue')"> {{ '色相' }}</label>
-            <SliderTime :width="154" v-model:value="czmHueSlider" @change="czmHueChange" :realVal="`${czmHue}`"
+            <SliderTime :width="280" v-model:value="czmHueSlider" @change="czmHueChange" :realVal="`${czmHue}`"
                 :disabled="!isshow" />
             <span>{{ czmHue }}</span>
         </div>
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmSaturation')"> {{ '饱和度' }}</label>
-            <SliderTime :width="154" v-model:value="czmSaturationSlider" @change="czmSaturationChange"
+            <SliderTime :width="280" v-model:value="czmSaturationSlider" @change="czmSaturationChange"
                 :realVal="`${czmSaturation}`" :disabled="!isshow" />
             <span>{{ czmSaturation }}</span>
         </div>
         <div class="images_relative_box">
             <label @dblclick="beDefault('czmGamma')"> {{ 'gamma' }}</label>
-            <SliderTime :width="154" v-model:value="czmGammaSlider" @change="czmGammaChange" :realVal="`${czmGamma}`"
+            <SliderTime :width="280" v-model:value="czmGammaSlider" @change="czmGammaChange" :realVal="`${czmGamma}`"
                 :disabled="!isshow" />
             <span>{{ czmGamma }}</span>
         </div>

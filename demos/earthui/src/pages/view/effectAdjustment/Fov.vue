@@ -1,7 +1,6 @@
 <template>
     <PopList :title="'FOV'">
-        <LabelInputSliderReset v-model="fov" :label="'FOV'" :step="1" :min="10" :max="170" :defaultValue="60"
-            :width="154">
+        <LabelInputSliderReset v-model="fov" :label="'FOV'" :step="1" :min="10" :max="170" :defaultValue="60">
         </LabelInputSliderReset>
     </PopList>
 </template>

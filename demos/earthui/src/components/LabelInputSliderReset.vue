@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
     placeholder: '请输入内容',
     defaultValue: 0,
     step: 1,
-    width: 154,
+    width: 270,
 
 })
 const emits = defineEmits(["update:modelValue"]);

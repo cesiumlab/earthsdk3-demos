@@ -10,7 +10,7 @@ interface Props {
     tipFormatter?: Function // Slider 会把当前值传给 tipFormatter，并在 Tooltip 中显示 tipFormatter 的返回值
     hideTip?: boolean // 是否隐藏 Tooltip
     value?: number | number[] // (v-model)设置当前取值，当 range 为 false 时，使用 number，否则用 [number, number]
-    realVal?:string
+    realVal?: string
 }
 const props = withDefaults(defineProps<Props>(), {
     width: '100%',
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     tipFormatter: (value: number) => value,
     hideTip: false,
     value: 0,
-    realVal:'0'
+    realVal: '0'
 })
 const transition = ref(false)
 const timer = ref()
@@ -203,7 +203,8 @@ function onRightSlide(source: number, place: string) {
         <div class="u-slider-rail" @click.self="disabled ? () => false : onClickPoint($event)"></div>
         <div class="u-slider-track" :class="{ trackTransition: transition }"
             :style="`left: ${left}px; right: auto; width: ${right - left}px;`"></div>
-        <div v-if="range" tabindex="0" ref="leftHandle" class="u-slider-handle" :class="{ handleTransition: transition }"
+        <div v-if="range" tabindex="0" ref="leftHandle" class="u-slider-handle"
+            :class="{ handleTransition: transition }"
             :style="`left: ${left}px; right: auto; transform: translate(-50%, -50%);`"
             @keydown.left.prevent="disabled ? () => false : onLeftSlide(left, 'left')"
             @keydown.right.prevent="disabled ? () => false : onRightSlide(left, 'left')"
@@ -223,7 +224,7 @@ function onRightSlide(source: number, place: string) {
             @keydown.up.prevent="disabled ? () => false : onRightSlide(right, 'right')"
             @mousedown="disabled ? () => false : onRightMouseDown()">
             <div v-if="!hideTip" class="m-handle-tooltip">
-                {{realVal?? rightValue }}
+                {{ realVal ?? rightValue }}
                 <div class="m-arrow"></div>
             </div>
         </div>
@@ -289,7 +290,7 @@ function onRightSlide(source: number, place: string) {
 .m-slider .u-slider-handle .m-handle-tooltip {
     position: relative;
     display: inline-block;
-    padding: 6px 8px;
+    padding: 1px 8px;
     font-size: 14px;
     color: #FFF;
     line-height: 20px;
@@ -297,7 +298,7 @@ function onRightSlide(source: number, place: string) {
     min-width: 32px;
     border-radius: 6px;
     transform: translate(-50%, -50%) scale(0.8);
-    top: -32px;
+    top: -25px;
     left: 50%;
     background: rgba(0, 0, 0, 0.85);
     box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
@@ -305,6 +306,7 @@ function onRightSlide(source: number, place: string) {
     user-select: none;
     opacity: 0;
     transition: transform 0.25s, opacity 0.25s;
+    z-index: 2000000;
 }
 
 .m-slider .u-slider-handle .m-handle-tooltip .m-arrow {
@@ -380,7 +382,7 @@ function onRightSlide(source: number, place: string) {
 
 .disabled .u-slider-rail {
     cursor: not-allowed;
-    background:rgba(183, 183, 183, 0.4);
+    background: rgba(183, 183, 183, 0.4);
 }
 
 .disabled .u-slider-track {

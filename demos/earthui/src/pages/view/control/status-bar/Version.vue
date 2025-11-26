@@ -59,7 +59,7 @@ function processVersions(versions: any, viewer: any): VersionItem[] {
                         // Cesium版本信息
                         items.push({
                             name: key,
-                            version: versions[key]
+                            version:('version' in versions[key])?versions[key].version:versions[key]
                         });
                         break;
                     default:

@@ -110,13 +110,13 @@ onMounted(() => {
     <RightList :title="`可视化--${showName}`">
         <div class="images_relative_box">
             <label @dblclick="beDefault('maximumScreenSpaceError')"> {{ '显示精度' }}</label>
-            <SliderTime :width="159" v-model:value="maximumScreenSpaceError" :max="256"
+            <SliderTime :width="279" v-model:value="maximumScreenSpaceError" :max="256"
                 @change="maximumScreenSpaceErrorChange" :realVal="`${maximumScreenSpaceError}`" :disabled="!isshow" />
             <span>{{ maximumScreenSpaceError }}</span>
         </div>
         <div class="images_relative_box" style="margin: 0 15px 0 15px;">
             <label @dblclick="beDefault('cacheBytes')"> {{ '显存' }}</label>
-            <SliderTime :width="154" v-model:value="newCzmCacheBytes" :min="512" :max="5120" :step="38"
+            <SliderTime :width="279" v-model:value="newCzmCacheBytes" :min="512" :max="5120" :step="38"
                 @change="czmCacheBytesChange" :realVal="`${newCzmCacheBytes}`" :disabled="!isshow" />
             <span>{{ newCzmCacheBytes }}</span>
         </div>

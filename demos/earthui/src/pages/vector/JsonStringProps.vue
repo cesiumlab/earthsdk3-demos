@@ -2,25 +2,24 @@
     <Window :title="'编辑器'" :readonly="readonly" :show="props.isShow" @cancel="changeCancel" @ok="changeOk" :width="800"
         :height="500">
         <div style="margin-left:10px">
-            <button @click="copyJson">复制</button>
             <button @click="importJsonFile" :class="readonly ? 'readonly_true' : ''" :disabled="readonly">导入</button>
             <button @click="exportJsonFile">导出</button>
-            <!-- <button @click="sampleDocument">示例文档</button> -->
         </div>
-        <iframe :src="iframeSrc" frameborder="0" @load="loadIframe" ref="mainIframe"
-            style="width:100%;  height:calc(100% - 50px);cursor: not-allowed"></iframe>
+        <div style="height:calc(100% - 50px)">
+            <ESEditor :language="'json'" :readonly="false" @load="loadIframe" ref="editorContainer">
+            </ESEditor>
+        </div>
+
     </Window>
 
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
-import { Message } from "earthsdk-ui"
+import { ESEditor, Message } from "earthsdk-ui"
 import Window from "../../components/commom/Window.vue";
-import { ESSceneObject } from "earthsdk3";
-
-
+const editorContainer = useTemplateRef('editorContainer')
 const props = withDefaults(defineProps<{
     jsonStr: string,
     sampleValue?: string,
@@ -28,10 +27,7 @@ const props = withDefaults(defineProps<{
     readonly?: boolean
 }>(), { readonly: false });
 const emits = defineEmits(["changeShow", "getJsonStr"]);
-const mainIframe = ref<HTMLIFrameElement>();
-
-
-const copyClipboard = async (text: string) => {//复制
+const copyClipboard = (text: string) => {//复制
     navigator.clipboard.writeText(text)
         .then(function () {
             Message.success('复制成功');
@@ -39,18 +35,13 @@ const copyClipboard = async (text: string) => {//复制
             Message.error(`复制失败!error:${e}`);
         });
 }
-const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
-
 const sampleShow = ref(false)
-
-const loadIframe = async () => {
-    await setJson(props.jsonStr)
+const loadIframe = () => {
+    editorContainer.value?.setVal(props.jsonStr);
 }
-const changeOk = async () => {
-    const str = await getJson()
+const changeOk = () => {
+    const str = editorContainer.value?.getVal()
     try {
-        const json = JSON.parse(str);
-        // console.log('json', json);
         emits("getJsonStr", str);
         changeCancel()
     } catch (error) {
@@ -66,15 +57,10 @@ const changeCancel = () => {
     }
 }
 
-const copyJson = async () => {
-    const str = await getJson()
-    copyClipboard(str)//复制
-}
 
-const importSetJson = async (str: string) => {
-    await setJson(str)
+const importSetJson = (str: string) => {
+    editorContainer.value?.setVal(str);
 }
-
 const importJsonFile = async () => { //导入文件
     try {
         Message.warning('正在打开..')
@@ -88,8 +74,8 @@ const importJsonFile = async () => { //导入文件
         Message.error(`打开失败！ error: ${error}`);
     }
 }
-const exportJsonFile = async () => {
-    const str = await getJson()
+const exportJsonFile = () => {
+    const str = editorContainer.value?.getVal()
     saveAs(str)
 }
 const saveAs = async (jsonStr: string, name?: string) => {
@@ -103,89 +89,6 @@ const saveAs = async (jsonStr: string, name?: string) => {
         Message.error(`另存失败! error: ${error}`);
     }
 }
-
-function getUuid() {
-    var d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === "function") {
-        d += performance.now();
-    }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-}
-
-function setJson(value: string) {
-    return new Promise<void>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const setKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'setJson', id: setKey, value })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageSetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageSetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'setJsonReturn') || (data.id && data.id !== setKey)) {
-                return;
-            }
-            removeEventListener('message', messageSetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok') {
-                resolve();
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageSetEventWatch, false);
-    })
-
-}
-
-function getJson() {
-    return new Promise<string>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const getKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'getJson', id: getKey })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageGetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageGetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string, value: string | undefined } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'getJsonReturn') || (data.id && data.id !== getKey)) {
-                return;
-            }
-            removeEventListener('message', messageGetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok' && data.value) {
-                resolve(data.value);
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageGetEventWatch, false);
-    })
-
-}
-
-
-const sampleDocument = () => {
-    sampleShow.value = true
-}
-
-const changeSampleShow = (flag: boolean) => {
-    sampleShow.value = flag
-}
-
 
 </script>
 <style scoped>

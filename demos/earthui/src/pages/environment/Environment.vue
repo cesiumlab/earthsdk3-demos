@@ -63,9 +63,9 @@ onMounted(() => {
 <template>
     <RightList :title="'环境'" :isTop="true">
         <div class="environment_slider_time">
-            <div>时间线</div>
-            <div>
-                <SliderTime :width="216" v-model:value="time" :max="720" :min="0" @change="timeChange"
+            <div style="font-size: 14px;">时间线</div>
+            <div style="display: flex;align-items: center;justify-content: space-between;">
+                <SliderTime :width="324" v-model:value="time" :max="720" :min="0" @change="timeChange"
                     :realVal="timeStr" />
                 <span>
                     {{ timeStr }}

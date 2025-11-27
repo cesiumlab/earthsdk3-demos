@@ -148,7 +148,7 @@ const resize = (e: MouseEvent) => {
         if (w >= props.minWidthHeight[0] && w <= maxWidth) {
             containerStyle.width = w;
         }
-        if (h >=  props.minWidthHeight[1] && h <= maxHeight) {
+        if (h >= props.minWidthHeight[1] && h <= maxHeight) {
             containerStyle.height = h;
         }
         setSize();
@@ -238,7 +238,7 @@ const resize = (e: MouseEvent) => {
 
 .modal-footer {
     width: 100%;
-    height: 30px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: space-around;

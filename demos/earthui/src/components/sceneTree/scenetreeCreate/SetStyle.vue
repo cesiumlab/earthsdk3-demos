@@ -29,7 +29,7 @@
                         <div class="header_item3" @click="changeCurrentEdit">
                             <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{
                                 '规则可视化编辑器'
-                                }}</span>
+                            }}</span>
                         </div>
                         <div class="header_item3" @click="currentMenu = 'JsonEdit'">
                             <span class="header_item_span3"
@@ -133,8 +133,8 @@
                 </div>
                 <!-- 规则JSON编辑器 -->
                 <div class="style_rule_edit" v-else>
-                    <iframe :src="iframeSrc" frameborder="0" @load="loadIframe" ref="mainIframe"
-                        style="width:100%;  height:calc(100% - 10px);cursor: not-allowed"></iframe>
+                    <ESEditor :language="'json'" :readonly="false" @load="load" ref="editorContainer" @change="change">
+                    </ESEditor>
                 </div>
             </div>
         </div>
@@ -143,15 +143,14 @@
 </template>
 
 <script setup lang="ts">
-import { Message, messageBox } from "earthsdk-ui";
-import { inject, ref, watch } from "vue";
+import { ESEditor, Message, messageBox } from "earthsdk-ui";
+import { inject, ref, useTemplateRef, watch } from "vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import EnumProp from "../../eSPropPanel/propertiesMenu/commons/EnumProp.vue"
 import { ESColor } from "earthsdk-ui"
 import BooleanProp from "../../eSPropPanel/propertiesMenu/commons/BooleanProp.vue";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
-import { ESSceneObject } from "earthsdk3";
 const props = withDefaults(defineProps<{
     isShow: boolean,
     setStyleTreeItem: SceneTreeItem | undefined,
@@ -169,23 +168,25 @@ const fieldList = ref<[aliasName: any, value: any][]>([['id', 'id']])
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const currentMenu = ref('edit')//当前的模块是可视化还是json
 const flagApplection = ref(false)
+const editorContainer = useTemplateRef('editorContainer')
 //默认的样式
 const styleList = ref<any[]>([])
-const iframeSrc = ESSceneObject.getStrFromEnv('${earthsdk3-assets-script-dir}/markdown/monaco-editor/json-editor.html');
 //点击切换模块的时候
 const changeCurrentEdit = async () => {
     if (currentMenu.value === 'edit') return
     try {
-        const str = await getJson()
-        const json = JSON.parse(str);
+        const json = [...ruleRef.value]
         let newJson: any[] = []
         json.forEach((item: any) => {
+            if (!item.condition) item.condition = []
+            if (!item.show) item.show = false
+            if (!item.color) item.color = [1, 0, 0, 1]
             if (Array.isArray(item.condition)) {
                 newJson.push(item)
             } else {
                 const i = item
                 const condition = item.condition
-                i.condition = [condition]
+                i.condition = condition ? [condition] : []
                 newJson.push(i)
             }
         })
@@ -308,19 +309,16 @@ const listadeleteOneRule = (index: number, ind: number) => {
     ruleRef.value = rule
 }
 
-const changeStyle = async (item: any, index: any, flag: boolean) => {
+const changeStyle = (item: any, index: any, flag: boolean) => {
     if (flag) {
         checkedactive.value = index
-    }
-    else {
+    } else {
         checkedactive.value = -1
     }
-    if (currentMenu.value === 'edit') {
-        ruleRef.value = item.code
-    } else {
-        await setJson(JSON.stringify(item.code, undefined, '    '))
+    ruleRef.value = item.code
+    if (currentMenu.value !== 'edit') {
+        editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '));
     }
-
 }
 const checkedactive = ref()//样式列表的当前选中
 const changeCancel = () => {//点击取消
@@ -379,7 +377,6 @@ watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
     hoverlideleteIndex.value = -2
     hoverlideleteIndexHover.value = -2
     hoverdeleteIndex.value = -2
-
 }, { immediate: true })
 const obtainType = (item: any) => {//输出这个属性名对应的类型
     if (typeof (item) !== 'boolean') {
@@ -391,7 +388,6 @@ const obtainType = (item: any) => {//输出这个属性名对应的类型
         return true
     }
 }
-
 function getCurrentDateTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -413,20 +409,9 @@ const changeOk = async () => {
         }
         newExtras.xbsjFetureStyles.push(styleData);
         sceneObject.extras = newExtras;
-    };
-    let normalizedJson
+    }
     try {
-        if (currentMenu.value === 'edit') {
-            sceneObject.setFeatureStyle(ruleRef.value);
-        } else {
-            const str = await getJson();
-            const json = JSON.parse(str);
-            normalizedJson = json.map((item: any) => ({
-                ...item,
-                condition: Array.isArray(item.condition) ? item.condition : [item.condition],
-            }));
-            sceneObject.setFeatureStyle(normalizedJson);
-        }
+        sceneObject.setFeatureStyle(ruleRef.value);
         Message.success('设置样式成功');
         const viewer = xbsjEarthUi.activeViewer;
         if (!viewer) return;
@@ -434,7 +419,7 @@ const changeOk = async () => {
         const styleData = {
             id: getUuid(),
             name: getCurrentDateTime(),
-            code: currentMenu.value === 'edit' ? JSON.parse(JSON.stringify(ruleRef.value)) : normalizedJson,
+            code: JSON.parse(JSON.stringify(ruleRef.value)),
             thumbnail: capture,  // 使用已获取的 capture
         };
         addStyleToExtras(styleData);
@@ -457,69 +442,17 @@ const changeOk = async () => {
     }
 };
 
-
-//json编辑器初始化
-const loadIframe = async () => {
-    await setJson(JSON.stringify(ruleRef.value, undefined, '    '))
+const load = () => {
+    editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '));
 }
-const mainIframe = ref<HTMLIFrameElement>();//json对应的元素
-function setJson(value: string) {//设置json
-    return new Promise<void>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const setKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'setJson', id: setKey, value })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageSetEventWatch, false);
-            reject();
-        }, 10000);
+const change = (value: string) => {
+    try {
+        ruleRef.value = JSON.parse(value);
+    } catch (error) {
+        console.error('JSON 解析失败:', error);
+    }
+};
 
-        const messageSetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'setJsonReturn') || (data.id && data.id !== setKey)) {
-                return;
-            }
-            removeEventListener('message', messageSetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok') {
-                resolve();
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageSetEventWatch, false);
-    })
-}
-function getJson() {//获取json上面的内容
-    return new Promise<string>((resolve, reject) => {
-        if (!mainIframe.value || !mainIframe.value.contentWindow) {
-            return;
-        }
-        const getKey = getUuid()
-        mainIframe.value.contentWindow.postMessage({ type: 'getJson', id: getKey })
-        const time = setTimeout(() => {
-            removeEventListener('message', messageGetEventWatch, false);
-            reject();
-        }, 10000);
-
-        const messageGetEventWatch = (messageEvent: MessageEvent<{ type: string, id: string, status: string, value: string | undefined } | undefined>) => {
-            var data = messageEvent.data;
-            if (!data || (data.type && data.type !== 'getJsonReturn') || (data.id && data.id !== getKey)) {
-                return;
-            }
-            removeEventListener('message', messageGetEventWatch, false);
-            clearTimeout(time)
-            if (data.status === 'ok' && data.value) {
-                resolve(data.value);
-            } else {
-                reject();
-            }
-        }
-        addEventListener('message', messageGetEventWatch, false);
-    })
-
-}
 function getUuid() {//设置随机id
     var d = new Date().getTime();
     if (window.performance && typeof window.performance.now === "function") {
@@ -541,7 +474,7 @@ function getUuid() {//设置随机id
 }
 
 .set_style_list {
-    width: 100%;
+    width: 250px;
     height: 100%;
     padding: 10px;
     box-sizing: border-box;

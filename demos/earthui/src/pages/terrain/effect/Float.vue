@@ -1,7 +1,6 @@
 <template>
     <PopList :title="'地形透明度'">
-        <LabelInputSliderReset v-model="float" :label="'透明度'" :step="0.01" :min="0" :max="100" :defaultValue="1"
-            :width="154">
+        <LabelInputSliderReset v-model="float" :label="'透明度'" :step="0.01" :min="0" :max="100" :defaultValue="1">
         </LabelInputSliderReset>
     </PopList>
 </template>

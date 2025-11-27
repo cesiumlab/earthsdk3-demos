@@ -1,19 +1,25 @@
-<script setup lang='ts'>
+<script setup lang="ts">
+import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
+import { inject, useTemplateRef } from "vue";
+import { NewChat } from "earthsdk-ui";
 
-import { ref } from 'vue';
+const objm = inject("xbsjEarthUi") as XbsjEarthUi;
 
-const props = withDefaults(defineProps<{ default?: boolean }>(), {});
+const newChatRef = useTemplateRef("newChatRef");
 
-const emits = defineEmits(['update:modelValue']);
-
+newChatRef.value.registerTools([]);
 </script>
 
 <template>
-
-    <div>
-        大模型对话
+    <div class="xbsj-chat-container">
+        <NewChat :objm="objm" ref="newChatRef" />
     </div>
-
 </template>
 
-<style scoped></style>
+<style scoped>
+.xbsj-chat-container {
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid #313135;
+}
+</style>

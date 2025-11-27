@@ -3,7 +3,6 @@ import analysis from './analysis/index.vue';
 import engine from './engine/index.vue';
 import environment from './environment/index.vue';
 import images from './images/index.vue';
-import LLMChat from './LLMChat/index.vue';
 import model from './model/index.vue';
 import plotting from './plotting/index.vue';
 import roam from './roam/index.vue';
@@ -12,6 +11,7 @@ import service from './service/index.vue';
 import terrain from './terrain/index.vue';
 import vector from './vector/index.vue';
 import view from './view/index.vue';
+import LLMChat from './LLMChat/index.vue';
 import { NavType } from '@/types';
 
 export const originalNavList: NavType[] = [

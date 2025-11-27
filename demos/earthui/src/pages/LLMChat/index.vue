@@ -7,7 +7,7 @@ const objm = inject("xbsjEarthUi") as XbsjEarthUi;
 
 const newChatRef = useTemplateRef("newChatRef");
 
-newChatRef.value.registerTools([]);
+newChatRef.value?.registerTools([]);
 </script>
 
 <template>

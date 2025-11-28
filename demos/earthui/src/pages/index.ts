@@ -114,8 +114,8 @@ export const originalNavList: NavType[] = [
     },
     {
         id: 14,
-        title: " AI",
-        value: 'LLMChat',
+        title: "Agent",
+        value: 'llmchat',
         icon: 'shitu',
         component: LLMChat,
         isShow: true

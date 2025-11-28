@@ -1,6 +1,19 @@
 //@ts-nocheck
+
+import { ref } from "vue";
+
 /** 右侧边栏宽度 */
-export const rightSidebarWidth = 400;
+const rightSidebarWidth = ref(400);
+export const useRightSidebarWidthFunc = () => {
+    function setRightSidebarWidth(width: number) {
+        rightSidebarWidth.value = width;
+    }
+    return {
+        rightSidebarWidth,
+        setRightSidebarWidth
+    }
+}
+
 
 /** 全局配置信息 */
 export const $config = {

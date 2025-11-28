@@ -2453,10 +2453,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@1.0.4-beta.11:
-  version "1.0.4-beta.11"
-  resolved "https://registry.npmjs.org/earthsdk-ui/-/earthsdk-ui-1.0.4-beta.11.tgz#6ab042734366534c677f969da742b0c6020b400e"
-  integrity sha512-mU2nV1V6HQvGukcsKhltTOlMdMrVrr5RkjYXnZ7YrjiMS/JkNJhWoe4u7WQ6NLtzzdTjghpqdc3rQxUuMMsHMw==
+earthsdk-ui@1.0.4-beta.13:
+  version "1.0.4-beta.13"
+  resolved "https://registry.npmjs.org/earthsdk-ui/-/earthsdk-ui-1.0.4-beta.13.tgz#96639ffee6dde5a79bc00c91dfb4b71b123f5c25"
+  integrity sha512-vPGddpbsS5NaIIzY68sQatMjrHauVoZuo2C91rKS3i3yCUnJusas7YfS7HIHQiV+SpBGskt988yp7hrH29SgGQ==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
@@ -3679,6 +3679,7 @@ statuses@2.0.1:
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3697,6 +3698,7 @@ string-width@^5.0.1, string-width@^5.1.2:
     strip-ansi "^7.0.1"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==

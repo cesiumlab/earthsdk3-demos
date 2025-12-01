@@ -83,7 +83,7 @@
         </div>
     </div>
     <!-- 组件栏 -->
-    <div class="sub_menu" :style="getsubMenuStyle()">
+    <div class="sub_menu" :style="subMenuStyle">
         <div class="sub_menu_button" @click="rightModuleShow = !rightModuleShow"
             :class="rightModuleShow ? '' : 'sub_menu_button_checked'"></div>
         <div class="submenu_component" id="submenu_component">
@@ -96,13 +96,12 @@
 import { vClickOutside } from 'earthsdk-ui';
 import { Message, toVR, createVueDisposer } from "earthsdk-ui";
 import { parse } from 'search-params';
-import { inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue';
+import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue';
 import { getSaveFileHandle, saveFile } from "earthsdk-ui";
 import { JsonValue } from "earthsdk3";
 import { post, put, get } from '../api/service';
 import { XbsjEarthUi } from '../scripts/xbsjEarthUi';
-import { $config } from '@/global';
-import { rightSidebarWidth } from '@/global';
+import { $config, useRightSidebarWidthFunc } from '@/global';
 const props = withDefaults(defineProps<{
     navList: any[],
     navType: string | undefined,
@@ -289,8 +288,18 @@ onMounted(() => {
 })
 
 //////////////////////////////////组件栏逻辑
+const { rightSidebarWidth, setRightSidebarWidth } = useRightSidebarWidthFunc();
 const com = shallowRef(navList[0].component)
 const change = (item: any, flag?: boolean) => {
+    //大模型时需要更宽的ui 600px
+    if (item.value === 'llmchat') {
+        /** 全局注入设置右侧边栏宽度 */
+        setRightSidebarWidth(600);
+    } else {
+        /** 全局注入设置右侧边栏宽度 */
+        setRightSidebarWidth(400);
+    }
+
     if (item.value === navType.value) {
         rightModuleShow.value = !rightModuleShow.value
     } else {
@@ -301,14 +310,20 @@ const change = (item: any, flag?: boolean) => {
 
     flag && (moreMenuShow.value = false)
 }
-const getsubMenuStyle = () => ({
-    right: rightModuleShow.value ? '0px' : `${-rightSidebarWidth}px`
-})
+// const getsubMenuStyle = () => ({
+//     right: rightModuleShow.value ? '0px' : `${-rightSidebarWidth}px`
+// })
+
+const subMenuStyle = computed(() => ({
+    right: rightModuleShow.value ? '0px' : `${-rightSidebarWidth.value}px`
+}))
+
+
 // //////////////////////////////////属性逻辑
-watch(rightModuleShow, () => {
+watch([rightModuleShow, rightSidebarWidth], () => {
     if (rightModuleShow.value) {
-        xbsjEarthUi.navigatorManager.navigatorScaleRight = rightSidebarWidth + 10
-        xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${rightSidebarWidth}px)`
+        xbsjEarthUi.navigatorManager.navigatorScaleRight = rightSidebarWidth.value + 10
+        xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${rightSidebarWidth.value}px)`
     } else {
         xbsjEarthUi.navigatorManager.navigatorScaleRight = 10
         xbsjEarthUi.navigatorManager.timeLineWidth = '100%'
@@ -493,7 +508,6 @@ onMounted(() => {
 }
 
 .ctm-title {
-    width: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

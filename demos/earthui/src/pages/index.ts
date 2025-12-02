@@ -116,8 +116,10 @@ export const originalNavList: NavType[] = [
         id: 14,
         title: "Agent",
         value: 'llmchat',
-        icon: 'shitu',
+        icon: 'a-xinjianwenbenwendang',
+        iconSize:18,
         component: LLMChat,
-        isShow: true
+        isShow: true,
+        new:true
     },
 ]

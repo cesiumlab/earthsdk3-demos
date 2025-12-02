@@ -10,12 +10,13 @@
             <div v-for="(item, index) in defalutNavList" v-show="item.isShow" :key="item.id" @click="change(item)"
                 class="neck_title" @mouseover="iconheight = index" @mouseout="iconheight = -1"
                 :class="navType === item.value ? 'activated' : ''" :title="item.title">
-                <span style="margin-top: 3px;" class="ctm-svg">
+                <span :style="{ marginTop: item.new ? '7px' : ' 3px' }" class="ctm-svg">
                     <es-icon :name="item.icon"
                         :color="navType === item.value ? 'rgba(87, 136, 255, 1)' : iconheight === index ? 'rgba(87, 136, 255, 1)' : '#fff'"
-                        :size="14" />
+                        :size="item.iconSize ?? 14" />
                 </span>
                 <span style="margin-left: 6px;" class="ctm-title">{{ item.title }}</span>
+                <span v-if="item.new" style="margin-left: 6px;" class="ctm-new">NEW</span>
             </div>
             <div class="neck_title" :class="moreMenuShow ? 'activated' : ''" v-if="noneNavList.length !== 0"
                 ref="moreNavRef" @click="changeMore(true)">
@@ -511,6 +512,15 @@ onMounted(() => {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.ctm-new {
+    width: 20px;
+    background: #2C68F7;
+    font-size: 8px;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
 }
 
 .neck_more {

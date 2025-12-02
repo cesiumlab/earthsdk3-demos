@@ -7,5 +7,7 @@ export type NavType = {
     value: string,
     icon: string,
     component: any,
-    isShow?: boolean
+    isShow?: boolean,
+    new?: boolean,
+    iconSize?: number,
 }

@@ -2480,10 +2480,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.6.0-beta.9:
-  version "3.6.0-beta.9"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.6.0-beta.9.tgz#886e98d3a325e137ffc55f5e0373fae5daac7c2b"
-  integrity sha512-0nSCFhzg4EuunDOYAtEFxPtMlb5rSnUSmoGqmQxCU1DzIk5AQ1RkR35nVxjcuD0kHwcppV+Bby9Xehm3uzlSFQ==
+earthsdk3-cesium@3.6.0-beta.10:
+  version "3.6.0-beta.10"
+  resolved "https://registry.yarnpkg.com/earthsdk3-cesium/-/earthsdk3-cesium-3.6.0-beta.10.tgz#4bf51ec901ae3d3b9db10071d76eec9c20decee7"
+  integrity sha512-QunQBL/7otS/CDDbcrewy9Mc+yaRzTI2XeENscYKHLg+Wqhhpi6n4lUmF8XI7M/m8cuFLGX2c9GT2y5euOpERw==
   dependencies:
     "@mapbox/sphericalmercator" "2.0.1"
     "@mapbox/vector-tile" "2.0.4"
@@ -2494,23 +2494,23 @@ earthsdk3-cesium@3.6.0-beta.9:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@3.6.0-beta.8:
-  version "3.6.0-beta.8"
-  resolved "https://registry.npmjs.org/earthsdk3-ol/-/earthsdk3-ol-3.6.0-beta.8.tgz#46e0d59c6a0319fcfb998b457346e28dbb2578f6"
-  integrity sha512-RlO0aTmgZz90bfanvGDYQFWDMyLi2t2SY9Gb9WSbzkyGx3Hu16xPemxQE5M2kFNgUgMnxQmyhBIErpgsed1XLA==
+earthsdk3-ol@3.6.0-beta.9:
+  version "3.6.0-beta.9"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ol/-/earthsdk3-ol-3.6.0-beta.9.tgz#bf5d76b9f20fb5ea6ee5e760db3e11a1b41f20d3"
+  integrity sha512-akkT3p1q1Sd09nDWPwPm8BM6vcqtE2qmPa1t2ugWDoFHCDs5mjPDK2iu72KMAGyzPDXiJEHp/nQubsn/Mgldrg==
 
-earthsdk3-ue@3.6.0-beta.6:
-  version "3.6.0-beta.6"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.6.0-beta.6.tgz#166dc8b8b87f688000b8b419ba15c2535ca75aa3"
-  integrity sha512-PE97jhzhG+W0NwB1LgGgedGygKN4RrxFjEAo/+D/07azg6/AtaRGCB1owkvYprIzIlD3HFoD889Yq92qNQxjYg==
+earthsdk3-ue@3.6.0-beta.7:
+  version "3.6.0-beta.7"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ue/-/earthsdk3-ue-3.6.0-beta.7.tgz#69d83bff6f222fad952546a2934fb90e63a2c52b"
+  integrity sha512-1WdI/SMD63z0ZKCJqC3uxku9uEHNY5FzeqCJqMk177CaX4+4cxFDJrLas5KLI3GuoYSoVPOYbkU1wx/gVDNkIw==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.6.0-beta.10:
-  version "3.6.0-beta.10"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.6.0-beta.10.tgz#6d25943e208f3af75cbdb6c8354762c6de1eed36"
-  integrity sha512-N2I7tRMECYnubVZAdX0zoadT72E7EhR0VhhVG765x6YesNDtBniUt2GLHejqoYEfWER7N3UVL3R8coZMg9anow==
+earthsdk3@3.6.0-beta.11:
+  version "3.6.0-beta.11"
+  resolved "https://registry.yarnpkg.com/earthsdk3/-/earthsdk3-3.6.0-beta.11.tgz#71752966e5e173d9967cca5fc4350fe68f9f0220"
+  integrity sha512-c2nImjXnkqAk8tqK/HEuuz8iAQAo88kkK7yddCpyPwzeQmNRJOTj5Ir2iW7LCOqDOvBGOCXMZkIyrIytkn7YNg==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -2518,6 +2518,8 @@ earthsdk3@3.6.0-beta.10:
     js-binary-schema-parser "^2.0.3"
     proj4 "^2.8.0"
     topojson-client "3.1.0"
+    zod "^3.23.8"
+    zod-to-json-schema "^3.24.1"
 
 eastasianwidth@^0.2.0:
   version "0.2.0"
@@ -3678,8 +3680,16 @@ statuses@2.0.1:
   resolved "https://registry.npmjs.org/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
-  name string-width-cjs
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -3697,8 +3707,14 @@ string-width@^5.0.1, string-width@^5.1.2:
     emoji-regex "^9.2.2"
     strip-ansi "^7.0.1"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  name strip-ansi-cjs
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==

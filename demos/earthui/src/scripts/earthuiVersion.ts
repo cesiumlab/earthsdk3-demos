@@ -1,3 +1,3 @@
 export function getEarthuiVersion() {
-  return "25.10.30";
+  return "25.12.03";
 }

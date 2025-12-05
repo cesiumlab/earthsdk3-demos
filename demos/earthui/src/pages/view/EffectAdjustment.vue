@@ -30,10 +30,10 @@ const objType = ref('')
         <Button :name="'kangjuchi'" :content="'抗锯齿方法'" :actived="objType === 'antiAliasingMethod'"
             :click="() => { objType === 'antiAliasingMethod' ? objType = '' : objType = 'antiAliasingMethod' }"
             :left-button="true"></Button>
-        <Button :name="'kangjuchi'" :content="'地球基础色'" :actived="objType === 'sceneGlobeBaseColor'"
+        <Button :name="'diqiuyouhuisebeijingyanse'" :content="'地球基础色'" :actived="objType === 'sceneGlobeBaseColor'"
             :click="() => { objType === 'sceneGlobeBaseColor' ? objType = '' : objType = 'sceneGlobeBaseColor' }"
             :left-button="true"></Button>
-        <Button :name="'kangjuchi'" :content="'场景背景色'" :actived="objType === 'sceneBackgroundColor'"
+        <Button :name="'beijingse'" :content="'场景背景色'" :actived="objType === 'sceneBackgroundColor'"
             :click="() => { objType === 'sceneBackgroundColor' ? objType = '' : objType = 'sceneBackgroundColor' }"
             :left-button="true"></Button>
         <Fov v-if="objType === 'fov'"></Fov>

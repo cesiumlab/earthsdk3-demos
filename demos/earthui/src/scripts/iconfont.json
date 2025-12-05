@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "46277816",
+      "name": "地球有灰色背景颜色",
+      "font_class": "diqiuyouhuisebeijingyanse",
+      "unicode": "e725",
+      "unicode_decimal": 59173
+    },
+    {
+      "icon_id": "23981118",
+      "name": "背景色",
+      "font_class": "beijingse",
+      "unicode": "e724",
+      "unicode_decimal": 59172
+    },
+    {
       "icon_id": "46244156",
       "name": "新建 文本文档",
       "font_class": "a-xinjianwenbenwendang",

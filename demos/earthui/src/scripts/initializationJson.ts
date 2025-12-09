@@ -141,28 +141,10 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
         })
     }
 }
-//默认场景
-function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
-    try {
-        fetch('./scene.json').then((res) => {
-            if (res.ok) {
-                res.json().then((json) => {
-                    xbsjEarthUi.json = json
-                    Message.success('加载默认场景成功')
-                }).catch((error) => {
-                    console.log(error);
-                    Message.success('加载默认场景失败')
-                })
-            } else {
-                Message.success('加载默认场景失败')
-            }
-        })
-    } catch (error) {
-        console.log(error);
-
-    }
-
-
+let hasCreatedImagery = false; // 添加标志位
+const getdefaultImage = (xbsjEarthUi: XbsjEarthUi) => {
+    if (hasCreatedImagery) return; // 防止重复创建
+    hasCreatedImagery = true;
     getNoToken(`https://account.bjxbsj.cn/api/bjxbsj/online/default`).then((res: any) => {
         if (res && res.url) {
             xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
@@ -171,10 +153,49 @@ function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
                 "name": "全球影像",
                 "maximumLevel": 18,
             })
+        } else {
+            xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+                "type": "ESImageryLayer",
+                "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                "name": "全球影像",
+                "maximumLevel": 18,
+            })
         }
     }).catch((error: any) => {
+        xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+            "type": "ESImageryLayer",
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "name": "全球影像",
+            "maximumLevel": 18,
+        })
         console.log(error);
     })
+}
+
+//默认场景
+function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
+    try {
+        fetch('./scene.json').then((res) => {
+            if (res.ok) {
+                res.json().then((json) => {
+                    xbsjEarthUi.json = json
+                    Message.success('加载默认场景成功')
+                    getdefaultImage(xbsjEarthUi)
+                }).catch((error) => {
+                    console.log(error);
+                    Message.error('加载默认场景失败')
+                    getdefaultImage(xbsjEarthUi)
+                })
+            } else {
+                Message.error('加载默认场景失败')
+                getdefaultImage(xbsjEarthUi)
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        Message.error('加载默认场景失败')
+        getdefaultImage(xbsjEarthUi)
+    }
 }
 
 

@@ -9,7 +9,7 @@ import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
-const uri = ref<string>('http://localhost:8086')
+const uri = ref<string>('http://localhost:9007')
 const app = ref<string>('')
 const serveIdList = ref<{ id: string, name: string, thumbnail: string }[]>([])
 const load = ref(false)
@@ -91,7 +91,7 @@ onMounted(() => {
         if (esssUrl) {
             uri.value = esssUrl
         } else {
-            uri.value = 'http://localhost:8086'
+            uri.value = 'http://localhost:9007'
         }
     }
     changeServeIdList()

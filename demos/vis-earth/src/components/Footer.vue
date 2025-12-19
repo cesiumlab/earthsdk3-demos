@@ -1,17 +1,17 @@
 <template>
     <div class="vis_status_bar">
-        <div class="vis_scale" ref="scale">
+        <!-- <div class="vis_scale" ref="scale">
             <div class="vis_scale_border">{{ lengthInPixel }}</div>
             <div class="vis_scale_length"></div>
-        </div>
+        </div> -->
         <span style="width: 65px;">FPS:{{ Math.floor(statusInfo.fps) }}</span>
         <span style="width: 285px;">相机位置:{{ (statusInfo.position[0]).toFixed(5) }},{{
-                (statusInfo.position[1]).toFixed(5) }},{{ (statusInfo.position[2]).toFixed(2) }}</span>
+            (statusInfo.position[1]).toFixed(5) }},{{ (statusInfo.position[2]).toFixed(2) }}</span>
         <span style="width: 110px;"> 偏航角:{{ (statusInfo.rotation[0]).toFixed(2) }}°</span>
         <span style="width: 110px;"> 俯仰角:{{ (statusInfo.rotation[1]).toFixed(2) }}° </span>
         <span style="width: 270px;cursor: pointer;user-select: none;" title="双击复制当前位置">{{ realTimeInfo ?
-                `鼠标位置:${realTimeInfo[0].toFixed(5)},${realTimeInfo[1].toFixed(5)},${realTimeInfo[2].toFixed(2)}`
-                : '暂时无法获取鼠标位置...' }}
+            `鼠标位置:${realTimeInfo[0].toFixed(5)},${realTimeInfo[1].toFixed(5)},${realTimeInfo[2].toFixed(2)}`
+            : '暂时无法获取鼠标位置...' }}
         </span>
         <div class="vis_layer" @click="layerShow = !layerShow">
             <img style="width: 20px;height: 20px;" src="../assets/layer.png" alt=""> {{ '图层' }}
@@ -29,7 +29,7 @@ import { getobjm } from '../scripts/getobjm';
 import ViaWindow from './ViaWindow.vue';
 const objm = getobjm()
 
-const lengthInPixel = ref()
+// const lengthInPixel = ref()
 const statusInfo = ref({ fps: 0, position: [0, 0, 0], rotation: [0, 0, 0], length: 0 })
 const realTimeInfo = ref()
 const debugData = async () => {
@@ -41,21 +41,21 @@ const debugData = async () => {
         statusInfo.value.position = cameraInfo.position
         statusInfo.value.rotation = cameraInfo.rotation
     }
-    const inPixel = await viewer.getLengthInPixel()
-    let a
-    if (inPixel) {
-        if (inPixel < 0) {
-            a = ``
-        } else {
-            if (inPixel * 100 > 1000) {
-                a = `${(inPixel * 100 / 1000).toFixed(0)}km`
-            } else {
-                a = `${(inPixel * 100).toFixed(0)}m`
-            }
-        }
+    // const inPixel = await viewer.getLengthInPixel()
+    // let a
+    // if (inPixel) {
+    //     if (inPixel < 0) {
+    //         a = ``
+    //     } else {
+    //         if (inPixel * 100 > 1000) {
+    //             a = `${(inPixel * 100 / 1000).toFixed(0)}km`
+    //         } else {
+    //             a = `${(inPixel * 100).toFixed(0)}m`
+    //         }
+    //     }
 
-        lengthInPixel.value = a
-    }
+    //     lengthInPixel.value = a
+    // }
 }
 let dispose: any
 let timer: any

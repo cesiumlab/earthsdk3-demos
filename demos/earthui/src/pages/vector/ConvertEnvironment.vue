@@ -22,21 +22,13 @@
     </div>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { copyClipboard } from "../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
 import { ref, watch } from 'vue';
 import { ESSceneObject } from 'earthsdk3';
 const searchContent = ref('${scene-manager-script-dir}/xe2-assets/scene-manager/images/location.png')
 const transformContent = ref('')
 const emits = defineEmits(["close"]);
 const searchInput = ref<HTMLElement>()
-const copyClipboard = async (text: string) => {//复制
-    navigator.clipboard.writeText(text)
-        .then(function () {
-            Message.success('复制成功');
-        }, function (e) {
-            Message.error(`复制失败!error:${e}`);
-        });
-}
 
 const search = () => {
     transformContent.value = ESSceneObject.context.getStrFromEnv(searchContent.value)

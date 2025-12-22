@@ -45,7 +45,7 @@ import { Message, createVueDisposer, messageBox, toReadonlyVueRef, toRefKey, toV
 import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, ESTextLabel, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { ESKml } from 'earthsdk3-cesium'
 import { Ref, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import {Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
+import { Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
 import { getNoToken, getNoTokenText } from "../../api/service";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import DraggablePopup2 from '../DraggablePopup2.vue';
@@ -58,9 +58,10 @@ import CreateSceneObjFromJson from "./scenetreeCreate/CreateSceneObjFromJson.vue
 import LiftHeight from "./scenetreeCreate/LiftHeight.vue";
 import SetStyle from "./scenetreeCreate/SetStyle.vue";
 import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
-import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems,saveAs } from "./tools";
+import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems, saveAs } from "./tools";
 import { ESUeViewer } from "earthsdk3-ue";
 import { createSceneObjTreeItemFromJson } from "../../pages/plotting/esObj/fun";
+import { copyClipboard } from "../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
 const props = withDefaults(defineProps<{
     showCheckBox: boolean
     clickEmpty: boolean,
@@ -984,18 +985,6 @@ const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
     return [{ type: "divider" }, ...availableActions];
 };
 
-/**
- * 复制
- * @param text 
- */
-const copyClipboard = async (text: string) => {
-    navigator.clipboard.writeText(text)
-        .then(function () {
-            Message.success('复制成功');
-        }, function (e) {
-            Message.error(`复制失败!error:${e}`);
-        });
-}
 
 /**
  * 删除对象

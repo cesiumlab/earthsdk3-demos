@@ -24,7 +24,7 @@
                                         :color="hoverlideleteIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
                             </div>
                             <div class="mergemodel_list_head_tip" :title="getTipMessage(index)">{{ getTipMessage(index)
-                                }}</div>
+                            }}</div>
                         </div>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { ESEditor, FileHandleType, getSaveFileHandle, Message, messageBox, saveFile } from "earthsdk-ui";
+import { ESEditor, Message, messageBox } from "earthsdk-ui";
 import { merge3dTilesServer } from "earthsdk3-cesium";
-import { inject, ref, useTemplateRef } from 'vue';
-import { ESSceneObject } from "earthsdk3";
+import { ref, useTemplateRef } from 'vue';
+import { saveAs } from "../../../components/sceneTree/tools"
 import DraggablePopup2 from "../../../components/DraggablePopup2.vue";
 import { copyClipboard } from "../../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
 const emits = defineEmits(['close']);
@@ -140,7 +140,7 @@ const copy = () => {//复制
 }
 const download = () => {//下载
     try {
-        const str = editorContainer.value?.getVal()
+        const str = editorContainer.value?.getVal() as any
         const json = JSON.parse(str);
         saveAs(json, 'tileset');
     } catch (error) {
@@ -151,19 +151,5 @@ const download = () => {//下载
 //json编辑器初始化
 const loadIframe = () => {
     editorContainer.value?.setVal(JSON.stringify('', undefined, '    '));
-}
-
-const saveAs = async (json: any, name?: string) => {
-    try {
-        let handle: FileHandleType | undefined
-        Message.warning('正在另存为..');
-        handle = await getSaveFileHandle('json', name);
-        if (!handle) return;
-        const jsonStr = JSON.stringify(json, undefined, '    ');
-        await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
-    }
 }
 </script>

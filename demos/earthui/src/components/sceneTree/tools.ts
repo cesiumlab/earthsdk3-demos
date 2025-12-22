@@ -1,8 +1,9 @@
-import { messageBox } from "earthsdk-ui";
+import { Message, messageBox } from "earthsdk-ui";
 import { getsceneObjNumfromSceneTree } from "../../scripts/general";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESJSwitchToUEViewerOptionType, ESObjectWithLocation, ESPath, ESTextLabel, ESVOptionUe, SceneTreeItem } from 'earthsdk3';
 import * as topojson from "topojson-client";
+import { JsonValue} from "earthsdk3";
 
 
 function createSceneObjByJson(obj: { [key: string]: any }, xbsjEarthUi: XbsjEarthUi) {
@@ -567,3 +568,30 @@ export const createObj = (xbsjEarthUi: XbsjEarthUi, a: any) => {
     }
 }
 
+/**
+ * 保存json文件
+ * @param json 
+ * @param name 
+ */
+export const saveAs = async (json: JsonValue, name?: string) => {
+    Message.warning('正在另存为..');
+    try {
+        // 将JSON值转换为字符串
+        const jsonString = JSON.stringify(json, null, 2);
+        // 创建Blob对象
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = name ?? '未命名';
+        // 触发下载
+        document.body.appendChild(link);
+        link.click();
+        // 清理
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        Message.success('另存成功!');
+    } catch (error) {
+        Message.error(`另存失败! error: ${error}`);
+    }
+}

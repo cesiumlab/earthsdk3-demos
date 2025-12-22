@@ -41,12 +41,11 @@
     </MaterialReplace>
 </template>
 <script setup lang="ts">
-import { FileHandleType, Message, createVueDisposer, getSaveFileHandle, messageBox, saveFile, toReadonlyVueRef, toRefKey, toVR } from "earthsdk-ui";
+import { Message, createVueDisposer, messageBox, toReadonlyVueRef, toRefKey, toVR } from "earthsdk-ui";
 import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESImageryLayer, ESLocalSkyBox, ESObjectWithLocation, ESPath, ESTerrainLayer, ESTextLabel, PropTree, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { ESKml } from 'earthsdk3-cesium'
 import { Ref, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
-
-import { JsonValue, Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
+import {Tree, TreeItem, TreeItemInsertFlag } from "earthsdk3";
 import { getNoToken, getNoTokenText } from "../../api/service";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import DraggablePopup2 from '../DraggablePopup2.vue';
@@ -59,7 +58,7 @@ import CreateSceneObjFromJson from "./scenetreeCreate/CreateSceneObjFromJson.vue
 import LiftHeight from "./scenetreeCreate/LiftHeight.vue";
 import SetStyle from "./scenetreeCreate/SetStyle.vue";
 import MaterialReplace from "./scenetreeCreate/MaterialReplace.vue";
-import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "./tools";
+import { createLines, createObj, createSceneJson, createpoints, createpolygons, geoJsonTOESObjects, geojsonToPointsLinesPolygons, save, saveFileHandle, searchAllESObjectWithLocationFromselectItem, searchAllEspathFromselectItem, searchCheckedFromFolders, searchCheckedTreeItems, searchGeoObjsValues, searchSceneObjectFromFolders, searchSceneObjectTreeItems,saveAs } from "./tools";
 import { ESUeViewer } from "earthsdk3-ue";
 import { createSceneObjTreeItemFromJson } from "../../pages/plotting/esObj/fun";
 const props = withDefaults(defineProps<{
@@ -186,30 +185,6 @@ const addNewTreeItem = (treeItem: SceneTreeItem | undefined, location?: TreeItem
     groupscenetreeitem.name = '新建文件夹';
 }
 
-/**
- * 保存文件
- * @param json 
- * @param name 
- */
-const saveAs = async (json: JsonValue, name?: string) => {
-    try {
-        let handle: FileHandleType | undefined
-        Message.warning('正在另存为..');
-        if (name === undefined) {
-            handle = await getSaveFileHandle('json', name);
-        } else if (name === 'scene') {
-            handle = await getSaveFileHandle('json', name);
-        } else {
-            handle = await getSaveFileHandle('json', `${name}.sceneObject`);
-        }
-        if (!handle) return;
-        const jsonStr = JSON.stringify(json, undefined, '    ');
-        await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
-    }
-}
 let checkedItems: any
 let fatherItem: any
 /**

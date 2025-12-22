@@ -98,8 +98,7 @@ import { vClickOutside } from 'earthsdk-ui';
 import { Message, toVR, createVueDisposer } from "earthsdk-ui";
 import { parse } from 'search-params';
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue';
-import { getSaveFileHandle, saveFile } from "earthsdk-ui";
-import { JsonValue } from "earthsdk3";
+import { saveAs } from "../components/sceneTree/tools"
 import { post, put, get } from '../api/service';
 import { XbsjEarthUi } from '../scripts/xbsjEarthUi';
 import { $config, useRightSidebarWidthFunc } from '@/global';
@@ -114,8 +113,8 @@ const navType = ref('roam')
 //////////////////////////////////导航栏逻辑
 const cesiumLabUrl = ref()
 const esssUrl = ref()
-const iconheight = ref(-1)
-const iconheight1 = ref(-1)
+const iconheight = ref<any>(-1)
+const iconheight1 = ref<any>(-1)
 const { navList } = props
 const disposer = createVueDisposer(onBeforeUnmount);
 const rightModuleShow = toVR<boolean>(disposer, [xbsjEarthUi, 'rightModuleShow'])
@@ -253,18 +252,7 @@ const sceneList = [
         }
     }
 ]
-//保存到本地
-const saveAs = async (json: JsonValue, name: string) => {
-    try {
-        const handle = await getSaveFileHandle('json', name);
-        if (!handle) throw new Error('选择文件目录异常');
-        const jsonStr = JSON.stringify(json, undefined, '    ');
-        await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! ${error}`);
-    }
-}
+
 onMounted(() => {
     navType.value = props.navType
     navList.forEach((item) => {

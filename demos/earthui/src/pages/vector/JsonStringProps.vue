@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from "vue";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
+import { saveAs } from "../../components/sceneTree/tools"
 import { ESEditor, Message } from "earthsdk-ui"
 import Window from "../../components/commom/Window.vue";
 const editorContainer = useTemplateRef('editorContainer')
@@ -27,14 +28,7 @@ const props = withDefaults(defineProps<{
     readonly?: boolean
 }>(), { readonly: false });
 const emits = defineEmits(["changeShow", "getJsonStr"]);
-const copyClipboard = (text: string) => {//复制
-    navigator.clipboard.writeText(text)
-        .then(function () {
-            Message.success('复制成功');
-        }, function (e) {
-            Message.error(`复制失败!error:${e}`);
-        });
-}
+
 const sampleShow = ref(false)
 const loadIframe = () => {
     editorContainer.value?.setVal(props.jsonStr);
@@ -75,19 +69,9 @@ const importJsonFile = async () => { //导入文件
     }
 }
 const exportJsonFile = () => {
-    const str = editorContainer.value?.getVal()
-    saveAs(str)
-}
-const saveAs = async (jsonStr: string, name?: string) => {
-    try {
-        Message.warning('正在另存为..');
-        const handle = await getSaveFileHandle('json', name);
-        if (!handle) return;
-        await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
-    }
+    const str = editorContainer.value?.getVal() as any
+    const newstr = JSON.parse(str)
+    saveAs(newstr)
 }
 
 </script>

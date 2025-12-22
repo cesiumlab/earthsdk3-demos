@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import { Message } from "earthsdk-ui";
 import { ESJSwitchToUEViewerOptionType } from "earthsdk3";
 import { inject, onMounted, ref, watch } from 'vue';
 import { getNoToken } from '../../../api/service';
@@ -7,6 +6,7 @@ import LabelInput from "../../../components/LabelInput.vue";
 import Loading from '../../../components/Loading.vue';
 import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
+import { ElMessage } from "element-plus";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
 const uri = ref<string>('http://localhost:9007')
@@ -35,7 +35,7 @@ const changeServeIdList = () => {
     }).catch(error => {
         load.value = false
         console.log(error);
-        Message.error(`${error}`)
+        ElMessage.error(`${error}`)
     })
 }
 
@@ -45,9 +45,9 @@ const cancel = () => {
 }
 const confirm = () => {
     if (!uri.value) {
-        Message.warning('请输入ESSS服务地址')
+        ElMessage.warning('请输入ESSS服务地址')
     } else if (!app.value) {
-        Message.warning('请输入应用id')
+        ElMessage.warning('请输入应用id')
     } else {
         checkedactive.value = null
         let url

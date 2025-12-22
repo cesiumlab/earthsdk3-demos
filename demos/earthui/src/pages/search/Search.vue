@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 import { ESPoi2D } from 'earthsdk3';
 import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 import { getNoToken } from '../../api/service';
@@ -17,7 +17,7 @@ const liActive = ref(-1)
 const liShow = ref(false)
 const saerct = (e?: any) => {
     if (!name.value || isAllSpaces(name.value)) {
-        Message.warning('请输入搜索内容')
+        ElMessage.warning('请输入搜索内容')
         liShow.value = false
         return
     }
@@ -37,7 +37,7 @@ const saerct = (e?: any) => {
         }
     }).catch(error => {
         console.log(error);
-        Message.error(`${error}`)
+        ElMessage.error(`${error}`)
     })
 }
 let sceneObject: ESPoi2D | undefined
@@ -62,7 +62,7 @@ function removeSpaces(str: string) {
 }
 const addSceneObjToTree = () => {
     if (!sceneObject || !sceneObject.show) {
-        Message.warning('请选择搜索结果')
+        ElMessage.warning('请选择搜索结果')
         return
     }
     const json = sceneObject.json

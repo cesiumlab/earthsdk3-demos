@@ -1,7 +1,7 @@
 import { ref, Ref } from "vue";
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
 import { createAnimateFrameWithStartValues, ESJVector3D, Processing } from "earthsdk3";
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 
 // 类型定义
 interface CameraInfo {
@@ -104,10 +104,10 @@ export function useStatusBar(xbsjEarthUi: XbsjEarthUi) {
 
         navigator.clipboard.writeText(text)
             .then(() => {
-                Message.success('复制成功');
+                ElMessage.success('复制成功');
             })
             .catch((error) => {
-                Message.error(`复制失败: ${error}`);
+                ElMessage.error(`复制失败: ${error}`);
             });
     };
 

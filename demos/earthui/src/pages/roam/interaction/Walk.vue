@@ -18,7 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { Message, createVueDisposer, toVR } from "earthsdk-ui"
+import {  createVueDisposer, toVR } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { inject, ref, watch, onMounted, onBeforeUnmount } from 'vue';
 import PopList from '../../../components/PopList.vue';
@@ -59,7 +60,7 @@ onMounted(() => {
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     viewer.changeToMap()
-    Message.warning('请点击选择一个位置点')
+    ElMessage.warning('请点击选择一个位置点')
 })
 onBeforeUnmount(() => destroy())
 </script>

@@ -31,7 +31,7 @@ import PopList from '../../../components/PopList.vue';
 import { ref, inject, onMounted, onBeforeUnmount } from "vue"
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { SceneTree } from 'earthsdk3';
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 import LabelInput from "../../../components/LabelInput.vue"
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -49,11 +49,11 @@ const height = ref()
 const emits = defineEmits(['close'])
 const ok = () => {
     if (!height.value) {
-        Message.warning('请输入抬升高度')
+        ElMessage.warning('请输入抬升高度')
         return
     }
     if (!pointIsChecked.value && !lineIsChecked.value && !polygonIsChecked.value) {
-        Message.warning('请选择至少一个选项进行操作')
+        ElMessage.warning('请选择至少一个选项进行操作')
         return
     }
     if (pointIsChecked.value && obj.value.point > 0) {
@@ -65,7 +65,7 @@ const ok = () => {
     if (polygonIsChecked.value && obj.value.polygon > 0) {
         ploygonLiftingHeight()
     }
-    Message.success('高度抬高成功')
+    ElMessage.success('高度抬高成功')
     emits('close')
 }
 const pointLiftingHeight = () => {

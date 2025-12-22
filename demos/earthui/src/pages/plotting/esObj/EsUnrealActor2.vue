@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang='ts'>
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { inject, onBeforeUnmount, ref } from 'vue';
 import LabelInput from "../../../components/LabelInput.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
@@ -28,7 +28,7 @@ const emits = defineEmits(['close'])
 const leftulisShow = ref(false)
 const ok = () => {
     if (!actorTag.value) {
-        Message.warning('请填写ActorTag');
+        ElMessage.warning('请填写ActorTag');
         return
     }
     const sceneTree = xbsjEarthUi.getSceneTree()
@@ -39,7 +39,7 @@ const ok = () => {
     viewer.getObjectByInfo({ actorTag: actorTag.value, componentTag: undefined }).then(res => {
 
         if (!res || !res.object) {
-            Message.warning('该tag无效或者重复');
+            ElMessage.warning('该tag无效或者重复');
         } else {
             let treeItem: any
             const lastSceneTreeItem = sceneTree.lastSelectedItem
@@ -82,7 +82,7 @@ const closeActorHighlight = (val: string, flag: boolean) => {
         const viewer = xbsjEarthUi.activeViewer
         if (!viewer) return
         if (viewer.typeName !== 'ESUeViewer') {
-            Message.warning('请在ue视口下操作')
+            ElMessage.warning('请在ue视口下操作')
             return
         }
         if (!(viewer instanceof ESUeViewer)) return
@@ -103,7 +103,7 @@ const pos = (messages: { [key: string]: any }) => {
         const viewer = xbsjEarthUi.activeViewer
         if (!viewer) return
         if (viewer.typeName !== 'ESUeViewer') {
-            Message.warning('请在ue视口下操作')
+            ElMessage.warning('请在ue视口下操作')
             return
         }
         if (!(viewer instanceof ESUeViewer)) return
@@ -119,7 +119,7 @@ const pos = (messages: { [key: string]: any }) => {
         actorTag.value = ""
         name.value = ""
         option.value = []
-        Message.warning('该位置没有tag')
+        ElMessage.warning('该位置没有tag')
     }
 }
 
@@ -153,7 +153,7 @@ const changeActorTag = (item: any) => {
     viewer.getObjectByInfo({ actorTag: item.value, componentTag: "" }).then(res => {
 
         if (!res || !res.object) {
-            Message.warning('该tag无效或者重复');
+            ElMessage.warning('该tag无效或者重复');
         } else {
             closeActorHighlight(actorTag.value, true)
         }
@@ -172,7 +172,7 @@ const handItemSelected = (item: any) => {
             actorTag.value = ""
             option.value = []
             actorTag.value = undefined
-            Message.warning('该位置没有tag')
+            ElMessage.warning('该位置没有tag')
         }
     }
 }

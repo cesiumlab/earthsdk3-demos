@@ -7,12 +7,12 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
 import { inject, onBeforeUnmount, onMounted } from "vue";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import LabelInput from "../../../components/LabelInput.vue";
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
+import { ElMessage } from "element-plus";
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
@@ -26,7 +26,7 @@ offsetHeight.value = 1
 const emits = defineEmits(['close'])
 const start = () => {
     if (surfaceAreaMeasurement && surfaceAreaMeasurement.editing) {
-        Message.warning('请双击结束编辑之后进行分析')
+        ElMessage.warning('请双击结束编辑之后进行分析')
         return
     }
     // interpolation.value = Number((Math.sqrt(surfaceAreaMeasurement.area / xbsjEarthUi.Interpolation)).toFixed(2))
@@ -36,7 +36,7 @@ let dispose: any
 onMounted(() => {
     if (surfaceAreaMeasurement) {
         surfaceAreaMeasurement.editing = true
-        Message.warning('结束编辑之后请点击开始分析')
+        ElMessage.warning('结束编辑之后请点击开始分析')
         offsetHeight.value = 1
     }
     dispose = surfaceAreaMeasurement.editingChanged.disposableOn(() => {

@@ -17,7 +17,7 @@ import { ref, inject, onMounted, onBeforeUnmount } from "vue"
 import { ueActorResult } from './fun';
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 import LabelInput from "../../../components/LabelInput.vue"
 import { ESStaticMesh } from 'earthsdk3';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -38,17 +38,17 @@ const destroy = () => {//销毁
 }
 const ok = () => {
     if (!mesh.value) {
-        Message.warning('请填写路径')
+        ElMessage.warning('请填写路径')
         return
     }
     if (!position.value[0] || !position.value[1]) {
-        Message.warning('请填写经纬度')
+        ElMessage.warning('请填写经纬度')
         return
     }
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     if (viewer.typeName !== 'ESUeViewer') {
-        Message.warning('请在ue视口下操作')
+        ElMessage.warning('请在ue视口下操作')
         return
     }
     const sceneTree = xbsjEarthUi.getSceneTree()
@@ -81,7 +81,7 @@ const cancel = () => {
     destroy()
 }
 onMounted(() => {
-    Message.warning('可以通过点击地球获取经纬度点')
+    ElMessage.warning('可以通过点击地球获取经纬度点')
 })
 onBeforeUnmount(() => destroy())
 

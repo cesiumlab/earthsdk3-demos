@@ -8,7 +8,6 @@
     <SectionalEcharts :heightList=heightList v-if="heightList.length > 1"></SectionalEcharts>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
 import { ESGeoLineString, ESHuman } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 import LabelInput from "../../../components/LabelInput.vue";
@@ -16,6 +15,7 @@ import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import SectionalEcharts from "./SectionalEcharts.vue";
 import { ESCesiumViewer } from "earthsdk3-cesium";
+import { ElMessage } from "element-plus";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 let esGeoLineString = xbsjEarthUi.createSceneObject(ESGeoLineString) as any;
 const sectionalNumber = ref(10)
@@ -36,15 +36,15 @@ function getInterpolatedPoints(points: [number, number, number][], count: number
 }
 const start = async () => {
     if (heightList.value.length > 0) {
-        Message.warning('请点击重新绘制，开始分析')
+        ElMessage.warning('请点击重新绘制，开始分析')
         return
     }
     if (esGeoLineString && esGeoLineString.editing === true) {
-        Message.warning('请双击结束编辑之后点击开始分析')
+        ElMessage.warning('请双击结束编辑之后点击开始分析')
         return
     }
     if (!sectionalNumber.value) {
-        Message.warning('插值个数不能为空')
+        ElMessage.warning('插值个数不能为空')
         return
     }
     const points = [...esGeoLineString.points]
@@ -68,7 +68,7 @@ let dispose: any
 onMounted(() => {
     if (esGeoLineString) {
         esGeoLineString.editing = true
-        Message.warning('点击两个点结束编辑之后请点击开始分析')
+        ElMessage.warning('点击两个点结束编辑之后请点击开始分析')
     }
     dispose = esGeoLineString.pointsChanged.disposableOn(() => {
         if (esGeoLineString.points.length === 3) {

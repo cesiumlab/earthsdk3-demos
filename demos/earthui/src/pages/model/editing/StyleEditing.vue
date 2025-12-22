@@ -18,7 +18,7 @@
             <div class="images_img_list">
                 <div v-for="(item, index) in styleList" class="images_img_lilist">
                     <div class="images_imgposition" :class="{ 'images_checkedactive': checkedactive == index }"
-                        @click="changeStyle(item, index)" @contextmenu.prevent.stop="Message.warning('默认样式禁止修改')">
+                        @click="changeStyle(item, index)" @contextmenu.prevent.stop="ElMessage.warning('默认样式禁止修改')">
                         <img :src="item.thumbnail" alt="">
                         <span v-show="iconIsShow == index ? true : false">{{ item.name }}</span>
                     </div>
@@ -47,7 +47,8 @@
     <ContextMenuCom :baseItems="menuContent"></ContextMenuCom>
 </template>
 <script setup lang="ts">
-import { Message, messageBox } from "earthsdk-ui";
+import { messageBox } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ES3DTileset } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import { SceneTree } from 'earthsdk3';
@@ -215,7 +216,7 @@ const styleTransformJson = (str: string) => {
 const ok = () => {
     flag.value = true
     if (!styleContent.value) {
-        Message.error('样式未定义');
+        ElMessage.error('样式未定义');
     }
     const lastSelectedItem = sceneTree.lastSelectedItem
     if (!lastSelectedItem) return
@@ -232,7 +233,7 @@ const ok = () => {
 //另存为新样式
 const saveStyle = () => {
     if (!styleContent.value) {
-        Message.error('请输入内容之后在保存')
+        ElMessage.error('请输入内容之后在保存')
         return
     }
     const viewer = xbsjEarthUi.activeViewer
@@ -252,17 +253,17 @@ const saveStyle = () => {
             } else {
                 window.localStorage.setItem('modelStyle', JSON.stringify([parms]))
             }
-            Message.success('另存样式成功')
+            ElMessage.success('另存样式成功')
             updateList()
         }
     }).catch(error => {
         console.log(error);
-        Message.error(`另存样式成功!error:${error}`)
+        ElMessage.error(`另存样式成功!error:${error}`)
     })
 }
 const useStyle = () => {
     if (!styleContent.value) {
-        Message.error('样式未定义');
+        ElMessage.error('样式未定义');
     }
     const lastSelectedItem = sceneTree.lastSelectedItem
     if (!lastSelectedItem) return

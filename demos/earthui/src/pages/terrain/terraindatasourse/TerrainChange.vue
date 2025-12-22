@@ -26,7 +26,7 @@
 import PopList from '../../../components/PopList.vue';
 import { ref, onMounted, onBeforeUnmount, watch, inject } from 'vue'
 import { getNoToken } from '../../../api/service'
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import { ESTerrainLayer } from "earthsdk3";
 import { SceneTree } from 'earthsdk3';
 import { searchMaxZindex } from "../../../scripts/general";
@@ -71,11 +71,11 @@ watch(serveUrl, (val) => {
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESTerrainLayer');
     if (!serveUrl.value) {
-        Message.warning('请选择或者输入地址')
+        ElMessage.warning('请选择或者输入地址')
         return
     };
     if (serveUrl.value === 'ion://1' && !ionAccessToken.value) {
-        Message.warning('请设置Cesium官方token')
+        ElMessage.warning('请设置Cesium官方token')
         return
     }
     const currentTreeItem = sceneTree.lastSelectedItem
@@ -107,7 +107,7 @@ onMounted(() => {
             modellist.value = res.result
     }).catch(error => {
         console.log(error);
-        Message.error(`${error}`)
+        ElMessage.error(`${error}`)
     })
 })
 

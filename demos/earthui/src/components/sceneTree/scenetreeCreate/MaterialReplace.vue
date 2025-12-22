@@ -47,8 +47,9 @@ import { SceneTreeItem, ES3DTileset } from "earthsdk3";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
 import MaterialSelect from "./MaterialSelect.vue";
 import { ESUeViewer } from "earthsdk3-ue";
-import { Message, messageBox } from "earthsdk-ui";
+import {  messageBox } from "earthsdk-ui";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
+import { ElMessage } from "element-plus";
 
 // 传入事件
 const props = withDefaults(defineProps<{ isShow: boolean, setStyleTreeItem: SceneTreeItem | undefined, }>(), {});
@@ -161,7 +162,7 @@ const openMaterialPanel = (item: item) => {
 const setMaterialFormMost = () => {
 
     if (list.value.filter((item: item) => item.select).length == 0) {
-        Message.warning('请选择要批量替换的材质')
+        ElMessage.warning('请选择要批量替换的材质')
     } else {
         currentItem.value = {}
         materialSelectShow.value = true
@@ -204,7 +205,7 @@ const handleBlur = (value: string | undefined) => {
 
     if (value) {
         const index = tilesetUEMaterial.value.findIndex((item: string) => item == value)
-        if (index == -1) Message.warning('请输入正确的UE材质ID')
+        if (index == -1) ElMessage.warning('请输入正确的UE材质ID')
     }
 
     replaceUeMaterial()
@@ -226,7 +227,7 @@ const replaceUeMaterial = () => {
  */
 const importJsonFile = async () => {
     try {
-        Message.warning('正在打开..')
+        ElMessage.warning('正在打开..')
         const handle = await getOpenFileHandle('json');
         if (!handle) return;
         const jsonStr = await getTextFromFile(handle);
@@ -239,9 +240,9 @@ const importJsonFile = async () => {
         list.value.forEach(item => {
             item.value = result[item.key]
         })
-        Message.success('导入成功！')
+        ElMessage.success('导入成功！')
     } catch (error) {
-        Message.error(`打开失败！ error: ${error}`);
+        ElMessage.error(`打开失败！ error: ${error}`);
     }
 }
 /**
@@ -251,13 +252,13 @@ const exportJsonFile = async () => {
     const jsonStr = JSON.stringify(convertListToObject(list.value))
     const name = "materialOverrideMap"
     try {
-        Message.warning('正在另存为..');
+        ElMessage.warning('正在另存为..');
         const handle = await getSaveFileHandle('json', name);
         if (!handle) return;
         await saveFile(handle, jsonStr);
-        Message.success('另存成功!');
+        ElMessage.success('另存成功!');
     } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
+        ElMessage.error(`另存失败! error: ${error}`);
     }
 }
 

@@ -20,7 +20,7 @@ import { inject, onMounted, ref, watch } from 'vue';
 import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import LabelInput from "../../../components/LabelInput.vue";
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const emits = defineEmits(['close', 'ok'])
 const pitch = ref<number>(-30)//俯仰角
@@ -31,7 +31,7 @@ const relativeRotation = ref<boolean>(true)//相对姿态
 
 watch([objectId, pitch, heading, distance, relativeRotation], () => {
     if (!objectId.value) {
-        Message.warning('请输入对象id')
+        ElMessage.warning('请输入对象id')
         return
     }
     const viewer = xbsjEarthUi.activeViewer
@@ -39,7 +39,7 @@ watch([objectId, pitch, heading, distance, relativeRotation], () => {
     viewer.changeToFollow(objectId.value, distance.value, heading.value, pitch.value, relativeRotation.value)
 })
 onMounted(() => {
-    Message.warning('请输入对象id')
+    ElMessage.warning('请输入对象id')
     xbsjEarthUi.roamMode = 'Follow'
 })
 

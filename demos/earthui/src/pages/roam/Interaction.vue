@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { Message, createVueDisposer, toVR } from "earthsdk-ui";
+import { createVueDisposer, toVR } from "earthsdk-ui";
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import Button from '../../components/Button.vue';
 import RightList from '../../components/RightList.vue';

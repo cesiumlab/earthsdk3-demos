@@ -1,4 +1,3 @@
-// import {Message} from "earthsdk-ui"
 import { ElMessage } from "element-plus"
 export async function copyClipboard(text: string | undefined): Promise<void> {
     if (!text) return;

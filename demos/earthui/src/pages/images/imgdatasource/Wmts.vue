@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 import { ref, inject, watch, onBeforeUnmount } from 'vue';
 import PopList from '../../../components/PopList.vue';
 import XbsjWMTSParser from "../../../scripts/XbsjWMTSParser";
@@ -69,7 +69,7 @@ const formatUrl = ref('')//影像的最终地址
 const rectangle = ref('')//范围
 const addSceneObjects = () => {//点击确定
     if (!server.value) {
-        Message.warning('请输入地址')
+        ElMessage.warning('请输入地址')
         return
     }
     let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer');
@@ -90,7 +90,7 @@ const changeLayerListShow = (item: any) => {
 }
 const checkboxFun = () => {
     if (!server.value) {
-        Message.warning('请输入服务地址')
+        ElMessage.warning('请输入服务地址')
         return
     }
 }
@@ -111,7 +111,7 @@ const updateServer = () => {//请求地址点击回车键
     if (!server.value) return
     let url = server.value
     if (!url.startsWith("http")) {
-        Message.warning('请输入正确的wmts地址')
+        ElMessage.warning('请输入正确的wmts地址')
         return;
     }
     var wmts = new XbsjWMTSParser();
@@ -121,7 +121,7 @@ const updateServer = () => {//请求地址点击回车键
             // console.log(layer);
             layersNameList.value = layer
             if (layer.length == 0) {
-                Message.warning('服务没有支持的图层')
+                ElMessage.warning('服务没有支持的图层')
             } else {
                 //默认选择第一个Layer
                 selected.value.currentLayer = layer[0];
@@ -129,7 +129,7 @@ const updateServer = () => {//请求地址点击回车键
         })
         .catch((err: any) => {
             console.log(err);
-            Message.error('Error:请求失败，请检查服务')
+            ElMessage.error('Error:请求失败，请检查服务')
         });
 }
 //点击定位

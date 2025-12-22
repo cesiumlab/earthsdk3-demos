@@ -29,7 +29,7 @@ import { inject, onMounted, ref } from 'vue';
 import { getImageListurl } from '../../../api/api';
 import { ESImageryLayer } from "earthsdk3";
 import { SceneTree } from 'earthsdk3';
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import { searchMaxZindex } from '../../../scripts/general';
 import transform from './imageryLocale';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
@@ -43,7 +43,7 @@ const serveUrl = ref()
 const checkedactive = ref()
 const isShowTk = ref('')
 const tokenValue = ref('')
-const imagelist = ref()
+const imagelist = ref<any[]>([])
 const CoordinateType = ref('')
 const loadingType = ref('')
 const imageName=ref('未命名影像')
@@ -60,8 +60,8 @@ const changeServeUrl = (item: any, index: number) => {
 //增加影像
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer');
-    if (!serveUrl.value) Message.error('请选择或者输入地址');
-    if (isShowTk.value.length > 1 && !tokenValue.value) Message.error('请输入token值');
+    if (!serveUrl.value) ElMessage.error('请选择或者输入地址');
+    if (isShowTk.value.length > 1 && !tokenValue.value) ElMessage.error('请输入token值');
     else if (serveUrl.value) {
         const currentTreeItem = sceneTree.lastSelectedItem
         let newTreeItem

@@ -18,7 +18,8 @@
 import { ref, useTemplateRef } from "vue";
 import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui';
 import { saveAs } from "../../components/sceneTree/tools"
-import { ESEditor, Message } from "earthsdk-ui"
+import { ESEditor } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import Window from "../../components/commom/Window.vue";
 const editorContainer = useTemplateRef('editorContainer')
 const props = withDefaults(defineProps<{
@@ -40,7 +41,7 @@ const changeOk = () => {
         changeCancel()
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！error:${error}`);
+        ElMessage.error(`JSON格式错误！error:${error}`);
         return
     }
 }
@@ -57,15 +58,15 @@ const importSetJson = (str: string) => {
 }
 const importJsonFile = async () => { //导入文件
     try {
-        Message.warning('正在打开..')
+        ElMessage.warning('正在打开..')
         const handle = await getOpenFileHandle('json');
         if (!handle) return;
         const jsonStr = await getTextFromFile(handle);
         if (!jsonStr) return;
         importSetJson(jsonStr)
-        Message.success('导入成功！')
+        ElMessage.success('导入成功！')
     } catch (error) {
-        Message.error(`打开失败！ error: ${error}`);
+        ElMessage.error(`打开失败！ error: ${error}`);
     }
 }
 const exportJsonFile = () => {

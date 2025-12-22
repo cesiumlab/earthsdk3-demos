@@ -21,8 +21,8 @@ import { onBeforeUnmount, onMounted, onUnmounted, inject, computed } from "vue";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { Message } from "earthsdk-ui";
 import LabelInput from "../../../components/LabelInput.vue"
+import { ElMessage } from "element-plus";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
 let volumeSceneObject = xbsjEarthUi.createSceneObject("ESVolumeMeasurement") as any;
@@ -64,12 +64,12 @@ const restart = () => {
         planeHight.value = 0
         sampling.value = 0
         volumeSceneObject.editing = true
-        Message.warning('结束编辑之后请点击开始分析')
+        ElMessage.warning('结束编辑之后请点击开始分析')
     });
 }
 const start = () => {
     if (volumeSceneObject && volumeSceneObject.editing) {
-        Message.warning('请双击结束编辑之后进行分析')
+        ElMessage.warning('请双击结束编辑之后进行分析')
         return
     }
     // sampling.value = Number((Math.sqrt(volumeSceneObject.area / xbsjEarthUi.Interpolation)).toFixed(2))
@@ -78,7 +78,7 @@ const start = () => {
 onMounted(() => {
     if (volumeSceneObject) {
         volumeSceneObject.editing = true
-        Message.warning('结束编辑之后请点击开始分析')
+        ElMessage.warning('结束编辑之后请点击开始分析')
 
     }
     dispose = volumeSceneObject.editingChanged.disposableOn(() => {

@@ -44,7 +44,8 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { ESEditor, Message, messageBox } from "earthsdk-ui";
+import { ESEditor, messageBox } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { merge3dTilesServer } from "earthsdk3-cesium";
 import { ref, useTemplateRef } from 'vue';
 import { saveAs } from "../../../components/sceneTree/tools"
@@ -89,7 +90,7 @@ const getTipMessage = (index: number) => {
 }
 const generate = () => {//生成
     if (modelListsData.value.length < 2) {
-        Message.error('请填入至少两个服务地址')
+        ElMessage.error('请填入至少两个服务地址')
         return
     }
     let a = 0
@@ -99,14 +100,14 @@ const generate = () => {//生成
         }
     })
     if (a > 0) {
-        Message.error('服务地址不能为空')
+        ElMessage.error('服务地址不能为空')
         return
     }
     merge3dTilesServer(modelListsData.value).then(res => {
         if (res.state === 'success') {
             if (res.tilesUrl) {
                 tipListsData.value = []
-                Message.success('生成成功')
+                ElMessage.success('生成成功')
                 editorContainer.value?.setVal(JSON.stringify(res.tilesUrl, undefined, '    '));
             }
         } else {
@@ -118,11 +119,11 @@ const generate = () => {//生成
             } else {
                 editorContainer.value?.setVal(JSON.stringify('', undefined, '    '));
             }
-            Message.error('存在错误服务，请检查')
+            ElMessage.error('存在错误服务，请检查')
             return
         }
     }).catch(error => {
-        Message.error(error)
+        ElMessage.error(error)
         console.log('error', error);
 
     })
@@ -133,7 +134,7 @@ const copy = () => {//复制
         copyClipboard(str)
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！ error: ${error}`);
+        ElMessage.error(`JSON格式错误！ error: ${error}`);
         return
     }
 
@@ -145,7 +146,7 @@ const download = () => {//下载
         saveAs(json, 'tileset');
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！ error: ${error}`);
+        ElMessage.error(`JSON格式错误！ error: ${error}`);
     }
 }
 //json编辑器初始化

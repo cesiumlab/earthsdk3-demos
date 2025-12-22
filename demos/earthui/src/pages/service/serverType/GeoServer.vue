@@ -27,7 +27,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import { createVueDisposer } from 'earthsdk-ui';
 import LabelInput from "../../../components/LabelInput.vue";
@@ -52,7 +52,7 @@ const changeServerLab = (item: any, index: number) => {
 }
 const ok = () => {
     if (!serverUrl.value) {
-        Message.warning('未选择服务，请先选择')
+        ElMessage.warning('未选择服务，请先选择')
         return
     }
     const url = serverUrl.value;
@@ -79,7 +79,7 @@ const initNewList = async () => {
     const url = geoServerUrl.value + '/geoserver/gwc/service/wmts?service=WMTS&version=1.1.1&request=GetCapabilities'
     if (!geoServerUrl.value) return
     if (!url.startsWith("http")) {
-        Message.warning('请输入正确的地址')
+        ElMessage.warning('请输入正确的地址')
         return;
     }
     var wmts = new XbsjWMTSParser();
@@ -90,7 +90,7 @@ const initNewList = async () => {
         })
         .catch((err: any) => {
             console.log(err);
-            Message.error("GetCapabilities failed:" + err.message)
+            ElMessage.error("GetCapabilities failed:" + err.message)
         });
 }
 

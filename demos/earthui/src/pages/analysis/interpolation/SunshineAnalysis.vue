@@ -41,13 +41,13 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { ESColor, Message } from "earthsdk-ui";
 import { computed, inject, onBeforeUnmount, onMounted, ref } from "vue";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import LabelInput from "../../../components/LabelInput.vue";
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { ESSunshineAnalysis } from "earthsdk3";
+import { ElMessage } from "element-plus";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount);
 function dateToTimestamp(date: any) {//时间转为时间戳
@@ -103,7 +103,7 @@ const restart = () => {
     requestAnimationFrame(() => {
         sunshineAnalysis.editing = true
     });
-    Message.warning('结束编辑之后请点击开始分析')
+    ElMessage.warning('结束编辑之后请点击开始分析')
 }
 const flag = ref(true)//trueda
 function isTimeFormat(str: string) {
@@ -114,12 +114,12 @@ function isTimeFormat(str: string) {
 }
 const start = () => {
     if (!isTimeFormat(startTimeRef.value) || !isTimeFormat(stopTimeRef.value)) {
-        Message.warning('请填写开始时间和结束时间')
+        ElMessage.warning('请填写开始时间和结束时间')
         return
     }
     if (flag.value) {
         if (sunshineAnalysis && sunshineAnalysis.editing) {
-            Message.warning('请双击结束编辑之后进行分析')
+            ElMessage.warning('请双击结束编辑之后进行分析')
             return
         }
         sunshineAnalysis.stop()
@@ -136,7 +136,7 @@ let dispose2: any
 onMounted(() => {
     if (sunshineAnalysis) {
         sunshineAnalysis.editing = true
-        Message.warning('请绘制分析区域，双击结束编辑之后点击 开始分析')
+        ElMessage.warning('请绘制分析区域，双击结束编辑之后点击 开始分析')
     }
     dispose = sunshineAnalysis.editingChanged.disposableOn(() => {
         if (sunshineAnalysis.editing === false) {

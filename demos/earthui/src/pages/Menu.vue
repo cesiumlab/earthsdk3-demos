@@ -95,13 +95,14 @@
 
 <script setup lang="ts">
 import { vClickOutside } from 'earthsdk-ui';
-import { Message, toVR, createVueDisposer } from "earthsdk-ui";
+import {  toVR, createVueDisposer } from "earthsdk-ui";
 import { parse } from 'search-params';
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue';
 import { saveAs } from "../components/sceneTree/tools"
 import { post, put, get } from '../api/service';
 import { XbsjEarthUi } from '../scripts/xbsjEarthUi';
 import { $config, useRightSidebarWidthFunc } from '@/global';
+import { ElMessage } from 'element-plus';
 const props = withDefaults(defineProps<{
     navList: any[],
     navType: string | undefined,
@@ -127,7 +128,7 @@ const esssScene = (parseSearch: any, uri: string) => {
     const appid = parseSearch.appid as string
     const allJson = xbsjEarthUi.json
     if (!appid) {
-        Message.error(`无appid,保存场景失败`)
+        ElMessage.error(`无appid,保存场景失败`)
         return
     }
     get(`${xbsjEarthUi.esssUrl}/setting/get`).then(async (res) => {
@@ -135,24 +136,24 @@ const esssScene = (parseSearch: any, uri: string) => {
             const thumbnail = await xbsjEarthUi.activeViewer?.capture()
             post(`${uri}/staticscene/create`, { name: '默认场景', appid, thumbnail, content: JSON.stringify(allJson) }, token).then((res: any) => {
                 if (res.status === 'ok') {
-                    Message.success(`保存场景成功：${appid}`)
+                    ElMessage.success(`保存场景成功：${appid}`)
                 } else {
-                    Message.error(`保存场景失败：${appid}`)
+                    ElMessage.error(`保存场景失败：${appid}`)
                 }
             }).catch(error => {
                 console.log(error);
-                Message.error(`保存场景失败：${appid}!${error}`)
+                ElMessage.error(`保存场景失败：${appid}!${error}`)
             })
         } else {
             post(`${uri}/staticscene/update`, { id: sceneid, content: JSON.stringify(allJson) }, token).then((res: any) => {
                 if (res.status === 'ok') {
-                    Message.success(`保存场景成功：${appid}`)
+                    ElMessage.success(`保存场景成功：${appid}`)
                 } else {
-                    Message.error(`保存场景失败：${appid}`)
+                    ElMessage.error(`保存场景失败：${appid}`)
                 }
             }).catch(error => {
                 console.log(error);
-                Message.error(`保存场景失败：${appid}!${error}`)
+                ElMessage.error(`保存场景失败：${appid}!${error}`)
             })
         }
 
@@ -160,13 +161,13 @@ const esssScene = (parseSearch: any, uri: string) => {
         console.log(err);
         put(`${uri}/staticscene/${sceneid}`, { content: allJson }, token).then((res: any) => {
             if (res.status === 'ok') {
-                Message.success(`保存场景成功：${appid}`)
+                ElMessage.success(`保存场景成功：${appid}`)
             } else {
-                Message.error(`保存场景失败：${appid}`)
+                ElMessage.error(`保存场景失败：${appid}`)
             }
         }).catch(error => {
             console.log(error);
-            Message.error(`保存场景失败：${appid}!${error}`)
+            ElMessage.error(`保存场景失败：${appid}!${error}`)
         })
     })
 }
@@ -188,13 +189,13 @@ const cesiumLabScene = async (parseSearch: any, uri: string) => {
         const token = localStorage.getItem('token') as string | undefined
         post(url, params, xbsjEarthUi.cesiumLabToken ? undefined : token).then((res: any) => {
             if (res.code === 1000) {
-                Message.success(`更新场景成功：${parseSearch.scene}`)
+                ElMessage.success(`更新场景成功：${parseSearch.scene}`)
             } else {
-                Message.error('更新场景失败')
+                ElMessage.error('更新场景失败')
             }
         }).catch(error => {
             console.log(error);
-            Message.error(`更新场景失败!${error}`)
+            ElMessage.error(`更新场景失败!${error}`)
         })
     } else {
         const params = {
@@ -210,15 +211,15 @@ const cesiumLabScene = async (parseSearch: any, uri: string) => {
         const token = localStorage.getItem('token') as string | undefined
         post(url, params, xbsjEarthUi.cesiumLabToken ? undefined : token).then((res: any) => {
             if (res.code === 1000) {
-                Message.success(`创建场景成功：${res.data.id}`)
+                ElMessage.success(`创建场景成功：${res.data.id}`)
                 //替换地址栏
                 window.history.pushState({}, '', window.location.origin + window.location.pathname + `?from=${$config.jumpOrigin}${xbsjEarthUi.cesiumLabToken ? '&cesiumLabToken=' + xbsjEarthUi.cesiumLabToken : ''}&scene=${res.data.id}`);
             } else {
-                Message.error('创建场景失败')
+                ElMessage.error('创建场景失败')
             }
         }).catch(error => {
             console.log(error);
-            Message.error(`创建场景失败!${error}`)
+            ElMessage.error(`创建场景失败!${error}`)
         })
     }
 }
@@ -231,7 +232,7 @@ const scene = () => {
     } else if (parseSearch.from === 'esss') {
         esssScene(parseSearch, esssUrl.value)
     } else {
-        Message.warning('请输入服务地址')
+        ElMessage.warning('请输入服务地址')
     }
 }
 const xiaosanjiao = ref(true)

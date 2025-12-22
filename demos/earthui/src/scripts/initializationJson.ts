@@ -1,5 +1,5 @@
 
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ES3DTileset, ESImageryLayer, ESJSwitchToUEViewerOptionType, ESTerrainLayer, ESVOptionUe } from "earthsdk3";
 import { ESUeViewer } from 'earthsdk3-ue';
 import { parse } from 'search-params';
@@ -27,7 +27,7 @@ function initSceneId(xbsjEarthUi: XbsjEarthUi) {
                     xbsjEarthUi.activeViewer?.flyIn(resJson.lastView.position, resJson.lastView.rotation)
                 }, 1000)
             }
-            Message.success(`加载场景成功：${id}`)
+            ElMessage.success(`加载场景成功：${id}`)
         } else {
             initSceneFetch(xbsjEarthUi)
         }
@@ -42,7 +42,7 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
     const appid = parseSearch.appid as string
     const token = parseSearch.token as string
     if (!appid) {
-        Message.error(`无appid,加载应用失败`)
+        ElMessage.error(`无appid,加载应用失败`)
         xbsjEarthUi.switchToCesiumViewer({
             container: 'viewersContainer',
             destroy: true,
@@ -50,14 +50,14 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
         })
     }
     if (!token) {
-        Message.error(`无token值`)
+        ElMessage.error(`无token值`)
     } else {
         const origin = window.location.origin
         // const origin = 'http://114.242.26.126:30001';
         // const origin = 'http://localhost:9006';
         get(`${origin}/setting/get`).then((res: any) => {
             if (res.status === 'ok') {
-                Message.success(`加载场景成功：${appid}`)
+                ElMessage.success(`加载场景成功：${appid}`)
                 const options = {
                     container: 'viewersContainer',
                     uri: origin,
@@ -113,7 +113,7 @@ function initESSSsceneId(xbsjEarthUi: XbsjEarthUi) {
         }).catch(err => {
             get(`${origin}/staticscene/${sceneid}`, token).then((res: any) => {
                 if (res.status === 'ok') {
-                    Message.success(`加载场景成功：${appid}`)
+                    ElMessage.success(`加载场景成功：${appid}`)
                     const options = {
                         type: 'ESUeViewer',
                         container: 'viewersContainer',
@@ -179,21 +179,21 @@ function initSceneFetch(xbsjEarthUi: XbsjEarthUi) {
             if (res.ok) {
                 res.json().then((json) => {
                     xbsjEarthUi.json = json
-                    Message.success('加载默认场景成功')
+                    ElMessage.success('加载默认场景成功')
                     getdefaultImage(xbsjEarthUi)
                 }).catch((error) => {
                     console.log(error);
-                    Message.error('加载默认场景失败')
+                    ElMessage.error('加载默认场景失败')
                     getdefaultImage(xbsjEarthUi)
                 })
             } else {
-                Message.error('加载默认场景失败')
+                ElMessage.error('加载默认场景失败')
                 getdefaultImage(xbsjEarthUi)
             }
         })
     } catch (error) {
         console.log(error);
-        Message.error('加载默认场景失败')
+        ElMessage.error('加载默认场景失败')
         getdefaultImage(xbsjEarthUi)
     }
 }

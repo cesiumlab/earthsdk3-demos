@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import PopList from '../../../components/PopList.vue';
 import { inject, ref, watch } from 'vue';
@@ -62,7 +62,7 @@ const materialIdList = ref()
 //     if (!sceneTree) return
 //     linesList.value = searchForLineValues(sceneTree)
 //     if (linesList.value.length <= 0) {
-//         Message.warning('折线列表为空，请先创建折线')
+//         ElMessage.warning('折线列表为空，请先创建折线')
 //         return
 //     }
 // }
@@ -71,7 +71,7 @@ const changeLinesListShow = () => {
     if (!sceneTree) return
     materialIdList.value = searchForLineValues(sceneTree)
     if (materialIdList.value.length <= 0) {
-        Message.warning('折线列表为空，请先创建折线')
+        ElMessage.warning('折线列表为空，请先创建折线')
     }
 }
 watch([lineId, speed, heightOffset, loop, turnRateDPS, lineMode], () => {
@@ -81,15 +81,15 @@ watch([lineId, speed, heightOffset, loop, turnRateDPS, lineMode], () => {
 
 const okLine = () => {
     if (!lineId.value) {
-        Message.warning('请选择一条折线')
+        ElMessage.warning('请选择一条折线')
         return
     }
     if (!speed.value) {
-        Message.warning('请填写速度')
+        ElMessage.warning('请填写速度')
         return
     }
     if (!turnRateDPS.value) {
-        Message.warning('请填写转弯速度')
+        ElMessage.warning('请填写转弯速度')
         return
     }
     const viewer = xbsjEarthUi.activeViewer

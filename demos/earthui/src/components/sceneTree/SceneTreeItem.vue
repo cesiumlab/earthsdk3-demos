@@ -37,13 +37,14 @@
 </template>
 
 <script setup lang="ts">
-import { createVueDisposer, Message, toVR } from "earthsdk-ui";
+import { createVueDisposer, toVR } from "earthsdk-ui";
 import { ES3DTileset, ESLocalSkyBox, ESTextLabel, SceneTree, SceneTreeItem } from 'earthsdk3';
 import { inject, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import Collapse from "../commom/Collapse.vue";
 import { styleList } from "./scenetreeItemStyle";
 import TileTreeItem from "./TileTreeItem.vue";
+import { ElMessage } from "element-plus";
 const dragModeAndBorderWidthMap = {
   none: "0px",
   before: "1px 0 0 0",
@@ -239,7 +240,6 @@ const ondragover = (e: DragEvent) => sceneTreeItem.dragDrop.dragOver(e)
 const ondragleave = (e: DragEvent) => sceneTreeItem.dragDrop.dragLeave(e)
 const changeCheckedStatus = () => {
   sceneTreeItem.uiTreeObject.check(sceneTreeItem.uiTreeObject.checkedStatus !== "checked")
-  // console.log(1111111111111);
 
 }
 
@@ -251,7 +251,7 @@ const flyTo = () => {
     // @ts-ignore
     sceneObject.flyTo()
   } else {
-    Message.warning('暂不支持定位!')
+    ElMessage.warning('暂不支持定位!')
   }
 }
 

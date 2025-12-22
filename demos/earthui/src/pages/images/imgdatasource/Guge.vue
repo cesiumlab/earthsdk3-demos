@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import PopList from '../../../components/PopList.vue';
 import { searchMaxZindex } from '../../../scripts/general';
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESGeHistoryImagery } from "earthsdk3-cesium";
 import LabelInput from "../../../components/LabelInput.vue"
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
@@ -42,7 +42,7 @@ const emits = defineEmits(['close']);
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer');
     if (!url.value) {
-        Message.error('请输入或者选择url');
+        ElMessage.error('请输入或者选择url');
         return
     }
     const currentTreeItem = sceneTree.lastSelectedItem

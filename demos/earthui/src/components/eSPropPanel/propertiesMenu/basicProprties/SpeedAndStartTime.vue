@@ -14,7 +14,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESPath, geoDistance } from "earthsdk3";
 import { onMounted, ref } from "vue";
 import PopList from "../../../../components/PopList.vue";
@@ -42,7 +42,7 @@ const ok = () => {
             timeStamps.push(Number((time).toFixed(0)))
         }
         sceneObject.timeStamps = timeStamps
-        Message.success('设置时间序列成功')
+        ElMessage.success('设置时间序列成功')
         emits('close')
     }
 }

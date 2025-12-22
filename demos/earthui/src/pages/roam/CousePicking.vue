@@ -5,7 +5,7 @@ import Button from '../../components/Button.vue';
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import RightList from '../../components/RightList.vue';
 import { ES3DTileset, ESGeoJson, SceneTree } from 'earthsdk3';
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const mousePick = ref(false)
@@ -76,7 +76,7 @@ onMounted(() => {
                             ]
                             result.sceneObject.setFeatureColor('id', style)
                         } else {
-                            Message.warning('未在该瓦片的属性表中找到ID字段，无法实现选中着色功能。')
+                            ElMessage.warning('未在该瓦片的属性表中找到ID字段，无法实现选中着色功能。')
                         }
                         if (propertyIsShow.value) return
                         for (let key in list) {

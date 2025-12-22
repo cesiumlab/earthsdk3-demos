@@ -21,7 +21,7 @@ import { inject, onMounted, ref } from "vue";
 import { createSceneObjTreeItemFromJson } from "./fun";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [//多选模式类型
     {
@@ -69,7 +69,7 @@ const select = (item: { mode: string, img: any, name: string }) => {//点击选�
 const ok = () => {
     // console.log(selected.value);
     if (!selected.value) {
-        Message.warning('请选择一个天空盒类型')
+        ElMessage.warning('请选择一个天空盒类型')
         return
     }
     createSceneObject()

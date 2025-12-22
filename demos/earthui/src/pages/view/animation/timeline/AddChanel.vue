@@ -39,7 +39,7 @@
     </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESObjectWithLocation } from "earthsdk3";
 import { inject, onMounted, ref, computed } from "vue";
 import DraggablePopup2 from "../../../../components/DraggablePopup2.vue";
@@ -115,10 +115,10 @@ const ok = () => {
     })
 
     if (!esPath) {
-        Message.warning('未选择任何路径对象')
+        ElMessage.warning('未选择任何路径对象')
         return
     } else if (location < 1) {
-        Message.warning('未选择任何点位对象')
+        ElMessage.warning('未选择任何点位对象')
         return
     } else {
         if (path) {

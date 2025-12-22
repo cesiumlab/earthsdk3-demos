@@ -143,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { ESEditor, Message, messageBox } from "earthsdk-ui";
+import { ESEditor, messageBox } from "earthsdk-ui";
 import { inject, ref, useTemplateRef, watch } from "vue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { SceneTreeItem, ES3DTileset } from "earthsdk3";
@@ -151,6 +151,7 @@ import EnumProp from "../../eSPropPanel/propertiesMenu/commons/EnumProp.vue"
 import { ESColor } from "earthsdk-ui"
 import BooleanProp from "../../eSPropPanel/propertiesMenu/commons/BooleanProp.vue";
 import DraggablePopup2 from "../../DraggablePopup2.vue";
+import { ElMessage } from "element-plus";
 const props = withDefaults(defineProps<{
     isShow: boolean,
     setStyleTreeItem: SceneTreeItem | undefined,
@@ -196,15 +197,15 @@ const changeCurrentEdit = async () => {
     } catch (error) {
         console.log('JSON格式错误!!!', error);
         if (error === undefined) {
-            Message.error('样式未定义');
+            ElMessage.error('样式未定义');
         } else {
-            Message.error(`JSON格式错误！ error: ${error}`);
+            ElMessage.error(`JSON格式错误！ error: ${error}`);
             return
         }
     }
 }
 //规则的变量
-const ruleRef = ref<any>([])
+const ruleRef = ref<any[]>([])
 //获取对象的属性的类型
 const featureType = ref<{ key: string, type: string | number }[]>([
     {
@@ -357,7 +358,7 @@ watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
                 fieldList.value.push(['常量false', false])
                 featureType.value = featureTypes
             } else {
-                Message.warning('未查询到对象的属性字段')
+                ElMessage.warning('未查询到对象的属性字段')
             }
             const extras = sceneObject.extras as any
             if (extras && 'xbsjFetureStyles' in extras) {
@@ -412,7 +413,7 @@ const changeOk = async () => {
     }
     try {
         sceneObject.setFeatureStyle(ruleRef.value);
-        Message.success('设置样式成功');
+        ElMessage.success('设置样式成功');
         const viewer = xbsjEarthUi.activeViewer;
         if (!viewer) return;
         const capture = await viewer.capture();
@@ -426,7 +427,7 @@ const changeOk = async () => {
         emits("changeShow", false);
     } catch (error) {
         console.error('设置样式失败:', error);
-        Message.error(
+        ElMessage.error(
             error === undefined
                 ? '样式未定义'
                 : `设置样式失败！error: ${error}`

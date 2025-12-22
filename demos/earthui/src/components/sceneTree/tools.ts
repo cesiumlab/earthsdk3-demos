@@ -1,9 +1,10 @@
-import { Message, messageBox } from "earthsdk-ui";
+import {  messageBox } from "earthsdk-ui";
 import { getsceneObjNumfromSceneTree } from "../../scripts/general";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
 import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESJSwitchToUEViewerOptionType, ESObjectWithLocation, ESPath, ESTextLabel, ESVOptionUe, SceneTreeItem } from 'earthsdk3';
 import * as topojson from "topojson-client";
 import { JsonValue} from "earthsdk3";
+import { ElMessage } from "element-plus";
 
 
 function createSceneObjByJson(obj: { [key: string]: any }, xbsjEarthUi: XbsjEarthUi) {
@@ -574,7 +575,7 @@ export const createObj = (xbsjEarthUi: XbsjEarthUi, a: any) => {
  * @param name 
  */
 export const saveAs = async (json: JsonValue, name?: string) => {
-  Message.warning('正在另存为..');
+  ElMessage.warning('正在另存为..');
   try {
     // 判断如果是字符串直接使用，否则转换为JSON字符串
     const content = typeof json === 'string' 
@@ -592,8 +593,8 @@ export const saveAs = async (json: JsonValue, name?: string) => {
       URL.revokeObjectURL(link.href);
     }, 100);
 
-    Message.success('另存成功!');
+    ElMessage.success('另存成功!');
   } catch (error) {
-    Message.error(`另存失败! error: ${error instanceof Error ? error.message : String(error)}`);
+    ElMessage.error(`另存失败! error: ${error instanceof Error ? error.message : String(error)}`);
   }
 };

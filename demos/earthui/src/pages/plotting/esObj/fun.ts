@@ -1,7 +1,7 @@
 
 import { ESUeViewer } from "earthsdk3-ue";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 //通过json创建场景对象
 /**
  * 
@@ -67,7 +67,7 @@ export const ueActorResult = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => v
     let disposeUe = viewer.clickEvent.don(async e => { // ue中没有pointerDown，但是ue的click相当于pointerDown
         if (!e.screenPosition) return;
         if (!(viewer instanceof ESUeViewer)) {
-            Message.warning('请在ue视口下操作')
+            ElMessage.warning('请在ue视口下操作')
             return
         }
         const result = await viewer.pickPosition(e.screenPosition)
@@ -90,7 +90,7 @@ export const ueActorResult2 = (xbsjEarthUi: XbsjEarthUi, pos: (message: any) => 
     let disposeUe = viewer.clickEvent.don(async e => { // ue中没有pointerDown，但是ue的click相当于pointerDown
         if (!e.screenPosition) return;
         if (!(viewer instanceof ESUeViewer)) {
-            Message.warning('请在ue视口下操作')
+            ElMessage.warning('请在ue视口下操作')
             return
         }
         const result = await viewer.pick(e.screenPosition)

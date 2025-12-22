@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang='ts'>
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESUnrealActor } from "earthsdk3";
 import { inject, ref } from 'vue';
 import LabelInput from "../../../../components/LabelInput.vue";
@@ -19,7 +19,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const emits = defineEmits(['close'])
 const ok = () => {
     if (!actorclass.value) {
-        Message.warning('请填写引用路径');
+        ElMessage.warning('请填写引用路径');
         return
     }
     const obj = xbsjEarthUi.createSceneObject(ESUnrealActor)

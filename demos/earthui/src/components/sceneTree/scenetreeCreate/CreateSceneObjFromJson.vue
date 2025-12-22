@@ -8,8 +8,9 @@
 
 <script setup lang="ts">
 import { useTemplateRef } from "vue";
-import { ESEditor, Message } from "earthsdk-ui"
+import { ESEditor } from "earthsdk-ui"
 import Window from "../../../components/commom/Window.vue";
+import { ElMessage } from "element-plus";
 const emits = defineEmits(["changeShow", "confirm"]);
 const editorContainer = useTemplateRef('editorContainer')
 const props = withDefaults(defineProps<{
@@ -20,7 +21,7 @@ const load = () => {
     editorContainer.value?.setVal(JSON.stringify(props.json, undefined, '    '));
 }
 const changeOk = () => {
-    const str = editorContainer.value?.getVal()
+    const str = editorContainer.value?.getVal() as any
     try {
         const json = JSON.parse(str);
         if (json) {
@@ -29,7 +30,7 @@ const changeOk = () => {
         changeCancel()
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！ error: ${error}`);
+        ElMessage.error(`JSON格式错误！ error: ${error}`);
         return
     }
 }

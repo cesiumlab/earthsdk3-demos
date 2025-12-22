@@ -1,4 +1,4 @@
-import { Message } from "earthsdk-ui";
+
 import { get, getNoToken, getWithCookie, post, put } from "./service";
 
 // 影像-在线列表请求

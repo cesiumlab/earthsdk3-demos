@@ -62,6 +62,7 @@ import { createLines, createObj, createSceneJson, createpoints, createpolygons, 
 import { ESUeViewer } from "earthsdk3-ue";
 import { createSceneObjTreeItemFromJson } from "../../pages/plotting/esObj/fun";
 import { copyClipboard } from "../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard";
+import { ElMessage } from "element-plus";
 const props = withDefaults(defineProps<{
     showCheckBox: boolean
     clickEmpty: boolean,
@@ -122,7 +123,7 @@ const confirm = () => {
         xbsjEarthUi.propSceneTree = undefined
     }
 
-    Message.success('删除成功')
+    ElMessage.success('删除成功')
 }
 
 /**
@@ -157,7 +158,7 @@ const deleteFlad = ref(true)
 const clickDelete = () => {
     const pathAndLocationList = espathAndLocationfromChannels()
     if (pathAndLocationList.pathList.length > 0 || pathAndLocationList.locationList.length > 0) {
-        Message.warning('选择删除的对象在动画中存在，请先删除对应动画之后再删除节点')
+        ElMessage.warning('选择删除的对象在动画中存在，请先删除对应动画之后再删除节点')
         deleteFlad.value = true
         return
     }
@@ -261,18 +262,18 @@ const whiteSpaceContexMenuEvent = () => {
                 const a = searchGeoObjsValues(xbsjEarthUi, checkLiftSceneObj)
                 const num = locationAndVectorNumber(checkLiftSceneObj)
                 try {
-                    Message.warning('正在另存为..');
+                    ElMessage.warning('正在另存为..');
                     const handle = await saveFileHandle('geoJson', 'geoJson场景对象');
                     if (!handle) return;
                     const jsonStr = JSON.stringify(a, undefined, '    ');
                     await save(handle, jsonStr);
                     if (num > 0) {
-                        Message.success(`另存成功${num}个对象!`);
+                        ElMessage.success(`另存成功${num}个对象!`);
                     } else {
-                        Message.warning(`导出文件为空!`);
+                        ElMessage.warning(`导出文件为空!`);
                     }
                 } catch (error) {
-                    Message.error(`另存失败! error: ${error}`);
+                    ElMessage.error(`另存失败! error: ${error}`);
                 }
             },
         },
@@ -331,7 +332,7 @@ const whiteSpaceContexMenuEvent = () => {
                             const json = xbsjEarthUi.json
                             console.log(json);
                             window.localStorage.setItem('xbsjEarthUi_lastJson', JSON.stringify(json))
-                            Message.success('缓存成功')
+                            ElMessage.success('缓存成功')
                         })
                         .catch((err) => {
                         })
@@ -339,7 +340,7 @@ const whiteSpaceContexMenuEvent = () => {
                     const json = xbsjEarthUi.json
                     console.log(json);
                     window.localStorage.setItem('xbsjEarthUi_lastJson', JSON.stringify(json))
-                    Message.success('缓存成功')
+                    ElMessage.success('缓存成功')
                 }
             },
         },
@@ -362,7 +363,7 @@ const whiteSpaceContexMenuEvent = () => {
                         xbsjEarthUi.activeViewer?.flyIn(a.lastView.position, a.lastView.rotation)
                     }
                     xbsjEarthUi.json = a
-                    Message.success('加载缓存场景成功')
+                    ElMessage.success('加载缓存场景成功')
                 }
                 xbsjEarthUi.propSceneTree = undefined
                 close()
@@ -389,14 +390,14 @@ const saveFlyParms = async (sceneObject: any) => {
     let rotation: [number, number, number];
     const res = await xbsjEarthUi.activeViewer?.getCurrentCameraInfo()
     if (!res) {
-        Message.warning('无法获取视角')
+        ElMessage.warning('无法获取视角')
         return
     }
     position = res.position
     rotation = res.rotation
     //@ts-ignore
     sceneObject.flyInParam = { position, rotation, flyDuration: 1 }
-    Message.success('保存视角成功')
+    ElMessage.success('保存视角成功')
 }
 
 /**
@@ -409,7 +410,7 @@ const saveParms = async (treeItem: SceneTreeItem) => {
         saveFlyParms(sceneObject)
     } else if (sceneObject instanceof ESObjectWithLocation) {
         sceneObject.calcFlyToParam()
-        Message.success('保存视角成功')
+        ElMessage.success('保存视角成功')
     } else {
         saveFlyParms(sceneObject)
     }
@@ -451,18 +452,18 @@ const treeItemContexMenuEvent = (treeItem: SceneTreeItem) => {
                 const a = searchGeoObjsValues(xbsjEarthUi, checkLiftSceneObj)
                 const num = locationAndVectorNumber(checkLiftSceneObj)
                 try {
-                    Message.warning('正在另存为..');
+                    ElMessage.warning('正在另存为..');
                     const handle = await saveFileHandle('geoJson', `${treeItem.name}-geoJson场景对象`);
                     if (!handle) return;
                     const jsonStr = JSON.stringify(a, undefined, '    ');
                     await save(handle, jsonStr);
                     if (num > 0) {
-                        Message.success(`另存成功${num}个对象!`);
+                        ElMessage.success(`另存成功${num}个对象!`);
                     } else {
-                        Message.warning(`导出文件为空!`);
+                        ElMessage.warning(`导出文件为空!`);
                     }
                 } catch (error) {
-                    Message.error(`另存失败! error: ${error}`);
+                    ElMessage.error(`另存失败! error: ${error}`);
                 }
             },
         },
@@ -662,7 +663,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
             func: () => {
                 editSceneObjShow.value = false
                 const sceneObject = treeItem.sceneObject;
-                if (!sceneObject) return Message.warning('当前节点没有对象')
+                if (!sceneObject) return ElMessage.warning('当前节点没有对象')
                 editSceneObj.value = sceneObject
                 setTimeout(() => {
                     editSceneObjShow.value = true
@@ -793,7 +794,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
                             const sceneObject = treeItem.sceneObject as ESGeoJson
                             const url = sceneObject.url
                             if (!url) {
-                                Message.error('此场景对象不存在url属性，请检查')
+                                ElMessage.error('此场景对象不存在url属性，请检查')
                                 return
                             }
                             if (typeof (url) === 'string') {
@@ -801,7 +802,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
                                     itemGeoJsonTOESObjects(res)
                                 }).catch(error => {
                                     console.log(error);
-                                    Message.error(`请求失败，请检查！${error}`)
+                                    ElMessage.error(`请求失败，请检查！${error}`)
                                 })
                             } else {
                                 itemGeoJsonTOESObjects(url)
@@ -841,7 +842,7 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
                     if (url.length > 0) {
                         copyClipboard(url)
                     } else {
-                        Message.error('url地址为空');
+                        ElMessage.error('url地址为空');
                     }
                 }
             }
@@ -928,18 +929,18 @@ const imageContexMenuEvent = (treeItem: SceneTreeItem) => {
             const a = searchGeoObjsValues(xbsjEarthUi, [treeItem.sceneObject])
             const num = locationAndVectorNumber([treeItem.sceneObject])
             try {
-                Message.warning('正在另存为..');
+                ElMessage.warning('正在另存为..');
                 const handle = await saveFileHandle('geoJson', `${treeItem.name}-geoJson场景对象`);
                 if (!handle) return;
                 const jsonStr = JSON.stringify(a, undefined, '    ');
                 await save(handle, jsonStr);
                 if (num > 0) {
-                    Message.success(`另存成功${num}个对象!`);
+                    ElMessage.success(`另存成功${num}个对象!`);
                 } else {
-                    Message.warning(`导出文件为空!`);
+                    ElMessage.warning(`导出文件为空!`);
                 }
             } catch (error) {
-                Message.error(`另存失败! error: ${error}`);
+                ElMessage.error(`另存失败! error: ${error}`);
             }
         },
     }
@@ -976,7 +977,7 @@ const getSplitDirectionList = (sceneObject: ES3DTileset | ESImageryLayer) => {
         keys: "",
         func: () => {
             if (!xbsjEarthUi.activeViewer || !xbsjEarthUi.activeViewer.rollerShutter) {
-                return Message.warning('当前视图不支持卷帘分割,请在分析中打开卷帘分割功能');
+                return ElMessage.warning('当前视图不支持卷帘分割,请在分析中打开卷帘分割功能');
             }
             sceneObject.splitDirection = dir;
         }
@@ -1009,7 +1010,7 @@ const changeSceObjName = (event: KeyboardEvent) => {
     if (event.keyCode === 113) {
         const select = [...sceneTree.selectedItems]
         if (select.length > 1) {
-            Message.warning('请选中一个对象进行名称修改')
+            ElMessage.warning('请选中一个对象进行名称修改')
             return
         }
         const lastSelectedItem = sceneTree.lastSelectedItem
@@ -1044,7 +1045,7 @@ const flyTo = (treeItem: SceneTreeItem) => {
         // @ts-ignore
         sceneObject.flyTo()
     } else {
-        Message.warning('暂不支持定位!')
+        ElMessage.warning('暂不支持定位!')
     }
 }
 /**
@@ -1091,7 +1092,7 @@ const dropFile = async (event: Event) => {
             } else if (a.type) {
                 createObj(xbsjEarthUi, a)
             } else {
-                Message.warning('请拖入正确的json格式')
+                ElMessage.warning('请拖入正确的json格式')
             }
         }
         reader.onerror = () => {
@@ -1122,7 +1123,7 @@ const itemGeoJsonTOESObjects = (a: any) => {
                 createpolygons(xbsjEarthUi, b.polygons, polygonsGroup)
             }
         } else {
-            Message.warning('请检查geojson格式是否正确')
+            ElMessage.warning('请检查geojson格式是否正确')
         }
     }, 100)
 }
@@ -1183,7 +1184,7 @@ const kmlToESObjects = async (input: any) => {
 
         // 检查解析是否成功
         if (kmlDocument.querySelector('parsererror')) {
-            Message.warning('解析KML失败,请检查数据源');
+            ElMessage.warning('解析KML失败,请检查数据源');
             return;
         }
 
@@ -1322,7 +1323,7 @@ const kmlToESObjects = async (input: any) => {
         };
     } catch (error) {
         console.log(error);
-        Message.error(`请求失败，请检查数据源！${error}`);
+        ElMessage.error(`请求失败，请检查数据源！${error}`);
     }
 };
 </script>

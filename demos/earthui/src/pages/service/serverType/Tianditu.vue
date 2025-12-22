@@ -35,8 +35,7 @@
 import { onMounted, ref, inject } from 'vue';
 import PopList from "../../../components/PopList.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
-
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { createTiandiImage } from "./tools"
 const tiandituToken = ref('')
 const tokenInputShow = ref(false)
@@ -91,11 +90,11 @@ const changeServerLab = (item: any, index: number) => {
 }
 const ok = () => {
     if (!tiandituToken.value) {
-        Message.warning('请填入天地图token')
+        ElMessage.warning('请填入天地图token')
         return
     }
     if (!serverUrl.value) {
-        Message.warning('未选择服务，请先选择')
+        ElMessage.warning('未选择服务，请先选择')
         return
     }
     let result = (serverUrl.value.split('/'))[3].substring(0, 3)

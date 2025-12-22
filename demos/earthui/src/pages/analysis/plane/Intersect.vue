@@ -10,7 +10,6 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui"
 import { ESGeoPolygon, ESSceneObject } from "earthsdk3";
 import { ref, inject, onBeforeUnmount } from "vue";
 import PopList from "../../../components/PopList.vue";
@@ -19,6 +18,7 @@ import { searchForPolygonValues } from "./fun";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import LabelInput from "../../../components/LabelInput.vue"
 import {getsceneObjNumfromSceneTree} from "../../../scripts/general"
+import { ElMessage } from "element-plus";
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const emits = defineEmits(['close'])
 // 第一个多边形
@@ -50,22 +50,22 @@ const ok = () => {//点击计算
     destroy()
     intersectObjList.value = []
     if (!onePolyId.value) {
-        Message.warning('请选择第一个多边形')
+        ElMessage.warning('请选择第一个多边形')
         return
     }
     if (!twoPolyId.value) {
-        Message.warning('请选择第二个多边形')
+        ElMessage.warning('请选择第二个多边形')
         return
     }
     if (onePolyId.value === twoPolyId.value) {
-        Message.warning('请选择不同的多边形')
+        ElMessage.warning('请选择不同的多边形')
         return
     }
     const sceneObject = xbsjEarthUi.getSceneObjectById(onePolyId.value) as ESGeoPolygon
     if (!sceneObject) return
     const result = sceneObject.getIntersect(position.value)
     if (!result) {
-        Message.warning('两个多边形无交集')
+        ElMessage.warning('两个多边形无交集')
         return
     } else {
         const r = result as [number, number, number][][]
@@ -79,14 +79,14 @@ const ok = () => {//点击计算
     const sceneObjectNum=getsceneObjNumfromSceneTree(xbsjEarthUi,'ESGeoPolygon')
             sceObj.name = `相交多边形${sceneObjectNum + 1}`
             sceList.push(sceObj)
-        Message.success('计算成功')
+        ElMessage.success('计算成功')
         })
         intersectObjList.value.push(sceList)
     }
 }
 const scene = () => {
     if (intersectObjList.value.length <= 0) {
-        Message.warning('请先计算')
+        ElMessage.warning('请先计算')
         return
     }
     intersectObjList.value[intersectObjList.value.length - 1].forEach((item: any) => {
@@ -99,7 +99,7 @@ const scene = () => {
 const changeOnePolygonShow = () => {
     onePolyList.value = searchForPolygonValues(xbsjEarthUi)
     if (onePolyList.value.length <= 0) {
-        Message.warning('多边形列表为空，请先创建多边形')
+        ElMessage.warning('多边形列表为空，请先创建多边形')
         return
     }
 }
@@ -113,7 +113,7 @@ function changeOnePolygonId  (item: any)  {
 const changeTwoPolygonShow = () => {
     twoPolyList.value = searchForPolygonValues(xbsjEarthUi)
     if (twoPolyList.value.length <= 0) {
-        Message.warning('多边形列表为空，请先创建多边形')
+        ElMessage.warning('多边形列表为空，请先创建多边形')
         return
     }
 }

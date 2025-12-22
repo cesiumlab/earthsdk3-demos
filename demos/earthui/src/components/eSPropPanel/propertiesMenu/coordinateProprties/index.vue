@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { ReactVarProperty } from 'earthsdk3';
-import { Message, propComps } from 'earthsdk-ui'
+import {  propComps } from 'earthsdk-ui'
 import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi';
 import { inject, onBeforeUnmount, onMounted } from 'vue';
 // import { propComps } from '../../index'

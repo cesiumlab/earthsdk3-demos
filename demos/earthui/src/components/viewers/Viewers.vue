@@ -3,7 +3,6 @@
     @dragleave="dragLeave($event)" @dragover="dragOver($event)" @drop="dropFile($event)"></div>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
 import { ESVOptionCzm, ESVOptionUe } from "earthsdk3";
 import { inject, onMounted, shallowRef } from "vue";
 import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
@@ -12,6 +11,7 @@ import {
   createSceneJson,
   geoJsonTOESObjects,
 } from "../sceneTree/tools";
+import { ElMessage } from "element-plus";
 const viewersContainer = shallowRef<HTMLDivElement>();
 const xbsjEarthUi = inject("xbsjEarthUi") as XbsjEarthUi;
 
@@ -55,7 +55,7 @@ const dropFile = async (event: Event) => {
       } else if (a.type) {
         createObj(xbsjEarthUi, a);
       } else {
-        Message.warning("请拖入正确的json格式");
+        ElMessage.warning("请拖入正确的json格式");
       }
     };
     reader.onerror = () => {

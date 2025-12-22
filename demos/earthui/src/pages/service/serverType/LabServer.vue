@@ -85,7 +85,7 @@ import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { post } from '../../../api/service';
 import LabelInput from "../../../components/LabelInput.vue";
 import { $config } from '@/global';
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 import { imageType, terrainType, modelType, imageServe, createModel, createTerrain, createImage } from "./tools"
 const d = createVueDisposer(onBeforeUnmount)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -204,11 +204,11 @@ const mouseover = () => {
 const serverList = ref<imageServe[]>([])
 const ok = () => {
     if (!cesiumLabUrl.value) {
-        Message.warning('服务地址为空，请填写地址')
+        ElMessage.warning('服务地址为空，请填写地址')
         return
     }
     if (!serverUrl.value) {
-        Message.warning('未选择服务，请先选择')
+        ElMessage.warning('未选择服务，请先选择')
         return
     }
     if (!currentItem.value) return
@@ -273,7 +273,7 @@ const initNewList = async () => {
     window.localStorage.setItem('labServeUrl', cesiumLabUrl.value)
     let newList: imageServe[] = []
     if (!cesiumLabUrl.value) {
-        Message.warning('服务地址为空，请填写地址')
+        ElMessage.warning('服务地址为空，请填写地址')
         return
     }
     let url
@@ -318,7 +318,7 @@ const initNewList = async () => {
     })).catch(error => {
         console.log(error);
         serverList.value = []
-        Message.error(`${error}`)
+        ElMessage.error(`${error}`)
     })
 }
 const changeToken = () => {

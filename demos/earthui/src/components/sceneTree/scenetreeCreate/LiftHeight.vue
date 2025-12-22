@@ -18,9 +18,9 @@ import { inject, onBeforeUnmount, ref, watch } from "vue";
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import LabelInput from "../../LabelInput.vue";
-import { Message } from "earthsdk-ui";
 import { ESGeoVector, ESObjectWithLocation } from 'earthsdk3';
 import { searchCheckedFromFolders, searchCheckedTreeItems, searchSceneObjectFromFolders, searchSceneObjectTreeItems } from "../tools";
+import { ElMessage } from 'element-plus';
 const emits = defineEmits(["changeShow"]);
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
 
@@ -73,10 +73,10 @@ const filterCheckedSceneObj = () => {
     if (scenetree.value && props.liftHeightType === 'node') {//节点右键
         const sceneObject = scenetree.value.sceneObject
         sceneObjectLiftHeight(sceneObject)
-        Message.success(`抬升${height.value}m高度成功`)
+        ElMessage.success(`抬升${height.value}m高度成功`)
     } else if (props.liftHeightType === 'blank' || props.liftHeightType === 'folder') {//空白右键||文件夹右键
         if (rightLiftSceneObj.value === 0) {
-            Message.warning('当前符合抬升的对象个数为0，请重新选择')
+            ElMessage.warning('当前符合抬升的对象个数为0，请重新选择')
             return
         }
         if (checkLiftSceneObj.value.length > 0) {
@@ -84,7 +84,7 @@ const filterCheckedSceneObj = () => {
                 sceneObjectLiftHeight(item)
             });
         }
-        Message.success(`抬升${height.value}m高度成功`)
+        ElMessage.success(`抬升${height.value}m高度成功`)
     }
 }
 watch(() => props.isShow, () => {

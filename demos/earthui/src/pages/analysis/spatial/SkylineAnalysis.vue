@@ -39,12 +39,13 @@
 <script setup lang="ts">
 import { ESSkylineAnalysis } from "earthsdk3";
 import { inject, onBeforeUnmount, onMounted, nextTick, computed, ref } from "vue";
-import { ESColor, Message } from "earthsdk-ui";
+import { ESColor } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import { createVueDisposer, toVR } from 'earthsdk-ui';
 import PopList from "../../../components/PopList.vue";
 import ToggleSwitch from "../../../components/eSPropPanel/propertiesMenu/commons/base/InputCheckBox.vue"
 import SkylineDepths from "./SkylineDepths.vue";
+import { ElMessage } from "element-plus";
 type ColorType = [number, number, number, number]
 // 分发事件
 const emits = defineEmits(['close'])
@@ -169,11 +170,11 @@ const clear = () => {
 const radiusChange = (e: any) => {
     let temp = e.target.value
     if (temp < 0) {
-        Message.warning('天际线半径不能为负数')
+        ElMessage.warning('天际线半径不能为负数')
         radius.value = 1000
     }
     if (!temp) {
-        Message.warning('天际线半径不能为空')
+        ElMessage.warning('天际线半径不能为空')
         radius.value = 1000
     }
 }
@@ -190,7 +191,7 @@ onMounted(() => {
                 behavior: "smooth"
             });
         }
-        Message.success('已开启天际线，可调整视角（平视），重新绘制天际线');
+        ElMessage.success('已开启天际线，可调整视角（平视），重新绘制天际线');
         start();
     });
 });

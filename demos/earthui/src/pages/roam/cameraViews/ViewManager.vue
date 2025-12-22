@@ -52,7 +52,8 @@
     </div>
 </template>
 <script setup lang='ts'>
-import { Message, messageBox, createVueDisposer, toVR } from "earthsdk-ui";
+import {  messageBox, createVueDisposer, toVR } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESJViewInfo } from "earthsdk3";
 import { inject, onBeforeUnmount, ref, nextTick } from 'vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
@@ -80,7 +81,7 @@ const editingChange = (name: string | undefined, index: number) => {
     isProcessingEdit.value = true
     editingIndex.value = -1
     cameraViewsManager.resetViewName(index, name ?? '视角')
-    Message.success('编辑成功')
+    ElMessage.success('编辑成功')
 
     // 重置标志
     setTimeout(() => {
@@ -128,7 +129,7 @@ cameraViewsManager.intervalTime = 2
 const deleteViewConfirm = () => {
     cameraViewsManager.deleteView(currentDeleteIndex.value)
     currentDeleteIndex.value = -1
-    Message.success('删除成功')
+    ElMessage.success('删除成功')
 }
 
 
@@ -147,7 +148,7 @@ const flyInByIndex = (index: number) => {
 const addView = () => {
     changeToMap()
     cameraViewsManager.addView()
-    Message.success('添加成功')
+    ElMessage.success('添加成功')
 }
 
 /**
@@ -162,7 +163,7 @@ const changeToMap = () => {
 
 const updateView = (index: number) => {
     cameraViewsManager.update(index)
-    Message.success('视角更新')
+    ElMessage.success('视角更新')
 }
 </script>
 

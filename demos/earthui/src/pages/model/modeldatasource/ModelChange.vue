@@ -11,7 +11,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ES3DTileset } from "earthsdk3";
 import { inject, ref } from 'vue';
 import { SceneTree } from 'earthsdk3';
@@ -30,7 +30,7 @@ const close = () => {
 
 //增加瓦片
 const addSceneObjects = () => {
-    if (!serveUrl.value) Message.warning('请选择或者输入地址');
+    if (!serveUrl.value) ElMessage.warning('请选择或者输入地址');
     else if (serveUrl.value) {
         const currentTreeItem = sceneTree.lastSelectedItem
         let newTreeItem

@@ -15,7 +15,7 @@ import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import LabelInput from "../../../components/LabelInput.vue";
-import { Message } from "earthsdk-ui"
+import { ElMessage } from 'element-plus'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const emits = defineEmits(['close', 'ok'])
 const position = ref<[number, number, number]>([0, 0, 0])
@@ -51,7 +51,7 @@ onMounted(() => {
     const viewer = xbsjEarthUi.activeViewer
     if (!viewer) return
     viewer.changeToMap()
-    Message.warning('请点击选择合适位置')
+    ElMessage.warning('请点击选择合适位置')
 })
 onBeforeUnmount(() => destroy())
 

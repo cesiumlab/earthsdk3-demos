@@ -116,7 +116,8 @@ import { CurrentTimeLineDragger, StartTimeLineDragger, Dragger, LastTimeLineDrag
 import { timestampToTime } from "../../../../components/eSPropPanel/propertiesMenu/basicProprties/tool";
 import AddChanel from "./AddChanel.vue"
 import { ESPath } from "earthsdk3";
-import { messageBox, Message } from "earthsdk-ui";
+import { messageBox } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import PathItem from "./PathItem.vue";
 const props = withDefaults(defineProps<{
     abRange: boolean
@@ -232,7 +233,7 @@ const ok = (list: { pathId: string, sceneObjectIds: string[] }, flag: boolean) =
     let isDefault = 0
     if (!flag) {
         ch[animationIndex.value] = list
-        Message.success('修改动画成功')
+        ElMessage.success('修改动画成功')
     } else {
         ch.forEach(item => {
             if (item.pathId === list.pathId) {
@@ -241,11 +242,11 @@ const ok = (list: { pathId: string, sceneObjectIds: string[] }, flag: boolean) =
             }
         })
         if (isDefault > 0) {
-            Message.warning('已经存在相同id的路径动画，请检查')
+            ElMessage.warning('已经存在相同id的路径动画，请检查')
             return
         }
         ch.push(list)
-        Message.success('添加动画成功')
+        ElMessage.success('添加动画成功')
     }
     channels.value = ch
 }
@@ -293,7 +294,7 @@ const chanelDelete = () => {
         }
     })
     if (l < 1) {
-        Message.warning('未选中任何动画，请选择之后再操作')
+        ElMessage.warning('未选中任何动画，请选择之后再操作')
         return
     }
     messageBox({ text: '确认删除动画吗?' })
@@ -312,7 +313,7 @@ const chanelDelete = () => {
                 }
             })
             channels.value = ch
-            Message.success('删除成功')
+            ElMessage.success('删除成功')
         })
         .catch((err) => {
         })
@@ -338,7 +339,7 @@ const chanelItem = () => {
         }
     })
     if (l !== 1) {
-        Message.warning('请仅选择一个动画进行修改')
+        ElMessage.warning('请仅选择一个动画进行修改')
         return
     }
     path.value = el[0].pathId

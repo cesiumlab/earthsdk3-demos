@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from 'earthsdk-ui';
+import { ElMessage } from 'element-plus'
 import { ref, inject, watch, onBeforeUnmount } from 'vue';
 import PopList from '../../../components/PopList.vue';
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
@@ -134,7 +134,7 @@ watch([url, format, layers, credit, styles, srs, minimumLevel, maximumLevel, max
 const emits = defineEmits(['close'])
 const addSceneObjects = () => {//点击确定
     if (!url.value) {
-        Message.warning('请输入地址')
+        ElMessage.warning('请输入地址')
         return
     }
     let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer');
@@ -152,7 +152,7 @@ const addSceneObjects = () => {//点击确定
 //点击定位
 const flyTo = () => {
     if (!rectangle.value) {
-        Message.warning('属性为空，无法飞入');
+        ElMessage.warning('属性为空，无法飞入');
         return
     }
     const r = rectangle.value.split(",");

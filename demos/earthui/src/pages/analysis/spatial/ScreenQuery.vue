@@ -8,6 +8,7 @@ import { inject, onMounted, onBeforeUnmount, ref } from "vue";
 import { Message } from "earthsdk-ui";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import PopList from "../../../components/PopList.vue";
+import { ElMessage } from "element-plus";
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const drawing = ref(false); // 是否正在绘制
@@ -120,7 +121,7 @@ function onMouseUp(e: MouseEvent) {
  */
 async function handleScreenRect(start: { x: number, y: number }, end: { x: number, y: number }) {
     if (!xbsjEarthUi.activeViewer) {
-        Message.warning("视口未加载");
+        ElMessage.warning("视口未加载");
         return;
     }
     try {

@@ -8,7 +8,6 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui"
 import { ESGeoLineString, ESGeoPolygon, ESSceneObject } from "earthsdk3";
 import { ref, inject, onBeforeUnmount } from "vue";
 import PopList from "../../../components/PopList.vue";
@@ -17,6 +16,7 @@ import { searchForLineValues } from "./fun";
 import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
 import LabelInput from "../../../components/LabelInput.vue";
 import { getsceneObjNumfromSceneTree } from "../../../scripts/general"
+import { ElMessage } from "element-plus";
 const emits = defineEmits(['close'])
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -45,18 +45,18 @@ const ok = () => {//点击计算
     destroy()
     intersectObjList.value = []
     if (!onePolyId.value) {
-        Message.warning('请选择一条折线')
+        ElMessage.warning('请选择一条折线')
         return
     }
     if (!radius.value) {
-        Message.warning('请输入缓冲阈值')
+        ElMessage.warning('请输入缓冲阈值')
         return
     }
     const sceneObject = xbsjEarthUi.getSceneObjectById(onePolyId.value) as ESGeoLineString
     if (!sceneObject) return
     const re = sceneObject.getBuffer(radius.value)
     if (!re) {
-        Message.warning('缓冲结果不存在')
+        ElMessage.warning('缓冲结果不存在')
         return
     } else {
         const r = re as [number, number, number][][]
@@ -71,14 +71,14 @@ const ok = () => {//点击计算
 
             sceObj.name = `缓冲多边形` + (sceneObjectNum + 1)
             sceList.push(sceObj)
-            Message.success('计算成功')
+            ElMessage.success('计算成功')
         })
         intersectObjList.value.push(sceList)
     }
 }
 const scene = () => {
     if (intersectObjList.value.length <= 0) {
-        Message.warning('请先计算')
+        ElMessage.warning('请先计算')
         return
     }
     intersectObjList.value[intersectObjList.value.length - 1].forEach((item: any) => {
@@ -91,7 +91,7 @@ const scene = () => {
 const changeOnePolygonShow = () => {
     onePolyList.value = searchForLineValues(xbsjEarthUi)
     if (onePolyList.value.length <= 0) {
-        Message.warning('折线列表为空，请先创建折线')
+        ElMessage.warning('折线列表为空，请先创建折线')
         return
     }
 }

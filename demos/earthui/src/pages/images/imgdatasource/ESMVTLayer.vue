@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ESEditor, Message } from 'earthsdk-ui';
+import { ESEditor } from 'earthsdk-ui';
 import { ESMVTLayer } from 'earthsdk3-cesium';
 import { inject, ref, useTemplateRef } from 'vue';
 import { SceneTree } from 'earthsdk3';
@@ -44,7 +44,7 @@ import PopList from '../../../components/PopList.vue';
 import Window from "../../../components/commom/Window.vue";
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi';
 import { getsceneObjNumfromSceneTree, searchMaxZindex } from "../../../scripts/general"
-import { ESSceneObject } from "earthsdk3";
+import { ElMessage } from 'element-plus'
 const editorContainer = useTemplateRef('editorContainer')
 const editorContainer2 = useTemplateRef('editorContainer2')
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
@@ -65,7 +65,7 @@ const emits = defineEmits(['close']);
 const addSceneObjects = () => {
     let maxZindex = searchMaxZindex(sceneTree, 'ESMVTLayer');
     if (!url.value) {
-        Message.warning('请输入地址')
+        ElMessage.warning('请输入地址')
         return
     }
     let treeItem: any
@@ -102,26 +102,26 @@ const load2 = () => {
     editorContainer2.value?.setVal(JSON.stringify(url.value, undefined, '    '));
 }
 const changeOk = () => {
-    const str = editorContainer.value?.getVal()
+    const str = editorContainer.value?.getVal() as string
     try {
         const json = JSON.parse(str);
         jsonStr.value = json
         windowShow.value = false
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！error:${error}`);
+        ElMessage.error(`JSON格式错误！error:${error}`);
         return
     }
 }
 const urlChangeOk = () => {
-    const str = editorContainer2.value?.getVal()
+    const str = editorContainer2.value?.getVal() as string
     try {
-        const json = JSON.parse(str);
+        const json = JSON.parse(str) 
         url.value = json
         urlWindowShow.value = false
     } catch (error) {
         console.log('JSON格式错误!!!', error);
-        Message.error(`JSON格式错误！error:${error}`);
+        ElMessage.error(`JSON格式错误！error:${error}`);
         return
     }
 }

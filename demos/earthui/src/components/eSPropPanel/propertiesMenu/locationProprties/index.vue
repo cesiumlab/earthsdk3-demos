@@ -2,7 +2,7 @@
 import { ESSceneObject, ReactVarProperty } from 'earthsdk3';
 import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi';
 const props = withDefaults(defineProps<{ properties: ReactVarProperty<any>[], type?: string; treeItem?: any, lonLatFormat: string }>(), {});
-import { Message, propComps } from 'earthsdk-ui'
+import {  propComps } from 'earthsdk-ui'
 import { inject, onBeforeUnmount, onMounted } from 'vue';
 // import { propComps } from '../../index'
 const emtis = defineEmits<{

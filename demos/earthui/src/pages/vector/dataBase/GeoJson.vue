@@ -9,7 +9,7 @@
     </PopList>
 </template>
 <script setup lang="ts">
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { ESGeoJson, SceneTree } from "earthsdk3";
 import { inject, ref } from 'vue';
 import PopList from "../../../components/PopList.vue";
@@ -23,7 +23,7 @@ const emits = defineEmits(['close']);
 //增加ESGeoJson
 const addSceneObjects = () => {
     if (!serveUrl.value) {
-        Message.warning('请者输入地址路径')
+        ElMessage.warning('请者输入地址路径')
         return
     };
     const currentTreeItem = sceneTree.lastSelectedItem

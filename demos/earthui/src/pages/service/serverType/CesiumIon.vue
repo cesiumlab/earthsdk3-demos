@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { onMounted, ref, inject, onBeforeUnmount } from 'vue';
 import PopList from "../../../components/PopList.vue";
-import { Message } from "earthsdk-ui";
+import { ElMessage } from 'element-plus'
 import { getWithCookie } from '../../../api/service';
 import LabelInput from "../../../components/LabelInput.vue"
 import { createCesiumIonImage, createCesiumIonTerrain, createCesiumIonModel } from "./tools";
@@ -67,7 +67,7 @@ const changeServerLab = async (item: any, index: number) => {
 }
 const ok = () => {
     if (!serverUrl.value) {
-        Message.warning('未选择服务，请先选择')
+        ElMessage.warning('未选择服务，请先选择')
         return
     }
     if (type.value === 'TERRAIN') {
@@ -80,14 +80,14 @@ const ok = () => {
 }
 const initNewList = async () => {
     if (!ionAccessToken.value) {
-        Message.warning('token不存在，请先设置token')
+        ElMessage.warning('token不存在，请先设置token')
         return
     }
     getWithCookie('https://api.cesium.com/v1/assets', ionAccessToken.value).then((res: any) => {
         serverList.value = res.items
     }).catch(error => {
         console.log(error);
-        Message.error(`${error}`)
+        ElMessage.error(`${error}`)
         
     })
 }

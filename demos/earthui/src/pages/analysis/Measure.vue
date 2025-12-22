@@ -1,10 +1,11 @@
 <script setup lang='ts'>
 import { onBeforeUnmount, inject } from 'vue';
 import { createVueDisposer, toReadonlyVueRef } from 'earthsdk-ui';
-import { Message, messageBox } from "earthsdk-ui"
+import {  messageBox } from "earthsdk-ui"
 import Button from '../../components/Button.vue';
 import RightList from '../../components/RightList.vue';
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi';
+import { ElMessage } from 'element-plus';
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const { measurementManager } = xbsjEarthUi;
 const d = createVueDisposer(onBeforeUnmount);
@@ -46,7 +47,7 @@ const controlList: { type: MeasureTypeParam, zh: string, icon: string, leftButto
 ];
 const confirm = () => {
     measurementManager.clearAll()
-    Message.success('删除成功')
+    ElMessage.success('删除成功')
 }
 const emits = defineEmits(['closeObj'])
 const changeConfirmdelete = () => {
@@ -60,7 +61,7 @@ const changeConfirmdelete = () => {
                 .catch((err) => {
                 })
         } else {
-            Message.warning('暂无测量，无法删除')
+            ElMessage.warning('暂无测量，无法删除')
             return
         }
     }, 50)

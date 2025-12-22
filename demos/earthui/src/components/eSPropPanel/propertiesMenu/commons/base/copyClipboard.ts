@@ -1,9 +1,10 @@
-import {Message} from "earthsdk-ui"
+// import {Message} from "earthsdk-ui"
+import { ElMessage } from "element-plus"
 export async function copyClipboard(text: string) {//复制
     navigator.clipboard.writeText(text)
         .then(function () {
-            Message.success('复制成功');
+            ElMessage.success('复制成功');
         }, function (e) {
-            Message.error(`复制失败 error:${e}`);
+            ElMessage.error(`复制失败 error:${e}`);
         });
 }

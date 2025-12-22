@@ -574,24 +574,26 @@ export const createObj = (xbsjEarthUi: XbsjEarthUi, a: any) => {
  * @param name 
  */
 export const saveAs = async (json: JsonValue, name?: string) => {
-    Message.warning('正在另存为..');
-    try {
-        // 将JSON值转换为字符串
-        const jsonString = JSON.stringify(json, null, 2);
-        // 创建Blob对象
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        // 创建下载链接
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = name ?? '未命名';
-        // 触发下载
-        document.body.appendChild(link);
-        link.click();
-        // 清理
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-        Message.success('另存成功!');
-    } catch (error) {
-        Message.error(`另存失败! error: ${error}`);
-    }
-}
+  Message.warning('正在另存为..');
+  try {
+    // 判断如果是字符串直接使用，否则转换为JSON字符串
+    const content = typeof json === 'string' 
+      ? json 
+      : JSON.stringify(json, null, 2);
+    // 创建Blob对象
+    const blob = new Blob([content], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = name?.endsWith('.json') ? name : `${name || '未命名'}.json`;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    }, 100);
+
+    Message.success('另存成功!');
+  } catch (error) {
+    Message.error(`另存失败! error: ${error instanceof Error ? error.message : String(error)}`);
+  }
+};

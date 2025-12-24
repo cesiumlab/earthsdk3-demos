@@ -1,0 +1,31 @@
+{
+  "name": "earthsdk-vue2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cesium": "1.134.1",
+    "earthsdk3": "3.6.3",
+    "earthsdk3-cesium": "3.6.5",
+    "earthsdk3-ue": "3.6.3",
+    "earthsdk3-assets": "3.0.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "vite": "^5.4.10",
+    "vue": "^2.7.16",
+    "vue-template-compiler": "^2.7.16",
+    "vite-plugin-cesium": "^1.2.23",
+    "vite-plugin-static-copy": "^1.0.1"
+  }
+}

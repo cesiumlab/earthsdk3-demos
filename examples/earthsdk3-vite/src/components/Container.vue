@@ -4,6 +4,7 @@
     <div class="btn-box">
       <botton @click="switchViewer('cesium')">切换为Cesium</botton>
       <botton @click="switchViewer('ue')">切换为UE</botton>
+      <botton @click="switchViewer('ol')">切换为Openlayers</botton>
     </div>
 
     <!-- 视口容器 -->
@@ -29,7 +30,7 @@ nextTick(() => {
 })
 
 
-type ViewerType = 'cesium' | 'ue';
+type ViewerType = 'cesium' | 'ue' | 'ol';
 //切换视口
 const switchViewer = (type: ViewerType) => {
   if (!container.value) return;
@@ -46,6 +47,11 @@ const switchViewer = (type: ViewerType) => {
       }
     };
   }
+
+  if (type === 'ol') {
+    option = { type: 'ESOlViewer', container: container.value };
+  }
+
   //切换cesium/ue视口
   objm.switchViewer(option);
 }

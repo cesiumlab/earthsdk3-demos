@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>经纬度/高度 → 屏幕坐标</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #panel {
+            width: 360px;
+            left: 20px;
+            top: 20px;
+            animation: none;
+            padding: 16px 16px 14px 16px;
+            border-radius: 14px;
+            color: rgba(255, 255, 255, 0.92);
+            background: rgba(18, 22, 28, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+        }
+
+        #panel * {
+            box-sizing: border-box;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC",
+                "Microsoft YaHei", sans-serif;
+        }
+
+        .form {
+            display: grid;
+            grid-template-columns: 92px 1fr;
+            gap: 10px 10px;
+            align-items: center;
+        }
+
+        .form label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.78);
+            letter-spacing: 0.2px;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.96);
+            outline: none;
+            height: 34px;
+        }
+
+        .form input:focus {
+            border-color: rgba(49, 115, 246, 0.8);
+            box-shadow: 0 0 0 3px rgba(49, 115, 246, 0.2);
+        }
+
+        .actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(49, 115, 246, 0.95) 0%, rgba(33, 94, 224, 0.95) 100%);
+            color: #fff;
+            cursor: pointer;
+            height: 34px;
+            line-height: 18px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            box-shadow: 0 10px 22px rgba(3, 139, 254, 0.22);
+            transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .btn:hover {
+            filter: brightness(1.03);
+            box-shadow: 0 14px 30px rgba(3, 139, 254, 0.28);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.10);
+            box-shadow: none;
+        }
+
+        .result {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 13px;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+
+        #screenX,
+        #screenY {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+                monospace;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.96);
+            padding: 0 6px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        .muted {
+            opacity: 0.85;
+        }
+
+        /* Screen marker */
+        #screenMarker {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: #ff4d4f;
+            box-shadow: 0 0 0 6px rgba(255, 77, 79, 0.14), 0 10px 24px rgba(0, 0, 0, 0.28);
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        #screenMarker::before,
+        #screenMarker::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+        }
+
+        #screenMarker::before {
+            width: 18px;
+            height: 2px;
+        }
+
+        #screenMarker::after {
+            width: 2px;
+            height: 18px;
+        }
+
+        @media screen and (max-width: 550px) {
+            #panel {
+                display: block !important; /* 覆盖公共css里对 panel 的隐藏 */
+                width: calc(100% - 24px);
+                left: 12px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="form">
+            <label>经度 lon</label>
+            <input id="lon" type="number" step="0.000001" value="116.2354" />
+
+            <label>纬度 lat</label>
+            <input id="lat" type="number" step="0.000001" value="23.3244" />
+
+            <label>高度 alt(m)</label>
+            <input id="alt" type="number" step="0.1" value="20" />
+        </div>
+
+        <div class="actions">
+            <button class="btn" onclick="convertLonLatAltToScreen()">转换</button>
+            <button class="btn secondary" onclick="flyToInput()">飞到该点</button>
+        </div>
+
+        <div class="result">
+            <div class="muted">输出（屏幕坐标，单位 px）：</div>
+            <div>screenX: <span id="screenX">-</span></div>
+            <div>screenY: <span id="screenY">-</span></div>
+            <div class="muted" style="margin-top:8px;">提示：坐标在屏幕外时，marker 会隐藏。</div>
+        </div>
+    </div>
+    <div id="screenMarker"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        let lastLonLatAlt = null;
+
+        function getNumber(id) {
+            const el = document.getElementById(id);
+            const v = Number(el && el.value);
+            return Number.isFinite(v) ? v : undefined;
+        }
+
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(text);
+        }
+
+        function showMarkerAt(screenPos) {
+            const marker = document.getElementById('screenMarker');
+            if (!marker) return;
+            if (!screenPos || typeof screenPos.x !== 'number' || typeof screenPos.y !== 'number') {
+                marker.style.display = 'none';
+                return;
+            }
+            // 屏幕外隐藏
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            if (screenPos.x < 0 || screenPos.y < 0 || screenPos.x > w || screenPos.y > h) {
+                marker.style.display = 'none';
+                return;
+            }
+            marker.style.left = `${screenPos.x}px`;
+            marker.style.top = `${screenPos.y}px`;
+            marker.style.display = 'block';
+        }
+
+        function refreshMarker() {
+            if (!lastLonLatAlt) return;
+            if (!objm.activeViewer || !objm.activeViewer.lonLatAltToScreenPosition) return;
+            objm.activeViewer.lonLatAltToScreenPosition(lastLonLatAlt).then((res) => {
+                // 兼容不同返回格式：{x,y} 或 [x,y]
+                const sp = Array.isArray(res) ? { x: res[0], y: res[1] } : res;
+                if (!sp) {
+                    setText('screenX', '-');
+                    setText('screenY', '-');
+                    showMarkerAt(null);
+                    return;
+                }
+                setText('screenX', Math.round(sp.x));
+                setText('screenY', Math.round(sp.y));
+                showMarkerAt(sp);
+            }).catch(() => {
+                setText('screenX', '-');
+                setText('screenY', '-');
+                showMarkerAt(null);
+            });
+        }
+
+        // UI：转换
+        function convertLonLatAltToScreen() {
+            const lon = getNumber('lon');
+            const lat = getNumber('lat');
+            const alt = getNumber('alt');
+            if (lon === undefined || lat === undefined || alt === undefined) {
+                alert('请输入有效的经纬度/高度数值');
+                return;
+            }
+            lastLonLatAlt = [lon, lat, alt];
+            refreshMarker();
+        }
+
+        // UI：飞到输入点
+        function flyToInput() {
+            const lon = getNumber('lon');
+            const lat = getNumber('lat');
+            const alt = getNumber('alt');
+            if (lon === undefined || lat === undefined || alt === undefined) {
+                alert('请输入有效的经纬度/高度数值');
+                return;
+            }
+            if (!objm.activeViewer) return;
+            // 尝试使用 EarthSDK3 viewer 的 flyIn（若存在）
+            if (typeof objm.activeViewer.flyIn === 'function') {
+                objm.activeViewer.flyIn([lon, lat, alt], [0, -45, 0], 2);
+            }
+        }
+
+        // 监听视口创建完成事件
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([116.39947309868032, 39.90592001431495, 334.38857241671485], [121.37477595297989, -33.67659827219708, 359.9997913701847], 3)
+            // 视口准备好后，默认先算一次
+            convertLonLatAltToScreen();
+        })
+
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 16,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        // 监听窗口变化，刷新marker位置
+        window.addEventListener('resize', () => refreshMarker());
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

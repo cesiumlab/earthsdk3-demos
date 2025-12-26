@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>屏幕坐标 → 经纬度/高度</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #panel {
+            width: 360px;
+            left: 20px;
+            top: 20px;
+            animation: none;
+            padding: 16px 16px 14px 16px;
+            border-radius: 14px;
+            color: rgba(255, 255, 255, 0.92);
+            background: rgba(18, 22, 28, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+        }
+
+        #panel * {
+            box-sizing: border-box;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC",
+                "Microsoft YaHei", sans-serif;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            margin-bottom: 10px;
+        }
+
+        .hint {
+            opacity: 0.82;
+            font-size: 12px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .form {
+            display: grid;
+            grid-template-columns: 92px 1fr;
+            gap: 10px 10px;
+            align-items: center;
+        }
+
+        .form label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.78);
+            letter-spacing: 0.2px;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.96);
+            outline: none;
+            height: 34px;
+        }
+
+        .form input:focus {
+            border-color: rgba(49, 115, 246, 0.8);
+            box-shadow: 0 0 0 3px rgba(49, 115, 246, 0.2);
+        }
+
+        .actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(49, 115, 246, 0.95) 0%, rgba(33, 94, 224, 0.95) 100%);
+            color: #fff;
+            cursor: pointer;
+            height: 34px;
+            line-height: 18px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            box-shadow: 0 10px 22px rgba(3, 139, 254, 0.22);
+            transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .btn:hover {
+            filter: brightness(1.03);
+            box-shadow: 0 14px 30px rgba(3, 139, 254, 0.28);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.10);
+            box-shadow: none;
+        }
+
+        .result {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 13px;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+
+        .mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+                monospace;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.96);
+            padding: 0 6px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+
+        /* Screen marker */
+        #screenMarker {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: #ff4d4f;
+            box-shadow: 0 0 0 6px rgba(255, 77, 79, 0.14), 0 10px 24px rgba(0, 0, 0, 0.28);
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        #screenMarker::before,
+        #screenMarker::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            opacity: 0.8;
+        }
+
+        #screenMarker::before {
+            width: 18px;
+            height: 2px;
+        }
+
+        #screenMarker::after {
+            width: 2px;
+            height: 18px;
+        }
+
+        @media screen and (max-width: 550px) {
+            #panel {
+                display: block !important;
+                width: calc(100% - 24px);
+                left: 12px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="title">屏幕坐标 → 经纬度/高度</div>
+        <div class="hint">方式 1：填写屏幕坐标（px）点击“转换”</div>
+
+        <div class="form">
+            <label>screenX (px)</label>
+            <input id="screenX" type="number" step="1" value="0" />
+
+            <label>screenY (px)</label>
+            <input id="screenY" type="number" step="1" value="0" />
+        </div>
+
+        <div class="actions">
+            <button class="btn" onclick="convertScreenToLonLatAlt()">转换</button>
+            <button class="btn secondary" onclick="clearResult()">清空</button>
+        </div>
+
+        <div class="result">
+            <div>lon: <span id="lon" class="mono">-</span></div>
+            <div>lat: <span id="lat" class="mono">-</span></div>
+            <div>alt(m): <span id="alt" class="mono">-</span></div>
+            <div style="margin-top:8px; opacity:0.82; font-size:12px;">注：空白区域/天空可能拾取不到，返回值会为空。</div>
+        </div>
+    </div>
+    <div id="screenMarker"></div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        let activeViewer = null;
+
+        function getNumber(id) {
+            const el = document.getElementById(id);
+            const v = Number(el && el.value);
+            return Number.isFinite(v) ? v : undefined;
+        }
+
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(text);
+        }
+
+        function showMarkerAt(screenPos) {
+            const marker = document.getElementById('screenMarker');
+            if (!marker) return;
+            if (!screenPos || typeof screenPos.x !== 'number' || typeof screenPos.y !== 'number') {
+                marker.style.display = 'none';
+                return;
+            }
+            marker.style.left = `${screenPos.x}px`;
+            marker.style.top = `${screenPos.y}px`;
+            marker.style.display = 'block';
+        }
+
+
+        function clearResult() {
+            setText('lon', '-');
+            setText('lat', '-');
+            setText('alt', '-');
+            showMarkerAt(null);
+        }
+
+        function convertScreenToLonLatAlt() {
+            const x = getNumber('screenX');
+            const y = getNumber('screenY');
+            if (x === undefined || y === undefined) {
+                alert('请输入有效的 screenX/screenY');
+                return;
+            }
+            if (!objm.activeViewer || typeof objm.activeViewer.pickPosition !== 'function') {
+                alert('视口未就绪，请等待地球创建完成后再转换');
+                return;
+            }
+
+        
+
+            // marker 仍按 {x,y} 显示
+            showMarkerAt({ x, y });
+
+            objm.activeViewer.pickPosition([x,y]).then((res) => {
+                const llh = res;
+                // res 期望为 [lon, lat, alt]
+                if (!Array.isArray(llh) || llh.length < 2) {
+                    setText('lon', '-');
+                    setText('lat', '-');
+                    setText('alt', '-');
+                    return;
+                }
+                const lon = Number(llh[0]);
+                const lat = Number(llh[1]);
+                const alt = Number(llh[2] ?? 0);
+                if (!Number.isFinite(lon) || !Number.isFinite(lat)) {
+                    setText('lon', '-');
+                    setText('lat', '-');
+                    setText('alt', '-');
+                    return;
+                }
+                setText('lon', lon.toFixed(6));
+                setText('lat', lat.toFixed(6));
+                setText('alt', (Number.isFinite(alt) ? alt : 0).toFixed(2));
+            }).catch(() => {
+                setText('lon', '-');
+                setText('lat', '-');
+                setText('alt', '-');
+            });
+        }
+
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer({
+            type: 'ESCesiumViewer',
+            container: document.getElementById("app"),
+        });
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 16,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        // 默认把 marker 放到屏幕中心
+        window.addEventListener('load', () => {
+            const xEl = document.getElementById('screenX');
+            const yEl = document.getElementById('screenY');
+            if (xEl) xEl.value = Math.round(window.innerWidth / 2);
+            if (yEl) yEl.value = Math.round(window.innerHeight / 2);
+        });
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

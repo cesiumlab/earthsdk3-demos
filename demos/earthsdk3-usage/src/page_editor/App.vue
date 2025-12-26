@@ -50,6 +50,9 @@ function changeSrc(src) {
         display: none !important;
     }
 }
+.footerBox{
+    background: rgb(20, 20, 20);
+}
 
 .layout {
     width: 100%;

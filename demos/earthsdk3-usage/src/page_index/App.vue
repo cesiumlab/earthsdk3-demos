@@ -29,6 +29,7 @@
                 <List :list="data" :activeId="activeId"></List>
             </div>
         </div>
+        <NewYearBanner />
     </div>
     
 </template>
@@ -37,6 +38,7 @@
 import Tree from './components/common/Tree.vue'
 import List from "./components/List.vue"
 import Header from './components/Header.vue';
+import NewYearBanner from './components/NewYearBanner.vue';
 import axios from "axios";
 import { onMounted, ref, computed } from "vue";
 import { guid } from '@/scripts/utils'
@@ -147,6 +149,7 @@ function selectSearchItem(item) {
     height: 100%;
     overflow: hidden;
     background: var(--bg-app);
+    position: relative;
 }
 
 .right-search-bar {

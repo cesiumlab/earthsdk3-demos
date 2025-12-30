@@ -6,6 +6,26 @@
                 <Tree :tree="data" @onclick="handlerClick"></Tree>
             </div>
             <div class="right" ref="list">
+                <div class="right-search-bar">
+                    <div class="search">
+                        <input
+                            v-model="searchText"
+                            type="text"
+                            placeholder="输入示例名称搜索..."
+                            @keyup.enter="searchAndScroll"
+                        />
+                        <ul class="search-list" v-if="searchText && searchResults.length">
+                            <li
+                                v-for="item in searchResults"
+                                :key="item.id"
+                                @click="selectSearchItem(item)"
+                            >
+                                {{ item.name }}
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="search-btn" @click="searchAndScroll">搜索</button>
+                </div>
                 <List :list="data" :activeId="activeId"></List>
             </div>
         </div>
@@ -18,12 +38,20 @@ import Tree from './components/common/Tree.vue'
 import List from "./components/List.vue"
 import Header from './components/Header.vue';
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { guid } from '@/scripts/utils'
 const data = ref([])
 const list = ref(null)
 const activeId = ref(null);
 const theme = ref('dark')
+const searchText = ref('')
+const searchResults = computed(() => {
+    const key = searchText.value.trim().toLowerCase();
+    if (!key || !Array.isArray(data.value)) return [];
+    const leaves = [];
+    collectLeafItems(data.value, leaves);
+    return leaves.filter(i => String(i.name || '').toLowerCase().includes(key)).slice(0, 10);
+})
 
 onMounted(() => {
     axios.get("./data/example.json").then(res => {
@@ -40,20 +68,76 @@ function setObjectId(arr) {
     return arr;
 }
 
+function collectLeafItems(arr, out) {
+    if (!Array.isArray(arr)) return;
+    arr.forEach((item) => {
+        const hasChildren = item.children && Array.isArray(item.children) && item.children.length > 0;
+        if (hasChildren) {
+            collectLeafItems(item.children, out);
+        } else {
+            out.push(item);
+        }
+    });
+}
+
 function handlerClick(item) {
     if (!item.children || item.children.length === 0) {
         activeId.value = item.id;
-        const dom = document.getElementById(item.id)
-        if (!dom) return
-        list.value.scrollTo({
-            top: dom.offsetTop - 120,
-            behavior: "smooth"
-        })
+        scrollToId(item.id)
     }
 }
 
 function toggleTheme() {
     theme.value = theme.value === 'light' ? 'dark' : 'light'
+}
+
+function scrollToId(id) {
+    if (!list.value || !id) return;
+    const dom = document.getElementById(id);
+    if (!dom) return;
+    list.value.scrollTo({
+        top: dom.offsetTop - 120,
+        behavior: "smooth"
+    });
+}
+
+function findFirstMatch(arr, keyword) {
+    if (!Array.isArray(arr)) return null;
+    const key = keyword.trim().toLowerCase();
+    if (!key) return null;
+    for (const item of arr) {
+        const name = (item && item.name) ? String(item.name).toLowerCase() : '';
+        const isLeaf = !item.children || !Array.isArray(item.children) || item.children.length === 0;
+        if (isLeaf && name.includes(key)) {
+            return item;
+        }
+        if (item.children && Array.isArray(item.children)) {
+            const child = findFirstMatch(item.children, key);
+            if (child) return child;
+        }
+    }
+    return null;
+}
+
+function searchAndScroll() {
+    const kw = searchText.value.trim();
+    if (!kw) {
+        alert('请输入要搜索的示例名称');
+        return;
+    }
+    const item = findFirstMatch(data.value, kw);
+    if (!item || !item.id) {
+        alert('未找到匹配的示例');
+        return;
+    }
+    activeId.value = item.id;
+    scrollToId(item.id);
+}
+
+function selectSearchItem(item) {
+    if (!item || !item.id) return;
+    activeId.value = item.id;
+    scrollToId(item.id);
 }
 </script>
 
@@ -65,8 +149,112 @@ function toggleTheme() {
     background: var(--bg-app);
 }
 
+.right-search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 4px 12px;
+    background: linear-gradient(to bottom, var(--bg-surface), rgba(255, 255, 255, 0));
+}
+
+.search {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 999px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(49, 115, 246, 0.45);
+    min-width: 240px;
+    position: relative;
+}
+
+[data-theme='dark'] .search {
+    background: rgba(23, 28, 36, 0.96);
+    border-color: rgba(122, 162, 255, 0.9);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+}
+
+.search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 13px;
+    min-width: 180px;
+}
+
+.search input::placeholder {
+    color: var(--muted);
+}
+
+.search-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.3);
+    white-space: nowrap;
+}
+
+.search-label {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(49, 115, 246, 0.08);
+    color: var(--primary);
+    border: 1px solid rgba(49, 115, 246, 0.45);
+    white-space: nowrap;
+}
+
+[data-theme='dark'] .search-label {
+    background: rgba(122, 162, 255, 0.16);
+    border-color: rgba(122, 162, 255, 0.9);
+    color: #e8f0ff;
+}
+
+.search-list {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    margin-top: 0;
+    padding: 6px 0;
+    list-style: none;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+    max-height: 260px;
+    min-width: 100%;
+    overflow-y: auto;
+    z-index: 20;
+}
+
+.search-list li {
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.search-list li:hover {
+    background: rgba(49, 115, 246, 0.08);
+    color: var(--primary);
+}
+
 .content {
-    margin-top: 8px;
+    margin-top: 6px;
     width: 100%;
     height: calc(100% - 56px);
     display: flex;

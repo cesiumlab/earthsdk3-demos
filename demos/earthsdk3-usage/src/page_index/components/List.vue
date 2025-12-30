@@ -46,17 +46,20 @@ function trunToEditor(item) {
   width: 100%;
   min-height: 100%;
   background: var(--bg-surface);
-  padding: 16px 24px 28px 24px;
+  padding: 14px 22px 24px 22px;
   box-sizing: border-box;
 }
 .mode {
-  margin-bottom: 36px;
+  margin-bottom: 30px;
 }
 .group-title {
   display: flex;
   align-items: center;
   margin-bottom: 12px;
   margin-top: 24px;
+}
+.mode:first-of-type .group-title {
+  margin-top: 0;
 }
 .group-bar {
   width: 4px;
@@ -69,10 +72,11 @@ function trunToEditor(item) {
   font-size: 20px;
   font-weight: 700;
   color: var(--text);
+  letter-spacing: 0.2px;
 }
 .topic {
   padding-top: 10px;
-  padding-left: 24px;
+  padding-left: 20px;
   color: var(--primary);
   font-size: 16px;
 }
@@ -93,11 +97,11 @@ function trunToEditor(item) {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 16px 14px;
+  gap: 14px 12px;
 }
 .card {
-  width: clamp(200px, 24vw, 270px);
-  min-height: 220px;
+  width: clamp(200px, 24vw, 260px);
+  min-height: 210px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -107,7 +111,7 @@ function trunToEditor(item) {
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
   margin-bottom: 0;
-  padding-top: 7px;
+  padding-top: 6px;
   transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease, background 0.25s ease;
   cursor: pointer;
   position: relative;
@@ -129,6 +133,7 @@ function trunToEditor(item) {
   padding: 1px;
   border-radius: 16px;
   background: linear-gradient(145deg, rgba(49,115,246,0.25), rgba(255,255,255,0.0));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -139,6 +144,7 @@ function trunToEditor(item) {
   transform: translateY(-3px);
   border-color: var(--primary);
   background: rgba(49,115,246,0.02);
+  transform-origin: center bottom;
 }
 .card:hover::before { opacity: 1; }
 .card:active {
@@ -148,14 +154,14 @@ function trunToEditor(item) {
   font-size: 15px;
   color: var(--text);
   margin: 0;
-  margin: 10px 0 14px 0;
+  margin: 8px 0 12px 0;
   font-weight: 600;
   letter-spacing: 0.2px;
 }
 .card > img {
   border-radius: 12px;
   background: #f7fafd;
-  width: calc(100% - 16px);
+  width: calc(100% - 18px);
   height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -172,8 +178,8 @@ function trunToEditor(item) {
 }
 
 @media screen and (max-width: 1200px) {
-  .card { width: clamp(180px, 36vw, 240px); min-height: 206px; }
-  .card > img { width: calc(100% - 14px); aspect-ratio: 4 / 3; }
+  .card { width: clamp(180px, 36vw, 236px); min-height: 200px; }
+  .card > img { width: calc(100% - 16px); aspect-ratio: 4 / 3; }
 }
 
 @media screen and (max-width: 900px) {

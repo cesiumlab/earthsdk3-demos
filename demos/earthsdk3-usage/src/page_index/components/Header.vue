@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div>
+        <div class="brand">
             <img src="../assets/logo.png" alt="" width="35" height="30">
             <h2>EarthSDK3官方示例</h2>
         </div>
@@ -88,13 +88,27 @@ const viewVersion = () => {
     box-sizing: border-box;
     color: #fff !important;
     border-bottom: 1px solid #2c333d;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand img {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
 }
 
 h2 {
     padding-left: 10px;
-    color: #fffdfd;
+    color: #fdfdfd;
     margin: 0px;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    font-size: 18px;
 }
 
 .header>div {
@@ -136,5 +150,19 @@ a:hover {
     padding: 6px 10px;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.toggle:hover {
+    border-color: var(--primary);
+    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.3);
+    transform: translateY(-1px);
+}
+
+.toggle:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(3, 139, 254, 0.18);
 }
 </style>

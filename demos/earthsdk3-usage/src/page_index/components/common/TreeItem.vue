@@ -44,23 +44,37 @@ function onItemClickOrToggle() {
 <style scoped>
 .item {
     color: var(--text);
-    padding: 8px 10px;
+    padding: 6px 8px;
     display: flex;
     align-items: center;
     cursor: pointer;
     border-radius: 8px;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+    position: relative;
 }
 
 .item:hover {
     background: rgba(49, 115, 246, 0.08);
     color: var(--primary) !important;
+    box-shadow: 0 1px 4px rgba(3, 139, 254, 0.20);
 }
 
 .selected {
     color: var(--primary) !important;
-    background: rgba(49, 115, 246, 0.12);
-    border: 1px solid var(--border);
+    background: rgba(49, 115, 246, 0.10);
+    border: 1px solid rgba(49, 115, 246, 0.45);
+    box-shadow: 0 0 0 2px rgba(49, 115, 246, 0.16);
+}
+
+.selected::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    border-radius: 999px;
+    background: var(--primary);
 }
 
 .label {

@@ -109,15 +109,16 @@ function onclick(item) {
 </script>
 <style scoped>
 .tree-root {
-    padding: 10px 8px 16px 8px;
+    padding: 10px 6px 16px 6px;
     color: var(--text);
+    font-size: 13px;
 }
 
 .tree-footer {
-    margin-top: 12px;
-    padding: 8px 4px 0 4px;
+    margin-top: 10px;
+    padding: 8px 6px 0 6px;
     border-top: 1px dashed var(--border);
     color: var(--muted);
-    font-size: 12px;
+    font-size: 11px;
 }
 </style>

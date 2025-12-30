@@ -104,57 +104,57 @@
                 "children": [
                     {
                         "name": "clickEvent 点击事件",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-click.webp",
                         "path": "earth/event/click"
                     },
                     {
                         "name": "dblclickEvent 双击事件",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-dblclick.webp",
                         "path": "earth/event/dblclick"
                     },
                     {
                         "name": "hoverEvent 悬浮事件",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-hover.webp",
                         "path": "earth/event/hover"
                     },
                     {
                         "name": "pointerOverEvent 鼠标移入",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-pointerOverEvent.webp",
                         "path": "earth/event/pointerOverEvent"
                     },
                     {
                         "name": "pointerOutEvent 鼠标移出",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-pointerOutEvent.webp",
                         "path": "earth/event/pointerOutEvent"
                     },
                     {
                         "name": "pointerMoveEvent 鼠标移动",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-pointerMoveEvent.webp",
                         "path": "earth/event/pointerMoveEvent"
                     },
                     {
                         "name": "pointerDownEvent 鼠标按下",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-pointerDownEvent.webp",
                         "path": "earth/event/pointerDownEvent"
                     },
                     {
                         "name": "pointerUpEvent 鼠标抬起",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-pointerUpEvent.webp",
                         "path": "earth/event/pointerUpEvent"
                     },
                     {
                         "name": "wheelEvent 鼠标滚轮滚动",
-                        "thumbnail": "earth-event-m.webp",
+                        "thumbnail": "earth-event-wheelEvent.webp",
                         "path": "earth/event/wheelEvent"
                     },
                     {
                         "name": "keyDownEvent 键盘按下",
-                        "thumbnail": "earth-event-k.webp",
+                        "thumbnail": "earth-event-keyDownEvent.webp",
                         "path": "earth/event/keyDownEvent"
                     },
                     {
                         "name": "keyUpEvent 键盘抬起",
-                        "thumbnail": "earth-event-k.webp",
+                        "thumbnail": "earth-event-keyUpEvent.webp",
                         "path": "earth/event/keyUpEvent"
                     }
                 ]

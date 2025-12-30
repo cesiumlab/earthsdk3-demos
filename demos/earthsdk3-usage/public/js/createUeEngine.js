@@ -17,14 +17,14 @@ const createUeEngine = {
                 <div class="top">
                     <label for="uri">服务地址</label>
                     <input id="uri" type="text" v-model="uri" @blur="init" @keydown.enter.prevent="init">
-                    <label for="appid">应用id</label>
+                    <label for="appid">应用名称</label>
                     <input id="appid" type="text" v-model="app">
                 </div>
                 <div class="middle">
                     <div v-for="item in list"
-                         :key="item.id"
+                         :key="item.name"
                          @click="selectAPP(item)"
-                         :class="{ selected: app === item.id }">
+                         :class="{ selected: app === item.name }">
                         <img :src="item.thumbnail ? item.thumbnail : './thumbnail/fail.png'" width="80" height="80" />
                         <p>{{ item.name }}</p>
                     </div>
@@ -126,7 +126,7 @@ const createUeEngine = {
         },
 
         selectAPP(item) {
-            this.app = item.id
+            this.app = item.name
         }
     }
 }

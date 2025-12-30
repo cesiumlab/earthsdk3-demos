@@ -6,11 +6,12 @@ const createUeEngine = {
             <div id="confirm">
                 <div class="title">
                     <p>
-                        ESSS信令服务器地址：
-                        <a href="https://www.cesiumlab.com/esss.html" target="_blank">https://www.cesiumlab.com/esss.html</a>
+                         
+                        <a href="https://bjxbsj.cn/esss.html"  class="to-link" target="_blank">ESSS信令服务器下载</a>
+                        <span> &nbsp;&nbsp; |  </span>
                         <a href="https://www.bilibili.com/video/BV17m411Z72S/?share_source=copy_web&vd_source=6b2f4b5f58a5e9c4201a7336f29ff597"
                            class="to-link"
-                           target="_blank">视频教学</a>
+                           target="_blank">ESSS信令服务器视频教程</a>
                     </p>
                 </div>
                 <div class="top">

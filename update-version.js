@@ -7,7 +7,7 @@ const newVersion = {
     "earthsdk3-assets": "3.0.6",
     "earthsdk3": "3.7.0-beta.19",
     "cesium": "1.134.1",
-    "earthsdk3-cesium": "3.7.0-beta.24",
+    "earthsdk3-cesium": "3.7.0-beta.25",
     "earthsdk3-ue": "3.7.0-beta.18",
     "ol": "^7.1.0",
     "earthsdk3-ol": "3.7.0-beta.19"

@@ -2458,10 +2458,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.7.0-beta.24:
-  version "3.7.0-beta.24"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0-beta.24.tgz#0cb17cbc8027fc89518269961484de22cea99cdd"
-  integrity sha512-98IVSE0CVYrsyVNRfe0fAeip0aZbnkHUN3TvMemaWEKQERTY5pbKm9R4hK5B/O8UAbkp6vyT0UcFZdU2Bwq23g==
+earthsdk3-cesium@3.7.0-beta.25:
+  version "3.7.0-beta.25"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0-beta.25.tgz#67d87596da47acfc8ae83a76aa77003904e299fc"
+  integrity sha512-mnGNJ0ovCLkpzENNbX4oGKlbpNsEfpFM/20X+piT/AVhIQr15PcX1/RNgpRkxdzFvF3SJjJOGLJ0TKlQlRyV2Q==
   dependencies:
     "@mapbox/sphericalmercator" "2.0.1"
     "@mapbox/vector-tile" "2.0.4"

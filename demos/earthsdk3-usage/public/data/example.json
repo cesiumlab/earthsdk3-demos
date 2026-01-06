@@ -314,7 +314,7 @@
                 "children": [
                     {
                         "name": "大地图交互模式(默认)",
-                        "thumbnail": "roam-pawn-map.webp",
+                        "thumbnail": "roam-pawn-map1.webp",
                         "path": "roam/pawn/map"
                     },
                     {
@@ -334,7 +334,7 @@
                     },
                     {
                         "name": "围点环绕观察模式",
-                        "thumbnail": "roam-pawn-map.webp",
+                        "thumbnail": "roam-pawn-rotatePoint.webp",
                         "path": "roam/pawn/rotatePoint"
                     },
                     {

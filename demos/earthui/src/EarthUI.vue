@@ -8,6 +8,12 @@
         <div class="xbsj_earth">
             <ViewersComp></ViewersComp>
         </div>
+        <!-- 新场景树 -->
+        <!-- <DraggableDialog title="场景树" v-model="showSceneTreeViewRef" :top="40" :left="300" :minWidthHeight="[300, 400]"
+            :width="300" :height="400">
+            <SceneTree :sceneTree="xbsjEarthUi.sceneTree" :config="config" />
+        </DraggableDialog> -->
+
         <!-- 场景树 -->
         <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
             :height="'410px'" :left="0" :top="40" :iconName="'tucengguanli'" :checkIconIsShow="true"
@@ -17,8 +23,8 @@
                     <Editing></Editing>
                 </div>
                 <div class="Layer_Management_scenetree">
-                    <SceneTree v-if="!!sceneTree" :showCheckBox="sceneTreeCheckedIcon" :clickEmpty="clickEmpty"
-                        @closeClickEmpty="clickEmpty = false"></SceneTree>
+                    <SceneTreeCom v-if="!!sceneTree" :showCheckBox="sceneTreeCheckedIcon" :clickEmpty="clickEmpty"
+                        @closeClickEmpty="clickEmpty = false"></SceneTreeCom>
                     <div style="height: 20px;" @contextmenu.stop.prevent="clickEmpty = true"></div>
                 </div>
             </div>
@@ -49,7 +55,7 @@ import { onBeforeUnmount, onMounted, provide, ref, shallowRef, watch } from "vue
 import DraggablePopup2 from "./components/DraggablePopup2.vue";
 import Editing from './components/editing/Editing.vue';
 import ESPropPanel from './components/eSPropPanel/ESPropPanel.vue';
-import SceneTree from "./components/sceneTree/SceneTree.vue";
+import SceneTreeCom from "./components/sceneTree/SceneTree.vue";
 import ViewersComp from './components/viewers/Viewers.vue';
 import { originalNavList } from './pages';
 import { timeToTimestamp, timestampToTime } from './pages/environment/fun';
@@ -59,6 +65,19 @@ import TimeLine from "./pages/view/animation/TimeLine.vue";
 import ControlComponent from "./pages/view/control/index.vue";
 import { initSceneJson, initSceneWithType, initurl } from './scripts/initializationJson';
 import { XbsjEarthUi } from './scripts/xbsjEarthUi';
+
+import { DraggableDialog, SceneTree } from 'earthsdk-ui'
+import { getIcon } from './constants';
+import { SceneTreeItem } from 'earthsdk3';
+const config = {
+    showCheckbox: true,
+    setSceneTreeItemIcon: getIcon,
+    setDefaultMenu: () => [],
+    setSceneTreeItemMenu: (item: SceneTreeItem) => [],
+    // onSceneTreeItemClick: (e: MouseEvent, item: SceneTreeItem) => {},
+    // onSceneTreeItemDblClick: (e: MouseEvent, item: SceneTreeItem) => {},
+    // onOtherClick: (e: MouseEvent) => {},
+}
 
 const props = withDefaults(defineProps<{
     newList?: any

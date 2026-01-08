@@ -1,4 +1,3 @@
-
 .environment_slider {
   width: 100%;
   height: 26px;
@@ -16,7 +15,7 @@
   line-height: 26px;
   color: rgba(230, 230, 230, 1);
 }
-.environment_slider_time>div > span {
+.environment_slider_time > div > span {
   width: 28px;
   height: 26px;
   font-size: 11px;

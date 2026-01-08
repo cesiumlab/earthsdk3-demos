@@ -1,1 +1,1 @@
-export * from "./useSceneTreeMenu";
+export * from './useSceneTreeMenu'

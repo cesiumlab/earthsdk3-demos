@@ -9,7 +9,7 @@
   color: rgba(230, 230, 230, 1);
 }
 
-.images_relative_box>label {
+.images_relative_box > label {
   display: inline-block;
   width: 60px;
   height: 26px;
@@ -20,7 +20,7 @@
   user-select: none;
 }
 
-.images_relative_box>span {
+.images_relative_box > span {
   display: inline-block;
   width: 26px;
   height: 26px;
@@ -34,7 +34,7 @@
   margin-left: 10px;
 }
 
-.images_relative_box>div {
+.images_relative_box > div {
   width: 190px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
   margin-bottom: 10px;
 }
 
-.images_searchinput>div {
+.images_searchinput > div {
   width: 100%;
   height: 28px;
   display: flex;
@@ -60,7 +60,7 @@
   margin-bottom: 10px;
 }
 
-.images_searchinput>div>input {
+.images_searchinput > div > input {
   flex: 1;
   height: 28px;
   background: rgba(0, 0, 0, 0.4);
@@ -70,7 +70,7 @@
   padding: 0 5px;
 }
 
-.images_searchinput>div>span {
+.images_searchinput > div > span {
   width: 80px;
   line-height: 28px;
   text-align: left;
@@ -78,11 +78,11 @@
 
 .input_number::-webkit-outer-spin-button,
 .input_number::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
-.input_number[type="number"] {
-    -moz-appearance: textfield;
+.input_number[type='number'] {
+  -moz-appearance: textfield;
 }
 .input_disabled {
   cursor: not-allowed;

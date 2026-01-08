@@ -1,130 +1,120 @@
-<script setup lang='ts'>
-import { ref, onBeforeUnmount, inject, onMounted, watch } from "vue";
-import BasicProprties from "./propertiesMenu/basicProprties/index.vue";
-import CoordinateProprties from "./propertiesMenu/coordinateProprties/index.vue";
-import GeneralProprties from "./propertiesMenu/generalProprties/index.vue";
-import LocationProprties from "./propertiesMenu/locationProprties/index.vue";
-import {
-  createVueDisposer,
-  Message,
-  toReadonlyVueRef,
-  toVR,
-} from "earthsdk-ui";
-import { XbsjEarthUi } from "../../scripts/xbsjEarthUi";
-import { ES3DTileset } from "earthsdk3";
+<script setup lang="ts">
+import { ref, onBeforeUnmount, inject, onMounted, watch } from 'vue'
+import BasicProprties from './propertiesMenu/basicProprties/index.vue'
+import CoordinateProprties from './propertiesMenu/coordinateProprties/index.vue'
+import GeneralProprties from './propertiesMenu/generalProprties/index.vue'
+import LocationProprties from './propertiesMenu/locationProprties/index.vue'
+import { createVueDisposer, Message, toReadonlyVueRef, toVR } from 'earthsdk-ui'
+import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import { ES3DTileset } from 'earthsdk3'
 
 const props = withDefaults(
   defineProps<{
-    treeItem: any;
+    treeItem: any
   }>(),
   {}
-);
-const xbsjEarthUi = inject("xbsjEarthUi") as XbsjEarthUi;
+)
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
-let propertiesMenu: { name: string; component: string }[] = [];
-const currentMenu = ref("general");
-const properties = props.treeItem.sceneObject.getESProperties();
-const disposer = createVueDisposer(onBeforeUnmount);
-const lonLatFormat = toReadonlyVueRef<any>(disposer, [
-  xbsjEarthUi.activeViewer,
-  "lonLatFormat",
-]);
-const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi);
-const treeItem = xbsjEarthUi.propSceneTree;
+let propertiesMenu: { name: string; component: string }[] = []
+const currentMenu = ref('general')
+const properties = props.treeItem.sceneObject.getESProperties()
+const disposer = createVueDisposer(onBeforeUnmount)
+const lonLatFormat = toReadonlyVueRef<any>(disposer, [xbsjEarthUi.activeViewer, 'lonLatFormat'])
+const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi)
+const treeItem = xbsjEarthUi.propSceneTree
 
-const { basic, general, coordinate, dataSource, location, style, defaultMenu } =
-  properties;
-currentMenu.value = defaultMenu ?? "general";
+const { basic, general, coordinate, dataSource, location, style, defaultMenu } = properties
+currentMenu.value = defaultMenu ?? 'general'
 if (basic.length > 0) {
   propertiesMenu.push({
-    name: "基本",
-    component: "basic",
-  });
+    name: '基本',
+    component: 'basic'
+  })
 }
 if (general.length > 0) {
   propertiesMenu.push({
-    name: "通用",
-    component: "general",
-  });
+    name: '通用',
+    component: 'general'
+  })
 }
 if (coordinate.length > 0) {
   propertiesMenu.push({
-    name: "坐标",
-    component: "coordinate",
-  });
+    name: '坐标',
+    component: 'coordinate'
+  })
 }
 if (dataSource.length > 0) {
   propertiesMenu.push({
-    name: "数据源",
-    component: "dataSource",
-  });
+    name: '数据源',
+    component: 'dataSource'
+  })
 }
 if (location.length > 0) {
   propertiesMenu.push({
-    name: "位置",
-    component: "location",
-  });
+    name: '位置',
+    component: 'location'
+  })
 }
 if (style.length > 0) {
   propertiesMenu.push({
-    name: "样式",
-    component: "style",
-  });
+    name: '样式',
+    component: 'style'
+  })
 }
-const disabled3DTileset = ref(false);
-let urlChang: any;
+const disabled3DTileset = ref(false)
+let urlChang: any
 const tilesetReady = (sceneObject: ES3DTileset) => {
   sceneObject.tilesetReady.disposableOnce(() => {
     if (sceneObject.supportEdit) {
-      disabled3DTileset.value = false;
+      disabled3DTileset.value = false
     } else {
-      disabled3DTileset.value = true;
+      disabled3DTileset.value = true
     }
-  });
-};
+  })
+}
 const updateProp = () => {
-  if (urlChang) urlChang();
-  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject;
+  if (urlChang) urlChang()
+  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
   if (sceneObject instanceof ES3DTileset) {
     if (sceneObject.supportEdit) {
-      disabled3DTileset.value = false;
+      disabled3DTileset.value = false
     } else {
-      disabled3DTileset.value = true;
+      disabled3DTileset.value = true
     }
-    tilesetReady(sceneObject);
+    tilesetReady(sceneObject)
     urlChang = sceneObject.urlChanged.disposableOn(() => {
-      tilesetReady(sceneObject);
-    });
+      tilesetReady(sceneObject)
+    })
   } else {
-    disabled3DTileset.value = false;
+    disabled3DTileset.value = false
   }
-};
+}
 onMounted(() => {
-  updateProp();
+  updateProp()
   var dispose = xbsjEarthUi.propSceneTreeChanged.disposableOn((val) => {
-    updateProp();
-  });
-  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject;
+    updateProp()
+  })
+  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
   var disposeEditing =
-    Reflect.has(sceneObject, "editing") &&
+    Reflect.has(sceneObject, 'editing') &&
     sceneObject.editingChanged.disposableOn((res: boolean) => {
       if (res) {
         Message.loading({
-          id: "xxx",
-          content:
-            "1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换",
-        });
+          id: 'xxx',
+          content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
+        })
       } else {
-        Message.remove("xxx");
+        Message.remove('xxx')
       }
-    });
+    })
   onBeforeUnmount(() => {
-    if (dispose) dispose();
-    if (urlChang) urlChang();
-    if (disposeEditing) disposeEditing();
-    Message.remove("xxx");
-  });
-});
+    if (dispose) dispose()
+    if (urlChang) urlChang()
+    if (disposeEditing) disposeEditing()
+    Message.remove('xxx')
+  })
+})
 </script>
 
 <template>

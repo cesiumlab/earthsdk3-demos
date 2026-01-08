@@ -1,38 +1,62 @@
 <template>
   <div class="menu-box">
     <ul class="list-unstyled">
-      <li v-for="(it, i) in props.menuList" :key="i" @click.stop="clickItem(it)" @mouseenter="setCurrentTitle(it)"
-        :class="{ divideron: it.type == 'divider' }">
+      <li
+        v-for="(it, i) in props.menuList"
+        :key="i"
+        @click.stop="clickItem(it)"
+        @mouseenter="setCurrentTitle(it)"
+        :class="{ divideron: it.type == 'divider' }"
+      >
         <span v-if="it.type !== 'divider'">{{ it.text }}</span>
-        <span v-if="it.type !== 'divider' && it.children"
-          style="float: right; display: block;transform: scaleY(1.8);">></span>
+        <span
+          v-if="it.type !== 'divider' && it.children"
+          style="float: right; display: block; transform: scaleY(1.8)"
+          >></span
+        >
         <span v-if="it.type !== 'divider'" style="float: right; display: block">{{ it.keys }}</span>
         <ul class="list-unstyled1" v-if="it.children && currentTitle === it.text">
-          <li v-for="(item, index) in it.children" :key="index" @click.stop="clickItem(item)"
-            :class="{ divideron: item.type == 'divider' }">
+          <li
+            v-for="(item, index) in it.children"
+            :key="index"
+            @click.stop="clickItem(item)"
+            :class="{ divideron: item.type == 'divider' }"
+          >
             <span v-if="item.type !== 'divider'">{{ item.text }}</span>
-            <span v-if="item.type !== 'divider'" style="float: right; display: block">{{ item.keys }}</span>
+            <span v-if="item.type !== 'divider'" style="float: right; display: block">{{
+              item.keys
+            }}</span>
           </li>
         </ul>
       </li>
     </ul>
   </div>
 </template>
-<script setup lang='ts'>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue'
 
-type itemType = ({
-  text: string;
-  keys: string;
-  func: () => void;
-  type?: undefined;
-  children?: itemType[]
-} | { type: string; text?: undefined; keys?: undefined; func?: undefined; children?: undefined })
-const props = withDefaults(defineProps<{ menuList: itemType[] | undefined }>(), { menuList: undefined, });
-const emits = defineEmits(['funClick']);
+type itemType =
+  | {
+      text: string
+      keys: string
+      func: () => void
+      type?: undefined
+      children?: itemType[]
+    }
+  | {
+      type: string
+      text?: undefined
+      keys?: undefined
+      func?: undefined
+      children?: undefined
+    }
+const props = withDefaults(defineProps<{ menuList: itemType[] | undefined }>(), {
+  menuList: undefined
+})
+const emits = defineEmits(['funClick'])
 const clickItem = (it: any) => {
-  if (typeof it.func === "function") {
-    it.func();
+  if (typeof it.func === 'function') {
+    it.func()
     emits('funClick')
     currentTitle.value = ''
   }
@@ -47,7 +71,6 @@ const setCurrentTitle = (item: itemType) => {
     currentTitle.value = item.text
   }
 }
-
 </script>
 
 <style scoped>
@@ -70,7 +93,7 @@ const setCurrentTitle = (item: itemType) => {
   padding: 0;
 }
 
-.menu-box ul>li {
+.menu-box ul > li {
   width: 100%;
   cursor: pointer;
   text-align: left;
@@ -81,7 +104,7 @@ const setCurrentTitle = (item: itemType) => {
   border-radius: 5px;
   box-sizing: border-box;
   list-style: none;
-  transition: background .3s;
+  transition: background 0.3s;
   position: relative;
 }
 

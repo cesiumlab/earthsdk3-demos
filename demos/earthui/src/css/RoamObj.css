@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 
-.roam_ue>label {
+.roam_ue > label {
   width: 60px;
   height: 26px;
   font-family: SourceHanSansCN, SourceHanSansCN;
@@ -19,7 +19,7 @@
   text-align: left;
 }
 
-.roam_ue>input {
+.roam_ue > input {
   flex: 1;
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
@@ -30,11 +30,11 @@
   box-sizing: border-box;
 }
 
-.roam_ue>input:hover {
+.roam_ue > input:hover {
   border: 1px solid #2c68f7;
 }
 
-.roam_ue>input:focus {
+.roam_ue > input:focus {
   border: 1px solid #2c68f7;
 }
 
@@ -45,11 +45,11 @@
 
 .input_number::-webkit-outer-spin-button,
 .input_number::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
-.input_number[type="number"] {
-    -moz-appearance: textfield;
+.input_number[type='number'] {
+  -moz-appearance: textfield;
 }
 
 .roam_custom_head {
@@ -78,14 +78,14 @@
   justify-content: space-between;
 }
 
-.roam_custom_head_bottom>div {
+.roam_custom_head_bottom > div {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.roam_custom_head_bottom>div:nth-child(1) {
+.roam_custom_head_bottom > div:nth-child(1) {
   /* border-right: 1px solid rgba(183, 183, 183, 0.5); */
   padding-right: 7px;
   box-sizing: border-box;
@@ -145,7 +145,7 @@
   border-top-left-radius: 5px;
 }
 
-.roam_custom_operate>span {
+.roam_custom_operate > span {
   width: 10px;
   height: 8px;
   cursor: pointer;
@@ -154,8 +154,8 @@
   justify-content: center;
 }
 
-.roam_custom_operate>span:nth-child(1),
-.roam_custom_operate>span:nth-child(2) {
+.roam_custom_operate > span:nth-child(1),
+.roam_custom_operate > span:nth-child(2) {
   border-right: 1px solid rgba(87, 91, 102, 0.3);
 }
 
@@ -207,42 +207,39 @@
   box-sizing: border-box;
 }
 
-
-
 .interation_text {
   width: 100%;
 }
-.interation_text>p {
+.interation_text > p {
   width: 100%;
   font-size: 12px;
   color: rgba(230, 230, 230, 1);
 }
-.interation_text>div {
+.interation_text > div {
   width: 100%;
   display: flex;
   margin: 10px 0;
   line-height: 16px;
 }
 
-.interation_text>div>span:nth-child(1) {
+.interation_text > div > span:nth-child(1) {
   width: 25%;
   text-align: left;
   font-size: 12px;
   color: rgba(230, 230, 230, 1);
 }
-.interation_text>div>span:nth-child(2) {
+.interation_text > div > span:nth-child(2) {
   text-align: left;
   font-size: 12px;
   color: rgba(230, 230, 230, 1);
 }
-
 
 .roam_pick {
   width: 100%;
   display: flex;
 }
 
-.roam_pick>label {
+.roam_pick > label {
   width: 60px;
   white-space: nowrap;
   overflow: hidden;
@@ -253,7 +250,7 @@
   line-height: 26px;
 }
 
-.roam_pick>div {
+.roam_pick > div {
   display: flex;
   align-items: center;
   flex: 1;

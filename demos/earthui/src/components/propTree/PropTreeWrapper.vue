@@ -1,73 +1,109 @@
 <template>
   <div class="prop-tree-wrapper">
     <Expand :dragEnableX="false" :showResize="sign == '∨'">
-      <div class="sign_title" @mouseenter="sign == '∨' ? (showSet = true) : (showSet = false)"
-        @mouseleave="showSet = false" @click.stop="openDiv">
+      <div
+        class="sign_title"
+        @mouseenter="sign == '∨' ? (showSet = true) : (showSet = false)"
+        @mouseleave="showSet = false"
+        @click.stop="openDiv"
+      >
         <div class="sign_set_box" style="cursor: pointer">
           <div class="sign" :style="signStyle()">{{ sign }}</div>
-          <div class="scence_tree_name">{{ props.nameTitle }} </div>
+          <div class="scence_tree_name">{{ props.nameTitle }}</div>
         </div>
         <div class="sign_set_box" v-show="showSet">
-          <img class="sign_set" src="../img/select.png" alt="" title="复选" @click.stop="showCheckBox = !showCheckBox" />
-          <img class="sign_set" src="../img/fold.png" alt="" title="折叠" @click.stop="propTree.uiTree.collapseAll()" />
+          <img
+            class="sign_set"
+            src="../img/select.png"
+            alt=""
+            title="复选"
+            @click.stop="showCheckBox = !showCheckBox"
+          />
+          <img
+            class="sign_set"
+            src="../img/fold.png"
+            alt=""
+            title="折叠"
+            @click.stop="propTree.uiTree.collapseAll()"
+          />
         </div>
       </div>
-      <div v-if="sign == '∨'" @mouseenter="showSet = true" @mouseleave="showSet = false" class="prop-tree-comp">
-        <PropTreeCom :propTree="propTree" :showCheckBox="showCheckBox" @callback="callback"></PropTreeCom>
+      <div
+        v-if="sign == '∨'"
+        @mouseenter="showSet = true"
+        @mouseleave="showSet = false"
+        class="prop-tree-comp"
+      >
+        <PropTreeCom
+          :propTree="propTree"
+          :showCheckBox="showCheckBox"
+          @callback="callback"
+        ></PropTreeCom>
       </div>
     </Expand>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { GroupPropTreeItem, LeafPropTreeItem, PropTree } from "earthsdk3";
-import Expand from "../commom/Expand.vue";
-import PropTreeCom from "./PropTree.vue";
-import { PropertyCompCallbackFuncParamsType } from "../eSPropPanel/propertiesMenu/commons";
+import { ref } from 'vue'
+import { GroupPropTreeItem, LeafPropTreeItem, PropTree } from 'earthsdk3'
+import Expand from '../commom/Expand.vue'
+import PropTreeCom from './PropTree.vue'
+import { PropertyCompCallbackFuncParamsType } from '../eSPropPanel/propertiesMenu/commons'
 
-const props = withDefaults(defineProps<{
-  propTree: PropTree;
-  nameTitle: string;
-}>(), {
-  nameTitle: '属性管理器',
-});
-const emits = defineEmits<{
-  (e: 'callback', params: PropertyCompCallbackFuncParamsType & { treeItem: GroupPropTreeItem | LeafPropTreeItem, propTree: PropTree }): any;
-}>();
-
-const { propTree } = props;
-
-const callback = (params: PropertyCompCallbackFuncParamsType & { treeItem: GroupPropTreeItem | LeafPropTreeItem, propTree: PropTree }): any => {
-  emits('callback', params);
-};
-
-const showSet = ref(false);
-const showCheckBox = ref(false);
-const sign = ref("∨");
-const openDiv = () => {
-  if (sign.value == "＞") {
-    sign.value = "∨";
-    showSet.value = true;
-  } else {
-    showSet.value = false;
-    sign.value = "＞";
+const props = withDefaults(
+  defineProps<{
+    propTree: PropTree
+    nameTitle: string
+  }>(),
+  {
+    nameTitle: '属性管理器'
   }
-};
+)
+const emits = defineEmits<{
+  (
+    e: 'callback',
+    params: PropertyCompCallbackFuncParamsType & {
+      treeItem: GroupPropTreeItem | LeafPropTreeItem
+      propTree: PropTree
+    }
+  ): any
+}>()
+
+const { propTree } = props
+
+const callback = (
+  params: PropertyCompCallbackFuncParamsType & {
+    treeItem: GroupPropTreeItem | LeafPropTreeItem
+    propTree: PropTree
+  }
+): any => {
+  emits('callback', params)
+}
+
+const showSet = ref(false)
+const showCheckBox = ref(false)
+const sign = ref('∨')
+const openDiv = () => {
+  if (sign.value == '＞') {
+    sign.value = '∨'
+    showSet.value = true
+  } else {
+    showSet.value = false
+    sign.value = '＞'
+  }
+}
 const signStyle = () => {
   return {
-    transform: `${sign.value == "＞"
-      ? "scaleX(.6)"
-      : sign.value == "∨"
-        ? "scaleY(.6)"
-        : "scale(1)"
-      }`,
-  };
-};
+    transform: `${
+      sign.value == '＞' ? 'scaleX(.6)' : sign.value == '∨' ? 'scaleY(.6)' : 'scale(1)'
+    }`
+  }
+}
 </script>
 
 <style scoped>
 .prop-tree-wrapper {
-height: 100%;
+  height: 100%;
   /* min-width: 260px; */
   /* background: rgba(71, 71, 71, 0.8); */
 }
@@ -82,7 +118,6 @@ height: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
 }
 
 .sign_title {

@@ -10,58 +10,46 @@
 </template>
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import { ESCzml, isJSON } from "earthsdk3";
-import { inject, ref } from "vue";
-import { SceneTree } from "earthsdk3";
-import PopList from "../../../components/PopList.vue";
-import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { getsceneObjNumfromSceneTree } from "../../../scripts/general";
-const sceneTree = inject("sceneTree") as SceneTree;
-const xbsjEarthUi = inject("xbsjEarthUi") as XbsjEarthUi;
-const serveUrl = ref();
+import { ESCzml, isJSON } from 'earthsdk3'
+import { inject, ref } from 'vue'
+import { SceneTree } from 'earthsdk3'
+import PopList from '../../../components/PopList.vue'
+import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
+const sceneTree = inject('sceneTree') as SceneTree
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+const serveUrl = ref()
 
-const emits = defineEmits(["close"]);
+const emits = defineEmits(['close'])
 //增加ESGeoJson
 const addSceneObjects = () => {
   if (!serveUrl.value) {
-    ElMessage.warning("请者输入地址路径");
-    return;
+    ElMessage.warning('请者输入地址路径')
+    return
   }
-  const currentTreeItem = sceneTree.lastSelectedItem;
-  let newTreeItem;
+  const currentTreeItem = sceneTree.lastSelectedItem
+  let newTreeItem
   if (!currentTreeItem) {
-    newTreeItem = sceneTree.createSceneObjectTreeItem("ESCzml");
-  } else if (currentTreeItem?.type === "Folder") {
-    newTreeItem = sceneTree.createSceneObjectTreeItem(
-      "ESCzml",
-      undefined,
-      currentTreeItem,
-      "Inner"
-    );
+    newTreeItem = sceneTree.createSceneObjectTreeItem('ESCzml')
+  } else if (currentTreeItem?.type === 'Folder') {
+    newTreeItem = sceneTree.createSceneObjectTreeItem('ESCzml', undefined, currentTreeItem, 'Inner')
   } else {
-    newTreeItem = sceneTree.createSceneObjectTreeItem(
-      "ESCzml",
-      undefined,
-      currentTreeItem,
-      "After"
-    );
+    newTreeItem = sceneTree.createSceneObjectTreeItem('ESCzml', undefined, currentTreeItem, 'After')
   }
-  if (!newTreeItem) return;
-  sceneTree.uiTree.clearAllSelectedItems();
-  newTreeItem.uiTreeObject.selected = true;
-  if (!newTreeItem.sceneObject) return;
-  if (newTreeItem.sceneObject.typeName !== "ESCzml") return;
-  const sceneObject = newTreeItem.sceneObject as ESCzml;
-  xbsjEarthUi.propSceneTree = newTreeItem;
+  if (!newTreeItem) return
+  sceneTree.uiTree.clearAllSelectedItems()
+  newTreeItem.uiTreeObject.selected = true
+  if (!newTreeItem.sceneObject) return
+  if (newTreeItem.sceneObject.typeName !== 'ESCzml') return
+  const sceneObject = newTreeItem.sceneObject as ESCzml
+  xbsjEarthUi.propSceneTree = newTreeItem
   // if (serveUrl.value.trim().startsWith("http")) {
-  sceneObject.url = isJSON(serveUrl.value)
-    ? JSON.parse(serveUrl.value)
-    : serveUrl.value;
+  sceneObject.url = isJSON(serveUrl.value) ? JSON.parse(serveUrl.value) : serveUrl.value
   // } else {
   //     sceneObject.data = serveUrl.value
   // }
-  const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, "ESCzml");
-  newTreeItem.name = "Czml" + objNum;
-  emits("close");
-};
+  const objNum = getsceneObjNumfromSceneTree(xbsjEarthUi, 'ESCzml')
+  newTreeItem.name = 'Czml' + objNum
+  emits('close')
+}
 </script>

@@ -8,8 +8,8 @@
     "build": "vite build",
     "local-install": "yarn add earthsdk3@beta earthsdk3-cesium@beta earthsdk3-ue@beta earthsdk3-ol@beta earthsdk-ui@beta --registry http://192.168.0.20:4873/",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.ts",
-    "lint:fix": "eslint . --ext .vue,.js,.ts --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "@typescript-eslint/parser": "^8.52.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "element-plus": "2.x",
-    "eslint": "^9.39.2",
+    "eslint": "^9",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-vue": "^10.6.2",
@@ -44,6 +44,7 @@
     "vite": "^7.1.12",
     "vite-plugin-cesium": "^1.2.23",
     "vite-plugin-static-copy": "^1.0.1",
-    "vue": "^3.5.18"
+    "vue": "^3.5.18",
+    "vue-eslint-parser": "^10.2.0"
   }
 }

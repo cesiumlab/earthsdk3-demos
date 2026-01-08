@@ -1,1 +1,1 @@
-export * from "./functional";
+export * from './functional'

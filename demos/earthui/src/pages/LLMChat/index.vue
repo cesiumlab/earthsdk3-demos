@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
-import { inject, nextTick, useTemplateRef } from "vue";
-import { defaultChatConfig, NewChat, NewChatProps } from "earthsdk-ui";
-import { getCameraTools, getSceneObjectTools } from "earthsdk3";
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
+import { inject, nextTick, useTemplateRef } from 'vue'
+import { defaultChatConfig, NewChat, NewChatProps } from 'earthsdk-ui'
+import { getCameraTools, getSceneObjectTools } from 'earthsdk3'
 
-const objm = inject("xbsjEarthUi") as XbsjEarthUi;
+const objm = inject('xbsjEarthUi') as XbsjEarthUi
 
-const newChatRef = useTemplateRef("newChatRef");
+const newChatRef = useTemplateRef('newChatRef')
 
-const cameraTools = getCameraTools(objm);
-const sceneObjectTools = getSceneObjectTools(objm);
+const cameraTools = getCameraTools(objm)
+const sceneObjectTools = getSceneObjectTools(objm)
 
 nextTick(() => {
-    newChatRef.value?.registerTools(cameraTools, 'earthsdk3_camera');
-    newChatRef.value?.registerTools(sceneObjectTools, 'earthsdk3_sceneObject');
-});
+  newChatRef.value?.registerTools(cameraTools, 'earthsdk3_camera')
+  newChatRef.value?.registerTools(sceneObjectTools, 'earthsdk3_sceneObject')
+})
 
 const getSystemPrompt = () => {
-    const jsonStr = JSON.stringify(objm.json);
-    const prompt = `
+  const jsonStr = JSON.stringify(objm.json)
+  const prompt = `
             你是一个 EarthSDK 三维场景智能控制助手。
             你当前服务于一个基于 EarthSDK 构建的三维可视化系统,
             所有针对场景对象的操作，务必从场景 JSON 中获取对象信息,勿直接使用生成的对象信息进行操作;
@@ -77,32 +77,30 @@ const getSystemPrompt = () => {
             
             ### 最终目标
             **让用户通过自然语言，准确、可控地操作 EarthSDK 三维场景。**
-`;
-    return prompt;
+`
+  return prompt
 }
 
 const config: NewChatProps = {
-    ...defaultChatConfig,
-    systemPrompt: getSystemPrompt(),
-    beforeSendUpdateSystemPrompt: () => {
-        const spr = getSystemPrompt();
-        return Promise.resolve(spr);
-    }
+  ...defaultChatConfig,
+  systemPrompt: getSystemPrompt(),
+  beforeSendUpdateSystemPrompt: () => {
+    const spr = getSystemPrompt()
+    return Promise.resolve(spr)
+  }
 }
-
-
 </script>
 
 <template>
-    <div class="xbsj-chat-container">
-        <NewChat :config="config" ref="newChatRef" />
-    </div>
+  <div class="xbsj-chat-container">
+    <NewChat :config="config" ref="newChatRef" />
+  </div>
 </template>
 
 <style scoped>
 .xbsj-chat-container {
-    width: 100%;
-    height: 100%;
-    border-left: 1px solid #313135;
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #313135;
 }
 </style>

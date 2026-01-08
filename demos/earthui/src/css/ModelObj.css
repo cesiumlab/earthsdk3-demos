@@ -8,13 +8,13 @@
   flex-direction: column;
 }
 
-.model_debug_list>div {
+.model_debug_list > div {
   width: 100%;
   height: 26px;
   display: flex;
 }
 
-.model_debug_list>div>span {
+.model_debug_list > div > span {
   width: 100%;
   text-align: left;
 }
@@ -32,7 +32,7 @@
 .model_style_textarea {
   width: 100%;
   height: 165px;
-  background: rgba(28, 28, 29, 0.80);
+  background: rgba(28, 28, 29, 0.8);
   border: none;
   color: rgba(230, 230, 230, 1);
   margin-top: 5px;
@@ -42,7 +42,7 @@
   box-sizing: border-box;
 }
 
-.model_style_textarea>textarea {
+.model_style_textarea > textarea {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -54,11 +54,11 @@
   border: 1px solid #3b3c40;
 }
 
-.model_style_textarea>textarea:focus {
+.model_style_textarea > textarea:focus {
   border: 1px solid #2c68f7;
 }
 
-.model_style_textarea>textarea:hover {
+.model_style_textarea > textarea:hover {
   border: 1px solid #2c68f7;
 }
 
@@ -70,8 +70,8 @@
   /* flex-direction: column; */
 }
 
-.model_style_footer>a,
-.model_style_footer>button {
+.model_style_footer > a,
+.model_style_footer > button {
   height: 32px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -84,11 +84,11 @@
   line-height: 32px;
 }
 
-.model_style_footer>a:hover {
+.model_style_footer > a:hover {
   border: 1px solid rgba(44, 104, 247, 1);
 }
 
-.model_style_footer>button:hover {
+.model_style_footer > button:hover {
   border: 1px solid rgba(44, 104, 247, 1);
 }
 
@@ -118,7 +118,7 @@
   justify-content: flex-end;
 }
 
-.mergemodel_top>div {
+.mergemodel_top > div {
   flex: 1;
   height: 100%;
   padding: 10px;
@@ -132,7 +132,6 @@
   flex-direction: column;
   border-right: 1px solid #4a4545;
 }
-
 
 .mergemodel_list_head {
   width: 100%;
@@ -168,8 +167,7 @@
   overflow: hidden;
 }
 
-
-.mergemodel_list_head_url>input {
+.mergemodel_list_head_url > input {
   width: 100%;
   height: 100%;
   background: rgba(28, 28, 29, 0.6);
@@ -204,7 +202,7 @@
   justify-content: center;
 }
 
-.mergemodel_bottom>button {
+.mergemodel_bottom > button {
   height: 32px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -218,6 +216,6 @@
   margin-right: 60px;
 }
 
-.mergemodel_bottom>button:hover {
+.mergemodel_bottom > button:hover {
   border: 1px solid rgba(44, 104, 247, 1);
 }

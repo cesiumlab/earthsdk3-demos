@@ -9,10 +9,37 @@
             <ViewersComp></ViewersComp>
         </div>
         <!-- 新场景树 -->
-        <!-- <DraggableDialog title="场景树" v-model="showSceneTreeViewRef" :top="40" :left="300" :minWidthHeight="[300, 400]"
-            :width="300" :height="400">
-            <SceneTree :sceneTree="xbsjEarthUi.sceneTree" :config="config" />
-        </DraggableDialog> -->
+        <!-- <DraggableDialog :title="'图层管理'" v-model="showSceneTreeViewRef" :leftTop="[0, 40]" :minWidthHeight="[300, 400]"
+            :widthHeight="[300, 400]">
+            <template #prefix>
+                <ESIcon name="tucengguanli"></ESIcon>
+            </template>
+<template #suffix>
+
+                <div class="edit_icon" @click="showEditingBarRef = !showEditingBarRef" title="编辑器"
+                    :class="{ 'edit_icon_active': showEditingBarRef }">
+                    <ESIcon name="sanweizuobiao"></ESIcon>
+                </div>
+
+                <div class="edit_icon" title="选择器" :class="{ 'edit_icon_active': showCheckbox }"
+                    @click="showCheckbox = !showCheckbox">
+                    <ESIcon name="weixuanzhong"></ESIcon>
+                </div>
+
+
+            </template>
+
+<div class="Layer_Management">
+    <ESFold :show="showEditingBarRef">
+        <div class="Layer_Management_editing">
+            <Editing></Editing>
+        </div>
+    </ESFold>
+    <div class="Layer_Management_scenetree">
+        <SceneTree :sceneTree="xbsjEarthUi.sceneTree" :showCheckbox="showCheckbox" :config="config" />
+    </div>
+</div>
+</DraggableDialog> -->
 
         <!-- 场景树 -->
         <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
@@ -28,7 +55,6 @@
                     <div style="height: 20px;" @contextmenu.stop.prevent="clickEmpty = true"></div>
                 </div>
             </div>
-
         </DraggablePopup2>
         <!-- 属性栏 -->
         <DraggablePopup2 v-if="propSceneTree" :title="propSceneTree ? propSceneTree.name + '属性面板' : '属性面板'" :width="280"
@@ -47,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { createVueDisposer, toRefKey, toVR } from 'earthsdk-ui';
+import { createVueDisposer, ESFold, ESIcon, toRefKey, toVR } from 'earthsdk-ui';
 import { ESCesiumViewer, merge3dTilesServer } from 'earthsdk3-cesium';
 import { ESOlViewer } from 'earthsdk3-ol';
 import { ESUeViewer } from 'earthsdk3-ue';
@@ -69,15 +95,9 @@ import { XbsjEarthUi } from './scripts/xbsjEarthUi';
 import { DraggableDialog, SceneTree } from 'earthsdk-ui'
 import { getIcon } from './constants';
 import { SceneTreeItem } from 'earthsdk3';
-const config = {
-    showCheckbox: true,
-    setSceneTreeItemIcon: getIcon,
-    setDefaultMenu: () => [],
-    setSceneTreeItemMenu: (item: SceneTreeItem) => [],
-    // onSceneTreeItemClick: (e: MouseEvent, item: SceneTreeItem) => {},
-    // onSceneTreeItemDblClick: (e: MouseEvent, item: SceneTreeItem) => {},
-    // onOtherClick: (e: MouseEvent) => {},
-}
+import { getDefauleMenuContent, getTreeItemMenuContent } from './composables';
+const showEditingBarRef = ref(true);
+
 
 const props = withDefaults(defineProps<{
     newList?: any
@@ -133,6 +153,20 @@ onMounted(() => {
         }
     }))
 })
+
+const showCheckbox = ref(false)
+
+const config = {
+    setSceneTreeItemIcon: getIcon,
+    setDefaultMenu: () => {
+
+        return sceneTree ? getDefauleMenuContent(xbsjEarthUi, sceneTree, showCheckbox.value) : []
+    },
+    setSceneTreeItemMenu: (item: SceneTreeItem) => { return sceneTree ? getTreeItemMenuContent(xbsjEarthUi, sceneTree, item) : [] },
+    // onSceneTreeItemClick: (e: MouseEvent, item: SceneTreeItem) => {},
+    // onSceneTreeItemDblClick: (e: MouseEvent, item: SceneTreeItem) => {},
+    // onOtherClick: (e: MouseEvent) => {},
+}
 
 </script>
 
@@ -202,11 +236,37 @@ onMounted(() => {
 .Layer_Management_editing {
     width: 100%;
     height: 60px;
+    padding: 10px 10px 0 10px;
+    box-sizing: border-box;
 }
 
 .Layer_Management_scenetree {
     width: 100%;
     flex: 1;
     overflow: auto;
+}
+
+
+
+.edit_icon {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--el-border-radius-small, 2px);
+    color: var(--el-text-color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* transition: all .2s ease; */
+    font-size: 12px;
+    margin-left: 4px;
+
+    &:hover {
+        background-color: var(--el-fill-color-light);
+    }
+}
+
+.edit_icon_active {
+    color: var(--el-color-primary);
 }
 </style>

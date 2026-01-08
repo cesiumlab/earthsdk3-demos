@@ -5,29 +5,22 @@
       <span class="status-item camera-position">相机位置: {{ formattedPosition }}</span>
       <span class="status-item yaw">偏航角: {{ formattedYaw }}°</span>
       <span class="status-item pitch">俯仰角: {{ formattedPitch }}°</span>
-      <span
-        class="status-item mouse-position"
-        :title="mousePositionTitle"
-        @dblclick="copyMousePosition"
-      >
+      <span class="status-item mouse-position" :title="mousePositionTitle" @dblclick="copyMousePosition">
         {{ mousePositionText }}
       </span>
     </div>
-    <div
-      v-show="$config.modelShow"
-      class="version-info"
-      :class="{ 'version-info-active': versionInfoListShow }"
-      @click="toggleVersionInfo"
-      v-click-outside="clickOutside"
-    >
-      版本
+    <div v-show="$config.modelShow" class="version-info" @click="toggleVersionInfo">
+      {{ '版本' }}
     </div>
   </div>
-  <Version v-show="versionInfoListShow" />
+  <ElDialog :title="'版本信息'" v-model="versionInfoListShow" :width="'500px'">
+    <Version />
+  </ElDialog>
+
 </template>
 
 <script setup lang="ts">
-import { vClickOutside } from 'earthsdk-ui'
+import { ElDialog } from 'element-plus'
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import { $config } from '@/global'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
@@ -67,10 +60,6 @@ const mousePositionTitle = computed(() => getMousePositionTitle())
 // 方法
 const toggleVersionInfo = () => {
   versionInfoListShow.value = !versionInfoListShow.value
-}
-const clickOutside = () => {
-  // console.log('clickOutside');
-  versionInfoListShow.value = false
 }
 
 // 生命周期钩子

@@ -9,87 +9,63 @@
       <ViewersComp></ViewersComp>
     </div>
     <!-- 新场景树 -->
-    <!-- <DraggableDialog :title="'图层管理'" v-model="showSceneTreeViewRef" :leftTop="[0, 40]" :minWidthHeight="[300, 400]"
-            :widthHeight="[300, 400]">
-            <template #prefix>
-                <ESIcon name="tucengguanli"></ESIcon>
-            </template>
-<template #suffix>
+    <DraggableDialog :title="'图层管理'" v-model="showSceneTreeViewRef" :leftTop="[5, 45]" :minWidthHeight="[300, 450]"
+      :widthHeight="[300, 450]">
+      <template #prefix>
+        <ESIcon name="tucengguanli"></ESIcon>
+      </template>
+      <template #suffix>
 
-                <div class="edit_icon" @click="showEditingBarRef = !showEditingBarRef" title="编辑器"
-                    :class="{ 'edit_icon_active': showEditingBarRef }">
-                    <ESIcon name="sanweizuobiao"></ESIcon>
-                </div>
-
-                <div class="edit_icon" title="选择器" :class="{ 'edit_icon_active': showCheckbox }"
-                    @click="showCheckbox = !showCheckbox">
-                    <ESIcon name="weixuanzhong"></ESIcon>
-                </div>
-
-
-            </template>
-
-<div class="Layer_Management">
-    <ESFold :show="showEditingBarRef">
-        <div class="Layer_Management_editing">
-            <Editing></Editing>
+        <div class="edit_icon" @click="showEditingBarRef = !showEditingBarRef" title="编辑器"
+          :class="{ 'edit_icon_active': showEditingBarRef }">
+          <ESIcon name="sanweizuobiao"></ESIcon>
         </div>
-    </ESFold>
-    <div class="Layer_Management_scenetree">
-        <SceneTree :sceneTree="xbsjEarthUi.sceneTree" :showCheckbox="showCheckbox" :config="config" />
-    </div>
-</div>
-</DraggableDialog> -->
+
+        <div class="edit_icon" title="选择器" :class="{ 'edit_icon_active': showCheckbox }"
+          @click="showCheckbox = !showCheckbox">
+          <ESIcon name="weixuanzhong"></ESIcon>
+        </div>
+
+
+      </template>
+
+      <div class="Layer_Management">
+        <ESFold :show="showEditingBarRef">
+          <div class="Layer_Management_editing">
+            <Editing></Editing>
+          </div>
+        </ESFold>
+        <div class="Layer_Management_scenetree">
+          <SceneTree :sceneTree="xbsjEarthUi.sceneTree" :showCheckbox="showCheckbox" :config="config" />
+        </div>
+      </div>
+    </DraggableDialog>
 
     <!-- 场景树 -->
-    <DraggablePopup2
-      v-if="showSceneTreeViewRef"
-      @close="showSceneTreeViewRef = false"
-      :title="'图层管理'"
-      :width="280"
-      :height="'410px'"
-      :left="0"
-      :top="40"
-      :iconName="'tucengguanli'"
-      :checkIconIsShow="true"
-      :iconIschecked="sceneTreeCheckedIcon"
-      :checkFun="() => (sceneTreeCheckedIcon = !sceneTreeCheckedIcon)"
-    >
+    <!-- <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
+      :height="'410px'" :left="0" :top="40" :iconName="'tucengguanli'" :checkIconIsShow="true"
+      :iconIschecked="sceneTreeCheckedIcon" :checkFun="() => (sceneTreeCheckedIcon = !sceneTreeCheckedIcon)">
       <div class="Layer_Management">
         <div class="Layer_Management_editing">
           <Editing></Editing>
         </div>
         <div class="Layer_Management_scenetree">
-          <SceneTreeCom
-            v-if="!!sceneTree"
-            :showCheckBox="sceneTreeCheckedIcon"
-            :clickEmpty="clickEmpty"
-            @closeClickEmpty="clickEmpty = false"
-          ></SceneTreeCom>
+          <SceneTreeCom v-if="!!sceneTree" :showCheckBox="sceneTreeCheckedIcon" :clickEmpty="clickEmpty"
+            @closeClickEmpty="clickEmpty = false"></SceneTreeCom>
           <div style="height: 20px" @contextmenu.stop.prevent="clickEmpty = true"></div>
         </div>
       </div>
-    </DraggablePopup2>
+    </DraggablePopup2> -->
+
     <!-- 属性栏 -->
-    <DraggablePopup2
-      v-if="propSceneTree"
-      :title="propSceneTree ? propSceneTree.name + '属性面板' : '属性面板'"
-      :width="280"
-      :height="'370px'"
-      :left="0"
-      :top="482"
-      @close="propSceneTree = undefined"
-    >
+    <DraggablePopup2 v-if="propSceneTree" :title="propSceneTree ? propSceneTree.name + '属性面板' : '属性面板'" :width="280"
+      :height="'370px'" :left="0" :top="482" @close="propSceneTree = undefined">
       <ESPropPanel :treeItem="propSceneTree" :key="propTreeKey"></ESPropPanel>
     </DraggablePopup2>
     <!-- 时间线 -->
     <TimeLine v-show="animationShow"></TimeLine>
     <!-- 拾取面板 -->
-    <CzmPickResult
-      @close="czmPickResult = false"
-      :list="czmPinkList"
-      v-if="czmPickResult"
-    ></CzmPickResult>
+    <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult>
 
     <!-- 状态栏 指北针 比例尺-->
     <ControlComponent />
@@ -214,11 +190,11 @@ const config = {
   width: 100%;
   height: 40px;
   position: fixed;
-  left: 1;
+  left: 0;
   top: 0;
   z-index: 1000;
-  background-color: #2f3034f1;
-  border-bottom: 1px solid #111111;
+  background-color: var(--el-bg-color);
+  border-bottom: 1px solid var(--el-border-color);
   box-sizing: border-box;
 }
 

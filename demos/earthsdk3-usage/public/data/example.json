@@ -287,6 +287,11 @@
                         "path": "roam/view/fly"
                     },
                     {
+                        "name": "根据范围飞行定位",
+                        "thumbnail": "roam-view-sphere.webp",
+                        "path": "roam/view/sphere"
+                    },
+                    {
                         "name": "视角标签",
                         "thumbnail": "roam-view-cameraview.webp",
                         "path": "roam/view/cameraview"

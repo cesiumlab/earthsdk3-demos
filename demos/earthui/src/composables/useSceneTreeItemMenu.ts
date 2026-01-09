@@ -61,13 +61,6 @@ const getFolderTreeItemMenuContent = (
   );
   const baseItems: Array<MenuItem> = [
     {
-      text: "新建文件夹",
-      keys: "",
-      func: () => {
-        addNewTreeItem(sceneTree, treeItem, "Inner");
-      },
-    },
-    {
       text: "新建对象",
       keys: "",
       func: async () => {
@@ -89,6 +82,13 @@ const getFolderTreeItemMenuContent = (
           sceneObject.editing = true;
         }
         ElMessage.success("创建成功");
+      },
+    },
+    {
+      text: "新建文件夹",
+      keys: "",
+      func: () => {
+        addNewTreeItem(sceneTree, treeItem, "Inner");
       },
     },
     {

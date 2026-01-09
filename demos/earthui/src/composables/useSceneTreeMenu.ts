@@ -45,13 +45,6 @@ export const getDefauleMenuContent = (
 
   const baseMenu: MenuItem[] = [
     {
-      text: "新建文件夹",
-      keys: "",
-      func: () => {
-        addNewTreeItem(sceneTree);
-      },
-    },
-    {
       text: "新建对象",
       keys: "",
       func: async () => {
@@ -68,6 +61,13 @@ export const getDefauleMenuContent = (
           sceneObject.editing = true;
         }
         ElMessage.success("创建成功");
+      },
+    },
+    {
+      text: "新建文件夹",
+      keys: "",
+      func: () => {
+        addNewTreeItem(sceneTree);
       },
     },
     {

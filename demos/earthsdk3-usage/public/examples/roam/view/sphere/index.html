@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>根据经纬度范围飞行定位</title>
+    <style>
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .box {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+      }
+
+      .btn {
+        display: flex;
+        padding-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <div id="panel">
+      <div class="btn">
+        <button onclick="flyIn()">根据经纬度范围飞行定位</button>
+      </div>
+    </div>
+    <script>
+      /** ---------------------------------地球创建------------------------------------**/
+      // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+      const { ESObjectsManager } = window["EarthSDK3"];
+      const { ESCesiumViewer } = window["EarthSDK3_Cesium"];
+      const { ESUeViewer } = window["EarthSDK3_UE"];
+
+      const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+      window.g_objm = objm;
+
+      // 通过json创建一个影像图层
+      const imageryLayer = objm.createSceneObjectFromJson({
+        id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+        type: "ESImageryLayer",
+        maximumLevel: 16,
+        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      });
+
+      // 创建Cesium视口
+      const viewer = objm.createCesiumViewer({
+        type: "ESCesiumViewer",
+        container: document.getElementById("app"),
+      });
+
+      const polygon1 = objm.createSceneObjectFromJson({
+        id: "f2242f0a-b58e-48e3-8cee-93b611ad0b3f",
+        type: "ESGeoPolygon",
+        name: "白色多边形1",
+        fillStyle: {
+          color: [
+            0.8705882352941177, 0.9803921568627451, 0.027450980392156862, 1,
+          ],
+          material: "",
+          materialParams: {},
+          ground: true,
+        },
+        points: [
+          [116.325799, 39.896789, 0],
+          [116.32582, 39.891111, 0],
+          [116.320759, 39.881512, 0],
+          [116.321324, 39.875199, 0],
+          [116.326636, 39.876859, 0],
+          [116.335273, 39.875183, 0],
+          [116.341567, 39.876159, 0],
+          [116.344286, 39.873653, 0],
+          [116.349472, 39.873588, 0],
+        ],
+      });
+      const polygon2 = objm.createSceneObjectFromJson({
+        id: "4bae86e9-079f-40f0-bfa1-22ffe597b825",
+        type: "ESGeoPolygon",
+        name: "白色多边形2",
+        fillStyle: {
+          color: [
+            0.9215686274509803, 0.047058823529411764, 0.047058823529411764, 1,
+          ],
+          material: "",
+          materialParams: {},
+          ground: true,
+        },
+        points: [
+          [116.42332462994824, 39.88680055079073, -0.014600119905593605],
+          [116.41985335158705, 39.87443015676249, -0.012429116121880024],
+          [116.42800623085421, 39.869356869828316, -0.01771182970280562],
+          [116.43979549859091, 39.87063780868326, -0.003529552712132414],
+          [116.43094931251436, 39.882874110266805, -0.029340061755485022],
+        ],
+      });
+
+      function flyIn() {
+        const { getMinMaxCorner } = window["EarthSDK3"];
+        // 计算范围
+        const { maxPos, minPos } = getMinMaxCorner([
+          ...polygon1.points,
+          ...polygon2.points,
+        ]);
+        const rect4D = [minPos[0], minPos[1], maxPos[0], maxPos[1]];
+
+        /**
+         * flyToBoundingSphere(
+                 rectangle: ESJVector4D,
+                 distance?: number,
+                 duration?: number,
+            ): void
+
+
+            rectangle：
+            表示四维向量类型，在某些特定场景（如表示范围）中使用。
+
+            示例[-180, -90, 180, 90]
+            此示例展示了一个典型的四维向量，可能代表地理坐标中的最小经度、最小纬度、最大经度和最大纬度。
+         * 
+         * */
+
+        console.log("数据计算", rect4D);
+
+        objm.activeViewer.flyToBoundingSphere(rect4D,40000, 2);
+      }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+      <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+  </body>
+</html>

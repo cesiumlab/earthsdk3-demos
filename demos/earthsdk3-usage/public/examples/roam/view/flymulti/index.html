@@ -19,14 +19,120 @@
             padding: 0px;
         }
 
-        .box {
-            display: grid;
-            grid-template-columns: 80px 1fr;
+        /* 本页面板：重新整理布局（不依赖额外 CSS 文件） */
+        .panel-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
-        .btn {
+        .panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            margin: 0;
+        }
+
+        .panel-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.70);
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .panel-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .field {
+            display: grid;
+            grid-template-columns: 96px 1fr;
+            align-items: center;
+            column-gap: 12px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.78);
+            line-height: 1.2;
+        }
+
+        .field-control {
             display: flex;
-            padding-top: 10px;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .field-control input[type="number"],
+        .field-control select {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .unit {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.65);
+            flex: 0 0 auto;
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 12px;
+        }
+
+        /* Switch (checkbox) */
+        .switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex: 0 0 auto;
+        }
+
+        .switch input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            margin: 0;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .switch-ui {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .switch-ui::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.92);
+            transition: left 0.15s ease;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        .switch input:checked + .switch-ui {
+            background: rgba(49, 115, 246, 0.35);
+            border-color: rgba(49, 115, 246, 0.55);
+        }
+
+        .switch input:checked + .switch-ui::after {
+            left: 22px;
         }
     </style>
 </head>
@@ -35,7 +141,44 @@
     <div id="app"></div>
 
     <div id="panel">
-        <button onclick="flyTo()">开始多段飞行</button>
+        <div class="panel-header">
+            <p class="panel-title">多段飞行</p>
+            <p class="panel-subtitle">播放参数</p>
+        </div>
+
+        <div class="panel-form">
+            <div class="field">
+                <div class="field-label">循环播放</div>
+                <div class="field-control">
+                    <label class="switch" title="循环播放">
+                        <input id="loop" type="checkbox" checked />
+                        <span class="switch-ui"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">播放间隔</div>
+                <div class="field-control">
+                    <input id="intervalTime" type="number" value="0" step="0.1" min="0" />
+                    <span class="unit">秒</span>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">飞行模式</div>
+                <div class="field-control">
+                    <select id="flyMode">
+                        <option value="default">default(相机飞行-带弧度)</option>
+                        <option value="uniform" selected>uniform(两点直线飞行)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-actions">
+            <button onclick="flyTo()">开始多段飞行</button>
+        </div>
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
@@ -143,9 +286,38 @@
         esCameraViewCollection.loop = true
         // 播放间隔时间
         esCameraViewCollection.intervalTime = 0
+        // 飞行模式 默认default为相机飞行(带弧度)，uniform为两点直线飞行
+        esCameraViewCollection.flyMode = 'uniform'
+
+        function applyFlyParamsFromUI() {
+            const loopEl = document.getElementById('loop')
+            const intervalTimeEl = document.getElementById('intervalTime')
+            const flyModeEl = document.getElementById('flyMode')
+
+            if (loopEl) esCameraViewCollection.loop = !!loopEl.checked
+            if (intervalTimeEl) {
+                const v = Number(intervalTimeEl.value)
+                esCameraViewCollection.intervalTime = Number.isFinite(v) ? v : 0
+            }
+            if (flyModeEl) {
+                const mode = String(flyModeEl.value || 'default')
+                esCameraViewCollection.flyMode = mode
+            }
+        }
+
+        // 初始化：把当前对象默认值同步到 UI（避免以后改了默认值 UI 还是旧的）
+        ;(() => {
+            const loopEl = document.getElementById('loop')
+            const intervalTimeEl = document.getElementById('intervalTime')
+            const flyModeEl = document.getElementById('flyMode')
+            if (loopEl) loopEl.checked = !!esCameraViewCollection.loop
+            if (intervalTimeEl) intervalTimeEl.value = String(esCameraViewCollection.intervalTime ?? 0)
+            if (flyModeEl) flyModeEl.value = String(esCameraViewCollection.flyMode ?? 'default')
+        })()
 
 
         const flyTo = () => {
+            applyFlyParamsFromUI()
             // 自动飞行播放
             esCameraViewCollection.playing = true
         }

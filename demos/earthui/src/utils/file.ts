@@ -34,3 +34,15 @@ export const downloadJson = async (
     return false;
   }
 };
+
+// 复制
+export const copyClipboard = async (text: string) => {
+  try {
+    await window.navigator.clipboard.writeText(text);
+    return true;
+  } catch (err) {
+    // 这里就是复制异常
+    console.error("Clipboard copy failed:", err);
+    return false;
+  }
+};

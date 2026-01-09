@@ -15,11 +15,11 @@ import {
   TreeItemInsertFlag,
 } from "earthsdk3";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { transformToGeoJson } from "./transformToGeoJson";
-import { defaultLiftHeightFunc } from "./useliftHeight";
+import { getGeoJsonMenuContent } from "./transformToGeoJson";
+import { getLiftHeightMenuContent } from "./useliftHeight";
 
 //添加文件夹
-const addNewTreeItem = (
+export const addNewTreeItem = (
   sceneTree: SceneTree,
   treeItem?: SceneTreeItem,
   location?: TreeItemInsertFlag
@@ -40,6 +40,9 @@ export const getDefauleMenuContent = (
   sceneTree: SceneTree,
   showCheckbox: boolean
 ): MenuItem[] => {
+  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox);
+  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox);
+
   const baseMenu: MenuItem[] = [
     {
       text: "新建文件夹",
@@ -92,11 +95,7 @@ export const getDefauleMenuContent = (
       },
     },
     {
-      text: "抬升高度",
-      keys: "",
-      func: async () => {
-        await defaultLiftHeightFunc(sceneTree, showCheckbox);
-      },
+      ...liftHeightMenu,
     },
     {
       type: "divider",
@@ -113,27 +112,8 @@ export const getDefauleMenuContent = (
       },
     },
     {
-      text: "导出为 GeoJSON",
-      keys: "",
-      func: async () => {
-        try {
-          const geoJson = transformToGeoJson(sceneTree, showCheckbox);
-          const flag = await downloadJson(
-            geoJson,
-            "earth_ui_scene" + dayjs().format("_MM_DD") + ".geojson"
-          );
-          if (flag) {
-            ElMessage.success("导出成功");
-          } else {
-            ElMessage.error("导出失败");
-          }
-        } catch (error) {
-          console.error(error);
-          ElMessage.error(`导出失败`);
-        }
-      },
+      ...geoJsonMenu,
     },
-
     {
       text: "缓存当前场景",
       keys: "",
@@ -143,15 +123,13 @@ export const getDefauleMenuContent = (
         );
         const json = objm.json;
         if (lastJson) {
-          ElMessageBox.confirm("已存在缓存场景，是否覆盖?")
-            .then(() => {
-              window.localStorage.setItem(
-                localStorageKey.Earth_UI_STORAGE_SCENE,
-                JSON.stringify(json)
-              );
-              ElMessage.success("缓存成功");
-            })
-            .catch((err) => {});
+          ElMessageBox.confirm("已存在缓存场景，是否覆盖?").then(() => {
+            window.localStorage.setItem(
+              localStorageKey.Earth_UI_STORAGE_SCENE,
+              JSON.stringify(json)
+            );
+            ElMessage.success("缓存成功");
+          });
         } else {
           window.localStorage.setItem(
             localStorageKey.Earth_UI_STORAGE_SCENE,
@@ -197,19 +175,7 @@ export const getDefauleMenuContent = (
   return baseMenu;
 };
 
-//右键场景树节点
-export const getTreeItemMenuContent = (
-  objm: ESObjectsManager,
-  sceneTree: SceneTree,
-  treeItem: SceneTreeItem
-): MenuItem[] => {
-  return [
-    {
-      text: "重命名",
-      keys: "",
-      func: () => {
-        treeItem.nameEditing = true;
-      },
-    },
-  ];
+export const redrawFunc = (sceneTree: SceneTree) => {
+  const redrawInfo = sceneTree?.uiTree.redrawInfo;
+  redrawInfo && sceneTree?.uiTree.redrawEvent.emit(redrawInfo);
 };

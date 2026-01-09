@@ -21,11 +21,9 @@
           <ESIcon name="sanweizuobiao"></ESIcon>
         </div>
 
-        <div class="edit_icon" title="选择器" :class="{ 'edit_icon_active': showCheckbox }"
-          @click="showCheckbox = !showCheckbox">
+        <div class="edit_icon" title="选择器" :class="{ 'edit_icon_active': showCheckbox }" @click="redrawFunc(true)">
           <ESIcon name="weixuanzhong"></ESIcon>
         </div>
-
 
       </template>
 
@@ -96,7 +94,8 @@ import { XbsjEarthUi } from './scripts/xbsjEarthUi'
 import { DraggableDialog, SceneTree } from 'earthsdk-ui'
 import { getIcon } from './constants'
 import { SceneTreeItem } from 'earthsdk3'
-import { getDefauleMenuContent, getTreeItemMenuContent } from './composables'
+import { getDefauleMenuContent } from './composables'
+import { getTreeItemMenuContent } from './composables/useSceneTreeItemMenu'
 const showEditingBarRef = ref(true)
 
 const props = withDefaults(
@@ -170,11 +169,17 @@ const config = {
     return sceneTree ? getDefauleMenuContent(xbsjEarthUi, sceneTree, showCheckbox.value) : []
   },
   setSceneTreeItemMenu: (item: SceneTreeItem) => {
-    return sceneTree ? getTreeItemMenuContent(xbsjEarthUi, sceneTree, item) : []
+    return sceneTree ? getTreeItemMenuContent(xbsjEarthUi, sceneTree, item, showCheckbox.value) : []
   }
   // onSceneTreeItemClick: (e: MouseEvent, item: SceneTreeItem) => {},
   // onSceneTreeItemDblClick: (e: MouseEvent, item: SceneTreeItem) => {},
   // onOtherClick: (e: MouseEvent) => {},
+}
+
+const redrawFunc = (flag: boolean = false) => {
+  flag && (showCheckbox.value = !showCheckbox.value);
+  const redrawInfo = sceneTree?.uiTree.redrawInfo;
+  redrawInfo && sceneTree?.uiTree.redrawEvent.emit(redrawInfo)
 }
 </script>
 

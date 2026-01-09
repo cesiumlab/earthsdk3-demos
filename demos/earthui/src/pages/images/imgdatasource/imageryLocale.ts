@@ -1,80 +1,131 @@
 const zh = {
-  title: "在线影像",
-  address: "服务地址",
-  datazb: "数据坐标",
-  loadzb: "加载坐标",
-  google_image: "谷歌影像",
-  google_image_label: "谷歌影像标注",
-  google_imagewithlabel: "谷歌影像&标注",
-  google_map: "谷歌地图",
-  tianditu_image: "天地图影像",
-  tianditu_image_label: "天地图影像上标注",
-  tianditu_map: "天地图地图",
-  tianditu_map_label: "天地图地图标注",
-  gaode_map: "高德地图",
-  gaode_image: "高德影像",
-  gaode_image_label: "高德影像标注",
-  baidu_map: "百度地图",
-  baidu_image: "百度影像",
-  baidu_image_label: "百度影像标注",
-  baidu_map_midnight: "百度暗色风格",
-  baidu_map_dark: "百度黑色风格",
-  openstreetmap: "OpenStreetMap",
-  mapbox_satellite: "mapbox影像",
-  mapbox_streets: "mapbox地图",
-  mapbox_light: "mapbox浅色",
-  mapbox_dark: "mapbox暗色",
-  selectinput: "请选择或者输入服务地址",
-  localtitle: "CesiumLab本机服务",
-  cloudtitle: "云服务",
-  search: "查询",
-  maxzoom: "最大级别",
-  dilifanwei: "地理范围",
-  updatethumb: "更新缩略图",
-  selectservice: "请选择服务",
+  title: '在线影像',
+  address: '服务地址',
+  datazb: '数据坐标',
+  loadzb: '加载坐标',
+  google_image: '谷歌影像',
+  google_image_label: '谷歌影像标注',
+  google_imagewithlabel: '谷歌影像&标注',
+  google_map: '谷歌地图',
+  tianditu_image: '天地图影像',
+  tianditu_image_label: '天地图影像上标注',
+  tianditu_map: '天地图地图',
+  tianditu_map_label: '天地图地图标注',
+  gaode_map: '高德地图',
+  gaode_image: '高德影像',
+  gaode_image_label: '高德影像标注',
+  baidu_map: '百度地图',
+  baidu_image: '百度影像',
+  baidu_image_label: '百度影像标注',
+  baidu_map_midnight: '百度暗色风格',
+  baidu_map_dark: '百度黑色风格',
+  openstreetmap: 'OpenStreetMap',
+  mapbox_satellite: 'mapbox影像',
+  mapbox_streets: 'mapbox地图',
+  mapbox_light: 'mapbox浅色',
+  mapbox_dark: 'mapbox暗色',
+  selectinput: '请选择或者输入服务地址',
+  localtitle: 'CesiumLab本机服务',
+  cloudtitle: '云服务',
+  search: '查询',
+  maxzoom: '最大级别',
+  dilifanwei: '地理范围',
+  updatethumb: '更新缩略图',
+  selectservice: '请选择服务',
   unName: '未命名影像'
-};
+}
 const image = {
-  'tianditu_map': new URL('../../../assets/images/labimages/tianditu_map.jpg', import.meta.url).href,
-  'tianditu_image': new URL('../../../assets/images/labimages/tianditu_image.jpg', import.meta.url).href,
-  'tianditu_map_label': new URL('../../../assets/images/labimages/tianditu_map_label.jpg', import.meta.url).href,
-  'gaode_map': new URL('../../../assets/images/labimages/gaode_map.jpg', import.meta.url).href,
-  'gaode_image': new URL('../../../assets/images/labimages/gaode_image.jpg', import.meta.url).href,
-  'gaode_image_label': new URL('../../../assets/images/labimages/gaode_image_label.jpg', import.meta.url).href,
-  'baidu_map': new URL('../../../assets/images/labimages/baidu_map.jpg', import.meta.url).href,
-  'baidu_image': new URL('../../../assets/images/labimages/baidu_image.jpg', import.meta.url).href,
-  'baidu_image_label': new URL('../../../assets/images/labimages/baidu_image_label.jpg', import.meta.url).href,
-  'baidu_map_midnight': new URL('../../../assets/images/labimages/baidu_map_midnight.jpg', import.meta.url).href,
-  'baidu_map_dark': new URL('../../../assets/images/labimages/baidu_map_dark.jpg', import.meta.url).href,
-  'openstreetmap': new URL('../../../assets/images/labimages/openstreetmap.jpg', import.meta.url).href,
-  'mapbox_satellite': new URL('../../../assets/images/labimages/mapbox_satellite.jpg', import.meta.url).href,
-  'mapbox_streets': new URL('../../../assets/images/labimages/mapbox_streets.jpg', import.meta.url).href,
-  'mapbox_light': new URL('../../../assets/images/labimages/mapbox_light.jpg', import.meta.url).href,
-  'mapbox_dark': new URL('../../../assets/images/labimages/mapbox_dark.jpg', import.meta.url).href,
-  'mapbox_streets_satellite': new URL('../../../assets/images/labimages/mapbox_streets_satellite.jpg', import.meta.url).href,
-  'mapbox_wheatpaste': new URL('../../../assets/images/labimages/mapbox_wheatpaste.jpg', import.meta.url).href,
-  'mapbox_streets_basic': new URL('../../../assets/images/labimages/mapbox_streets_basic.jpg', import.meta.url).href,
-  'mapbox_comic': new URL('../../../assets/images/labimages/mapbox_comic.jpg', import.meta.url).href,
-  'mapbox_outdoors': new URL('../../../assets/images/labimages/mapbox_outdoors.jpg', import.meta.url).href,
-  'mapbox_run_bike_hike': new URL('../../../assets/images/labimages/mapbox_run_bike_hike.jpg', import.meta.url).href,
-  'mapbox_pencil': new URL('../../../assets/images/labimages/mapbox_pencil.jpg', import.meta.url).href,
-  'mapbox_pirates': new URL('../../../assets/images/labimages/mapbox_pirates.jpg', import.meta.url).href,
-  'mapbox_emerald': new URL('../../../assets/images/labimages/mapbox_emerald.jpg', import.meta.url).href,
-  'mapbox_high_contrast': new URL('../../../assets/images/labimages/mapbox_high_contrast.jpg', import.meta.url).href,
-  'tianditu_image_label': new URL('../../../assets/images/labimages/tianditu_image_label.jpg', import.meta.url).href,
-  'arcgis在线影像': new URL('../../../assets/images/labimages/arcgis在线影像.jpg', import.meta.url).href,
-  'google_image': new URL('../../../assets/images/labimages/google_image.jpg', import.meta.url).href,
-  'google_image_label': new URL('../../../assets/images/labimages/google_image_label.jpg', import.meta.url).href,
-  'google_imagewithlabel': new URL('../../../assets/images/labimages/google_imagewithlabel.jpg', import.meta.url).href,
-  'google_map': new URL('../../../assets/images/labimages/google_map.jpg', import.meta.url).href,
-  'GeoQ水系': new URL('../../../assets/images/labimages/GeoQ水系.png', import.meta.url).href,
-  'GeoQ中国行政区域': new URL('../../../assets/images/labimages/GeoQ中国行政区域.png', import.meta.url).href,
-  'GeoQ彩色': new URL('../../../assets/images/labimages/GeoQ彩色.png', import.meta.url).href,
-  'GeoQ暖色': new URL('../../../assets/images/labimages/GeoQ暖色.png', import.meta.url).href,
-  'GeoQ灰色': new URL('../../../assets/images/labimages/GeoQ灰色.png', import.meta.url).href,
-  'GeoQ蓝黑': new URL('../../../assets/images/labimages/GeoQ蓝黑.png', import.meta.url).href,
-  'GeoQ英文': new URL('../../../assets/images/labimages/GeoQ英文.png', import.meta.url).href,
-  '谷歌影像': new URL('../../../assets/images/labimages/google.jpg', import.meta.url).href,
+  tianditu_map: new URL('../../../assets/images/labimages/tianditu_map.jpg', import.meta.url).href,
+  tianditu_image: new URL('../../../assets/images/labimages/tianditu_image.jpg', import.meta.url)
+    .href,
+  tianditu_map_label: new URL(
+    '../../../assets/images/labimages/tianditu_map_label.jpg',
+    import.meta.url
+  ).href,
+  gaode_map: new URL('../../../assets/images/labimages/gaode_map.jpg', import.meta.url).href,
+  gaode_image: new URL('../../../assets/images/labimages/gaode_image.jpg', import.meta.url).href,
+  gaode_image_label: new URL(
+    '../../../assets/images/labimages/gaode_image_label.jpg',
+    import.meta.url
+  ).href,
+  baidu_map: new URL('../../../assets/images/labimages/baidu_map.jpg', import.meta.url).href,
+  baidu_image: new URL('../../../assets/images/labimages/baidu_image.jpg', import.meta.url).href,
+  baidu_image_label: new URL(
+    '../../../assets/images/labimages/baidu_image_label.jpg',
+    import.meta.url
+  ).href,
+  baidu_map_midnight: new URL(
+    '../../../assets/images/labimages/baidu_map_midnight.jpg',
+    import.meta.url
+  ).href,
+  baidu_map_dark: new URL('../../../assets/images/labimages/baidu_map_dark.jpg', import.meta.url)
+    .href,
+  openstreetmap: new URL('../../../assets/images/labimages/openstreetmap.jpg', import.meta.url)
+    .href,
+  mapbox_satellite: new URL(
+    '../../../assets/images/labimages/mapbox_satellite.jpg',
+    import.meta.url
+  ).href,
+  mapbox_streets: new URL('../../../assets/images/labimages/mapbox_streets.jpg', import.meta.url)
+    .href,
+  mapbox_light: new URL('../../../assets/images/labimages/mapbox_light.jpg', import.meta.url).href,
+  mapbox_dark: new URL('../../../assets/images/labimages/mapbox_dark.jpg', import.meta.url).href,
+  mapbox_streets_satellite: new URL(
+    '../../../assets/images/labimages/mapbox_streets_satellite.jpg',
+    import.meta.url
+  ).href,
+  mapbox_wheatpaste: new URL(
+    '../../../assets/images/labimages/mapbox_wheatpaste.jpg',
+    import.meta.url
+  ).href,
+  mapbox_streets_basic: new URL(
+    '../../../assets/images/labimages/mapbox_streets_basic.jpg',
+    import.meta.url
+  ).href,
+  mapbox_comic: new URL('../../../assets/images/labimages/mapbox_comic.jpg', import.meta.url).href,
+  mapbox_outdoors: new URL('../../../assets/images/labimages/mapbox_outdoors.jpg', import.meta.url)
+    .href,
+  mapbox_run_bike_hike: new URL(
+    '../../../assets/images/labimages/mapbox_run_bike_hike.jpg',
+    import.meta.url
+  ).href,
+  mapbox_pencil: new URL('../../../assets/images/labimages/mapbox_pencil.jpg', import.meta.url)
+    .href,
+  mapbox_pirates: new URL('../../../assets/images/labimages/mapbox_pirates.jpg', import.meta.url)
+    .href,
+  mapbox_emerald: new URL('../../../assets/images/labimages/mapbox_emerald.jpg', import.meta.url)
+    .href,
+  mapbox_high_contrast: new URL(
+    '../../../assets/images/labimages/mapbox_high_contrast.jpg',
+    import.meta.url
+  ).href,
+  tianditu_image_label: new URL(
+    '../../../assets/images/labimages/tianditu_image_label.jpg',
+    import.meta.url
+  ).href,
+  arcgis在线影像: new URL('../../../assets/images/labimages/arcgis在线影像.jpg', import.meta.url)
+    .href,
+  google_image: new URL('../../../assets/images/labimages/google_image.jpg', import.meta.url).href,
+  google_image_label: new URL(
+    '../../../assets/images/labimages/google_image_label.jpg',
+    import.meta.url
+  ).href,
+  google_imagewithlabel: new URL(
+    '../../../assets/images/labimages/google_imagewithlabel.jpg',
+    import.meta.url
+  ).href,
+  google_map: new URL('../../../assets/images/labimages/google_map.jpg', import.meta.url).href,
+  GeoQ水系: new URL('../../../assets/images/labimages/GeoQ水系.png', import.meta.url).href,
+  GeoQ中国行政区域: new URL(
+    '../../../assets/images/labimages/GeoQ中国行政区域.png',
+    import.meta.url
+  ).href,
+  GeoQ彩色: new URL('../../../assets/images/labimages/GeoQ彩色.png', import.meta.url).href,
+  GeoQ暖色: new URL('../../../assets/images/labimages/GeoQ暖色.png', import.meta.url).href,
+  GeoQ灰色: new URL('../../../assets/images/labimages/GeoQ灰色.png', import.meta.url).href,
+  GeoQ蓝黑: new URL('../../../assets/images/labimages/GeoQ蓝黑.png', import.meta.url).href,
+  GeoQ英文: new URL('../../../assets/images/labimages/GeoQ英文.png', import.meta.url).href,
+  谷歌影像: new URL('../../../assets/images/labimages/google.jpg', import.meta.url).href
 }
 
-export default { zh, image };
+export default { zh, image }

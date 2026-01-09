@@ -1,9 +1,9 @@
-import vue from '@vitejs/plugin-vue';
-import { defineConfig, normalizePath } from 'vite';
-import cesium from 'vite-plugin-cesium';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-import path from 'path';
-import htmlModifier from './plugins/htmlModifier';
+import vue from '@vitejs/plugin-vue'
+import { defineConfig, normalizePath } from 'vite'
+import cesium from 'vite-plugin-cesium'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
+import path from 'path'
+import htmlModifier from './plugins/htmlModifier'
 
 export default defineConfig({
   base: './', // 默认值，应用部署在根路径
@@ -29,5 +29,5 @@ export default defineConfig({
         }
       ]
     })
-  ],
+  ]
 })

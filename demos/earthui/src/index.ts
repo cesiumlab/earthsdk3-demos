@@ -1,2 +1,2 @@
-import EarthUI from './EarthUI.vue';
-export default EarthUI;
+import EarthUI from './EarthUI.vue'
+export default EarthUI

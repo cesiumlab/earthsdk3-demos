@@ -10,7 +10,6 @@
   cursor: pointer;
 }
 
-
 .treeItem-name {
   margin-left: 6px;
   font-size: 14px;
@@ -19,7 +18,7 @@
   text-overflow: ellipsis;
 }
 
-.file_name>input {
+.file_name > input {
   width: 100%;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;

@@ -1,0 +1,50 @@
+.object-lift-height-dialog {
+  border-radius: 8px;
+  /* Rounded corners for the dialog */
+  overflow: hidden;
+  /* Ensure content obeys border radius */
+
+  .el-dialog__header {
+    margin-right: 0;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--el-border-color-lighter);
+  }
+
+  .el-dialog__body {
+    padding: 20px;
+  }
+
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: var(--el-font-family);
+
+    .tip-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background-color: var(--el-color-primary-light-9);
+      color: var(--el-text-color-regular);
+      border-radius: 4px;
+      border: 1px solid var(--el-color-primary-light-8);
+      font-size: 14px;
+
+      .icon {
+        color: var(--el-color-primary);
+        font-size: 16px;
+      }
+    }
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+
+    /* Remove top padding as it's handled by dialog body/footer structure usually, 
+           but here we conform to the template structure */
+  }
+}

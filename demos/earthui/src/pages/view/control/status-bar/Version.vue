@@ -2,7 +2,7 @@
   <div class="version_info_list">
     <div v-for="item in versionItems" :key="item.name">
       <span>{{ item.name }}</span>
-      <span style="margin: 0 5px;">:</span>
+      <span style="margin: 0 5px">:</span>
       <span>{{ item.version }}</span>
     </div>
   </div>
@@ -136,7 +136,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-.version_info_list>div {
+.version_info_list > div {
   width: 100%;
   height: 25px;
   line-height: 25px;

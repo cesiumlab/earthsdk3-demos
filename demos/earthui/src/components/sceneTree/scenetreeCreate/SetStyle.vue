@@ -1,7 +1,16 @@
 <template>
-  <DraggablePopup2 v-if="props.isShow" :minWidthHeight="[700, 200]"
-    :title="`${(scenetree && scenetree.name) ? scenetree.name : ''}-编辑器`" :width="1000" :height="'600px'" :left="300"
-    :top="100" @close="changeCancel" :showButton="true" @ok="changeOk">
+  <DraggablePopup2
+    v-if="props.isShow"
+    :minWidthHeight="[700, 200]"
+    :title="`${scenetree && scenetree.name ? scenetree.name : ''}-编辑器`"
+    :width="1000"
+    :height="'600px'"
+    :left="300"
+    :top="100"
+    @close="changeCancel"
+    :showButton="true"
+    @ok="changeOk"
+  >
     <div class="set_style">
       <!-- 左侧列表 -->
       <div class="set_style_list">
@@ -9,10 +18,17 @@
         <div class="style_list">
           <div class="style_list_div">
             <!-- 循环默认样式 -->
-            <div v-for="(item, index) in styleList" class="set_style_list_lilist" :title="item.name">
-              <div class="set_imgposition" :class="{ 'set_checkedactive': checkedactive === index }"
-                @click="changeStyle(item, index, true)">
-                <img :src="item.thumbnail" alt="">
+            <div
+              v-for="(item, index) in styleList"
+              class="set_style_list_lilist"
+              :title="item.name"
+            >
+              <div
+                class="set_imgposition"
+                :class="{ set_checkedactive: checkedactive === index }"
+                @click="changeStyle(item, index, true)"
+              >
+                <img :src="item.thumbnail" alt="" />
               </div>
               <div class="setStyle_onlineimageName">
                 {{ item.name }}
@@ -27,30 +43,42 @@
         <div class="set_style_tab">
           <div>
             <div class="header_item3" @click="changeCurrentEdit">
-              <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{
-                '规则可视化编辑器'
-              }}</span>
+              <span
+                class="header_item_span3"
+                :class="currentMenu === 'edit' ? 'header_active3' : ''"
+                >{{ '规则可视化编辑器' }}</span
+              >
             </div>
             <div class="header_item3" @click="currentMenu = 'JsonEdit'">
-              <span class="header_item_span3" :class="currentMenu === 'JsonEdit' ? 'header_active3' : ''">{{
-                '规则JSON编辑器'
-              }}</span>
+              <span
+                class="header_item_span3"
+                :class="currentMenu === 'JsonEdit' ? 'header_active3' : ''"
+                >{{ '规则JSON编辑器' }}</span
+              >
             </div>
           </div>
         </div>
         <!-- 可视化编辑器 -->
         <div class="style_rule_edit" v-if="currentMenu === 'edit'">
           <div class="set_style_rule1">
-            <div class="set_style_rule_list" style="height: 30px;line-height: 30px;">
+            <div class="set_style_rule_list" style="height: 30px; line-height: 30px">
               <div class="style_rule_list_index">序号</div>
               <div class="style_rule_list_two">规则</div>
               <div class="style_rule_list_color">颜色</div>
               <div class="style_rule_list_show">显隐</div>
-              <div class="style_rule_list_change"><span style="cursor:pointer;" @click.stop="addOneRule" title="添加"
-                  @mouseenter="hoverIndex = -1" @mouseleave="hoverIndex = -2"><es-icon :name="'tianjia'"
-                    :color="hoverIndex === -1 ? '#fff' : '#575B66'" :size="13" /></span>
+              <div class="style_rule_list_change">
+                <span
+                  style="cursor: pointer"
+                  @click.stop="addOneRule"
+                  title="添加"
+                  @mouseenter="hoverIndex = -1"
+                  @mouseleave="hoverIndex = -2"
+                  ><es-icon
+                    :name="'tianjia'"
+                    :color="hoverIndex === -1 ? '#fff' : '#575B66'"
+                    :size="13"
+                /></span>
               </div>
-
             </div>
           </div>
           <div class="set_style_rule2">
@@ -61,102 +89,197 @@
                   <div class="rule_list_two_valuename">属性名称</div>
                   <div class="rule_list_two_Operator">操作符</div>
                   <div class="rule_list_two_value">值</div>
-                  <div class="rule_list_two_change"><span style="cursor:pointer;" @click.stop="listaAddOneRule(index)"
-                      title="添加" @mouseenter="hoverliIndex = index" @mouseleave="hoverliIndex = -2"><es-icon
-                        :name="'tianjia'" :color="hoverliIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
+                  <div class="rule_list_two_change">
+                    <span
+                      style="cursor: pointer"
+                      @click.stop="listaAddOneRule(index)"
+                      title="添加"
+                      @mouseenter="hoverliIndex = index"
+                      @mouseleave="hoverliIndex = -2"
+                      ><es-icon
+                        :name="'tianjia'"
+                        :color="hoverliIndex === index ? '#fff' : '#575B66'"
+                        :size="13"
+                    /></span>
                   </div>
                 </div>
-                <div class="rule_list_two_name2" v-for="(i, ind) in (item.condition as any[])">
+                <div class="rule_list_two_name2" v-for="(i, ind) in item.condition as any[]">
                   <div>
                     <div class="rule_list_two_valuename">
-                      <EnumProp v-if="obtainType(i) === true" :isStyleEdit="true" :withUndefined="false"
-                        :defaultValue="undefined" :enumStrsList="fieldList" :readonly="true" :model-value="i"
-                        @clickli="(newItem) => changeruleOp(newItem, index, ind)">
+                      <EnumProp
+                        v-if="obtainType(i) === true"
+                        :isStyleEdit="true"
+                        :withUndefined="false"
+                        :defaultValue="undefined"
+                        :enumStrsList="fieldList"
+                        :readonly="true"
+                        :model-value="i"
+                        @clickli="(newItem) => changeruleOp(newItem, index, ind)"
+                      >
                       </EnumProp>
-                      <EnumProp v-else :withUndefined="false" :isStyleEdit="true" :defaultValue="undefined"
-                        :enumStrsList="fieldList" :readonly="true" v-model="i.field"
-                        @clickli="(newItem) => changeruleOp(newItem, index, ind)">
+                      <EnumProp
+                        v-else
+                        :withUndefined="false"
+                        :isStyleEdit="true"
+                        :defaultValue="undefined"
+                        :enumStrsList="fieldList"
+                        :readonly="true"
+                        v-model="i.field"
+                        @clickli="(newItem) => changeruleOp(newItem, index, ind)"
+                      >
                       </EnumProp>
                     </div>
-                    <div class="rule_list_two_Operator"
-                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }">
-                      <EnumProp v-if="obtainType(i) === true" :withUndefined="false" :defaultValue="undefined"
-                        :isBan="true" :enumStrsList="[]" :readonly="true" :model-value="''">
+                    <div
+                      class="rule_list_two_Operator"
+                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }"
+                    >
+                      <EnumProp
+                        v-if="obtainType(i) === true"
+                        :withUndefined="false"
+                        :defaultValue="undefined"
+                        :isBan="true"
+                        :enumStrsList="[]"
+                        :readonly="true"
+                        :model-value="''"
+                      >
                       </EnumProp>
-                      <EnumProp v-else :withUndefined="false" :defaultValue="undefined"
-                        :enumStrsList="obtainType(i) === 'string' ? stringOpList : numberOpList" :readonly="true"
-                        v-model="i.op">
+                      <EnumProp
+                        v-else
+                        :withUndefined="false"
+                        :defaultValue="undefined"
+                        :enumStrsList="obtainType(i) === 'string' ? stringOpList : numberOpList"
+                        :readonly="true"
+                        v-model="i.op"
+                      >
                       </EnumProp>
                     </div>
-                    <div class="rule_list_two_value" :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }">
-                      <input type="text" :value="i.value" :class="{ 'input_ban': obtainType(i) === true }"
-                        @input="changeRuleValue($event, index, ind, i)">
+                    <div
+                      class="rule_list_two_value"
+                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }"
+                    >
+                      <input
+                        type="text"
+                        :value="i.value"
+                        :class="{ input_ban: obtainType(i) === true }"
+                        @input="changeRuleValue($event, index, ind, i)"
+                      />
                     </div>
-                    <div class="rule_list_two_change"><span @click="listadeleteOneRule(index, ind)"
-                        @mouseenter="hoverlideleteIndex = ind; hoverlideleteIndexHover = index"
-                        @mouseleave="hoverlideleteIndex = -2, hoverlideleteIndexHover = -2" style="cursor:pointer;">
-                        <es-icon :name="'shanchu_2'"
-                          :color="(hoverlideleteIndex === ind && hoverlideleteIndexHover === index) ? '#fff' : '#575B66'"
-                          :size="13" />
-                      </span></div>
+                    <div class="rule_list_two_change">
+                      <span
+                        @click="listadeleteOneRule(index, ind)"
+                        @mouseenter="
+                          hoverlideleteIndex = ind
+                          hoverlideleteIndexHover = index
+                        "
+                        @mouseleave="((hoverlideleteIndex = -2), (hoverlideleteIndexHover = -2))"
+                        style="cursor: pointer"
+                      >
+                        <es-icon
+                          :name="'shanchu_2'"
+                          :color="
+                            hoverlideleteIndex === ind && hoverlideleteIndexHover === index
+                              ? '#fff'
+                              : '#575B66'
+                          "
+                          :size="13"
+                        />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="style_rule_list_color">
-                <ESColor :color="transformColor(item.color)" @ok="okHandler(index, $event)"></ESColor>
+                <ESColor
+                  :color="transformColor(item.color)"
+                  @ok="okHandler(index, $event)"
+                ></ESColor>
               </div>
-              <div class="style_rule_list_show" style="padding-left: 15px;">
+              <div class="style_rule_list_show" style="padding-left: 15px">
                 <div>
-                  <BooleanProp :withUndefined="false" :defaultValue="undefined" :readonly="false" v-model="item.show"
-                    :showButton="false">
+                  <BooleanProp
+                    :withUndefined="false"
+                    :defaultValue="undefined"
+                    :readonly="false"
+                    v-model="item.show"
+                    :showButton="false"
+                  >
                   </BooleanProp>
                 </div>
               </div>
-              <div class="style_rule_list_change"><span @click="deleteOneRule(index)"
-                  @mouseenter="hoverdeleteIndex = index" @mouseleave="hoverdeleteIndex = -2" style="cursor:pointer;">
-                  <es-icon :name="'shanchu_2'" :color="hoverdeleteIndex === index ? '#fff' : '#575B66'" :size="13" />
-                </span></div>
+              <div class="style_rule_list_change">
+                <span
+                  @click="deleteOneRule(index)"
+                  @mouseenter="hoverdeleteIndex = index"
+                  @mouseleave="hoverdeleteIndex = -2"
+                  style="cursor: pointer"
+                >
+                  <es-icon
+                    :name="'shanchu_2'"
+                    :color="hoverdeleteIndex === index ? '#fff' : '#575B66'"
+                    :size="13"
+                  />
+                </span>
+              </div>
             </div>
           </div>
-
         </div>
         <!-- 规则JSON编辑器 -->
         <div class="style_rule_edit" v-else>
-          <ESEditor :language="'json'" :readonly="false" @load="load" ref="editorContainer" @change="change">
+          <ESEditor
+            :language="'json'"
+            :readonly="false"
+            @load="load"
+            ref="editorContainer"
+            @change="change"
+          >
           </ESEditor>
         </div>
       </div>
     </div>
   </DraggablePopup2>
-
 </template>
 
 <script setup lang="ts">
-import { ESEditor, messageBox } from "earthsdk-ui";
-import { inject, ref, useTemplateRef, watch } from "vue";
-import { XbsjEarthUi } from "../../../scripts/xbsjEarthUi";
-import { SceneTreeItem, ES3DTileset } from "earthsdk3";
-import EnumProp from "../../eSPropPanel/propertiesMenu/commons/EnumProp.vue"
-import { ESColor } from "earthsdk-ui"
-import BooleanProp from "../../eSPropPanel/propertiesMenu/commons/BooleanProp.vue";
-import DraggablePopup2 from "../../DraggablePopup2.vue";
-import { ElMessage } from "element-plus";
-const props = withDefaults(defineProps<{
-  isShow: boolean,
-  setStyleTreeItem: SceneTreeItem | undefined,
-}>(), {});
-const emits = defineEmits(["changeShow"]);
+import { ESEditor, messageBox } from 'earthsdk-ui'
+import { inject, ref, useTemplateRef, watch } from 'vue'
+import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { SceneTreeItem, ES3DTileset } from 'earthsdk3'
+import EnumProp from '../../eSPropPanel/propertiesMenu/commons/EnumProp.vue'
+import { ESColor } from 'earthsdk-ui'
+import BooleanProp from '../../eSPropPanel/propertiesMenu/commons/BooleanProp.vue'
+import DraggablePopup2 from '../../DraggablePopup2.vue'
+import { ElMessage } from 'element-plus'
+const props = withDefaults(
+  defineProps<{
+    isShow: boolean
+    setStyleTreeItem: SceneTreeItem | undefined
+  }>(),
+  {}
+)
+const emits = defineEmits(['changeShow'])
 //控制划过变色的变量
 const hoverIndex = ref(-2)
 const hoverliIndex = ref(-2)
 const hoverlideleteIndex = ref(-2)
 const hoverlideleteIndexHover = ref(-2)
 const hoverdeleteIndex = ref(-2)
-const stringOpList: [aliasName: any, value: any][] = [['==', '=='], ['!=', '!='], ['contain', 'contain'], ['empty', 'empty']]//字符串对应的符号列表
-const numberOpList: [aliasName: any, value: any][] = [['==', '=='], ['!=', '!='], ['>', '>'], ['>=', '>='], ['<', '<'], ['<=', '<=']]//数字对应的符号列表
+const stringOpList: [aliasName: any, value: any][] = [
+  ['==', '=='],
+  ['!=', '!='],
+  ['contain', 'contain'],
+  ['empty', 'empty']
+] //字符串对应的符号列表
+const numberOpList: [aliasName: any, value: any][] = [
+  ['==', '=='],
+  ['!=', '!='],
+  ['>', '>'],
+  ['>=', '>='],
+  ['<', '<'],
+  ['<=', '<=']
+] //数字对应的符号列表
 const fieldList = ref<[aliasName: any, value: any][]>([['id', 'id']])
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const currentMenu = ref('edit')//当前的模块是可视化还是json
+const currentMenu = ref('edit') //当前的模块是可视化还是json
 const flagApplection = ref(false)
 const editorContainer = useTemplateRef('editorContainer')
 //默认的样式
@@ -182,13 +305,12 @@ const changeCurrentEdit = async () => {
     })
     ruleRef.value = newJson
     currentMenu.value = 'edit'
-
   } catch (error) {
-    console.log('JSON格式错误!!!', error);
+    console.log('JSON格式错误!!!', error)
     if (error === undefined) {
-      ElMessage.error('样式未定义');
+      ElMessage.error('样式未定义')
     } else {
-      ElMessage.error(`JSON格式错误！ error: ${error}`);
+      ElMessage.error(`JSON格式错误！ error: ${error}`)
       return
     }
   }
@@ -196,17 +318,20 @@ const changeCurrentEdit = async () => {
 //规则的变量
 const ruleRef = ref<any[]>([])
 //获取对象的属性的类型
-const featureType = ref<{ key: string, type: string | number }[]>([
+const featureType = ref<{ key: string; type: string | number }[]>([
   {
-    "key": "id",
-    "type": "string" //  string/number
+    key: 'id',
+    type: 'string' //  string/number
   }
 ])
 //颜色转为0-1范围的函数
 const transformColor = (colorRef: number[]) => {
   if (colorRef === undefined) {
     return {
-      r: 255, g: 255, b: 255, a: 1
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1
     }
   } else {
     return {
@@ -218,8 +343,13 @@ const transformColor = (colorRef: number[]) => {
   }
 }
 // 修改颜色
-const okHandler = (index: number, rgba: { r: number, g: number, b: number, a: number }) => {
-  const rgbaArr: [number, number, number, number] = [rgba.r / 255, rgba.g / 255, rgba.b / 255, rgba.a]
+const okHandler = (index: number, rgba: { r: number; g: number; b: number; a: number }) => {
+  const rgbaArr: [number, number, number, number] = [
+    rgba.r / 255,
+    rgba.g / 255,
+    rgba.b / 255,
+    rgba.a
+  ]
   const rule = [...ruleRef.value]
   rule[index].color = rgbaArr
 }
@@ -230,8 +360,8 @@ const changeruleOp = (newItem: any, index: number, ind: number) => {
   } else {
     ruleRef.value[index].condition[ind] = {
       field: newItem[1],
-      op: "==",
-      value: "xxx"
+      op: '==',
+      value: 'xxx'
     }
     setTimeout(() => {
       if (obtainType(ruleRef.value[index].condition[ind]) === 'string') {
@@ -249,7 +379,7 @@ const changeruleOp = (newItem: any, index: number, ind: number) => {
 }
 //input框中输入的时候判断是什么类型进行转换
 const changeRuleValue = (e: Event, index: number, ind: number, item: any) => {
-  let targetValue = (e.target as HTMLInputElement).value as any;
+  let targetValue = (e.target as HTMLInputElement).value as any
   if (obtainType(item) === 'string') {
     ruleRef.value[index].condition[ind].value = targetValue
   } else {
@@ -260,16 +390,17 @@ const changeRuleValue = (e: Event, index: number, ind: number, item: any) => {
 const addOneRule = () => {
   const rule = [...ruleRef.value]
   rule.push({
-    condition: [{
-      field: "id",
-      op: "==",
-      value: "xxx"
-    }],
+    condition: [
+      {
+        field: 'id',
+        op: '==',
+        value: 'xxx'
+      }
+    ],
     color: [1, 0, 0, 1],
     show: true
   })
   ruleRef.value = rule
-
 }
 //小模块删除某一项
 const deleteOneRule = (index: number) => {
@@ -279,16 +410,15 @@ const deleteOneRule = (index: number) => {
       rule.splice(index, 1)
       ruleRef.value = rule
     })
-    .catch((err) => {
-    })
+    .catch((err) => {})
 }
 //大模块增加一项规则
 const listaAddOneRule = (index: number) => {
   const rule = [...ruleRef.value]
   rule[index].condition.push({
-    field: "id",
-    op: "==",
-    value: "xxx"
+    field: 'id',
+    op: '==',
+    value: 'xxx'
   })
   ruleRef.value = rule
 }
@@ -307,11 +437,12 @@ const changeStyle = (item: any, index: any, flag: boolean) => {
   }
   ruleRef.value = item.code
   if (currentMenu.value !== 'edit') {
-    editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '));
+    editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '))
   }
 }
-const checkedactive = ref()//样式列表的当前选中
-const changeCancel = () => {//点击取消
+const checkedactive = ref() //样式列表的当前选中
+const changeCancel = () => {
+  //点击取消
   checkedactive.value = 0
   hoverIndex.value = -2
   hoverliIndex.value = -2
@@ -327,49 +458,54 @@ const changeCancel = () => {//点击取消
       }
     }
   }
-  emits("changeShow", false);
+  emits('changeShow', false)
 }
-const scenetree = ref()//当前选中的对象
+const scenetree = ref() //当前选中的对象
 
-watch(() => props.setStyleTreeItem, async () => {//当前对象变化的时候
-  scenetree.value = props.setStyleTreeItem
-  if (scenetree.value) {
-    const sceneObject = scenetree.value.sceneObject as ES3DTileset
-    if (sceneObject) {
-      const featureTypes = await sceneObject.getFeatureTable()//通过函数获取featureType
-      const a: [aliasName: any, value: any][] = []
-      if (featureTypes && featureTypes.length > 0) {
-        featureTypes.forEach((item) => {
-          a.push([item.key, item.key])
-        })
-        fieldList.value = a
-        fieldList.value.push(['常量true', true])
-        fieldList.value.push(['常量false', false])
-        featureType.value = featureTypes
-      } else {
-        ElMessage.warning('未查询到对象的属性字段')
-      }
-      const extras = sceneObject.extras as any
-      if (extras && 'xbsjFetureStyles' in extras) {
-        styleList.value = JSON.parse(JSON.stringify(extras.xbsjFetureStyles))
-        if (styleList.value.length > 0) {
-          ruleRef.value = styleList.value[styleList.value.length - 1].code
-          checkedactive.value = styleList.value.length - 1
+watch(
+  () => props.setStyleTreeItem,
+  async () => {
+    //当前对象变化的时候
+    scenetree.value = props.setStyleTreeItem
+    if (scenetree.value) {
+      const sceneObject = scenetree.value.sceneObject as ES3DTileset
+      if (sceneObject) {
+        const featureTypes = await sceneObject.getFeatureTable() //通过函数获取featureType
+        const a: [aliasName: any, value: any][] = []
+        if (featureTypes && featureTypes.length > 0) {
+          featureTypes.forEach((item) => {
+            a.push([item.key, item.key])
+          })
+          fieldList.value = a
+          fieldList.value.push(['常量true', true])
+          fieldList.value.push(['常量false', false])
+          featureType.value = featureTypes
         } else {
-          checkedactive.value = 0
-
+          ElMessage.warning('未查询到对象的属性字段')
+        }
+        const extras = sceneObject.extras as any
+        if (extras && 'xbsjFetureStyles' in extras) {
+          styleList.value = JSON.parse(JSON.stringify(extras.xbsjFetureStyles))
+          if (styleList.value.length > 0) {
+            ruleRef.value = styleList.value[styleList.value.length - 1].code
+            checkedactive.value = styleList.value.length - 1
+          } else {
+            checkedactive.value = 0
+          }
         }
       }
     }
-  }
-  hoverIndex.value = -2
-  hoverliIndex.value = -2
-  hoverlideleteIndex.value = -2
-  hoverlideleteIndexHover.value = -2
-  hoverdeleteIndex.value = -2
-}, { immediate: true })
-const obtainType = (item: any) => {//输出这个属性名对应的类型
-  if (typeof (item) !== 'boolean') {
+    hoverIndex.value = -2
+    hoverliIndex.value = -2
+    hoverlideleteIndex.value = -2
+    hoverlideleteIndexHover.value = -2
+    hoverdeleteIndex.value = -2
+  },
+  { immediate: true }
+)
+const obtainType = (item: any) => {
+  //输出这个属性名对应的类型
+  if (typeof item !== 'boolean') {
     if (item.field) {
       const a = featureType.value.find((element) => element.key === item.field)
       return a?.type
@@ -379,81 +515,78 @@ const obtainType = (item: any) => {//输出这个属性名对应的类型
   }
 }
 function getCurrentDateTime() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, '0');
-  const day = now.getDate().toString().padStart(2, '0');
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const seconds = now.getSeconds().toString().padStart(2, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = (now.getMonth() + 1).toString().padStart(2, '0')
+  const day = now.getDate().toString().padStart(2, '0')
+  const hours = now.getHours().toString().padStart(2, '0')
+  const minutes = now.getMinutes().toString().padStart(2, '0')
+  const seconds = now.getSeconds().toString().padStart(2, '0')
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
 const changeOk = async () => {
-  const sceneObject = scenetree.value?.sceneObject as ES3DTileset;
-  if (!sceneObject) return;
+  const sceneObject = scenetree.value?.sceneObject as ES3DTileset
+  if (!sceneObject) return
   const addStyleToExtras = (styleData: any) => {
     //@ts-ignore
-    const newExtras = { ...sceneObject.extras };
+    const newExtras = { ...sceneObject.extras }
     if (!newExtras.xbsjFetureStyles) {
-      newExtras.xbsjFetureStyles = [];
+      newExtras.xbsjFetureStyles = []
     }
-    newExtras.xbsjFetureStyles.push(styleData);
-    sceneObject.extras = newExtras;
+    newExtras.xbsjFetureStyles.push(styleData)
+    sceneObject.extras = newExtras
   }
   try {
-    sceneObject.setFeatureStyle(ruleRef.value);
-    ElMessage.success('设置样式成功');
-    const viewer = xbsjEarthUi.activeViewer;
-    if (!viewer) return;
-    const capture = await viewer.capture();
+    sceneObject.setFeatureStyle(ruleRef.value)
+    ElMessage.success('设置样式成功')
+    const viewer = xbsjEarthUi.activeViewer
+    if (!viewer) return
+    const capture = await viewer.capture()
     const styleData = {
       id: getUuid(),
       name: getCurrentDateTime(),
       code: JSON.parse(JSON.stringify(ruleRef.value)),
-      thumbnail: capture,  // 使用已获取的 capture
-    };
-    addStyleToExtras(styleData);
-    emits("changeShow", false);
+      thumbnail: capture // 使用已获取的 capture
+    }
+    addStyleToExtras(styleData)
+    emits('changeShow', false)
   } catch (error) {
-    console.error('设置样式失败:', error);
-    ElMessage.error(
-      error === undefined
-        ? '样式未定义'
-        : `设置样式失败！error: ${error}`
-    );
+    console.error('设置样式失败:', error)
+    ElMessage.error(error === undefined ? '样式未定义' : `设置样式失败！error: ${error}`)
   } finally {
-    currentMenu.value = 'edit';
-    checkedactive.value = 0;
-    hoverIndex.value = -2;
-    hoverliIndex.value = -2;
-    hoverlideleteIndex.value = -2;
-    hoverlideleteIndexHover.value = -2;
-    hoverdeleteIndex.value = -2;
+    currentMenu.value = 'edit'
+    checkedactive.value = 0
+    hoverIndex.value = -2
+    hoverliIndex.value = -2
+    hoverlideleteIndex.value = -2
+    hoverlideleteIndexHover.value = -2
+    hoverdeleteIndex.value = -2
   }
-};
+}
 
 const load = () => {
-  editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '));
+  editorContainer.value?.setVal(JSON.stringify(ruleRef.value, undefined, '    '))
 }
 const change = (value: string) => {
   try {
-    ruleRef.value = JSON.parse(value);
+    ruleRef.value = JSON.parse(value)
   } catch (error) {
-    console.error('JSON 解析失败:', error);
+    console.error('JSON 解析失败:', error)
   }
-};
+}
 
-function getUuid() {//设置随机id
-  var d = new Date().getTime();
-  if (window.performance && typeof window.performance.now === "function") {
-    d += performance.now();
+function getUuid() {
+  //设置随机id
+  var d = new Date().getTime()
+  if (window.performance && typeof window.performance.now === 'function') {
+    d += performance.now()
   }
   var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-  });
-  return uuid;
+    var r = ((d + Math.random() * 16) % 16) | 0
+    d = Math.floor(d / 16)
+    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+  return uuid
 }
 </script>
 <style scoped>
@@ -475,12 +608,11 @@ function getUuid() {//设置随机id
   border-right: 1px solid #4a4545;
 }
 
-.set_style_list>.style_list {
+.set_style_list > .style_list {
   width: 100%;
   flex: 1;
   overflow: auto;
 }
-
 
 .style_list_div,
 .style_list_div_stoy {
@@ -502,7 +634,7 @@ function getUuid() {//设置随机id
   justify-content: flex-end;
 }
 
-.style_button>button {
+.style_button > button {
   height: 32px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -516,8 +648,7 @@ function getUuid() {//设置随机id
   margin-right: 20px;
 }
 
-
-.style_button>button:hover {
+.style_button > button:hover {
   border: 1px solid rgba(44, 104, 247, 1);
 }
 
@@ -541,7 +672,7 @@ function getUuid() {//设置随机id
   justify-content: center;
 }
 
-.set_imgposition>img {
+.set_imgposition > img {
   width: 100%;
   height: 100%;
   border-radius: 3px;
@@ -614,16 +745,14 @@ function getUuid() {//设置随机id
 .rule_list_two_name2 {
   width: 100%;
   height: 30px;
-
 }
 
-.rule_list_two_name2>div {
+.rule_list_two_name2 > div {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-
 }
 
 .rule_list_two_valuename,
@@ -636,7 +765,7 @@ function getUuid() {//设置随机id
   pointer-events: none !important;
 }
 
-.rule_list_two_value>input {
+.rule_list_two_value > input {
   width: 100%;
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
@@ -649,16 +778,16 @@ function getUuid() {//设置随机id
   outline: none;
 }
 
-.rule_list_two_value>.input_ban {
+.rule_list_two_value > .input_ban {
   background: rgba(48, 48, 48, 0.6) !important;
   cursor: not-allowed;
 }
 
-.rule_list_two_value>input:hover {
+.rule_list_two_value > input:hover {
   border: 1px solid #2c68f7;
 }
 
-.rule_list_two_value>input:focus {
+.rule_list_two_value > input:focus {
   border: 1px solid #2c68f7;
 }
 
@@ -685,10 +814,9 @@ function getUuid() {//设置随机id
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
-.style_rule_list_show>div {
+.style_rule_list_show > div {
   width: 26px;
 }
 
@@ -699,7 +827,6 @@ function getUuid() {//设置随机id
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .setStyle_onlineimageName {
@@ -715,7 +842,7 @@ function getUuid() {//设置随机id
   font-size: 11px;
 }
 
-.set_imgposition>span {
+.set_imgposition > span {
   position: absolute;
   bottom: 23px;
   white-space: nowrap;
@@ -736,7 +863,6 @@ function getUuid() {//设置随机id
   border: 2px solid rgba(44, 104, 247, 1);
 }
 
-
 .set_style_name {
   width: 100%;
   height: 30px;
@@ -753,13 +879,12 @@ function getUuid() {//设置随机id
   align-items: center;
 }
 
-.set_style_tab>div {
+.set_style_tab > div {
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
 }
 
 .style_rule_edit {
@@ -770,7 +895,6 @@ function getUuid() {//设置随机id
   overflow: hidden;
 }
 
-
 .header_item3 {
   width: 130px;
   height: 100%;
@@ -780,7 +904,7 @@ function getUuid() {//设置随机id
   justify-content: center;
 }
 
-.header_item3>span {
+.header_item3 > span {
   display: inline-block;
   height: 100%;
   text-align: center;
@@ -792,12 +916,21 @@ function getUuid() {//设置随机id
 
 .header_active3 {
   color: #fff !important;
-  background: linear-gradient(180deg, rgba(87, 136, 255, 0) 0%, rgba(87, 136, 255, 0.26) 100%, #5788FF 100%) !important;
-
+  background: linear-gradient(
+    180deg,
+    rgba(87, 136, 255, 0) 0%,
+    rgba(87, 136, 255, 0.26) 100%,
+    #5788ff 100%
+  ) !important;
 }
 
 .header_item3:hover .header_item_span3 {
   color: #fff;
-  background: linear-gradient(180deg, rgba(87, 136, 255, 0) 0%, rgba(87, 136, 255, 0.26) 100%, #5788FF 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(87, 136, 255, 0) 0%,
+    rgba(87, 136, 255, 0.26) 100%,
+    #5788ff 100%
+  ) !important;
 }
 </style>

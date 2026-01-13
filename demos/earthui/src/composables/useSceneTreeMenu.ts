@@ -1,22 +1,13 @@
 //右键场景树空白区域
 
-import { localStorageKey } from "@/constants";
-import { downloadJson } from "@/utils";
-import dayjs from "dayjs";
-import {
-  getCreateSceneObjectType,
-  getEditorOption,
-  MenuItem,
-} from "earthsdk-ui";
-import {
-  ESObjectsManager,
-  SceneTree,
-  SceneTreeItem,
-  TreeItemInsertFlag,
-} from "earthsdk3";
-import { ElMessage, ElMessageBox } from "element-plus";
-import { getGeoJsonMenuContent } from "./transformToGeoJson";
-import { getLiftHeightMenuContent } from "./useliftHeight";
+import { localStorageKey } from '@/constants'
+import { downloadJson } from '@/utils'
+import dayjs from 'dayjs'
+import { getCreateSceneObjectType, getEditorOption, MenuItem } from 'earthsdk-ui'
+import { ESObjectsManager, SceneTree, SceneTreeItem, TreeItemInsertFlag } from 'earthsdk3'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { getGeoJsonMenuContent } from './transformToGeoJson'
+import { getLiftHeightMenuContent } from './useliftHeight'
 
 //添加文件夹
 export const addNewTreeItem = (
@@ -24,15 +15,10 @@ export const addNewTreeItem = (
   treeItem?: SceneTreeItem,
   location?: TreeItemInsertFlag
 ) => {
-  const groupscenetreeitem = sceneTree.createGroupTreeItem(
-    undefined,
-    undefined,
-    treeItem,
-    location
-  );
-  if (!groupscenetreeitem) return;
-  groupscenetreeitem.name = "新建文件夹";
-};
+  const groupscenetreeitem = sceneTree.createGroupTreeItem(undefined, undefined, treeItem, location)
+  if (!groupscenetreeitem) return
+  groupscenetreeitem.name = '新建文件夹'
+}
 
 //默认右键菜单，右键树的空白区域
 export const getDefauleMenuContent = (
@@ -40,142 +26,122 @@ export const getDefauleMenuContent = (
   sceneTree: SceneTree,
   showCheckbox: boolean
 ): MenuItem[] => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox);
-  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox);
+  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox)
+  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox)
 
   const baseMenu: MenuItem[] = [
     {
-      text: "新建对象",
-      keys: "",
+      text: '新建对象',
+      keys: '',
       func: async () => {
-        const type = await getCreateSceneObjectType();
-        if (!type) return;
-        const treeItem = sceneTree.createSceneObjectTreeItem(type);
-        if (!treeItem) return;
-        sceneTree.uiTree.clearAllSelectedItems();
-        treeItem.uiTreeObject.selected = true;
+        const type = await getCreateSceneObjectType()
+        if (!type) return
+        const treeItem = sceneTree.createSceneObjectTreeItem(type)
+        if (!treeItem) return
+        sceneTree.uiTree.clearAllSelectedItems()
+        treeItem.uiTreeObject.selected = true
         //TODO:属性树挂载节点
         // objm.propSceneTree = treeItem;
-        const { sceneObject } = treeItem;
-        if (sceneObject && "editing" in sceneObject) {
-          sceneObject.editing = true;
+        const { sceneObject } = treeItem
+        if (sceneObject && 'editing' in sceneObject) {
+          sceneObject.editing = true
         }
-        ElMessage.success("创建成功");
-      },
+        ElMessage.success('创建成功')
+      }
     },
     {
-      text: "新建文件夹",
-      keys: "",
+      text: '新建文件夹',
+      keys: '',
       func: () => {
-        addNewTreeItem(sceneTree);
-      },
+        addNewTreeItem(sceneTree)
+      }
     },
     {
-      text: "通过 JSON 创建对象",
-      keys: "",
+      text: '通过 JSON 创建对象',
+      keys: '',
       func: async () => {
-        const jsonStr = await getEditorOption(JSON.stringify({}), "json");
-        if (!jsonStr) return;
-        const json = JSON.parse(jsonStr);
-        const treeItem = sceneTree.createSceneObjectTreeItemFromJson(json);
-        if (!treeItem) return;
-        sceneTree.uiTree.clearAllSelectedItems();
-        treeItem.uiTreeObject.selected = true;
-        ElMessage.success("创建成功");
-      },
+        const jsonStr = await getEditorOption(JSON.stringify({}), 'json')
+        if (!jsonStr) return
+        const json = JSON.parse(jsonStr)
+        const treeItem = sceneTree.createSceneObjectTreeItemFromJson(json)
+        if (!treeItem) return
+        sceneTree.uiTree.clearAllSelectedItems()
+        treeItem.uiTreeObject.selected = true
+        ElMessage.success('创建成功')
+      }
     },
     {
-      type: "divider",
+      type: 'divider'
     },
     {
-      text: "刷新场景",
-      keys: "",
+      text: '刷新场景',
+      keys: '',
       func: () => {
-        objm.activeViewer?.forceRecreate();
-      },
+        objm.activeViewer?.forceRecreate()
+      }
     },
     {
-      ...liftHeightMenu,
+      ...liftHeightMenu
     },
     {
-      type: "divider",
+      type: 'divider'
     },
     {
-      text: "下载场景 JSON",
-      keys: "",
+      text: '下载场景 JSON',
+      keys: '',
       func: () => {
-        downloadJson(
-          objm.json,
-          "earth_ui_scene" + dayjs().format("_MM_DD") + ".json",
-          true
-        );
-      },
+        downloadJson(objm.json, 'earth_ui_scene' + dayjs().format('_MM_DD') + '.json', true)
+      }
     },
     {
-      ...geoJsonMenu,
+      ...geoJsonMenu
     },
     {
-      text: "缓存当前场景",
-      keys: "",
+      text: '缓存当前场景',
+      keys: '',
       func: () => {
-        const lastJson = window.localStorage.getItem(
-          localStorageKey.Earth_UI_STORAGE_SCENE
-        );
-        const json = objm.json;
+        const lastJson = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+        const json = objm.json
         if (lastJson) {
-          ElMessageBox.confirm("已存在缓存场景，是否覆盖?").then(() => {
+          ElMessageBox.confirm('已存在缓存场景，是否覆盖?').then(() => {
             window.localStorage.setItem(
               localStorageKey.Earth_UI_STORAGE_SCENE,
               JSON.stringify(json)
-            );
-            ElMessage.success("缓存成功");
-          });
+            )
+            ElMessage.success('缓存成功')
+          })
         } else {
-          window.localStorage.setItem(
-            localStorageKey.Earth_UI_STORAGE_SCENE,
-            JSON.stringify(json)
-          );
-          ElMessage.success("缓存成功");
+          window.localStorage.setItem(localStorageKey.Earth_UI_STORAGE_SCENE, JSON.stringify(json))
+          ElMessage.success('缓存成功')
         }
-      },
-    },
-  ];
+      }
+    }
+  ]
 
   const storageSceneItem = {
-    text: "加载已缓存场景",
-    keys: "",
+    text: '加载已缓存场景',
+    keys: '',
     func: () => {
-      ElMessageBox.confirm("确认加载已缓存场景吗？").then(() => {
-        const localJsonStr = window.localStorage.getItem(
-          localStorageKey.Earth_UI_STORAGE_SCENE
-        );
-        if (!localJsonStr) return;
-        const localJson = JSON.parse(localJsonStr);
-        if (
-          localJson.lastView &&
-          localJson.lastView.position &&
-          localJson.lastView.rotation
-        ) {
-          objm.activeViewer?.flyIn(
-            localJson.lastView.position,
-            localJson.lastView.rotation
-          );
+      ElMessageBox.confirm('确认加载已缓存场景吗？').then(() => {
+        const localJsonStr = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+        if (!localJsonStr) return
+        const localJson = JSON.parse(localJsonStr)
+        if (localJson.lastView && localJson.lastView.position && localJson.lastView.rotation) {
+          objm.activeViewer?.flyIn(localJson.lastView.position, localJson.lastView.rotation)
         }
-        objm.json = { ...localJson };
-        ElMessage.success("缓存场景加载成功");
-      });
-    },
-  };
+        objm.json = { ...localJson }
+        ElMessage.success('缓存场景加载成功')
+      })
+    }
+  }
 
-  const localJson = window.localStorage.getItem(
-    localStorageKey.Earth_UI_STORAGE_SCENE
-  );
-  localJson && baseMenu.push(storageSceneItem);
+  const localJson = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+  localJson && baseMenu.push(storageSceneItem)
 
-  return baseMenu;
-};
+  return baseMenu
+}
 
 export const redrawFunc = (sceneTree: SceneTree) => {
-  const redrawInfo = sceneTree?.uiTree.redrawInfo;
-  redrawInfo && sceneTree?.uiTree.redrawEvent.emit(redrawInfo);
-};
+  const redrawInfo = sceneTree?.uiTree.redrawInfo
+  redrawInfo && sceneTree?.uiTree.redrawEvent.emit(redrawInfo)
+}

@@ -7,37 +7,68 @@
     </div>
     <!-- 导航栏 -->
     <div class="neck_nav" ref="menuRef">
-      <div v-for="(item, index) in defalutNavList" v-show="item.isShow" :key="item.id" @click="change(item)"
-        class="neck_title" @mouseover="iconheight = index" @mouseout="iconheight = -1"
-        :class="navType === item.value ? 'activated' : ''" :title="item.title">
+      <div
+        v-for="(item, index) in defalutNavList"
+        v-show="item.isShow"
+        :key="item.id"
+        @click="change(item)"
+        class="neck_title"
+        @mouseover="iconheight = index"
+        @mouseout="iconheight = -1"
+        :class="navType === item.value ? 'activated' : ''"
+        :title="item.title"
+      >
         <span :style="{ marginTop: '0px' }" class="ctm-svg">
-          <es-icon :name="item.icon" :color="navType === item.value
-            ? 'rgba(87, 136, 255, 1)'
-            : iconheight === index
-              ? 'rgba(87, 136, 255, 1)'
-              : '#fff'
-            " :size="item.iconSize ?? 14" />
+          <es-icon
+            :name="item.icon"
+            :color="
+              navType === item.value
+                ? 'rgba(87, 136, 255, 1)'
+                : iconheight === index
+                  ? 'rgba(87, 136, 255, 1)'
+                  : '#fff'
+            "
+            :size="item.iconSize ?? 14"
+          />
         </span>
         <span style="margin-left: 6px" class="ctm-title">{{ item.title }}</span>
         <span v-if="item.new" style="margin-left: 6px" class="ctm-new">NEW</span>
       </div>
-      <div class="neck_title" :class="moreMenuShow ? 'activated' : ''" v-if="noneNavList.length !== 0" ref="moreNavRef"
-        @click="changeMore(true)">
+      <div
+        class="neck_title"
+        :class="moreMenuShow ? 'activated' : ''"
+        v-if="noneNavList.length !== 0"
+        ref="moreNavRef"
+        @click="changeMore(true)"
+      >
         <span style="margin-top: 3px" class="ctm-svg">
-          <svg t="1760181802183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="8086" width="18" height="18" fill="currentColor">
+          <svg
+            t="1760181802183"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="8086"
+            width="18"
+            height="18"
+            fill="currentColor"
+          >
             <path
               d="M511.998977 113.725134c219.514529 0 398.103974 178.588421 398.103974 398.103974S731.513506 909.933081 511.998977 909.933081 113.895003 731.34466 113.895003 511.829108 292.485471 113.725134 511.998977 113.725134M511.998977 63.961754c-246.947322 0-447.867354 200.919009-447.867354 447.867354s200.920032 447.867354 447.867354 447.867354c246.944252 0 447.867354-200.919009 447.867354-447.867354S758.943228 63.961754 511.998977 63.961754L511.998977 63.961754z"
-              p-id="8087"></path>
+              p-id="8087"
+            ></path>
             <path
               d="M327.384305 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
-              p-id="8088"></path>
+              p-id="8088"
+            ></path>
             <path
               d="M511.997953 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
-              p-id="8089"></path>
+              p-id="8089"
+            ></path>
             <path
               d="M696.612625 511.829108m-45.216831 0a44.187 44.187 0 1 0 90.433662 0 44.187 44.187 0 1 0-90.433662 0Z"
-              p-id="8090"></path>
+              p-id="8090"
+            ></path>
           </svg>
         </span>
         <span style="margin-left: 6px">{{ '更多' }}</span>
@@ -46,19 +77,37 @@
 
     <!-- 隐藏菜单展开 -->
 
-    <div class="none_menu_box" ref="moreMenuRef" v-show="moreMenuShow" v-click-outside="clickOutside">
-      <div v-for="(item, index) in noneNavList" v-show="item.isShow" :key="item.id" @click="change(item, true)"
-        class="neck_title" @mouseover="iconheight1 = index" @mouseout="iconheight1 = -1"
-        :class="navType === item.value ? 'activated' : ''" :title="item.title">
+    <div
+      class="none_menu_box"
+      ref="moreMenuRef"
+      v-show="moreMenuShow"
+      v-click-outside="clickOutside"
+    >
+      <div
+        v-for="(item, index) in noneNavList"
+        v-show="item.isShow"
+        :key="item.id"
+        @click="change(item, true)"
+        class="neck_title"
+        @mouseover="iconheight1 = index"
+        @mouseout="iconheight1 = -1"
+        :class="navType === item.value ? 'activated' : ''"
+        :title="item.title"
+      >
         <span style="margin-top: 3px" class="ctm-svg">
           <!-- <es-icon :name="item.icon" :size="14" /></span> -->
 
-          <es-icon :name="item.icon" :color="navType === item.value
-            ? 'rgba(87, 136, 255, 1)'
-            : iconheight1 === index
-              ? 'rgba(87, 136, 255, 1)'
-              : '#fff'
-            " :size="14" />
+          <es-icon
+            :name="item.icon"
+            :color="
+              navType === item.value
+                ? 'rgba(87, 136, 255, 1)'
+                : iconheight1 === index
+                  ? 'rgba(87, 136, 255, 1)'
+                  : '#fff'
+            "
+            :size="14"
+          />
         </span>
         <span style="margin-left: 6px" class="ctm-title">{{ item.title }}</span>
       </div>
@@ -66,17 +115,26 @@
 
     <!-- 主题切换 -->
     <div class="neck_theme_icon" @click="toggleTheme">
-
-      <svg t="1767868138156" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        p-id="13457" width="16" height="16" fill="currentColor">
+      <svg
+        t="1767868138156"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="13457"
+        width="16"
+        height="16"
+        fill="currentColor"
+      >
         <path
           d="M512 796.444444A284.444444 284.444444 0 1 0 512 227.555556a284.444444 284.444444 0 0 0 0 568.888888z m-315.335111-153.827555a341.333333 341.333333 0 1 1 630.670222-261.233778 341.333333 341.333333 0 0 1-630.670222 261.233778zM341.333333 625.265778a306.005333 306.005333 0 0 0 194.787556-89.144889A306.005333 306.005333 0 0 0 625.265778 341.333333 204.8 204.8 0 1 1 341.333333 625.265778z"
-          p-id="13458"></path>
+          p-id="13458"
+        ></path>
         <path
           d="M516.892444 0h-0.113777c22.584889 0 33.848889 11.605333 33.848889 34.816v46.307556c0 23.210667-11.264 34.816-33.848889 34.816h0.113777c-22.584889 0-33.848889-11.605333-33.848888-34.816V34.816c0-23.210667 11.264-34.816 33.848888-34.816zM516.892444 908.060444h-0.113777c22.584889 0 33.848889 11.605333 33.848889 34.816v46.307556c0 23.210667-11.264 34.816-33.848889 34.816h0.113777c-22.584889 0-33.848889-11.605333-33.848888-34.816v-46.307556c0-23.210667 11.264-34.816 33.848888-34.816zM1024 516.892444v-0.113777c0 22.584889-11.605333 33.848889-34.816 33.848889h-46.307556c-23.210667 0-34.816-11.264-34.816-33.848889v0.113777c0-22.584889 11.605333-33.848889 34.816-33.848888h46.307556c23.210667 0 34.816 11.264 34.816 33.848888zM115.939556 516.892444v-0.113777c0 22.584889-11.605333 33.848889-34.816 33.848889H34.816C11.605333 550.684444 0 539.363556 0 516.778667v0.113777c0-22.584889 11.605333-33.848889 34.816-33.848888h46.307556c23.210667 0 34.816 11.264 34.816 33.848888zM866.872889 157.184v-0.056889c16.327111 16.384 16.327111 32.711111 0 49.095111l-32.711111 32.654222c-16.384 16.384-32.768 16.384-49.095111 0V238.933333c-16.327111-16.327111-16.327111-32.711111 0-49.095111l32.711111-32.654222c16.384-16.384 32.711111-16.384 49.095111 0zM238.933333 785.066667c16.327111 16.327111 16.327111 32.711111 0 49.095111l-32.711111 32.654222c-16.384 16.384-32.711111 16.384-49.095111 0v0.056889c-16.327111-16.384-16.327111-32.711111 0-49.095111l32.711111-32.654222c16.384-16.384 32.768-16.384 49.095111 0zM866.816 866.872889h0.056889c-16.384 16.327111-32.711111 16.327111-49.095111 0l-32.654222-32.711111c-16.384-16.384-16.384-32.768 0-49.095111H785.066667c16.327111-16.327111 32.711111-16.327111 49.095111 0l32.654222 32.711111c16.384 16.384 16.384 32.711111 0 49.095111zM238.933333 238.933333c-16.327111 16.327111-32.711111 16.327111-49.095111 0l-32.654222-32.711111c-16.384-16.384-16.384-32.711111 0-49.095111h-0.056889c16.384-16.327111 32.711111-16.327111 49.095111 0l32.654222 32.711111c16.384 16.384 16.384 32.768 0 49.095111z"
-          p-id="13459"></path>
+          p-id="13459"
+        ></path>
       </svg>
-
     </div>
 
     <!-- 保存按钮 -->
@@ -102,8 +160,11 @@
   </div>
   <!-- 组件栏 -->
   <div class="sub_menu" :style="subMenuStyle">
-    <div class="sub_menu_button" @click="rightModuleShow = !rightModuleShow"
-      :class="rightModuleShow ? '' : 'sub_menu_button_checked'"></div>
+    <div
+      class="sub_menu_button"
+      @click="rightModuleShow = !rightModuleShow"
+      :class="rightModuleShow ? '' : 'sub_menu_button_checked'"
+    ></div>
     <div class="submenu_component" id="submenu_component">
       <component :is="com"></component>
     </div>
@@ -266,8 +327,8 @@ const cesiumLabScene = async (parseSearch: any, uri: string) => {
             {},
             '',
             window.location.origin +
-            window.location.pathname +
-            `?from=${$config.jumpOrigin}${xbsjEarthUi.cesiumLabToken ? '&cesiumLabToken=' + xbsjEarthUi.cesiumLabToken : ''}&scene=${res.data.id}`
+              window.location.pathname +
+              `?from=${$config.jumpOrigin}${xbsjEarthUi.cesiumLabToken ? '&cesiumLabToken=' + xbsjEarthUi.cesiumLabToken : ''}&scene=${res.data.id}`
           )
         } else {
           ElMessage.error('创建场景失败')
@@ -434,9 +495,7 @@ onMounted(() => {
   })
 })
 
-
-const { toggleTheme } = useTheme();
-
+const { toggleTheme } = useTheme()
 </script>
 <style src="../css/General.css"></style>
 <style scoped>
@@ -491,7 +550,7 @@ const { toggleTheme } = useTheme();
   position: relative;
 }
 
-.neck_ft>.neck_loge {
+.neck_ft > .neck_loge {
   width: 250px;
   height: 100%;
   display: flex;
@@ -499,18 +558,18 @@ const { toggleTheme } = useTheme();
   padding-left: 8px;
 }
 
-.neck_ft>.neck_loge>img {
+.neck_ft > .neck_loge > img {
   width: 43px;
   height: 43px;
 }
 
-.neck_ft>.neck_loge>.logo_img {
+.neck_ft > .neck_loge > .logo_img {
   width: 43px;
   height: 43px;
   background-size: 100% 100%;
 }
 
-.neck_ft>.neck_loge>a {
+.neck_ft > .neck_loge > a {
   flex: 1;
   height: 28px;
   border-left: 1px solid rgba(87, 91, 102, 0.3);
@@ -527,7 +586,7 @@ const { toggleTheme } = useTheme();
   white-space: nowrap;
 }
 
-.neck_ft>.neck_nav {
+.neck_ft > .neck_nav {
   /* flex: 1; */
   width: calc(100% - 250px - 40px - 30px);
   height: 100%;
@@ -590,18 +649,22 @@ const { toggleTheme } = useTheme();
 }
 
 .neck_title:hover {
-  background: linear-gradient(180deg,
-      rgba(87, 136, 255, 0) 0%,
-      rgba(87, 136, 255, 0.26) 100%,
-      #5788ff 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(87, 136, 255, 0) 0%,
+    rgba(87, 136, 255, 0.26) 100%,
+    #5788ff 100%
+  );
   color: #5788ff;
 }
 
 .activated {
-  background: linear-gradient(180deg,
-      rgba(87, 136, 255, 0) 0%,
-      rgba(87, 136, 255, 0.26) 100%,
-      #5788ff 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(87, 136, 255, 0) 0%,
+    rgba(87, 136, 255, 0.26) 100%,
+    #5788ff 100%
+  ) !important;
   color: #5788ff !important;
 }
 
@@ -673,7 +736,7 @@ const { toggleTheme } = useTheme();
   padding: 0;
 }
 
-.neck_ft_ul>li {
+.neck_ft_ul > li {
   list-style: none;
   text-align: center;
   width: 100px;
@@ -688,7 +751,7 @@ const { toggleTheme } = useTheme();
   color: rgba(230, 230, 230, 1);
 }
 
-.neck_ft_ul>li:hover {
+.neck_ft_ul > li:hover {
   background: #37393e;
 }
 
@@ -709,7 +772,6 @@ const { toggleTheme } = useTheme();
   align-items: center;
   justify-content: center;
 }
-
 
 .neck_theme_icon {
   width: 30px;

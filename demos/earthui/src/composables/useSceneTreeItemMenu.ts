@@ -1,23 +1,19 @@
-import { copyClipboard, downloadJson } from "@/utils";
-import {
-  getCreateSceneObjectType,
-  getEditorOption,
-  MenuItem,
-} from "earthsdk-ui";
+import { copyClipboard, downloadJson } from '@/utils'
+import { getCreateSceneObjectType, getEditorOption, MenuItem } from 'earthsdk-ui'
 import {
   ES3DTileset,
   ESImageryLayer,
   ESObjectsManager,
   ESTerrainLayer,
   SceneTree,
-  SceneTreeItem,
-} from "earthsdk3";
-import { ElMessage } from "element-plus";
-import { getGeoJsonMenuContent } from "./transformToGeoJson";
-import { getLiftHeightMenuContent } from "./useliftHeight";
-import { getSceneTreeItemConfigMenu } from "./useSceneTreeItemConfigMenu";
-import { addNewTreeItem } from "./useSceneTreeMenu";
-import { calcFlyToParam } from "./calcFlyToParam";
+  SceneTreeItem
+} from 'earthsdk3'
+import { ElMessage } from 'element-plus'
+import { getGeoJsonMenuContent } from './transformToGeoJson'
+import { getLiftHeightMenuContent } from './useliftHeight'
+import { getSceneTreeItemConfigMenu } from './useSceneTreeItemConfigMenu'
+import { addNewTreeItem } from './useSceneTreeMenu'
+import { calcFlyToParam } from './calcFlyToParam'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -26,17 +22,12 @@ export const getTreeItemMenuContent = (
   treeItem: SceneTreeItem,
   showCheckbox: boolean
 ): MenuItem[] => {
-  if (treeItem.type === "Folder") {
-    return getFolderTreeItemMenuContent(sceneTree, treeItem, showCheckbox);
+  if (treeItem.type === 'Folder') {
+    return getFolderTreeItemMenuContent(sceneTree, treeItem, showCheckbox)
   } else {
-    return getSceneObjectTreeItemMenuContent(
-      objm,
-      sceneTree,
-      treeItem,
-      showCheckbox
-    );
+    return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem, showCheckbox)
   }
-};
+}
 
 /**
  * 文件夹右键
@@ -47,101 +38,84 @@ const getFolderTreeItemMenuContent = (
   treeItem: SceneTreeItem,
   showCheckbox: boolean
 ) => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem);
-  const liftHeightMenu = getLiftHeightMenuContent(
-    sceneTree,
-    showCheckbox,
-    treeItem
-  );
+  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem)
+  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox, treeItem)
 
-  const configMenu = getSceneTreeItemConfigMenu(
-    sceneTree,
-    showCheckbox,
-    treeItem
-  );
+  const configMenu = getSceneTreeItemConfigMenu(sceneTree, showCheckbox, treeItem)
   const baseItems: Array<MenuItem> = [
     {
-      text: "新建对象",
-      keys: "",
+      text: '新建对象',
+      keys: '',
       func: async () => {
-        const type = await getCreateSceneObjectType();
-        if (!type) return;
-        const newTreeItem = sceneTree.createSceneObjectTreeItem(
-          type,
-          undefined,
-          treeItem,
-          "Inner"
-        );
-        if (!newTreeItem) return;
+        const type = await getCreateSceneObjectType()
+        if (!type) return
+        const newTreeItem = sceneTree.createSceneObjectTreeItem(type, undefined, treeItem, 'Inner')
+        if (!newTreeItem) return
         // sceneTree.uiTree.clearAllSelectedItems();
         // newTreeItem.uiTreeObject.selected = true;
         //TODO:属性树挂载节点
         // objm.propSceneTree = treeItem;
-        const { sceneObject } = newTreeItem;
-        if (sceneObject && "editing" in sceneObject) {
-          sceneObject.editing = true;
+        const { sceneObject } = newTreeItem
+        if (sceneObject && 'editing' in sceneObject) {
+          sceneObject.editing = true
         }
-        ElMessage.success("创建成功");
-      },
+        ElMessage.success('创建成功')
+      }
     },
     {
-      text: "新建文件夹",
-      keys: "",
+      text: '新建文件夹',
+      keys: '',
       func: () => {
-        addNewTreeItem(sceneTree, treeItem, "Inner");
-      },
+        addNewTreeItem(sceneTree, treeItem, 'Inner')
+      }
     },
     {
-      text: "通过 JSON 创建对象",
-      keys: "",
+      text: '通过 JSON 创建对象',
+      keys: '',
       func: async () => {
-        const jsonStr = await getEditorOption(JSON.stringify({}), "json");
-        if (!jsonStr) return;
-        const json = JSON.parse(jsonStr);
-        const newTreeItem = sceneTree.createSceneObjectTreeItemFromJson(
-          json,
-          treeItem,
-          "Inner"
-        );
-        if (!newTreeItem) return;
+        const jsonStr = await getEditorOption(JSON.stringify({}), 'json')
+        if (!jsonStr) return
+        const json = JSON.parse(jsonStr)
+        const newTreeItem = sceneTree.createSceneObjectTreeItemFromJson(json, treeItem, 'Inner')
+        if (!newTreeItem) return
         // sceneTree.uiTree.clearAllSelectedItems();
         // newTreeItem.uiTreeObject.selected = true;
         //TODO:属性树挂载节点
         // objm.propSceneTree = treeItem;
-        const { sceneObject } = newTreeItem;
-        if (sceneObject && "editing" in sceneObject) {
-          sceneObject.editing = true;
+        const { sceneObject } = newTreeItem
+        if (sceneObject && 'editing' in sceneObject) {
+          sceneObject.editing = true
         }
-        ElMessage.success("创建成功");
-      },
+        ElMessage.success('创建成功')
+      }
     },
     {
-      type: "divider",
+      type: 'divider'
     },
     ...configMenu,
     {
-      type: "divider",
+      type: 'divider'
     },
     {
-      ...geoJsonMenu,
+      ...geoJsonMenu
     },
     {
-      ...liftHeightMenu,
+      ...liftHeightMenu
     },
 
     {
-      text: "下载节点 JSON",
-      keys: "",
+      text: '下载节点 JSON',
+      keys: '',
       func: () => {
-        const json = treeItem?.json;
-        const name = treeItem?.name;
-        downloadJson(json, name + ".json");
-      },
-    },
-  ];
+        const json = treeItem?.json
+        const name = treeItem?.name
+        downloadJson(json, name + '.json')
+      }
+    }
+  ]
 
-  return baseItems;
-};
+  return baseItems
+}
 
 /**
  * 节点对象右键
@@ -153,147 +127,136 @@ const getSceneObjectTreeItemMenuContent = (
   treeItem: SceneTreeItem,
   showCheckbox: boolean
 ) => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem);
-  const liftHeightMenu = getLiftHeightMenuContent(
-    sceneTree,
-    showCheckbox,
-    treeItem
-  );
+  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem)
+  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox, treeItem)
 
-  const configMenu = getSceneTreeItemConfigMenu(
-    sceneTree,
-    showCheckbox,
-    treeItem
-  );
+  const configMenu = getSceneTreeItemConfigMenu(sceneTree, showCheckbox, treeItem)
 
   const baseItems: Array<MenuItem> = [
     {
-      text: "定位",
-      keys: "",
+      text: '定位',
+      keys: '',
       func: () => {
-        const sceneObject = treeItem.sceneObject;
-        if (!sceneObject || !Reflect.has(sceneObject, "flyTo"))
-          return ElMessage.warning("不支持定位");
+        const sceneObject = treeItem.sceneObject
+        if (!sceneObject || !Reflect.has(sceneObject, 'flyTo'))
+          return ElMessage.warning('不支持定位')
         //@ts-ignore
-        sceneObject.flyTo();
-        ElMessage.success("已定位");
-      },
+        sceneObject.flyTo()
+        ElMessage.success('已定位')
+      }
     },
     {
-      text: "保存观察视角",
-      keys: "",
+      text: '保存观察视角',
+      keys: '',
       func: () => {
-        calcFlyToParam(objm, treeItem);
-      },
+        calcFlyToParam(objm, treeItem)
+      }
     },
     {
-      ...liftHeightMenu,
+      ...liftHeightMenu
     },
     {
-      type: "divider",
+      type: 'divider'
     },
     ...configMenu,
     {
-      type: "divider",
+      type: 'divider'
     },
 
     {
-      text: "编辑对象 JSON",
-      keys: "",
+      text: '编辑对象 JSON',
+      keys: '',
       func: async () => {
         try {
-          const sceneObject = treeItem.sceneObject;
-          if (!sceneObject) return ElMessage.warning("当前节点没有对象");
-          const json = sceneObject.json;
-          const newJsonStr = await getEditorOption(
-            JSON.stringify(json),
-            "json"
-          );
-          if (!newJsonStr) return;
-          sceneObject.json = JSON.parse(newJsonStr);
-          ElMessage.success("编辑成功");
+          const sceneObject = treeItem.sceneObject
+          if (!sceneObject) return ElMessage.warning('当前节点没有对象')
+          const json = sceneObject.json
+          const newJsonStr = await getEditorOption(JSON.stringify(json), 'json')
+          if (!newJsonStr) return
+          sceneObject.json = JSON.parse(newJsonStr)
+          ElMessage.success('编辑成功')
         } catch (error) {
-          console.error(error);
-          ElMessage.error("编辑失败");
-        }
-      },
-    },
-    {
-      text: "复制对象 JSON",
-      keys: "",
-      func: async () => {
-        const sceneObject = treeItem.sceneObject;
-        if (!sceneObject) return ElMessage.warning("当前节点没有对象");
-        const json = sceneObject.json;
-        const flag = await copyClipboard(JSON.stringify(json));
-        if (flag) {
-          ElMessage.success("复制成功");
-        } else {
-          ElMessage.warning("复制异常");
-        }
-      },
-    },
-    {
-      text: "下载对象 JSON",
-      keys: "",
-      func: () => {
-        const sceneObject = treeItem.sceneObject;
-        if (!sceneObject) return ElMessage.warning("当前节点没有对象");
-        const json = sceneObject.json;
-        const name = sceneObject.name ?? "未命名";
-        downloadJson(json, name + ".json", true);
-      },
-    },
-    {
-      ...geoJsonMenu,
-    },
-    {
-      type: "divider",
-    },
-    {
-      text: "属性(TODO)",
-      keys: "",
-      func: () => {
-        console.log(treeItem.sceneObject);
-      },
-    },
-    {
-      text: "完整属性(TODO)",
-      keys: "",
-      func: () => {
-        console.log(treeItem.sceneObject);
-      },
-    },
-  ];
-
-  const copyUrl = {
-    text: "复制服务地址",
-    keys: "",
-    func: async () => {
-      if (treeItem.sceneObject) {
-        if ("url" in treeItem.sceneObject) {
-          const url = treeItem.sceneObject.url as string;
-          if (url.length > 0) {
-            const flag = await copyClipboard(JSON.stringify(url));
-            if (flag) {
-              ElMessage.success("复制成功");
-            } else {
-              ElMessage.warning("复制异常");
-            }
-          } else {
-            ElMessage.error("url地址为空");
-          }
+          console.error(error)
+          ElMessage.error('编辑失败')
         }
       }
     },
-  };
+    {
+      text: '复制对象 JSON',
+      keys: '',
+      func: async () => {
+        const sceneObject = treeItem.sceneObject
+        if (!sceneObject) return ElMessage.warning('当前节点没有对象')
+        const json = sceneObject.json
+        const flag = await copyClipboard(JSON.stringify(json))
+        if (flag) {
+          ElMessage.success('复制成功')
+        } else {
+          ElMessage.warning('复制异常')
+        }
+      }
+    },
+    {
+      text: '下载对象 JSON',
+      keys: '',
+      func: () => {
+        const sceneObject = treeItem.sceneObject
+        if (!sceneObject) return ElMessage.warning('当前节点没有对象')
+        const json = sceneObject.json
+        const name = sceneObject.name ?? '未命名'
+        downloadJson(json, name + '.json', true)
+      }
+    },
+    {
+      ...geoJsonMenu
+    },
+    {
+      type: 'divider'
+    },
+    {
+      text: '属性(TODO)',
+      keys: '',
+      func: () => {
+        console.log(treeItem.sceneObject)
+      }
+    },
+    {
+      text: '完整属性(TODO)',
+      keys: '',
+      func: () => {
+        console.log(treeItem.sceneObject)
+      }
+    }
+  ]
+
+  const copyUrl = {
+    text: '复制服务地址',
+    keys: '',
+    func: async () => {
+      if (treeItem.sceneObject) {
+        if ('url' in treeItem.sceneObject) {
+          const url = treeItem.sceneObject.url as string
+          if (url.length > 0) {
+            const flag = await copyClipboard(JSON.stringify(url))
+            if (flag) {
+              ElMessage.success('复制成功')
+            } else {
+              ElMessage.warning('复制异常')
+            }
+          } else {
+            ElMessage.error('url地址为空')
+          }
+        }
+      }
+    }
+  }
   if (treeItem.sceneObject) {
     if (
       treeItem.sceneObject instanceof ESImageryLayer ||
       treeItem.sceneObject instanceof ES3DTileset ||
       treeItem.sceneObject instanceof ESTerrainLayer
     ) {
-      baseItems.splice(1, 0, copyUrl);
+      baseItems.splice(1, 0, copyUrl)
     }
   }
 
@@ -459,5 +422,5 @@ const getSceneObjectTreeItemMenuContent = (
   //   }
   // }
 
-  return baseItems;
-};
+  return baseItems
+}

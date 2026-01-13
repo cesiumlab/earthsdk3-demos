@@ -1,43 +1,103 @@
 <template>
-  <div class="scene-tree-wrapper" @dragenter="dragEnter($event)" @dragleave="dragLeave($event)"
-    @dragover="dragOver($event)" @drop="dropFile($event)">
-    <div class="scene-tree-wrapper_left" @contextmenu.stop.prevent="contexMenuEvent(undefined)"></div>
+  <div
+    class="scene-tree-wrapper"
+    @dragenter="dragEnter($event)"
+    @dragleave="dragLeave($event)"
+    @dragover="dragOver($event)"
+    @drop="dropFile($event)"
+  >
+    <div
+      class="scene-tree-wrapper_left"
+      @contextmenu.stop.prevent="contexMenuEvent(undefined)"
+    ></div>
     <div class="scene-tree-wrapper_center">
-      <TreeComp :tree="sceneTree as unknown as Tree<TreeItem>" @click="whiteSpaceClick" @blur="whiteSpaceClick"
-        @contextmenu.stop.prevent="contexMenuEvent(undefined)">
+      <TreeComp
+        :tree="sceneTree as unknown as Tree<TreeItem>"
+        @click="whiteSpaceClick"
+        @blur="whiteSpaceClick"
+        @contextmenu.stop.prevent="contexMenuEvent(undefined)"
+      >
         <template v-slot:default="slotProps">
-          <SceneTreeItemComp :sceneTreeItem="slotProps.treeItem as unknown as SceneTreeItem" :key="slotProps.key"
+          <SceneTreeItemComp
+            :sceneTreeItem="slotProps.treeItem as unknown as SceneTreeItem"
+            :key="slotProps.key"
             @contexMenuEvent="
               (sceneUiTreeObject: SceneTreeItem | undefined) => contexMenuEvent(sceneUiTreeObject)
-            " :isLastSelectedObject="(slotProps.treeItem as unknown as SceneTreeItem) === sceneTree.lastSelectedItem
-              " :tree="sceneTree" :showCheckBox="showCheckBox" @close="close">
+            "
+            :isLastSelectedObject="
+              (slotProps.treeItem as unknown as SceneTreeItem) === sceneTree.lastSelectedItem
+            "
+            :tree="sceneTree"
+            :showCheckBox="showCheckBox"
+            @close="close"
+          >
           </SceneTreeItemComp>
         </template>
       </TreeComp>
       <ContextMenuCom :baseItems="menuContent"></ContextMenuCom>
     </div>
-    <div class="scene-tree-wrapper_right" @contextmenu.stop.prevent="contexMenuEvent(undefined)"></div>
+    <div
+      class="scene-tree-wrapper_right"
+      @contextmenu.stop.prevent="contexMenuEvent(undefined)"
+    ></div>
   </div>
-  <ImagesCzm :sceneObject="popTreeItem" v-if="popTreeItem" @close="popTreeItem = undefined"></ImagesCzm>
-  <DraggablePopup2 :title="'属性管理器'" :left="'calc(100% - 400px)'" v-if="propIsShow" @close="close" :width="400"
-    :top="'calc(100% - 630px)'" :height="'600px'">
-    <PropTreeWrapper v-if="propIsShow" :nameTitle="'属性管理器'" :propTree="propTreeRef" :key="propTreeKey">
+  <ImagesCzm
+    :sceneObject="popTreeItem"
+    v-if="popTreeItem"
+    @close="popTreeItem = undefined"
+  ></ImagesCzm>
+  <DraggablePopup2
+    :title="'属性管理器'"
+    :left="'calc(100% - 400px)'"
+    v-if="propIsShow"
+    @close="close"
+    :width="400"
+    :top="'calc(100% - 630px)'"
+    :height="'600px'"
+  >
+    <PropTreeWrapper
+      v-if="propIsShow"
+      :nameTitle="'属性管理器'"
+      :propTree="propTreeRef"
+      :key="propTreeKey"
+    >
     </PropTreeWrapper>
   </DraggablePopup2>
-  <CreateSceneObjFromJson :isShow="createSceneObjFromJsonShow" @changeShow="createSceneObjFromJsonShow = false"
-    @confirm="createSceneObjFromJson">
+  <CreateSceneObjFromJson
+    :isShow="createSceneObjFromJsonShow"
+    @changeShow="createSceneObjFromJsonShow = false"
+    @confirm="createSceneObjFromJson"
+  >
   </CreateSceneObjFromJson>
-  <CreateSceneObjFromJson :isShow="editSceneObjShow" :json="editSceneObj.json" @changeShow="editSceneObjShow = false"
-    @confirm="editSceneObjFromJson">
+  <CreateSceneObjFromJson
+    :isShow="editSceneObjShow"
+    :json="editSceneObj.json"
+    @changeShow="editSceneObjShow = false"
+    @confirm="editSceneObjFromJson"
+  >
   </CreateSceneObjFromJson>
-  <LiftHeight :isShow="liftHeightShow" @changeShow="liftHeightShow = false" :liftHeightTreeItem="liftHeightTreeItem"
-    :key="liftHeightType" :liftHeightType="liftHeightType" :liftHeightName="liftHeightName">
+  <LiftHeight
+    :isShow="liftHeightShow"
+    @changeShow="liftHeightShow = false"
+    :liftHeightTreeItem="liftHeightTreeItem"
+    :key="liftHeightType"
+    :liftHeightType="liftHeightType"
+    :liftHeightName="liftHeightName"
+  >
   </LiftHeight>
-  <SetStyle v-if="setStyleShow" :isShow="setStyleShow" @changeShow="setStyleShow = false"
-    :setStyleTreeItem="setStyleTreeItem">
+  <SetStyle
+    v-if="setStyleShow"
+    :isShow="setStyleShow"
+    @changeShow="setStyleShow = false"
+    :setStyleTreeItem="setStyleTreeItem"
+  >
   </SetStyle>
-  <MaterialReplace v-if="materialReplaceShow" :isShow="materialReplaceShow" @changeShow="materialReplaceShow = false"
-    :setStyleTreeItem="setStyleTreeItem">
+  <MaterialReplace
+    v-if="materialReplaceShow"
+    :isShow="materialReplaceShow"
+    @changeShow="materialReplaceShow = false"
+    :setStyleTreeItem="setStyleTreeItem"
+  >
   </MaterialReplace>
 </template>
 <script setup lang="ts">
@@ -148,13 +208,13 @@ const liftHeightName = ref<string>('') //抬升高度名称
 const popTreeItem = ref() //右键菜单
 type menuContentType =
   | {
-    text: string
-    keys: string
-    func: () => void
-  }
+      text: string
+      keys: string
+      func: () => void
+    }
   | {
-    type: 'divider'
-  }
+      type: 'divider'
+    }
 
 /**
  * 删除点击确认
@@ -396,7 +456,7 @@ const whiteSpaceContexMenuEvent = () => {
               window.localStorage.setItem('xbsjEarthUi_lastJson', JSON.stringify(json))
               ElMessage.success('缓存成功')
             })
-            .catch((err) => { })
+            .catch((err) => {})
         } else {
           const json = xbsjEarthUi.json
           console.log(json)
@@ -430,7 +490,7 @@ const whiteSpaceContexMenuEvent = () => {
           xbsjEarthUi.propSceneTree = undefined
           close()
         })
-        .catch(() => { })
+        .catch(() => {})
     }
   }
   const json = window.localStorage.getItem('xbsjEarthUi_lastJson')

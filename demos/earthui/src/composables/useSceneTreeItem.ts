@@ -1,4 +1,4 @@
-import { ESSceneObject, SceneTree, SceneTreeItem } from "earthsdk3";
+import { ESSceneObject, SceneTree, SceneTreeItem } from 'earthsdk3'
 
 // ______________________________________________________________________
 
@@ -10,51 +10,43 @@ export function getSceneObjectsForMenu(
   showCheckbox: boolean,
   treeItem?: SceneTreeItem
 ): {
-  sceneObjects: ESSceneObject[];
-  sceneTreeItems: SceneTreeItem[];
-  tag: "checked" | "selected" | "treeItem" | "sceneTree";
+  sceneObjects: ESSceneObject[]
+  sceneTreeItems: SceneTreeItem[]
+  tag: 'checked' | 'selected' | 'treeItem' | 'sceneTree'
 } {
   try {
-    let sceneObjects: ESSceneObject[] = [];
-    let sceneTreeItems: SceneTreeItem[] = [];
-    let tag: "checked" | "selected" | "treeItem" | "sceneTree" = "sceneTree";
+    let sceneObjects: ESSceneObject[] = []
+    let sceneTreeItems: SceneTreeItem[] = []
+    let tag: 'checked' | 'selected' | 'treeItem' | 'sceneTree' = 'sceneTree'
     if (showCheckbox) {
-      tag = "checked";
-      const {
-        sceneObjects: checkedSceneObjects,
-        sceneTreeItems: checkedSceneTreeItems,
-      } = getAllCheckedSceneObjects(sceneTree);
-      sceneObjects = checkedSceneObjects;
-      sceneTreeItems = checkedSceneTreeItems;
+      tag = 'checked'
+      const { sceneObjects: checkedSceneObjects, sceneTreeItems: checkedSceneTreeItems } =
+        getAllCheckedSceneObjects(sceneTree)
+      sceneObjects = checkedSceneObjects
+      sceneTreeItems = checkedSceneTreeItems
     } else if (sceneTree.lastSelectedItem) {
-      tag = "selected";
-      const {
-        sceneObjects: selectedSceneObjects,
-        sceneTreeItems: selectedSceneTreeItems,
-      } = getAllSelectedSceneObjects(sceneTree);
-      sceneObjects = selectedSceneObjects;
-      sceneTreeItems = selectedSceneTreeItems;
+      tag = 'selected'
+      const { sceneObjects: selectedSceneObjects, sceneTreeItems: selectedSceneTreeItems } =
+        getAllSelectedSceneObjects(sceneTree)
+      sceneObjects = selectedSceneObjects
+      sceneTreeItems = selectedSceneTreeItems
     } else if (treeItem) {
-      tag = "treeItem";
-      const {
-        sceneObjects: treeItemSceneObjects,
-        sceneTreeItems: treeItemSceneTreeItems,
-      } = getAllSceneObjectsInTreeItem(treeItem);
-      sceneObjects = treeItemSceneObjects;
-      sceneTreeItems = treeItemSceneTreeItems;
+      tag = 'treeItem'
+      const { sceneObjects: treeItemSceneObjects, sceneTreeItems: treeItemSceneTreeItems } =
+        getAllSceneObjectsInTreeItem(treeItem)
+      sceneObjects = treeItemSceneObjects
+      sceneTreeItems = treeItemSceneTreeItems
     } else {
-      tag = "sceneTree";
-      const {
-        sceneObjects: sceneTreeSceneObjects,
-        sceneTreeItems: sceneTreeSceneTreeItems,
-      } = getAllSceneObjects(sceneTree);
-      sceneObjects = sceneTreeSceneObjects;
-      sceneTreeItems = sceneTreeSceneTreeItems;
+      tag = 'sceneTree'
+      const { sceneObjects: sceneTreeSceneObjects, sceneTreeItems: sceneTreeSceneTreeItems } =
+        getAllSceneObjects(sceneTree)
+      sceneObjects = sceneTreeSceneObjects
+      sceneTreeItems = sceneTreeSceneTreeItems
     }
-    return { sceneObjects, sceneTreeItems, tag };
+    return { sceneObjects, sceneTreeItems, tag }
   } catch (error) {
-    console.error(error);
-    return { sceneObjects: [], sceneTreeItems: [], tag: "sceneTree" };
+    console.error(error)
+    return { sceneObjects: [], sceneTreeItems: [], tag: 'sceneTree' }
   }
 }
 
@@ -65,13 +57,11 @@ export function getSceneObjectsForMenu(
  */
 export const getAllCheckedSceneObjects = (sceneTree: SceneTree) => {
   const sceneTreeItems = [
-    ...sceneTree.uiTree.getAllItems(
-      (item) => item.uiTreeObject.checkedStatus === "checked"
-    ),
-  ];
-  const sceneObjects = sceneTreeItems.map((item) => item.sceneObject!);
-  return { sceneObjects, sceneTreeItems };
-};
+    ...sceneTree.uiTree.getAllItems((item) => item.uiTreeObject.checkedStatus === 'checked')
+  ]
+  const sceneObjects = sceneTreeItems.map((item) => item.sceneObject!)
+  return { sceneObjects, sceneTreeItems }
+}
 
 /**
  * 获取选择的所有对象
@@ -79,12 +69,12 @@ export const getAllCheckedSceneObjects = (sceneTree: SceneTree) => {
  * @returns
  */
 export const getAllSelectedSceneObjects = (sceneTree: SceneTree) => {
-  const sceneTreeItems = [...sceneTree.uiTree.getAllSelectedItems()];
+  const sceneTreeItems = [...sceneTree.uiTree.getAllSelectedItems()]
   return {
     sceneObjects: sceneTreeItems.map((item) => item.sceneObject!),
-    sceneTreeItems,
-  };
-};
+    sceneTreeItems
+  }
+}
 
 /**
  * 获取树上所有场景对象
@@ -92,12 +82,12 @@ export const getAllSelectedSceneObjects = (sceneTree: SceneTree) => {
  * @returns
  */
 export const getAllSceneObjects = (sceneTree: SceneTree) => {
-  const descendantsItems = [...sceneTree.getDescendants()] as SceneTreeItem[];
+  const descendantsItems = [...sceneTree.getDescendants()] as SceneTreeItem[]
   return {
     sceneObjects: descendantsItems.map((item) => item.sceneObject!),
-    sceneTreeItems: descendantsItems,
-  };
-};
+    sceneTreeItems: descendantsItems
+  }
+}
 
 /**
  * 获取节点上所有场景对象
@@ -105,11 +95,9 @@ export const getAllSceneObjects = (sceneTree: SceneTree) => {
  * @returns
  */
 export const getAllSceneObjectsInTreeItem = (sceneTreeItem: SceneTreeItem) => {
-  const descendantsItems = [
-    ...sceneTreeItem.getDescendants(),
-  ] as SceneTreeItem[];
+  const descendantsItems = [...sceneTreeItem.getDescendants()] as SceneTreeItem[]
   return {
     sceneObjects: descendantsItems.map((item) => item.sceneObject!),
-    sceneTreeItems: [sceneTreeItem],
-  };
-};
+    sceneTreeItems: [sceneTreeItem]
+  }
+}

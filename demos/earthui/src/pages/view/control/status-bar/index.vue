@@ -5,7 +5,11 @@
       <span class="status-item camera-position">相机位置: {{ formattedPosition }}</span>
       <span class="status-item yaw">偏航角: {{ formattedYaw }}°</span>
       <span class="status-item pitch">俯仰角: {{ formattedPitch }}°</span>
-      <span class="status-item mouse-position" :title="mousePositionTitle" @dblclick="copyMousePosition">
+      <span
+        class="status-item mouse-position"
+        :title="mousePositionTitle"
+        @dblclick="copyMousePosition"
+      >
         {{ mousePositionText }}
       </span>
     </div>
@@ -16,7 +20,6 @@
   <ElDialog :title="'版本信息'" v-model="versionInfoListShow" :width="'500px'">
     <Version />
   </ElDialog>
-
 </template>
 
 <script setup lang="ts">

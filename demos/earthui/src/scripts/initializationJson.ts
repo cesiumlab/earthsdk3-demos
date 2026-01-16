@@ -11,7 +11,7 @@ import { parse } from 'search-params'
 import { get, getNoToken } from '../api/service'
 import { $config } from '@/global'
 import { XbsjEarthUi } from './xbsjEarthUi'
-import { ESMVTLayer } from 'earthsdk3-cesium'
+import { ESMVTLayer } from 'earthsdk3'
 const search = window.location.search.substring(1)
 const parseSearch = parse(search)
 //scene

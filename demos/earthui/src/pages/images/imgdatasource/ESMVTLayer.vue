@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { ESEditor } from 'earthsdk-ui'
-import { ESMVTLayer } from 'earthsdk3-cesium'
+import { ESMVTLayer } from 'earthsdk3'
 import { inject, ref, useTemplateRef } from 'vue'
 import { SceneTree } from 'earthsdk3'
 import LabelInput from '../../../components/LabelInput.vue'

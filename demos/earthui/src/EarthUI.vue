@@ -12,7 +12,7 @@
     <DraggableDialog
       :title="'图层管理'"
       v-model="showSceneTreeViewRef"
-      :leftTop="[5, 45]"
+      :leftTop="[500, 45]"
       :minWidthHeight="[300, 450]"
       :widthHeight="[300, 450]"
     >
@@ -26,7 +26,6 @@
           :class="{ edit_icon_active: showEditingBarRef }"
           @click="showEditingBarRef = !showEditingBarRef"
         >
-          <ESIcon name="sanweizuobiao"></ESIcon>
           <ESIcon name="sanweizuobiao"></ESIcon>
         </div>
 
@@ -57,7 +56,7 @@
     </DraggableDialog>
 
     <!-- 场景树 -->
-    <!-- <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
+    <DraggablePopup2 v-if="showSceneTreeViewRef" @close="showSceneTreeViewRef = false" :title="'图层管理'" :width="280"
       :height="'410px'" :left="0" :top="40" :iconName="'tucengguanli'" :checkIconIsShow="true"
       :iconIschecked="sceneTreeCheckedIcon" :checkFun="() => (sceneTreeCheckedIcon = !sceneTreeCheckedIcon)">
       <div class="Layer_Management">
@@ -70,7 +69,7 @@
           <div style="height: 20px" @contextmenu.stop.prevent="clickEmpty = true"></div>
         </div>
       </div>
-    </DraggablePopup2> -->
+    </DraggablePopup2>
 
     <!-- 属性栏 -->
     <DraggablePopup2

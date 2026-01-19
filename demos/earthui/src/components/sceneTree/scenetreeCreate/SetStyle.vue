@@ -168,7 +168,7 @@
                       <span
                         @click="listadeleteOneRule(index, ind)"
                         @mouseenter="
-                          hoverlideleteIndex = ind
+                          hoverlideleteIndex = ind;
                           hoverlideleteIndexHover = index
                         "
                         @mouseleave="((hoverlideleteIndex = -2), (hoverlideleteIndexHover = -2))"

@@ -5,25 +5,18 @@ import {
   ESJVector3D,
   ESJVector3DArray,
   ESObjectWithLocation,
-  SceneTree,
-  SceneTreeItem
+  ESSceneObject
 } from 'earthsdk3'
 import { ElMessage } from 'element-plus'
-import { getSceneObjectsForMenu } from './useSceneTreeItem'
 
 export const getLiftHeightMenuContent = (
-  sceneTree: SceneTree,
-  showCheckbox: boolean,
-  treeItem?: SceneTreeItem
+  sceneObjects: ESSceneObject[],
+  tag: 'selected' | 'sceneTree'
 ): MenuItem => {
   const tags = {
     sceneTree: '抬升全部项高度',
-    selected: '抬升选中项高度',
-    treeItem: '抬升该项高度',
-    checked: '抬升已勾选项高度'
+    selected: '抬升选中项高度'
   }
-
-  const { sceneObjects, tag } = getSceneObjectsForMenu(sceneTree, showCheckbox, treeItem)
   return {
     text: tags[tag],
     keys: '',

@@ -14,19 +14,33 @@ import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneTreeItemConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
 import { calcFlyToParam } from './calcFlyToParam'
+import { getSceneObjectsForMenu } from './useSceneTreeItem'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
   objm: ESObjectsManager,
   sceneTree: SceneTree,
   treeItem: SceneTreeItem,
-  showCheckbox: boolean
 ): MenuItem[] => {
-  if (treeItem.type === 'Folder') {
-    return getFolderTreeItemMenuContent(sceneTree, treeItem, showCheckbox)
+  if (sceneTree.selectedItems.length === 1) {
+    // 单选
+
+    if (treeItem.type === 'Folder') {
+      return getFolderTreeItemMenuContent(sceneTree, treeItem)
+    } else {
+      return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem)
+    }
   } else {
-    return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem, showCheckbox)
+
+    //多选
+    return []
   }
+
+  // if (treeItem.type === 'Folder') {
+  //   return getFolderTreeItemMenuContent(sceneTree, treeItem, showCheckbox)
+  // } else {
+  //   return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem, showCheckbox)
+  // }
 }
 
 /**
@@ -36,12 +50,13 @@ export const getTreeItemMenuContent = (
 const getFolderTreeItemMenuContent = (
   sceneTree: SceneTree,
   treeItem: SceneTreeItem,
-  showCheckbox: boolean
 ) => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem)
-  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox, treeItem)
 
-  const configMenu = getSceneTreeItemConfigMenu(sceneTree, showCheckbox, treeItem)
+  const { sceneObjects, parentSceneTreeItems, tag } = getSceneObjectsForMenu(sceneTree);
+  const geoJsonMenu = getGeoJsonMenuContent(sceneObjects, tag);
+  const liftHeightMenu = getLiftHeightMenuContent(sceneObjects, tag);
+  const configMenu = getSceneTreeItemConfigMenu(treeItem, parentSceneTreeItems, tag);
+
   const baseItems: Array<MenuItem> = [
     {
       text: '新建对象',
@@ -102,14 +117,13 @@ const getFolderTreeItemMenuContent = (
     {
       ...liftHeightMenu
     },
-
     {
       text: '下载节点 JSON',
       keys: '',
       func: () => {
         const json = treeItem?.json
         const name = treeItem?.name
-        downloadJson(json, name + '.json')
+        downloadJson(json, name + '.json', true)
       }
     }
   ]
@@ -124,13 +138,12 @@ const getFolderTreeItemMenuContent = (
 const getSceneObjectTreeItemMenuContent = (
   objm: ESObjectsManager,
   sceneTree: SceneTree,
-  treeItem: SceneTreeItem,
-  showCheckbox: boolean
+  treeItem: SceneTreeItem
 ) => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox, treeItem)
-  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox, treeItem)
-
-  const configMenu = getSceneTreeItemConfigMenu(sceneTree, showCheckbox, treeItem)
+  const { sceneObjects, parentSceneTreeItems, tag } = getSceneObjectsForMenu(sceneTree);
+  const geoJsonMenu = getGeoJsonMenuContent(sceneObjects, tag)
+  const liftHeightMenu = getLiftHeightMenuContent(sceneObjects, tag)
+  const configMenu = getSceneTreeItemConfigMenu(treeItem, parentSceneTreeItems, tag)
 
   const baseItems: Array<MenuItem> = [
     {

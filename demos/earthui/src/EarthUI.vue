@@ -193,10 +193,10 @@ const showCheckbox = ref(false)
 const config = {
   setSceneTreeItemIcon: getIcon,
   setDefaultMenu: () => {
-    return sceneTree ? getDefauleMenuContent(xbsjEarthUi, sceneTree, showCheckbox.value) : []
+    return sceneTree ? getDefauleMenuContent(xbsjEarthUi, sceneTree) : []
   },
   setSceneTreeItemMenu: (item: SceneTreeItem) => {
-    return sceneTree ? getTreeItemMenuContent(xbsjEarthUi, sceneTree, item, showCheckbox.value) : []
+    return sceneTree ? getTreeItemMenuContent(xbsjEarthUi, sceneTree, item) : []
   }
   // onSceneTreeItemClick: (e: MouseEvent, item: SceneTreeItem) => {},
   // onSceneTreeItemDblClick: (e: MouseEvent, item: SceneTreeItem) => {},

@@ -1,27 +1,21 @@
 /**
  * 基础操作菜单:删除、剪切、复制、粘贴
  */
-import { SceneTree, SceneTreeItem, Tree } from 'earthsdk3'
-import { getSceneObjectsForMenu } from './useSceneTreeItem'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import { MenuItem } from 'earthsdk-ui'
-import { redrawFunc } from './useSceneTreeMenu'
+import { SceneTreeItem, Tree } from 'earthsdk3'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 let cutTreeItems: SceneTreeItem[] = []
 
 export const getSceneTreeItemConfigMenu = (
-  sceneTree: SceneTree,
-  showCheckbox: boolean,
-  treeItem: SceneTreeItem
+  treeItem: SceneTreeItem,
+  parentSceneTreeItems: SceneTreeItem[],
+  tag: 'selected' | 'sceneTree'
 ): MenuItem[] => {
   const tags = {
     sceneTree: '全部',
-    selected: '选中项',
-    treeItem: '该项',
-    checked: '已勾选项'
+    selected: '选中项'
   }
-  const { sceneTreeItems, tag } = getSceneObjectsForMenu(sceneTree, showCheckbox, treeItem)
-
   if (tag === 'sceneTree') return []
 
   const baseMenu: MenuItem[] = [
@@ -37,7 +31,7 @@ export const getSceneTreeItemConfigMenu = (
       keys: '',
       func: () => {
         try {
-          sceneTreeItems.forEach((item) => {
+          parentSceneTreeItems.forEach((item) => {
             cloneTreeItem(item)
           })
           ElMessage.success('克隆成功')
@@ -53,10 +47,10 @@ export const getSceneTreeItemConfigMenu = (
       func: () => {
         try {
           cutTreeItems = []
-          sceneTreeItems.forEach((item) => {
+          parentSceneTreeItems.forEach((item) => {
             cutTreeItem(item)
           })
-          redrawFunc(sceneTree)
+          // redrawFunc(sceneTree)
           ElMessage.success('剪切成功')
         } catch (error) {
           console.error(error)
@@ -70,7 +64,7 @@ export const getSceneTreeItemConfigMenu = (
       func: () => {
         try {
           ElMessageBox.confirm('确定删除所选节点?').then(() => {
-            sceneTreeItems.forEach((item) => {
+            parentSceneTreeItems.forEach((item) => {
               if (item.isDestroyed()) return
               item.detachFromParent()
             })
@@ -85,14 +79,6 @@ export const getSceneTreeItemConfigMenu = (
   ]
 
   if (cutTreeItems.length > 0) {
-    // baseMenu.unshift({
-    //   text: "清空剪切板",
-    //   keys: "",
-    //   func: () => {
-    //     cutTreeItems = [];
-    //     ElMessage.success("清空成功");
-    //   },
-    // });
     baseMenu.unshift({
       text: '粘贴',
       keys: '',
@@ -111,24 +97,6 @@ export const getSceneTreeItemConfigMenu = (
         }
       }
     })
-    // baseMenu.unshift({
-    //   text: "粘贴到此处",
-    //   keys: "",
-    //   func: () => {
-    //     try {
-    //       if (Tree.canMoveToTreeItems(cutTreeItems, treeItem, "after")) {
-    //         Tree.moveToTreeItems(cutTreeItems, treeItem, "after");
-    //         ElMessage.success("粘贴成功");
-    //         cutTreeItems = [];
-    //       } else {
-    //         ElMessage.warning("节点异常");
-    //       }
-    //     } catch (error) {
-    //       console.error(error);
-    //       ElMessage.error("粘贴失败");
-    //     }
-    //   },
-    // });
   }
   return baseMenu
 }

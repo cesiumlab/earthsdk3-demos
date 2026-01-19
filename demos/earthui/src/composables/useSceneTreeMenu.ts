@@ -8,6 +8,7 @@ import { ESObjectsManager, SceneTree, SceneTreeItem, TreeItemInsertFlag } from '
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getGeoJsonMenuContent } from './transformToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
+import { getSceneObjectsForMenu } from './useSceneTreeItem'
 
 //添加文件夹
 export const addNewTreeItem = (
@@ -23,11 +24,12 @@ export const addNewTreeItem = (
 //默认右键菜单，右键树的空白区域
 export const getDefauleMenuContent = (
   objm: ESObjectsManager,
-  sceneTree: SceneTree,
-  showCheckbox: boolean
+  sceneTree: SceneTree
 ): MenuItem[] => {
-  const geoJsonMenu = getGeoJsonMenuContent(sceneTree, showCheckbox)
-  const liftHeightMenu = getLiftHeightMenuContent(sceneTree, showCheckbox)
+
+  const { sceneObjects, tag } = getSceneObjectsForMenu(sceneTree);
+  const geoJsonMenu = getGeoJsonMenuContent(sceneObjects, tag);
+  const liftHeightMenu = getLiftHeightMenuContent(sceneObjects, tag);
 
   const baseMenu: MenuItem[] = [
     {
@@ -38,13 +40,13 @@ export const getDefauleMenuContent = (
         if (!type) return
         const treeItem = sceneTree.createSceneObjectTreeItem(type)
         if (!treeItem) return
-        sceneTree.uiTree.clearAllSelectedItems()
-        treeItem.uiTreeObject.selected = true
+        sceneTree.uiTree.clearAllSelectedItems();
+        treeItem.uiTreeObject.selected = true;
         //TODO:属性树挂载节点
         // objm.propSceneTree = treeItem;
-        const { sceneObject } = treeItem
+        const { sceneObject } = treeItem;
         if (sceneObject && 'editing' in sceneObject) {
-          sceneObject.editing = true
+          sceneObject.editing = true;
         }
         ElMessage.success('创建成功')
       }

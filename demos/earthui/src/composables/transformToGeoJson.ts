@@ -62,18 +62,13 @@ export function transformToGeoJson(sceneObjList: ESSceneObject[]) {
 }
 
 export const getGeoJsonMenuContent = (
-  sceneTree: SceneTree,
-  showCheckbox: boolean,
-  treeItem?: SceneTreeItem
+  sceneObjects: ESSceneObject[],
+  tag: 'selected' | 'sceneTree'
 ): MenuItem => {
   const tags = {
     sceneTree: '导出全部为 GeoJSON',
-    selected: '导出选中项为 GeoJSON',
-    treeItem: '导出该项为 GeoJSON',
-    checked: '导出已勾选项为 GeoJSON'
+    selected: '导出选中项为 GeoJSON'
   }
-
-  const { sceneObjects, tag } = getSceneObjectsForMenu(sceneTree, showCheckbox, treeItem)
   return {
     text: tags[tag],
     keys: '',

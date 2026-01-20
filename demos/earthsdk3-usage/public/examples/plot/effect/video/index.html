@@ -64,11 +64,11 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        input:checked+.slider {
             background-color: #2196F3;
         }
 
-        input:checked + .slider:before {
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
     </style>
@@ -102,10 +102,10 @@
             <label for=""> 显示优先级</label> <input type="text" id="zindex" value="1" onchange="zindex()">
         </div>
         <div class="box">
-            <label for=""> 纵横比</label> <input type="text" id="aspectRatio" value="2.8" onchange="aspectRatio()">
+            <label for=""> 纵横比</label> <input type="text" id="aspectRatio" value="2.5" onchange="aspectRatio()">
         </div>
         <div class="box">
-            <label for=""> 远裁剪面</label> <input type="text" id="far" value="33.207249253992195" onchange="far()">
+            <label for=""> 远裁剪面</label> <input type="text" id="far" value="19.450697200820958" onchange="far()">
         </div>
         <div class="box">
             <label for=""> 近裁剪面</label> <input type="text" id="near" value="2" onchange="near()">
@@ -168,20 +168,21 @@
 
         // 创建一个视频融合对象
         const sceneObject = objm.createSceneObjectFromJson({
+            "id": "286db08f-bd04-4c1f-bea6-06b5153e9841",
             "type": "ESVideoFusion",
             "position": [
-                112.51304009959738,
-                -0.000009467818977038337,
+                112.5130413641034,
+                -0.00003746764385216806,
                 2.4369646184160096
             ],
             "rotation": [
-                -90.38410044738212,
-                8.181277597229016,
+                -87.95887021418605,
+                4.167863681160794,
                 0
             ],
             "fov": 50,
-            "aspectRatio": 2.8,
-            "far": 33.207249253992195,
+            "aspectRatio": 2.5,
+            "far": 19.450697200820958,
             "near": 2,
             "videoStreamUrl": "https://www.earthsdk.com/assets/video/5.mp4"
         })

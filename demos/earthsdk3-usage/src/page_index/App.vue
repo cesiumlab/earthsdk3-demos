@@ -29,7 +29,7 @@
                 <List :list="data" :activeId="activeId"></List>
             </div>
         </div>
-        <NewYearBanner />
+        <!-- <NewYearBanner /> -->
     </div>
     
 </template>

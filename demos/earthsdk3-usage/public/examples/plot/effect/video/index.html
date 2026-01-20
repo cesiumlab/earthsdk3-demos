@@ -25,6 +25,52 @@
             margin-bottom: 10px;
             align-items: center;
         }
+
+        /* 开关组件样式 */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 
@@ -32,20 +78,37 @@
     <div id="app"></div>
     <div id="panel">
         <div class="box">
-            <label for=""> 编辑</label> <input type="checkbox" id="editing" onchange="editing()">
+            <label for=""> 编辑</label>
+            <label class="switch">
+                <input type="checkbox" id="editing" onchange="editing()">
+                <span class="slider"></span>
+            </label>
         </div>
         <div class="box">
-            <label for="">显示锥体</label> <input type="checkbox" checked onchange="showFrustum()">
+            <label for="">显示锥体</label>
+            <label class="switch">
+                <input type="checkbox" checked id="showFrustum" onchange="showFrustum()">
+                <span class="slider"></span>
+            </label>
         </div>
         <div class="box">
             <label for=""> 视频路径</label> <input type="text" id="vedioPath" onchange="vedioPath()"
-                value="https://cdn2-unrealengine-1251447533.file.myqcloud.com/homepage-opener-5a55a50aaa4c.mp4">
+                value="https://www.earthsdk.com/assets/video/5.mp4">
         </div>
         <div class="box">
-            <label for=""> 视域夹角</label> <input type="text" id="fov" value="90" onchange="fov()">
+            <label for=""> 视域夹角</label> <input type="text" id="fov" value="50" onchange="fov()">
         </div>
         <div class="box">
             <label for=""> 显示优先级</label> <input type="text" id="zindex" value="1" onchange="zindex()">
+        </div>
+        <div class="box">
+            <label for=""> 纵横比</label> <input type="text" id="aspectRatio" value="2.8" onchange="aspectRatio()">
+        </div>
+        <div class="box">
+            <label for=""> 远裁剪面</label> <input type="text" id="far" value="33.207249253992195" onchange="far()">
+        </div>
+        <div class="box">
+            <label for=""> 近裁剪面</label> <input type="text" id="near" value="2" onchange="near()">
         </div>
     </div>
     <script>
@@ -60,13 +123,13 @@
         objm.viewerCreatedEvent.don((viewer) => {
             viewer.flyIn(
                 [
-                    108.96708085773535,
-                    34.21365588348781,
-                    826.952187784194
+                    112.51305434182885,
+                    -0.0003386800140887289,
+                    7.556173583841076
                 ], [
-                303.9941519186465,
-                -28.05758861619508,
-                0.00007180136614638873
+                358.4093644771097,
+                -4.729880846007337,
+                359.9999770264854
             ], 3
             )
         });
@@ -93,22 +156,41 @@
         const ES3DTileset = objm.createSceneObjectFromJson({
             "id": "c2c8311e-6e50-47a2-b764-1c82f2d0e256",
             "type": "ES3DTileset",
-            "name": "大雁塔",
+            "name": "广场",
             "allowPicking": true,
-            "url": "https://www.earthsdk.com/assets/tileset/osgb_dayanta/tileset.json"
+            "offset": [
+                0,
+                0,
+                2.4552151614017994
+            ],
+            "url": "https://www.earthsdk.com/assets/tileset/longqi/tileset.json"
         })
 
         // 创建一个视频融合对象
         const sceneObject = objm.createSceneObjectFromJson({
             "type": "ESVideoFusion",
-            "position": [108.95940620973573, 34.21785533716187, 419.4659565408284],
-            "rotation": [-91.61253930450191, 1.8246546474987793, 0],
-            "far": 200,
-            "videoStreamUrl": "https://cdn2-unrealengine-1251447533.file.myqcloud.com/homepage-opener-5a55a50aaa4c.mp4"
+            "position": [
+                112.51304009959738,
+                -0.000009467818977038337,
+                2.4369646184160096
+            ],
+            "rotation": [
+                -90.38410044738212,
+                8.181277597229016,
+                0
+            ],
+            "fov": 50,
+            "aspectRatio": 2.8,
+            "far": 33.207249253992195,
+            "near": 2,
+            "videoStreamUrl": "https://www.earthsdk.com/assets/video/5.mp4"
         })
         // 编辑对象
         function editing() {
             sceneObject.editing = !sceneObject.editing
+            if (sceneObject.editing) {
+                alert("按下空格开始三脚架编辑")
+            }
 
         }
         /**
@@ -118,6 +200,10 @@
        */
         sceneObject.editingChanged.don((val) => {
             document.getElementById('editing').checked = val
+        })
+
+        sceneObject.showFrustumChanged.don((val) => {
+            document.getElementById('showFrustum').checked = val
         })
 
         // 视频播放地址
@@ -141,6 +227,21 @@
         // 是否显示锥体
         function showFrustum() {
             sceneObject.showFrustum = !sceneObject.showFrustum
+        }
+
+        // 纵横比
+        function aspectRatio() {
+            sceneObject.aspectRatio = parseFloat(document.getElementById("aspectRatio").value)
+        }
+
+        // 远裁剪面
+        function far() {
+            sceneObject.far = parseFloat(document.getElementById("far").value)
+        }
+
+        // 近裁剪面
+        function near() {
+            sceneObject.near = parseFloat(document.getElementById("near").value)
         }
 
     </script>

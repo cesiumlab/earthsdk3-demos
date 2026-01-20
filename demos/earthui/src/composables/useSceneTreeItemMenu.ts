@@ -5,6 +5,7 @@ import {
   ES3DTileset,
   ESGeoJson,
   ESImageryLayer,
+  ESJFeatureStyleType,
   ESJSplitDirectionType,
   ESTerrainLayer,
   ESVisualObject,
@@ -19,6 +20,7 @@ import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
 import { ESUeViewer } from 'earthsdk3-ue'
+import { getTilesetStyle } from './useTilesetStyle'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -399,22 +401,20 @@ const getSceneObjectTreeItemMenuContent = (
   // }
 
 
-  // const set3DTileasetStyle = {
-  //   text: "样式设置",
-  //   keys: "",
-  //   func: () => {
-  //     setStyleTreeItem.value = treeItem;
-  //     setStyleShow.value = false;
-  //     setTimeout(() => {
-  //       setStyleShow.value = true;
-  //     }, 100);
-  //   },
-  // };
-  // if (treeItem.sceneObject) {
-  //   if (treeItem.sceneObject instanceof ES3DTileset) {
-  //     baseItems.splice(13, 0, set3DTileasetStyle);
-  //   }
-  // }
+  const set3DTileasetStyle = {
+    text: "样式设置",
+    keys: "",
+    func: async () => {
+      if (sceneObject && sceneObject instanceof ES3DTileset) {
+        //TODO:完善存取
+        const style = await getTilesetStyle();
+        style && sceneObject.setFeatureStyle(style as ESJFeatureStyleType);
+      }
+    },
+  };
+  if (sceneObject && sceneObject instanceof ES3DTileset) {
+    baseItems.splice(13, 0, set3DTileasetStyle);
+  }
 
 
   // const setMaterial = {

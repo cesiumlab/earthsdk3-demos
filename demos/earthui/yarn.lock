@@ -2545,10 +2545,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.5-beta-25:
-  version "1.0.5-beta-25"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.5-beta-25.tgz#12ef8990245796bd16616c5cd3f716a3452916cc"
-  integrity sha512-/tNQdpuJFYjDYbcxkrqkHqTqQhhWebUr+Vcc4DkfV/LSzz7xJV1yx80wP3L5bfTew7aA2l6Sow26YGRWeYIeWQ==
+earthsdk-ui@^1.0.5-beta-26:
+  version "1.0.5-beta-26"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.5-beta-26.tgz#bba5ea87f412d6474e5d8255637f52e80feb1fe5"
+  integrity sha512-lcblQkBwXjTvdDfT8LrVb3gO4AfBwXzJfWJftYm/7HWpwQdJBds2+jZ+UjnDOQz7HlD3O0uvv6wy2dfeMDUftw==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
@@ -2572,10 +2572,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@^3.7.0-beta.39:
-  version "3.7.0-beta.39"
-  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0-beta.39.tgz#4ed604375021ca255de6fdc7e8e460b1c2df8acb"
-  integrity sha512-3BMB2fgeUq89mSqU4R1m9P1i0uRttQ4ReIYsMlfJdHeZ8C8CKc+TT2AXOZeAjJmrC4YQyhkiqMwEEvTen+BhsA==
+earthsdk3-cesium@^3.7.0-beta.42:
+  version "3.7.0-beta.42"
+  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0-beta.42.tgz#a8338072c737131bdc27a37ee1cd6771868a13f4"
+  integrity sha512-LDu0lZ6g/xCvjw90JDN6nlks0g8LYmxxBf5/uhbH6uEzf2wsCvX2QLM+r+tmKerksXkEYSbyrOxn9xVaYqhGXA==
   dependencies:
     "@mapbox/vector-tile" "2.0.4"
     "@maplibre/maplibre-gl-style-spec" "^24.4.1"
@@ -2586,23 +2586,23 @@ earthsdk3-cesium@^3.7.0-beta.39:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@^3.7.0-beta.26:
-  version "3.7.0-beta.26"
-  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.7.0-beta.26.tgz#5dc54c90a3a510435fe5a79a64e2cec72d10c867"
-  integrity sha512-p1P1McfSUzDN92d1z9RcLznrAU7AMn+/xSVXCm8JedtFseqPnMpCeJPsdHHKC+KmdnrArC9RE8YQ3vhsDNJVxg==
+earthsdk3-ol@^3.7.0-beta.27:
+  version "3.7.0-beta.27"
+  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.7.0-beta.27.tgz#e4360509d8bb7d318d231921bb00f755194d0efd"
+  integrity sha512-pMtZqDSGhNOPr6ftFIqgn91EevEJZ10wBHQU/LRhlkULcLJ5CpHSIe4VaCtX+Qa7hF/7iRGO2z22ONVztbFZ1A==
 
-earthsdk3-ue@^3.7.0-beta.25:
-  version "3.7.0-beta.25"
-  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.7.0-beta.25.tgz#ed4b34d23b57ccb86ba8f3024f6ad33d2d84b6e1"
-  integrity sha512-b7mayyGdtfDfYSUUzBJFaGfYRw7ci+Wv4ckCMLxxfmMs4PN7Wu6qzjGur4FaWv44ua0Q6lrVz6dMgK/fowVuag==
+earthsdk3-ue@^3.7.0-beta.26:
+  version "3.7.0-beta.26"
+  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.7.0-beta.26.tgz#dbd4750c1e1aaefee5a1c3c25b3c6e9a4ce51cfb"
+  integrity sha512-xki47Sii0rtIylj11wSVuzrGHqT+SBBavEtGA25ajDFbMVSH2zRtgpz3IFrf8irlrCkJDRWGRyxebi0ge+abBQ==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@^3.7.0-beta.26:
-  version "3.7.0-beta.26"
-  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.7.0-beta.26.tgz#ac6fe917def6cf6fb96ed2b9069a630948b1c470"
-  integrity sha512-Q84lXy0DinV6cqF1vKV82/dR1uyj2iJyGgBDUY7Himxz7GL0s6JfjNGweJxN6IwUyojf7f+xvMJSoE84paApmw==
+earthsdk3@^3.7.0-beta.27:
+  version "3.7.0-beta.27"
+  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.7.0-beta.27.tgz#993bd46e2d749c4594576c3bd5bf23ecd5b4beb6"
+  integrity sha512-M6AF7C+UeUlxqs8gp3loFqELTf7BOyZ5UXR6QkVXXwIPRtl+LhsBL+xDsWnKicJyUn51z8bBzErw6lZw/cyQwQ==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

@@ -1,16 +1,7 @@
 <template>
-  <DraggablePopup2
-    v-if="props.isShow"
-    :minWidthHeight="[700, 200]"
-    :title="`${scenetree && scenetree.name ? scenetree.name : ''}-编辑器`"
-    :width="1000"
-    :height="'600px'"
-    :left="300"
-    :top="100"
-    @close="changeCancel"
-    :showButton="true"
-    @ok="changeOk"
-  >
+  <DraggablePopup2 v-if="props.isShow" :minWidthHeight="[700, 200]"
+    :title="`${scenetree && scenetree.name ? scenetree.name : ''}-编辑器`" :width="1000" :height="'600px'" :left="300"
+    :top="100" @close="changeCancel" :showButton="true" @ok="changeOk">
     <div class="set_style">
       <!-- 左侧列表 -->
       <div class="set_style_list">
@@ -18,16 +9,9 @@
         <div class="style_list">
           <div class="style_list_div">
             <!-- 循环默认样式 -->
-            <div
-              v-for="(item, index) in styleList"
-              class="set_style_list_lilist"
-              :title="item.name"
-            >
-              <div
-                class="set_imgposition"
-                :class="{ set_checkedactive: checkedactive === index }"
-                @click="changeStyle(item, index, true)"
-              >
+            <div v-for="(item, index) in styleList" class="set_style_list_lilist" :title="item.name">
+              <div class="set_imgposition" :class="{ set_checkedactive: checkedactive === index }"
+                @click="changeStyle(item, index, true)">
                 <img :src="item.thumbnail" alt="" />
               </div>
               <div class="setStyle_onlineimageName">
@@ -43,18 +27,12 @@
         <div class="set_style_tab">
           <div>
             <div class="header_item3" @click="changeCurrentEdit">
-              <span
-                class="header_item_span3"
-                :class="currentMenu === 'edit' ? 'header_active3' : ''"
-                >{{ '规则可视化编辑器' }}</span
-              >
+              <span class="header_item_span3" :class="currentMenu === 'edit' ? 'header_active3' : ''">{{ '规则可视化编辑器'
+                }}</span>
             </div>
             <div class="header_item3" @click="currentMenu = 'JsonEdit'">
-              <span
-                class="header_item_span3"
-                :class="currentMenu === 'JsonEdit' ? 'header_active3' : ''"
-                >{{ '规则JSON编辑器' }}</span
-              >
+              <span class="header_item_span3" :class="currentMenu === 'JsonEdit' ? 'header_active3' : ''">{{ '规则JSON编辑器'
+                }}</span>
             </div>
           </div>
         </div>
@@ -67,17 +45,9 @@
               <div class="style_rule_list_color">颜色</div>
               <div class="style_rule_list_show">显隐</div>
               <div class="style_rule_list_change">
-                <span
-                  style="cursor: pointer"
-                  @click.stop="addOneRule"
-                  title="添加"
-                  @mouseenter="hoverIndex = -1"
-                  @mouseleave="hoverIndex = -2"
-                  ><es-icon
-                    :name="'tianjia'"
-                    :color="hoverIndex === -1 ? '#fff' : '#575B66'"
-                    :size="13"
-                /></span>
+                <span style="cursor: pointer" @click.stop="addOneRule" title="添加" @mouseenter="hoverIndex = -1"
+                  @mouseleave="hoverIndex = -2"><es-icon :name="'tianjia'"
+                    :color="hoverIndex === -1 ? '#fff' : '#575B66'" :size="13" /></span>
               </div>
             </div>
           </div>
@@ -90,134 +60,66 @@
                   <div class="rule_list_two_Operator">操作符</div>
                   <div class="rule_list_two_value">值</div>
                   <div class="rule_list_two_change">
-                    <span
-                      style="cursor: pointer"
-                      @click.stop="listaAddOneRule(index)"
-                      title="添加"
-                      @mouseenter="hoverliIndex = index"
-                      @mouseleave="hoverliIndex = -2"
-                      ><es-icon
-                        :name="'tianjia'"
-                        :color="hoverliIndex === index ? '#fff' : '#575B66'"
-                        :size="13"
-                    /></span>
+                    <span style="cursor: pointer" @click.stop="listaAddOneRule(index)" title="添加"
+                      @mouseenter="hoverliIndex = index" @mouseleave="hoverliIndex = -2"><es-icon :name="'tianjia'"
+                        :color="hoverliIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
                   </div>
                 </div>
                 <div class="rule_list_two_name2" v-for="(i, ind) in item.condition as any[]">
                   <div>
                     <div class="rule_list_two_valuename">
-                      <EnumProp
-                        v-if="obtainType(i) === true"
-                        :isStyleEdit="true"
-                        :withUndefined="false"
-                        :defaultValue="undefined"
-                        :enumStrsList="fieldList"
-                        :readonly="true"
-                        :model-value="i"
-                        @clickli="(newItem) => changeruleOp(newItem, index, ind)"
-                      >
+                      <EnumProp v-if="obtainType(i) === true" :isStyleEdit="true" :withUndefined="false"
+                        :defaultValue="undefined" :enumStrsList="fieldList" :readonly="true" :model-value="i"
+                        @clickli="(newItem) => changeruleOp(newItem, index, ind)">
                       </EnumProp>
-                      <EnumProp
-                        v-else
-                        :withUndefined="false"
-                        :isStyleEdit="true"
-                        :defaultValue="undefined"
-                        :enumStrsList="fieldList"
-                        :readonly="true"
-                        v-model="i.field"
-                        @clickli="(newItem) => changeruleOp(newItem, index, ind)"
-                      >
+                      <EnumProp v-else :withUndefined="false" :isStyleEdit="true" :defaultValue="undefined"
+                        :enumStrsList="fieldList" :readonly="true" v-model="i.field"
+                        @clickli="(newItem) => changeruleOp(newItem, index, ind)">
                       </EnumProp>
                     </div>
-                    <div
-                      class="rule_list_two_Operator"
-                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }"
-                    >
-                      <EnumProp
-                        v-if="obtainType(i) === true"
-                        :withUndefined="false"
-                        :defaultValue="undefined"
-                        :isBan="true"
-                        :enumStrsList="[]"
-                        :readonly="true"
-                        :model-value="''"
-                      >
+                    <div class="rule_list_two_Operator"
+                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }">
+                      <EnumProp v-if="obtainType(i) === true" :withUndefined="false" :defaultValue="undefined"
+                        :isBan="true" :enumStrsList="[]" :readonly="true" :model-value="''">
                       </EnumProp>
-                      <EnumProp
-                        v-else
-                        :withUndefined="false"
-                        :defaultValue="undefined"
-                        :enumStrsList="obtainType(i) === 'string' ? stringOpList : numberOpList"
-                        :readonly="true"
-                        v-model="i.op"
-                      >
+                      <EnumProp v-else :withUndefined="false" :defaultValue="undefined"
+                        :enumStrsList="obtainType(i) === 'string' ? stringOpList : numberOpList" :readonly="true"
+                        v-model="i.op">
                       </EnumProp>
                     </div>
-                    <div
-                      class="rule_list_two_value"
-                      :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }"
-                    >
-                      <input
-                        type="text"
-                        :value="i.value"
-                        :class="{ input_ban: obtainType(i) === true }"
-                        @input="changeRuleValue($event, index, ind, i)"
-                      />
+                    <div class="rule_list_two_value" :class="{ ' rule_list_two_Operator_ban': obtainType(i) === true }">
+                      <input type="text" :value="i.value" :class="{ input_ban: obtainType(i) === true }"
+                        @input="changeRuleValue($event, index, ind, i)" />
                     </div>
                     <div class="rule_list_two_change">
-                      <span
-                        @click="listadeleteOneRule(index, ind)"
-                        @mouseenter="
-                          hoverlideleteIndex = ind;
-                          hoverlideleteIndexHover = index
-                        "
-                        @mouseleave="((hoverlideleteIndex = -2), (hoverlideleteIndexHover = -2))"
-                        style="cursor: pointer"
-                      >
-                        <es-icon
-                          :name="'shanchu_2'"
-                          :color="
-                            hoverlideleteIndex === ind && hoverlideleteIndexHover === index
-                              ? '#fff'
-                              : '#575B66'
-                          "
-                          :size="13"
-                        />
+                      <span @click="listadeleteOneRule(index, ind)" @mouseenter="
+                        hoverlideleteIndex = ind;
+                      hoverlideleteIndexHover = index
+                        " @mouseleave="((hoverlideleteIndex = -2), (hoverlideleteIndexHover = -2))"
+                        style="cursor: pointer">
+                        <es-icon :name="'shanchu_2'" :color="hoverlideleteIndex === ind && hoverlideleteIndexHover === index
+                            ? '#fff'
+                            : '#575B66'
+                          " :size="13" />
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="style_rule_list_color">
-                <ESColor
-                  :color="transformColor(item.color)"
-                  @ok="okHandler(index, $event)"
-                ></ESColor>
+                <ESColor :color="transformColor(item.color)" @ok="okHandler(index, $event)"></ESColor>
               </div>
               <div class="style_rule_list_show" style="padding-left: 15px">
                 <div>
-                  <BooleanProp
-                    :withUndefined="false"
-                    :defaultValue="undefined"
-                    :readonly="false"
-                    v-model="item.show"
-                    :showButton="false"
-                  >
+                  <BooleanProp :withUndefined="false" :defaultValue="undefined" :readonly="false" v-model="item.show"
+                    :showButton="false">
                   </BooleanProp>
                 </div>
               </div>
               <div class="style_rule_list_change">
-                <span
-                  @click="deleteOneRule(index)"
-                  @mouseenter="hoverdeleteIndex = index"
-                  @mouseleave="hoverdeleteIndex = -2"
-                  style="cursor: pointer"
-                >
-                  <es-icon
-                    :name="'shanchu_2'"
-                    :color="hoverdeleteIndex === index ? '#fff' : '#575B66'"
-                    :size="13"
-                  />
+                <span @click="deleteOneRule(index)" @mouseenter="hoverdeleteIndex = index"
+                  @mouseleave="hoverdeleteIndex = -2" style="cursor: pointer">
+                  <es-icon :name="'shanchu_2'" :color="hoverdeleteIndex === index ? '#fff' : '#575B66'" :size="13" />
                 </span>
               </div>
             </div>
@@ -225,13 +127,7 @@
         </div>
         <!-- 规则JSON编辑器 -->
         <div class="style_rule_edit" v-else>
-          <ESEditor
-            :language="'json'"
-            :readonly="false"
-            @load="load"
-            ref="editorContainer"
-            @change="change"
-          >
+          <ESEditor :language="'json'" :readonly="false" @load="load" ref="editorContainer" @change="change">
           </ESEditor>
         </div>
       </div>
@@ -410,7 +306,7 @@ const deleteOneRule = (index: number) => {
       rule.splice(index, 1)
       ruleRef.value = rule
     })
-    .catch((err) => {})
+    .catch((err) => { })
 }
 //大模块增加一项规则
 const listaAddOneRule = (index: number) => {
@@ -608,7 +504,7 @@ function getUuid() {
   border-right: 1px solid #4a4545;
 }
 
-.set_style_list > .style_list {
+.set_style_list>.style_list {
   width: 100%;
   flex: 1;
   overflow: auto;
@@ -634,7 +530,7 @@ function getUuid() {
   justify-content: flex-end;
 }
 
-.style_button > button {
+.style_button>button {
   height: 32px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -648,7 +544,7 @@ function getUuid() {
   margin-right: 20px;
 }
 
-.style_button > button:hover {
+.style_button>button:hover {
   border: 1px solid rgba(44, 104, 247, 1);
 }
 
@@ -672,7 +568,7 @@ function getUuid() {
   justify-content: center;
 }
 
-.set_imgposition > img {
+.set_imgposition>img {
   width: 100%;
   height: 100%;
   border-radius: 3px;
@@ -747,7 +643,7 @@ function getUuid() {
   height: 30px;
 }
 
-.rule_list_two_name2 > div {
+.rule_list_two_name2>div {
   width: 100%;
   height: 100%;
   display: flex;
@@ -765,7 +661,7 @@ function getUuid() {
   pointer-events: none !important;
 }
 
-.rule_list_two_value > input {
+.rule_list_two_value>input {
   width: 100%;
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
@@ -778,16 +674,16 @@ function getUuid() {
   outline: none;
 }
 
-.rule_list_two_value > .input_ban {
+.rule_list_two_value>.input_ban {
   background: rgba(48, 48, 48, 0.6) !important;
   cursor: not-allowed;
 }
 
-.rule_list_two_value > input:hover {
+.rule_list_two_value>input:hover {
   border: 1px solid #2c68f7;
 }
 
-.rule_list_two_value > input:focus {
+.rule_list_two_value>input:focus {
   border: 1px solid #2c68f7;
 }
 
@@ -816,7 +712,7 @@ function getUuid() {
   justify-content: center;
 }
 
-.style_rule_list_show > div {
+.style_rule_list_show>div {
   width: 26px;
 }
 
@@ -842,7 +738,7 @@ function getUuid() {
   font-size: 11px;
 }
 
-.set_imgposition > span {
+.set_imgposition>span {
   position: absolute;
   bottom: 23px;
   white-space: nowrap;
@@ -879,7 +775,7 @@ function getUuid() {
   align-items: center;
 }
 
-.set_style_tab > div {
+.set_style_tab>div {
   width: 50%;
   height: 100%;
   display: flex;
@@ -904,7 +800,7 @@ function getUuid() {
   justify-content: center;
 }
 
-.header_item3 > span {
+.header_item3>span {
   display: inline-block;
   height: 100%;
   text-align: center;
@@ -916,21 +812,17 @@ function getUuid() {
 
 .header_active3 {
   color: #fff !important;
-  background: linear-gradient(
-    180deg,
-    rgba(87, 136, 255, 0) 0%,
-    rgba(87, 136, 255, 0.26) 100%,
-    #5788ff 100%
-  ) !important;
+  background: linear-gradient(180deg,
+      rgba(87, 136, 255, 0) 0%,
+      rgba(87, 136, 255, 0.26) 100%,
+      #5788ff 100%) !important;
 }
 
 .header_item3:hover .header_item_span3 {
   color: #fff;
-  background: linear-gradient(
-    180deg,
-    rgba(87, 136, 255, 0) 0%,
-    rgba(87, 136, 255, 0.26) 100%,
-    #5788ff 100%
-  ) !important;
+  background: linear-gradient(180deg,
+      rgba(87, 136, 255, 0) 0%,
+      rgba(87, 136, 255, 0.26) 100%,
+      #5788ff 100%) !important;
 }
 </style>

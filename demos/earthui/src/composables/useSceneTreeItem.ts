@@ -34,7 +34,6 @@ export function getSceneObjectsForMenu(sceneTree: SceneTree): {
       sceneTreeItems = sceneTreeSceneTreeItems
       parentSceneTreeItems = [sceneTree.root as SceneTreeItem]
     }
-    console.log('getSceneObjectsForMenu', sceneObjects, sceneTreeItems, tag)
     return { sceneObjects, sceneTreeItems, parentSceneTreeItems, tag }
   } catch (error) {
     console.error(error)

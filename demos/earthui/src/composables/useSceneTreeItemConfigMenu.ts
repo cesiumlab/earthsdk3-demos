@@ -113,3 +113,62 @@ const cutTreeItem = (treeItem: SceneTreeItem) => {
     cutTreeItems.push(treeItem)
   }
 }
+
+
+export const getSceneTreeItemsConfigMenu = (
+  parentSceneTreeItems: SceneTreeItem[]
+) => {
+  const baseMenu: MenuItem[] = [
+    {
+      text: '克隆选中项',
+      keys: '',
+      func: () => {
+        try {
+          parentSceneTreeItems.forEach((item) => {
+            cloneTreeItem(item)
+          })
+          ElMessage.success('克隆成功')
+        } catch (error) {
+          console.error(error)
+          ElMessage.error('克隆失败')
+        }
+      }
+    },
+    {
+      text: '剪切选中项',
+      keys: '',
+      func: () => {
+        try {
+          cutTreeItems = []
+          parentSceneTreeItems.forEach((item) => {
+            cutTreeItem(item)
+          })
+          // redrawFunc(sceneTree)
+          ElMessage.success('剪切成功')
+        } catch (error) {
+          console.error(error)
+          ElMessage.error('剪切失败')
+        }
+      }
+    },
+    {
+      text: '删除选中项',
+      keys: '',
+      func: () => {
+        try {
+          ElMessageBox.confirm('确定删除所选节点?').then(() => {
+            parentSceneTreeItems.forEach((item) => {
+              if (item.isDestroyed()) return
+              item.detachFromParent()
+            })
+            ElMessage.success('删除成功')
+          })
+        } catch (error) {
+          console.error(error)
+          ElMessage.error('删除失败')
+        }
+      }
+    }
+  ]
+  return baseMenu;
+}

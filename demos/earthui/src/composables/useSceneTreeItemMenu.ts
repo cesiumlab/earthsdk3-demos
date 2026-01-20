@@ -1,53 +1,86 @@
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { copyClipboard, downloadJson } from '@/utils'
-import { getCreateSceneObjectType, getEditorOption, MenuItem } from 'earthsdk-ui'
+import { getCreateSceneObjectType, getEditorOption, MenuItem, messageLoading } from 'earthsdk-ui'
 import {
   ES3DTileset,
+  ESGeoJson,
   ESImageryLayer,
-  ESObjectsManager,
+  ESJSplitDirectionType,
   ESTerrainLayer,
+  ESVisualObject,
   SceneTree,
   SceneTreeItem
 } from 'earthsdk3'
 import { ElMessage } from 'element-plus'
+import { calcFlyToParam } from './calcFlyToParam'
 import { getGeoJsonMenuContent } from './transformToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
-import { getSceneTreeItemConfigMenu } from './useSceneTreeItemConfigMenu'
-import { addNewTreeItem } from './useSceneTreeMenu'
-import { calcFlyToParam } from './calcFlyToParam'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
+import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
+import { addNewTreeItem } from './useSceneTreeMenu'
+import { ESUeViewer } from 'earthsdk3-ue'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
-  objm: ESObjectsManager,
+  objm: XbsjEarthUi,
   sceneTree: SceneTree,
   treeItem: SceneTreeItem,
 ): MenuItem[] => {
   if (sceneTree.selectedItems.length === 1) {
     // 单选
-
     if (treeItem.type === 'Folder') {
-      return getFolderTreeItemMenuContent(sceneTree, treeItem)
+      return getFolderTreeItemMenuContent(objm, sceneTree, treeItem)
     } else {
       return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem)
     }
   } else {
-
     //多选
-    return []
+    return getTreeItemsMenuContent(sceneTree);
   }
-
-  // if (treeItem.type === 'Folder') {
-  //   return getFolderTreeItemMenuContent(sceneTree, treeItem, showCheckbox)
-  // } else {
-  //   return getSceneObjectTreeItemMenuContent(objm, sceneTree, treeItem, showCheckbox)
-  // }
 }
 
 /**
- * 文件夹右键
+ * 右键多选
+ */
+
+const getTreeItemsMenuContent = (
+  sceneTree: SceneTree
+) => {
+  const { sceneObjects, parentSceneTreeItems, tag } = getSceneObjectsForMenu(sceneTree);
+  const geoJsonMenu = getGeoJsonMenuContent(sceneObjects, tag);
+  const liftHeightMenu = getLiftHeightMenuContent(sceneObjects, tag);
+  const configMenu = getSceneTreeItemsConfigMenu(parentSceneTreeItems);
+
+  const baseItems: Array<MenuItem> = [
+    ...configMenu,
+    {
+      type: 'divider'
+    },
+    {
+      ...liftHeightMenu
+    },
+    {
+      ...geoJsonMenu
+    },
+    {
+      text: '下载选中对象 JSON',
+      keys: '',
+      func: () => {
+        const jsonList = sceneObjects.map(sceneObj => sceneObj.json!);
+        // const jsonStr = JSON.stringify(jsonList);
+        downloadJson(jsonList, 'sceneObjects.json', true)
+      }
+    }
+  ]
+  return baseItems
+}
+
+/**
+ * 文件夹右键 单选
  * @param treeItem
  */
 const getFolderTreeItemMenuContent = (
+  objm: XbsjEarthUi,
   sceneTree: SceneTree,
   treeItem: SceneTreeItem,
 ) => {
@@ -66,10 +99,10 @@ const getFolderTreeItemMenuContent = (
         if (!type) return
         const newTreeItem = sceneTree.createSceneObjectTreeItem(type, undefined, treeItem, 'Inner')
         if (!newTreeItem) return
-        // sceneTree.uiTree.clearAllSelectedItems();
-        // newTreeItem.uiTreeObject.selected = true;
-        //TODO:属性树挂载节点
-        // objm.propSceneTree = treeItem;
+
+        sceneTree.uiTree.clearAllSelectedItems();
+        newTreeItem.uiTreeObject.selected = true;
+
         const { sceneObject } = newTreeItem
         if (sceneObject && 'editing' in sceneObject) {
           sceneObject.editing = true
@@ -93,10 +126,9 @@ const getFolderTreeItemMenuContent = (
         const json = JSON.parse(jsonStr)
         const newTreeItem = sceneTree.createSceneObjectTreeItemFromJson(json, treeItem, 'Inner')
         if (!newTreeItem) return
-        // sceneTree.uiTree.clearAllSelectedItems();
-        // newTreeItem.uiTreeObject.selected = true;
-        //TODO:属性树挂载节点
-        // objm.propSceneTree = treeItem;
+        sceneTree.uiTree.clearAllSelectedItems();
+        newTreeItem.uiTreeObject.selected = true;
+
         const { sceneObject } = newTreeItem
         if (sceneObject && 'editing' in sceneObject) {
           sceneObject.editing = true
@@ -132,11 +164,11 @@ const getFolderTreeItemMenuContent = (
 }
 
 /**
- * 节点对象右键
+ * 节点对象右键 单选
  * @param treeItem
  */
 const getSceneObjectTreeItemMenuContent = (
-  objm: ESObjectsManager,
+  objm: XbsjEarthUi,
   sceneTree: SceneTree,
   treeItem: SceneTreeItem
 ) => {
@@ -181,16 +213,16 @@ const getSceneObjectTreeItemMenuContent = (
       keys: '',
       func: async () => {
         try {
-          const sceneObject = treeItem.sceneObject
-          if (!sceneObject) return ElMessage.warning('当前节点没有对象')
-          const json = sceneObject.json
-          const newJsonStr = await getEditorOption(JSON.stringify(json), 'json')
-          if (!newJsonStr) return
-          sceneObject.json = JSON.parse(newJsonStr)
-          ElMessage.success('编辑成功')
+          const sceneObject = treeItem.sceneObject;
+          if (!sceneObject) return ElMessage.warning('当前节点没有对象');
+          const json = sceneObject.json;
+          const newJsonStr = await getEditorOption(JSON.stringify(json), 'json');
+          if (!newJsonStr) return;
+          sceneObject.json = JSON.parse(newJsonStr);
+          ElMessage.success('编辑成功');
         } catch (error) {
-          console.error(error)
-          ElMessage.error('编辑失败')
+          console.error(error);
+          ElMessage.error('编辑失败');
         }
       }
     },
@@ -227,28 +259,21 @@ const getSceneObjectTreeItemMenuContent = (
       type: 'divider'
     },
     {
-      text: '属性(TODO)',
+      text: '属性',
       keys: '',
-      func: () => {
-        console.log(treeItem.sceneObject)
-      }
-    },
-    {
-      text: '完整属性(TODO)',
-      keys: '',
-      func: () => {
-        console.log(treeItem.sceneObject)
-      }
+      func: () => { objm.propSceneTree = treeItem; }
     }
   ]
+
+  const sceneObject = treeItem.sceneObject;
 
   const copyUrl = {
     text: '复制服务地址',
     keys: '',
     func: async () => {
-      if (treeItem.sceneObject) {
-        if ('url' in treeItem.sceneObject) {
-          const url = treeItem.sceneObject.url as string
+      if (sceneObject) {
+        if ('url' in sceneObject) {
+          const url = sceneObject.url as string
           if (url.length > 0) {
             const flag = await copyClipboard(JSON.stringify(url))
             if (flag) {
@@ -263,58 +288,44 @@ const getSceneObjectTreeItemMenuContent = (
       }
     }
   }
-  if (treeItem.sceneObject) {
+  if (sceneObject) {
     if (
-      treeItem.sceneObject instanceof ESImageryLayer ||
-      treeItem.sceneObject instanceof ES3DTileset ||
-      treeItem.sceneObject instanceof ESTerrainLayer
+      sceneObject instanceof ESImageryLayer ||
+      sceneObject instanceof ES3DTileset ||
+      sceneObject instanceof ESTerrainLayer
     ) {
       baseItems.splice(1, 0, copyUrl)
     }
   }
 
-  // const enditingList = {
-  //   text: "编辑",
-  //   keys: "",
-  //   func: () => {
-  //     let dispose: any;
-  //     if (treeItem.sceneObject) {
-  //       if ("editing" in treeItem.sceneObject) {
-  //         treeItem.sceneObject.editing = true;
-  //         Message.loading({
-  //           id: "xxx",
-  //           content:
-  //             "1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换",
-  //         });
-  //         //@ts-ignore
-  //         dispose = treeItem.sceneObject.editingChanged.disposableOnce(
-  //           (res: boolean) => {
-  //             if (!res) {
-  //               Message.remove("xxx");
-  //               dispose();
-  //               dispose = undefined;
-  //             }
-  //           }
-  //         );
-  //       }
-  //     }
-  //   },
-  // };
-  // if (treeItem.sceneObject) {
-  //   if (
-  //     "editing" in treeItem.sceneObject &&
-  //     !(treeItem.sceneObject instanceof ESGeoJson)
-  //   ) {
-  //     //ESGeoJson有editing属性但是不能被编辑
-  //     if (
-  //       !(treeItem.sceneObject instanceof ES3DTileset) ||
-  //       (treeItem.sceneObject instanceof ES3DTileset &&
-  //         treeItem.sceneObject.supportEdit)
-  //     ) {
-  //       baseItems.splice(1, 0, enditingList);
-  //     }
-  //   }
-  // }
+  const enditingItem = {
+    text: "编辑",
+    keys: "",
+    func: () => {
+      if (sceneObject) {
+        if (Reflect.has(sceneObject, 'editing') && Reflect.has(sceneObject, 'editingChanged')) {
+          (sceneObject as ESVisualObject).editing = true;
+          const close = messageLoading("1.双击左键或 ESC 键退出编辑  2.空格键切换编辑方式");
+          const dispose = (sceneObject as ESVisualObject).editingChanged.donce((res: boolean) => {
+            if (!res) {
+              close();
+              dispose();
+            }
+          });
+        }
+      }
+    },
+  };
+  if (sceneObject) {
+    if ("editing" in sceneObject && !(sceneObject instanceof ESGeoJson) && !(sceneObject instanceof ESImageryLayer) && !(sceneObject instanceof ESTerrainLayer)) {
+      //ESGeoJson有editing属性但是不能被编辑
+      if (!(sceneObject instanceof ES3DTileset) || (sceneObject instanceof ES3DTileset && sceneObject.supportEdit)) {
+
+        baseItems.splice(1, 0, enditingItem);
+      }
+    }
+  }
+
   // const Geojson = {
   //   text: "转为ES点线面对象",
   //   keys: "",
@@ -368,6 +379,7 @@ const getSceneObjectTreeItemMenuContent = (
   //   }
   // }
 
+
   // const openCesium = {
   //   text: "加载Cesium代码",
   //   keys: "",
@@ -385,6 +397,8 @@ const getSceneObjectTreeItemMenuContent = (
   //     baseItems.splice(1, 0, openCesium);
   //   }
   // }
+
+
   // const set3DTileasetStyle = {
   //   text: "样式设置",
   //   keys: "",
@@ -401,6 +415,8 @@ const getSceneObjectTreeItemMenuContent = (
   //     baseItems.splice(13, 0, set3DTileasetStyle);
   //   }
   // }
+
+
   // const setMaterial = {
   //   text: "材质替换",
   //   keys: "",
@@ -422,18 +438,47 @@ const getSceneObjectTreeItemMenuContent = (
   //   }
   // }
 
-  // if (treeItem.sceneObject) {
-  //   if (
-  //     !(xbsjEarthUi.activeViewer instanceof ESUeViewer) &&
-  //     (treeItem.sceneObject instanceof ES3DTileset ||
-  //       treeItem.sceneObject instanceof ESImageryLayer)
-  //   ) {
-  //     const setSplitDirection = getSplitDirectionList(treeItem.sceneObject);
-  //     setSplitDirection.forEach((item: any) => {
-  //       baseItems.push(item);
-  //     });
-  //   }
-  // }
+
+  //卷帘分割
+  if (sceneObject) {
+    if (!(objm.activeViewer instanceof ESUeViewer)
+      && (sceneObject instanceof ES3DTileset || sceneObject instanceof ESImageryLayer)) {
+      const setSplitDirection = getSplitDirectionItems(objm, sceneObject);
+      setSplitDirection.forEach((item) => { baseItems.push(item); });
+    }
+  }
 
   return baseItems
+}
+
+
+/**
+ * 卷帘分割
+ * @param sceneObject
+ */
+const getSplitDirectionItems = (xbsjEarthUi: XbsjEarthUi, sceneObject: ES3DTileset | ESImageryLayer) => {
+  const actions: { [key: string]: any } = {
+    'LEFT': {
+      text: '向左分割', next: ['RIGHT', 'NONE']
+    },
+    'RIGHT': {
+      text: '向右分割', next: ['LEFT', 'NONE']
+    },
+    'NONE': {
+      text: '不分割', next: ['LEFT', 'RIGHT']
+    }
+  }
+
+  const current = sceneObject.splitDirection
+  const availableActions: MenuItem[] = actions[current].next.map((dir: string) => ({
+    text: actions[dir].text,
+    keys: '',
+    func: () => {
+      if (!xbsjEarthUi.activeViewer || !xbsjEarthUi.activeViewer.rollerShutter) {
+        return ElMessage.warning('请先在 分析 中开启卷帘分割功能')
+      }
+      sceneObject.splitDirection = dir as ESJSplitDirectionType
+    }
+  }))
+  return availableActions
 }

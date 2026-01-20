@@ -22,7 +22,7 @@ const properties = props.treeItem.sceneObject.getESProperties()
 const disposer = createVueDisposer(onBeforeUnmount)
 const lonLatFormat = toReadonlyVueRef<any>(disposer, [xbsjEarthUi.activeViewer, 'lonLatFormat'])
 const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi)
-const treeItem = xbsjEarthUi.propSceneTree
+const treeItem = xbsjEarthUi.propSceneTree!
 
 const { basic, general, coordinate, dataSource, location, style, defaultMenu } = properties
 currentMenu.value = defaultMenu ?? 'general'
@@ -120,77 +120,41 @@ onMounted(() => {
 <template>
   <div class="Property_Panel">
     <div class="Property_header">
-      <div
-        class="property_header_item"
-        v-for="item in propertiesMenu"
-        :key="item.component"
-        @click="currentMenu = item.component"
-      >
-        <span
-          class="header_item_span1"
-          :class="currentMenu === item.component ? 'header_active1' : ''"
-          >{{ item.name }}</span
-        >
+      <div class="property_header_item" v-for="item in propertiesMenu" :key="item.component"
+        @click="currentMenu = item.component">
+        <span class="header_item_span1" :class="currentMenu === item.component ? 'header_active1' : ''">{{ item.name
+          }}</span>
       </div>
     </div>
     <div class="Property_content">
       <div v-if="currentMenu === 'basic'">
-        <BasicProprties
-          :properties="basic"
-          :type="treeItem.sceneObject.typeName"
-          :currentMenu="currentMenu"
-          :treeItem="treeItem"
-          @callback="propTreeCallback"
-        ></BasicProprties>
+        <BasicProprties :properties="basic" :type="treeItem.sceneObject.typeName" :currentMenu="currentMenu"
+          :treeItem="treeItem" @callback="propTreeCallback"></BasicProprties>
       </div>
       <div v-if="currentMenu === 'general'">
-        <GeneralProprties
-          :properties="general"
-          @callback="propTreeCallback"
-          :type="treeItem.sceneObject.typeName"
-          :treeItem="treeItem"
-        >
+        <GeneralProprties :properties="general" @callback="propTreeCallback" :type="treeItem.sceneObject.typeName"
+          :treeItem="treeItem">
         </GeneralProprties>
       </div>
       <div :class="{ eS3DTileset_supportEdit1: disabled3DTileset }">
-        <div
-          v-if="currentMenu === 'coordinate'"
-          :class="{ eS3DTileset_supportEdit: disabled3DTileset }"
-        >
-          <CoordinateProprties
-            :properties="coordinate"
-            @callback="propTreeCallback"
-            :type="treeItem.sceneObject.typeName"
-            :lonLatFormat="lonLatFormat"
-          >
+        <div v-if="currentMenu === 'coordinate'" :class="{ eS3DTileset_supportEdit: disabled3DTileset }">
+          <CoordinateProprties :properties="coordinate" @callback="propTreeCallback"
+            :type="treeItem.sceneObject.typeName" :lonLatFormat="lonLatFormat">
           </CoordinateProprties>
         </div>
       </div>
 
       <div v-if="currentMenu === 'dataSource'">
-        <CoordinateProprties
-          :properties="dataSource"
-          @callback="propTreeCallback"
-          :lonLatFormat="lonLatFormat"
-        >
+        <CoordinateProprties :properties="dataSource" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
         </CoordinateProprties>
       </div>
       <div v-if="currentMenu === 'location'">
-        <LocationProprties
-          :properties="location"
-          @callback="propTreeCallback"
-          :lonLatFormat="lonLatFormat"
-        >
+        <LocationProprties :properties="location" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
         </LocationProprties>
       </div>
       <div v-if="currentMenu === 'style'">
-        <CoordinateProprties
-          :properties="style"
-          @callback="propTreeCallback"
-          :lonLatFormat="lonLatFormat"
-          :type="treeItem.sceneObject.typeName"
-          :panel-style="'style'"
-        >
+        <CoordinateProprties :properties="style" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
+          :type="treeItem.sceneObject.typeName" :panel-style="'style'">
         </CoordinateProprties>
       </div>
     </div>
@@ -222,7 +186,7 @@ onMounted(() => {
   justify-content: center;
 }
 
-.property_header_item > span {
+.property_header_item>span {
   display: inline-block;
   height: 100%;
   text-align: center;

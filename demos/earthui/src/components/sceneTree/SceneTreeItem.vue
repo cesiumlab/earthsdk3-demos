@@ -1,66 +1,37 @@
 <template>
   <!-- ES3DTileset树节点 -->
-  <TileTreeItem
-    v-if="sceneTreeItem.isExport === false && sceneTreeItem.extras"
-    :sceneTreeItem="sceneTreeItem"
-    :tree="tree"
-  >
+  <TileTreeItem v-if="sceneTreeItem.isExport === false && sceneTreeItem.extras" :sceneTreeItem="sceneTreeItem"
+    :tree="tree">
   </TileTreeItem>
   <!-- 其他树节点 -->
-  <div
-    v-else
-    class="item_Style"
-    :style="getItemStyle()"
-    @mouseenter="hover = true"
-    @mouseleave="hover = false"
-    :draggable="!nameEditingRef"
-    @dragstart.stop="ondragstart($event)"
-    @drop.stop="ondrop($event)"
-    @dragover.stop="ondragover($event)"
-    @dragleave.stop="ondragleave($event)"
-    @click.stop="select($event)"
-    @contextmenu.stop.prevent="onContexMenu()"
-    @dblclick="flyTo()"
-  >
+  <div v-else class="item_Style" :style="getItemStyle()" @mouseenter="hover = true" @mouseleave="hover = false"
+    :draggable="!nameEditingRef" @dragstart.stop="ondragstart($event)" @drop.stop="ondrop($event)"
+    @dragover.stop="ondragover($event)" @dragleave.stop="ondragleave($event)" @click.stop="select($event)"
+    @contextmenu.stop.prevent="onContexMenu()" @dblclick="flyTo()">
     <div :style="itemTopStyle()" class="top_style">
       <Collapse :collapseProps="collapsedSymbol()" @collapseFunc="collapseFunc()"></Collapse>
       <!-- 多选框 -->
       <div class="check_box" @click.stop="changeCheckedStatus()" v-show="props.showCheckBox">
-        <es-icon
-          :name="checkStr[sceneTreeItem.uiTreeObject.checkedStatus]"
-          :color="checkColor[sceneTreeItem.uiTreeObject.checkedStatus]"
-          :size="18"
-        />
+        <es-icon :name="checkStr[sceneTreeItem.uiTreeObject.checkedStatus]"
+          :color="checkColor[sceneTreeItem.uiTreeObject.checkedStatus]" :size="18" />
         <!-- {{ checkStr[sceneTreeItem.uiTreeObject.checkedStatus] }} -->
       </div>
       <!-- 对象图标 -->
-      <es-icon
-        :name="sceneTreeItem.type === `Folder` ? 'wenjian_weixuanzhong' : imgStyle()"
-        :color="sceneTreeItem.type === `Folder` ? getFloderIconStyle() : getIconStyle()"
-        :size="16"
-      />
+      <es-icon :name="sceneTreeItem.type === `Folder` ? 'wenjian_weixuanzhong' : imgStyle()"
+        :color="sceneTreeItem.type === `Folder` ? getFloderIconStyle() : getIconStyle()" :size="16" />
       <!-- 节点名称 -->
-      <div
-        class="treeItem-name"
-        :style="sceneTreeItem.type === `Folder` ? getFolderTitleStyle() : getItemTitleStyle()"
-        v-show="!nameEditingRef"
-      >
+      <div class="treeItem-name" :style="sceneTreeItem.type === `Folder` ? getFolderTitleStyle() : getItemTitleStyle()"
+        v-show="!nameEditingRef">
         {{ sceneTreeItem.name }}
       </div>
       <div v-if="nameEditingRef" class="file_name" @click.stop>
-        <input
-          type="text"
-          v-model="editingName"
-          @blur="setName()"
-          @keydown.esc.native="offSetName()"
-          @keydown.enter.native="setName()"
-          v-select
-        />
+        <input type="text" v-model="editingName" @blur="setName()" @keydown.esc.native="offSetName()"
+          @keydown.enter.native="setName()" v-select />
       </div>
     </div>
     <!-- 眼睛图标 -->
-    <span class="eye" title="是否可见" @click.stop="show = !show"
-      ><es-icon :name="show ? 'show' : 'unshow'" :color="'rgba(151, 153, 154, 1)'" :size="18" />
+    <span class="eye" title="是否可见" @click.stop="show = !show"><es-icon :name="show ? 'show' : 'unshow'"
+        :color="'rgba(151, 153, 154, 1)'" :size="18" />
     </span>
   </div>
 </template>

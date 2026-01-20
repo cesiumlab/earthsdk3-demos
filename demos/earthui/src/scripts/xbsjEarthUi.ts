@@ -1,4 +1,4 @@
-import { ESObjectsManager, ESSceneObject, react } from 'earthsdk3'
+import { ESObjectsManager, ESSceneObject, react, SceneTreeItem } from 'earthsdk3'
 import { ESOlViewer } from 'earthsdk3-ol'
 import { ESUeViewer } from 'earthsdk3-ue'
 import { parse } from 'search-params'
@@ -37,15 +37,26 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._measurementManager
   }
 
-  private _propSceneTree = this.dv(react<any>(undefined)) //属性对象
+  private _propSceneTree = this.dv(react<SceneTreeItem | undefined>(undefined)) //属性对象
   get propSceneTree() {
     return this._propSceneTree.value
   }
-  set propSceneTree(value: any) {
+  set propSceneTree(value: SceneTreeItem | undefined) {
     this._propSceneTree.value = value
   }
   get propSceneTreeChanged() {
     return this._propSceneTree.changed
+  }
+
+  private _propSceneTreeItem = this.dv(react<SceneTreeItem | undefined>(undefined)) //属性对象
+  get propSceneTreeItem() {
+    return this._propSceneTreeItem.value
+  }
+  set propSceneTreeItem(value: SceneTreeItem | undefined) {
+    this._propSceneTreeItem.value = value
+  }
+  get propSceneTreeItemChanged() {
+    return this._propSceneTreeItem.changed
   }
 
   private _rightModuleShow = this.dv(react<boolean>(true)) //右面菜单显示

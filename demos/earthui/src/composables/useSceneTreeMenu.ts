@@ -42,8 +42,6 @@ export const getDefauleMenuContent = (
         if (!treeItem) return
         sceneTree.uiTree.clearAllSelectedItems();
         treeItem.uiTreeObject.selected = true;
-        //TODO:属性树挂载节点
-        // objm.propSceneTree = treeItem;
         const { sceneObject } = treeItem;
         if (sceneObject && 'editing' in sceneObject) {
           sceneObject.editing = true;

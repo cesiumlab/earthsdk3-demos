@@ -1,14 +1,7 @@
 <template>
   <DraggablePopup2
     :title="`材质替换编辑器${props.setStyleTreeItem && props.setStyleTreeItem.name ? '（' + props.setStyleTreeItem.name + '）' : ''}`"
-    :width="600"
-    :height="'440px'"
-    :left="350"
-    :top="200"
-    @close="changeCancel"
-    :showButton="true"
-    @ok="changeOk"
-  >
+    :width="600" :height="'440px'" :left="350" :top="200" @close="changeCancel" :showButton="true" @ok="changeOk">
     <div class="material">
       <div class="middle">
         <div class="middle_title">
@@ -20,18 +13,9 @@
           <div v-for="(item, index) in list" :key="index">
             <input type="checkbox" v-model="item.select" />
             <p>{{ item.key }}</p>
-            <input
-              type="text"
-              v-model="item.value"
-              placeholder="请选择或输入"
-              @blur="handleBlur(item.value)"
-            />
-            <img
-              src="../../../assets/material/caizhi_weixuanzhong.png"
-              alt=""
-              @click="openMaterialPanel(item)"
-              title="选择材质"
-            />
+            <input type="text" v-model="item.value" placeholder="请选择或输入" @blur="handleBlur(item.value)" />
+            <img src="../../../assets/material/caizhi_weixuanzhong.png" alt="" @click="openMaterialPanel(item)"
+              title="选择材质" />
           </div>
         </div>
       </div>
@@ -49,13 +33,8 @@
       </div>
     </div>
   </DraggablePopup2>
-  <MaterialSelect
-    :isShow="materialSelectShow"
-    :tilesetUEMaterial="tilesetUEMaterial"
-    :currentUEMaterial="currentItem.value"
-    @cancel="cancelMaterialSelect"
-    @ok="okMaterialSelect"
-  >
+  <MaterialSelect :isShow="materialSelectShow" :tilesetUEMaterial="tilesetUEMaterial"
+    :currentUEMaterial="currentItem.value" @cancel="cancelMaterialSelect" @ok="okMaterialSelect">
   </MaterialSelect>
 </template>
 
@@ -205,7 +184,7 @@ const clear = () => {
       })
       replaceUeMaterial()
     })
-    .catch(() => {})
+    .catch(() => { })
 }
 
 /**
@@ -374,7 +353,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-.footer > div {
+.footer>div {
   display: flex;
   align-items: center;
   justify-content: space-between;

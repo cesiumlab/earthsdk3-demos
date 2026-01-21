@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { getCreateSceneObjectType, getEditorOption, MenuItem } from 'earthsdk-ui'
 import { ESObjectsManager, SceneTree, SceneTreeItem, TreeItemInsertFlag } from 'earthsdk3'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { getGeoJsonMenuContent } from './transformToGeoJson'
+import { getGeoJsonMenuContent } from './objectsToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 
@@ -122,7 +122,7 @@ export const getDefauleMenuContent = (
     text: '加载已缓存场景',
     keys: '',
     func: () => {
-      ElMessageBox.confirm('确认加载已缓存场景吗？').then(() => {
+      ElMessageBox.confirm('加载已缓存场景会覆盖当前场景，确认加载吗？').then(() => {
         const localJsonStr = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
         if (!localJsonStr) return
         const localJson = JSON.parse(localJsonStr)

@@ -1,26 +1,19 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
-import { copyClipboard, downloadJson } from '@/utils'
-import { getCreateSceneObjectType, getEditorOption, MenuItem, messageLoading } from 'earthsdk-ui'
-import {
-  ES3DTileset,
-  ESGeoJson,
-  ESImageryLayer,
-  ESJFeatureStyleType,
-  ESJSplitDirectionType,
-  ESTerrainLayer,
-  ESVisualObject,
-  SceneTree,
-  SceneTreeItem
-} from 'earthsdk3'
+import { copyClipboard, downloadJson, getCurrentDateTime, getUuid } from '@/utils'
+import { FieldConfigItem, getCreateSceneObjectType, getEditorOption, getTilesetStyle, MenuItem, messageLoading, StyleData, StyleRule } from 'earthsdk-ui'
+import { ES3DTileset, ESGeoJson, ESImageryLayer, ESJFeatureStyleType, ESJSplitDirectionType, ESTerrainLayer, ESVisualObject, SceneTree, SceneTreeItem } from 'earthsdk3'
+import { ESCesiumViewer, ESKml, getCzmCode } from 'earthsdk3-cesium'
+import { ESUeViewer } from 'earthsdk3-ue'
 import { ElMessage } from 'element-plus'
 import { calcFlyToParam } from './calcFlyToParam'
-import { getGeoJsonMenuContent } from './transformToGeoJson'
+import { geojsonToESObiects } from './geojsonToESObiects'
+import { kmlToESObjects } from './kmlToESObjects'
+import { getGeoJsonMenuContent } from './objectsToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
-import { ESUeViewer } from 'earthsdk3-ue'
-import { getTilesetStyle } from './useTilesetStyle'
+import { cesiumCodeLoader } from './cesiumCodeLoader'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -69,7 +62,6 @@ const getTreeItemsMenuContent = (
       keys: '',
       func: () => {
         const jsonList = sceneObjects.map(sceneObj => sceneObj.json!);
-        // const jsonStr = JSON.stringify(jsonList);
         downloadJson(jsonList, 'sceneObjects.json', true)
       }
     }
@@ -322,98 +314,145 @@ const getSceneObjectTreeItemMenuContent = (
     if ("editing" in sceneObject && !(sceneObject instanceof ESGeoJson) && !(sceneObject instanceof ESImageryLayer) && !(sceneObject instanceof ESTerrainLayer)) {
       //ESGeoJson有editing属性但是不能被编辑
       if (!(sceneObject instanceof ES3DTileset) || (sceneObject instanceof ES3DTileset && sceneObject.supportEdit)) {
-
         baseItems.splice(1, 0, enditingItem);
       }
     }
   }
 
-  // const Geojson = {
-  //   text: "转为ES点线面对象",
-  //   keys: "",
-  //   func: () => {
-  //     if (treeItem.sceneObject) {
-  //       switch (treeItem.sceneObject.typeName) {
-  //         case "ESGeoJson":
-  //           // 处理ESGeoJson
-  //           {
-  //             const sceneObject = treeItem.sceneObject as ESGeoJson;
-  //             const url = sceneObject.url;
-  //             if (!url) {
-  //               ElMessage.error("此场景对象不存在url属性，请检查");
-  //               return;
-  //             }
-  //             if (typeof url === "string") {
-  //               getNoToken(url)
-  //                 .then((res: any) => {
-  //                   itemGeoJsonTOESObjects(res);
-  //                 })
-  //                 .catch((error) => {
-  //                   console.log(error);
-  //                   ElMessage.error(`请求失败，请检查！${error}`);
-  //                 });
-  //             } else {
-  //               itemGeoJsonTOESObjects(url);
-  //             }
-  //           }
-  //           break;
-  //         // 处理Kml
-  //         case "ESKml":
-  //           {
-  //             const sceneObject = treeItem.sceneObject as ESKml;
-  //             let input = sceneObject.uri ? sceneObject.uri : sceneObject.data;
-  //             kmlToESObjects(input);
-  //           }
-  //           break;
+  const geoJsonKmlItem = {
+    text: "转换为点、线、面对象",
+    keys: "",
+    func: () => {
+      if (sceneObject) {
+        switch (sceneObject.typeName) {
+          case "ESGeoJson":
+            {
+              const sceneObject = treeItem.sceneObject as ESGeoJson;
+              const url = sceneObject.url;
+              if (!url) {
+                ElMessage.error("此场景对象不存在url属性，请检查");
+                return;
+              }
+              geojsonToESObiects(objm, url);
+            }
+            break;
+          case "ESKml":
+            {
+              const sceneObject = treeItem.sceneObject as ESKml;
+              let input = sceneObject.uri ? sceneObject.uri : sceneObject.data;
+              kmlToESObjects(objm, input);
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    },
+  };
 
-  //         default:
-  //           break;
-  //       }
-  //     }
-  //   },
-  // };
-  // if (treeItem.sceneObject) {
-  //   if (
-  //     treeItem.sceneObject instanceof ESGeoJson ||
-  //     treeItem.sceneObject instanceof ESKml
-  //   ) {
-  //     baseItems.splice(2, 0, Geojson);
-  //   }
-  // }
+  if (sceneObject && (sceneObject instanceof ESGeoJson || sceneObject instanceof ESKml)) {
+    baseItems.splice(2, 0, geoJsonKmlItem);
+  }
 
 
-  // const openCesium = {
-  //   text: "加载Cesium代码",
-  //   keys: "",
-  //   func: () => {},
-  // };
-  // if (
-  //   treeItem.sceneObject &&
-  //   xbsjEarthUi.activeViewer?.typeName == "ESCesiumViewer"
-  // ) {
-  //   if (
-  //     treeItem.sceneObject instanceof ESImageryLayer ||
-  //     treeItem.sceneObject instanceof ES3DTileset ||
-  //     treeItem.sceneObject instanceof ESTerrainLayer
-  //   ) {
-  //     baseItems.splice(1, 0, openCesium);
-  //   }
-  // }
+
+  const openCesium = {
+    text: "Cesium代码",
+    keys: "",
+    func: () => {
+      if (sceneObject && objm.activeViewer instanceof ESCesiumViewer) {
+        if (
+          sceneObject instanceof ESImageryLayer
+          || sceneObject instanceof ES3DTileset
+          || sceneObject instanceof ESTerrainLayer
+        ) {
+          const code = getCzmCode(sceneObject);
+          code && cesiumCodeLoader(code);
+        }
+      }
+    },
+  };
+  if (sceneObject && objm.activeViewer instanceof ESCesiumViewer) {
+    if (
+      sceneObject instanceof ESImageryLayer
+      || sceneObject instanceof ES3DTileset
+      || sceneObject instanceof ESTerrainLayer
+    ) {
+      // objm.activeViewer.container
+      baseItems.splice(1, 0, openCesium);
+    }
+  }
 
 
-  const set3DTileasetStyle = {
-    text: "样式设置",
+  const set3DTilesetStyle = {
+    text: "3DTile 样式设置",
     keys: "",
     func: async () => {
       if (sceneObject && sceneObject instanceof ES3DTileset) {
-        //TODO:完善存取
-        const style = await getTilesetStyle();
-        style && sceneObject.setFeatureStyle(style as ESJFeatureStyleType);
+
+        //通过函数获取featureType
+        const featureTypes = await sceneObject.getFeatureTable();
+
+        let historyRules: StyleData[] = [];
+        let fields: FieldConfigItem[] = [];
+        let initialRule: StyleRule[] = [];
+
+        if (featureTypes && featureTypes.length > 0) {
+          fields = featureTypes.map(e => [e.key, e.key, e.type] as FieldConfigItem);
+        }
+
+        const extras = sceneObject.extras as any;
+        if (extras && 'xbsjFetureStyles' in extras) {
+          historyRules = JSON.parse(JSON.stringify(extras.xbsjFetureStyles));
+          initialRule = historyRules[historyRules.length - 1].code;
+        }
+
+        const config = { historyRules, fields, initialRule }
+        const style = await getTilesetStyle(config);
+        //存
+        if (style) {
+          sceneObject.setFeatureStyle(style as ESJFeatureStyleType);
+
+          const viewer = objm.activeViewer
+          if (!viewer) return;
+          const capture = await viewer.capture()
+          const styleData: StyleData = {
+            id: getUuid(),
+            name: getCurrentDateTime(),
+            code: style,
+            thumbnail: capture ?? '' // 使用已获取的 capture
+          }
+
+          const newHistoryRules = [...historyRules, styleData];
+          if (sceneObject.extras) {
+            sceneObject.extras = {
+              //@ts-ignore
+              ...sceneObject.extras,
+              xbsjFetureStyles: newHistoryRules
+            }
+          } else {
+            //@ts-ignore
+            sceneObject.extras = {
+              xbsjFetureStyles: newHistoryRules
+            }
+          }
+        }
+
       }
     },
   };
   if (sceneObject && sceneObject instanceof ES3DTileset) {
-    baseItems.splice(13, 0, set3DTileasetStyle);
+    baseItems.splice(2, 0, set3DTilesetStyle);
+    baseItems.splice(3, 0, {
+      text: "重置 3DTile 样式",
+      keys: "",
+      func: () => {
+        if (sceneObject && sceneObject instanceof ES3DTileset) {
+          sceneObject.resetFeatureStyle();
+        }
+      }
+    }
+    );
   }
 
 

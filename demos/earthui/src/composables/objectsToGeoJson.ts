@@ -4,14 +4,11 @@ import {
   ESGeoLineString,
   ESGeoVector,
   ESObjectWithLocation,
-  ESSceneObject,
-  SceneTree,
-  SceneTreeItem
+  ESSceneObject
 } from 'earthsdk3'
 import { dayjs, ElMessage } from 'element-plus'
-import { getSceneObjectsForMenu } from './useSceneTreeItem'
 
-export function transformToGeoJson(sceneObjList: ESSceneObject[]) {
+export function objectsToGeoJson(sceneObjList: ESSceneObject[]) {
   const result = {
     type: 'FeatureCollection',
     features: [] as any[]
@@ -74,7 +71,7 @@ export const getGeoJsonMenuContent = (
     keys: '',
     func: async () => {
       try {
-        const geoJson = transformToGeoJson(sceneObjects)
+        const geoJson = objectsToGeoJson(sceneObjects)
         if (geoJson.features.length === 0) {
           ElMessage.warning(`未筛选到可导出对象`)
           return

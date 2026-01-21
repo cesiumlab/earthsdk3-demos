@@ -1,0 +1,136 @@
+/** Cesium 源码查看器对话框样式 */
+.create-scene-object-dialog {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /** 内容区域 - 左右分栏布局 */
+    .dialog-content {
+        flex: 1;
+        height: 450px;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        position: relative;
+
+        /** 面板通用样式 */
+        .editor-panel,
+        .viewer-panel {
+            display: flex;
+            flex-direction: column;
+            border-radius: var(--el-border-radius-base);
+            overflow: hidden;
+            background: var(--el-bg-color-page);
+            box-shadow: var(--el-box-shadow-light);
+            border: 1px solid var(--el-border-color);
+            transition: box-shadow var(--el-transition-duration) ease,
+                border-color var(--el-transition-duration) ease;
+
+            &:hover {
+                box-shadow: var(--el-box-shadow);
+                border-color: var(--el-border-color-hover);
+            }
+        }
+
+        /** 编辑器面板 */
+        .editor-panel {
+            min-width: 250px;
+            max-width: calc(100% - 260px); // 确保右侧至少有 250px + 10px 分隔条
+        }
+
+        /** 可拖动的分隔条 */
+        .resizer {
+            width: 10px;
+            cursor: col-resize;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+            transition: background-color var(--el-transition-duration-fast) ease;
+
+            /** 分隔线 */
+            .resizer-line {
+                width: 2px;
+                height: 100%;
+                background: linear-gradient(to bottom,
+                        transparent 0%,
+                        var(--el-border-color-darker) 10%,
+                        var(--el-border-color-darker) 90%,
+                        transparent 100%);
+                transition: all var(--el-transition-duration-fast) ease;
+                position: relative;
+
+                /** 中间的抓手图标 */
+                &::before {
+                    content: '⋮';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: var(--el-text-color-secondary);
+                    font-size: 16px;
+                    font-weight: bold;
+                    opacity: 0;
+                    transition: opacity var(--el-transition-duration-fast) ease;
+                    text-shadow: 0 0 4px var(--el-color-black);
+                }
+            }
+
+            /** 悬停效果 */
+            &:hover {
+                .resizer-line {
+                    width: 3px;
+                    background: linear-gradient(to bottom,
+                            transparent 0%,
+                            var(--el-color-primary) 10%,
+                            var(--el-color-primary) 90%,
+                            transparent 100%);
+                    box-shadow: 0 0 8px var(--el-color-primary-light-5);
+
+                    &::before {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            /** 拖动中的效果 */
+            &.resizing {
+                .resizer-line {
+                    width: 4px;
+                    background: linear-gradient(to bottom,
+                            transparent 0%,
+                            var(--el-color-primary) 10%,
+                            var(--el-color-primary) 90%,
+                            transparent 100%);
+                    box-shadow: 0 0 8px var(--el-color-primary-light-5);
+
+                    &::before {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        /** 视图面板 */
+        .viewer-panel {
+            flex: 1;
+            min-width: 250px;
+
+            /** Cesium 视图容器 */
+            .viewer_right {
+                flex: 1;
+                position: relative;
+                background: var(--el-color-black);
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+/** 拖动时禁用过渡效果 */
+.create-scene-object-dialog .dialog-content .resizing~.editor-panel,
+.create-scene-object-dialog .dialog-content .resizing~.viewer-panel {
+    transition: none;
+}

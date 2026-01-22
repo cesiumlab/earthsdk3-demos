@@ -41,3 +41,33 @@ export const copyClipboard = async (text: string) => {
     return false
   }
 }
+
+//accept：'.json,.txt'
+export function selectLocalFiles(
+  options?: {
+    accept?: string,
+    multiple?: boolean
+  }): Promise<File[]> {
+  return new Promise((resolve) => {
+    try {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.style.display = 'none'
+
+      if (options?.accept) input.accept = options.accept
+      if (options?.multiple) input.multiple = options.multiple
+
+      input.onchange = () => {
+        resolve(input.files ? Array.from(input.files) : [])
+        document.body.removeChild(input)
+      }
+
+      document.body.appendChild(input)
+      input.click()
+
+    } catch (error) {
+      console.error(error);
+      resolve([])
+    }
+  })
+}

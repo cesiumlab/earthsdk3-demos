@@ -9,6 +9,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { getGeoJsonMenuContent } from './objectsToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
+import { createObjectFromUrl } from './funcJsonFromUrl'
 
 //添加文件夹
 export const addNewTreeItem = (
@@ -68,6 +69,25 @@ export const getDefauleMenuContent = (
         sceneTree.uiTree.clearAllSelectedItems()
         treeItem.uiTreeObject.selected = true
         ElMessage.success('创建成功')
+      }
+    },
+    {
+      text: '解析 URL 创建对象',
+      keys: '',
+      func: async () => {
+        try {
+          const option = await createObjectFromUrl();
+          if (option) {
+            const treeItem = sceneTree.createSceneObjectTreeItemFromJson(option)
+            if (!treeItem) return;
+            sceneTree.uiTree.clearAllSelectedItems()
+            treeItem.uiTreeObject.selected = true
+            ElMessage.success('创建成功')
+          }
+        } catch (error) {
+          console.error(error);
+          ElMessage.warning('创建失败')
+        }
       }
     },
     {

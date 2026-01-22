@@ -1,0 +1,30 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: var(--el-font-family);
+
+  .tip-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: var(--el-color-primary-light-9);
+    color: var(--el-text-color-regular);
+    border-radius: 4px;
+    border: 1px solid var(--el-color-primary-light-8);
+    font-size: 14px;
+
+    .icon {
+      color: var(--el-color-primary);
+      font-size: 16px;
+    }
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}

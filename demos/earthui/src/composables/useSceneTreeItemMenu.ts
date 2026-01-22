@@ -14,6 +14,7 @@ import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
 import { cesiumCodeLoader } from './funcCesiumCode'
+import { materialReplaceEditor } from './funcMaterialReplace'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -268,8 +269,8 @@ const getSceneObjectTreeItemMenuContent = (
       if (sceneObject) {
         if ('url' in sceneObject) {
           const url = sceneObject.url as string
-          if (url.length > 0) {
-            const flag = await copyClipboard(JSON.stringify(url))
+          if (url) {
+            const flag = await copyClipboard(url)
             if (flag) {
               ElMessage.success('复制成功')
             } else {
@@ -456,26 +457,52 @@ const getSceneObjectTreeItemMenuContent = (
   }
 
 
-  // const setMaterial = {
-  //   text: "材质替换",
-  //   keys: "",
-  //   func: () => {
-  //     setStyleTreeItem.value = treeItem;
-  //     materialReplaceShow.value = false;
-  //     setTimeout(() => {
-  //       materialReplaceShow.value = true;
-  //     }, 100);
-  //   },
-  // };
-  // if (treeItem.sceneObject) {
-  //   if (
-  //     treeItem.sceneObject instanceof ES3DTileset &&
-  //     xbsjEarthUi.activeViewer instanceof ESUeViewer
-  //   ) {
-  //     // if (treeItem.sceneObject instanceof ES3DTileset) {
-  //     baseItems.splice(13, 0, setMaterial);
-  //   }
-  // }
+  const setMaterial = {
+    text: "材质替换",
+    keys: "",
+    func: async () => {
+      if (
+        sceneObject && sceneObject instanceof ES3DTileset
+        && objm.activeViewer instanceof ESUeViewer
+      ) {
+        let close: Function | null = messageLoading('正在获取材质信息...')
+        try {
+          const ueMaterialList = await objm.activeViewer.getTilesetMaterialIDList()
+          const nameList = await sceneObject.getMaterialNameList() as string[];
+          if (
+            nameList && nameList.length > 0
+            && ueMaterialList && ueMaterialList.length > 0
+          ) {
+            const materialList = nameList.map((name) => {
+              return {
+                key: name,
+                value: (sceneObject.materialOverrideMap ? (sceneObject.materialOverrideMap as any)[name] : undefined) as string | undefined,
+                select: false
+              }
+            })
+            close && close() && (close = null);
+            const res = await materialReplaceEditor(materialList ?? [], ueMaterialList ?? []);
+            res && (sceneObject.materialOverrideMap = res);
+            ElMessage.success('已替换材质信息');
+          } else {
+            close && close() && (close = null);
+            ElMessage.warning('材质信息缺失');
+          }
+        } catch (error) {
+          close && close() && (close = null);
+          console.log(error)
+          ElMessage.warning('未知错误，请检查错误信息')
+        }
+      }
+    },
+  };
+  if (
+    sceneObject
+    && sceneObject instanceof ES3DTileset
+    && objm.activeViewer instanceof ESUeViewer
+  ) {
+    baseItems.splice(4, 0, setMaterial);
+  }
 
 
   //卷帘分割

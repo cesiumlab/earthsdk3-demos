@@ -7,23 +7,19 @@
 </template>
 
 <script setup lang="ts">
-import { EsElConfigProvider, useTheme } from 'earthsdk-ui'
-import { shallowRef } from 'vue'
-import EarthUI from './EarthUI.vue'
-import { NavType } from './types'
+import { EsElConfigProvider, useTheme } from 'earthsdk-ui';
+import { shallowRef } from 'vue';
+import EarthUI from './EarthUI.vue';
+import { NavType } from './types';
 // 使用主题管理
-const {
-  // toggleTheme,
-  // isDark,
-  setCustomThemeConfig
-} = useTheme()
+const { setCustomThemeConfig } = useTheme();
 // 使用语言管理
 // const { toggleLanguage, isZhCN } = useLanguage();
 
 //自定义样式
-setCustomThemeConfig({ colorPrimary: '#6287F7' })
+setCustomThemeConfig({ colorPrimary: '#6287F7' });
 
-const newList = shallowRef<NavType[]>([])
+const newList = shallowRef<NavType[]>([]);
 </script>
 
 <style>

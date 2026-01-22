@@ -20,5 +20,5 @@ watch(
   { immediate: true }
 )
 
-app.use(EarthSDKUI)
-app.mount('#app')
+app.use(EarthSDKUI);
+app.mount('#app');

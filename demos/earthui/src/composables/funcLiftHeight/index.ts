@@ -1,6 +1,6 @@
 import { createVNode } from 'vue'
 import { render } from 'vue'
-import LiftHeight from './lift-height/index.vue'
+import LiftHeight from './index.vue'
 //获取抬升高度
 export function getLiftHeightValue(objNumber: number): Promise<number | undefined> {
   return new Promise((resolve) => {

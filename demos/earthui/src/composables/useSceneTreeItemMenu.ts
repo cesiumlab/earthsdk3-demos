@@ -13,7 +13,7 @@ import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
-import { cesiumCodeLoader } from './cesiumCodeLoader'
+import { cesiumCodeLoader } from './funcCesiumCode'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (

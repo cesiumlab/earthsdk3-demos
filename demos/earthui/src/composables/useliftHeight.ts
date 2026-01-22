@@ -1,4 +1,4 @@
-import { getLiftHeightValue } from '@/components'
+import { getLiftHeightValue } from './funcLiftHeight'
 import { MenuItem } from 'earthsdk-ui'
 import {
   ESGeoVector,

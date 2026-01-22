@@ -1,4 +1,4 @@
-export const EARTH_UI_SCENEOBJECT_TYPE_ICON: Record<string, string> = {
+export const EARTH_UI_SCENEOBJECT_TYPE_ICON = {
   Default: 'wenjian_weixuanzhong',
   Folder: 'wenjian_weixuanzhong',
   ESImageryLayer: 'yingxiang',
@@ -50,7 +50,6 @@ export const EARTH_UI_SCENEOBJECT_TYPE_ICON: Record<string, string> = {
   ESLocalVector: 'jubuzuobiao',
   ESLocalVector2D: 'jubu2Dzuobiao',
   ESVisualObject: 'dituchangjing'
-}
+} as Record<string, string>
 
-export const getIcon = (type: string) =>
-  EARTH_UI_SCENEOBJECT_TYPE_ICON[type] || EARTH_UI_SCENEOBJECT_TYPE_ICON.Default
+export const getIcon = (type: string) => EARTH_UI_SCENEOBJECT_TYPE_ICON[type] || EARTH_UI_SCENEOBJECT_TYPE_ICON.Default

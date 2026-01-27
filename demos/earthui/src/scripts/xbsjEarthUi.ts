@@ -29,9 +29,6 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._navigatorManager
   }
 
-  // private _globeMaterial!: CzmGlobeMaterial;
-  // get globeMaterial() { return this._globeMaterial; }
-
   private _measurementManager = this.dv(new MeasurementManager(this)) //测量
   get measurementManager() {
     return this._measurementManager
@@ -121,28 +118,6 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._animationShow.changed
   }
 
-  private _sceneTreeCheckedIcon = this.dv(react<boolean>(false)) //场景树的全选按钮的控制
-  get sceneTreeCheckedIcon() {
-    return this._sceneTreeCheckedIcon.value
-  }
-  set sceneTreeCheckedIcon(value: boolean) {
-    this._sceneTreeCheckedIcon.value = value
-  }
-  get sceneTreeCheckedIconChanged() {
-    return this._sceneTreeCheckedIcon.changed
-  }
-
-  private _sceneTreeEditingIcon = this.dv(react<boolean>(false)) //场景树的全选按钮的控制
-  get sceneTreeEditingIcon() {
-    return this._sceneTreeEditingIcon.value
-  }
-  set sceneTreeEditingIcon(value: boolean) {
-    this._sceneTreeEditingIcon.value = value
-  }
-  get sceneTreeEditingIconChanged() {
-    return this._sceneTreeEditingIcon.changed
-  }
-
   private _roamMode = this.dv(react<string>('Map')) //漫游模式'Walk'|'Map'|'Line'|'RotateGlobe'
   get roamMode() {
     return this._roamMode.value
@@ -204,9 +179,6 @@ export class XbsjEarthUi extends ESObjectsManager {
     this.dispose(() => this.destroySceneObject(o))
     return o
   })()
-  get sceneObjectCreatorUI() {
-    return this._sceneObjectCreatorUI
-  }
   getSceneObjectType() {
     return this._sceneObjectCreatorUI.getTypeName()
   }

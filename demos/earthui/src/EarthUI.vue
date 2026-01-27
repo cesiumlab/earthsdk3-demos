@@ -1,56 +1,55 @@
 <template>
-  <div class="xbsj_box">
+  <!-- 导航以及右侧模块面板 -->
+  <HeaderMenu :navList="navList" :navType="navType" :key="navList.length"></HeaderMenu>
 
-    <!-- 导航以及模块面板 -->
-    <div class="xbsj_header">
-      <Menu :navList="navList" :navType="navType" :key="navList.length"></Menu>
-    </div>
+  <!-- 视口 -->
+  <viewersContainer></viewersContainer>
 
-    <!-- 视口 -->
-    <div class="xbsj_earth">
-      <ViewersComp></ViewersComp>
-    </div>
+  <!-- 新场景树 -->
+  <SceneTreePanel></SceneTreePanel>
 
-    <!-- 新场景树 -->
-    <SceneTreePanel></SceneTreePanel>
+  <!-- 属性面板 -->
+  <SceneTreePropPanel></SceneTreePropPanel>
 
-    <!-- 属性面板 -->
-    <SceneTreePropPanel></SceneTreePropPanel>
+  <!-- 时间线 -->
+  <TimeLine v-show="animationShow"></TimeLine>
 
-    <!-- 时间线 -->
-    <TimeLine v-show="animationShow"></TimeLine>
-    <!-- 拾取面板 -->
-    <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult>
+  <!-- 拾取面板 -->
+  <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult>
 
-    <!-- 状态栏 指北针 比例尺-->
-    <ControlComponent />
-  </div>
+  <!-- 状态栏 指北针 比例尺-->
+  <ControlComponent />
+
 </template>
 
 <script setup lang="ts">
-import { createVueDisposer, toRefKey, toVR } from 'earthsdk-ui'
+import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { ESCesiumViewer, merge3dTilesServer } from 'earthsdk3-cesium'
 import { ESOlViewer } from 'earthsdk3-ol'
 import { ESUeViewer } from 'earthsdk3-ue'
 import { onBeforeUnmount, onMounted, provide, ref, shallowRef, watch } from 'vue'
-import SceneTreePanel from './components/SceneTreePanel.vue'
-import SceneTreePropPanel from './components/SceneTreePropPanel.vue'
-import ViewersComp from './components/viewers/Viewers.vue'
+import SceneTreePanel from './components/business/SceneTreePanel.vue'
+import SceneTreePropPanel from './components/business/SceneTreePropPanel.vue'
+import viewersContainer from './components/viewers/Viewers.vue'
 import { originalNavList } from './pages'
 import { timeToTimestamp, timestampToTime } from './pages/environment/fun'
-import Menu from './pages/Menu.vue'
+import HeaderMenu from './components/layout/Menu/index.vue'
 import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
 import TimeLine from './pages/view/animation/TimeLine.vue'
 import ControlComponent from './pages/view/control/index.vue'
 import { initSceneJson, initSceneWithType, initurl } from './scripts/initializationJson'
 import { XbsjEarthUi } from './scripts/xbsjEarthUi'
+import { NavType } from './types'
 
 const props = withDefaults(
   defineProps<{
-    newList?: any
+    newList?: NavType[]
     navType?: string
   }>(),
-  {}
+  {
+    newList: () => [],
+    navType: 'roam'
+  }
 )
 
 const xbsjEarthUi = new XbsjEarthUi(ESUeViewer, ESCesiumViewer, ESOlViewer);
@@ -107,32 +106,3 @@ onMounted(() => {
   )
 })
 </script>
-
-<style scoped>
-.xbsj_box {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.xbsj_header {
-  width: 100%;
-  height: 40px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--el-bg-color);
-  border-bottom: 1px solid var(--el-border-color);
-  box-sizing: border-box;
-}
-
-.xbsj_earth {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-</style>

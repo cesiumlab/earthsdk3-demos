@@ -13,8 +13,8 @@
 import { createVueDisposer, DraggableDialog, ESIcon, toRefKey, toVR } from 'earthsdk-ui'
 import { SceneTreeItem } from 'earthsdk3'
 import { computed, inject, onBeforeUnmount } from 'vue'
-import type { XbsjEarthUi } from '../scripts/xbsjEarthUi'
-import ESPropPanel from './eSPropPanel/ESPropPanel.vue'
+import type { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import ESPropPanel from '../eSPropPanel/ESPropPanel.vue'
 
 // 注入父组件提供的依赖
 const xbsjEarthUi = inject<XbsjEarthUi>('xbsjEarthUi')!

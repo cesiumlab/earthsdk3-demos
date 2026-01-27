@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { vue3Xe2Bind } from 'earthsdk-ui'
-import { ESImageryLayer, SceneTree } from 'earthsdk3'
+// TODO:添加ESMVTLayer,后期可能要删掉
+import { ESImageryLayer, ESMVTLayer, SceneTree } from 'earthsdk3'
 import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Destroyable, ObjResettingWithEvent } from 'earthsdk3'
 import RightList from '../../components/RightList.vue'
@@ -15,7 +16,7 @@ const chlastSelectedItem = () => {
   showName.value = '请选中影像图层'
   const lastSelectedItem = sceneTree.lastSelectedItem
   if (!lastSelectedItem) return
-  if (lastSelectedItem?.type == 'ESImageryLayer') {
+  if (["ESImageryLayer","ESMVTLayer"].includes(lastSelectedItem?.type)) {
     setTimeout(() => {
       showName.value = lastSelectedItem.name
     }, 100)
@@ -108,7 +109,7 @@ watch(czmGamma, (val) => {
   czmGammaSlider.value = val * 10
 })
 class ImageryController extends Destroyable {
-  constructor(private _esImageryLayer: ESImageryLayer) {
+  constructor(private _esImageryLayer: ESImageryLayer|ESMVTLayer) {
     super()
     this.d(
       vue3Xe2Bind(czmAlpha, [this._esImageryLayer, 'czmAlpha'], ESImageryLayer.defaults.czmAlpha)
@@ -153,8 +154,8 @@ onMounted(() => {
     if (!lastSelectedItem) return undefined
     const { sceneObject } = lastSelectedItem
     if (!sceneObject) return undefined
-    if (sceneObject.typeName !== 'ESImageryLayer') return undefined
-    if (!(sceneObject instanceof ESImageryLayer)) return undefined
+    if (sceneObject.typeName !== 'ESImageryLayer' && sceneObject.typeName !== 'ESMVTLayer') return undefined
+    if (!(sceneObject instanceof ESImageryLayer) && !(sceneObject instanceof ESMVTLayer)) return undefined
     return new ImageryController(sceneObject)
   })
   onBeforeUnmount(() => objResetting.destroy())

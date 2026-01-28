@@ -45,7 +45,7 @@ function trunToEditor(item) {
 .list-root {
   width: 100%;
   min-height: 100%;
-  background: var(--bg-surface);
+  background: transparent;
   padding: 14px 22px 24px 22px;
   box-sizing: border-box;
 }
@@ -64,14 +64,15 @@ function trunToEditor(item) {
 .group-bar {
   width: 4px;
   height: 22px;
-  background: var(--primary);
+  background: linear-gradient(180deg, #7aa2ff 0%, #5f8eff 100%);
   border-radius: 2px;
   margin-right: 10px;
+  box-shadow: 0 4px 12px rgba(122, 162, 255, 0.3);
 }
 .group-title-text {
   font-size: 20px;
   font-weight: 700;
-  color: var(--text);
+  color: rgba(245, 248, 255, 0.94);
   letter-spacing: 0.2px;
 }
 .topic {
@@ -83,12 +84,12 @@ function trunToEditor(item) {
 .topic-title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text);
+  color: rgba(245, 248, 255, 0.94);
   margin-bottom: 10px;
   margin-top: 12px;
 }
 .topic-count {
-  color: var(--primary);
+  color: #7aa2ff;
   font-size: 14px;
   margin-left: 6px;
 }
@@ -106,13 +107,13 @@ function trunToEditor(item) {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-surface);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
   margin-bottom: 0;
   padding-top: 6px;
-  transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease, background 0.25s ease;
+  transition: box-shadow 0.22s ease, transform 0.18s ease, border-color 0.22s ease, background 0.22s ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -121,7 +122,7 @@ function trunToEditor(item) {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(49,115,246,0.12), rgba(49,115,246,0) 35%, rgba(49,115,246,0) 65%, rgba(49,115,246,0.12));
+  background: linear-gradient(135deg, rgba(122,162,255,0.12), rgba(122,162,255,0) 35%, rgba(122,162,255,0) 65%, rgba(122,162,255,0.12));
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -131,8 +132,8 @@ function trunToEditor(item) {
   position: absolute;
   inset: 0;
   padding: 1px;
-  border-radius: 16px;
-  background: linear-gradient(145deg, rgba(49,115,246,0.25), rgba(255,255,255,0.0));
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(122,162,255,0.25), rgba(255,255,255,0.0));
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -140,10 +141,10 @@ function trunToEditor(item) {
   pointer-events: none;
 }
 .card:hover {
-  box-shadow: 0 14px 32px rgba(3,139,254,0.20);
-  transform: translateY(-3px);
-  border-color: var(--primary);
-  background: rgba(49,115,246,0.02);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px);
+  border-color: rgba(122, 162, 255, 0.55);
+  background: rgba(255, 255, 255, 0.08);
   transform-origin: center bottom;
 }
 .card:hover::before { opacity: 1; }
@@ -152,7 +153,7 @@ function trunToEditor(item) {
 }
 .card > p {
   font-size: 15px;
-  color: var(--text);
+  color: rgba(245, 248, 255, 0.94);
   margin: 0;
   margin: 8px 0 12px 0;
   font-weight: 600;
@@ -160,21 +161,37 @@ function trunToEditor(item) {
 }
 .card > img {
   border-radius: 12px;
-  background: #f7fafd;
+  background: rgba(0, 0, 0, 0.25);
   width: calc(100% - 18px);
   height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05) inset;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.22) inset;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transform: scale(1);
   transition: transform 0.35s ease;
 }
 .highlight {
-  outline: 2px solid rgba(49,115,246,0.35);
+  outline: 2px solid rgba(122,162,255,0.35);
   outline-offset: 0px;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(49,115,246,0.12), 0 14px 28px rgba(3,139,254,0.20);
-  background: linear-gradient(180deg, rgba(49,115,246,0.06), rgba(49,115,246,0.00));
+  border-color: #7aa2ff !important;
+  box-shadow: 0 0 0 4px rgba(49,115,246,0.12), 0 14px 28px rgba(3,139,254,0.20) !important;
+  background: linear-gradient(180deg, rgba(122,162,255,0.14) 0%, rgba(122,162,255,0.06) 100%) !important;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(122,162,255,0.25), rgba(255,255,255,0.0));
+  opacity: 0.9;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  padding: 1px;
 }
 
 @media screen and (max-width: 1200px) {

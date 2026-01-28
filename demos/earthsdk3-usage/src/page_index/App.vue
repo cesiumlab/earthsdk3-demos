@@ -158,7 +158,7 @@ function selectSearchItem(item) {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: var(--bg-app);
+    background: rgb(20, 20, 20);
     position: relative;
 }
 
@@ -168,17 +168,11 @@ function selectSearchItem(item) {
     z-index: 10;
     width: 100%;
     padding: 16px 20px;
-    background: var(--bg-surface);
-    border-bottom: 1px solid var(--border);
+    background: rgba(20, 20, 20, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-}
-
-[data-theme='dark'] .right-search-bar {
-    background: var(--bg-surface);
-    border-bottom-color: var(--border);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .search-wrapper {
@@ -193,44 +187,32 @@ function selectSearchItem(item) {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: var(--bg-app);
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     padding: 10px 14px;
-    border: 1px solid var(--border);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     position: relative;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 0;
 }
 
 .search:focus-within {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(49, 115, 246, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.08);
-    background: var(--bg-surface);
-}
-
-[data-theme='dark'] .search {
-    background: rgba(22, 27, 34, 0.6);
-    border-color: rgba(88, 166, 255, 0.2);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme='dark'] .search:focus-within {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.18), inset 0 1px 2px rgba(0, 0, 0, 0.2);
-    background: rgba(22, 27, 34, 0.9);
+    border-color: #7aa2ff;
+    box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .search-icon {
     flex-shrink: 0;
-    color: var(--muted);
-    opacity: 0.6;
+    color: rgba(245, 248, 255, 0.66);
+    opacity: 0.8;
     transition: opacity 0.2s ease;
 }
 
 .search:focus-within .search-icon {
     opacity: 1;
-    color: var(--primary);
+    color: #7aa2ff;
 }
 
 .search input {
@@ -238,13 +220,13 @@ function selectSearchItem(item) {
     border: none;
     outline: none;
     background: transparent;
-    color: var(--text);
+    color: rgba(245, 248, 255, 0.94);
     font-size: 14px;
     min-width: 0;
 }
 
 .search input::placeholder {
-    color: var(--muted);
+    color: rgba(245, 248, 255, 0.5);
 }
 
 .search-btn {
@@ -255,38 +237,32 @@ function selectSearchItem(item) {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    background: var(--primary);
+    background: linear-gradient(180deg, #7aa2ff 0%, #5f8eff 100%);
     color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 22px rgba(3, 139, 254, 0.22);
     white-space: nowrap;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-btn:hover {
-    background: var(--primary-strong);
-    box-shadow: 0 4px 12px rgba(49, 115, 246, 0.3);
+    background: linear-gradient(180deg, #5f8eff 0%, #4d7eff 100%);
+    box-shadow: 0 14px 28px rgba(3, 139, 254, 0.3);
     transform: translateY(-1px);
 }
 
 .search-btn:active {
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.2);
 }
 
 .search-label {
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 999px;
-    background: rgba(49, 115, 246, 0.08);
-    color: var(--primary);
-    border: 1px solid rgba(49, 115, 246, 0.45);
-    white-space: nowrap;
-}
-
-[data-theme='dark'] .search-label {
     background: rgba(122, 162, 255, 0.16);
-    border-color: rgba(122, 162, 255, 0.9);
     color: #e8f0ff;
+    border: 1px solid rgba(122, 162, 255, 0.9);
+    white-space: nowrap;
 }
 
 .search-list {
@@ -297,23 +273,21 @@ function selectSearchItem(item) {
     margin-top: 0;
     padding: 4px 0;
     list-style: none;
-    background: var(--bg-surface);
+    background: rgba(20, 20, 20, 0.95);
     border-radius: 8px;
-    border: 1px solid var(--border);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     max-height: 320px;
     overflow-y: auto;
     z-index: 100;
-}
-
-[data-theme='dark'] .search-list {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .search-list li {
     padding: 10px 16px;
     font-size: 14px;
-    color: var(--text);
+    color: rgba(245, 248, 255, 0.94);
     cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -322,12 +296,8 @@ function selectSearchItem(item) {
 }
 
 .search-list li:hover {
-    background: rgba(77, 166, 255, 0.1);
-    color: var(--primary);
-}
-
-[data-theme='dark'] .search-list li:hover {
-    background: rgba(77, 166, 255, 0.15);
+    background: rgba(122, 162, 255, 0.15);
+    color: #7aa2ff;
 }
 
 .content {
@@ -344,22 +314,27 @@ function selectSearchItem(item) {
     height: 100%;
     width: 16%;
     min-width: 240px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     box-sizing: border-box;
     overflow: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .right {
     height: 100%;
     width: 84%;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
+    overflow: hidden;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     overflow-y: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* Smooth scrollbars */
@@ -369,12 +344,12 @@ function selectSearchItem(item) {
 }
 .left::-webkit-scrollbar-thumb,
 .right::-webkit-scrollbar-thumb {
-    background: var(--scrollbar);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 8px;
 }
 .left::-webkit-scrollbar-thumb:hover,
 .right::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover);
+    background: rgba(255, 255, 255, 0.25);
 }
 
 /* Utility */
@@ -388,7 +363,7 @@ function selectSearchItem(item) {
 }
 
 .highlight {
-    background: var(--highlight);
+    background: rgba(122, 162, 255, 0.14);
 }
 
 /* Responsive */
@@ -412,30 +387,30 @@ function selectSearchItem(item) {
 
 <style>
 :root {
-    --bg-app: #f5f7fb;
-    --bg-surface: #ffffff;
-    --text: #2a313b;
-    --muted: #5b6573;
-    --primary: #3173f6;
-    --primary-strong: #215ee0;
-    --border: #e8edf3;
-    --scrollbar: #d6deea;
-    --scrollbar-hover: #c5d3ea;
-    --highlight: #fff4bf;
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --bg-app: rgb(20, 20, 20);
+    --bg-surface: rgba(20, 20, 20, 0.9);
+    --text: rgba(245, 248, 255, 0.94);
+    --muted: rgba(245, 248, 255, 0.66);
+    --primary: #7aa2ff;
+    --primary-strong: #5f8eff;
+    --border: rgba(255, 255, 255, 0.10);
+    --scrollbar: rgba(255, 255, 255, 0.15);
+    --scrollbar-hover: rgba(255, 255, 255, 0.25);
+    --highlight: rgba(122, 162, 255, 0.14);
+    --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.55);
 }
 
 [data-theme='dark'] {
-    --bg-app: #11151b;
-    --bg-surface: #171c24;
-    --text: #e8f0fb;
-    --muted: #a9b3c2;
+    --bg-app: rgb(20, 20, 20);
+    --bg-surface: rgba(20, 20, 20, 0.9);
+    --text: rgba(245, 248, 255, 0.94);
+    --muted: rgba(245, 248, 255, 0.66);
     --primary: #7aa2ff;
     --primary-strong: #5f8eff;
-    --border: #2c333f;
-    --scrollbar: #2c3442;
-    --scrollbar-hover: #394356;
-    --highlight: #3a3a1f;
-    --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.35);
+    --border: rgba(255, 255, 255, 0.10);
+    --scrollbar: rgba(255, 255, 255, 0.15);
+    --scrollbar-hover: rgba(255, 255, 255, 0.25);
+    --highlight: rgba(122, 162, 255, 0.14);
+    --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.55);
 }
 </style>

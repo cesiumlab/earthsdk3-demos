@@ -1,7 +1,10 @@
 <template>
     <div class="tree-root">
-        <TreeItem v-for="(item, index) in visibleItems" :key="index" :item="item" @toggleExpand="toggleExpand"
-            @onclick="onclick" />
+        <template v-for="(item, index) in visibleItems" :key="index">
+            <div v-if="item.level === 0 && getRootIndex(item) > 0" class="separator-line"></div>
+            <TreeItem :item="item" :index="getRootIndex(item)" 
+                @toggleExpand="toggleExpand" @onclick="onclick" />
+        </template>
         <div class="tree-footer">总示例：{{ totalExamples }}</div>
     </div>
     
@@ -95,6 +98,14 @@ function toggleExpand(item) {
     }
 }
 
+// 获取根节点索引（用于分隔线）
+function getRootIndex(item) {
+    if (item.level === 0) {
+        return visibleItems.value.filter(i => i.level === 0).indexOf(item);
+    }
+    return 0;
+}
+
 function onclick(item) {
     emits("onclick", item)
     selectedItem.value = item
@@ -109,16 +120,23 @@ function onclick(item) {
 </script>
 <style scoped>
 .tree-root {
-    padding: 10px 6px 16px 6px;
-    color: var(--text);
+    padding: 8px 0;
+    color: var(--text, #e0e0e0);
     font-size: 13px;
+    background: var(--bg-app, #2a2a2a);
+}
+
+.separator-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 4px 0;
 }
 
 .tree-footer {
-    margin-top: 10px;
-    padding: 8px 6px 0 6px;
-    border-top: 1px dashed var(--border);
-    color: var(--muted);
+    margin-top: 12px;
+    padding: 12px 10px 0 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 11px;
 }
 </style>

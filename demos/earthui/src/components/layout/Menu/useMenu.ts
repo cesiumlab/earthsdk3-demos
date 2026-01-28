@@ -1,11 +1,11 @@
 import { get, post, put } from '@/api/service'
 import { $config } from '@/global'
 import { MenuType } from '@/types'
+import { downloadJson } from '@/utils'
 import { createVueDisposer, toVR, useTheme } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
 import { parse } from 'search-params'
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
-import { saveAs } from '../../../components/sceneTree/tools'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 
 // ==================== 类型定义 ====================
@@ -88,9 +88,14 @@ export function useMenu(props: MenuProps) {
     }))
 
     /** 子菜单样式 */
-    const subMenuStyle = computed(() => ({
-        right: rightModuleShow.value ? '0px' : `-400px`
-    }))
+    const subMenuStyle = computed(() => {
+        // 根据当前菜单类型确定侧边栏宽度
+        const sidebarWidth = navType.value === 'llmchat' ? LLM_CHAT_SIDEBAR_WIDTH : DEFAULT_SIDEBAR_WIDTH
+        return {
+            width: `${sidebarWidth}px`,
+            right: rightModuleShow.value ? '0px' : `-${sidebarWidth}px`
+        }
+    })
 
     /** 保存场景菜单列表 */
     const sceneList = computed(() => [
@@ -257,7 +262,7 @@ export function useMenu(props: MenuProps) {
      */
     const handleSaveToLocal = () => {
         console.log('保存场景到本地:', xbsjEarthUi.json)
-        saveAs(xbsjEarthUi.json, '场景文件')
+        downloadJson(xbsjEarthUi.json, '场景文件.json', true)
     }
 
     /**
@@ -427,11 +432,13 @@ export function useMenu(props: MenuProps) {
      * 监听侧边栏状态变化，更新导航器位置
      */
     watch(
-        rightModuleShow,
+        [rightModuleShow, navType],
         () => {
             if (rightModuleShow.value) {
-                xbsjEarthUi.navigatorManager.navigatorScaleRight = DEFAULT_SIDEBAR_WIDTH + NAVIGATOR_OFFSET
-                xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${DEFAULT_SIDEBAR_WIDTH}px)`
+                // 根据当前菜单类型确定侧边栏宽度
+                const sidebarWidth = navType.value === 'llmchat' ? LLM_CHAT_SIDEBAR_WIDTH : DEFAULT_SIDEBAR_WIDTH
+                xbsjEarthUi.navigatorManager.navigatorScaleRight = sidebarWidth + NAVIGATOR_OFFSET
+                xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${sidebarWidth}px)`
             } else {
                 xbsjEarthUi.navigatorManager.navigatorScaleRight = NAVIGATOR_OFFSET
                 xbsjEarthUi.navigatorManager.timeLineWidth = '100%'

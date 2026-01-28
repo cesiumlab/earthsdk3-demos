@@ -87,7 +87,12 @@ const config: NewChatProps = {
   beforeSendUpdateSystemPrompt: () => {
     const spr = getSystemPrompt()
     return Promise.resolve(spr)
-  }
+  },
+  exampleQuestions: [
+    '介绍一下你自己',
+    '飞到北京',
+    '介绍一下整个场景'
+  ]
 }
 </script>
 

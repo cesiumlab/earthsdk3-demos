@@ -166,10 +166,8 @@ function selectSearchItem(item) {
     z-index: 10;
     width: 100%;
     padding: 16px 20px;
-    background: rgba(20, 20, 20, 0.85);
+    background: rgba(20, 20, 20, 1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -273,8 +271,8 @@ function selectSearchItem(item) {
     list-style: none;
     background: rgba(20, 20, 20, 0.95);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+    /* border: 1px solid rgba(255, 255, 255, 0.12); */
+    /* box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55); */
     max-height: 320px;
     overflow-y: auto;
     z-index: 100;
@@ -312,10 +310,7 @@ function selectSearchItem(item) {
     height: 100%;
     width: 16%;
     min-width: 240px;
-    background: rgba(20, 20, 20, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 12px;
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     box-sizing: border-box;
     overflow: auto;
     backdrop-filter: blur(10px);
@@ -326,10 +321,6 @@ function selectSearchItem(item) {
     height: 100%;
     width: 84%;
     overflow: hidden;
-    background: rgba(20, 20, 20, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 12px;
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     overflow-y: auto;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);

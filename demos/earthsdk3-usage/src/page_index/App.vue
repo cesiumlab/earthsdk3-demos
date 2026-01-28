@@ -7,24 +7,33 @@
             </div>
             <div class="right" ref="list">
                 <div class="right-search-bar">
-                    <div class="search">
-                        <input
-                            v-model="searchText"
-                            type="text"
-                            placeholder="输入示例名称搜索..."
-                            @keyup.enter="searchAndScroll"
-                        />
-                        <ul class="search-list" v-if="searchText && searchResults.length">
-                            <li
-                                v-for="item in searchResults"
-                                :key="item.id"
-                                @click="selectSearchItem(item)"
-                            >
-                                {{ item.name }}
-                            </li>
-                        </ul>
+                    <div class="search-wrapper">
+                        <div class="search">
+                            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M11.5 10.5L15 14M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <input
+                                v-model="searchText"
+                                type="text"
+                                placeholder="搜索示例..."
+                                @keyup.enter="searchAndScroll"
+                                @focus="searchFocused = true"
+                                @blur="setTimeout(() => searchFocused = false, 200)"
+                            />
+                            <ul class="search-list" v-if="searchText && searchResults.length && searchFocused">
+                                <li
+                                    v-for="item in searchResults"
+                                    :key="item.id"
+                                    @mousedown.prevent="selectSearchItem(item)"
+                                >
+                                    {{ item.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="search-btn" @click="searchAndScroll">
+                            <span>搜索</span>
+                        </button>
                     </div>
-                    <button class="search-btn" @click="searchAndScroll">搜索</button>
                 </div>
                 <List :list="data" :activeId="activeId"></List>
             </div>
@@ -47,6 +56,7 @@ const list = ref(null)
 const activeId = ref(null);
 const theme = ref('dark')
 const searchText = ref('')
+const searchFocused = ref(false)
 const searchResults = computed(() => {
     const key = searchText.value.trim().toLowerCase();
     if (!key || !Array.isArray(data.value)) return [];
@@ -155,41 +165,82 @@ function selectSearchItem(item) {
 .right-search-bar {
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 10;
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] .right-search-bar {
+    background: var(--bg-surface);
+    border-bottom-color: var(--border);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.search-wrapper {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px 4px 12px;
-    background: linear-gradient(to bottom, var(--bg-surface), rgba(255, 255, 255, 0));
+    gap: 12px;
+    max-width: 600px;
 }
 
 .search {
-    display: inline-flex;
+    flex: 1;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.97);
-    border-radius: 999px;
-    padding: 6px 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(49, 115, 246, 0.45);
-    min-width: 240px;
+    gap: 10px;
+    background: var(--bg-app);
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
     position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 0;
+}
+
+.search:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 115, 246, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.08);
+    background: var(--bg-surface);
 }
 
 [data-theme='dark'] .search {
-    background: rgba(23, 28, 36, 0.96);
-    border-color: rgba(122, 162, 255, 0.9);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+    background: rgba(22, 27, 34, 0.6);
+    border-color: rgba(88, 166, 255, 0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .search:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.18), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    background: rgba(22, 27, 34, 0.9);
+}
+
+.search-icon {
+    flex-shrink: 0;
+    color: var(--muted);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.search:focus-within .search-icon {
+    opacity: 1;
+    color: var(--primary);
 }
 
 .search input {
+    flex: 1;
     border: none;
     outline: none;
     background: transparent;
     color: var(--text);
-    font-size: 13px;
-    min-width: 180px;
+    font-size: 14px;
+    min-width: 0;
 }
 
 .search input::placeholder {
@@ -197,15 +248,29 @@ function selectSearchItem(item) {
 }
 
 .search-btn {
+    flex-shrink: 0;
     border: none;
-    border-radius: 999px;
-    padding: 5px 14px;
-    font-size: 12px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
+    background: var(--primary);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-btn:hover {
+    background: var(--primary-strong);
+    box-shadow: 0 4px 12px rgba(49, 115, 246, 0.3);
+    transform: translateY(-1px);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .search-label {
@@ -226,34 +291,43 @@ function selectSearchItem(item) {
 
 .search-list {
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + 8px);
     left: 0;
+    right: 0;
     margin-top: 0;
-    padding: 6px 0;
+    padding: 4px 0;
     list-style: none;
     background: var(--bg-surface);
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--border);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
-    max-height: 260px;
-    min-width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: 320px;
     overflow-y: auto;
-    z-index: 20;
+    z-index: 100;
+}
+
+[data-theme='dark'] .search-list {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .search-list li {
-    padding: 6px 12px;
-    font-size: 13px;
+    padding: 10px 16px;
+    font-size: 14px;
     color: var(--text);
     cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .search-list li:hover {
-    background: rgba(49, 115, 246, 0.08);
+    background: rgba(77, 166, 255, 0.1);
     color: var(--primary);
+}
+
+[data-theme='dark'] .search-list li:hover {
+    background: rgba(77, 166, 255, 0.15);
 }
 
 .content {

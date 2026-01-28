@@ -1,16 +1,7 @@
 <template>
-  <PopList
-    :title="$config.localserverName"
-    :showButton="serverList.length > 0"
-    :link="$config.modelShow ? 'http://bjxbsj.cn' : ''"
-    @ok="ok"
-  >
-    <LabelInput
-      v-model="cesiumLabUrl"
-      :label="'服务地址'"
-      @blur="initNewList"
-      @keydownenter="initNewList"
-    >
+  <PopList :title="$config.localserverName" :showButton="serverList.length > 0"
+    :link="$config.modelShow ? 'http://bjxbsj.cn' : ''" @ok="ok">
+    <LabelInput v-model="cesiumLabUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">
       <div class="images_servelocation">
@@ -18,27 +9,14 @@
         <div class="server_token" v-if="!tokenInputShow" @click="tokenInputShow = true">
           {{ cesiumLabToken }}
         </div>
-        <input
-          v-else
-          type="text"
-          v-model="cesiumLabToken"
-          @blur="changeToken"
-          @keydown.enter="changeToken"
-        />
+        <input v-else type="text" v-model="cesiumLabToken" @blur="changeToken" @keydown.enter="changeToken" />
       </div>
     </div>
     <div class="lab_Property_header">
-      <div
-        class="header_item"
-        v-for="item in propertiesMenu"
-        :key="item.component"
-        @click="changePropertiesMenu(item.component)"
-      >
-        <span
-          class="header_item_span"
-          :class="currentMenu === item.component ? 'header_active' : ''"
-          >{{ item.name }}</span
-        >
+      <div class="header_item" v-for="item in propertiesMenu" :key="item.component"
+        @click="changePropertiesMenu(item.component)">
+        <span class="header_item_span" :class="currentMenu === item.component ? 'header_active' : ''">{{ item.name
+        }}</span>
       </div>
     </div>
     <div v-if="serverList.length > 0">
@@ -49,13 +27,8 @@
           <div class="server_lab_title_type">{{ '类型' }}</div>
         </div>
         <div class="server_content">
-          <div
-            class="server_lab_content"
-            v-for="(item, index) in serverList"
-            @click="changeServerLab(item, index)"
-            :key="index"
-            :class="{ server_lab_content_active: serverActive === index }"
-          >
+          <div class="server_lab_content" v-for="(item, index) in serverList" @click="changeServerLab(item, index)"
+            :key="index" :class="{ server_lab_content_active: serverActive === index }">
             <div class="server_lab_content_index">{{ index + 1 }}</div>
             <div class="server_lab_content_name" :title="item.name">
               {{ item.name }}
@@ -75,22 +48,13 @@
       </div>
       <div class="page_lab">
         <div class="page_lab_pageNum">
-          <span
-            :class="{ disabled: leftDisabled }"
-            @click="changePageNum('-')"
-            @mouseover="mouseover"
-            @mouseout="mouseout"
-          >
-            {{ '<' }}
-          </span>
-          <span>{{ pageNum }}</span>
-          <span
-            :class="{ disabled: rightDisabled }"
-            @click="changePageNum('+')"
-            @mouseover="mouseover"
-            @mouseout="mouseout"
-            >{{ '>' }}
-          </span>
+          <span :class="{ disabled: leftDisabled }" @click="changePageNum('-')" @mouseover="mouseover"
+            @mouseout="mouseout">
+            {{ '<' }} </span>
+              <span>{{ pageNum }}</span>
+              <span :class="{ disabled: rightDisabled }" @click="changePageNum('+')" @mouseover="mouseover"
+                @mouseout="mouseout">{{ '>' }}
+              </span>
         </div>
         <div class="page_lab_pageSize" @click.stop="developContent = !developContent">
           <div>{{ pageSize }}条/页</div>
@@ -132,6 +96,7 @@ import {
   createTerrain,
   createImage
 } from './tools'
+import { localStorageKey } from '@/constants'
 const d = createVueDisposer(onBeforeUnmount)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const cesiumLabUrl = toVR<string>(d, [xbsjEarthUi, 'cesiumLabUrl'])
@@ -321,7 +286,8 @@ const terrainList = (list: terrainType[]) => {
   return newList
 }
 const initNewList = async () => {
-  window.localStorage.setItem('labServeUrl', cesiumLabUrl.value)
+  // window.localStorage.setItem('labServeUrl', cesiumLabUrl.value)
+  window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl.value)
   let newList: imageServe[] = []
   if (!cesiumLabUrl.value) {
     ElMessage.warning('服务地址为空，请填写地址')

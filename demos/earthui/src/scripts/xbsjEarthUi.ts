@@ -7,8 +7,12 @@ import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
 import { $config } from '@/global'
+import { InitSceneConfigType } from '@/global/types'
 
 export class XbsjEarthUi extends ESObjectsManager {
+  private _initConfig: InitSceneConfigType;
+  get initConfig() { return this._initConfig };
+
   private _showSceneTreeView = this.dv(react<boolean>(true)) //图层管理
   get showSceneTreeView() {
     return this._showSceneTreeView.value
@@ -183,8 +187,10 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._sceneObjectCreatorUI.getTypeName()
   }
 
-  constructor(...args: any[]) {
-    super(...args)
+  constructor(initConfig: InitSceneConfigType, viewers: any[]) {
+    super(...viewers)
+    this._initConfig = initConfig; // 初始化配置
+
     // this.ad(this.viewerCreatedEvent.don(() => {
     //     this._globeMaterial = this.ad(new CzmGlobeMaterial(this.activeViewer as ESCesiumViewer));//全球材质，地形着色
     // }))

@@ -1,7 +1,5 @@
 import { Destroyable, react } from 'earthsdk3'
 import { XbsjEarthUi } from '../xbsjEarthUi'
-import { useRightSidebarWidthFunc } from '@/global'
-import { watch } from 'vue'
 
 export class ClassicNavigatorManager extends Destroyable {
   private _timeLine = this.dv(react<boolean>(false)) //时间线显影
@@ -69,17 +67,5 @@ export class ClassicNavigatorManager extends Destroyable {
 
   constructor(private xbsjEarthUi: XbsjEarthUi) {
     super()
-
-    const { rightSidebarWidth } = useRightSidebarWidthFunc()
-    this.d(
-      watch(
-        rightSidebarWidth,
-        (value) => {
-          this.navigatorScaleRight = value + 10
-          this.timeLineWidth = `calc(100% - ${value}px)`
-        },
-        { immediate: true }
-      )
-    )
   }
 }

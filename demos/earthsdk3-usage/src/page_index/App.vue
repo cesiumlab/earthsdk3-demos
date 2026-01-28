@@ -3,7 +3,7 @@
         <Header @toggleTheme="toggleTheme"></Header>
         <div class="content">
             <div class="left">
-                <Tree :tree="data" @onclick="handlerClick"></Tree>
+                <ExampleTree :tree="data" @onclick="handlerClick"></ExampleTree>
             </div>
             <div class="right" ref="list">
                 <div class="right-search-bar">
@@ -35,19 +35,17 @@
                         </button>
                     </div>
                 </div>
-                <List :list="data" :activeId="activeId"></List>
+                <ExampleList :list="data" :activeId="activeId"></ExampleList>
             </div>
         </div>
-        <!-- <NewYearBanner /> -->
     </div>
     
 </template>
 
 <script setup>
-import Tree from './components/common/Tree.vue'
-import List from "./components/List.vue"
+import ExampleTree from './components/ExampleTree.vue'
+import ExampleList from "./components/ExampleList.vue"
 import Header from './components/Header.vue';
-import NewYearBanner from './components/NewYearBanner.vue';
 import axios from "axios";
 import { onMounted, ref, computed } from "vue";
 import { guid } from '@/scripts/utils'
@@ -337,19 +335,101 @@ function selectSearchItem(item) {
     -webkit-backdrop-filter: blur(10px);
 }
 
-/* Smooth scrollbars */
+/* Smooth scrollbars with arrows */
 .left::-webkit-scrollbar,
 .right::-webkit-scrollbar {
-    width: 8px;
+    width: 18px !important;
 }
+
+.left::-webkit-scrollbar-track,
+.right::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 9px !important;
+}
+
 .left::-webkit-scrollbar-thumb,
 .right::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 9px !important;
+    border: 1px solid rgba(20, 20, 20, 0.3) !important;
+    min-height: 30px;
 }
+
 .left::-webkit-scrollbar-thumb:hover,
 .right::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 滚动条箭头按钮 - 强制显示 */
+.left::-webkit-scrollbar-button,
+.right::-webkit-scrollbar-button {
+    display: block !important;
+    height: 18px !important;
+    width: 18px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+}
+
+/* 向上箭头 */
+.left::-webkit-scrollbar-button:vertical:start:decrement,
+.right::-webkit-scrollbar-button:vertical:start:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9px 9px 0 0 !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:start:decrement:hover,
+.right::-webkit-scrollbar-button:vertical:start:decrement:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:start:decrement:active,
+.right::-webkit-scrollbar-button:vertical:start:decrement:active {
+    background-color: rgba(122, 162, 255, 0.25) !important;
+}
+
+/* 向下箭头 */
+.left::-webkit-scrollbar-button:vertical:end:increment,
+.right::-webkit-scrollbar-button:vertical:end:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 0 9px 9px !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:end:increment:hover,
+.right::-webkit-scrollbar-button:vertical:end:increment:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:end:increment:active,
+.right::-webkit-scrollbar-button:vertical:end:increment:active {
+    background-color: rgba(122, 162, 255, 0.25) !important;
+}
+
+/* 隐藏默认的双按钮样式 */
+.left::-webkit-scrollbar-button:double-button,
+.right::-webkit-scrollbar-button:double-button {
+    display: none !important;
+}
+
+/* Firefox 滚动条样式 */
+.left {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.05);
+}
+
+.right {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.05);
 }
 
 /* Utility */

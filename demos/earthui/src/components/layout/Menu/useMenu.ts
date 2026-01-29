@@ -1,12 +1,12 @@
 import { get, post, put } from '@/api/service'
-import { $config, useRightSidebarWidthFunc } from '@/global'
+import { $config } from '@/global'
+import { MenuType } from '@/types'
+import { downloadJson } from '@/utils'
 import { createVueDisposer, toVR, useTheme } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
 import { parse } from 'search-params'
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
-import { saveAs } from '../../../components/sceneTree/tools'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
-import { NavType } from '@/types'
 
 // ==================== 类型定义 ====================
 
@@ -28,7 +28,7 @@ interface ApiResponse {
 
 /** Props 接口 */
 interface MenuProps {
-    navList: NavType[]
+    navList: MenuType[]
     navType: string | undefined
 }
 
@@ -70,9 +70,9 @@ export function useMenu(props: MenuProps) {
     /** 更多菜单显示状态 */
     const moreMenuShow = ref(false)
     /** 默认显示的导航列表 */
-    const defalutNavList = shallowRef<NavType[]>([])
+    const defalutNavList = shallowRef<MenuType[]>([])
     /** 隐藏在更多菜单中的导航列表 */
-    const noneNavList = shallowRef<NavType[]>([])
+    const noneNavList = shallowRef<MenuType[]>([])
     /** 当前激活的组件 */
     const com = shallowRef(props.navList[0]?.component)
 
@@ -81,9 +81,6 @@ export function useMenu(props: MenuProps) {
     const moreNavRef = useTemplateRef('moreNavRef')
     const moreMenuRef = useTemplateRef('moreMenuRef')
 
-    // ==================== 侧边栏宽度管理 ====================
-    const { rightSidebarWidth, setRightSidebarWidth } = useRightSidebarWidthFunc()
-
     // ==================== 计算属性 ====================
     /** Logo 样式 */
     const logoStyle = computed(() => ({
@@ -91,9 +88,14 @@ export function useMenu(props: MenuProps) {
     }))
 
     /** 子菜单样式 */
-    const subMenuStyle = computed(() => ({
-        right: rightModuleShow.value ? '0px' : `${-rightSidebarWidth.value}px`
-    }))
+    const subMenuStyle = computed(() => {
+        // 根据当前菜单类型确定侧边栏宽度
+        const sidebarWidth = navType.value === 'llmchat' ? LLM_CHAT_SIDEBAR_WIDTH : DEFAULT_SIDEBAR_WIDTH
+        return {
+            width: `${sidebarWidth}px`,
+            right: rightModuleShow.value ? '0px' : `-${sidebarWidth}px`
+        }
+    })
 
     /** 保存场景菜单列表 */
     const sceneList = computed(() => [
@@ -260,7 +262,7 @@ export function useMenu(props: MenuProps) {
      */
     const handleSaveToLocal = () => {
         console.log('保存场景到本地:', xbsjEarthUi.json)
-        saveAs(xbsjEarthUi.json, '场景文件')
+        downloadJson(xbsjEarthUi.json, '场景文件.json', true)
     }
 
     /**
@@ -280,11 +282,7 @@ export function useMenu(props: MenuProps) {
      * @param item - 导航项
      * @param closeMoreMenu - 是否关闭更多菜单
      */
-    const change = (item: NavType, closeMoreMenu?: boolean) => {
-        // 根据导航类型设置侧边栏宽度
-        const sidebarWidth = item.value === 'llmchat' ? LLM_CHAT_SIDEBAR_WIDTH : DEFAULT_SIDEBAR_WIDTH
-        setRightSidebarWidth(sidebarWidth)
-
+    const change = (item: MenuType, closeMoreMenu?: boolean) => {
         // 切换显示状态或组件
         if (item.value === navType.value) {
             rightModuleShow.value = !rightModuleShow.value
@@ -434,11 +432,13 @@ export function useMenu(props: MenuProps) {
      * 监听侧边栏状态变化，更新导航器位置
      */
     watch(
-        [rightModuleShow, rightSidebarWidth],
+        [rightModuleShow, navType],
         () => {
             if (rightModuleShow.value) {
-                xbsjEarthUi.navigatorManager.navigatorScaleRight = rightSidebarWidth.value + NAVIGATOR_OFFSET
-                xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${rightSidebarWidth.value}px)`
+                // 根据当前菜单类型确定侧边栏宽度
+                const sidebarWidth = navType.value === 'llmchat' ? LLM_CHAT_SIDEBAR_WIDTH : DEFAULT_SIDEBAR_WIDTH
+                xbsjEarthUi.navigatorManager.navigatorScaleRight = sidebarWidth + NAVIGATOR_OFFSET
+                xbsjEarthUi.navigatorManager.timeLineWidth = `calc(100% - ${sidebarWidth}px)`
             } else {
                 xbsjEarthUi.navigatorManager.navigatorScaleRight = NAVIGATOR_OFFSET
                 xbsjEarthUi.navigatorManager.timeLineWidth = '100%'

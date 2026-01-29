@@ -37,3 +37,26 @@ export interface ConfigType {
     /** 默认场景配置*/
     defaultScene: any
 }
+
+
+/**
+ * 初始化场景配置类型
+ * 包含场景对象、类型、CesiumLab配置和ESSS配置
+ * */
+export interface InitSceneConfigType {
+    scene: any;
+    type: string;
+    cesiumLab: {
+        cesiumLabUrl: string;
+        cesiumLabToken: string | undefined;
+    };
+    esss: {
+        esssAppid: string | undefined;
+        esssUrl: string;
+        esssToken: string | undefined;
+    };
+    lastView: any;
+    flyToObject: string | undefined;
+}
+
+

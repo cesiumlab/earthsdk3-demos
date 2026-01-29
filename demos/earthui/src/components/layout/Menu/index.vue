@@ -102,20 +102,9 @@
 <script setup lang="ts">
 import '@/css/General.css';
 import { $config } from '@/global';
-import { NavType } from '@/types';
+import { originalNavList } from '@/pages';
 import { vClickOutside } from 'earthsdk-ui';
 import { useMenu } from './useMenu';
-
-// ==================== Props 定义 ====================
-const props = withDefaults(
-    defineProps<{
-        navList: NavType[]
-        navType?: string
-    }>(),
-    {
-        navType: 'roam'
-    }
-)
 
 // ==================== 使用 Menu Hook ====================
 const {
@@ -142,7 +131,7 @@ const {
     clickOutside,
     toggleTheme,
     handleSaveClick
-} = useMenu(props)
+} = useMenu({ navList: originalNavList, navType: 'roam' })
 </script>
 
 <style src="./style.scss" lang="scss"></style>

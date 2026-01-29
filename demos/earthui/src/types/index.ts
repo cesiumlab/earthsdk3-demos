@@ -1,7 +1,7 @@
 /**
  * 导航类型
  */
-export type NavType = {
+export type MenuType = {
   id: number
   title: string
   value: string

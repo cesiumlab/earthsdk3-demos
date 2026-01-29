@@ -308,7 +308,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
 
 // ==================== 侧边栏样式 ====================
 .earthui-sub-menu {
-    width: var(--right-sidebar-width);
+    width: 400px;
     height: calc(100% - 70px);
     position: fixed;
     transition: right $transition-slow;

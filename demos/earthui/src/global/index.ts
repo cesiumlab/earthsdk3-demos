@@ -74,7 +74,8 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     ?? window.localStorage.getItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL)
     ?? window.location.origin;
   const cesiumLabToken = params.get(cesiumLabTokenParamKey) ?? undefined;
-  const cesiumLabServerType = params.get('type');
+
+  const serverType = params.get('type');
   const paramsUrl = params.get('url');
 
   // ESSS 相关参数
@@ -127,11 +128,10 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
       });
     }
 
-    // 处理 CesiumLab 数据服务加载
-    if (fromCesiumLab && cesiumLabServerType && paramsUrl) {
+    // 处理数据服务加载
+    if (serverType && paramsUrl) {
       const serverJson = getSceneObjectJsonFromParams(cesiumLabToken);
       if (serverJson) {
-
         const treeItemJson = {
           "name": serverJson.name,
           "sceneObj": serverJson,
@@ -217,13 +217,11 @@ export function getSceneObjectJsonFromParams(labtoken?: string) {
 
   const id = getUuid(); // 生成一个唯一的ID
 
-  const cesiumLabServerType = params.get('type');
+  const serverType = params.get('type');
   const paramsUrl = params.get('url');
 
   // 如果缺少必要参数，直接返回 null
-  if (!cesiumLabServerType || !paramsUrl) {
-    return null;
-  }
+  if (!serverType || !paramsUrl) return null;
 
   // 提取通用参数
   const west = params.get('west') ?? '-180';
@@ -231,7 +229,7 @@ export function getSceneObjectJsonFromParams(labtoken?: string) {
   const east = params.get('east') ?? '180';
   const north = params.get('north') ?? '90';
   const rectangle = [+west, +south, +east, +north];
-  const name = params.get('name');
+  const name = params.get('name') ?? serverType + '服务';
 
   /**
    * 构建带认证的 URL 对象
@@ -245,7 +243,7 @@ export function getSceneObjectJsonFromParams(labtoken?: string) {
   };
 
   // 根据不同的服务类型构建配置对象
-  switch (cesiumLabServerType) {
+  switch (serverType) {
     case 'images': {
       // 影像图层配置
       const tiletrans = params.get('tiletrans');

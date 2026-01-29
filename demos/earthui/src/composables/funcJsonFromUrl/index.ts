@@ -1,7 +1,7 @@
 import { createVNode } from 'vue'
 import { render } from 'vue'
 import JsonFromUrl from './index.vue'
-//获取抬升高度
+//通过url解析成ES对象json
 export function createObjectFromUrl(): Promise<{ type: string, url: string } | undefined> {
   return new Promise((resolve) => {
     const container = document.createElement('div')

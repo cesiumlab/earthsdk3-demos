@@ -1,6 +1,6 @@
 <template>
     <!-- 新场景树 -->
-    <DraggableDialog :title="'图层管理'" v-model="showSceneTreeViewRef" :leftTop="[5, 45]" :widthHeight="[300, 450]"
+    <DraggableDialog :title="'图层管理'" v-model="showSceneTreeViewRef" :leftTop="[5, 45]" :widthHeight="[300, 400]"
         :minWidthHeight="[300, 450]">
         <template #prefix>
             <ESIcon name="tucengguanli"></ESIcon>

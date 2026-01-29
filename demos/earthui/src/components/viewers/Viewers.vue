@@ -135,7 +135,6 @@ onMounted(() => {
         }
       });
     }
-
     // 创建 Viewer
     const activeViewer = xbsjEarthUi.createViewer(option);
     const noonTimestamp = dayjs().hour(12).minute(0).second(0).millisecond(0).valueOf()

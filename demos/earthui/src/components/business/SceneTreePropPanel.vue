@@ -1,6 +1,6 @@
 <template>
     <!-- 新场景树 -->
-    <DraggableDialog :title="'属性面板'" v-model="showSceneTreePropViewRef" :leftTop="[320, 150]" :widthHeight="[400, 600]"
+    <DraggableDialog :title="'属性面板'" v-model="showSceneTreePropViewRef" :leftTop="[5, 460]" :widthHeight="[300, 400]"
         :minWidthHeight="[400, 600]" @close="propSceneTree = undefined">
         <template #prefix>
             <ESIcon name="yinqing"></ESIcon>

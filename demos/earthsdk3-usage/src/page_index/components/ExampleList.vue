@@ -100,12 +100,12 @@ function turnToEditor(item) {
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px 12px;
+  gap: 18px 18px;
 }
 
 .card {
   width: clamp(200px, 24vw, 260px);
-  min-height: 240px;
+  min-height: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;

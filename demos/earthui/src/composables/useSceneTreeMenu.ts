@@ -10,6 +10,7 @@ import { getGeoJsonMenuContent } from './objectsToGeoJson'
 import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { createObjectFromUrl } from './funcJsonFromUrl'
+import { ESUeViewer } from 'earthsdk3-ue'
 
 //添加文件夹
 export const addNewTreeItem = (
@@ -97,7 +98,14 @@ export const getDefauleMenuContent = (
       text: '刷新场景',
       keys: '',
       func: () => {
-        objm.activeViewer?.forceRecreate()
+        //TODO:刷新场景,需要测试像素流和大屏的init是否生效
+        //@ts-ignore
+        if (objm.activeViewer instanceof ESUeViewer && window.ue.es) {
+          const param = { eventType: 'init', params: {} };
+          //@ts-ignore
+          window.ue.es.oncommand(`init-0/1-` + JSON.stringify(param));
+        }
+        objm.activeViewer?.forceRecreate();
       }
     },
     {

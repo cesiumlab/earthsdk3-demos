@@ -64,9 +64,9 @@ const viewVersion = () => {
 }
 
 .box-version {
-    position: absolute;
-    top: 36px;
-    right: 0;
+    position: fixed;
+    top: 56px;
+    right: 20px;
     width: 260px;
     background-color: rgba(20, 20, 20, 0.95);
     color: rgba(245, 248, 255, 0.94);
@@ -74,9 +74,10 @@ const viewVersion = () => {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
-    z-index: 10;
+    z-index: 99999;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    pointer-events: auto;
 }
 
 .header {
@@ -93,6 +94,8 @@ const viewVersion = () => {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1000;
 }
 
 .brand {
@@ -139,6 +142,7 @@ a:hover {
     align-items: center;
     gap: 8px;
     padding-right: 14px;
+    position: relative;
 }
 
 .box-info:hover {

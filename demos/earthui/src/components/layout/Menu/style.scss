@@ -315,7 +315,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     right: 0;
     top: 40px;
     background-color: var(--el-bg-color);
-    backdrop-filter: blur(10px);
+    // backdrop-filter: blur(10px);
     z-index: var(--el-index-normal);
     box-shadow: var(--el-box-shadow);
     border-left: 1px solid var(--el-border-color);

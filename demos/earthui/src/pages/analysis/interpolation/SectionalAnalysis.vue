@@ -1,33 +1,19 @@
 <template>
   <!-- 选择框 -->
-  <PopList
-    :title="'断面分析'"
-    :showButton="true"
-    @close="restart"
-    @ok="start"
-    :leftButton="'重新绘制'"
-    :rightButton="'开始分析'"
-    :showLeftButton="true"
-  >
-    <LabelInput
-      v-model="sectionalNumber"
-      :inputType="'number'"
-      :label="'插值个数'"
-      :unit="'个'"
-      :min="0"
-    ></LabelInput>
+  <PopList :title="'断面分析'" :showButton="true" @close="restart" @ok="start" :leftButton="'重新绘制'" :rightButton="'开始分析'"
+    :showLeftButton="true">
+    <LabelInput v-model="sectionalNumber" :inputType="'number'" :label="'插值个数'" :unit="'个'" :min="0"></LabelInput>
   </PopList>
   <SectionalEcharts :heightList="heightList" v-if="heightList.length > 1"></SectionalEcharts>
 </template>
 <script setup lang="ts">
-import { ESGeoLineString, ESHuman } from 'earthsdk3'
+import { ESGeoLineString } from 'earthsdk3'
+import { ElMessage } from 'element-plus'
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import LabelInput from '../../../components/LabelInput.vue'
 import PopList from '../../../components/PopList.vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import SectionalEcharts from './SectionalEcharts.vue'
-import { ESCesiumViewer } from 'earthsdk3-cesium'
-import { ElMessage } from 'element-plus'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 let esGeoLineString = xbsjEarthUi.createSceneObject(ESGeoLineString) as any
 const sectionalNumber = ref(10)

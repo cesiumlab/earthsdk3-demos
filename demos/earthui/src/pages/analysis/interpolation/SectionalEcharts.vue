@@ -22,7 +22,7 @@ watch(
       heights.value = props.heightList
 
       heights.value.forEach((item, index) => {
-        heightsName.value.push(`插值点${index + 1}`)
+        heightsName.value.push(`${index + 1}`)
       })
       setTimeout(() => {
         initChart()

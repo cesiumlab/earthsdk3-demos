@@ -1,11 +1,6 @@
 <template>
   <div class="navigator" ref="navigatorRef" @click="flyToNorth">
-    <img
-      class="navigator_img"
-      src="../../../../assets/view/zhinanzhen.png"
-      draggable="false"
-      alt=""
-    />
+    <img class="navigator_img" src="../../../../assets/view/zhinanzhen.png" draggable="false" alt="" />
   </div>
 </template>
 
@@ -41,7 +36,7 @@ onBeforeUnmount(() => {
   width: 100px;
   height: 100px;
   top: 90px;
-  right: calc(var(--right-sidebar-width) + 10px);
+  right: 410px;
   transition: right 0.4s linear;
   user-select: none;
 }

@@ -1,18 +1,21 @@
 <template>
-    <div class="item" :class="{ selected: item.selected }"
+    <div class="item" :class="{ selected: item.selected && item.level != 0, 'level-0': item.level == 0 }"
         :style="{ fontSize: item.level == 0 ? '18px' : '15px', paddingLeft: 24 * item.level + 10 + 'px' }"
         @click="onItemClickOrToggle">
-    <span v-if="item.children && item.children.length > 0 && item.level != 0" @click.stop="toggleExpand">
-      {{ item.expanded ? '▾' : '▸' }}
-    </span>
-    <!-- 叶子节点图标 -->
-    <span v-if="isLeafNode" class="leaf-icon">●</span>
-        <p> {{ item.name }} <span class="label" v-if="item.level == 1">({{ item.children.length }})</span></p>
+        <div class="item-content">
+            <span v-if="item.children && item.children.length > 0 && item.level != 0" class="expand-icon" @click.stop="toggleExpand">
+                <img :src="expandIcon" alt="" class="arrow-icon" :class="{ expanded: item.expanded }" />
+            </span>
+            <!-- 叶子节点图标 -->
+            <span v-if="isLeafNode" class="leaf-icon">●</span>
+            <p class="item-name">{{ item.name }}</p>
+        </div>
+        <span class="count-badge" v-if="item.level == 1 && item.children && item.children.length > 0">{{ item.children.length }}</span>
     </div>
 </template>
 <script setup>
 import { defineProps, defineEmits, computed } from "vue";
-
+import expandIcon from "../assets/expand.png";
 const props = defineProps({
     item: {
         type: Object,
@@ -47,10 +50,25 @@ function onItemClickOrToggle() {
     padding: 6px 8px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     border-radius: 8px;
     transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
     position: relative;
+}
+
+.item-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.item-name {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .item:hover {
@@ -77,9 +95,50 @@ function onItemClickOrToggle() {
     background: var(--primary);
 }
 
-.label {
-    color: var(--primary);
-    padding-left: 6px;
+.expand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.arrow-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.7;
+    transition: opacity 0.15s ease, transform 0.2s ease;
+    transform: rotate(-90deg);
+}
+
+.arrow-icon.expanded {
+    transform: rotate(0deg);
+}
+
+.expand-icon:hover .arrow-icon {
+    opacity: 1;
+}
+
+.count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .leaf-icon {

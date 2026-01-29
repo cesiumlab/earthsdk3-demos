@@ -1,24 +1,43 @@
 import EarthSDKUI from 'earthsdk-ui'
 import 'earthsdk-ui/lib/style.css'
-import { createApp, watch } from 'vue'
+import { ESCesiumViewer } from 'earthsdk3-cesium'
+import { ESOlViewer } from 'earthsdk3-ol'
+import { ESUeViewer } from 'earthsdk3-ue'
+import { createApp } from 'vue'
+import { gget } from "./api"
 import App from './App.vue'
+import { initSceneJson } from './global'
 import './scripts/iconfont.js'
-import { $config, useRightSidebarWidthFunc } from './global'
-// import "cesiumWidgets/widgets.css";
-//@ts-ignore
-window.__VUE_PROD_HYDRATION_MISMATCH_DETAILS__ = true
-const app = createApp(App)
-document.title = $config.title
+import { XbsjEarthUi } from './scripts/xbsjEarthUi'
 
-const { rightSidebarWidth } = useRightSidebarWidthFunc()
-/** 全局注入设置右侧边栏宽度 */
-watch(
-  rightSidebarWidth,
-  (value) => {
-    document.documentElement.style.setProperty('--right-sidebar-width', `${value}px`)
-  },
-  { immediate: true }
-)
+async function main() {
+  try {
+    // 先加载配置
+    const earthui_config = await gget('./config.json');
+    document.title = earthui_config.title;
+    const initConfig = await initSceneJson(earthui_config);
+    console.log('initConfig', initConfig);
 
-app.use(EarthSDKUI);
-app.mount('#app');
+    // 创建 xbsjEarthUi 实例
+    const xbsjEarthUi = new XbsjEarthUi(initConfig, [ESUeViewer, ESCesiumViewer, ESOlViewer]);
+    xbsjEarthUi.json = initConfig.scene;
+
+    // 创建 Vue 实例 全局挂载
+    const app = createApp(App);
+    app.provide('earthui-config', earthui_config);
+    app.provide('xbsjEarthUi', xbsjEarthUi);
+
+    // @ts-ignore
+    window.g_xbsjEarthUi = xbsjEarthUi;
+    // @ts-ignore
+    window.g_objm = xbsjEarthUi;
+
+    // 再挂载
+    app.use(EarthSDKUI);
+    app.mount('#app');
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+main();

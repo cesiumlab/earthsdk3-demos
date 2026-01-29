@@ -1,20 +1,16 @@
 <template>
-  <div
-    class="view_box"
-    ref="viewersContainer"
-    id="viewersContainer"
-    @dragenter="dragEnter($event)"
-    @dragleave="dragLeave($event)"
-    @dragover="dragOver($event)"
-    @drop="dropFile($event)"
-  ></div>
+  <div class="view_box" ref="viewersContainer" id="viewersContainer" @dragenter="dragEnter($event)"
+    @dragleave="dragLeave($event)" @dragover="dragOver($event)" @drop="dropFile($event)"></div>
 </template>
 <script setup lang="ts">
-import { ESVOptionCzm, ESVOptionUe } from 'earthsdk3'
-import { inject, onMounted, shallowRef } from 'vue'
+import { ESVisualObject, ESVOption, ESVOptionCzm, ESVOptionUe } from 'earthsdk3'
+import { inject, nextTick, onMounted, shallowRef } from 'vue'
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
 import { createObj, createSceneJson, geoJsonTOESObjects } from '../sceneTree/tools'
-import { ElMessage } from 'element-plus'
+import { dayjs, ElMessage } from 'element-plus'
+import { ESCesiumViewer } from 'earthsdk3-cesium'
+import { ESUeViewer } from 'earthsdk3-ue'
+import { timestampToTime, timeToTimestamp } from '@/pages/environment/fun'
 const viewersContainer = shallowRef<HTMLDivElement>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
@@ -66,43 +62,86 @@ const dropFile = async (event: Event) => {
     }
   })
 }
-const changeUe = () => {
-  const options = {
-    type: 'ESUeViewer',
-    container: viewersContainer.value,
-    id: 'earthui-active-viewer-id',
-    options: {
-      uri: '',
-      app: ''
-    }
-  } as ESVOptionUe
-  xbsjEarthUi.createUeViewer(options)
-}
+
 onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search)
-  const eswebview = urlParams.get('eswebview') === 'true'
-  //@ts-ignore
-  if (window.ue && window.ue.es) {
-    changeUe()
-  } else if (eswebview) {
-    let timer = setInterval(() => {
-      //@ts-ignore
-      if (window.ue && window.ue.es) {
-        clearInterval(timer)
-        changeUe()
+  const { type, lastView, flyToObject, esss } = xbsjEarthUi.initConfig;
+
+  nextTick(() => {
+    if (!viewersContainer.value) return;
+
+    // 基础 Viewer 配置
+    const option: ESVOption = {
+      type: 'ESCesiumViewer',
+      id: 'earthui-active-viewer-id',
+      container: viewersContainer.value,
+      options: undefined,
+    };
+
+    /**
+     * 注册一次性监听器的辅助函数
+     * @param callback - 监听器回调函数
+     */
+    const registerOnceListener = (callback: (viewer: any) => void) => {
+      const disposeFunc = xbsjEarthUi.activeViewerChanged.don((viewer) => {
+        console.log('activeViewerChanged________________', viewer);
+        setTimeout(() => {
+          callback(viewer);
+          disposeFunc();
+        }, 3000);
+      });
+    };
+
+    // 处理 Cesium Viewer
+    if (type === 'ESCesiumViewer') {
+      // 场景回显
+      if (lastView) {
+        registerOnceListener((viewer) => {
+          if (!viewer || !(viewer instanceof ESCesiumViewer)) return;
+          const { position, rotation } = lastView;
+          viewer.flyIn(position, rotation);
+          ElMessage.success('成功加载场景');
+        });
       }
-    }, 200)
-  } else {
-    if (viewersContainer.value) {
-      const options = {
-        type: 'ESCesiumViewer',
-        id: 'earthui-active-viewer-id',
-        container: viewersContainer.value
-      } as ESVOptionCzm
-      xbsjEarthUi.createCesiumViewer(options)
+
+      // 回显对象
+      if (flyToObject) {
+        registerOnceListener((viewer) => {
+          if (!viewer || !(viewer instanceof ESCesiumViewer)) return;
+          const sceneObject = xbsjEarthUi.getSceneObjectById(flyToObject);
+          sceneObject && (sceneObject as ESVisualObject).flyTo();
+          ElMessage.success('成功加载服务');
+        });
+      }
     }
-  }
-})
+    // 处理 UE Viewer
+    else if (esss.esssAppid && esss.esssUrl) {
+      option.type = 'ESUeViewer';
+      option.options = {
+        uri: esss.esssUrl,
+        app: esss.esssAppid,
+        token: esss.esssToken
+      };
+
+      registerOnceListener((viewer) => {
+        if (!viewer || !(viewer instanceof ESUeViewer)) return;
+        // 如果有 lastView 则回显场景，否则执行默认飞入
+        if (lastView) {
+          const { position, rotation } = lastView;
+          viewer.flyIn(position, rotation);
+          ElMessage.success('成功加载场景');
+        } else {
+          ElMessage.success('成功加载实例');
+          viewer.defaultCameraFlyIn();
+        }
+      });
+    }
+
+    // 创建 Viewer
+    const activeViewer = xbsjEarthUi.createViewer(option);
+    const noonTimestamp = dayjs().hour(12).minute(0).second(0).millisecond(0).valueOf()
+    activeViewer.currentTime = noonTimestamp; // 设置当前时间
+  });
+});
 </script>
 <style scoped>
 .view_box {

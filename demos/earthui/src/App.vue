@@ -1,16 +1,14 @@
 <template>
   <es-el-config-provider>
-    <div class="earthui_box">
-      <EarthUI :newList="newList"></EarthUI>
+    <div class="earthui-container">
+      <EarthUI></EarthUI>
     </div>
   </es-el-config-provider>
 </template>
 
 <script setup lang="ts">
 import { EsElConfigProvider, useTheme } from 'earthsdk-ui';
-import { shallowRef } from 'vue';
 import EarthUI from './EarthUI.vue';
-import { NavType } from './types';
 // 使用主题管理
 const { setCustomThemeConfig } = useTheme();
 // 使用语言管理
@@ -19,7 +17,7 @@ const { setCustomThemeConfig } = useTheme();
 //自定义样式
 setCustomThemeConfig({ colorPrimary: '#6287F7' });
 
-const newList = shallowRef<NavType[]>([]);
+
 </script>
 
 <style>
@@ -32,11 +30,11 @@ html {
 }
 
 #app,
-.earthui_box {
+.earthui-container {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #fff;
+  color: var(--el-text-color-regular);
   width: 100%;
   height: 100%;
 }

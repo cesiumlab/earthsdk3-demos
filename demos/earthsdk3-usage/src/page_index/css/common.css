@@ -15,3 +15,61 @@ li {
     margin: none;
     list-style: none;
 }
+
+/* 全局滚动条样式 - 确保宽度生效 */
+::-webkit-scrollbar {
+    width: 18px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 9px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 9px !important;
+    border: 1px solid rgba(20, 20, 20, 0.3) !important;
+    min-height: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 滚动条箭头按钮 */
+::-webkit-scrollbar-button {
+    display: block !important;
+    height: 18px !important;
+    width: 18px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    cursor: pointer !important;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9px 9px 0 0 !important;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 0 9px 9px !important;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+}

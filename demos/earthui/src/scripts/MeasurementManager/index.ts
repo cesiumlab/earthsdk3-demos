@@ -1,15 +1,16 @@
+import { messageLoading } from 'earthsdk-ui'
 import {
+  createProcessingFromAsyncFunc,
+  Destroyable,
+  ESAreaMeasurement,
   ESDirectionMeasurement,
   ESDistanceMeasurement,
   ESHeightMeasurement,
   ESLocationMeasurement,
-  ESAreaMeasurement,
-  ESSurfaceAreaMeasurement
+  ESSurfaceAreaMeasurement,
+  react
 } from 'earthsdk3'
-import { Destroyable, react } from 'earthsdk3'
-import { createProcessingFromAsyncFunc } from 'earthsdk3'
 import { XbsjEarthUi } from '../xbsjEarthUi'
-import { Message } from 'earthsdk-ui'
 export type MeasureType =
   | ESAreaMeasurement
   | ESDirectionMeasurement
@@ -26,7 +27,7 @@ export type MeasureTypeParam =
   | 'ESSurfaceAreaMeasurement'
 
 export class MeasurementManager extends Destroyable {
-  private _currentEditingType = this.disposeVar(react<MeasureTypeParam | ''>(''))
+  private _currentEditingType = this.dv(react<MeasureTypeParam | ''>(''))
   get currentEditingType() {
     return this._currentEditingType.value
   }
@@ -45,18 +46,15 @@ export class MeasurementManager extends Destroyable {
   private _processing = this.disposeVar(
     createProcessingFromAsyncFunc<void, [measurementType: MeasureTypeParam]>(
       async (cancelsManager, measurementType) => {
-        let esMeasurement = this.xbsjEarthUi.createSceneObject<MeasureType>(measurementType)
+        const esMeasurement = this.xbsjEarthUi.createSceneObject<MeasureType>(measurementType);
         if (!esMeasurement) {
           console.warn(`测量时，不能创建${measurementType}类型的场景对象！`)
           return
         }
-        this._objectlist.push(esMeasurement)
-        esMeasurement.editing = true
-        Message.loading({
-          id: 'xxx',
-          content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-        })
-        this._currentEditingType.value = measurementType
+        this._objectlist.push(esMeasurement);
+        esMeasurement.editing = true;
+        const close = messageLoading("1.双击左键或 ESC 键退出编辑  2.空格键切换编辑方式");
+        this._currentEditingType.value = measurementType;
 
         // 取消时需要销毁的东西
         cancelsManager.disposer.dispose(() => {
@@ -68,12 +66,12 @@ export class MeasurementManager extends Destroyable {
         await cancelsManager.promise(
           new Promise<void>((resolve) => {
             if (!esMeasurement) return
-            cancelsManager.disposer.dispose(
-              esMeasurement.editingChanged.disposableOnce(() => {
+            cancelsManager.disposer.d(
+              esMeasurement.editingChanged.donce(() => {
                 if (!esMeasurement) return
                 if (!esMeasurement.editing) {
-                  Message.remove('xxx')
-                  resolve()
+                  close();
+                  resolve();
                 }
               })
             )
@@ -92,6 +90,7 @@ export class MeasurementManager extends Destroyable {
   create(type: MeasureTypeParam) {
     this._processing.restart(undefined, type)
   }
+
   stopEditing() {
     if (this._processing.isRunning) {
       this._processing.cancel()
@@ -102,6 +101,7 @@ export class MeasurementManager extends Destroyable {
       item.editing = false
     })
   }
+
   clearAll() {
     if (this._processing.isRunning) {
       this._processing.cancel()

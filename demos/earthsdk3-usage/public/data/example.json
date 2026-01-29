@@ -481,32 +481,32 @@
                 "details": "",
                 "children": [
                     {
-                        "name": "倾斜摄影",
+                        "name": "倾斜摄影(3dtileset)",
                         "thumbnail": "tile-data-osgb.webp",
                         "path": "tile/data/osgb"
                     },
                     {
-                        "name": "白模数据",
+                        "name": "白模数据(3dtileset)",
                         "thumbnail": "tile-data-model.webp",
                         "path": "tile/data/model"
                     },
                     {
-                        "name": "点云数据",
+                        "name": "点云数据(3dtileset)",
                         "thumbnail": "tile-data-i3dm.webp",
                         "path": "tile/data/i3dm"
                     },
                     {
-                        "name": "BIM建模",
+                        "name": "BIM建模(3dtileset)",
                         "thumbnail": "tile-data-bim.webp",
                         "path": "tile/data/bim"
                     },
                     {
-                        "name": "人工建模",
+                        "name": "人工建模(3dtileset)",
                         "thumbnail": "tile-data-max.webp",
                         "path": "tile/data/max"
                     },
                     {
-                        "name": "地下管线",
+                        "name": "地下管线(3dtileset)",
                         "thumbnail": "tile-data-pipe.webp",
                         "path": "tile/data/pipe"
                     }

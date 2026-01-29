@@ -3,42 +3,49 @@
         <Header @toggleTheme="toggleTheme"></Header>
         <div class="content">
             <div class="left">
-                <Tree :tree="data" @onclick="handlerClick"></Tree>
+                <ExampleTree :tree="data" @onclick="handlerClick"></ExampleTree>
             </div>
             <div class="right" ref="list">
                 <div class="right-search-bar">
-                    <div class="search">
-                        <input
-                            v-model="searchText"
-                            type="text"
-                            placeholder="输入示例名称搜索..."
-                            @keyup.enter="searchAndScroll"
-                        />
-                        <ul class="search-list" v-if="searchText && searchResults.length">
-                            <li
-                                v-for="item in searchResults"
-                                :key="item.id"
-                                @click="selectSearchItem(item)"
-                            >
-                                {{ item.name }}
-                            </li>
-                        </ul>
+                    <div class="search-wrapper">
+                        <div class="search">
+                            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M11.5 10.5L15 14M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <input
+                                v-model="searchText"
+                                type="text"
+                                placeholder="搜索示例..."
+                                @keyup.enter="searchAndScroll"
+                                @focus="searchFocused = true"
+                                @blur="setTimeout(() => searchFocused = false, 200)"
+                            />
+                            <ul class="search-list" v-if="searchText && searchResults.length && searchFocused">
+                                <li
+                                    v-for="item in searchResults"
+                                    :key="item.id"
+                                    @mousedown.prevent="selectSearchItem(item)"
+                                >
+                                    {{ item.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="search-btn" @click="searchAndScroll">
+                            <span>搜索</span>
+                        </button>
                     </div>
-                    <button class="search-btn" @click="searchAndScroll">搜索</button>
                 </div>
-                <List :list="data" :activeId="activeId"></List>
+                <ExampleList :list="data" :activeId="activeId"></ExampleList>
             </div>
         </div>
-        <!-- <NewYearBanner /> -->
     </div>
     
 </template>
 
 <script setup>
-import Tree from './components/common/Tree.vue'
-import List from "./components/List.vue"
+import ExampleTree from './components/ExampleTree.vue'
+import ExampleList from "./components/ExampleList.vue"
 import Header from './components/Header.vue';
-import NewYearBanner from './components/NewYearBanner.vue';
 import axios from "axios";
 import { onMounted, ref, computed } from "vue";
 import { guid } from '@/scripts/utils'
@@ -47,6 +54,7 @@ const list = ref(null)
 const activeId = ref(null);
 const theme = ref('dark')
 const searchText = ref('')
+const searchFocused = ref(false)
 const searchResults = computed(() => {
     const key = searchText.value.trim().toLowerCase();
     if (!key || !Array.isArray(data.value)) return [];
@@ -148,112 +156,144 @@ function selectSearchItem(item) {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: var(--bg-app);
+    background: rgb(20, 20, 20);
     position: relative;
 }
 
 .right-search-bar {
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 10;
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(20, 20, 20, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.search-wrapper {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px 4px 12px;
-    background: linear-gradient(to bottom, var(--bg-surface), rgba(255, 255, 255, 0));
+    gap: 12px;
+    max-width: 600px;
 }
 
 .search {
-    display: inline-flex;
+    flex: 1;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.97);
-    border-radius: 999px;
-    padding: 6px 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(49, 115, 246, 0.45);
-    min-width: 240px;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
     position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 0;
 }
 
-[data-theme='dark'] .search {
-    background: rgba(23, 28, 36, 0.96);
-    border-color: rgba(122, 162, 255, 0.9);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+.search:focus-within {
+    border-color: #7aa2ff;
+    box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.18), inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-icon {
+    flex-shrink: 0;
+    color: rgba(245, 248, 255, 0.66);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.search:focus-within .search-icon {
+    opacity: 1;
+    color: #7aa2ff;
 }
 
 .search input {
+    flex: 1;
     border: none;
     outline: none;
     background: transparent;
-    color: var(--text);
-    font-size: 13px;
-    min-width: 180px;
+    color: rgba(245, 248, 255, 0.94);
+    font-size: 14px;
+    min-width: 0;
 }
 
 .search input::placeholder {
-    color: var(--muted);
+    color: rgba(245, 248, 255, 0.5);
 }
 
 .search-btn {
+    flex-shrink: 0;
     border: none;
-    border-radius: 999px;
-    padding: 5px 14px;
-    font-size: 12px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%);
+    background: linear-gradient(180deg, #7aa2ff 0%, #5f8eff 100%);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.3);
+    box-shadow: 0 10px 22px rgba(3, 139, 254, 0.22);
     white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-btn:hover {
+    background: linear-gradient(180deg, #5f8eff 0%, #4d7eff 100%);
+    box-shadow: 0 14px 28px rgba(3, 139, 254, 0.3);
+    transform: translateY(-1px);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(3, 139, 254, 0.2);
 }
 
 .search-label {
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 999px;
-    background: rgba(49, 115, 246, 0.08);
-    color: var(--primary);
-    border: 1px solid rgba(49, 115, 246, 0.45);
-    white-space: nowrap;
-}
-
-[data-theme='dark'] .search-label {
     background: rgba(122, 162, 255, 0.16);
-    border-color: rgba(122, 162, 255, 0.9);
     color: #e8f0ff;
+    border: 1px solid rgba(122, 162, 255, 0.9);
+    white-space: nowrap;
 }
 
 .search-list {
     position: absolute;
-    top: calc(100% + 6px);
+    top: calc(100% + 8px);
     left: 0;
+    right: 0;
     margin-top: 0;
-    padding: 6px 0;
+    padding: 4px 0;
     list-style: none;
-    background: var(--bg-surface);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
-    max-height: 260px;
-    min-width: 100%;
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 8px;
+    /* border: 1px solid rgba(255, 255, 255, 0.12); */
+    /* box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55); */
+    max-height: 320px;
     overflow-y: auto;
-    z-index: 20;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .search-list li {
-    padding: 6px 12px;
-    font-size: 13px;
-    color: var(--text);
+    padding: 10px 16px;
+    font-size: 14px;
+    color: rgba(245, 248, 255, 0.94);
     cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .search-list li:hover {
-    background: rgba(49, 115, 246, 0.08);
-    color: var(--primary);
+    background: rgba(122, 162, 255, 0.15);
+    color: #7aa2ff;
 }
 
 .content {
@@ -270,37 +310,117 @@ function selectSearchItem(item) {
     height: 100%;
     width: 16%;
     min-width: 240px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
     border-radius: 12px;
-    box-shadow: var(--shadow-md);
     box-sizing: border-box;
     overflow: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .right {
     height: 100%;
     width: 84%;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    overflow: hidden;
     overflow-y: auto;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* Smooth scrollbars */
+/* Smooth scrollbars with arrows */
 .left::-webkit-scrollbar,
 .right::-webkit-scrollbar {
-    width: 8px;
+    width: 18px !important;
 }
+
+.left::-webkit-scrollbar-track,
+.right::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 9px !important;
+}
+
 .left::-webkit-scrollbar-thumb,
 .right::-webkit-scrollbar-thumb {
-    background: var(--scrollbar);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 9px !important;
+    border: 1px solid rgba(20, 20, 20, 0.3) !important;
+    min-height: 30px;
 }
+
 .left::-webkit-scrollbar-thumb:hover,
 .right::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover);
+    background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 滚动条箭头按钮 - 强制显示 */
+.left::-webkit-scrollbar-button,
+.right::-webkit-scrollbar-button {
+    display: block !important;
+    height: 18px !important;
+    width: 18px !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+}
+
+/* 向上箭头 */
+.left::-webkit-scrollbar-button:vertical:start:decrement,
+.right::-webkit-scrollbar-button:vertical:start:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9px 9px 0 0 !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:start:decrement:hover,
+.right::-webkit-scrollbar-button:vertical:start:decrement:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 2L2 6h8L6 2z'/%3E%3C/svg%3E") !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:start:decrement:active,
+.right::-webkit-scrollbar-button:vertical:start:decrement:active {
+    background-color: rgba(122, 162, 255, 0.25) !important;
+}
+
+/* 向下箭头 */
+.left::-webkit-scrollbar-button:vertical:end:increment,
+.right::-webkit-scrollbar-button:vertical:end:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' fill-opacity='0.7' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+    background-size: 12px 12px !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 0 9px 9px !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:end:increment:hover,
+.right::-webkit-scrollbar-button:vertical:end:increment:hover {
+    background-color: rgba(122, 162, 255, 0.15) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237aa2ff' d='M6 10L2 6h8l-4 4z'/%3E%3C/svg%3E") !important;
+}
+
+.left::-webkit-scrollbar-button:vertical:end:increment:active,
+.right::-webkit-scrollbar-button:vertical:end:increment:active {
+    background-color: rgba(122, 162, 255, 0.25) !important;
+}
+
+/* 隐藏默认的双按钮样式 */
+.left::-webkit-scrollbar-button:double-button,
+.right::-webkit-scrollbar-button:double-button {
+    display: none !important;
+}
+
+/* Firefox 滚动条样式 */
+.left {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.05);
+}
+
+.right {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.05);
 }
 
 /* Utility */
@@ -314,7 +434,7 @@ function selectSearchItem(item) {
 }
 
 .highlight {
-    background: var(--highlight);
+    background: rgba(122, 162, 255, 0.14);
 }
 
 /* Responsive */
@@ -338,30 +458,30 @@ function selectSearchItem(item) {
 
 <style>
 :root {
-    --bg-app: #f5f7fb;
-    --bg-surface: #ffffff;
-    --text: #2a313b;
-    --muted: #5b6573;
-    --primary: #3173f6;
-    --primary-strong: #215ee0;
-    --border: #e8edf3;
-    --scrollbar: #d6deea;
-    --scrollbar-hover: #c5d3ea;
-    --highlight: #fff4bf;
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --bg-app: rgb(20, 20, 20);
+    --bg-surface: rgba(20, 20, 20, 0.9);
+    --text: rgba(245, 248, 255, 0.94);
+    --muted: rgba(245, 248, 255, 0.66);
+    --primary: #7aa2ff;
+    --primary-strong: #5f8eff;
+    --border: rgba(255, 255, 255, 0.10);
+    --scrollbar: rgba(255, 255, 255, 0.15);
+    --scrollbar-hover: rgba(255, 255, 255, 0.25);
+    --highlight: rgba(122, 162, 255, 0.14);
+    --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.55);
 }
 
 [data-theme='dark'] {
-    --bg-app: #11151b;
-    --bg-surface: #171c24;
-    --text: #e8f0fb;
-    --muted: #a9b3c2;
+    --bg-app: rgb(20, 20, 20);
+    --bg-surface: rgba(20, 20, 20, 0.9);
+    --text: rgba(245, 248, 255, 0.94);
+    --muted: rgba(245, 248, 255, 0.66);
     --primary: #7aa2ff;
     --primary-strong: #5f8eff;
-    --border: #2c333f;
-    --scrollbar: #2c3442;
-    --scrollbar-hover: #394356;
-    --highlight: #3a3a1f;
-    --shadow-md: 0 8px 18px rgba(0, 0, 0, 0.35);
+    --border: rgba(255, 255, 255, 0.10);
+    --scrollbar: rgba(255, 255, 255, 0.15);
+    --scrollbar-hover: rgba(255, 255, 255, 0.25);
+    --highlight: rgba(122, 162, 255, 0.14);
+    --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.55);
 }
 </style>

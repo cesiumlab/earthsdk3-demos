@@ -30,14 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject, onBeforeUnmount } from 'vue'
-import { DraggableDialog, SceneTree, ESFold, ESIcon, toVR, createVueDisposer } from 'earthsdk-ui'
+import { createVueDisposer, DraggableDialog, ESFold, ESIcon, SceneTree, toVR } from 'earthsdk-ui'
 import { SceneTreeItem } from 'earthsdk3'
-import Editing from './editing/Editing.vue'
-import { getIcon } from '../constants'
-import { getDefauleMenuContent } from '../composables'
-import { getTreeItemMenuContent } from '../composables/useSceneTreeItemMenu'
-import type { XbsjEarthUi } from '../scripts/xbsjEarthUi'
+import { inject, onBeforeUnmount, ref } from 'vue'
+import { getDefauleMenuContent } from '../../composables'
+import { getTreeItemMenuContent } from '../../composables/useSceneTreeItemMenu'
+import { getIcon } from '../../constants'
+import type { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import Editing from '../editing/Editing.vue'
 
 // 注入父组件提供的依赖
 const xbsjEarthUi = inject<XbsjEarthUi>('xbsjEarthUi')!

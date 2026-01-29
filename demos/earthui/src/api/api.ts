@@ -1,4 +1,4 @@
-import { get, getNoToken, getWithCookie, post, put } from './service'
+import { getNoToken } from './service'
 
 // 影像-在线列表请求
 const imageListurl = 'https://account.bjxbsj.cn/api/onlineResouces/image?desc=false'

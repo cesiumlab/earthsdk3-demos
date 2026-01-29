@@ -53,10 +53,10 @@ const viewVersion = () => {
 
 .box-info {
     position: relative;
-    background: #2a313b;
+    background: rgba(255, 255, 255, 0.06);
     font-size: 14px;
-    border: 1px solid #3b4654;
-    color: #d8e8ff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(245, 248, 255, 0.94);
     padding: 6px 10px;
     border-radius: 8px;
     cursor: pointer;
@@ -68,27 +68,31 @@ const viewVersion = () => {
     top: 36px;
     right: 0;
     width: 260px;
-    background-color: #1f2630;
-    color: #e8f0fb;
+    background-color: rgba(20, 20, 20, 0.95);
+    color: rgba(245, 248, 255, 0.94);
     padding: 12px;
     border-radius: 10px;
-    border: 1px solid #2e3846;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
     z-index: 10;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .header {
     width: 100%;
     height: 56px;
-    background: linear-gradient(180deg, #232a34 0%, #1e242c 100%);
+    background: #141414;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px 0 24px;
     box-sizing: border-box;
     color: #fff !important;
-    border-bottom: 1px solid #2c333d;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .brand {
@@ -116,7 +120,7 @@ h2 {
 }
 
 a {
-    color: #cfe1ff;
+    color: rgba(245, 248, 255, 0.8);
     font-size: 14px;
     text-decoration: none;
     padding: 4px 8px;
@@ -125,8 +129,8 @@ a {
 }
 
 a:hover {
-    color: #ffffff;
-    background: rgba(255,255,255,0.08);
+    color: #7aa2ff;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .box {
@@ -138,15 +142,15 @@ a:hover {
 }
 
 .box-info:hover {
-    background: #353e4a;
-    border-color: #465365;
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(122, 162, 255, 0.4);
+    color: #7aa2ff;
 }
 
 .toggle {
-    background: var(--bg-surface);
-    color: var(--text);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(245, 248, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 6px 10px;
     border-radius: 8px;
     cursor: pointer;
@@ -156,9 +160,11 @@ a:hover {
 }
 
 .toggle:hover {
-    border-color: var(--primary);
+    border-color: #7aa2ff;
+    background: rgba(122, 162, 255, 0.1);
     box-shadow: 0 6px 14px rgba(3, 139, 254, 0.3);
     transform: translateY(-1px);
+    color: #7aa2ff;
 }
 
 .toggle:active {

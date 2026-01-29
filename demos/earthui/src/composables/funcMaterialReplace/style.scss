@@ -1,8 +1,108 @@
-.dialog-content {
-    flex: 1;
-    height: 450px;
-    display: flex;
-    flex-direction: row;
+/* 材质替换编辑器样式 */
+.material {
+    width: 100%;
+    min-height: 400px;
+}
+
+.middle {
+    width: 100%;
+    height: 100%;
+}
+
+.middle_title {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr;
+    grid-column-gap: 10px;
+    align-items: center;
+    /* width: 100%; */
+    height: 40px;
+    line-height: 40px;
+    background: var(--el-fill-color-light);
+    border-radius: 4px;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+.middle_title span {
+    font-size: 14px;
+    text-align: left;
+}
+
+.middle_title span:first-child {
+    padding-left: 4px;
+}
+
+.middle_title span:nth-child(2) {
+    padding-left: 15px;
+}
+
+.middle_content {
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    padding: 5px 0;
+}
+
+.material-item {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr;
+    grid-column-gap: 10px;
+    align-items: center;
+    padding: 5px 15px;
+    margin-bottom: 8px;
+    background: var(--el-fill-color-lighter);
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.material-item:hover {
+    background: var(--el-fill-color);
+}
+
+.material-name {
+    font-size: 13px;
     overflow: hidden;
-    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.record-count {
+    font-size: 13px;
+    color: var(--el-text-color-secondary);
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 滚动条样式 */
+.middle_content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.middle_content::-webkit-scrollbar-thumb {
+    background: var(--el-border-color);
+    border-radius: 3px;
+}
+
+.middle_content::-webkit-scrollbar-thumb:hover {
+    background: var(--el-border-color-dark);
 }

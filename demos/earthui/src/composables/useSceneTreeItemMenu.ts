@@ -461,6 +461,25 @@ const getSceneObjectTreeItemMenuContent = (
     text: "材质替换",
     keys: "",
     func: async () => {
+      // const list = [
+      //   {
+      //     "key": "材质_WkxVdqMT",
+      //     "select": false
+      //   },
+      //   {
+      //     "key": "材质_vFHJGKmu",
+      //     "select": false
+      //   }
+      // ] as any
+
+      // const list1 = [
+      //   "Asphalt_01",
+      //   "Brick_07",
+      //   "Concrete_01"
+      // ] as any
+
+      // const res = await materialReplaceEditor(list, list1);
+      // console.log(res);
       if (
         sceneObject && sceneObject instanceof ES3DTileset
         && objm.activeViewer instanceof ESUeViewer
@@ -481,6 +500,7 @@ const getSceneObjectTreeItemMenuContent = (
               }
             })
             close && close() && (close = null);
+            console.log(materialList, ueMaterialList);
             const res = await materialReplaceEditor(materialList ?? [], ueMaterialList ?? []);
             res && (sceneObject.materialOverrideMap = res);
             ElMessage.success('已替换材质信息');

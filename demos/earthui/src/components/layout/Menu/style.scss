@@ -254,22 +254,6 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     }
 }
 
-// 小三角图标
-.earthui-xiaosanjiao {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 6px;
-    height: 6px;
-    transition: transform $transition-normal;
-    background-image: url(../assets/right/xiaosanjiaoshouqi.svg);
-    background-size: 100% 100%;
-
-    &.earthui-xiaosanjiao-transform {
-        transform: rotate(-90deg);
-    }
-}
-
 // 保存菜单下拉列表
 .earthui-neck-ft-ul {
     position: absolute;

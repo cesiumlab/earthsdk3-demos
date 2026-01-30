@@ -120,6 +120,6 @@ export const originalNavList: MenuType[] = [
     iconSize: 18,
     component: LLMChat,
     isShow: true,
-    new: true
+    // new: true
   }
 ]

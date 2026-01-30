@@ -83,12 +83,24 @@ onMounted(() => {
      */
     const registerOnceListener = (callback: (viewer: any) => void) => {
       const disposeFunc = xbsjEarthUi.activeViewerChanged.don((viewer) => {
-        console.log('activeViewerChanged________________', viewer);
-        setTimeout(() => {
-          callback(viewer);
+        if (!viewer) {
           disposeFunc();
-        }, 3000);
-      });
+          return;
+        };
+        const disposeFunc2 = viewer.statusChanged.don((status) => {
+          if (status === 'Error') {
+            disposeFunc2();
+            ElMessage.error('视口创建失败');
+          }
+          if (status === 'Created') {
+            setTimeout(() => {
+              callback(viewer);
+            }, 2000);
+            disposeFunc2();
+          };
+        })
+        disposeFunc();
+      })
     };
 
     // 处理 Cesium Viewer

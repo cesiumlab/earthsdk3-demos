@@ -1,30 +1,12 @@
-import { get, post, put } from '@/api/service'
-import { $config } from '@/global'
+import { saveCesiumLabScene, saveEsssScene } from '@/api'
+import { $config, $g_config, $g_objm } from '@/global'
 import { MenuType } from '@/types'
 import { downloadJson } from '@/utils'
 import { createVueDisposer, toVR, useTheme } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
-import { parse } from 'search-params'
-import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, useTemplateRef, watch } from 'vue'
 
 // ==================== 类型定义 ====================
-
-/** URL 查询参数接口 */
-interface ParsedSearch {
-    from?: string
-    ESSSsceneid?: string
-    token?: string
-    appid?: string
-    scene?: string
-}
-
-/** API 响应接口 */
-interface ApiResponse {
-    status?: string
-    code?: number
-    data?: any
-}
 
 /** Props 接口 */
 interface MenuProps {
@@ -48,7 +30,10 @@ const NAVIGATOR_OFFSET = 10
  */
 export function useMenu(props: MenuProps) {
     // ==================== 依赖注入 ====================
-    const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+    // const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
+    const xbsjEarthUi = $g_objm();
+    const config = $g_config();
+
     const disposer = createVueDisposer(onBeforeUnmount)
 
     // ==================== 响应式状态 ====================
@@ -77,9 +62,9 @@ export function useMenu(props: MenuProps) {
     const com = shallowRef(props.navList[0]?.component)
 
     // ==================== 模板引用 ====================
-    const menuRef = useTemplateRef('menuRef')
-    const moreNavRef = useTemplateRef('moreNavRef')
-    const moreMenuRef = useTemplateRef('moreMenuRef')
+    const menuRef = useTemplateRef<HTMLDivElement>('menuRef')
+    const moreNavRef = useTemplateRef<HTMLDivElement>('moreNavRef')
+    const moreMenuRef = useTemplateRef<HTMLDivElement>('moreMenuRef')
 
     // ==================== 计算属性 ====================
     /** Logo 样式 */
@@ -101,160 +86,36 @@ export function useMenu(props: MenuProps) {
     const sceneList = computed(() => [
         {
             content: '保存到服务',
-            fun: handleSaveToServer
+            command: 'saveToServer'
         },
         {
             content: '保存到本地',
-            fun: handleSaveToLocal
+            command: 'saveToLocal'
         }
     ])
 
     // ==================== 场景保存相关方法 ====================
-    /**
-     * 处理 API 响应
-     * @param response - API 响应对象
-     * @param successMsg - 成功消息
-     * @param errorMsg - 错误消息
-     */
-    const handleApiResponse = (response: ApiResponse, successMsg: string, errorMsg: string) => {
-        if (response.status === 'ok' || response.code === 1000) {
-            ElMessage.success(successMsg)
-            return true
-        } else {
-            ElMessage.error(errorMsg)
-            return false
-        }
-    }
-
-    /**
-     * 保存场景到 ESSS 服务器
-     * @param parseSearch - 解析后的 URL 参数
-     * @param uri - 服务器地址
-     */
-    const esssScene = async (parseSearch: ParsedSearch, uri: string) => {
-        const { ESSSsceneid: sceneid, token, appid } = parseSearch
-        const allJson = xbsjEarthUi.json
-
-        if (!appid) {
-            ElMessage.error('无 appid，保存场景失败')
-            return
-        }
-
-        try {
-            await get(`${xbsjEarthUi.esssUrl}/setting/get`)
-
-            if (!sceneid) {
-                // 创建新场景
-                const thumbnail = await xbsjEarthUi.activeViewer?.capture()
-                const res = await post(
-                    `${uri}/staticscene/create`,
-                    {
-                        name: '默认场景',
-                        appid,
-                        thumbnail,
-                        content: JSON.stringify(allJson)
-                    },
-                    token
-                )
-                handleApiResponse(res, `保存场景成功：${appid}`, `保存场景失败：${appid}`)
-            } else {
-                // 更新现有场景
-                const res = await post(
-                    `${uri}/staticscene/update`,
-                    { id: sceneid, content: JSON.stringify(allJson) },
-                    token
-                )
-                handleApiResponse(res, `保存场景成功：${appid}`, `保存场景失败：${appid}`)
-            }
-        } catch (error) {
-            console.error('ESSS 场景保存失败:', error)
-            // 降级处理：使用 PUT 方法
-            try {
-                const res = await put(`${uri}/staticscene/${sceneid}`, { content: allJson }, token)
-                handleApiResponse(res, `保存场景成功：${appid}`, `保存场景失败：${appid}`)
-            } catch (putError) {
-                console.error('PUT 请求失败:', putError)
-                ElMessage.error(`保存场景失败：${appid}! ${putError}`)
-            }
-        }
-    }
-
-    /**
-     * 保存场景到 CesiumLab 服务器
-     * @param parseSearch - 解析后的 URL 参数
-     * @param uri - 服务器地址
-     */
-    const cesiumLabScene = async (parseSearch: ParsedSearch, uri: string) => {
-        const allJson = xbsjEarthUi.json
-        const thumbnail = await xbsjEarthUi.activeViewer?.capture()
-        const token = localStorage.getItem('token') as string | undefined
-        const authToken = xbsjEarthUi.cesiumLabToken ? undefined : token
-
-        try {
-            if (parseSearch.scene) {
-                // 更新现有场景
-                const params = {
-                    content: JSON.stringify(allJson),
-                    newId: parseSearch.scene,
-                    id: parseSearch.scene,
-                    thumbnail
-                }
-                let url = `${uri}/tile/scene/update`
-                if (xbsjEarthUi.cesiumLabToken) {
-                    url += `?labtoken=${xbsjEarthUi.cesiumLabToken}`
-                }
-
-                const res = await post(url, params, authToken)
-                handleApiResponse(res, `更新场景成功：${parseSearch.scene}`, '更新场景失败')
-            } else {
-                // 创建新场景
-                const params = {
-                    name: '新建场景',
-                    description: '描述',
-                    content: JSON.stringify(allJson),
-                    thumbnail
-                }
-                let url = `${uri}/tile/scene/create`
-                if (xbsjEarthUi.cesiumLabToken) {
-                    url += `?labtoken=${xbsjEarthUi.cesiumLabToken}`
-                }
-
-                const res = await post(url, params, authToken)
-                if (handleApiResponse(res, `创建场景成功：${res.data.id}`, '创建场景失败')) {
-                    // 更新浏览器地址栏
-                    const newUrl = `${window.location.origin}${window.location.pathname}?from=${$config.jumpOrigin}${xbsjEarthUi.cesiumLabToken ? '&cesiumLabToken=' + xbsjEarthUi.cesiumLabToken : ''
-                        }&scene=${res.data.id}`
-                    window.history.pushState({}, '', newUrl)
-                }
-            }
-        } catch (error) {
-            console.error('CesiumLab 场景保存失败:', error)
-            ElMessage.error(`场景操作失败! ${error}`)
-        }
-    }
-
-    /**
-     * 保存场景（根据来源判断保存方式）
-     */
-    const saveScene = () => {
-        const search = window.location.search.substring(1)
-        const parseSearch = parse(search) as ParsedSearch
-
-        if (parseSearch.from === $config.jumpOrigin) {
-            cesiumLabScene(parseSearch, cesiumLabUrl.value!)
-        } else if (parseSearch.from === 'esss') {
-            esssScene(parseSearch, esssUrl.value!)
-        } else {
-            ElMessage.warning('请输入服务地址')
-        }
-    }
 
     /**
      * 保存到服务器
      */
     const handleSaveToServer = () => {
         console.log('保存场景到服务器:', xbsjEarthUi.json)
-        saveScene()
+        // 解析 URL 参数
+        const params = new URLSearchParams(window.location.search);
+        const from = params.get('from');
+        if (!from) {
+            ElMessage.warning('未知来源，无法保存场景');
+            return
+        }
+        const { cesiumLabParamValue, esssParamValue } = config;
+        if (from === cesiumLabParamValue) {
+            saveCesiumLabScene(xbsjEarthUi, config);
+        } else if (from === esssParamValue) {
+            saveEsssScene(xbsjEarthUi, config);
+        } else {
+            ElMessage.warning('未知来源，无法保存场景')
+        }
     }
 
     /**
@@ -272,6 +133,18 @@ export function useMenu(props: MenuProps) {
         if (fromIsExist.value) {
             xiaosanjiao.value = !xiaosanjiao.value
         } else {
+            handleSaveToLocal()
+        }
+    }
+
+    /**
+     * 处理下拉菜单命令
+     * @param command - 菜单项命令标识符
+     */
+    const handleCommand = (command: string) => {
+        if (command === 'saveToServer') {
+            handleSaveToServer()
+        } else if (command === 'saveToLocal') {
             handleSaveToLocal()
         }
     }
@@ -396,10 +269,9 @@ export function useMenu(props: MenuProps) {
             })
         )
 
-        // 检查是否存在 from 参数
-        const search = window.location.search.substring(1)
-        const parseSearch = parse(search) as ParsedSearch
-        fromIsExist.value = !!parseSearch.from
+        const params = new URLSearchParams(window.location.search);
+        const from = params.get('from');
+        fromIsExist.value = !!from;
     }
 
     /**
@@ -471,7 +343,8 @@ export function useMenu(props: MenuProps) {
         changeMore,
         clickOutside,
         toggleTheme,
-        handleSaveClick
+        handleSaveClick,
+        handleCommand
     }
 }
 

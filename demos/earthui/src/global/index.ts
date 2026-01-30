@@ -1,21 +1,10 @@
-import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
-import { inject, ref } from 'vue'
-import { ConfigType, InitSceneConfigType } from './types'
-import { localStorageKey } from '@/constants'
 import { gget } from '@/api'
+import { localStorageKey } from '@/constants'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { getUuid } from '@/utils'
 import { ElMessage } from 'element-plus'
-/** 右侧边栏宽度 */
-const rightSidebarWidth = ref(400)
-export const useRightSidebarWidthFunc = () => {
-  function setRightSidebarWidth(width: number) {
-    rightSidebarWidth.value = width
-  }
-  return {
-    rightSidebarWidth,
-    setRightSidebarWidth
-  }
-}
+import { inject } from 'vue'
+import { ConfigType, InitSceneConfigType } from './types'
 
 /** 全局配置信息 */
 export const $config = {
@@ -81,8 +70,14 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
   // ESSS 相关参数
   const esssScene = params.get(esssSceneParamKey);
   const esssAppid = params.get(esssAppIdParamKey) ?? undefined;
-  const esssUrl = params.get(esssUrlParamKey) ?? window.location.origin;
+  const esssUrl = params.get(esssUrlParamKey)
+    ?? window.localStorage.getItem(localStorageKey.Earth_UI_ESSS_SERVER_URL)
+    ?? window.location.origin;
   const esssToken = params.get(esssTokenParamKey) ?? undefined;
+
+  //存储 cesiumLabUrl 到 localStorage
+  window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl);
+  window.localStorage.setItem(localStorageKey.Earth_UI_ESSS_SERVER_URL, esssUrl);
 
   // 此 cesiumlab 服务下存的 token，当 earthui 嵌入 lab 后该页面下的接口调用需要
   const token = localStorage.getItem('token') as string | undefined;

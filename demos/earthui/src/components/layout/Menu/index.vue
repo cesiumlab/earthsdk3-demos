@@ -54,8 +54,8 @@
 
         <!-- 主题切换按钮 -->
         <div class="earthui-neck-theme-icon" @click="toggleTheme" title="切换主题">
-            <svg t="1767868138156" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="16"
-                height="16" fill="currentColor">
+            <svg t="1767868138156" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="20"
+                height="20" fill="currentColor">
                 <path
                     d="M512 796.444444A284.444444 284.444444 0 1 0 512 227.555556a284.444444 284.444444 0 0 0 0 568.888888z m-315.335111-153.827555a341.333333 341.333333 0 1 1 630.670222-261.233778 341.333333 341.333333 0 0 1-630.670222 261.233778zM341.333333 625.265778a306.005333 306.005333 0 0 0 194.787556-89.144889A306.005333 306.005333 0 0 0 625.265778 341.333333 204.8 204.8 0 1 1 341.333333 625.265778z" />
                 <path
@@ -64,16 +64,22 @@
         </div>
 
         <!-- 保存按钮 -->
-        <div class="earthui-neck-save" title="保存场景">
-            <div class="earthui-neck-scene" @click.stop.prevent="handleSaveClick">
+        <div class="earthui-neck-save">
+            <el-dropdown v-if="fromIsExist" trigger="click" @command="handleCommand">
+                <div class="earthui-neck-theme-icon" title="保存场景">
+                    <es-icon name="baocun" />
+                </div>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item v-for="item in sceneList" :key="item.content" :command="item.command">
+                            {{ item.content }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            <div v-else class="earthui-neck-theme-icon" title="保存场景" @click="handleSaveClick">
                 <es-icon name="baocun" />
-                <span v-if="fromIsExist" class="earthui-xiaosanjiao"></span>
             </div>
-            <ul v-if="fromIsExist && !xiaosanjiao" class="earthui-neck-ft-ul">
-                <li v-for="item in sceneList" :key="item.content" @click="item.fun">
-                    {{ item.content }}
-                </li>
-            </ul>
         </div>
     </div>
 
@@ -105,6 +111,7 @@ import { $config } from '@/global';
 import { originalNavList } from '@/pages';
 import { vClickOutside } from 'earthsdk-ui';
 import { useMenu } from './useMenu';
+import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
 
 // ==================== 使用 Menu Hook ====================
 const {
@@ -114,7 +121,6 @@ const {
     iconheight1,
     rightModuleShow,
     fromIsExist,
-    xiaosanjiao,
     moreMenuShow,
     defalutNavList,
     noneNavList,
@@ -126,6 +132,7 @@ const {
     sceneList,
 
     // 方法
+    handleCommand,
     change,
     changeMore,
     clickOutside,

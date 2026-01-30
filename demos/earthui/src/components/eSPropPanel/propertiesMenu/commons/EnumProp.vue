@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { off, on, throttle } from './base/util'
-import { vClickOutside } from 'earthsdk-ui'
+import { vClickOutside } from 'earthsdk-ui';
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { off, on, throttle } from './base/util';
 
 const props = withDefaults(
   defineProps<{
@@ -154,28 +154,17 @@ onMounted(() => {
 <template>
   <div class="select">
     <div class="enum_prop" ref="slotRef">
-      <div
-        class="enum_prop_model"
-        :class="{ enum_prop_model_ban: isBan }"
-        @click.stop.prevent="changeVisible"
-        :title="modelValueRef"
-      >
+      <div class="enum_prop_model" :class="{ enum_prop_model_ban: isBan }" @click.stop.prevent="changeVisible"
+        :title="modelValueRef">
         {{ modelValueRef }}
-        <span
-          class="images_xiaosanjiao"
-          :class="visible ? 'images_xiaosanjiao_transform' : ''"
-        ></span>
+        <span class="images_xiaosanjiao" :class="visible ? 'images_xiaosanjiao_transform' : ''"></span>
       </div>
     </div>
   </div>
   <teleport to="body">
     <div ref="containerRef" v-if="visible" class="es-option-box" v-click-outside="clickOutside">
-      <div
-        v-for="item in enumStrsList"
-        :title="item[0]"
-        :class="{ actived: item[0] === modelValueRef, disaled: item[2] }"
-        @click="changeSelect(item)"
-      >
+      <div v-for="item in enumStrsList" :title="item[0]"
+        :class="{ actived: item[0] === modelValueRef, disaled: item[2] }" @click="changeSelect(item)">
         {{ item[0] }}
       </div>
     </div>
@@ -199,7 +188,7 @@ onMounted(() => {
   position: relative;
 }
 
-.select > .enum_prop > .enum_prop_model {
+.select>.enum_prop>.enum_prop_model {
   height: 26px;
   width: 100%;
   background: rgba(28, 28, 29, 0.6);
@@ -219,7 +208,7 @@ onMounted(() => {
   background: rgba(48, 48, 48, 0.6) !important;
 }
 
-.select > .enum_prop > ul {
+.select>.enum_prop>ul {
   position: absolute;
   z-index: 20;
   max-height: 130px;
@@ -235,18 +224,18 @@ onMounted(() => {
   box-sizing: border-box;
 }
 
-.select > .enum_prop > ul::-webkit-scrollbar {
+.select>.enum_prop>ul::-webkit-scrollbar {
   width: 3px;
   background-color: rgba(41, 42, 46, 1);
   border-radius: 2px;
 }
 
-.select > .enum_prop > ul::-webkit-scrollbar-thumb {
+.select>.enum_prop>ul::-webkit-scrollbar-thumb {
   background-color: rgba(183, 183, 183, 1);
   border-radius: 2px;
 }
 
-.select > .enum_prop > ul > li {
+.select>.enum_prop>ul>li {
   list-style: none;
   height: 20px;
   font-size: 14px;
@@ -259,7 +248,7 @@ onMounted(() => {
   color: rgba(230, 230, 230, 1);
 }
 
-.select > .enum_prop > ul > li:hover {
+.select>.enum_prop>ul>li:hover {
   background: #37393e;
 }
 
@@ -320,7 +309,7 @@ onMounted(() => {
   border-radius: 2px;
 }
 
-.es-option-box > div {
+.es-option-box>div {
   list-style: none;
   height: 20px;
   font-size: 14px;
@@ -332,7 +321,7 @@ onMounted(() => {
   color: rgba(230, 230, 230, 1);
 }
 
-.es-option-box > div:hover {
+.es-option-box>div:hover {
   background: #37393e;
 }
 </style>

@@ -1,12 +1,11 @@
 <script setup lang="ts">
+import { createVueDisposer, propComps, toVR } from 'earthsdk-ui'
 import { ReactVarProperty } from 'earthsdk3'
-import { createVueDisposer, toReadonlyVueRef, toVR } from 'earthsdk-ui'
-import { propComps } from 'earthsdk-ui'
 // import { newpropComps } from '../../index'
+import { inject, onBeforeUnmount, ref } from 'vue'
+import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
 import SpeedAndStartTime from './SpeedAndStartTime.vue'
 import StartTimeAndStopTime from './StartTimeAndStopTime.vue'
-import { inject, ref, onBeforeUnmount, watch } from 'vue'
-import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
 const props = withDefaults(
   defineProps<{
     properties: ReactVarProperty<any>[]
@@ -47,55 +46,30 @@ let propertiesMenu: { name: string; component: string }[] = [
 const currentCom = ref('speedAndStartTime')
 </script>
 <template>
-  <div
-    v-for="item in properties"
-    :key="item.memId"
-    class="item"
-    v-if="properties.length > 0"
-    :class="{
-      'no-click':
-        (treeItem.type === 'ESGeoWater' || treeItem.type === 'ESDynamicWater') &&
-        waterType !== 'custom' &&
-        item.name !== '水域类型'
-    }"
-  >
+  <div v-for="item in properties" :key="item.memId" class="item" v-if="properties.length > 0" :class="{
+    'no-click':
+      (treeItem.type === 'ESGeoWater' || treeItem.type === 'ESDynamicWater') &&
+      waterType !== 'custom' &&
+      item.name !== '水域类型'
+  }">
     <div class="item_type">
-      <component
-        :is="propComps[item.type]"
-        :property="item"
-        :type="type"
-        :xbsjEarthUi="xbsjEarthUi"
-        :treeItem="xbsjEarthUi.propSceneTree"
-        @callback="callback"
-      ></component>
+      <component :is="propComps[item.type]" :property="item" :type="type" :xbsjEarthUi="xbsjEarthUi"
+        :treeItem="xbsjEarthUi.propSceneTree" @callback="callback"></component>
     </div>
   </div>
   <div v-if="type === 'ESPath' && currentMenu === 'basic'">
     <div class="espath_button">
       <div class="lab_Property_header1">
-        <div
-          class="header_item2"
-          v-for="item in propertiesMenu"
-          :key="item.component"
-          @click="currentCom = item.component"
-        >
-          <span
-            class="header_item_span2"
-            :class="currentCom === item.component ? 'header_active2' : ''"
-            >{{ item.name }}</span
-          >
+        <div class="header_item2" v-for="item in propertiesMenu" :key="item.component"
+          @click="currentCom = item.component">
+          <span class="header_item_span2" :class="currentCom === item.component ? 'header_active2' : ''">{{ item.name
+            }}</span>
         </div>
       </div>
     </div>
-    <SpeedAndStartTime
-      v-if="currentCom === 'speedAndStartTime'"
-      :sceneObject="treeItem.sceneObject"
-    >
+    <SpeedAndStartTime v-if="currentCom === 'speedAndStartTime'" :sceneObject="treeItem.sceneObject">
     </SpeedAndStartTime>
-    <StartTimeAndStopTime
-      v-if="currentCom === 'startTimeAndStopTime'"
-      :sceneObject="treeItem.sceneObject"
-    >
+    <StartTimeAndStopTime v-if="currentCom === 'startTimeAndStopTime'" :sceneObject="treeItem.sceneObject">
     </StartTimeAndStopTime>
   </div>
 </template>
@@ -120,7 +94,7 @@ const currentCom = ref('speedAndStartTime')
   justify-content: space-between;
 }
 
-.espath_button > button {
+.espath_button>button {
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -129,7 +103,7 @@ const currentCom = ref('speedAndStartTime')
   cursor: pointer;
 }
 
-.espath_button > button:hover {
+.espath_button>button:hover {
   border: 1px solid #2c68f7;
 }
 
@@ -165,7 +139,7 @@ const currentCom = ref('speedAndStartTime')
   justify-content: center;
 }
 
-.header_item2 > span {
+.header_item2>span {
   display: inline-block;
   height: 100%;
   text-align: center;

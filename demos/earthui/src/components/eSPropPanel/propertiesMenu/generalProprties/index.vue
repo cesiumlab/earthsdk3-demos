@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ReactVarProperty } from 'earthsdk3'
-import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
+import { propComps } from 'earthsdk-ui';
+import { ReactVarProperty } from 'earthsdk3';
+import { inject } from 'vue';
 const props = withDefaults(
   defineProps<{
     properties: ReactVarProperty<any>[]
@@ -9,8 +11,6 @@ const props = withDefaults(
   }>(),
   { type: 'ES对象' }
 )
-import { propComps } from 'earthsdk-ui'
-import { inject } from 'vue'
 // import { propComps } from '../../index'
 
 const emtis = defineEmits<{
@@ -36,13 +36,8 @@ const callback = (params: any): void => {
   <div v-if="properties.length > 0">
     <div v-for="item in properties.slice(0, 6)" :key="item.memId" class="item">
       <div class="item_type">
-        <component
-          @callback="callback"
-          :is="propComps[item.type]"
-          :property="item"
-          :xbsjEarthUi="xbsjEarthUi"
-          :treeItem="treeItem"
-        ></component>
+        <component @callback="callback" :is="propComps[item.type]" :property="item" :xbsjEarthUi="xbsjEarthUi"
+          :treeItem="treeItem"></component>
       </div>
     </div>
   </div>

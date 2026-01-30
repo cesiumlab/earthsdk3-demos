@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ESSceneObject, ReactVarProperty } from 'earthsdk3'
-import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
+import { propComps } from 'earthsdk-ui';
+import { ReactVarProperty } from 'earthsdk3';
+import { inject } from 'vue';
 const props = withDefaults(
   defineProps<{
     properties: ReactVarProperty<any>[]
@@ -10,8 +12,6 @@ const props = withDefaults(
   }>(),
   {}
 )
-import { propComps } from 'earthsdk-ui'
-import { inject, onBeforeUnmount, onMounted } from 'vue'
 // import { propComps } from '../../index'
 const emtis = defineEmits<{
   (e: 'callback', params: any & { treeItem: any }): void
@@ -23,44 +23,23 @@ const callback = (params: any): void => {
     treeItem,
     ...params
   })
-  ;``
+    ; ``
 }
 </script>
 
 <template>
   <div class="item">
-    <component
-      :is="propComps[properties[0].type]"
-      :xbsjEarthUi="xbsjEarthUi"
-      :treeItem="xbsjEarthUi.propSceneTree"
-      :property="properties[0]"
-      :type="type"
-      @callback="callback"
-      :lonLatFormat="lonLatFormat"
-    >
+    <component :is="propComps[properties[0].type]" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree"
+      :property="properties[0]" :type="type" @callback="callback" :lonLatFormat="lonLatFormat">
     </component>
-    <component
-      :is="propComps[properties[1].type]"
-      :xbsjEarthUi="xbsjEarthUi"
-      :treeItem="xbsjEarthUi.propSceneTree"
-      :property="properties[1]"
-      :type="type"
-      @callback="callback"
-      :lonLatFormat="lonLatFormat"
-    >
+    <component :is="propComps[properties[1].type]" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree"
+      :property="properties[1]" :type="type" @callback="callback" :lonLatFormat="lonLatFormat">
     </component>
   </div>
   <div v-for="item in properties.slice(2)" :key="item.memId" class="item">
     <div class="item_type">
-      <component
-        :is="propComps[item.type]"
-        :xbsjEarthUi="xbsjEarthUi"
-        :treeItem="xbsjEarthUi.propSceneTree"
-        :property="item"
-        :type="type"
-        @callback="callback"
-        :lonLatFormat="lonLatFormat"
-      ></component>
+      <component :is="propComps[item.type]" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree"
+        :property="item" :type="type" @callback="callback" :lonLatFormat="lonLatFormat"></component>
     </div>
   </div>
 </template>

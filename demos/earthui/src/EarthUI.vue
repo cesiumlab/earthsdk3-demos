@@ -28,7 +28,7 @@ import { onBeforeUnmount, onMounted, provide, ref } from 'vue'
 import SceneTreePanel from './components/business/SceneTreePanel.vue'
 import SceneTreePropPanel from './components/business/SceneTreePropPanel.vue'
 import HeaderMenu from './components/layout/Menu/index.vue'
-import viewersContainer from './components/viewers/Viewers.vue'
+import viewersContainer from './components/layout/Viewers.vue'
 import { $g_objm } from './global'
 import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
 import TimeLine from './pages/view/animation/TimeLine.vue'
@@ -38,15 +38,13 @@ const xbsjEarthUi = $g_objm();
 
 const sceneTree = xbsjEarthUi.sceneTree;
 
-xbsjEarthUi.czmlabPath = location.origin;
-
 const czmPickResult = ref(false)
 const czmPinkList: any = ref()
 
 //所有子组件都可以获取到，不用一层一层传值
 provide('sceneTree', sceneTree)
 
-const disposer = createVueDisposer(onBeforeUnmount)
+const disposer = createVueDisposer(onBeforeUnmount);
 const animationShow = toVR<boolean>(disposer, [xbsjEarthUi, 'animationShow'])
 
 onMounted(() => {

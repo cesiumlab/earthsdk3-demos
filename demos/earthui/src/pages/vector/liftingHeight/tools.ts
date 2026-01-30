@@ -1,5 +1,5 @@
-import { ESGeoLineString, ESGeoVector, ESObjectWithLocation, ESSceneObject } from 'earthsdk3'
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { ESGeoLineString, ESGeoVector, ESObjectWithLocation } from 'earthsdk3'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 //获取组节点下的所有的点线面的个数
 function searchGroup(xbsjEarthUi: XbsjEarthUi, obj: { [key: string]: any }, result: any) {
   if (obj['sceneObj']) {

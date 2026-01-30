@@ -1,11 +1,6 @@
 <template>
   <PopList :title="'GeoServer'" :showButton="true" @ok="ok">
-    <LabelInput
-      v-model="geoServerUrl"
-      :label="'服务地址'"
-      @blur="initNewList"
-      @keydownenter="initNewList"
-    >
+    <LabelInput v-model="geoServerUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="server_lab">
       <div class="server_lab_title">
@@ -15,13 +10,8 @@
         <div class="server_lab_title_type">{{ '类型' }}</div>
       </div>
       <div class="server_content">
-        <div
-          class="server_lab_content"
-          v-for="(item, index) in serverList"
-          @click="changeServerLab(item, index)"
-          :key="index"
-          :class="{ server_lab_content_active: serverActive === index }"
-        >
+        <div class="server_lab_content" v-for="(item, index) in serverList" @click="changeServerLab(item, index)"
+          :key="index" :class="{ server_lab_content_active: serverActive === index }">
           <div class="server_lab_content_index">{{ index + 1 }}</div>
           <div class="server_lab_content_name">{{ item.title }}</div>
           <!-- <div class="server_lab_content_server">{{ item.serverUrl }}</div> -->
@@ -48,7 +38,7 @@ import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 const d = createVueDisposer(onBeforeUnmount)
 const serverUrl = ref('')
 const emits = defineEmits(['close'])
-const serverList = ref<any>([])
+const serverList = ref<any[]>([])
 const serverActive = ref(-1)
 const currentItem = ref<any>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi

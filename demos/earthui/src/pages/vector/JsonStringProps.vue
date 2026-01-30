@@ -1,13 +1,6 @@
 <template>
-  <Window
-    :title="'编辑器'"
-    :readonly="readonly"
-    :show="props.isShow"
-    @cancel="changeCancel"
-    @ok="changeOk"
-    :width="800"
-    :height="500"
-  >
+  <Window :title="'编辑器'" :readonly="readonly" :show="props.isShow" @cancel="changeCancel" @ok="changeOk" :width="800"
+    :height="500">
     <div style="margin-left: 10px">
       <button @click="importJsonFile" :class="readonly ? 'readonly_true' : ''" :disabled="readonly">
         导入
@@ -22,11 +15,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue'
-import { getOpenFileHandle, getSaveFileHandle, getTextFromFile, saveFile } from 'earthsdk-ui'
-import { saveAs } from '../../components/sceneTree/tools'
-import { ESEditor } from 'earthsdk-ui'
+import { downloadJson } from '@/utils'
+import { ESEditor, getOpenFileHandle, getTextFromFile } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
+import { ref, useTemplateRef } from 'vue'
 import Window from '../../components/commom/Window.vue'
 const editorContainer = useTemplateRef('editorContainer')
 const props = withDefaults(
@@ -82,7 +74,7 @@ const importJsonFile = async () => {
 const exportJsonFile = () => {
   const str = editorContainer.value?.getVal() as any
   const newstr = JSON.parse(str)
-  saveAs(newstr)
+  downloadJson(newstr, 'default.json', true)
 }
 </script>
 <style scoped>

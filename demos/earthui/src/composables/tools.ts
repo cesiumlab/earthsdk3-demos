@@ -1,20 +1,9 @@
+import { getsceneObjNumfromSceneTree } from '@/scripts/general'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { messageBox } from 'earthsdk-ui'
-import {
-  ESGeoJson,
-  ESGeoLineString,
-  ESGeoPolygon,
-  ESGeoVector,
-  ESJSwitchToUEViewerOptionType,
-  ESObjectWithLocation,
-  ESPath,
-  ESTextLabel,
-  JsonValue,
-  SceneTreeItem
-} from 'earthsdk3'
+import { ESGeoJson, ESGeoLineString, ESGeoPolygon, ESGeoVector, ESJSwitchToUEViewerOptionType, ESObjectWithLocation, ESPath, ESTextLabel, JsonValue, SceneTreeItem } from 'earthsdk3'
 import { ElMessage } from 'element-plus'
 import * as topojson from 'topojson-client'
-import { getsceneObjNumfromSceneTree } from '../../scripts/general'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
 
 function createSceneObjByJson(obj: { [key: string]: any }, xbsjEarthUi: XbsjEarthUi) {
   const sceneTree = xbsjEarthUi.getSceneTree()

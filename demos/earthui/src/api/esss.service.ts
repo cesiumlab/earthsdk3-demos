@@ -31,10 +31,6 @@ export const saveEsssScene = async (objm: XbsjEarthUi, config: ConfigType) => {
 
     const { esssUrl, esssAppid, esssToken } = objm.initConfig.esss;
 
-    // const appid = params.get(config.esssAppIdParamKey);
-    // const esssUrl = params.get(config.esssUrlParamKey);
-    // const token = params.get(config.esssTokenParamKey) ?? undefined;
-
     const allJson = objm.json;
 
     if (!esssAppid) {

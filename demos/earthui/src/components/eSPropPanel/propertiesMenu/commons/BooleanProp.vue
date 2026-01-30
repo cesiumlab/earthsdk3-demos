@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ToggleSwitch from './base/InputCheckBox.vue'
+import ToggleSwitch from './base/InputCheckBox.vue';
 const p = withDefaults(
   defineProps<{
     modelValue?: boolean
@@ -17,11 +17,7 @@ const inputHandler = (flag: boolean) => {
 
 <template>
   <div class="readonly_flag" :class="readonly ? 'readonly_true' : ''">
-    <ToggleSwitch
-      :booleanValue="modelValue ?? false"
-      @update:booleanValue="inputHandler"
-      :defaultValue="defaultValue"
-    >
+    <ToggleSwitch :booleanValue="modelValue ?? false" @update:booleanValue="inputHandler" :defaultValue="defaultValue">
     </ToggleSwitch>
   </div>
 </template>

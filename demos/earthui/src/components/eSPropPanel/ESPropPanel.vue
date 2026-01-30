@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, onBeforeUnmount, inject, onMounted, watch } from 'vue'
+import { createVueDisposer, Message, toReadonlyVueRef } from 'earthsdk-ui'
+import { ES3DTileset } from 'earthsdk3'
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
 import BasicProprties from './propertiesMenu/basicProprties/index.vue'
 import CoordinateProprties from './propertiesMenu/coordinateProprties/index.vue'
 import GeneralProprties from './propertiesMenu/generalProprties/index.vue'
 import LocationProprties from './propertiesMenu/locationProprties/index.vue'
-import { createVueDisposer, Message, toReadonlyVueRef, toVR } from 'earthsdk-ui'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
-import { ES3DTileset } from 'earthsdk3'
 
 const props = withDefaults(
   defineProps<{
@@ -123,7 +123,7 @@ onMounted(() => {
       <div class="property_header_item" v-for="item in propertiesMenu" :key="item.component"
         @click="currentMenu = item.component">
         <span class="header_item_span1" :class="currentMenu === item.component ? 'header_active1' : ''">{{ item.name
-          }}</span>
+        }}</span>
       </div>
     </div>
     <div class="Property_content">

@@ -1,11 +1,6 @@
 <template>
   <PopList :title="'CesiumIon'" :showButton="true" @ok="ok">
-    <LabelInput
-      v-model="cesiumIonUrl"
-      :label="'服务地址'"
-      @blur="initNewList"
-      @keydownenter="initNewList"
-    >
+    <LabelInput v-model="cesiumIonUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">
       <div class="images_servelocation">
@@ -13,13 +8,7 @@
         <div class="server_token" v-if="!tokenInputShow" @click="tokenInputShow = true">
           {{ ionAccessToken }}
         </div>
-        <input
-          v-else
-          type="text"
-          v-model="ionAccessToken"
-          @blur="changeToken"
-          @keydown.enter="changeToken"
-        />
+        <input v-else type="text" v-model="ionAccessToken" @blur="changeToken" @keydown.enter="changeToken" />
       </div>
     </div>
     <div class="server_lab">
@@ -30,13 +19,8 @@
         <div class="server_lab_title_type">{{ '类型' }}</div>
       </div>
       <div class="server_content">
-        <div
-          class="server_lab_content"
-          v-for="(item, index) in serverList"
-          @click="changeServerLab(item, index)"
-          :key="index"
-          :class="{ server_lab_content_active: serverActive === index }"
-        >
+        <div class="server_lab_content" v-for="(item, index) in serverList" @click="changeServerLab(item, index)"
+          :key="index" :class="{ server_lab_content_active: serverActive === index }">
           <div class="server_lab_content_index">{{ index + 1 }}</div>
           <div class="server_lab_content_name">{{ item.name }}</div>
           <!-- <div class="server_lab_content_server">{{ item.serverUrl }}</div> -->
@@ -66,7 +50,7 @@ const d = createVueDisposer(onBeforeUnmount)
 const tokenInputShow = ref(false)
 const serverUrl = ref('')
 const emits = defineEmits(['close'])
-const serverList = ref<any>([])
+const serverList = ref<any[]>([])
 const serverActive = ref(-1)
 const currentItem = ref<any>()
 const accessToken = ref<string>()

@@ -106,44 +106,22 @@ watch(uri, () => {
 
 <template>
   <Loading :content="'加载中...'" v-show="load"></Loading>
-  <PopList
-    :title="'ESSS信令服务器地址'"
-    :link="'http://bjxbsj.cn/esss.html'"
-    :showButton="true"
-    @close="cancel"
-    @ok="confirm"
-  >
-    <LabelInput
-      v-model="uri"
-      :label="'服务地址'"
-      @blur="changeServeIdList"
-      @keydownenter="changeServeIdList"
-    >
+  <PopList :title="'ESSS信令服务器地址'" :link="'http://bjxbsj.cn/esss.html'" :showButton="true" @close="cancel" @ok="confirm">
+    <LabelInput v-model="uri" :label="'服务地址'" @blur="changeServeIdList" @keydownenter="changeServeIdList">
     </LabelInput>
     <LabelInput v-model="app" :label="'应用id'" :placeholder="'请选择...'"></LabelInput>
     <div class="images_bottom_content">
       <div class="images_img_list">
         <div v-for="(item, index) in serveIdList" class="images_img_lilist">
-          <div
-            class="images_imgposition"
-            :class="{ images_checkedactive: checkedactive == index }"
-            @click="changeServeUrl(item, index)"
-          >
+          <div class="images_imgposition" :class="{ images_checkedactive: checkedactive == index }"
+            @click="changeServeUrl(item, index)">
             <img :src="item.thumbnail ?? emptyImg" alt="" />
-            <span
-              :style="{
-                right: `${(index + 1) % 3 === 0 ? 0 : 'unset'}`,
-                left: `${(index + 1) % 3 === 0 ? 'unset' : 0}`
-              }"
-              v-show="iconIsShow == index ? true : false"
-              >{{ item.name ?? '场景' }}</span
-            >
+            <span :style="{
+              right: `${(index + 1) % 3 === 0 ? 0 : 'unset'}`,
+              left: `${(index + 1) % 3 === 0 ? 'unset' : 0}`
+            }" v-show="iconIsShow == index ? true : false">{{ item.name ?? '场景' }}</span>
           </div>
-          <div
-            class="images_onlineimageName"
-            @mouseenter="iconIsShow = index"
-            @mouseleave="iconIsShow = null"
-          >
+          <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">
             {{ item.name ?? '场景' }}
           </div>
         </div>

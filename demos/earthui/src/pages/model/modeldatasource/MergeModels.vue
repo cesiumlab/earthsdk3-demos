@@ -1,12 +1,5 @@
 <template>
-  <DraggablePopup2
-    :title="'3dtiles服务合并工具'"
-    :width="800"
-    :height="'400px'"
-    :left="300"
-    :top="100"
-    @close="close"
-  >
+  <DraggablePopup2 :title="'3dtiles服务合并工具'" :width="800" :height="'400px'" :left="300" :top="100" @close="close">
     <div class="mergemodel">
       <div class="mergemodel_top">
         <div class="mergemodel_list">
@@ -14,14 +7,9 @@
             <div class="mergemodel_list_head_index">序号</div>
             <div class="mergemodel_list_head_url">服务地址</div>
             <div class="mergemodel_list_head_change">
-              <span
-                style="cursor: pointer"
-                @click.stop="addModelUrl"
-                title="添加服务地址"
-                @mouseenter="hoverliIndex = true"
-                @mouseleave="hoverliIndex = false"
-                ><es-icon :name="'tianjia'" :color="hoverliIndex ? '#fff' : '#575B66'" :size="13"
-              /></span>
+              <span style="cursor: pointer" @click.stop="addModelUrl" title="添加服务地址" @mouseenter="hoverliIndex = true"
+                @mouseleave="hoverliIndex = false"><es-icon :name="'tianjia'" :color="hoverliIndex ? '#fff' : '#575B66'"
+                  :size="13" /></span>
             </div>
           </div>
           <div class="mergemodel_list_data">
@@ -32,17 +20,9 @@
               </div>
 
               <div class="mergemodel_list_head_change">
-                <span
-                  style="cursor: pointer"
-                  @click.stop="deleteModelUrl(index)"
-                  title="删除服务地址"
-                  @mouseenter="hoverlideleteIndex = index"
-                  @mouseleave="hoverlideleteIndex = -2"
-                  ><es-icon
-                    :name="'shanchu_2'"
-                    :color="hoverlideleteIndex === index ? '#fff' : '#575B66'"
-                    :size="13"
-                /></span>
+                <span style="cursor: pointer" @click.stop="deleteModelUrl(index)" title="删除服务地址"
+                  @mouseenter="hoverlideleteIndex = index" @mouseleave="hoverlideleteIndex = -2"><es-icon
+                    :name="'shanchu_2'" :color="hoverlideleteIndex === index ? '#fff' : '#575B66'" :size="13" /></span>
               </div>
               <div class="mergemodel_list_head_tip" :title="getTipMessage(index)">
                 {{ getTipMessage(index) }}
@@ -64,13 +44,12 @@
   </DraggablePopup2>
 </template>
 <script setup lang="ts">
+import { copyClipboard, downloadJson } from '@/utils'
 import { ESEditor, messageBox } from 'earthsdk-ui'
-import { ElMessage } from 'element-plus'
 import { merge3dTilesServer } from 'earthsdk3-cesium'
+import { ElMessage } from 'element-plus'
 import { ref, useTemplateRef } from 'vue'
-import { saveAs } from '../../../components/sceneTree/tools'
 import DraggablePopup2 from '../../../components/DraggablePopup2.vue'
-import { copyClipboard } from '../../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard'
 const emits = defineEmits(['close'])
 const close = () => {
   emits('close')
@@ -95,7 +74,7 @@ const deleteModelUrl = (index: number) => {
     .then(() => {
       modelListsData.value.splice(index, 1)
     })
-    .catch((err) => {})
+    .catch((err) => { })
 }
 const getTipMessage = (index: number) => {
   let info = ''
@@ -149,15 +128,15 @@ const generate = () => {
       console.log('error', error)
     })
 }
-const copy = () => {
-  //复制
-  try {
-    const str = editorContainer.value?.getVal()
-    copyClipboard(str)
-  } catch (error) {
-    console.log('JSON格式错误!!!', error)
-    ElMessage.error(`JSON格式错误！ error: ${error}`)
-    return
+const copy = async () => {
+  const str = editorContainer.value?.getVal()
+  if (str) {
+    const flag = await copyClipboard(str);
+    if (flag) {
+      ElMessage.success('复制成功')
+    } else {
+      ElMessage.warning('复制异常,请检查浏览器环境或手动复制')
+    }
   }
 }
 const download = () => {
@@ -165,10 +144,9 @@ const download = () => {
   try {
     const str = editorContainer.value?.getVal() as any
     const json = JSON.parse(str)
-    saveAs(json, 'tileset')
+    downloadJson(json, 'tileset.json', true)
   } catch (error) {
     console.log('JSON格式错误!!!', error)
-    ElMessage.error(`JSON格式错误！ error: ${error}`)
   }
 }
 //json编辑器初始化

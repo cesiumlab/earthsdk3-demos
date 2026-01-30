@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ReactVarProperty } from 'earthsdk3'
-import { propComps } from 'earthsdk-ui'
-import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
-import { inject, onBeforeUnmount, onMounted } from 'vue'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
+import { propComps } from 'earthsdk-ui';
+import { ReactVarProperty } from 'earthsdk3';
+import { inject } from 'vue';
 // import { propComps } from '../../index'
 const props = withDefaults(
   defineProps<{
@@ -29,20 +29,10 @@ const callback = (params: any): void => {
 </script>
 <template>
   <div v-for="item in properties" :key="item.memId" class="item" v-if="properties.length > 0">
-    <div
-      class="item_type"
-      :style="{ paddingLeft: panelStyle === 'style' ? '10px' : '0px' }"
-      v-if="item.type !== 'GroupProperty'"
-    >
-      <component
-        :is="propComps[item.type]"
-        :property="item"
-        :type="type"
-        @callback="callback"
-        :lonLatFormat="lonLatFormat"
-        :xbsjEarthUi="xbsjEarthUi"
-        :treeItem="xbsjEarthUi.propSceneTree"
-      >
+    <div class="item_type" :style="{ paddingLeft: panelStyle === 'style' ? '10px' : '0px' }"
+      v-if="item.type !== 'GroupProperty'">
+      <component :is="propComps[item.type]" :property="item" :type="type" @callback="callback"
+        :lonLatFormat="lonLatFormat" :xbsjEarthUi="xbsjEarthUi" :treeItem="xbsjEarthUi.propSceneTree">
       </component>
     </div>
     <div class="item_nameProperty_name" v-else>
@@ -72,7 +62,7 @@ const callback = (params: any): void => {
   justify-content: space-between;
 }
 
-.espath_button > button {
+.espath_button>button {
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -81,7 +71,7 @@ const callback = (params: any): void => {
   cursor: pointer;
 }
 
-.espath_button > button:hover {
+.espath_button>button:hover {
   border: 1px solid #2c68f7;
 }
 

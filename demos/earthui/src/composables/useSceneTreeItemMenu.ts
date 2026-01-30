@@ -232,7 +232,7 @@ const getSceneObjectTreeItemMenuContent = (
         if (flag) {
           ElMessage.success('复制成功')
         } else {
-          ElMessage.warning('复制异常')
+          ElMessage.warning('复制异常,请检查浏览器环境或手动复制')
         }
       }
     },
@@ -274,7 +274,7 @@ const getSceneObjectTreeItemMenuContent = (
             if (flag) {
               ElMessage.success('复制成功')
             } else {
-              ElMessage.warning('复制异常')
+              ElMessage.warning('复制异常,请检查浏览器环境或手动复制')
             }
           } else {
             ElMessage.error('url地址为空')

@@ -75,12 +75,29 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     ?? window.location.origin;
   const esssToken = params.get(esssTokenParamKey) ?? undefined;
 
-  //存储 cesiumLabUrl 到 localStorage
+  // if (parseSearch.czmlabPath) {
+  //   xbsjEarthUi.czmlabPath = parseSearch.czmlabPath as string
+  //   console.log('czmlab-path:', xbsjEarthUi.czmlabPath)
+  // }
+  // if (parseSearch.cesiumLabUrl) {
+  //   xbsjEarthUi.cesiumLabUrl = parseSearch.cesiumLabUrl as string
+  //   // console.log('cesiumLabUrl:', xbsjEarthUi.cesiumLabUrl);
+  // }
+  // if (parseSearch[$config.jumpToken]) {
+  //   xbsjEarthUi.cesiumLabToken = parseSearch[$config.jumpToken] as string
+  //   // console.log('cesiumLabToken:', xbsjEarthUi.cesiumLabToken);
+  // }
+  // if (parseSearch.cesiumLabToken) {
+  //   xbsjEarthUi.cesiumLabToken = parseSearch.cesiumLabToken as string
+  //   // console.log('cesiumLabToken:', xbsjEarthUi.cesiumLabToken);
+  // }
+
+  //存储 cesiumLabUrl,esssUrl 到 localStorage
   window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl);
   window.localStorage.setItem(localStorageKey.Earth_UI_ESSS_SERVER_URL, esssUrl);
 
   // 此 cesiumlab 服务下存的 token，当 earthui 嵌入 lab 后该页面下的接口调用需要
-  const token = localStorage.getItem('token') as string | undefined;
+  const token = localStorage.getItem(localStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
 
   // 构建基础配置对象
   const createConfig = (overrides = {}) => ({
@@ -308,3 +325,36 @@ export function getSceneObjectJsonFromParams(labtoken?: string) {
       return null;
   }
 }
+
+
+// const getdefaultImage = (xbsjEarthUi: XbsjEarthUi) => {
+//   if (hasCreatedImagery) return // 防止重复创建
+//   hasCreatedImagery = true
+//   getNoToken(`https://account.bjxbsj.cn/api/bjxbsj/online/default`)
+//     .then((res: any) => {
+//       if (res && res.url) {
+//         xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+//           type: 'ESImageryLayer',
+//           url: res.url,
+//           name: '全球影像',
+//           maximumLevel: 18
+//         })
+//       } else {
+//         xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+//           type: 'ESImageryLayer',
+//           url: 'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+//           name: '全球影像',
+//           maximumLevel: 18
+//         })
+//       }
+//     })
+//     .catch((error: any) => {
+//       xbsjEarthUi.sceneTree.createSceneObjectTreeItemFromJson({
+//         type: 'ESImageryLayer',
+//         url: 'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+//         name: '全球影像',
+//         maximumLevel: 18
+//       })
+//       console.log(error)
+//     })
+// }

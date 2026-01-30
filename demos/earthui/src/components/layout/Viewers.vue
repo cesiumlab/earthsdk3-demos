@@ -3,14 +3,13 @@
     @dragleave="dragLeave($event)" @dragover="dragOver($event)" @drop="dropFile($event)"></div>
 </template>
 <script setup lang="ts">
-import { ESVisualObject, ESVOption, ESVOptionCzm, ESVOptionUe } from 'earthsdk3'
-import { inject, nextTick, onMounted, shallowRef } from 'vue'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
-import { createObj, createSceneJson, geoJsonTOESObjects } from '../sceneTree/tools'
-import { dayjs, ElMessage } from 'element-plus'
+import { ESVisualObject, ESVOption } from 'earthsdk3'
 import { ESCesiumViewer } from 'earthsdk3-cesium'
 import { ESUeViewer } from 'earthsdk3-ue'
-import { timestampToTime, timeToTimestamp } from '@/pages/environment/fun'
+import { dayjs, ElMessage } from 'element-plus'
+import { inject, nextTick, onMounted, shallowRef } from 'vue'
+import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import { createObj, createSceneJson, geoJsonTOESObjects } from '@/composables'
 const viewersContainer = shallowRef<HTMLDivElement>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
@@ -25,7 +24,6 @@ const dragOver = (event: Event) => {
 }
 const dropFile = async (event: Event) => {
   event.preventDefault()
-
   //@ts-ignore
   let fileList = event.dataTransfer.files
   Object.keys(fileList).forEach((item) => {

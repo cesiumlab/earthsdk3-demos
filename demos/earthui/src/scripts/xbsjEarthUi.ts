@@ -1,13 +1,9 @@
-import { ESObjectsManager, ESSceneObject, react, SceneTreeItem } from 'earthsdk3'
-import { ESOlViewer } from 'earthsdk3-ol'
-import { ESUeViewer } from 'earthsdk3-ue'
-import { parse } from 'search-params'
+import { InitSceneConfigType } from '@/global/types'
+import { ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
 import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreatorUI'
 import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
-import { $config } from '@/global'
-import { InitSceneConfigType } from '@/global/types'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
@@ -91,13 +87,6 @@ export class XbsjEarthUi extends ESObjectsManager {
   }
   get esssUrlChanged() {
     return this._esssUrl.changed
-  }
-
-  get czmlabPath() {
-    return ESSceneObject.context.getStrFromEnv('${czmlab-path}')
-  } //环境变量
-  set czmlabPath(target: string) {
-    ESSceneObject.context.setEnv('czmlab-path', target)
   }
 
   private _activeViewerType = this.dv(react<string>('ESCesiumViewer')) //视口
@@ -189,43 +178,35 @@ export class XbsjEarthUi extends ESObjectsManager {
 
   constructor(initConfig: InitSceneConfigType, viewers: any[]) {
     super(...viewers)
-    this._initConfig = initConfig; // 初始化配置
-
-    // this.ad(this.viewerCreatedEvent.don(() => {
-    //     this._globeMaterial = this.ad(new CzmGlobeMaterial(this.activeViewer as ESCesiumViewer));//全球材质，地形着色
-    // }))
+    // 初始化配置
+    this._initConfig = initConfig;
     {
       //初始化地址
-      const search = window.location.search.substring(1)
-      const parseSearch = parse(search)
-      if (parseSearch.from === $config.jumpOrigin) {
-        this.cesiumLabUrl = window.location.origin
-      } else if (parseSearch.from === 'esss') {
-        this.esssUrl = window.location.origin
-        localStorage.setItem('esssUrl', this.esssUrl)
-      } else {
-        const a = window.localStorage.getItem('labServeUrl')
-        if (a) {
-          this.cesiumLabUrl = a
-        } else {
-          this.cesiumLabUrl = ''
-        }
-        this.esssUrl = ''
-      }
+      const { cesiumLab, esss } = initConfig;
+      this.cesiumLabUrl = cesiumLab.cesiumLabUrl;
+      this.cesiumLabToken = cesiumLab.cesiumLabToken ?? '';
+      this.esssUrl = esss.esssUrl;
+
+      // if (parseSearch.czmlabPath) {
+      //   xbsjEarthUi.czmlabPath = parseSearch.czmlabPath as string
+      //   console.log('czmlab-path:', xbsjEarthUi.czmlabPath)
+      // }
+
     }
     {
       //判断视口
       this.d(
         this.activeViewerChanged.don(() => {
-          if (!this.activeViewer) return
-          if (this.activeViewer instanceof ESUeViewer) {
-            this.activeViewerType = 'ESUeViewer'
-          } else if (this.activeViewer instanceof ESOlViewer) {
-            this.activeViewerType = 'ESOlViewer'
-          } else {
-            this.activeViewerType = 'ESCesiumViewer'
-          }
-          console.log(this.activeViewer)
+          if (!this.activeViewer) return;
+          // 'ESCesiumViewer' | 'ESUeViewer' | 'ESOlViewer'
+          this.activeViewerType = this.activeViewer.typeName;
+          // if (this.activeViewer instanceof ESUeViewer) {
+          //   this.activeViewerType = 'ESUeViewer'
+          // } else if (this.activeViewer instanceof ESOlViewer) {
+          //   this.activeViewerType = 'ESOlViewer'
+          // } else {
+          //   this.activeViewerType = 'ESCesiumViewer'
+          // }
         })
       )
     }

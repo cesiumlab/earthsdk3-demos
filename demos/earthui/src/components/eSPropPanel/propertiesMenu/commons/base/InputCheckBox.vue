@@ -1,34 +1,17 @@
 <template>
-  <div
-    class="switch"
-    @click="toggleSwitch(booleanValue, index)"
-    @mousedown="isElongate = true"
-    @mouseup="isElongate = false"
-    :class="booleanValue ? 'switch-on-bg' : 'switch-off-bg'"
-  >
-    <span
-      class="switch_icon"
-      :class="booleanValue ? ['switch-on', iconClass()] : ['switch-off', iconClass()]"
-    ></span>
+  <div class="switch" @click="toggleSwitch(booleanValue, index)" @mousedown="isElongate = true"
+    @mouseup="isElongate = false" :class="booleanValue ? 'switch-on-bg' : 'switch-off-bg'">
+    <span class="switch_icon" :class="booleanValue ? ['switch-on', iconClass()] : ['switch-off', iconClass()]"></span>
   </div>
   <!-- <div class="checkbox1"> -->
-  <div
-    v-if="showButton && defaultValue !== undefined && booleanValue !== defaultValue"
-    class="checkbox"
-    @click.stop.prevent="resetDefult"
-    @mouseover="mouseFlag = true"
-    @mouseout="mouseFlag = false"
-  >
-    <es-icon
-      :name="'huaban'"
-      :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'"
-      :size="14"
-    />
+  <div v-if="showButton && defaultValue !== undefined && booleanValue !== defaultValue" class="checkbox"
+    @click.stop.prevent="resetDefult" @mouseover="mouseFlag = true" @mouseout="mouseFlag = false">
+    <es-icon :name="'huaban'" :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'" :size="14" />
   </div>
   <!-- </div> -->
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 const p = withDefaults(
   defineProps<{
     booleanValue: boolean
@@ -98,6 +81,7 @@ const resetDefult = () => {
 .elongate_icon {
   width: 12px !important;
 }
+
 .checkbox {
   width: 20px;
   height: 20px;

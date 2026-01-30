@@ -21,6 +21,7 @@ import { ElMessage } from "element-plus";
 import { ESObjectsManager, ESObjectsManagerJsonType } from "earthsdk3";
 import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
 import { ConfigType } from "@/global/types";
+import { localStorageKey } from "@/constants";
 
 
 //terrains服务预览
@@ -67,7 +68,7 @@ export const saveCesiumLabScene = async (objm: XbsjEarthUi, config: ConfigType) 
     const thumbnail = await objm.activeViewer?.capture();
 
     //CesiumLab服务下setItem('token')
-    const token = localStorage.getItem('token') as string | undefined;
+    const token = localStorage.getItem(localStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
     const { cesiumLabToken, cesiumLabUrl } = objm.initConfig.cesiumLab;
     const authToken = cesiumLabToken ? undefined : token;
 

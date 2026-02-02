@@ -1,3 +1,3 @@
 export function getEarthuiVersion() {
-  return '25.12.03'
+  return '26.02.02'
 }

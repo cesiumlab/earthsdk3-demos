@@ -37,16 +37,18 @@ export default defineConfig({
       output: {
         // 手动分包配置
         manualChunks: {
-          // Vue 核心库
-          'vue-vendor': ['vue'],
-          // Element Plus UI库
-          'element-plus': ['element-plus'],
+          //  Vue 核心库 Element Plus UI库
+          'vue-vendor': ['vue', 'element-plus'],
+          // EarthSDK UI库
+          'earthsdk-ui-vendor': ['earthsdk-ui'],
           // EarthSDK 相关库
-          'earthsdk-vendor': ['earthsdk3', 'earthsdk3-cesium', 'earthsdk3-ol', 'earthsdk3-ue', 'earthsdk-ui'],
-          // 图表库
-          'charts-vendor': ['echarts'],
+          'earthsdk-vendor': ['earthsdk3'],
+          // EarthSDK Cesium库
+          'earthsdk-cesium-vendor': ['earthsdk3-cesium'],
+          // EarthSDK OL库 UE库
+          'earthsdk-ol-ue-vendor': ['earthsdk3-ol', 'ol', 'earthsdk3-ue'],
           // 其他工具库
-          'utils-vendor': ['axios', 'dayjs', 'ol', 'topojson-client', 'x2js', 'search-params']
+          'utils-vendor': ['axios', 'dayjs', 'echarts', 'topojson-client', 'x2js', 'search-params']
         },
         // 自定义chunk文件名
         chunkFileNames: 'assets/js/[name]-[hash].js',

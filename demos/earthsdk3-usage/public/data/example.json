@@ -889,6 +889,11 @@
                         "name": "GeoJson可视距离",
                         "thumbnail": "vector-geoJson-distance.webp",
                         "path": "vector/geoJson/distance"
+                    },
+                    {
+                        "name": "GeoJson设置Feature样式",
+                        "thumbnail": "vector-geoJson-featurestyle.webp",
+                        "path": "vector/geoJson/featurestyle"
                     }
                 ]
             },

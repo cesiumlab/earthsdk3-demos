@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <script src="./js/Colorpicker.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>GeoJSON</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <br class="box">
+        <button onclick="setFeatureStyle()">设置Feature样式</button>
+        <button onclick="resetFeatureStyle()">重置Feature样式</button>
+    </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn(
+                [115.9453432577605, 22.89216127030952, 789.4948053805265],
+                [29.015034176609266, -29.191968119807054, 359.9990548222274],
+                3
+            )
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                // pick拾取
+                viewer.pick(e.screenPosition, "customPick").then((res) => {
+                    console.log('pickedEvent', res)
+                });
+            });
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 16
+        });
+
+        /** ---------------------------------ESGeoJson------------------------------------**/
+        let data = {
+            "type": "FeatureCollection",
+            "name": "shanshanline_point",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                }
+            },
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "铁路2344"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            115.9498226571,
+                            22.903348545499998
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "铁路2324"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            115.950796826499996,
+                            22.903378224499999
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "铁路6724"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            115.951770996400001,
+                            22.903407897400001
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "name": "铁路2764"
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            115.9527451668,
+                            22.903437564400001
+                        ]
+                    }
+                }]
+        }
+
+        const sceneObject = objm.createSceneObject('ESGeoJson');
+        sceneObject.allowPicking = true
+        // url可以填写服务地址，也可以填写具体的data数据（如上所示）
+        sceneObject.url = data
+        // 额外存储属性
+        sceneObject.extras = data
+        // 图片是否显示
+        sceneObject.imageShow = true
+        // 图片url地址
+        sceneObject.imageUrl = "./thumbnail/poi2D/geojson.webp"
+        // 图片大小
+        sceneObject.imageSize = [40, 51]
+        // 图片锚点
+        sceneObject.imageAnchor = [0.5, 1]
+        // 图片偏移
+        sceneObject.imageOffset = [0, 0]
+        // 文字颜色
+        sceneObject.textColor = [0, 0, 0, 1]
+        // 文字背景颜色
+        sceneObject.textBackgroundColor = [1, 1, 0, 1]
+        // 文字锚点
+        sceneObject.textAnchor = [0.5, 1]
+        // 用于显示的属性
+        sceneObject.textProperty = "name"
+        // 文字的偏移值
+        sceneObject.textOffset = [-10, -60]
+        // 是否被拾取
+        sceneObject.allowPicking = true
+        // 贴地模式
+        sceneObject.heightReference = "CLAMP_TO_GROUND"
+        // 被拾取
+        sceneObject.pickedEvent.don((e) => {
+            console.log('pickedEvent', e)
+            alert(JSON.stringify(e.geojsonPickInfo))
+        })
+
+        // 设置featrue样式
+        const setFeatureStyle = () => {
+            sceneObject.setFeatureStyle([
+                {
+                    condition: [
+                        {
+                            field: "name",
+                            op: "==",
+                            value: "铁路2344"
+                        }
+                    ],
+                    filled: true,
+                    fillStyle: {
+                        color: [1, 0, 0, 1]
+                    },
+                    imageShow: true,
+                    imageStyle: {
+                        anchor: [0.5, 1],
+                        offset: [0, 0],
+                        size: [40, 40],
+                        url: "./thumbnail/zuo.png"
+                    },
+                    stroked: true,
+                    strokeStyle: {
+                        color: [1, 0, 0, 1]
+                    },
+                    textShow: true,
+                    textStyle: {
+                        color: [1, 1, 1, 1],
+                        backgroundColor: [0, 0, 0, 1],
+                    }
+                }, {
+                    condition: [
+                        {
+                            field: "name",
+                            op: "==",
+                            value: "铁路2764"
+                        }
+                    ],
+                    imageShow: true,
+                    imageStyle: {
+                        anchor: [0.5, 1],
+                        offset: [0, 0],
+                        size: [40, 40],
+                        url: "./thumbnail/zuo.png"
+                    },
+                    filled: true,
+                    fillStyle: {
+                        color: [1, 0, 0, 1]
+                    },
+                    stroked: true,
+                    strokeStyle: {
+                        color: [0, 0, 0, 1]
+                    },
+                    textShow: true,
+                    textStyle: {
+                        backgroundColor: [1, 0, 0, 1],
+                        color: [0, 0, 0, 1],
+                    }
+                }
+            ])
+        }
+
+        // 恢复feature样式
+        const resetFeatureStyle = () => {
+            sceneObject.setFeatureStyle();
+        }
+        // 飞行定位
+        const flyTo = () => {
+            sceneObject.flyTo();
+        };
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

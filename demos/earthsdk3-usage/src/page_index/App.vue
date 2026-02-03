@@ -315,6 +315,7 @@ function selectSearchItem(item) {
     overflow: auto;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .right {
@@ -324,6 +325,7 @@ function selectSearchItem(item) {
     overflow-y: auto;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Smooth scrollbars with arrows */

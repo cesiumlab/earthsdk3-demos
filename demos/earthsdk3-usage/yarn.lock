@@ -194,15 +194,20 @@
   resolved "https://registry.npmmirror.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz#6912b00d2c631c0d15ce1a7ab57cd657f2a8f8ba"
   integrity sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==
 
+"@mapbox/jsonlint-lines-primitives@~2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
+  integrity sha512-rY0o9A5ECsTQRVhv7tL/OyDpGAoUB4tTvLiW1DSzQGq4bvTPhNw1VpSNjDJc5GFZ2XuyOtSWSVN05qOtcD71qQ==
+
 "@mapbox/point-geometry@~1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@mapbox/point-geometry/-/point-geometry-1.1.0.tgz#3328fb54b3a1273bc619bf0a6baad8de37181749"
   integrity sha512-YGcBz1cg4ATXDCM/71L9xveh4dynfGmcLDqufR+nQQy3fKwsAZsWd/x4621/6uJaeB9mwOHE6hPeDgXz9uViUQ==
 
-"@mapbox/sphericalmercator@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@mapbox/sphericalmercator/-/sphericalmercator-2.0.1.tgz#fd0cbae7e5dc3d22fdb585ecd80cb027d65284b2"
-  integrity sha512-k1vM33y0oGIgip01EqdrWEMZLsYj9fP3jH7PZmeSCsCuubTQGjyrOANGSsqh+JtyqydYfXk9VBUVcyabvNTYXg==
+"@mapbox/unitbezier@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/@mapbox/unitbezier/-/unitbezier-0.0.1.tgz#d32deb66c7177e9e9dfc3bbd697083e2e657ff01"
+  integrity sha512-nMkuDXFv60aBr9soUG5q+GvZYL+2KZHVvsqFCzqnkGEf46U2fvmytHaEVc1/YZbiLn8X+eR3QzX1+dwDO1lxlw==
 
 "@mapbox/vector-tile@2.0.4":
   version "2.0.4"
@@ -212,6 +217,19 @@
     "@mapbox/point-geometry" "~1.1.0"
     "@types/geojson" "^7946.0.16"
     pbf "^4.0.1"
+
+"@maplibre/maplibre-gl-style-spec@^24.4.1":
+  version "24.4.1"
+  resolved "https://registry.npmjs.org/@maplibre/maplibre-gl-style-spec/-/maplibre-gl-style-spec-24.4.1.tgz#600a1dbb2912831564cc6ba6e96c22cf34ffdc0c"
+  integrity sha512-UKhA4qv1h30XT768ccSv5NjNCX+dgfoq2qlLVmKejspPcSQTYD4SrVucgqegmYcKcmwf06wcNAa/kRd0NHWbUg==
+  dependencies:
+    "@mapbox/jsonlint-lines-primitives" "~2.0.2"
+    "@mapbox/unitbezier" "^0.0.1"
+    json-stringify-pretty-compact "^4.0.0"
+    minimist "^1.2.8"
+    quickselect "^3.0.0"
+    rw "^1.3.3"
+    tinyqueue "^3.0.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1580,15 +1598,15 @@
   resolved "https://registry.npmmirror.com/@types/estree/-/estree-1.0.8.tgz#958b91c991b1867ced318bedea0e215ee050726e"
   integrity sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==
 
-"@types/geojson@*", "@types/geojson@^7946.0.10", "@types/geojson@^7946.0.16":
-  version "7946.0.16"
-  resolved "https://registry.npmmirror.com/@types/geojson/-/geojson-7946.0.16.tgz#8ebe53d69efada7044454e3305c19017d97ced2a"
-  integrity sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==
-
 "@types/geojson@7946.0.8":
   version "7946.0.8"
   resolved "https://registry.npmmirror.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
+
+"@types/geojson@^7946.0.10", "@types/geojson@^7946.0.16":
+  version "7946.0.16"
+  resolved "https://registry.npmmirror.com/@types/geojson/-/geojson-7946.0.16.tgz#8ebe53d69efada7044454e3305c19017d97ced2a"
+  integrity sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==
 
 "@types/node@>=13.7.0":
   version "24.5.2"
@@ -1603,21 +1621,6 @@
   integrity sha512-mirdnXu5sW9+IphQ4r+ZVii2JVLDbXgMp1lxqbiCppdgL22EwMwL4Dy/cyHVaJ2y/mi7LUQHghpILd3w3j2bnA==
   dependencies:
     proj4 "*"
-
-"@types/topojson-client@^3.1.5":
-  version "3.1.5"
-  resolved "https://registry.npmjs.org/@types/topojson-client/-/topojson-client-3.1.5.tgz#3fdbcd52161db8747a071b1d0f635ac700cf599d"
-  integrity sha512-C79rySTyPxnQNNguTZNI1Ct4D7IXgvyAs3p9HPecnl6mNrJ5+UhvGNYcZfpROYV2lMHI48kJPxwR+F9C6c7nmw==
-  dependencies:
-    "@types/geojson" "*"
-    "@types/topojson-specification" "*"
-
-"@types/topojson-specification@*":
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/@types/topojson-specification/-/topojson-specification-1.0.5.tgz#bf0009b2e0debb2d97237b124c00b9ea92570375"
-  integrity sha512-C7KvcQh+C2nr6Y2Ub4YfgvWvWCgP2nOQMtfhlnwsRL4pYmmwzBS7HclGiS87eQfDOU/DLQpX6GEscviaz4yLIQ==
-  dependencies:
-    "@types/geojson" "*"
 
 "@types/trusted-types@^2.0.7":
   version "2.0.7"
@@ -1953,13 +1956,13 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmmirror.com/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@3.6.5:
-  version "3.6.5"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.6.5.tgz#dc6d45ff33e1c6ac7d7ed8b22f2b3d87b8612dec"
-  integrity sha512-HOLwyQ2wTgXsCWdXBDz5oOXc0Gj+JQPZQYy+r1B0UUjc5nSmOEpKbr7uomJXQDZiMKX4x0mg7TzBQfUraeUwWA==
+earthsdk3-cesium@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0.tgz#a6fc6b98b4781a749ea71c429bf1857d82470e32"
+  integrity sha512-ARNF9lb2ozmrApRXGwSmNXC8RHq0tl2tS4Y2Rl+iGQHJNFlCB30UOO7MsJzMhd29F/YYm2XKLDmFXcnMv35uKg==
   dependencies:
-    "@mapbox/sphericalmercator" "2.0.1"
     "@mapbox/vector-tile" "2.0.4"
+    "@maplibre/maplibre-gl-style-spec" "^24.4.1"
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
     earcut "^2.2.4"
@@ -1967,22 +1970,21 @@ earthsdk3-cesium@3.6.5:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ue@3.6.3:
-  version "3.6.3"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.6.3.tgz#34f9dd162a414f6ebcccf259dc5a7d1dcdf40525"
-  integrity sha512-1imPo7WyxjfaMXr2mUB6XpX/myLLcQoG7UnoqFkzQkN37nDTSLh3mrvLWlmaXmiPz7bOzMLl6USYfIDxshxi4w==
+earthsdk3-ue@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.7.0.tgz#f428026e1b89fbf7af1aa565460b676b9ac77c78"
+  integrity sha512-FEpGASYUDLPlMMuibWYxmLIHwmkmhbcyJjnlduFYJbKfGtto+ia8MfHiv9l0+T3WJpT+GbMQ3gsNl3qL1ui4DA==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.6.3:
-  version "3.6.3"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.6.3.tgz#429e3d2aef4bc99de0984727a5fa5f5667d16d04"
-  integrity sha512-6yE5SvJpwxtEB5cwZNUXNItjmelh5HG2LmVTCVQeHbDr6xwiqtYEcsPXTFkg7dcoO3Qm5Cx4XV3shHxzwKwhuA==
+earthsdk3@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.7.0.tgz#6ca0af8dbb2dbf3c83fae72f2829bcd0d01ade93"
+  integrity sha512-hitLs2oFfcH2wp/ehjMXPolaqkR63sE8CU8Po9nffYI5uh9V55s5ya/4C3HpRLnhSvzGgdeZ4TwPOClZ/USCpA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
-    "@types/topojson-client" "^3.1.5"
     js-binary-schema-parser "^2.0.3"
     proj4 "^2.8.0"
     topojson-client "3.1.0"
@@ -2278,6 +2280,11 @@ jsep@^1.3.8:
   resolved "https://registry.npmmirror.com/jsep/-/jsep-1.4.0.tgz#19feccbfa51d8a79f72480b4b8e40ce2e17152f0"
   integrity sha512-B7qPcEVE3NVkmSJbaYxvv4cHkVW7DQsZz13pUMrfS8z8Q/BuShN+gcTXrUlPiGqM2/t/EEaI030bpxMqY8gMlw==
 
+json-stringify-pretty-compact@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/json-stringify-pretty-compact/-/json-stringify-pretty-compact-4.0.0.tgz#cf4844770bddee3cb89a6170fe4b00eee5dbf1d4"
+  integrity sha512-3CNZ2DnrpByG9Nqj6Xo8vqbjT4F6N+tb4Gb28ESAZjYZ5yqvmc56J+/kuIwkaAMOyblTQhUW7PxMkUb8Q36N3Q==
+
 jsonfile@^6.0.1:
   version "6.2.0"
   resolved "https://registry.npmmirror.com/jsonfile/-/jsonfile-6.2.0.tgz#7c265bd1b65de6977478300087c99f1c84383f62"
@@ -2358,6 +2365,11 @@ mime-types@^2.1.12:
   integrity sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
   dependencies:
     mime-db "1.52.0"
+
+minimist@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
 monaco-editor@^0.30.1:
   version "0.30.1"
@@ -2596,6 +2608,11 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
+
+rw@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.npmjs.org/rw/-/rw-1.3.3.tgz#3f862dfa91ab766b14885ef4d01124bfda074fb4"
+  integrity sha512-PdhdWy89SiZogBLaw42zdeqtRJ//zFd2PgQavcICDUgJT5oW10QCRKbJ6bg4r0/UY2M6BWd5tkxuGFRvCkgfHQ==
 
 sdp@^3.1.0:
   version "3.2.1"

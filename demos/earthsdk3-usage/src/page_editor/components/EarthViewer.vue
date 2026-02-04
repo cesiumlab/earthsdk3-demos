@@ -134,9 +134,34 @@ const runCode = (value) => {
     try {
         // 写入内容
         const iframeDom = document.querySelector("#codeIframe");
-        iframeDom.contentWindow.document.open();
-        iframeDom.contentWindow.document.write(value);
-        iframeDom.contentWindow.document.close();
+        const iframeWin = iframeDom.contentWindow;
+        iframeWin.document.open();
+        iframeWin.document.write(value);
+        iframeWin.document.close();
+
+        // 方案一：把示例 iframe 的 window 暴露到父窗口，方便外部访问
+        // 1）保留原始句柄，便于调试
+        window.currentExampleWindow = iframeWin;
+
+        // 2）把常用变量直接“透传”到父窗口，控制台可直接写 g_objm / viewer / sceneObject
+        const exposeToParent = (name) => {
+            try {
+                Object.defineProperty(window, name, {
+                    configurable: true,
+                    enumerable: false,
+                    get() {
+                        return window.currentExampleWindow
+                            ? window.currentExampleWindow[name]
+                            : undefined;
+                    }
+                });
+            } catch (e) {
+                // 定义失败直接忽略（可能已存在同名属性）
+            }
+        };
+        exposeToParent('g_objm');
+        exposeToParent('viewer');
+        exposeToParent('sceneObject');
     } catch (error) {
 
     }

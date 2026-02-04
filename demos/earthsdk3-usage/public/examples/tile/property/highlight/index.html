@@ -44,7 +44,7 @@
     <div id="app"></div>
     <div id="panel">
         <div id="box">
-            <p><span>提示：</span>点击楼宇拾取高亮并查看信息</p>
+            <p><span>提示：</span>点击拾取高亮并查看信息</p>
             <p id="a"></p>
             <p id="b"></p>
             <p id="c"></p>
@@ -66,6 +66,7 @@
 
         /** ---------------------------------创建ES3DTileset对象------------------------------------**/
         const es3DTileset = objm.createSceneObject('ES3DTileset');
+
 
         // 加载完成时，高亮一个Feature
         es3DTileset.tilesetReady.don(() => {

@@ -72,7 +72,7 @@
         window.g_objm = objm;
         // 监听视口状态
         objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn([107.8429854827293,28.279423322313715,271.30214726291894],[294.93835404117897,-25.41711873439458,359.9994345664882], 3)
+            viewer.flyIn([107.8429854827293, 28.279423322313715, 271.30214726291894], [294.93835404117897, -25.41711873439458, 359.9994345664882], 3)
         });
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
@@ -172,7 +172,7 @@
             const alpha = Array.isArray(cur.color) && typeof cur.color[3] === 'number' ? cur.color[3] : 1;
             const color = hexToRgbaArray(hex, alpha);
             if (!color) return;
-            sceneObject.strokeStyle = Object.assign({}, cur, { color });
+            sceneObject.strokeColor = color
         }
 
         // 线宽度
@@ -180,8 +180,7 @@
             if (!sceneObject) return;
             const num = Number(v);
             if (!isFinite(num)) return;
-            const cur = sceneObject.strokeStyle || {};
-            sceneObject.strokeStyle = Object.assign({}, cur, { width: num });
+            sceneObject.strokeWidth = num
         }
 
         // 面开启/关闭
@@ -189,17 +188,7 @@
             if (!sceneObject) return;
             // 一些对象支持 filled 属性
             sceneObject.filled = !!enabled;
-            // 同时通过是否存在 fillStyle 控制
-            if (!enabled) {
-                if (sceneObject.fillStyle) {
-                    sceneObject._backupFillStyle = sceneObject.fillStyle;
-                }
-                sceneObject.fillStyle = undefined;
-            } else {
-                if (sceneObject._backupFillStyle) {
-                    sceneObject.fillStyle = sceneObject._backupFillStyle;
-                }
-            }
+
         }
 
         // 面颜色
@@ -209,14 +198,12 @@
             const alpha = Array.isArray(cur.color) && typeof cur.color[3] === 'number' ? cur.color[3] : 0.5;
             const color = hexToRgbaArray(hex, alpha);
             if (!color) return;
-            sceneObject.fillStyle = Object.assign({}, cur, { color });
+            sceneObject.fillColor = color
         }
 
         // 面贴地
         function toggleFillGround(enabled) {
             if (!sceneObject) return;
-            const cur = sceneObject.fillStyle || {};
-            sceneObject.fillStyle = Object.assign({}, cur, { ground: !!enabled });
             // 部分对象还支持 fillGround 简写
             sceneObject.fillGround = !!enabled;
         }

@@ -77,6 +77,7 @@
                 0
             ]
         ]
+        polygon1.fillGround=true//贴地
 
 
         // 创建多边形2
@@ -109,6 +110,7 @@
                 0
             ]
         ]
+        polygon2.fillGround=true//贴地
 
         // getIntersect求交，返回【多个】【多边形数组信息】
         const result = polygon1.getIntersect(polygon2.points)// 求交的结果
@@ -130,6 +132,7 @@
         }
         // 设置交集多边形的顶点数组
         polygonIntersect.points = result[0]
+        polygonIntersect.fillGround=true //贴地
     </script>
 
     <!-- 切换UE和Cesium引擎的组件（Vue） -->

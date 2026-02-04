@@ -95,6 +95,7 @@
                 0
             ]
         ]
+        polygon1.fillGround=true//贴地
 
 
         // 创建多边形2
@@ -127,6 +128,7 @@
                 0
             ]
         ]
+        polygon2.fillGround=true//贴地
 
         // 求计算差异（即多边形的裁剪结果），返回【多个】【多边形数组信息】
         const result = polygon1.getDifference(polygon2.points)// 求计算差异的结果（多个多边形数组）
@@ -148,6 +150,7 @@
         }
         // 顶点数组
         polygonDifference.points = result[0]
+        polygonDifference.fillGround=true //贴地
 
 
         // 显示或隐藏交集多边形

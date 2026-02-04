@@ -766,6 +766,10 @@
                         "name": "矢量组合（且贴地）",
                         "thumbnail": "earth-init-json2.webp",
                         "path": "earth/init/json2"
+                    },{
+                        "name": "多边形体",
+                        "thumbnail": "plot-vector-extrudedPolygon.webp",
+                        "path": "plot/vector/extrudedPolygon"
                     }
                 ]
             },

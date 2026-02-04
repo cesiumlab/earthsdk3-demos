@@ -34,18 +34,18 @@ export function useNavigator(
     () => navigatorScaleRight.value,
     (val) => {
       if (navigatorRef.value) {
-        navigatorRef.value.style.right = val + 'px'
+        navigatorRef.value.style.right = val + 10 + 'px'
       }
     },
     { immediate: true }
   )
 
   // 监听旋转角度变化并更新样式
-  watch(rotation, (newRotation) => {
-    if (navigatorRef.value) {
-      navigatorRef.value.style.transform = `rotate(${-newRotation}deg)`
-    }
-  })
+  // watch(rotation, (newRotation) => {
+  //   if (navigatorRef.value) {
+  //     navigatorRef.value.style.transform = `rotate(${-newRotation}deg)`
+  //   }
+  // })
 
   /**
    * 更新指南针旋转角度

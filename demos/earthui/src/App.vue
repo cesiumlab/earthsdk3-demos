@@ -10,10 +10,9 @@
 import { EsElConfigProvider, useTheme } from 'earthsdk-ui';
 import EarthUI from './EarthUI.vue';
 // 使用主题管理
-const { setCustomThemeConfig } = useTheme();
+const { setCustomThemeConfig, isDark } = useTheme();
 // 使用语言管理
 // const { toggleLanguage, isZhCN } = useLanguage();
-
 //自定义样式
 setCustomThemeConfig({ colorPrimary: '#6287F7' });
 

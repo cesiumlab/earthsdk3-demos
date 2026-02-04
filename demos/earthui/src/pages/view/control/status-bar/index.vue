@@ -5,15 +5,11 @@
       <span class="status-item camera-position">相机位置: {{ formattedPosition }}</span>
       <span class="status-item yaw">偏航角: {{ formattedYaw }}°</span>
       <span class="status-item pitch">俯仰角: {{ formattedPitch }}°</span>
-      <span
-        class="status-item mouse-position"
-        :title="mousePositionTitle"
-        @dblclick="copyMousePosition"
-      >
+      <span class="status-item mouse-position" :title="mousePositionTitle" @dblclick="copyMousePosition">
         {{ mousePositionText }}
       </span>
     </div>
-    <div v-show="$config.modelShow" class="version-info" @click="toggleVersionInfo">
+    <div v-show="config.specialModuleEnable" class="version-info" @click="toggleVersionInfo">
       {{ '版本' }}
     </div>
   </div>
@@ -23,17 +19,17 @@
 </template>
 
 <script setup lang="ts">
+import { $g_config } from '@/global'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { ElDialog } from 'element-plus'
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { $config } from '@/global'
-import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import Version from './Version.vue'
 import { useStatusBar } from './useStatusBar'
 
 // 响应式数据
 const versionInfoListShow = ref(false)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-
+const config = $g_config();
 // 使用状态栏hook
 const {
   reinitialize,

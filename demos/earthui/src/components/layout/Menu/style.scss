@@ -5,7 +5,7 @@ $menu-item-width: 100px;
 $menu-item-width-small: 80px;
 $menu-height: 40px;
 $button-size: 30px;
-$icon-size: 26px;
+$icon-size: 30px;
 
 // ==================== 过渡效果 ====================
 $transition-fast: var(--el-transition-duration-fast);
@@ -70,7 +70,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     z-index: 1000;
     background-color: var(--el-bg-color);
     border-bottom: 1px solid var(--el-border-color);
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 // ==================== Logo 区域样式 ====================
@@ -78,37 +78,35 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     width: $logo-width;
     height: 100%;
     @include flex-align-center;
-    padding-left: 10px;
-
-    img {
-        width: 43px;
-        height: 43px;
-    }
+    cursor: pointer;
 
     .logo_img {
         width: $icon-size;
         height: $icon-size;
-        background-size: 100% 100%;
-        margin-right: 10px;
+        background-size: 120% 120%;
+        background-position: center;
+    }
+
+    .earthui-logo-interval {
+        display: inline-block;
+        width: 1px;
+        height: 18px;
+        background-color: var(--el-border-color);
+        margin: 0 10px;
     }
 
     a {
         flex: 1;
-        height: 28px;
-        border-left: 1px solid var(--el-border-color);
-        padding-left: 10px;
-        font-size: var(--el-font-size-base);
+        height: 26px;
+        padding-left: 4px;
+        font-size: 14px;
         font-family: var(--el-font-family);
-        font-weight: var(--el-font-weight-primary);
+        font-weight: 500;
         color: var(--el-text-color-primary);
-        line-height: 28px;
+        line-height: 26px;
         text-decoration: none;
         @include text-ellipsis;
         transition: color $transition-fast;
-
-        &:hover {
-            color: var(--el-color-primary);
-        }
     }
 }
 

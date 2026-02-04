@@ -6,33 +6,9 @@ import { ElMessage } from 'element-plus'
 import { inject } from 'vue'
 import { ConfigType, InitSceneConfigType } from './types'
 
-/** 全局配置信息 */
-export const $config = {
-  // title: 'EarthSDK地球可视化开发包-免费开源',
-  logoTitle: 'EarthSDK 三维地球开发包',
-  logoImage: new URL('../assets/logo.png', import.meta.url).href,
-  modelShow: true,
-  localserverName: 'CesiumLab4',
-  logoLink: 'http://bjxbsj.cn/',
-  jumpOrigin: 'cesiumLab',
-  jumpToken: 'cesiumLabToken',
-
-
-
-  title: 'EarthSDK地球可视化开发包-免费开源',
-  name: 'EarthSDK 三维地球开发包',
-  logo: 'data:image/png;base64,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',
-  homeLink: "http://bjxbsj.cn/",
-  cesiumLabParamKey: "cesiumLab",
-  cesiumLabTokenParamKey: "cesiumLabToken",
-  esssParamKey: "esss",
-  esssSceneidParamKey: "ESSSsceneid"
-}
-
 export const $g_config = () => inject<ConfigType>('earthui-config')!;
 
 export const $g_objm = () => inject<XbsjEarthUi>('xbsjEarthUi')!;
-
 
 /**
  * 初始化场景 JSON 配置，场景id请求转换为场景json,数据服务也规整到初始化场景中；
@@ -75,22 +51,6 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     ?? window.location.origin;
   const esssToken = params.get(esssTokenParamKey) ?? undefined;
 
-  // if (parseSearch.czmlabPath) {
-  //   xbsjEarthUi.czmlabPath = parseSearch.czmlabPath as string
-  //   console.log('czmlab-path:', xbsjEarthUi.czmlabPath)
-  // }
-  // if (parseSearch.cesiumLabUrl) {
-  //   xbsjEarthUi.cesiumLabUrl = parseSearch.cesiumLabUrl as string
-  //   // console.log('cesiumLabUrl:', xbsjEarthUi.cesiumLabUrl);
-  // }
-  // if (parseSearch[$config.jumpToken]) {
-  //   xbsjEarthUi.cesiumLabToken = parseSearch[$config.jumpToken] as string
-  //   // console.log('cesiumLabToken:', xbsjEarthUi.cesiumLabToken);
-  // }
-  // if (parseSearch.cesiumLabToken) {
-  //   xbsjEarthUi.cesiumLabToken = parseSearch.cesiumLabToken as string
-  //   // console.log('cesiumLabToken:', xbsjEarthUi.cesiumLabToken);
-  // }
 
   //存储 cesiumLabUrl,esssUrl 到 localStorage
   window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl);

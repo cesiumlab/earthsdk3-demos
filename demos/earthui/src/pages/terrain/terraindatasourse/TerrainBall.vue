@@ -1,28 +1,20 @@
 <template>
-  <PopList
-    :title="'地形平球高程'"
-    :showButton="true"
-    :link="$config.modelShow ? 'http://bjxbsj.cn' : ''"
-    @ok="ok"
-  >
-    <LabelInput
-      v-model="horizontalElevation"
-      :inputType="'number'"
-      :label="'水平高程'"
-    ></LabelInput>
+  <PopList :title="'地形平球高程'" :showButton="true" :link="config.specialModuleEnable ? 'http://bjxbsj.cn' : ''" @ok="ok">
+    <LabelInput v-model="horizontalElevation" :inputType="'number'" :label="'水平高程'"></LabelInput>
     <LabelInput v-model="terrainName" :label="'名称'"></LabelInput>
   </PopList>
 </template>
 <script setup lang="ts">
+import { $g_config } from '@/global'
+import { ESTerrainLayer, SceneTree } from 'earthsdk3'
 import { inject, ref } from 'vue'
-import { SceneTree } from 'earthsdk3'
-import PopList from '../../../components/PopList.vue'
-import { ESTerrainLayer } from 'earthsdk3'
-import { searchMaxZindex } from '../../../scripts/general'
 import LabelInput from '../../../components/LabelInput.vue'
+import PopList from '../../../components/PopList.vue'
+import { getsceneObjNumfromSceneTree, searchMaxZindex } from '../../../scripts/general'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
-import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import { $config } from '@/global'
+
+const config = $g_config();
+
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 

@@ -187,26 +187,13 @@ export class XbsjEarthUi extends ESObjectsManager {
       this.cesiumLabToken = cesiumLab.cesiumLabToken ?? '';
       this.esssUrl = esss.esssUrl;
 
-      // if (parseSearch.czmlabPath) {
-      //   xbsjEarthUi.czmlabPath = parseSearch.czmlabPath as string
-      //   console.log('czmlab-path:', xbsjEarthUi.czmlabPath)
-      // }
-
     }
     {
       //判断视口
       this.d(
         this.activeViewerChanged.don(() => {
           if (!this.activeViewer) return;
-          // 'ESCesiumViewer' | 'ESUeViewer' | 'ESOlViewer'
           this.activeViewerType = this.activeViewer.typeName;
-          // if (this.activeViewer instanceof ESUeViewer) {
-          //   this.activeViewerType = 'ESUeViewer'
-          // } else if (this.activeViewer instanceof ESOlViewer) {
-          //   this.activeViewerType = 'ESOlViewer'
-          // } else {
-          //   this.activeViewerType = 'ESCesiumViewer'
-          // }
         })
       )
     }

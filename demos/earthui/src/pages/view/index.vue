@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { $g_config } from '@/global'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { $config } from '@/global'
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
 import Animation from './Animation.vue'
 import Control from './Control.vue'
@@ -10,6 +10,8 @@ import EffectAdjustment from './EffectAdjustment.vue'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount)
 const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
+const config = $g_config();
 
 const largeScreen = ref(true)
 onMounted(() => {
@@ -23,7 +25,7 @@ onMounted(() => {
   <!-- 视图 -->
   <div class="roam">
     <Control></Control>
-    <Debug v-if="activeViewerType !== 'ESUeViewer' && largeScreen && $config.modelShow"></Debug>
+    <Debug v-if="activeViewerType !== 'ESUeViewer' && largeScreen && config.specialModuleEnable"></Debug>
     <Animation></Animation>
     <EffectAdjustment></EffectAdjustment>
   </div>

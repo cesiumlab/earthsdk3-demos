@@ -1,6 +1,6 @@
 <template>
-  <PopList :title="$config.localserverName" :showButton="serverList.length > 0"
-    :link="$config.modelShow ? 'http://bjxbsj.cn' : ''" @ok="ok">
+  <PopList :title="config.cesiumLabParamValue" :showButton="serverList.length > 0"
+    :link="config.specialModuleEnable ? 'http://bjxbsj.cn' : ''" @ok="ok">
     <LabelInput v-model="cesiumLabUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">
@@ -79,24 +79,18 @@
   </PopList>
 </template>
 <script setup lang="ts">
-import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { localStorageKey } from '@/constants'
+import { $g_config } from '@/global'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
-import PopList from '../../../components/PopList.vue'
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { ElMessage } from 'element-plus'
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import { post } from '../../../api/service'
 import LabelInput from '../../../components/LabelInput.vue'
-import { $config } from '@/global'
-import { ElMessage } from 'element-plus'
-import {
-  imageType,
-  terrainType,
-  modelType,
-  imageServe,
-  createModel,
-  createTerrain,
-  createImage
-} from './tools'
-import { localStorageKey } from '@/constants'
+import PopList from '../../../components/PopList.vue'
+import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { createImage, createModel, createTerrain, imageServe, imageType, modelType, terrainType } from './tools'
+
+const config = $g_config();
 const d = createVueDisposer(onBeforeUnmount)
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const cesiumLabUrl = toVR<string>(d, [xbsjEarthUi, 'cesiumLabUrl'])

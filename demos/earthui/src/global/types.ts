@@ -11,6 +11,8 @@ export interface ConfigType {
     logo: string
     /** 首页链接 */
     homeLink: string
+    /** 特殊的模块是否启用 */
+    specialModuleEnable: boolean
     /** CesiumLab参数值 */
     cesiumLabParamValue: string
     /** CesiumLab url参数键名 */

@@ -1,5 +1,5 @@
 import { saveCesiumLabScene, saveEsssScene } from '@/api'
-import { $config, $g_config, $g_objm } from '@/global'
+import { $g_config, $g_objm } from '@/global'
 import { MenuType } from '@/types'
 import { downloadJson } from '@/utils'
 import { createVueDisposer, toVR, useTheme } from 'earthsdk-ui'
@@ -69,7 +69,7 @@ export function useMenu(props: MenuProps) {
     // ==================== 计算属性 ====================
     /** Logo 样式 */
     const logoStyle = computed(() => ({
-        backgroundImage: `url(${$config.logoImage})`
+        backgroundImage: `url(${config.logo})`
     }))
 
     /** 子菜单样式 */

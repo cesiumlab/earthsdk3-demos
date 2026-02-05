@@ -1,10 +1,11 @@
+/** 状态栏容器 */
 .status-bar {
   width: 100%;
   position: fixed;
   height: 30px;
   left: 0;
   bottom: 0;
-  color: #fff;
+  color: var(--el-text-color-primary);
   padding: 0;
   box-sizing: border-box;
   line-height: 30px;
@@ -12,61 +13,71 @@
   display: flex;
   align-content: center;
   justify-content: space-between;
-  background: rgba(37, 38, 42, 0.8);
-  font-size: 14px;
-  border: 1px solid rgba(180, 180, 180, 1);
+  background: var(--el-bg-color);
+  font-size: var(--el-font-size-base);
+  /* border: var(--el-border); */
 }
 
+/** 状态信息容器 */
 .status-info {
   display: flex;
   height: 100%;
 }
 
+/** 状态项 */
 .status-item {
   height: 100%;
   text-align: center;
-  border-right: 1px solid rgba(180, 180, 180, 1);
+  border-right: var(--el-border);
   padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/** 最后一个状态项不显示右边框 */
 .status-item:last-child {
   border-right: none;
 }
 
+/** FPS显示区域 */
 .fps {
   width: 65px;
 }
 
+/** 相机位置显示区域 */
 .camera-position {
   width: 285px;
 }
 
+/** 偏航角和俯仰角显示区域 */
 .yaw,
 .pitch {
   width: 110px;
 }
 
+/** 鼠标位置显示区域 */
 .mouse-position {
   width: 270px;
   cursor: pointer;
   user-select: none;
 }
 
+/** 版本信息区域 */
 .version-info {
   width: 50px;
   height: 100%;
   text-align: center;
-  border-left: 1px solid rgba(180, 180, 180, 1);
+  border-left: var(--el-border);
   cursor: pointer;
 }
 
+/** 版本信息悬停效果 */
 .version-info:hover {
-  background: rgba(171, 170, 170, 0.5);
+  background: var(--el-fill-color-light);
 }
 
+/** 版本信息激活状态 */
 .version-info-active {
-  background: rgba(171, 170, 170, 0.5);
+  background: var(--el-fill-color-light);
 }

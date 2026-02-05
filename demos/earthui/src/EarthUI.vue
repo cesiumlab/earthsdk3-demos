@@ -32,7 +32,7 @@ import viewersContainer from './components/layout/Viewers.vue'
 import { $g_objm } from './global'
 import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
 import TimeLine from './pages/view/animation/TimeLine.vue'
-import ControlComponent from './pages/view/control/index.vue'
+import ControlComponent from './components/layout/Control.vue'
 
 const xbsjEarthUi = $g_objm();
 

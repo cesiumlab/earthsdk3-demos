@@ -8,7 +8,7 @@ import { ESCesiumViewer } from 'earthsdk3-cesium'
 import { ESUeViewer } from 'earthsdk3-ue'
 import { dayjs, ElMessage } from 'element-plus'
 import { inject, nextTick, onMounted, shallowRef } from 'vue'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { createObj, createSceneJson, geoJsonTOESObjects } from '@/composables'
 const viewersContainer = shallowRef<HTMLDivElement>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi

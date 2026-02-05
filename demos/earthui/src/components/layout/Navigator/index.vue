@@ -1,11 +1,11 @@
 <template>
   <div class="navigator" ref="navigatorRef">
-    <Compass :rotation="rotation" @reset="flyToNorth"></Compass>
+    <CompassCom :rotation="rotation" @reset="flyToNorth"></CompassCom>
   </div>
 </template>
 
 <script setup lang="ts">
-import Compass from "./compass.vue"
+import CompassCom from "./compass.vue"
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { inject, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import { useNavigator } from './useNavigator'

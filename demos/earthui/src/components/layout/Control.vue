@@ -2,9 +2,9 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { inject, onBeforeUnmount } from 'vue'
-import Navigator from './navigator/index.vue'
-import StatusBar from './status-bar/index.vue'
-import Scale from './scale/index.vue'
+import NavigatorCom from './Navigator/index.vue'
+import ScaleCom from './Scale/index.vue'
+import StatusBarCom from './StatusBar/index.vue'
 
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
@@ -16,11 +16,11 @@ const statusBarShow = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, 'st
 
 <template>
   <!-- 状态栏-->
-  <StatusBar v-if="statusBarShow"></StatusBar>
+  <StatusBarCom v-if="statusBarShow"></StatusBarCom>
   <!-- 状态栏-->
-  <Navigator v-if="navigatorShow"></Navigator>
+  <NavigatorCom v-if="navigatorShow"></NavigatorCom>
   <!-- 比例尺-->
-  <Scale v-if="scaleShow"></Scale>
+  <ScaleCom v-if="scaleShow"></ScaleCom>
 </template>
 
 <style scoped></style>

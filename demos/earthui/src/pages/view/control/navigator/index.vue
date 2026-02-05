@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import Compass from "@/components/base/compass.vue"
+import Compass from "./compass.vue"
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { inject, onBeforeUnmount, onMounted, useTemplateRef } from 'vue'
 import { useNavigator } from './useNavigator'

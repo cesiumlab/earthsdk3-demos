@@ -1,7 +1,7 @@
 <template>
   <div class="scale" ref="scaleRef">
     <div class="scale_border">{{ lengthInPixel }}</div>
-    <div class="scale_length"></div>
+    <div class="scale_length" :style="{ width: scaleWidth + 'px' }"></div>
   </div>
 </template>
 <script setup lang="ts">
@@ -12,8 +12,8 @@ import { useScale } from './useScale'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const scaleRef = useTemplateRef('scaleRef')
 
-// 使用比例尺hook
-const { lengthInPixel } = useScale(xbsjEarthUi, scaleRef)
+// 使用比例尺hook，获取显示文本和线段宽度
+const { lengthInPixel, scaleWidth } = useScale(xbsjEarthUi, scaleRef)
 </script>
 <style scoped>
 .scale {
@@ -24,11 +24,13 @@ const { lengthInPixel } = useScale(xbsjEarthUi, scaleRef)
   bottom: 50px;
   right: 410px;
   transition: right 0.4s linear;
-  border: 1px solid rgba(49, 50, 56, 0.8);
-  background: rgba(37, 38, 42, 0.8);
+  background-color: var(--el-bg-color);
   pointer-events: none;
   border-radius: 15px;
   padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .scale_border {
@@ -38,17 +40,16 @@ const { lengthInPixel } = useScale(xbsjEarthUi, scaleRef)
   font-size: 14px;
   font-weight: lighter;
   line-height: 30px;
-  color: #fff;
+  color: var(--el-text-color-regular);
 }
 
 .scale_length {
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+  border: 1px solid var(--el-text-color-regular);
+  border-top: none;
   position: absolute;
   height: 10px;
   top: 15px;
-  left: 17.5px;
-  width: 100px;
+  /* 动态宽度，通过style绑定 */
+  transition: width 0.3s ease;
 }
 </style>

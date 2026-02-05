@@ -197,7 +197,8 @@ const changeCurrentMode = (item: EditingItem) => {
   const multiSelect = sceneTree.selectedItems.length > 1;
   if (multiSelect) {
     const sceneObjects = [...sceneTree.selectedItems].map(item => item.sceneObject as ESVisualObject);
-    xbsjEarthUi.activeViewer?.moveObjects(sceneObjects);
+    const sceneObjectList = sceneObjects.filter(item => item.supportEditingModes().includes(ESJEditingMode.Translation));
+    xbsjEarthUi.activeViewer?.moveObjects(sceneObjectList);
   } else {
     // 启动编辑模式
     xbsjEarthUi.activeViewer?.startEditing(sceneObject, [item.type]);

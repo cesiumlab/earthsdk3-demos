@@ -4,11 +4,10 @@
 // &name=xxx
 // &token=xxx
 
-import { $g_config, $g_objm } from "@/global";
+import { ConfigType } from "@/global/types";
+import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
 import { ElMessage } from "element-plus";
 import { ppost } from "./http";
-import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
-import { ConfigType } from "@/global/types";
 
 
 //场景

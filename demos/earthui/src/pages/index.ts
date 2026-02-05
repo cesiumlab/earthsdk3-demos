@@ -1,27 +1,19 @@
 import { MenuType } from '@/types'
-import analysis from './analysis/index.vue'
-import engine from './engine/index.vue'
-import environment from './environment/index.vue'
-import images from './images/index.vue'
-import LLMChat from './LLMChat/index.vue'
-import model from './model/index.vue'
-import plotting from './plotting/index.vue'
-import roam from './roam/index.vue'
-import search from './search/index.vue'
-import service from './service/index.vue'
-import terrain from './terrain/index.vue'
-import vector from './vector/index.vue'
-import view from './view/index.vue'
+import { defineAsyncComponent } from 'vue'
 
+/**
+ * 获取导航菜单列表
+ * @param specialModuleEnable - 是否启用特殊模块（引擎模块）
+ * @returns 导航菜单配置数组
+ */
 export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
-
   return [
     {
       id: 1,
       title: '搜索',
       value: 'search',
       icon: 'sousuo',
-      component: search,
+      component: defineAsyncComponent(() => import('./search/index.vue')),
       isShow: true
     },
     {
@@ -29,7 +21,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '漫游',
       value: 'roam',
       icon: 'manyou',
-      component: roam,
+      component: defineAsyncComponent(() => import('./roam/index.vue')),
       isShow: true
     },
     {
@@ -37,16 +29,15 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '视图',
       value: 'view',
       icon: 'shitu',
-      component: view,
+      component: defineAsyncComponent(() => import('./view/index.vue')),
       isShow: true
     },
-
     {
       id: 4,
       title: '影像',
       value: 'images',
       icon: 'yingxiang',
-      component: images,
+      component: defineAsyncComponent(() => import('./images/index.vue')),
       isShow: true
     },
     {
@@ -54,7 +45,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '瓦片',
       value: 'model',
       icon: 'wapian',
-      component: model,
+      component: defineAsyncComponent(() => import('./model/index.vue')),
       isShow: true
     },
     {
@@ -62,7 +53,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '地形',
       value: 'terrain',
       icon: 'dixing',
-      component: terrain,
+      component: defineAsyncComponent(() => import('./terrain/index.vue')),
       isShow: true
     },
     {
@@ -70,7 +61,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '矢量',
       value: 'vector',
       icon: 'shiliang',
-      component: vector,
+      component: defineAsyncComponent(() => import('./vector/index.vue')),
       isShow: true
     },
     {
@@ -78,7 +69,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '分析',
       value: 'analysis',
       icon: 'fenxi',
-      component: analysis,
+      component: defineAsyncComponent(() => import('./analysis/index.vue')),
       isShow: true
     },
     {
@@ -86,7 +77,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '标绘',
       value: 'plotting',
       icon: 'biaohui',
-      component: plotting,
+      component: defineAsyncComponent(() => import('./plotting/index.vue')),
       isShow: true
     },
     {
@@ -94,7 +85,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '环境',
       value: 'environment',
       icon: 'huanjing',
-      component: environment,
+      component: defineAsyncComponent(() => import('./environment/index.vue')),
       isShow: true
     },
     {
@@ -102,7 +93,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '引擎',
       value: 'engine',
       icon: 'yinqing',
-      component: engine,
+      component: defineAsyncComponent(() => import('./engine/index.vue')),
       isShow: specialModuleEnable
     },
     {
@@ -110,7 +101,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       title: '服务',
       value: 'service',
       icon: 'fuwu',
-      component: service,
+      component: defineAsyncComponent(() => import('./service/index.vue')),
       isShow: true
     },
     {
@@ -119,9 +110,8 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       value: 'llmchat',
       icon: 'a-xinjianwenbenwendang',
       iconSize: 18,
-      component: LLMChat,
-      isShow: true,
-      // new: true
+      component: defineAsyncComponent(() => import('./LLMChat/index.vue')),
+      isShow: true
     }
   ]
 }

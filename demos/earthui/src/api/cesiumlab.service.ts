@@ -15,13 +15,11 @@
 // &tilesize=256
 // &cesiumLabToken=xx
 
-import { $g_config, $g_objm } from "@/global";
-import { ppost } from "./http";
-import { ElMessage } from "element-plus";
-import { ESObjectsManager, ESObjectsManagerJsonType } from "earthsdk3";
-import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
-import { ConfigType } from "@/global/types";
 import { localStorageKey } from "@/constants";
+import { ConfigType } from "@/global/types";
+import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
+import { ElMessage } from "element-plus";
+import { ppost } from "./http";
 
 
 //terrains服务预览

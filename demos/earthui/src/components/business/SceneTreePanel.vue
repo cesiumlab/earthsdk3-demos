@@ -19,7 +19,7 @@
         <div class="Layer_Management">
             <ESFold :show="showEditingBarRef">
                 <div class="Layer_Management_editing">
-                    <Editing></Editing>
+                    <EditingModule></EditingModule>
                 </div>
             </ESFold>
             <div class="Layer_Management_scenetree">
@@ -37,7 +37,7 @@ import { getDefauleMenuContent } from '../../composables'
 import { getTreeItemMenuContent } from '../../composables/useSceneTreeItemMenu'
 import { getIcon } from '../../constants'
 import type { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
-import Editing from '../editing/Editing.vue'
+import EditingModule from './EditingModule.vue'
 
 // 注入父组件提供的依赖
 const xbsjEarthUi = inject<XbsjEarthUi>('xbsjEarthUi')!
@@ -90,8 +90,8 @@ const redrawFunc = (flag: boolean = false) => {
 
 .Layer_Management_editing {
     width: 100%;
-    height: 60px;
-    padding: 10px 10px 0 10px;
+    /* height: 40px; */
+    /* padding: 10px 10px 0 10px; */
     box-sizing: border-box;
 }
 

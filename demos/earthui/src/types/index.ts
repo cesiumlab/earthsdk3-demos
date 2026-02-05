@@ -1,3 +1,5 @@
+import { Component } from "vue"
+
 /**
  * 导航类型
  */
@@ -6,7 +8,7 @@ export type MenuType = {
   title: string
   value: string
   icon: string
-  component: any
+  component: Component
   isShow?: boolean
   new?: boolean
   iconSize?: number

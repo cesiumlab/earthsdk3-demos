@@ -7,24 +7,26 @@
         <div class="vessel">
             <div class="box">
                 <img src="../assets/jiaocheng.png" alt="" width="18" height="18">
-                <a :href="data.doc" target="_blank">初学者教程</a>
+                <a :href="VERSION_DOC" target="_blank">初学者教程</a>
             </div>
             <div class="box">
                 <img src="../assets/api.png" alt="" width="18" height="18">
-                <a :href="data.api" target="_blank">API文档</a>
+                <a :href="VERSION_API" target="_blank">API文档</a>
             </div>
             <div class="box">
                 <img src="../assets/load.png" alt="" width="18" height="18">
-                <a :href="data.code" target="_blank">下载源码</a>
+                <a :href="VERSION_CODE" target="_blank">下载源码</a>
             </div>
             <div class="box">
                 <img src="../assets/-zixun.png" alt="" width="18" height="18">
                 <button @click="viewVersion" class="box-info">版本信息</button>
                 <div class="box-version" v-show="versionShow">
-                    <div>"earthsdk3": "{{ data.earthsdk3 }}"</div>
-                    <div>"earthsdk3-cesium": "{{ data["earthsdk3-cesium"] }}"</div>
-                    <div>"earthsdk3-ue": "{{ data["earthsdk3-ue"] }}"</div>
-                    <div>"earthsdk3-assets": "{{ data["earthsdk3-assets"] }}"</div>
+                    <div>"cesium": "{{ VERSION_CESIUM }}"</div>
+                    <div>"earthsdk3": "{{ VERSION_EARTHSDK3 }}"</div>
+                    <div>"earthsdk3-cesium": "{{ VERSION_EARTHSDK3_CESIUM }}"</div>
+                    <div>"earthsdk3-ue": "{{ VERSION_EARTHSDK3_UE }}"</div>
+                    <div>"earthsdk3-ol": "{{ VERSION_EARTHSDK3_OL }}"</div>
+                    <div>"earthsdk3-assets": "{{ VERSION_EARTHSDK3_ASSETS }}"</div>
                 </div>
             </div>
             <div class="box">
@@ -36,12 +38,22 @@
 
 <script setup>
 import { ref } from 'vue';
-import { version } from "@/scripts/version.js"
-const data = { ...version };
+
 const versionShow = ref(false);
 const viewVersion = () => {
     versionShow.value = !versionShow.value;
 }
+
+// 从 Vite define 中获取版本信息
+const VERSION_API = __VERSION_API__;
+const VERSION_CODE = __VERSION_CODE__;
+const VERSION_DOC = __VERSION_DOC__;
+const VERSION_CESIUM = __VERSION_CESIUM__;
+const VERSION_EARTHSDK3 = __VERSION_EARTHSDK3__;
+const VERSION_EARTHSDK3_CESIUM = __VERSION_EARTHSDK3_CESIUM__;
+const VERSION_EARTHSDK3_UE = __VERSION_EARTHSDK3_UE__;
+const VERSION_EARTHSDK3_OL = __VERSION_EARTHSDK3_OL__;
+const VERSION_EARTHSDK3_ASSETS = __VERSION_EARTHSDK3_ASSETS__;
 </script>
 
 <style scoped>

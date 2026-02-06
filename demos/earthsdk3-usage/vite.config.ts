@@ -10,10 +10,14 @@ const dependencies = packageJson.dependencies || {};
 export default defineConfig({
     base: './',
     define: {
+        '__VERSION_API__': JSON.stringify("https://www.earthsdk.com/docs/index.html"),
+        '__VERSION_CODE__': JSON.stringify("https://gitee.com/cesiumlab/earthsdk3-code"),
+        '__VERSION_DOC__': JSON.stringify("https://c0yh9tnn0na.feishu.cn/wiki/BI1Jwn6DsiOtlIk8OCLckNm5n92"),
         '__VERSION_CESIUM__': JSON.stringify(dependencies.cesium || ''),
         '__VERSION_EARTHSDK3__': JSON.stringify(dependencies.earthsdk3 || ''),
         '__VERSION_EARTHSDK3_CESIUM__': JSON.stringify(dependencies['earthsdk3-cesium'] || ''),
         '__VERSION_EARTHSDK3_UE__': JSON.stringify(dependencies['earthsdk3-ue'] || ''),
+        '__VERSION_EARTHSDK3_OL__': JSON.stringify(dependencies['earthsdk3-ol'] || ''),
         '__VERSION_EARTHSDK3_ASSETS__': JSON.stringify(dependencies['earthsdk3-assets'] || ''),
     },
     resolve: {

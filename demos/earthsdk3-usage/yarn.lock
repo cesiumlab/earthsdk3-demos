@@ -1970,6 +1970,11 @@ earthsdk3-cesium@3.7.0:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
+earthsdk3-ol@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/earthsdk3-ol/-/earthsdk3-ol-3.7.0.tgz#70c035d98daa640d5753adba63cf748f4d6d388c"
+  integrity sha512-sAS+gBGXEloze2HA8ABuK5+9kaSH+q744H84AjosePb/R8USLOpkwA/XqJ9BehMB0ASBY3EHbXWHsf9oephWJA==
+
 earthsdk3-ue@3.7.0:
   version "3.7.0"
   resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.7.0.tgz#f428026e1b89fbf7af1aa565460b676b9ac77c78"

@@ -15,6 +15,7 @@
     "earthsdk3-cesium": "3.7.0",
     "earthsdk3-ue": "3.7.0",
     "earthsdk3-assets": "3.0.6",
+    "earthsdk3-ol": "3.7.0",
     "axios": "^1.6.7",
     "monaco-editor": "^0.30.1",
     "x2js": "^3.4.4"

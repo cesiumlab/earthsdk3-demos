@@ -63,7 +63,7 @@ const currentCom = ref('speedAndStartTime')
         <div class="header_item2" v-for="item in propertiesMenu" :key="item.component"
           @click="currentCom = item.component">
           <span class="header_item_span2" :class="currentCom === item.component ? 'header_active2' : ''">{{ item.name
-            }}</span>
+          }}</span>
         </div>
       </div>
     </div>

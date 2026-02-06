@@ -898,6 +898,11 @@
                         "name": "GeoJson设置Feature样式",
                         "thumbnail": "vector-geoJson-featurestyle.webp",
                         "path": "vector/geoJson/featurestyle"
+                    },
+                    {
+                        "name": "GeoJson飞行定位（根据要素）",
+                        "thumbnail": "vector-geoJson-flyToFeature.webp",
+                        "path": "vector/geoJson/flyToFeature"
                     }
                 ]
             },

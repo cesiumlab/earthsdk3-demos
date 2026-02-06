@@ -9,7 +9,7 @@
     <script src="./js/Colorpicker.js"></script>
     <!-- 自定义Css样式 -->
     <link rel="stylesheet" href="./css/example1.css" />
-    <title>GeoJSON</title>
+    <title>GeoJSON要素飞行</title>
     <style>
         html,
         body,
@@ -26,7 +26,8 @@
     <div id="app"></div>
     <div id="panel">
         <div class="box">
-            <button onclick="flyTo()">飞行定位</button>
+            <button onclick="flyTo('要素2344')">要素2344</button>
+            <button onclick="flyTo('要素6724')">要素6724</button>
         </div>
     </div>
     <script>
@@ -40,11 +41,7 @@
         window.g_objm = objm;
         // 监听视口状态
         objm.viewerCreatedEvent.don((viewer) => {
-            viewer.flyIn(
-                [115.9453432577605, 22.89216127030952, 789.4948053805265],
-                [29.015034176609266, -29.191968119807054, 359.9990548222274],
-                3
-            )
+            viewer.flyIn([113.2435702265102, 16.886709423478976, 939554.3642106518], [10.119928107206169, -53.70961434186555, 0.007319589201275099], 3)
             // 监听clickEvent鼠标事件
             viewer.clickEvent.don((e) => {
                 // pick拾取
@@ -61,7 +58,7 @@
             id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
             type: "ESImageryLayer",
             url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            "maximumLevel":16
+            "maximumLevel": 16
         });
 
         /** ---------------------------------ESGeoJson------------------------------------**/
@@ -83,7 +80,7 @@
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            115.9498226571,
+                            112.9498226571,
                             22.903348545499998
                         ]
                     }
@@ -96,7 +93,7 @@
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            115.950796826499996,
+                            113.950796826499996,
                             22.903378224499999
                         ]
                     }
@@ -109,7 +106,7 @@
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            115.951770996400001,
+                            114.951770996400001,
                             22.903407897400001
                         ]
                     }
@@ -122,13 +119,12 @@
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            115.9527451668,
+                            116.9527451668,
                             22.903437564400001
                         ]
                     }
                 }]
         }
-
         const sceneObject = objm.createSceneObject('ESGeoJson');
         sceneObject.allowPicking = true
         // url可以填写服务地址，也可以填写具体的data数据（如上所示）
@@ -136,17 +132,25 @@
         // 额外存储属性
         sceneObject.extras = data
         // 图片是否显示
-        sceneObject.imageShow = false
+        sceneObject.imageShow = true
+        // 图片url地址
+        sceneObject.imageUrl = "./thumbnail/poi2D/geojson.webp"
+        // 图片大小
+        sceneObject.imageSize = [40, 51]
+        // 图片锚点
+        sceneObject.imageAnchor = [0.5, 1]
+        // 图片偏移
+        sceneObject.imageOffset = [0, 0]
+        // 文字颜色
+        sceneObject.textColor = [0, 0, 0, 1]
         // 文字背景颜色
-        sceneObject.textBackgroundColor = [1, 0, 0, 1]
+        sceneObject.textBackgroundColor = [1, 1, 0, 1]
         // 文字锚点
         sceneObject.textAnchor = [0.5, 1]
-        // 文字颜色
-        sceneObject.textColor = [1, 1, 1, 1]
         // 用于显示的属性
         sceneObject.textProperty = "name"
         // 文字的偏移值
-        sceneObject.textOffset = [0, 0]
+        sceneObject.textOffset = [-10, -60]
         // 是否被拾取
         sceneObject.allowPicking = true
         // 贴地模式
@@ -157,9 +161,10 @@
             alert(JSON.stringify(e.geojsonPickInfo))
         })
 
-        // 飞行定位
-        const flyTo = () => {
-            sceneObject.flyTo();
+
+        // 要素飞行定位
+        const flyTo = (value) => {
+            sceneObject.flyToFeature('name', value, 1)
         };
     </script>
     <!-- 切换UE和Cesium引擎的组件（Vue） -->

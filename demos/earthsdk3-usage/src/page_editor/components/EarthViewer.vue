@@ -13,25 +13,28 @@
             <div class="right">
                 <div class="box">
                     <img src="../assets/code.png" alt="" width="25" height="25">
-                    <p @click="turnUrl(data.doc)">教程</p>
+                    <p @click="turnUrl(VERSION_DOC)">教程</p>
                 </div>
                 <div class="box">
                     <img src="../assets/jiaocheng.png" alt="" width="18" height="18">
-                    <p @click="turnUrl(data.api)">文档</p>
+                    <p @click="turnUrl(VERSION_API)">文档</p>
                 </div>
 
                 <div class="box">
                     <img src="../assets/load.png" alt="" width="18" height="18">
-                    <p @click="turnUrl(data.code)">下载源码</p>
+                    <p @click="turnUrl(VERSION_CODE)">下载源码</p>
                 </div>
 
                 <div class="box">
                     <img src="../assets/-zixun.png" alt="" width="18" height="18">
                     <button @click="viewVersion" class="box-info">版本信息</button>
                     <div class="box-version" v-show="versionShow">
+                        <div>"cesium": "{{ data.cesium }}"</div>
                         <div>"earthsdk3": "{{ data.earthsdk3 }}"</div>
-                        <div>"earthsdk3-cesium": "{{ data["earthsdk3-cesium"] }}"</div>
-                        <div>"earthsdk3-ue": "{{ data["earthsdk3-ue"] }}"</div>
+                        <div>"earthsdk3-cesium": "{{ data['earthsdk3-cesium'] }}"</div>
+                        <div>"earthsdk3-ue": "{{ data['earthsdk3-ue'] }}"</div>
+                        <div>"earthsdk3-ol": "{{ data['earthsdk3-ol'] }}"</div>
+                        <div>"earthsdk3-assets": "{{ data['earthsdk3-assets'] }}"</div>
                     </div>
                 </div>
             </div>
@@ -48,8 +51,31 @@ import { onBeforeUnmount, onMounted, ref, defineProps, defineEmits, watch } from
 import axios from "axios";
 const emits = defineEmits(['update:editorShow'])
 import { getUrlParam } from "@/scripts/utils.js"
-import { version } from "@/scripts/version.js"
-const data = { ...version };
+
+// 从 Vite define 中获取版本信息
+const VERSION_API = __VERSION_API__;
+const VERSION_CODE = __VERSION_CODE__;
+const VERSION_DOC = __VERSION_DOC__;
+const VERSION_CESIUM = __VERSION_CESIUM__;
+const VERSION_EARTHSDK3 = __VERSION_EARTHSDK3__;
+const VERSION_EARTHSDK3_CESIUM = __VERSION_EARTHSDK3_CESIUM__;
+const VERSION_EARTHSDK3_UE = __VERSION_EARTHSDK3_UE__;
+const VERSION_EARTHSDK3_OL = __VERSION_EARTHSDK3_OL__;
+const VERSION_EARTHSDK3_ASSETS = __VERSION_EARTHSDK3_ASSETS__;
+
+// 构建版本数据对象
+const data = {
+    api: VERSION_API,
+    code: VERSION_CODE,
+    doc: VERSION_DOC,
+    cesium: VERSION_CESIUM,
+    earthsdk3: VERSION_EARTHSDK3,
+    "earthsdk3-cesium": VERSION_EARTHSDK3_CESIUM,
+    "earthsdk3-ue": VERSION_EARTHSDK3_UE,
+    "earthsdk3-ol": VERSION_EARTHSDK3_OL,
+    "earthsdk3-assets": VERSION_EARTHSDK3_ASSETS,
+};
+
 const props = defineProps({
     code: {
         type: String,

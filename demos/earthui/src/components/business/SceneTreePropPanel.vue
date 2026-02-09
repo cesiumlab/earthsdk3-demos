@@ -5,7 +5,8 @@
         <template #prefix>
             <ESIcon name="yinqing"></ESIcon>
         </template>
-        <ESPropPanel :tree-item="propSceneTree" :key="propTreeKey"></ESPropPanel>
+        <ESPropPanel v-if="propSceneTree && propSceneTree.sceneObject" :tree-item="propSceneTree" :key="propTreeKey">
+        </ESPropPanel>
     </DraggableDialog>
 </template>
 
@@ -23,6 +24,6 @@ const xbsjEarthUi = inject<XbsjEarthUi>('xbsjEarthUi')!
 const disposer = createVueDisposer(onBeforeUnmount);
 const propSceneTree = toVR<SceneTreeItem | undefined>(disposer, [xbsjEarthUi, 'propSceneTree']);
 const propTreeKey = toRefKey(propSceneTree);
-const showSceneTreePropViewRef = computed(() => { return !!propSceneTree.value });
+const showSceneTreePropViewRef = computed(() => { return !!propSceneTree.value && !!propSceneTree.value.sceneObject });
 
 </script>

@@ -1,118 +1,109 @@
 <script setup lang="ts">
-import { createVueDisposer, Message, toReadonlyVueRef } from 'earthsdk-ui'
-import { ES3DTileset } from 'earthsdk3'
+import { createVueDisposer, messageLoading, toReadonlyVueRef } from 'earthsdk-ui'
+import { ESJLonLatFormatType, ESVisualObject, ReactVarProperty, SceneTreeItem } from 'earthsdk3'
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import AllProprties from './propertiesMenu/allProprties/index.vue'
 import BasicProprties from './propertiesMenu/basicProprties/index.vue'
 import CoordinateProprties from './propertiesMenu/coordinateProprties/index.vue'
 import GeneralProprties from './propertiesMenu/generalProprties/index.vue'
 import LocationProprties from './propertiesMenu/locationProprties/index.vue'
 
-const props = withDefaults(
-  defineProps<{
-    treeItem: any
-  }>(),
-  {}
-)
-const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+const props = withDefaults(defineProps<{ treeItem: SceneTreeItem }>(), {});
+const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
 
-let propertiesMenu: { name: string; component: string }[] = []
-const currentMenu = ref('general')
-const properties = props.treeItem.sceneObject.getESProperties()
-const disposer = createVueDisposer(onBeforeUnmount)
-const lonLatFormat = toReadonlyVueRef<any>(disposer, [xbsjEarthUi.activeViewer, 'lonLatFormat'])
-const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi)
-const treeItem = xbsjEarthUi.propSceneTree!
+let propertiesMenu: { name: string; component: string }[] = [];
+const currentMenu = ref('general');
+const { treeItem } = props;
 
-const { basic, general, coordinate, dataSource, location, style, defaultMenu } = properties
-currentMenu.value = defaultMenu ?? 'general'
-if (basic.length > 0) {
-  propertiesMenu.push({
-    name: '基本',
-    component: 'basic'
-  })
+if (!treeItem.sceneObject) {
+  throw new Error('PropPanel treeItem.sceneObject is undefined')
 }
-if (general.length > 0) {
-  propertiesMenu.push({
-    name: '通用',
-    component: 'general'
-  })
-}
-if (coordinate.length > 0) {
-  propertiesMenu.push({
-    name: '坐标',
-    component: 'coordinate'
-  })
-}
-if (dataSource.length > 0) {
-  propertiesMenu.push({
-    name: '数据源',
-    component: 'dataSource'
-  })
-}
-if (location.length > 0) {
-  propertiesMenu.push({
-    name: '位置',
-    component: 'location'
-  })
-}
-if (style.length > 0) {
-  propertiesMenu.push({
-    name: '样式',
-    component: 'style'
-  })
-}
-const disabled3DTileset = ref(false)
-let urlChang: any
-const tilesetReady = (sceneObject: ES3DTileset) => {
-  sceneObject.tilesetReady.disposableOnce(() => {
-    if (sceneObject.supportEdit) {
-      disabled3DTileset.value = false
-    } else {
-      disabled3DTileset.value = true
-    }
-  })
-}
-const updateProp = () => {
-  if (urlChang) urlChang()
-  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
-  if (sceneObject instanceof ES3DTileset) {
-    if (sceneObject.supportEdit) {
-      disabled3DTileset.value = false
-    } else {
-      disabled3DTileset.value = true
-    }
-    tilesetReady(sceneObject)
-    urlChang = sceneObject.urlChanged.disposableOn(() => {
-      tilesetReady(sceneObject)
+const sceneObject = treeItem.sceneObject;
+const typeName = sceneObject.typeName;
+const properties = sceneObject.getESProperties();
+const allProperties = sceneObject.getProperties() as ReactVarProperty<any>[];
+
+const disposer = createVueDisposer(onBeforeUnmount);
+const lonLatFormat = toReadonlyVueRef<ESJLonLatFormatType>(disposer, [xbsjEarthUi.activeViewer, 'lonLatFormat'])
+const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi);
+
+const { defaultMenu } = properties;
+const basic = properties.basic as ReactVarProperty<any>[];
+const general = properties.general as ReactVarProperty<any>[];
+const coordinate = properties.coordinate as ReactVarProperty<any>[];
+const dataSource = properties.dataSource as ReactVarProperty<any>[];
+const location = properties.location as ReactVarProperty<any>[];
+const style = properties.style as ReactVarProperty<any>[];
+
+const init = () => {
+  currentMenu.value = defaultMenu ?? 'general'
+  if (basic.length > 0) {
+    propertiesMenu.push({
+      name: '基本',
+      component: 'basic'
     })
-  } else {
-    disabled3DTileset.value = false
   }
+  if (general.length > 0) {
+    propertiesMenu.push({
+      name: '通用',
+      component: 'general'
+    })
+  }
+  if (coordinate.length > 0) {
+    propertiesMenu.push({
+      name: '坐标',
+      component: 'coordinate'
+    })
+  }
+  if (dataSource.length > 0) {
+    propertiesMenu.push({
+      name: '数据源',
+      component: 'dataSource'
+    })
+  }
+  if (location.length > 0) {
+    propertiesMenu.push({
+      name: '位置',
+      component: 'location'
+    })
+  }
+  if (style.length > 0) {
+    propertiesMenu.push({
+      name: '样式',
+      component: 'style'
+    })
+  }
+  if (allProperties.length > 0) {
+    propertiesMenu.push({
+      name: '全部',
+      component: 'all'
+    })
+  }
+
 }
+init();
+
+
+
 onMounted(() => {
-  updateProp()
-  var dispose = xbsjEarthUi.propSceneTreeChanged.disposableOn((val) => {
-    updateProp()
-  })
-  const sceneObject = xbsjEarthUi.propSceneTree.sceneObject
-  var disposeEditing =
-    Reflect.has(sceneObject, 'editing') &&
-    sceneObject.editingChanged.disposableOn((res: boolean) => {
+
+  //编辑时提示
+  let disposeEditing: (() => void) | undefined;
+  let close: (() => void) | undefined;
+  if (Reflect.has(sceneObject, 'editing')) {
+    disposeEditing = (sceneObject as ESVisualObject).editingChanged.don((res: boolean) => {
       if (res) {
-        Message.loading({
-          id: 'xxx',
-          content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-        })
+        close = messageLoading('1.双击鼠标左键或点击ESC键退出编辑; 2.点击空格键进行编辑方式的切换');
       } else {
-        Message.remove('xxx')
+        close && close() && (close = undefined);
       }
     })
+  }
+
   onBeforeUnmount(() => {
-    if (dispose) dispose()
-    if (urlChang) urlChang()
-    if (disposeEditing) disposeEditing()
-    Message.remove('xxx')
+    disposeEditing && disposeEditing() && (disposeEditing = undefined);
+    close && close() && (close = undefined);
   })
 })
 </script>
@@ -127,19 +118,21 @@ onMounted(() => {
       </div>
     </div>
     <div class="Property_content">
+
       <div v-if="currentMenu === 'basic'">
-        <BasicProprties :properties="basic" :type="treeItem.sceneObject.typeName" :currentMenu="currentMenu"
-          :treeItem="treeItem" @callback="propTreeCallback"></BasicProprties>
+        <BasicProprties :properties="basic" :type="typeName" :currentMenu="currentMenu" :treeItem="treeItem"
+          @callback="propTreeCallback"></BasicProprties>
       </div>
+
       <div v-if="currentMenu === 'general'">
-        <GeneralProprties :properties="general" @callback="propTreeCallback" :type="treeItem.sceneObject.typeName"
-          :treeItem="treeItem">
+        <GeneralProprties :properties="general" @callback="propTreeCallback" :type="typeName" :treeItem="treeItem">
         </GeneralProprties>
       </div>
-      <div :class="{ eS3DTileset_supportEdit1: disabled3DTileset }">
-        <div v-if="currentMenu === 'coordinate'" :class="{ eS3DTileset_supportEdit: disabled3DTileset }">
-          <CoordinateProprties :properties="coordinate" @callback="propTreeCallback"
-            :type="treeItem.sceneObject.typeName" :lonLatFormat="lonLatFormat">
+
+      <div>
+        <div v-if="currentMenu === 'coordinate'">
+          <CoordinateProprties :properties="coordinate" @callback="propTreeCallback" :type="typeName"
+            :lonLatFormat="lonLatFormat">
           </CoordinateProprties>
         </div>
       </div>
@@ -148,14 +141,22 @@ onMounted(() => {
         <CoordinateProprties :properties="dataSource" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
         </CoordinateProprties>
       </div>
+
       <div v-if="currentMenu === 'location'">
         <LocationProprties :properties="location" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
         </LocationProprties>
       </div>
+
       <div v-if="currentMenu === 'style'">
         <CoordinateProprties :properties="style" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
-          :type="treeItem.sceneObject.typeName" :panel-style="'style'">
+          :type="typeName" :panel-style="'style'">
         </CoordinateProprties>
+      </div>
+
+      <div v-if="currentMenu === 'all'">
+        <AllProprties :properties="allProperties" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
+          :type="typeName" :panel-style="'all'">
+        </AllProprties>
       </div>
     </div>
   </div>
@@ -229,10 +230,5 @@ onMounted(() => {
 
 .eS3DTileset_supportEdit {
   pointer-events: none;
-}
-
-.eS3DTileset_supportEdit1 {
-  cursor: no-drop;
-  background: rgba(77, 77, 77, 0.2);
 }
 </style>

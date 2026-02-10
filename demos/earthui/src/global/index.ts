@@ -1,5 +1,5 @@
 import { gget } from '@/api'
-import { localStorageKey } from '@/constants'
+import { LocalStorageKey } from '@/constants'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { getUuid } from '@/utils'
 import { ElMessage } from 'element-plus'
@@ -36,7 +36,7 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
   // CesiumLab 相关参数
   const labScene = params.get(cesiumLabSceneParamKey);
   const cesiumLabUrl = params.get(cesiumLabUrlParamKey)
-    ?? window.localStorage.getItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL)
+    ?? window.localStorage.getItem(LocalStorageKey.Earth_UI_CESIUMLAB_SERVER_URL)
     ?? window.location.origin;
   const cesiumLabToken = params.get(cesiumLabTokenParamKey) ?? undefined;
 
@@ -47,17 +47,17 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
   const esssScene = params.get(esssSceneParamKey);
   const esssAppid = params.get(esssAppIdParamKey) ?? undefined;
   const esssUrl = params.get(esssUrlParamKey)
-    ?? window.localStorage.getItem(localStorageKey.Earth_UI_ESSS_SERVER_URL)
+    ?? window.localStorage.getItem(LocalStorageKey.Earth_UI_ESSS_SERVER_URL)
     ?? window.location.origin;
   const esssToken = params.get(esssTokenParamKey) ?? undefined;
 
 
   //存储 cesiumLabUrl,esssUrl 到 localStorage
-  window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl);
-  window.localStorage.setItem(localStorageKey.Earth_UI_ESSS_SERVER_URL, esssUrl);
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl);
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_ESSS_SERVER_URL, esssUrl);
 
   // 此 cesiumlab 服务下存的 token，当 earthui 嵌入 lab 后该页面下的接口调用需要
-  const token = localStorage.getItem(localStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
+  const token = localStorage.getItem(LocalStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
 
   // 构建基础配置对象
   const createConfig = (overrides = {}) => ({

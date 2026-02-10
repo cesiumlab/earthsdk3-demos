@@ -101,8 +101,29 @@ onMounted(() => {
       })
     };
 
-    // 处理 Cesium Viewer
-    if (type === 'ESCesiumViewer') {
+    //@ts-ignore
+    if (window.ue && window.ue.es || esss.esssAppid && esss.esssUrl) {
+      // 处理 UE Viewer 像素流模式 和大屏模式
+      option.type = 'ESUeViewer';
+      option.options = {
+        uri: esss.esssUrl ? esss.esssUrl : window.location.origin,//大屏模式不需要所以随便
+        app: esss.esssAppid ? esss.esssAppid : 'earthsdk',//大屏模式不需要所以随便
+        token: esss.esssToken
+      };
+      registerOnceListener((viewer) => {
+        if (!viewer || !(viewer instanceof ESUeViewer)) return;
+        // 如果有 lastView 则回显场景，否则执行默认飞入
+        if (lastView) {
+          const { position, rotation } = lastView;
+          viewer.flyIn(position, rotation);
+          ElMessage.success('成功加载场景');
+        } else {
+          ElMessage.success('成功加载实例');
+          viewer.defaultCameraFlyIn();
+        }
+      });
+    } else if (type === 'ESCesiumViewer') {
+      // 处理 Cesium Viewer
       // 场景回显
       if (lastView) {
         registerOnceListener((viewer) => {
@@ -123,28 +144,7 @@ onMounted(() => {
         });
       }
     }
-    // 处理 UE Viewer
-    else if (esss.esssAppid && esss.esssUrl) {
-      option.type = 'ESUeViewer';
-      option.options = {
-        uri: esss.esssUrl,
-        app: esss.esssAppid,
-        token: esss.esssToken
-      };
 
-      registerOnceListener((viewer) => {
-        if (!viewer || !(viewer instanceof ESUeViewer)) return;
-        // 如果有 lastView 则回显场景，否则执行默认飞入
-        if (lastView) {
-          const { position, rotation } = lastView;
-          viewer.flyIn(position, rotation);
-          ElMessage.success('成功加载场景');
-        } else {
-          ElMessage.success('成功加载实例');
-          viewer.defaultCameraFlyIn();
-        }
-      });
-    }
     // 创建 Viewer
     const activeViewer = xbsjEarthUi.createViewer(option);
     const noonTimestamp = dayjs().hour(12).minute(0).second(0).millisecond(0).valueOf()

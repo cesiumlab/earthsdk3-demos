@@ -15,7 +15,7 @@
 // &tilesize=256
 // &cesiumLabToken=xx
 
-import { localStorageKey } from "@/constants";
+import { LocalStorageKey } from "@/constants";
 import { ConfigType } from "@/global/types";
 import { XbsjEarthUi } from "@/scripts/xbsjEarthUi";
 import { ElMessage } from "element-plus";
@@ -66,7 +66,7 @@ export const saveCesiumLabScene = async (objm: XbsjEarthUi, config: ConfigType) 
     const thumbnail = await objm.activeViewer?.capture();
 
     //CesiumLab服务下setItem('token')
-    const token = localStorage.getItem(localStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
+    const token = localStorage.getItem(LocalStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
     const { cesiumLabToken, cesiumLabUrl } = objm.initConfig.cesiumLab;
     const authToken = cesiumLabToken ? undefined : token;
 

@@ -79,7 +79,7 @@
   </PopList>
 </template>
 <script setup lang="ts">
-import { localStorageKey } from '@/constants'
+import { LocalStorageKey } from '@/constants'
 import { $g_config } from '@/global'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
@@ -286,14 +286,14 @@ const initNewList = async () => {
     ElMessage.warning('服务地址为空，请填写地址')
     return
   }
-  window.localStorage.setItem(localStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl.value)
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_CESIUMLAB_SERVER_URL, cesiumLabUrl.value)
   let url
   if (cesiumLabToken.value) {
     url = `${cesiumLabUrl.value}/tile/services/labtoken?labtoken=${cesiumLabToken.value}`
   } else {
     url = `${cesiumLabUrl.value}/tile/statistics/services/all/auth`
   }
-  const token = localStorage.getItem(localStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined
+  const token = localStorage.getItem(LocalStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined
   // console.log(token);
   const option = {
     pageNum: pageNum.value,

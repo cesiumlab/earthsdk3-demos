@@ -297,7 +297,6 @@ onBeforeUnmount(() => {
       <div class="cell" v-for="(item, index) in supportedEditingList" :key="item.type" :title="item.name"
         @click="changeCurrentMode(item)" @mouseenter="hoverIndex = index" @mouseleave="hoverIndex = -1">
         <es-icon :name="item.icon" />
-        <div class="short-border" v-if="shouldShowBorder(index)"></div>
       </div>
     </template>
     <div v-else class="empty-tip">请选择可编辑的图层</div>
@@ -336,9 +335,6 @@ onBeforeUnmount(() => {
   background-color: var(--el-color-primary-light-8);
 }
 
-.short-border {
-  display: none;
-}
 
 .empty-tip {
   width: 100%;

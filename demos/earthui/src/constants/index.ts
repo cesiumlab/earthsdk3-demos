@@ -1,6 +1,6 @@
 export * from './Icon'
 
-export enum localStorageKey {
+export enum LocalStorageKey {
   /**
    * 缓存基础场景的KEY
    */

@@ -2,17 +2,27 @@
 import { createVueDisposer, messageLoading, toReadonlyVueRef } from 'earthsdk-ui'
 import { ESJLonLatFormatType, ESVisualObject, ReactVarProperty, SceneTreeItem } from 'earthsdk3'
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
 import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
-import AllProprties from './propertiesMenu/allProprties/index.vue'
+import MoreProprties from './propertiesMenu/MoreProprties/index.vue'
 import BasicProprties from './propertiesMenu/basicProprties/index.vue'
 import CoordinateProprties from './propertiesMenu/coordinateProprties/index.vue'
 import GeneralProprties from './propertiesMenu/generalProprties/index.vue'
 import LocationProprties from './propertiesMenu/locationProprties/index.vue'
+import {
+  BasicIcon,
+  GeneralIcon,
+  CoordinateIcon,
+  DataSourceIcon,
+  LocationIcon,
+  StyleIcon,
+  AllIcon,
+} from './propertiesMenu/icons'
 
 const props = withDefaults(defineProps<{ treeItem: SceneTreeItem }>(), {});
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi;
 
-let propertiesMenu: { name: string; component: string }[] = [];
+let propertiesMenu: { name: string; component: string, value: ReactVarProperty<any>[] }[] = [];
 const currentMenu = ref('general');
 const { treeItem } = props;
 
@@ -22,7 +32,6 @@ if (!treeItem.sceneObject) {
 const sceneObject = treeItem.sceneObject;
 const typeName = sceneObject.typeName;
 const properties = sceneObject.getESProperties();
-const allProperties = sceneObject.getProperties() as ReactVarProperty<any>[];
 
 const disposer = createVueDisposer(onBeforeUnmount);
 const lonLatFormat = toReadonlyVueRef<ESJLonLatFormatType>(disposer, [xbsjEarthUi.activeViewer, 'lonLatFormat'])
@@ -35,49 +44,99 @@ const coordinate = properties.coordinate as ReactVarProperty<any>[];
 const dataSource = properties.dataSource as ReactVarProperty<any>[];
 const location = properties.location as ReactVarProperty<any>[];
 const style = properties.style as ReactVarProperty<any>[];
+const more = properties.more as ReactVarProperty<any>[];
 
+const components: { [key: string]: any } = {
+  basic: {
+    component: BasicProprties,
+    icon: BasicIcon
+  },
+  general: {
+    component: GeneralProprties,
+    icon: GeneralIcon
+  },
+  coordinate: {
+    component: CoordinateProprties,
+    icon: CoordinateIcon
+  },
+  dataSource: {
+    component: CoordinateProprties,
+    icon: DataSourceIcon
+  },
+  location: {
+    component: LocationProprties,
+    icon: LocationIcon
+  },
+  style: {
+    component: CoordinateProprties,
+    icon: StyleIcon
+  },
+  all: {
+    component: MoreProprties,
+    icon: AllIcon
+  },
+  // MoreProprties
+}
+
+
+const all = [
+  ...basic,
+  ...general,
+  ...coordinate,
+  ...dataSource,
+  ...location,
+  ...style,
+  ...more
+];
 const init = () => {
   currentMenu.value = defaultMenu ?? 'general'
   if (basic.length > 0) {
     propertiesMenu.push({
       name: '基本',
-      component: 'basic'
+      component: 'basic',
+      value: basic,
     })
   }
   if (general.length > 0) {
     propertiesMenu.push({
       name: '通用',
-      component: 'general'
+      component: 'general',
+      value: general
     })
   }
   if (coordinate.length > 0) {
     propertiesMenu.push({
       name: '坐标',
-      component: 'coordinate'
+      component: 'coordinate',
+      value: coordinate
     })
   }
   if (dataSource.length > 0) {
     propertiesMenu.push({
       name: '数据源',
-      component: 'dataSource'
+      component: 'dataSource',
+      value: dataSource
     })
   }
   if (location.length > 0) {
     propertiesMenu.push({
       name: '位置',
-      component: 'location'
+      component: 'location',
+      value: location
     })
   }
   if (style.length > 0) {
     propertiesMenu.push({
       name: '样式',
-      component: 'style'
+      component: 'style',
+      value: style
     })
   }
-  if (allProperties.length > 0) {
+  if (all.length > 0) {
     propertiesMenu.push({
       name: '全部',
-      component: 'all'
+      component: 'all',
+      value: all
     })
   }
 
@@ -109,126 +168,89 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="Property_Panel">
-    <div class="Property_header">
-      <div class="property_header_item" v-for="item in propertiesMenu" :key="item.component"
-        @click="currentMenu = item.component">
-        <span class="header_item_span1" :class="currentMenu === item.component ? 'header_active1' : ''">{{ item.name
-        }}</span>
-      </div>
-    </div>
-    <div class="Property_content">
+  <div class="Property_content">
+    <!-- stretch -->
+    <el-tabs v-model="currentMenu" stretch>
+      <el-tab-pane v-for="item in propertiesMenu" :label="item.name" :name="item.component" :key="item.component">
 
-      <div v-if="currentMenu === 'basic'">
-        <BasicProprties :properties="basic" :type="typeName" :currentMenu="currentMenu" :treeItem="treeItem"
-          @callback="propTreeCallback"></BasicProprties>
-      </div>
+        <template #label>
+          <span class="custom-tabs-item">
+            <span class="custom-tabs-icon">
+              <component :is="components[item.component].icon" />
+            </span>
+            <span>{{ item.name }}</span>
+          </span>
+        </template>
 
-      <div v-if="currentMenu === 'general'">
-        <GeneralProprties :properties="general" @callback="propTreeCallback" :type="typeName" :treeItem="treeItem">
-        </GeneralProprties>
-      </div>
-
-      <div>
-        <div v-if="currentMenu === 'coordinate'">
-          <CoordinateProprties :properties="coordinate" @callback="propTreeCallback" :type="typeName"
-            :lonLatFormat="lonLatFormat">
-          </CoordinateProprties>
+        <div class="propertie_content">
+          <component :is="components[item.component].component" :properties="item.value" :lonLatFormat="lonLatFormat"
+            :type="typeName" :currentMenu="currentMenu" :treeItem="treeItem" @callback="propTreeCallback"
+            :panel-style="item.component">
+          </component>
         </div>
-      </div>
-
-      <div v-if="currentMenu === 'dataSource'">
-        <CoordinateProprties :properties="dataSource" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
-        </CoordinateProprties>
-      </div>
-
-      <div v-if="currentMenu === 'location'">
-        <LocationProprties :properties="location" @callback="propTreeCallback" :lonLatFormat="lonLatFormat">
-        </LocationProprties>
-      </div>
-
-      <div v-if="currentMenu === 'style'">
-        <CoordinateProprties :properties="style" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
-          :type="typeName" :panel-style="'style'">
-        </CoordinateProprties>
-      </div>
-
-      <div v-if="currentMenu === 'all'">
-        <AllProprties :properties="allProperties" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
-          :type="typeName" :panel-style="'all'">
-        </AllProprties>
-      </div>
-    </div>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <style scoped>
-.Property_Panel {
+.Property_content {
   width: 100%;
   height: 100%;
-  /* background: rgba(71, 71, 71, 0.8); */
+  overflow: hidden;
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+}
+
+/* 让 el-tabs 占满剩余空间 */
+.Property_content :deep(.el-tabs) {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.Property_header {
+/* 让 el-tab-pane 占满空间 */
+.Property_content :deep(.el-tab-pane) {
+  height: 100%;
+}
+
+.Property_content :deep(.el-tabs__item) {
+  padding: 0 10px;
+}
+
+.custom-tabs-item {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 32px;
 }
 
-.property_header_item {
-  flex: 1;
-  height: 100%;
-  cursor: pointer;
+.custom-tabs-icon {
+  margin-right: 4px;
+  font-size: 16px;
+  vertical-align: middle;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.property_header_item>span {
-  display: inline-block;
-  height: 100%;
-  text-align: center;
-  line-height: 32px;
-  font-size: 14px;
-  color: rgba(230, 230, 230, 1);
-  width: 50px;
+.propertie_content::-webkit-scrollbar {
+  width: 3px;
 }
 
-.header_active1 {
-  color: #fff !important;
-  border-bottom: 1px solid #fff;
-  box-sizing: border-box;
-}
 
-.property_header_item:hover .header_item_span1 {
-  color: #fff;
-  border-bottom: 1px solid #fff;
-  box-sizing: border-box;
-}
-
-.Property_content {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  margin: 5px;
-  box-sizing: border-box;
-}
-
-.Property_content::-webkit-scrollbar {
+.propertie_content::-webkit-scrollbar {
   width: 3px;
   background-color: rgba(41, 42, 46, 1);
   border-radius: 2px;
 }
 
-.Property_content::-webkit-scrollbar-thumb {
+.propertie_content::-webkit-scrollbar-thumb {
   background-color: rgba(183, 183, 183, 1);
   border-radius: 2px;
 }
 
-.eS3DTileset_supportEdit {
-  pointer-events: none;
+.propertie_content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

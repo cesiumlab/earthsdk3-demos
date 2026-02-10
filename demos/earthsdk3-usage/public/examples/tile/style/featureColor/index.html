@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <script src="./js/Colorpicker.js"></script>
+
+    <title>着色</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        #panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(42, 42, 42, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        
+        #panel label {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div style="margin-bottom: 10px;">
+            <label for="colorPicker" style="color: white; margin-right: 8px;">选择颜色:</label>
+            <input type="color" id="colorPicker" value="#ff0000" onchange="setFeatureStyle()" style="width: 50px; height: 30px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <button onclick="resetFeatureStyle()">恢复原始样式</button>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 16
+        });
+
+        // 创建ES3DTileset对象
+        const es3DTileset = objm.createSceneObject('ES3DTileset');
+        // url服务地址
+        es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
+        // 加载完成
+        es3DTileset.tilesetReady.don((tileset) => {
+            es3DTileset.flyTo();
+            // 加载完成后自动应用默认颜色
+            setFeatureStyle();
+        })
+        window.es3DTileset = es3DTileset;
+
+       
+
+        
+        // 将十六进制颜色转换为RGBA数组 [r, g, b, a]
+        function hexToRgba(hex) {
+            // 移除 # 符号
+            hex = hex.replace('#', '');
+            // 解析RGB值
+            const r = parseInt(hex.substring(0, 2), 16) / 255;
+            const g = parseInt(hex.substring(2, 4), 16) / 255;
+            const b = parseInt(hex.substring(4, 6), 16) / 255;
+            return [r, g, b, 1]; // alpha固定为1
+        }
+
+        // 屋顶隐藏
+        function setFeatureStyle() {
+             /**
+         * 使用示例
+         *   [
+                {
+                    condition: [
+                    {
+                        field: "id",
+                        op: "!=",
+                        value: "ss"
+                    },
+                    {
+                        field: "name",
+                        op: "contain",
+                        value: "杨"
+                    }
+                    ],
+                    color: [1, 0, 0, 1],
+                    show: true
+                },
+                {
+                    condition: {
+                    field: "height",
+                    op: "==",
+                    value: 20
+                    },
+                    color: [1, 1, 0, 1],
+                    show: false
+                }
+            ]
+         * 
+         * 
+        */
+            // 获取颜色选择器的值
+            const colorPicker = document.getElementById('colorPicker');
+            const selectedColor = hexToRgba(colorPicker.value);
+            
+            es3DTileset.setFeatureStyle([
+                {
+                    condition: {
+                        field: "id",
+                        op: "==",
+                        value: "f6b1c5bb-13d4-47b1-8762-f5d6e0308eef",
+                    },
+                    color: selectedColor,
+                    show: true
+                },
+                {
+                    condition: {
+                        field: "id",
+                        op: "==",
+                        value: "5fcc3a2a-209a-48a1-b542-60382a5ae686",
+                    },
+                    color: selectedColor,
+                    show: true
+                }
+            ])
+
+            
+
+        };
+
+        // 恢复原始
+        function resetFeatureStyle() {
+            es3DTileset.resetFeatureStyle();
+        }
+
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

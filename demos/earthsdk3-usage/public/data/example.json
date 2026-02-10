@@ -546,7 +546,7 @@
                 ]
             },
             {
-                "name": "3dtileset样式着色",
+                "name": "3dtileset着色、显隐、属性",
                 "details": "支持样式等可视化编辑",
                 "children": [
                     {
@@ -555,53 +555,35 @@
                         "path": "tile/style/technology"
                     },
                     {
-                        "name": "属性拾取(单纯高亮)",
-                        "thumbnail": "tile-property-highlight.webp",
-                        "path": "tile/property/highlight"
+                        "name": "显隐 setFeatureVisable",
+                        "thumbnail": "tile-style-featureVisable.webp",
+                        "path": "tile/style/featureVisable"
                     },
                     {
-                        "name": "属性拾取（高亮+显隐控制）",
+                        "name": "着色 setFeatureColor",
+                        "thumbnail": "tile-style-featureColor.webp",
+                        "path": "tile/style/featureColor"
+                    },
+                   
+                    {
+                        "name": "高亮+显隐 setFeatureStyle",
                         "thumbnail": "tile-property-highlight2.webp",
                         "path": "tile/property/highlight2"
                     },
+                    
                     {
-                        "name": "feature等值条件着色",
-                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
-                        "path": "tile/color/equivalentFeatureColor"
-                    },
-                    {
-                        "name": "根据多条件设置style",
-                        "thumbnail": "tile-color-equivalentFeatureColor.webp",
-                        "path": "tile/style/setFeatureStyle"
+                        "name": "根据id高亮（仅支持id，其他字段建议使用setFeatureStyle）",
+                        "thumbnail": "tile-style-highlight.webp",
+                        "path": "tile/property/highlight"
                     },
                     {
                         "name": "style样式",
                         "thumbnail": "tile-style-style.webp",
                         "path": "tile/style/style"
-                    },
-                    {
-                        "name": "feature区间条件着色",
-                        "thumbnail": "tile-color-sectionFeatureColor.webp",
-                        "path": "tile/color/sectionFeatureColor"
-                    }
-                ]
-            },
-            {
-                "name": "3dtileset部件显隐控制",
-                "details": "着色",
-                "children": [
-                    {
-                        "name": "feature等值条件显隐",
-                        "thumbnail": "tile-visable-equivalentFeatureVisable.webp",
-                        "path": "tile/visable/equivalentFeatureVisable"
-                    },
-                    {
-                        "name": "feature区间条件显隐",
-                        "thumbnail": "tile-visable-sectionFeatureVisable.webp",
-                        "path": "tile/visable/sectionFeatureVisable"
                     }
                 ]
             }
+           
         ]
     },
     {

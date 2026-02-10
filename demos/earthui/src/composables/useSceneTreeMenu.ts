@@ -1,6 +1,6 @@
 //右键场景树空白区域
 
-import { localStorageKey } from '@/constants'
+import { LocalStorageKey } from '@/constants'
 import { downloadJson } from '@/utils'
 import dayjs from 'dayjs'
 import { getCreateSceneObjectType, getEditorOption, MenuItem } from 'earthsdk-ui'
@@ -128,18 +128,18 @@ export const getDefauleMenuContent = (
       text: '缓存当前场景',
       keys: '',
       func: () => {
-        const lastJson = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+        const lastJson = window.localStorage.getItem(LocalStorageKey.Earth_UI_STORAGE_SCENE)
         const json = objm.json
         if (lastJson) {
           ElMessageBox.confirm('已存在缓存场景，是否覆盖?').then(() => {
             window.localStorage.setItem(
-              localStorageKey.Earth_UI_STORAGE_SCENE,
+              LocalStorageKey.Earth_UI_STORAGE_SCENE,
               JSON.stringify(json)
             )
             ElMessage.success('缓存成功')
           })
         } else {
-          window.localStorage.setItem(localStorageKey.Earth_UI_STORAGE_SCENE, JSON.stringify(json))
+          window.localStorage.setItem(LocalStorageKey.Earth_UI_STORAGE_SCENE, JSON.stringify(json))
           ElMessage.success('缓存成功')
         }
       }
@@ -151,7 +151,7 @@ export const getDefauleMenuContent = (
     keys: '',
     func: () => {
       ElMessageBox.confirm('加载已缓存场景会覆盖当前场景，确认加载吗？').then(() => {
-        const localJsonStr = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+        const localJsonStr = window.localStorage.getItem(LocalStorageKey.Earth_UI_STORAGE_SCENE)
         if (!localJsonStr) return
         const localJson = JSON.parse(localJsonStr)
         if (localJson.lastView && localJson.lastView.position && localJson.lastView.rotation) {
@@ -163,7 +163,7 @@ export const getDefauleMenuContent = (
     }
   }
 
-  const localJson = window.localStorage.getItem(localStorageKey.Earth_UI_STORAGE_SCENE)
+  const localJson = window.localStorage.getItem(LocalStorageKey.Earth_UI_STORAGE_SCENE)
   localJson && baseMenu.push(storageSceneItem)
 
   return baseMenu

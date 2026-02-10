@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/example1.css" />
     <script src="./js/Colorpicker.js"></script>
 
-    <title>feature等值条件着色</title>
+    <title>显隐、着色</title>
     <style>
         html,
         body,
@@ -20,13 +20,79 @@
             margin: 0px;
             padding: 0px;
         }
+        #panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(42, 42, 42, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            min-width: 200px;
+        }
+        #panel .control-group {
+            margin-bottom: 15px;
+        }
+        #panel label {
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        #panel input[type="color"] {
+            width: 100%;
+            height: 40px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: transparent;
+        }
+        #panel .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        #panel input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        #panel button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #panel button:hover {
+            background: #da190b;
+        }
     </style>
 </head>
 
 <body>
     <div id="app"></div>
     <div id="panel">
-        <button onclick="setFeatureStyle()">样式着色</button>
+        <div class="control-group">
+            <label for="colorPicker">选择颜色:</label>
+            <input type="color" id="colorPicker" value="#ff0000" onchange="applyFeatureStyle()">
+        </div>
+        <div class="control-group">
+            <label>显隐控制:</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="showFeature1" checked onchange="applyFeatureStyle()">
+                <label for="showFeature1" style="margin: 0; display: inline;">要素1显示</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="showFeature2" checked onchange="applyFeatureStyle()">
+                <label for="showFeature2" style="margin: 0; display: inline;">要素2显示</label>
+            </div>
+        </div>
         <button onclick="resetFeatureStyle()">恢复原始</button>
     </div>
     <script>
@@ -46,7 +112,7 @@
             id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
             type: "ESImageryLayer",
             url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            "maximumLevel":16
+            "maximumLevel": 16
         });
 
         // 创建ES3DTileset对象
@@ -54,57 +120,67 @@
         // url服务地址
         es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
         // 加载完成
-        es3DTileset.tilesetReady.don(() => {
-            es3DTileset.flyTo()
+        es3DTileset.tilesetReady.don((tileset) => {
+            es3DTileset.flyTo();
+            // 加载完成后自动应用默认样式
+            applyFeatureStyle();
         })
         window.es3DTileset = es3DTileset;
 
+        // 将十六进制颜色转换为RGBA数组 [r, g, b, a]
+        function hexToRgba(hex) {
+            // 移除 # 符号
+            hex = hex.replace('#', '');
+            // 解析RGB值
+            const r = parseInt(hex.substring(0, 2), 16) / 255;
+            const g = parseInt(hex.substring(2, 4), 16) / 255;
+            const b = parseInt(hex.substring(4, 6), 16) / 255;
+            return [r, g, b, 1]; // alpha固定为1
+        }
 
-        function setFeatureStyle() {
-
-            const json = [
-                {
-                    "condition": [
-                        {
-                            "field": "面积",
-                            "op": ">",
-                            "value": 5
-                        }
-                    ],
-                    "color": [
-                        1,
-                        0,
-                        0,
-                        1
-                    ],
-                    "show": false
+        // 应用要素样式（颜色和显隐）
+        function applyFeatureStyle() {
+            // 获取颜色选择器的值
+            const colorPicker = document.getElementById('colorPicker');
+            const selectedColor = hexToRgba(colorPicker.value);
+            
+            // 获取显隐控制的状态
+            const showFeature1 = document.getElementById('showFeature1').checked;
+            const showFeature2 = document.getElementById('showFeature2').checked;
+            
+            // 构建样式配置数组
+            const styles = [];
+            
+            // 要素1的样式配置
+            styles.push({
+                condition: {
+                    field: "id",
+                    op: "==",
+                    value: "f6b1c5bb-13d4-47b1-8762-f5d6e0308eef",
                 },
-                {
-                    "condition": [
-                        {
-                            "field": "类别",
-                            "op": "==",
-                            "value": "幕墙嵌板"
-                        }
-                    ],
-                    "color": [
-                        1,
-                        0,
-                        0,
-                        1
-                    ],
-                    "show": true
-                }
-            ]
-            // op:string类型，操作符(目前字符串属性支持：==  !=  contain empty; 数字属性支持：== != > >= < <=）
-            es3DTileset.setFeatureStyle(json);
+                color: selectedColor,
+                show: showFeature1
+            });
+            
+            // 要素2的样式配置
+            styles.push({
+                condition: {
+                    field: "id",
+                    op: "==",
+                    value: "5fcc3a2a-209a-48a1-b542-60382a5ae686",
+                },
+                color: selectedColor,
+                show: showFeature2
+            });
+            
+            // 应用样式
+            es3DTileset.setFeatureStyle(styles);
         };
 
         // 恢复原始
         function resetFeatureStyle() {
             es3DTileset.resetFeatureStyle();
         }
-
 
     </script>
 

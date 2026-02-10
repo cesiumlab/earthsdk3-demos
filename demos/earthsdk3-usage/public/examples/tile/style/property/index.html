@@ -19,6 +19,12 @@
             padding: 0px;
         }
 
+        #panel {
+            width: 457px !important;
+            max-height: 450px !important;
+            overflow-y: auto;
+        }
+        
         #box {
             /* height: 100px; */
             text-align: center;
@@ -32,10 +38,31 @@
             color: sandybrown;
         }
 
-        #panel {
-            width: 457px !important;
-            max-height: 450px !important;
-            overflow-y: auto;
+        .control-panel {
+            margin-top: 15px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-panel h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .control-panel input[type="color"] {
+            width: 60px;
+            height: 40px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            background: transparent;
         }
     </style>
 </head>
@@ -44,41 +71,81 @@
     <div id="app"></div>
     <div id="panel">
         <div id="box">
-            <p><span>提示：</span>点击拾取高亮并查看信息，仅支持id，复杂条件使用setFeatureStyle实现</p>
+            <p><span>提示：</span>点击拾取高亮并查看信息</p>
             <p id="a"></p>
             <p id="b"></p>
             <p id="c"></p>
         </div>
+        <div class="control-panel">
+            <h3>高亮设置</h3>
+            <input type="color" id="highlightColor" value="#ff0000" onchange="updateHighlightColor()">
+        </div>
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
-        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
         const { ESObjectsManager } = window['EarthSDK3']
         const { ESCesiumViewer } = window['EarthSDK3_Cesium']
         const { ESUeViewer } = window['EarthSDK3_UE']
         const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
-        window.g_objm = objm;
         // 创建Cesium视口
         const viewer = objm.createCesiumViewer(document.getElementById("app"));
 
-        /** ---------------------------------创建ESWidget对象------------------------------------**/
+        /** --------------------------------创建ESWidget对象------------------------------------**/
         const eSWidget = objm.createSceneObject('ESWidget');
 
         /** ---------------------------------创建ES3DTileset对象------------------------------------**/
         const es3DTileset = objm.createSceneObject('ES3DTileset');
 
+        // 保存当前高亮的feature ID
+        let highlightedFeatureId = "85768ce3-2398-43f6-bfef-4f071d87ee93";
+        // 保存高亮颜色（RGBA格式）
+        let highlightColor = [1, 0, 0, 1]; // 默认红色
 
-        // 加载完成时，高亮一个Feature
+        // 将十六进制颜色转换为RGBA数组 [r, g, b, a]
+        function hexToRgba(hex) {
+            hex = hex.replace('#', '');
+            const r = parseInt(hex.substring(0, 2), 16) / 255;
+            const g = parseInt(hex.substring(2, 4), 16) / 255;
+            const b = parseInt(hex.substring(4, 6), 16) / 255;
+            return [r, g, b, 1];
+        }
+
+        // 更新高亮颜色
+        function updateHighlightColor() {
+            const colorPicker = document.getElementById('highlightColor');
+            highlightColor = hexToRgba(colorPicker.value);
+            // 如果当前有高亮的feature，重新应用样式
+            if (highlightedFeatureId) {
+                applyHighlightStyle();
+            }
+        }
+
+        // 应用高亮样式
+        function applyHighlightStyle() {
+            if (!highlightedFeatureId) {
+                // 如果没有高亮的feature，清除所有样式
+                es3DTileset.resetFeatureStyle();
+                return;
+            }
+
+            const styles = [{
+                condition: {
+                    field: "id",
+                    op: "==",
+                    value: highlightedFeatureId
+                },
+                color: highlightColor
+            }];
+
+            es3DTileset.setFeatureStyle(styles);
+        }
+
+        // 加载完成时
         es3DTileset.tilesetReady.don(() => {
             es3DTileset.flyTo();
-            es3DTileset.setFeatureColor("id", [{
-                value: "85768ce3-2398-43f6-bfef-4f071d87ee93",
-                rgba: [1, 0, 0, 1],
-            }]);
         })
         // url服务地址
         es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
-
 
         /** ---------------------------------监听视口创建完成事件------------------------------------**/
         objm.viewerCreatedEvent.don((viewer) => {
@@ -94,6 +161,9 @@
                     console.log("拾取属性信息", res)
                     // 判断是否拾取到信息
                     if (!res || !res.tilesetPickInfo) {
+                        // 清除高亮
+                        highlightedFeatureId = null;
+                        es3DTileset.resetFeatureStyle();
                         eSWidget.info = { "title": "基本信息" }
                         eSWidget.show = false
                         return;
@@ -102,12 +172,12 @@
                     const tilesetPickInfo = res.tilesetPickInfo
                     // featureId
                     const id = tilesetPickInfo['id'];
-                    // 高亮Feature
-                    es3DTileset.resetFeatureStyle()
-                    es3DTileset.setFeatureColor("id", [{
-                        value: id,
-                        rgba: [1, 0, 0, 1],
-                    }]);
+
+                    // 更新高亮的feature
+                    highlightedFeatureId = id;
+
+                    // 应用高亮样式
+                    applyHighlightStyle();
 
                     const data = {
                         title: "基本信息",
@@ -124,10 +194,8 @@
             id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
             type: "ESImageryLayer",
             url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-            "maximumLevel":16
+            "maximumLevel": 16
         });
-
-
     </script>
     <!-- 切换UE和Cesium引擎的组件（Vue） -->
     <div id="root">

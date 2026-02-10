@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css" />
+    <title>拾取对象pick</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box {
+            /* height: 100px; */
+            text-align: center;
+        }
+
+        #box>p {
+            text-align: left;
+        }
+
+        #box>p:nth-child(1)>span {
+            color: sandybrown;
+        }
+
+        #panel {
+            width: 457px !important;
+            max-height: 450px !important;
+            overflow-y: auto;
+        }
+
+        .control-panel {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-panel h3 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .control-item:last-child {
+            border-bottom: none;
+        }
+
+        .control-item label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-badge.visible {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .status-badge.hidden {
+            background-color: rgba(158, 158, 158, 0.2);
+            color: #9e9e9e;
+        }
+
+        .status-badge.highlighted {
+            background-color: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .highlight-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #f44336;
+            margin-left: 4px;
+        }
+
+        .status-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 500;
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        .highlight-badge .highlight-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #f44336;
+            animation: pulse 2s infinite;
+        }
+
+        .current-highlight {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 3px solid #f44336;
+            border-radius: 3px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .current-highlight.empty {
+            background-color: rgba(158, 158, 158, 0.1);
+            border-left-color: #9e9e9e;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .feature-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+       
+        <div class="control-panel">
+            <h3>显隐控制</h3>
+            <div class="control-item" id="control-item-5fcc3a2a-209a-48a1-b542-60382a5ae686">
+                <label for="toggleFeature2">
+                    <span class="feature-name">Feature 1 (5fcc3a2a...)</span>
+                    <span class="status-group">
+                        <span class="status-badge hidden" id="status-5fcc3a2a-209a-48a1-b542-60382a5ae686">隐藏</span>
+                        <span class="highlight-badge" id="highlight-5fcc3a2a-209a-48a1-b542-60382a5ae686" style="display: none;">
+                            <span class="highlight-dot"></span>高亮
+                        </span>
+                    </span>
+                </label>
+                <input type="checkbox" id="toggleFeature2" onchange="toggleFeatureVisibility('5fcc3a2a-209a-48a1-b542-60382a5ae686', this.checked)" />
+            </div>
+            <div class="control-item" id="control-item-f6b1c5bb-13d4-47b1-8762-f5d6e0308eef">
+                <label for="toggleFeature2">
+                    <span class="feature-name">Feature 2 (f6b1c5bb...)</span>
+                    <span class="status-group">
+                        <span class="status-badge hidden" id="status-f6b1c5bb-13d4-47b1-8762-f5d6e0308eef">隐藏</span>
+                        <span class="highlight-badge" id="highlight-f6b1c5bb-13d4-47b1-8762-f5d6e0308eef" style="display: none;">
+                            <span class="highlight-dot"></span>高亮
+                        </span>
+                    </span>
+                </label>
+                <input type="checkbox" id="toggleFeature2" onchange="toggleFeatureVisibility('f6b1c5bb-13d4-47b1-8762-f5d6e0308eef', this.checked)" />
+            </div>
+            <h3>高亮拾取</h3>
+            
+            <div class="current-highlight empty" id="current-highlight">
+                当前高亮：无
+            </div>
+            <div id="box">
+                <p><span>提示：</span>点击拾取高亮并查看信息</p>
+                <p id="a"></p>
+                <p id="b"></p>
+                <p id="c"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+
+        /** ---------------------------------创建ESWidget对象------------------------------------**/
+        const eSWidget = objm.createSceneObject('ESWidget');
+
+        /** ---------------------------------创建ES3DTileset对象------------------------------------**/
+        const es3DTileset = objm.createSceneObject('ES3DTileset');
+
+        // 保存需要控制的feature ID列表
+        const controlledFeatureIds = [
+            "5fcc3a2a-209a-48a1-b542-60382a5ae686",
+            "f6b1c5bb-13d4-47b1-8762-f5d6e0308eef"
+        ];
+
+        // 保存每个feature的显隐状态（true=显示，false=隐藏）
+        const featureVisibilityState = {
+            "5fcc3a2a-209a-48a1-b542-60382a5ae686": false,
+            "f6b1c5bb-13d4-47b1-8762-f5d6e0308eef":false  // 初始隐藏
+        };
+
+        // 保存当前高亮的feature ID
+        let highlightedFeatureId = null;
+
+        // 更新UI状态显示
+        function updateUIStatus() {
+            controlledFeatureIds.forEach(featureId => {
+                const statusBadge = document.getElementById(`status-${featureId}`);
+                const highlightBadge = document.getElementById(`highlight-${featureId}`);
+                
+                // 更新显隐状态徽章（独立显示）
+                if (statusBadge) {
+                    const isVisible = featureVisibilityState[featureId];
+                    statusBadge.className = 'status-badge';
+                    if (isVisible) {
+                        statusBadge.className += ' visible';
+                        statusBadge.textContent = '显示';
+                    } else {
+                        statusBadge.className += ' hidden';
+                        statusBadge.textContent = '隐藏';
+                    }
+                }
+                
+                // 更新高亮状态徽章（独立显示）
+                if (highlightBadge) {
+                    const isHighlighted = highlightedFeatureId === featureId;
+                    highlightBadge.style.display = isHighlighted ? 'inline-flex' : 'none';
+                }
+            });
+            
+            // 更新当前高亮显示
+            const currentHighlightEl = document.getElementById('current-highlight');
+            if (currentHighlightEl) {
+                if (highlightedFeatureId) {
+                    const isVisible = featureVisibilityState[highlightedFeatureId] !== false;
+                    const shortId = highlightedFeatureId.substring(0, 8) + '...';
+                    currentHighlightEl.className = 'current-highlight';
+                    currentHighlightEl.innerHTML = `当前高亮：${shortId} ${isVisible ? '<span class="highlight-indicator"></span>' : '<span style="color: #9e9e9e;">(已隐藏)</span>'}`;
+                } else {
+                    currentHighlightEl.className = 'current-highlight empty';
+                    currentHighlightEl.textContent = '当前高亮：无';
+                }
+            }
+        }
+
+        // 应用显隐样式（只处理显隐，不影响高亮）
+        function applyVisibilityStyles() {
+            const styles = controlledFeatureIds.map(featureId => ({
+                condition: [
+                    {
+                        field: "id",
+                        op: "==",
+                        value: featureId,
+                    },
+                ],
+                show: featureVisibilityState[featureId]
+            }));
+
+            // 合并高亮样式
+            applyAllStyles(styles);
+        }
+
+        // 应用高亮样式（只处理高亮，不影响显隐）
+        function applyHighlightStyles() {
+            // 先获取当前的显隐样式
+            const visibilityStyles = controlledFeatureIds.map(featureId => ({
+                condition: [
+                    {
+                        field: "id",
+                        op: "==",
+                        value: featureId,
+                    },
+                ],
+                show: featureVisibilityState[featureId]
+            }));
+
+            // 合并高亮样式
+            applyAllStyles(visibilityStyles);
+        }
+
+        // 合并显隐和高亮样式并应用
+        function applyAllStyles(baseStyles) {
+            const styles = [...baseStyles];
+
+            // 如果有高亮的feature，添加高亮样式（不管显隐状态）
+            if (highlightedFeatureId) {
+                const highlightIndex = styles.findIndex(style => 
+                    style.condition[0].value === highlightedFeatureId
+                );
+                if (highlightIndex >= 0) {
+                    // 如果已存在该feature的样式规则，添加高亮颜色
+                    styles[highlightIndex].color = [1, 0, 0, 1];
+                } else {
+                    // 如果不存在，添加新的高亮规则（不设置show，保持默认显示）
+                    styles.push({
+                        condition: [
+                            {
+                                field: "id",
+                                op: "==",
+                                value: highlightedFeatureId
+                            },
+                        ],
+                        color: [1, 0, 0, 1]
+                    });
+                }
+            }
+
+            es3DTileset.setFeatureStyle(styles);
+            updateUIStatus(); // 更新UI状态显示
+        }
+
+        // 切换feature显隐状态（只影响显隐，不影响高亮）
+        window.toggleFeatureVisibility = function(featureId, isVisible) {
+            featureVisibilityState[featureId] = isVisible;
+            applyVisibilityStyles(); // 只应用显隐样式，高亮状态保持不变
+        };
+
+        // 加载完成时，应用初始样式
+        es3DTileset.tilesetReady.don(() => {
+            es3DTileset.flyTo();
+            applyVisibilityStyles(); // 应用初始显隐样式
+            // 初始化UI状态
+            updateUIStatus();
+        })
+        // url服务地址
+        es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
+
+        let oldID = "d8504ce5-a956-437c-bd09-1e9c52539eff"
+
+
+        /** ---------------------------------监听视口创建完成事件------------------------------------**/
+        objm.viewerCreatedEvent.don((viewer) => {
+            // 监听clickEvent鼠标事件
+            viewer.clickEvent.don((e) => {
+                // pickPosition拾取经纬度
+                viewer.pickPosition(e.screenPosition).then((position) => {
+                    if (!position || !position.length) return;
+                    eSWidget.position = [...position];
+                });
+                // pick拾取
+                viewer.pick(e.screenPosition, "customPick").then((res) => {
+                    console.log("拾取属性信息", res)
+                    // 判断是否拾取到信息
+                    if (!res || !res.tilesetPickInfo) {
+                        eSWidget.info = { "title": "基本信息" }
+                        eSWidget.show = false
+                        return;
+                    }
+                    // tilset属性信息
+                    const tilesetPickInfo = res.tilesetPickInfo
+                    // featureId
+                    const id = tilesetPickInfo['id'];
+
+                    // 更新高亮的feature（只影响高亮，不影响显隐）
+                    highlightedFeatureId = id;
+                    
+                    // 只应用高亮样式，显隐状态保持不变
+                    applyHighlightStyles();
+                    oldID = id;
+
+                    const data = {
+                        title: "基本信息",
+                        ...tilesetPickInfo
+                    }
+                    eSWidget.info = data
+                    eSWidget.show = true
+                });
+            });
+        });
+
+        /** ---------------------------------通过json创建一个影像图层------------------------------------**/
+        const imageryLayer = objm.createSceneObjectFromJson({
+            id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            type: "ESImageryLayer",
+            url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 16
+        });
+
+
+    </script>
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

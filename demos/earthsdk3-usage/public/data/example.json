@@ -555,9 +555,14 @@
                         "path": "tile/style/technology"
                     },
                     {
-                        "name": "属性拾取",
+                        "name": "属性拾取(单纯高亮)",
                         "thumbnail": "tile-property-highlight.webp",
                         "path": "tile/property/highlight"
+                    },
+                    {
+                        "name": "属性拾取（高亮+显隐控制）",
+                        "thumbnail": "tile-property-highlight2.webp",
+                        "path": "tile/property/highlight2"
                     },
                     {
                         "name": "feature等值条件着色",

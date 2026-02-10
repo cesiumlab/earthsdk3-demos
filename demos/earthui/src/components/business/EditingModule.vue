@@ -2,6 +2,7 @@
 import { $g_objm } from '@/global';
 import { ESJEditingMode, ESVisualObject, SceneTree } from 'earthsdk3';
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue';
+import { ElTooltip } from 'element-plus';
 
 /** 编辑项类型定义 */
 interface EditingItem {
@@ -113,12 +114,6 @@ const enditingList = ref<EditingItem[]>([
 /** 当前激活的编辑模式 */
 const currentMode = ref<ESJEditingMode | ''>('');
 
-/** 鼠标悬停的按钮索引 */
-const hoverIndex = ref(-1);
-
-/** 每行显示的按钮数量 */
-const ITEMS_PER_ROW = 8;
-
 /** 计算属性：只返回当前支持的编辑模式 */
 const supportedEditingList = computed(() => {
   return enditingList.value.filter(item => item.allowEditing);
@@ -205,16 +200,6 @@ const changeCurrentMode = (item: EditingItem) => {
   }
 };
 
-/**
- * 判断是否显示分隔线
- * @param index - 按钮索引
- * @returns 是否显示分隔线
- */
-const shouldShowBorder = computed(() => (index: number) => {
-  // 每行最后一个按钮不显示分隔线
-  return (index + 1) % ITEMS_PER_ROW !== 0;
-});
-
 /** 组件挂载时初始化 */
 onMounted(() => {
   // 注册编辑结束事件
@@ -292,12 +277,13 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <div class="table">
-    <template v-if="supportedEditingList.length > 0">
-      <div class="cell" v-for="(item, index) in supportedEditingList" :key="item.type" :title="item.name"
-        @click="changeCurrentMode(item)" @mouseenter="hoverIndex = index" @mouseleave="hoverIndex = -1">
-        <es-icon :name="item.icon" />
-      </div>
+  <div class="table" :key="supportedEditingList.length">
+    <template v-if="supportedEditingList.length > 0" v-for="(item) in supportedEditingList">
+      <el-tooltip :content="item.name" placement="top" effect="light">
+        <div class="cell" :title="item.name" @click="changeCurrentMode(item)">
+          <es-icon :name="item.icon" />
+        </div>
+      </el-tooltip>
     </template>
     <div v-else class="empty-tip">请选择可编辑的图层</div>
   </div>

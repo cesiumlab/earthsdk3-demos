@@ -570,9 +570,14 @@
                         "path": "tile/style/setFeatureStyle"
                     },
                     {
-                        "name": "属性拾取 setFeatureStyle",
+                        "name": "高亮属性拾取 setFeatureStyle",
                         "thumbnail": "tile-style-property.webp",
                         "path": "tile/style/property"
+                    },
+                    {
+                        "name": "样式叠加+高亮属性拾取 setFeatureStyle",
+                        "thumbnail": "tile-style-setFeatureStyle2.webp",
+                        "path": "tile/style/setFeatureStyle2"
                     },
                     {
                         "name": "style样式（Cesium原生插件支持方式）",

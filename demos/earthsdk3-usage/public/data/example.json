@@ -566,18 +566,18 @@
                     },
                    
                     {
-                        "name": "高亮+显隐 setFeatureStyle",
+                        "name": "高亮+显隐 setFeatureStyle + 属性拾取",
                         "thumbnail": "tile-property-highlight2.webp",
                         "path": "tile/property/highlight2"
                     },
                     
                     {
                         "name": "根据id高亮（仅支持id，其他字段建议使用setFeatureStyle）",
-                        "thumbnail": "tile-style-highlight.webp",
-                        "path": "tile/property/highlight"
+                        "thumbnail": "tile-property-highlight.webp",
+                        "path": "tile/style/highlight"
                     },
                     {
-                        "name": "style样式",
+                        "name": "style样式（Cesium原生插件支持方式）",
                         "thumbnail": "tile-style-style.webp",
                         "path": "tile/style/style"
                     }

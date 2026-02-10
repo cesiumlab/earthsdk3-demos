@@ -767,7 +767,7 @@
                         "thumbnail": "earth-init-json2.webp",
                         "path": "earth/init/json2"
                     },{
-                        "name": "多边形体",
+                        "name": "多边形体（挤压多边形）",
                         "thumbnail": "plot-vector-extrudedPolygon.webp",
                         "path": "plot/vector/extrudedPolygon"
                     }

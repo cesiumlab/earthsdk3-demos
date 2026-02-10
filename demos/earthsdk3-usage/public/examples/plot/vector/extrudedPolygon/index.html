@@ -26,9 +26,18 @@
     <div id="panel">
         <p>几何体</p>
         <div class="panel-text">
-            <span>高度</span>
+            <span>底部高度</span>
             <input id="heightInput" type="number" min="0" max="500" step="5" value="80"
                 oninput="updateHeight(this.value)" />
+        </div>
+        <div class="panel-text">
+            <span>顶部高度</span>
+            <input id="extrudedHeightInput" type="number" min="0" max="500" step="5" value="200"
+                oninput="updateExtrudedHeight(this.value)" />
+        </div>
+        <div class="panel-text">
+            <span>每个位置高度</span>
+            <input id="perPositionHeight" type="checkbox" onchange="togglePerPositionHeight(this.checked)" />
         </div>
 
         <hr />
@@ -112,13 +121,13 @@
                 ],
                 "material": "",
                 "materialParams": {},
-                "ground": true
+                "ground": false
             },
             "points": [
                 [
                     107.83757911721322,
                     28.282169541694408,
-                    -0.005919003790147022
+                    6.005919003790147022
                 ],
                 [
                     107.83936175492137,
@@ -136,7 +145,9 @@
                     -0.0037578801203005927
                 ]
             ],
-            "height": 80
+            "height": 80,//地面高度
+            "extrudedHeight": 200,//顶部高度
+            "perPositionHeight":false//是否应用每个位置高度
         })
 
         // 将十六进制颜色转换为 ES 需要的 [r, g, b, a]（0-1）
@@ -151,12 +162,26 @@
             return [r, g, b, a];
         }
 
-        // 高度
+        // 底部高度
         function updateHeight(v) {
             if (!sceneObject) return;
             const num = Number(v);
             if (!isFinite(num)) return;
             sceneObject.height = num;
+        }
+
+        // 顶部高度
+        function updateExtrudedHeight(v) {
+            if (!sceneObject) return;
+            const num = Number(v);
+            if (!isFinite(num)) return;
+            sceneObject.extrudedHeight = num;
+        }
+
+        // 每个位置高度
+        function togglePerPositionHeight(enabled) {
+            if (!sceneObject) return;
+            sceneObject.perPositionHeight = !!enabled;
         }
 
         // 线开启/关闭

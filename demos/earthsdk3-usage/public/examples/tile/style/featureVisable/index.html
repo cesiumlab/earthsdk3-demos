@@ -8,8 +8,9 @@
     <script src="./js/earthsdk.js"></script>
     <!-- 自定义Css样式 -->
     <link rel="stylesheet" href="./css/example1.css" />
+    <script src="./js/Colorpicker.js"></script>
 
-    <title>feature区间条件着色</title>
+    <title>显隐控制</title>
     <style>
         html,
         body,
@@ -25,10 +26,8 @@
 <body>
     <div id="app"></div>
     <div id="panel">
-        <button onclick="setFeatureColor()">样式着色</button>
-        <button onclick="resetFeatureStyle()">恢复原始</button>
-    </div>
-
+        <button onclick="setFeatureStyle()">屋顶隐藏</button>
+        <button onclick="resetFeatureStyle()">屋顶显示</button>
     </div>
     <script>
         /** ---------------------------------地球创建------------------------------------**/
@@ -46,46 +45,84 @@
         const imageryLayer = objm.createSceneObjectFromJson({
             id: "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
             type: "ESImageryLayer",
-            maximumLevel: 18,
             url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            "maximumLevel": 16
         });
 
         // 创建ES3DTileset对象
         const es3DTileset = objm.createSceneObject('ES3DTileset');
         // url服务地址
-        es3DTileset.url = "https://www.earthsdk.com/assets/tileset/pipe/tileset.json";
+        es3DTileset.url = "https://www.earthsdk.com/assets/tileset/school/tileset.json";
         // 加载完成
         es3DTileset.tilesetReady.don((tileset) => {
             es3DTileset.flyTo();
         })
+        window.es3DTileset = es3DTileset;
 
-        // 区间设置颜色
-        function setFeatureColor() {
-            // 恢复默认样式
-            es3DTileset.resetFeatureStyle();
-            // 设置着色【区间设置需要类型为（数值类型number）】
-            es3DTileset.setFeatureColor(
-                "iid",
-                [
+       
+
+        
+        // 屋顶隐藏
+        function setFeatureStyle() {
+             /**
+         * 使用示例
+         *   [
+                {
+                    condition: [
                     {
-                        minValue: 3054,
-                        maxValue: 3300,
-                        rgba: [1, 0, 0, 1],
+                        field: "id",
+                        op: "!=",
+                        value: "ss"
                     },
                     {
-                        minValue: 3300,
-                        maxValue: 3600,
-                        rgba: [1, 1, 0, 1],
+                        field: "name",
+                        op: "contain",
+                        value: "杨"
+                    }
+                    ],
+                    color: [1, 0, 0, 1],
+                    show: true
+                },
+                {
+                    condition: {
+                    field: "height",
+                    op: "==",
+                    value: 20
                     },
-                ]
-            );
-        }
+                    color: [1, 1, 0, 1],
+                    show: false
+                }
+            ]
+         * 
+         * 
+        */
+            es3DTileset.setFeatureStyle([
+                {
+                    condition: {
+                        field: "id",
+                        op: "==",
+                        value: "f6b1c5bb-13d4-47b1-8762-f5d6e0308eef",
+                    },
+                    show: false
+                },
+                {
+                    condition: {
+                        field: "id",
+                        op: "==",
+                        value: "5fcc3a2a-209a-48a1-b542-60382a5ae686",
+                    },
+                    show: false
+                }
+            ])
+
+            
+
+        };
 
         // 恢复原始
         function resetFeatureStyle() {
             es3DTileset.resetFeatureStyle();
         }
-
 
     </script>
 

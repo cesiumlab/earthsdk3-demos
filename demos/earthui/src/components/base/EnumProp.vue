@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { vClickOutside } from 'earthsdk-ui';
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { off, on, throttle } from './base/util';
+import { off, on, throttle } from './util';
 
 const props = withDefaults(
   defineProps<{

@@ -1,30 +1,15 @@
 <template>
   <div class="newTime">
     <div class="newTime_left"></div>
-    <div
-      class="newTime_right"
-      @wheel="wheel"
-      @pointerdown="pointerdown"
-      @pointerup="pointerup"
-      @pointermove="pointermove"
-      @pointerover="pointerover"
-      @pointerout="pointerout"
-    >
+    <div class="newTime_right" @wheel="wheel" @pointerdown="pointerdown" @pointerup="pointerup"
+      @pointermove="pointermove" @pointerover="pointerover" @pointerout="pointerout">
       <!-- 线部分 -->
       <div class="newTime_right_topline">
         <div class="newTime_right_topline_edit"></div>
         <div class="newTime_timelist_line">
-          <div
-            v-for="(item, index) in playerScaleList"
-            :style="{ width: `${(1 / 12) * 100}%` }"
-            class="scale_bigItem"
-          >
-            <div
-              v-for="ite in playerScaleListItem"
-              :style="{ width: `${(1 / 10) * 100}%` }"
-              :key="ite.id"
-              class="scale_item"
-            ></div>
+          <div v-for="(item, index) in playerScaleList" :style="{ width: `${(1 / 12) * 100}%` }" class="scale_bigItem">
+            <div v-for="ite in playerScaleListItem" :style="{ width: `${(1 / 10) * 100}%` }" :key="ite.id"
+              class="scale_item"></div>
             <span v-if="index % 2 === 0 && index !== 0" class="scale_number">{{
               timestampToTime(item.value, true)
             }}</span>
@@ -35,18 +20,12 @@
       <div class="newTime_right_bottomlist">
         <div class="newTime_right_bottomlist_info"></div>
         <div class="newTime_timelist_channels">
-          <div
-            class="newTime_currenttime"
-            name="currentTime"
-            :style="{
-              left: `calc( ${((currentTime - playerStarttimeAxis) / totaltimeAxis) * 100}% - 1px )`
-            }"
-          ></div>
+          <div class="newTime_currenttime" name="currentTime" :style="{
+            left: `calc( ${((currentTime - playerStarttimeAxis) / totaltimeAxis) * 100}% - 1px )`
+          }"></div>
         </div>
       </div>
-      <div
-        v-show="textInfo.show"
-        style="
+      <div v-show="textInfo.show" style="
           pointer-events: none;
           font-size: 12px;
           background: rgba(0, 0, 0, 0.8);
@@ -54,13 +33,11 @@
           padding: 3px 5px 3px 5px;
           border-radius: 3px;
           white-space: nowrap;
-        "
-        :style="{
+        " :style="{
           position: 'absolute',
           left: `${textInfo.x}px`,
           top: `${textInfo.y}px`
-        }"
-      >
+        }">
         {{ textInfo.text }}
       </div>
     </div>
@@ -70,7 +47,7 @@
 import { ref, inject, computed, onBeforeUnmount, reactive, watch } from 'vue'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { XbsjEarthUi } from '../../../../scripts/xbsjEarthUi'
-import { timestampToTime } from '../../../../components/eSPropPanel/propertiesMenu/basicProprties/tool'
+import { timestampToTime } from '@/utils'
 import { Dragger, CurrentTimeLineDragger } from './playerEditorTools'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount)
@@ -145,10 +122,10 @@ const pointerdown = (event: PointerEvent) => {
     currentDragger = new CurrentTimeLineDragger(event, currentTime)
   }
 }
-const pointerup = (event: PointerEvent) => {}
-const pointermove = (event: PointerEvent) => {}
-const pointerover = (event: PointerEvent) => {}
-const pointerout = () => {}
+const pointerup = (event: PointerEvent) => { }
+const pointermove = (event: PointerEvent) => { }
+const pointerover = (event: PointerEvent) => { }
+const pointerout = () => { }
 let currentDragger: Dragger | undefined = undefined
 
 const resetCurrentDragger = () => {
@@ -270,7 +247,7 @@ function getUuid() {
   box-sizing: border-box;
 }
 
-.scale_bigItem > .scale_item:nth-child(1) {
+.scale_bigItem>.scale_item:nth-child(1) {
   border: none !important;
 }
 

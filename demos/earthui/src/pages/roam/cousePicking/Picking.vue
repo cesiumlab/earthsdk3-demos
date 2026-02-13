@@ -19,7 +19,7 @@
 import { watch, ref } from 'vue'
 import { ESColor } from 'earthsdk-ui'
 import PopList from '../../../components/PopList.vue'
-import ToggleSwitch from '../../../components/eSPropPanel/propertiesMenu/commons/base/InputCheckBox.vue'
+import ToggleSwitch from '@/components/base/InputCheckBox.vue'
 
 const props = withDefaults(
   defineProps<{

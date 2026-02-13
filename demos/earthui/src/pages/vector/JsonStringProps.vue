@@ -19,7 +19,7 @@ import { downloadJson } from '@/utils'
 import { ESEditor, getOpenFileHandle, getTextFromFile } from 'earthsdk-ui'
 import { ElMessage } from 'element-plus'
 import { ref, useTemplateRef } from 'vue'
-import Window from '../../components/commom/Window.vue'
+import Window from '../../components/base/Window.vue'
 const editorContainer = useTemplateRef('editorContainer')
 const props = withDefaults(
   defineProps<{

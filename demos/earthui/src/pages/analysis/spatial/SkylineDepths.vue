@@ -1,18 +1,11 @@
 <template>
-  <DraggablePopup2
-    :title="`二维天际线`"
-    :width="450"
-    :height="'340px'"
-    :left="1050"
-    :top="400"
-    @close="changeCancel"
-    :showButton="false"
-  >
+  <DraggablePopup2 :title="`二维天际线`" :width="450" :height="'340px'" :left="1050" :top="400" @close="changeCancel"
+    :showButton="false">
     <div class="echart" ref="echart"></div>
   </DraggablePopup2>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive, defineProps, watch, inject } from 'vue'
+import { onMounted, ref, reactive, watch, inject } from 'vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import DraggablePopup2 from '../../../components/DraggablePopup2.vue'
 import * as echarts from 'echarts'
@@ -85,7 +78,7 @@ const init = () => {
       // @ts-ignore
       return (1 - item[1] / xbsjEarthUi.activeViewer.container.offsetHeight).toFixed(6)
     })
-  } catch (error) {}
+  } catch (error) { }
   // @ts-ignore
   myChart.value.setOption(option)
 }

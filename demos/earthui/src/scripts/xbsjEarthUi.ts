@@ -1,6 +1,5 @@
 import { InitSceneConfigType } from '@/global/types'
-import { ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
-import { SceneObjectsCreatorUI } from '../scripts/sceneObjects/SceneObjectsCreatorUI'
+import { createEventsCallFunc, ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
 import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
@@ -44,6 +43,7 @@ export class XbsjEarthUi extends ESObjectsManager {
   get propSceneTreeChanged() {
     return this._propSceneTree.changed
   }
+  _propSceneTreeDon = this.d(createEventsCallFunc(this._propSceneTree.toDestroyEvent, () => { this._propSceneTree.value = undefined }))
 
   private _propSceneTreeItem = this.dv(react<SceneTreeItem | undefined>(undefined)) //属性对象
   get propSceneTreeItem() {
@@ -166,16 +166,6 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._cesiumLabToken.changed
   }
 
-  private _sceneObjectCreatorUI = (() => {
-    const o = this.createSceneObject(SceneObjectsCreatorUI)
-    if (!o) throw new Error(`SceneObjectsCreatorUI error!`)
-    this.dispose(() => this.destroySceneObject(o))
-    return o
-  })()
-  getSceneObjectType() {
-    return this._sceneObjectCreatorUI.getTypeName()
-  }
-
   constructor(initConfig: InitSceneConfigType, viewers: any[]) {
     super(...viewers)
     // 初始化配置
@@ -196,6 +186,13 @@ export class XbsjEarthUi extends ESObjectsManager {
           this.activeViewerType = this.activeViewer.typeName;
         })
       )
+    }
+
+    {
+      //节点被销毁时 销毁
+      this.d(this._propSceneTree.toDestroyEvent.don(() => {
+        this._propSceneTree.value = undefined
+      }))
     }
   }
 }

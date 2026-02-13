@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch, ref, onMounted } from 'vue'
-import EnumProp from '../components/eSPropPanel/propertiesMenu/commons/EnumProp.vue'
+import EnumProp from '../components/base/EnumProp.vue'
 
 interface Props {
   label?: string
@@ -26,13 +26,8 @@ onMounted(() => {
   <div class="label_enum">
     <label class="label" for="" :title="label">{{ label }}</label>
     <div class="enum">
-      <EnumProp
-        :withUndefined="false"
-        :defaultValue="undefined"
-        :changeVisibleclick="changeVisibleclick"
-        :enumStrsList="materialIdList"
-        v-model="newValue"
-      >
+      <EnumProp :withUndefined="false" :defaultValue="undefined" :changeVisibleclick="changeVisibleclick"
+        :enumStrsList="materialIdList" v-model="newValue">
       </EnumProp>
     </div>
   </div>
@@ -50,7 +45,7 @@ onMounted(() => {
   margin-top: 10px;
 }
 
-.label_enum > .label {
+.label_enum>.label {
   display: inline-block;
   width: 60px;
   height: 26px;
@@ -64,7 +59,7 @@ onMounted(() => {
   font-size: 12px;
 }
 
-.label_enum > .enum {
+.label_enum>.enum {
   flex: 1;
   height: 26px;
   box-sizing: border-box;

@@ -4,7 +4,7 @@ import { setEnvironmentVariable } from 'earthsdk-ui'
 import { ESSceneObject, ESViewer } from 'earthsdk3'
 import JsonStringProps from './JsonStringProps.vue'
 import PullMenu from './PullMenu.vue'
-import Window from '../../components/commom/Window.vue'
+import Window from '../../components/base/Window.vue'
 import MarkdownReader from './MarkdownReader.vue'
 import ConvertEnvironment from './ConvertEnvironment.vue'
 import RightList from '../../components/RightList.vue'
@@ -156,58 +156,25 @@ const convertEnvironment = ref(false)
 </script>
 <template>
   <RightList :title="'帮助'">
-    <Button
-      :name="'bangzhuliebiao'"
-      :content="'帮助列表'"
-      :actived="pullMenuIsShow"
-      :click="
-        () => {
-          pullMenuIsShow = !pullMenuIsShow
-        }
-      "
-      :left-button="true"
-    ></Button>
-    <PullMenu
-      v-show="pullMenuIsShow"
-      :menuList="baseItemsHelp"
-      @funClick="pullMenuIsShow = undefined"
-    >
+    <Button :name="'bangzhuliebiao'" :content="'帮助列表'" :actived="pullMenuIsShow" :click="() => {
+        pullMenuIsShow = !pullMenuIsShow
+      }
+      " :left-button="true"></Button>
+    <PullMenu v-show="pullMenuIsShow" :menuList="baseItemsHelp" @funClick="pullMenuIsShow = undefined">
     </PullMenu>
   </RightList>
 
-  <JsonStringProps
-    :jsonStr="jsonStr"
-    :isShow="jsonStrShow"
-    @changeShow="changeShow"
-    @getJsonStr="setJson"
-  >
-  </JsonStringProps
-  ><!--当前项目配置信息-->
-  <JsonStringProps
-    :jsonStr="localEnvironment"
-    :isShow="showEnvironment"
-    :sampleValue="envSampleValue"
-    @getJsonStr="setEnvironment"
-    @changeShow="changeEnvironment"
-  >
-  </JsonStringProps
-  ><!--本地环境变量管理-->
-  <Window
-    :title="markdownTitle"
-    :show="!!aboutInfo"
-    :only-button="true"
-    @ok="offMarkdown"
-    :ok-text="'关闭'"
-    :width="800"
-    :height="500"
-  >
+  <JsonStringProps :jsonStr="jsonStr" :isShow="jsonStrShow" @changeShow="changeShow" @getJsonStr="setJson">
+  </JsonStringProps><!--当前项目配置信息-->
+  <JsonStringProps :jsonStr="localEnvironment" :isShow="showEnvironment" :sampleValue="envSampleValue"
+    @getJsonStr="setEnvironment" @changeShow="changeEnvironment">
+  </JsonStringProps><!--本地环境变量管理-->
+  <Window :title="markdownTitle" :show="!!aboutInfo" :only-button="true" @ok="offMarkdown" :ok-text="'关闭'" :width="800"
+    :height="500">
     <div style="margin: 20px; height: calc(100% - 40px); overflow: auto">
       <MarkdownReader :is-Json="isJson" :markdown-str="aboutInfo"></MarkdownReader>
     </div>
   </Window>
-  <ConvertEnvironment
-    v-if="convertEnvironment"
-    @close="convertEnvironment = false"
-  ></ConvertEnvironment>
+  <ConvertEnvironment v-if="convertEnvironment" @close="convertEnvironment = false"></ConvertEnvironment>
 </template>
 <style></style>

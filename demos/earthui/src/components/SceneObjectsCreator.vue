@@ -1,42 +1,22 @@
 <template>
-  <Window
-    :title="'选择创建节点类型'"
-    :show="props.show"
-    :isFocus="false"
-    @keydown.up="selectTypeUp"
-    @keydown.down="selectTypeDown"
-    @keydown.enter="selectTypeOk(undefined)"
-    @cancel="selectTypeCancel"
-    @ok="selectTypeOk(undefined)"
-    :width="850"
-    :height="550"
-  >
+  <Window :title="'选择创建节点类型'" :show="props.show" :isFocus="false" @keydown.up="selectTypeUp"
+    @keydown.down="selectTypeDown" @keydown.enter="selectTypeOk(undefined)" @cancel="selectTypeCancel"
+    @ok="selectTypeOk(undefined)" :width="850" :height="550">
     <div class="type_lists_search" style="display: flex">
       <input type="text" placeholder="关键字查询" v-model="searchKey" v-select />
     </div>
     <div class="history_search">
       <div class="history_box">
-        <div
-          v-for="item in storageLists.list"
-          :key="item.typeName"
-          @click="selectTypeOk(item.typeName)"
-          class="history_item"
-          :title="`${item.chsName}(${item.typeName})`"
-        >
+        <div v-for="item in storageLists.list" :key="item.typeName" @click="selectTypeOk(item.typeName)"
+          class="history_item" :title="`${item.chsName}(${item.typeName})`">
           <span class="history_chsName"> {{ item.chsName }}({{ item.typeName }})</span>
         </div>
       </div>
     </div>
     <div class="type_lists" ref="typeListsRef">
       <div v-for="(item, index) in typeLists" :key="index" class="type_lists_sceneObject">
-        <div
-          class="lists_sceneObject"
-          :title="item.description"
-          :class="selectIndex === index ? 'actived' : ''"
-          tabindex="1"
-          @click.stop="selectIndex = index"
-          @dblclick.stop="addOk(index)"
-        >
+        <div class="lists_sceneObject" :title="item.description" :class="selectIndex === index ? 'actived' : ''"
+          tabindex="1" @click.stop="selectIndex = index" @dblclick.stop="addOk(index)">
           <div class="type_lists_type">{{ item.chsName }}</div>
           <div class="type_lists_tags">({{ item.typeName }})</div>
           <div class="type_lists_tags">
@@ -55,7 +35,7 @@
 <script setup lang="ts">
 import { nextTick, reactive, ref, watch } from 'vue'
 import { ESSceneObject } from 'earthsdk3'
-import Window from '../components/commom/Window.vue'
+import Window from '../components/base/Window.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -269,12 +249,10 @@ watch(searchKey, searchForKey)
 }
 
 .height_light {
-  background: linear-gradient(
-    180deg,
-    rgba(87, 136, 255, 0) 0%,
-    rgba(87, 136, 255, 0.26) 100%,
-    #5788ff 100%
-  ) !important;
+  background: linear-gradient(180deg,
+      rgba(87, 136, 255, 0) 0%,
+      rgba(87, 136, 255, 0.26) 100%,
+      #5788ff 100%) !important;
   font-weight: 700;
 }
 
@@ -300,7 +278,7 @@ watch(searchKey, searchForKey)
   border-radius: 2px;
 }
 
-.type_lists_search > input {
+.type_lists_search>input {
   width: 100%;
   margin: 5px;
   height: 24px;

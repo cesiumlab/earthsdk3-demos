@@ -9,95 +9,44 @@
         <div class="control_rate_button" @click.stop="speed--">-</div>
         <div class="control_rate_content">×{{ speed }}</div>
         <div class="control_rate_button" @click.stop="speed++">+</div>
-        <span
-          class="control_rate_drag"
-          ref="controlRateDrag"
-          :style="`left:${rateDragLeft}px`"
-          @mousedown="onRateDragMouseDown"
-        ></span>
+        <span class="control_rate_drag" ref="controlRateDrag" :style="`left:${rateDragLeft}px`"
+          @mousedown="onRateDragMouseDown"></span>
       </div>
       <!-- 小按钮 -->
       <div class="control_buton">
         <!-- 时间线 -->
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 1"
-          @mouseleave="hoverHighLight = -1"
-          title="回到当前时间"
-          @click="beCurrentTime"
-        >
-          <es-icon
-            :name="'shijian_2'"
-            :color="hoverHighLight === 1 ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'"
-            :size="12"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 1" @mouseleave="hoverHighLight = -1"
+          title="回到当前时间" @click="beCurrentTime">
+          <es-icon :name="'shijian_2'"
+            :color="hoverHighLight === 1 ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'" :size="12" />
         </div>
         <!-- ab替换 -->
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 2"
-          @mouseleave="hoverHighLight = -1"
-          @click="abRangeChange"
-          title="开启循环"
-        >
-          <es-icon
-            :name="'AB_1'"
-            :color="
-              hoverHighLight === 2 || abRange ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
-            "
-            :size="12"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 2" @mouseleave="hoverHighLight = -1"
+          @click="abRangeChange" title="开启循环">
+          <es-icon :name="'AB_1'" :color="hoverHighLight === 2 || abRange ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
+            " :size="12" />
         </div>
         <!-- 循环 -->
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 3"
-          @mouseleave="hoverHighLight = -1"
-          @click="loopChange"
-          :class="{ 'disabled-element': !abRange }"
-        >
-          <es-icon
-            :name="'xunhuan_1'"
-            :color="
-              hoverHighLight === 3 || loop ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
-            "
-            :size="12"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 3" @mouseleave="hoverHighLight = -1"
+          @click="loopChange" :class="{ 'disabled-element': !abRange }">
+          <es-icon :name="'xunhuan_1'" :color="hoverHighLight === 3 || loop ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
+            " :size="12" />
         </div>
         <!-- 播放 -->
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 4"
-          @mouseleave="hoverHighLight = -1"
-          @click="playing = !playing"
-        >
-          <es-icon
-            :name="playing ? 'zanting_1' : 'bofang_1'"
-            :color="
-              hoverHighLight === 4 || playing ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
-            "
-            :size="12"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 4" @mouseleave="hoverHighLight = -1"
+          @click="playing = !playing">
+          <es-icon :name="playing ? 'zanting_1' : 'bofang_1'" :color="hoverHighLight === 4 || playing ? 'rgba(44, 104, 247, 1)' : 'rgba(216, 216, 216, 1)'
+            " :size="12" />
         </div>
       </div>
       <div class="control_buton">
         <!-- 同步光照时间 -->
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 5"
-          @mouseleave="hoverHighLight = -1"
-          title="同步光照时间"
-          @click="syncIllumination"
-        >
-          <es-icon
-            :name="'tongbu_weixuanzhong'"
-            :color="
-              hoverHighLight === 5 || xbsjEarthUi.activeViewer?.timeSync
-                ? 'rgba(44, 104, 247, 1)'
-                : 'rgba(216, 216, 216, 1)'
-            "
-            :size="14"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 5" @mouseleave="hoverHighLight = -1"
+          title="同步光照时间" @click="syncIllumination">
+          <es-icon :name="'tongbu_weixuanzhong'" :color="hoverHighLight === 5 || xbsjEarthUi.activeViewer?.timeSync
+            ? 'rgba(44, 104, 247, 1)'
+            : 'rgba(216, 216, 216, 1)'
+            " :size="14" />
         </div>
       </div>
     </div>
@@ -113,7 +62,7 @@ import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { ref, inject, onMounted, watch, onBeforeUnmount } from 'vue'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import PlayerTime from './timeline/PlayerTime.vue'
-import { timestampToTime } from '../../../components/eSPropPanel/propertiesMenu/basicProprties/tool'
+import { timestampToTime } from '@/utils'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const d = createVueDisposer(onBeforeUnmount)
 const time = ref<HTMLElement>() //dom元素

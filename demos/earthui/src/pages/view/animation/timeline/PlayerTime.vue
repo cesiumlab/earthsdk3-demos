@@ -4,58 +4,27 @@
     <div class="player_barbox_top">
       <!-- 添加删除按钮 -->
       <div class="control_list_button">
-        <div
-          class="control_buton_item"
-          @mouseenter="hoverHighLight = 1"
-          @mouseleave="hoverHighLight = -1"
-          @click="addChannel"
-          title="添加"
-        >
-          <es-icon
-            :name="'tianjia_2'"
-            :color="hoverHighLight === 1 ? 'rgba(44, 104, 247, 1)' : '#fff'"
-            :size="12"
-          />
+        <div class="control_buton_item" @mouseenter="hoverHighLight = 1" @mouseleave="hoverHighLight = -1"
+          @click="addChannel" title="添加">
+          <es-icon :name="'tianjia_2'" :color="hoverHighLight === 1 ? 'rgba(44, 104, 247, 1)' : '#fff'" :size="12" />
         </div>
-        <div
-          class="control_buton_item"
-          :class="{ 'disabled-element': channelFlagLength < 1 }"
-          @mouseenter="hoverHighLight = 2"
-          @mouseleave="hoverHighLight = -1"
-          @click="chanelDelete"
-          title="删除"
-        >
-          <es-icon
-            :name="'shanchu_1'"
-            :color="
-              channelFlagLength < 1
-                ? 'rgba(230, 230, 230, 1)'
-                : hoverHighLight === 2
-                  ? 'rgba(44, 104, 247, 1)'
-                  : '#fff'
-            "
-            :size="12"
-          />
+        <div class="control_buton_item" :class="{ 'disabled-element': channelFlagLength < 1 }"
+          @mouseenter="hoverHighLight = 2" @mouseleave="hoverHighLight = -1" @click="chanelDelete" title="删除">
+          <es-icon :name="'shanchu_1'" :color="channelFlagLength < 1
+              ? 'rgba(230, 230, 230, 1)'
+              : hoverHighLight === 2
+                ? 'rgba(44, 104, 247, 1)'
+                : '#fff'
+            " :size="12" />
         </div>
-        <div
-          class="control_buton_item"
-          :class="{ 'disabled-element': channelFlagLength !== 1 }"
-          @mouseenter="hoverHighLight = 3"
-          @mouseleave="hoverHighLight = -1"
-          @click="chanelItem"
-          title="修改"
-        >
-          <es-icon
-            :name="'bianji_weixuanzhong'"
-            :color="
-              channelFlagLength !== 1
-                ? 'rgba(230, 230, 230, 1)'
-                : hoverHighLight === 3
-                  ? 'rgba(44, 104, 247, 1)'
-                  : '#fff'
-            "
-            :size="11"
-          />
+        <div class="control_buton_item" :class="{ 'disabled-element': channelFlagLength !== 1 }"
+          @mouseenter="hoverHighLight = 3" @mouseleave="hoverHighLight = -1" @click="chanelItem" title="修改">
+          <es-icon :name="'bianji_weixuanzhong'" :color="channelFlagLength !== 1
+              ? 'rgba(230, 230, 230, 1)'
+              : hoverHighLight === 3
+                ? 'rgba(44, 104, 247, 1)'
+                : '#fff'
+            " :size="11" />
         </div>
       </div>
       <!-- 上方时间线 -->
@@ -69,35 +38,27 @@
           </div>
         </div>
         <!-- icon  B -->
-        <div
-          v-if="abRange"
-          :style="{
-            position: 'absolute',
-            left: `${((stopTimeRef - playerStarttimeAxis) / 1000) * xScale - 6}px`,
-            top: '22px'
-          }"
-        >
+        <div v-if="abRange" :style="{
+          position: 'absolute',
+          left: `${((stopTimeRef - playerStarttimeAxis) / 1000) * xScale - 6}px`,
+          top: '22px'
+        }">
           <es-icon :name="'B-copy'" :color="'#fff'" :size="12" />
         </div>
         <!-- icon  A -->
-        <div
-          v-if="abRange"
-          :style="{
-            position: 'absolute',
-            left: `${((startTimeRef - playerStarttimeAxis) / 1000) * xScale - 6}px`,
-            top: '22px'
-          }"
-        >
+        <div v-if="abRange" :style="{
+          position: 'absolute',
+          left: `${((startTimeRef - playerStarttimeAxis) / 1000) * xScale - 6}px`,
+          top: '22px'
+        }">
           <es-icon :name="'A-copy'" :color="'#fff'" :size="12" />
         </div>
         <!-- icon  current -->
-        <div
-          :style="{
-            position: 'absolute',
-            left: `${((currentTime - playerStarttimeAxis) / 1000) * xScale - 6}px`,
-            top: '22px'
-          }"
-        >
+        <div :style="{
+          position: 'absolute',
+          left: `${((currentTime - playerStarttimeAxis) / 1000) * xScale - 6}px`,
+          top: '22px'
+        }">
           <es-icon :name="'liang'" :color="'rgba(44, 104, 247, 1)'" :size="12" />
         </div>
       </div>
@@ -106,115 +67,56 @@
     <div class="player_barbox_bottom">
       <!-- 下面的左侧列表 -->
       <div class="player_barbox_bottom_list">
-        <div
-          v-for="(item, index) in channelsRef"
-          :key="item.pathId"
-          @dblclick="changeChannelTime(item)"
-        >
-          <span class="player_barbox_bottom_list_icon"
-            ><es-icon :name="'donghua'" :color="'#fff'" :size="14"
-          /></span>
+        <div v-for="(item, index) in channelsRef" :key="item.pathId" @dblclick="changeChannelTime(item)">
+          <span class="player_barbox_bottom_list_icon"><es-icon :name="'donghua'" :color="'#fff'" :size="14" /></span>
           <span class="player_barbox_bottom_list_name" :title="getName(item.pathId)">{{
             getName(item.pathId)
           }}</span>
-          <span
-            class="player_barbox_bottom_list_icon"
-            style="cursor: pointer"
-            @click.stop="changeDeleteCheck(index)"
-            ><es-icon
-              :name="item.flag ? 'checked' : 'unchecked'"
-              :color="item.flag ? '#fff' : 'rgba(230, 230, 230, 1)'"
-              :size="16"
-          /></span>
+          <span class="player_barbox_bottom_list_icon" style="cursor: pointer"
+            @click.stop="changeDeleteCheck(index)"><es-icon :name="item.flag ? 'checked' : 'unchecked'"
+              :color="item.flag ? '#fff' : 'rgba(230, 230, 230, 1)'" :size="16" /></span>
         </div>
       </div>
       <!-- 总时间段背景 -->
-      <div
-        v-if="abRange"
-        :style="{
-          position: 'absolute',
-          left: `${((startTimeRef - playerStarttimeAxis) / 1000) * xScale + 104}px`,
-          top: '0',
-          width: `${((stopTimeRef - startTimeRef) / 1000) * xScale}px`,
-          height: `${totalItemHeight}px`,
-          background: 'rgba(121, 161, 255, 0.3)'
-        }"
-      ></div>
+      <div v-if="abRange" :style="{
+        position: 'absolute',
+        left: `${((startTimeRef - playerStarttimeAxis) / 1000) * xScale + 104}px`,
+        top: '0',
+        width: `${((stopTimeRef - startTimeRef) / 1000) * xScale}px`,
+        height: `${totalItemHeight}px`,
+        background: 'rgba(121, 161, 255, 0.3)'
+      }"></div>
       <!-- 下面的线段 -->
       <div class="player_barbox_bottom_border">
-        <div
-          v-for="(item, index) in channels && channels.length > 5 ? channels.length : 5"
-          :key="index"
-        ></div>
+        <div v-for="(item, index) in channels && channels.length > 5 ? channels.length : 5" :key="index"></div>
       </div>
       <div class="player_barbox_bottom_left">
-        <div
-          v-for="(item, index) in channels && channels.length > 5 ? channels.length : 5"
-          :key="index"
-        ></div>
+        <div v-for="(item, index) in channels && channels.length > 5 ? channels.length : 5" :key="index"></div>
       </div>
       <!-- 时间线 -->
       <div class="time_player_list">
-        <svg
-          :width="totaltimeAxis * xScale"
-          :height="totalItemHeight"
-          preserveAspectRatio="none"
-          :viewBox="`0 0 ${totaltimeAxis * xScale} ${totalItemHeight}`"
-          @pointerdown="pointerdown"
-          @pointerup="pointerup"
-          @pointermove="pointermove"
-          @pointerover="pointerover"
-          @pointerout="pointerout"
-          @wheel="wheel"
-        >
+        <svg :width="totaltimeAxis * xScale" :height="totalItemHeight" preserveAspectRatio="none"
+          :viewBox="`0 0 ${totaltimeAxis * xScale} ${totalItemHeight}`" @pointerdown="pointerdown"
+          @pointerup="pointerup" @pointermove="pointermove" @pointerover="pointerover" @pointerout="pointerout"
+          @wheel="wheel">
           <!-- 所有时间段的数组 -->
-          <PathItem
-            v-for="(item, index) in channelsRef"
-            :scene-id="item.pathId"
-            :index="index"
-            :xScale="xScale"
-            :playerStarttimeAxis="playerStarttimeAxis"
-          ></PathItem>
+          <PathItem v-for="(item, index) in channelsRef" :scene-id="item.pathId" :index="index" :xScale="xScale"
+            :playerStarttimeAxis="playerStarttimeAxis"></PathItem>
           <!-- 循环开始时间的线 -->
-          <line
-            v-if="abRange"
-            class="current-time-line"
-            :x1="((startTimeRef - playerStarttimeAxis) / 1000) * xScale"
-            :x2="((startTimeRef - playerStarttimeAxis) / 1000) * xScale"
-            y1="0"
-            :y2="totalItemHeight"
-            stroke="rgba(255, 255, 255, 1)"
-            :stroke-width="2"
-            name="startTimeLine"
-          />
+          <line v-if="abRange" class="current-time-line" :x1="((startTimeRef - playerStarttimeAxis) / 1000) * xScale"
+            :x2="((startTimeRef - playerStarttimeAxis) / 1000) * xScale" y1="0" :y2="totalItemHeight"
+            stroke="rgba(255, 255, 255, 1)" :stroke-width="2" name="startTimeLine" />
           <!-- 循环结束时间的线 -->
-          <line
-            v-if="abRange"
-            class="last-time-line"
-            :x1="((stopTimeRef - playerStarttimeAxis) / 1000) * xScale"
-            :x2="((stopTimeRef - playerStarttimeAxis) / 1000) * xScale"
-            y1="0"
-            :y2="totalItemHeight"
-            stroke="rgba(255, 255, 255, 1)"
-            :stroke-width="2"
-            name="lastTimeLine"
-          />
+          <line v-if="abRange" class="last-time-line" :x1="((stopTimeRef - playerStarttimeAxis) / 1000) * xScale"
+            :x2="((stopTimeRef - playerStarttimeAxis) / 1000) * xScale" y1="0" :y2="totalItemHeight"
+            stroke="rgba(255, 255, 255, 1)" :stroke-width="2" name="lastTimeLine" />
           <!-- 当前时间的时间线 -->
-          <line
-            class="current-time-line"
-            :x1="((currentTime - playerStarttimeAxis) / 1000) * xScale"
-            :x2="((currentTime - playerStarttimeAxis) / 1000) * xScale"
-            y1="0"
-            :y2="totalItemHeight"
-            stroke="rgba(44, 104, 247, 1)"
-            :stroke-width="3"
-            name="currentTimeLine"
-          />
+          <line class="current-time-line" :x1="((currentTime - playerStarttimeAxis) / 1000) * xScale"
+            :x2="((currentTime - playerStarttimeAxis) / 1000) * xScale" y1="0" :y2="totalItemHeight"
+            stroke="rgba(44, 104, 247, 1)" :stroke-width="3" name="currentTimeLine" />
         </svg>
       </div>
-      <div
-        v-show="textInfo.show"
-        style="
+      <div v-show="textInfo.show" style="
           pointer-events: none;
           font-size: 12px;
           background: rgba(0, 0, 0, 0.8);
@@ -222,24 +124,16 @@
           padding: 3px 5px 3px 5px;
           border-radius: 3px;
           white-space: nowrap;
-        "
-        :style="{
+        " :style="{
           position: 'absolute',
           left: `${textInfo.x}px`,
           top: `${textInfo.y}px`
-        }"
-      >
+        }">
         {{ textInfo.text }}
       </div>
     </div>
   </div>
-  <AddChanel
-    v-if="addChanelIsShow"
-    @close="addChanelIsShow = false"
-    @ok="ok"
-    :path="path"
-    :location="location"
-  >
+  <AddChanel v-if="addChanelIsShow" @close="addChanelIsShow = false" @ok="ok" :path="path" :location="location">
   </AddChanel>
 </template>
 <script setup lang="ts">
@@ -255,7 +149,7 @@ import {
   PlayingChannelLeftLineDragger,
   PlayingChannelRightLineDragger
 } from './playerEditorTools'
-import { timestampToTime } from '../../../../components/eSPropPanel/propertiesMenu/basicProprties/tool'
+import { timestampToTime } from '@/utils'
 import AddChanel from './AddChanel.vue'
 import { ESPath } from 'earthsdk3'
 import { messageBox } from 'earthsdk-ui'
@@ -489,7 +383,7 @@ const chanelDelete = () => {
       channels.value = ch
       ElMessage.success('删除成功')
     })
-    .catch((err) => {})
+    .catch((err) => { })
 }
 const chanelItem = () => {
   let l = 0
@@ -632,7 +526,7 @@ const pointermove = (event: PointerEvent) => {
     textInfo.text = `当前时刻: ${timestampToTime(currentTime.value, true)}`
   }
 }
-const pointerover = (event: PointerEvent) => {}
+const pointerover = (event: PointerEvent) => { }
 const pointerout = () => {
   textInfo.show = false
   resetCurrentDragger()

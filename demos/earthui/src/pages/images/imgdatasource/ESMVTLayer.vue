@@ -2,8 +2,8 @@
   <PopList :title="'矢量瓦片图层'" :showButton="true" @ok="addSceneObjects">
     <!-- 地址 -->
     <div style="width: 100%; font-size: 12px; color: rgba(230, 230, 230, 1); margin-top: 10px">
-      <label for="" style="width: 60px; display: inline-block">地址</label
-      ><span style="cursor: pointer" @click="urlWindowShow = true">⚙</span>
+      <label for="" style="width: 60px; display: inline-block">地址</label><span style="cursor: pointer"
+        @click="urlWindowShow = true">⚙</span>
     </div>
     <LabelInput v-model="accessToken" :label="'accessToken'"></LabelInput>
     <!-- 瓦片尺寸 -->
@@ -22,27 +22,15 @@
     <LabelInput v-model="north" :label="'北'" :inputType="'number'" :max="90" :min="-90">
     </LabelInput>
     <div style="width: 100%; font-size: 12px; color: rgba(230, 230, 230, 1); margin-top: 10px">
-      <label for="" style="width: 60px; display: inline-block">样式</label
-      ><span style="cursor: pointer" @click="windowShow = true">⚙</span>
+      <label for="" style="width: 60px; display: inline-block">样式</label><span style="cursor: pointer"
+        @click="windowShow = true">⚙</span>
     </div>
-    <Window
-      :title="'样式--编辑器'"
-      :show="windowShow"
-      @ok="changeOk"
-      :width="800"
-      :height="500"
-      @cancel="windowShow = false"
-    >
+    <Window :title="'样式--编辑器'" :show="windowShow" @ok="changeOk" :width="800" :height="500"
+      @cancel="windowShow = false">
       <ESEditor :language="'json'" :readonly="false" @load="load" ref="editorContainer"> </ESEditor>
     </Window>
-    <Window
-      :title="'地址--编辑器'"
-      :show="urlWindowShow"
-      @ok="urlChangeOk"
-      :width="800"
-      :height="500"
-      @cancel="urlWindowShow = false"
-    >
+    <Window :title="'地址--编辑器'" :show="urlWindowShow" @ok="urlChangeOk" :width="800" :height="500"
+      @cancel="urlWindowShow = false">
       <ESEditor :language="'json'" :readonly="false" @load="load2" ref="editorContainer2">
       </ESEditor>
     </Window>
@@ -56,7 +44,7 @@ import { inject, ref, useTemplateRef } from 'vue'
 import { SceneTree } from 'earthsdk3'
 import LabelInput from '../../../components/LabelInput.vue'
 import PopList from '../../../components/PopList.vue'
-import Window from '../../../components/commom/Window.vue'
+import Window from '../../../components/base/Window.vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { getsceneObjNumfromSceneTree, searchMaxZindex } from '../../../scripts/general'
 import { ElMessage } from 'element-plus'

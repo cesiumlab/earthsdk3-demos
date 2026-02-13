@@ -11,13 +11,7 @@
     </div>
     <div class="input-div">
       <div>
-        <input
-          type="text"
-          placeholder="请输入您要查询的环境变量..."
-          v-model="searchContent"
-          @change="search"
-          ref="searchInput"
-        />
+        <input type="text" placeholder="请输入您要查询的环境变量..." v-model="searchContent" @change="search" ref="searchInput" />
         <span class="button-span" @click="searchContent = ''">清空</span>
       </div>
       <div>
@@ -28,7 +22,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { copyClipboard } from '../../components/eSPropPanel/propertiesMenu/commons/base/copyClipboard'
+import { copyToClipboard } from 'earthsdk-ui'
 import { ref, watch } from 'vue'
 import { ESSceneObject } from 'earthsdk3'
 const searchContent = ref(
@@ -49,7 +43,7 @@ watch(
   { immediate: true }
 )
 const copy = () => {
-  copyClipboard(transformContent.value)
+  copyToClipboard(transformContent.value)
 }
 const close = () => {
   emits('close')
@@ -103,7 +97,7 @@ const czmPathClick = (type: string) => {
   font-size: 20px;
 }
 
-.change > span {
+.change>span {
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
@@ -117,7 +111,7 @@ const czmPathClick = (type: string) => {
   padding: 0 10px;
 }
 
-.change > span:hover {
+.change>span:hover {
   border: 1px solid #2c68f7;
 }
 
@@ -132,7 +126,7 @@ const czmPathClick = (type: string) => {
   box-sizing: border-box;
 }
 
-.input-div > div {
+.input-div>div {
   width: 100%;
   display: flex;
   align-items: center;
@@ -140,7 +134,7 @@ const czmPathClick = (type: string) => {
   width: 100%;
 }
 
-.input-div > div > input {
+.input-div>div>input {
   flex: 1;
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
@@ -151,11 +145,11 @@ const czmPathClick = (type: string) => {
   box-sizing: border-box;
 }
 
-.input-div > div > input:hover {
+.input-div>div>input:hover {
   border: 1px solid #2c68f7;
 }
 
-.input-div > div > input:focus {
+.input-div>div>input:focus {
   border: 1px solid #2c68f7;
 }
 

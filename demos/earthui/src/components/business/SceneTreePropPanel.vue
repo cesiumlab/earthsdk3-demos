@@ -5,18 +5,17 @@
         <template #prefix>
             <ESIcon name="yinqing"></ESIcon>
         </template>
-        <ESPropPanel v-if="propSceneTree && propSceneTree.sceneObject" :tree-item="propSceneTree" :key="propTreeKey">
-        </ESPropPanel>
+        <PropTree :key="propTreeKey" v-if="propSceneTree && propSceneTree.sceneObject"
+            :sceneObject="propSceneTree.sceneObject">
+        </PropTree>
     </DraggableDialog>
 </template>
 
 <script setup lang="ts">
-import { createVueDisposer, DraggableDialog, ESIcon, toRefKey, toVR } from 'earthsdk-ui'
+import { createVueDisposer, DraggableDialog, ESIcon, PropTree, toRefKey, toVR } from 'earthsdk-ui'
 import { SceneTreeItem } from 'earthsdk3'
 import { computed, inject, onBeforeUnmount } from 'vue'
 import type { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
-import ESPropPanel from '../eSPropPanel/ESPropPanel.vue'
-
 // 注入父组件提供的依赖
 const xbsjEarthUi = inject<XbsjEarthUi>('xbsjEarthUi')!
 

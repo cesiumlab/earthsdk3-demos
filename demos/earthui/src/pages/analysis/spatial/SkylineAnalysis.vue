@@ -3,13 +3,7 @@
     <p class="title">天际线</p>
     <div class="box">
       <label for="">半径：</label>
-      <input
-        type="number"
-        v-model="radius"
-        min="0"
-        placeholder="请输入天际线半径"
-        @input="radiusChange"
-      />
+      <input type="number" v-model="radius" min="0" placeholder="请输入天际线半径" @input="radiusChange" />
     </div>
     <div class="box">
       <label for="">颜色：</label>
@@ -45,7 +39,7 @@ import { ESColor } from 'earthsdk-ui'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import PopList from '../../../components/PopList.vue'
-import ToggleSwitch from '../../../components/eSPropPanel/propertiesMenu/commons/base/InputCheckBox.vue'
+import ToggleSwitch from '@/components/base/InputCheckBox.vue'
 import SkylineDepths from './SkylineDepths.vue'
 import { ElMessage } from 'element-plus'
 type ColorType = [number, number, number, number]

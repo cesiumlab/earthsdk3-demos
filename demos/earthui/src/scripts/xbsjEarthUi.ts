@@ -33,27 +33,20 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._measurementManager
   }
 
+  private _propSceneTreeDon: Function | undefined = undefined;
   private _propSceneTree = this.dv(react<SceneTreeItem | undefined>(undefined)) //属性对象
   get propSceneTree() {
     return this._propSceneTree.value
   }
   set propSceneTree(value: SceneTreeItem | undefined) {
-    this._propSceneTree.value = value
+    this._propSceneTree.value = value;
+    this._propSceneTreeDon && this._propSceneTreeDon() && (this._propSceneTreeDon = undefined)
+    if (value) {
+      this._propSceneTreeDon = value.d(() => { this._propSceneTree.value = undefined });
+    }
   }
   get propSceneTreeChanged() {
     return this._propSceneTree.changed
-  }
-  _propSceneTreeDon = this.d(createEventsCallFunc(this._propSceneTree.toDestroyEvent, () => { this._propSceneTree.value = undefined }))
-
-  private _propSceneTreeItem = this.dv(react<SceneTreeItem | undefined>(undefined)) //属性对象
-  get propSceneTreeItem() {
-    return this._propSceneTreeItem.value
-  }
-  set propSceneTreeItem(value: SceneTreeItem | undefined) {
-    this._propSceneTreeItem.value = value
-  }
-  get propSceneTreeItemChanged() {
-    return this._propSceneTreeItem.changed
   }
 
   private _rightModuleShow = this.dv(react<boolean>(true)) //右面菜单显示

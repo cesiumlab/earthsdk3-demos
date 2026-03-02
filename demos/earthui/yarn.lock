@@ -2561,10 +2561,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.7-beta.3:
-  version "1.0.7-beta.3"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.7-beta.3.tgz#294fb83252435f3411664d910810232d42e04804"
-  integrity sha512-NQEfF+lr5Ki1QyXmQ7yU+fO29vyuzaBejt30nqIvJT/7mBIWbuj5d7AoCxOYWIjJPT46vitk8AsOEzUAFQ4uWA==
+earthsdk-ui@^1.0.7-beta.4:
+  version "1.0.7-beta.4"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.7-beta.4.tgz#d13d67f5fa3602ded074a40f4c09a0abbf3660c4"
+  integrity sha512-Cwclo6DmLbL00pzz77LSdnZWqRgrUY0Kugk34YTMimTk7U3LmM0DpIx6I/ReM569jFdCcZC8homTtUi8BG3iuA==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
@@ -2615,10 +2615,10 @@ earthsdk3-ue@^3.8.0-beta.8:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@^3.8.0-beta.9:
-  version "3.8.0-beta.9"
-  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.8.0-beta.9.tgz#0e5872092e49c9bd4ab372e768bd8abf6043d1c2"
-  integrity sha512-nu/dKb3b8ciT/Ba1sIu3WDVIEtp5zh26/Gh/qKy24q4LYoA8R2q3i3PGB2ysb0Mbo7h8cyuoeFtyYSgyh1zBMQ==
+earthsdk3@^3.8.0-beta.10:
+  version "3.8.0-beta.10"
+  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.8.0-beta.10.tgz#f6e0ba231636b82bc9f35c53e7e1aa9e942137ff"
+  integrity sha512-NAIOT0YqBy+QSYv+VbN57KvGCyQjGdFzMOfFqB+qZj5dpjh83RXmWTXBr5DkYVEj4Uy3Z1BnQiD+Nv6vbzwbxQ==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"

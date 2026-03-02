@@ -39,6 +39,9 @@ export class XbsjEarthUi extends ESObjectsManager {
   }
   set propSceneTree(value: SceneTreeItem | undefined) {
     this._propSceneTree.value = value;
+    value?.sceneObject?.d(() => {
+      this._propSceneTree.value = undefined
+    })
   }
   get propSceneTreeChanged() {
     return this._propSceneTree.changed
@@ -53,28 +56,6 @@ export class XbsjEarthUi extends ESObjectsManager {
   }
   get rightModuleShowChanged() {
     return this._rightModuleShow.changed
-  }
-
-  private _cesiumLabUrl = this.dv(react<string>('')) //cesium地址
-  get cesiumLabUrl() {
-    return this._cesiumLabUrl.value
-  }
-  set cesiumLabUrl(value: string) {
-    this._cesiumLabUrl.value = value
-  }
-  get cesiumLabUrlChanged() {
-    return this._cesiumLabUrl.changed
-  }
-
-  private _esssUrl = this.dv(react<string>('')) //esss地址
-  get esssUrl() {
-    return this._esssUrl.value
-  }
-  set esssUrl(value: string) {
-    this._esssUrl.value = value
-  }
-  get esssUrlChanged() {
-    return this._esssUrl.changed
   }
 
   private _activeViewerType = this.dv(react<string>('ESCesiumViewer')) //视口
@@ -154,6 +135,28 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._cesiumLabToken.changed
   }
 
+  private _cesiumLabUrl = this.dv(react<string>('')) //cesium地址
+  get cesiumLabUrl() {
+    return this._cesiumLabUrl.value
+  }
+  set cesiumLabUrl(value: string) {
+    this._cesiumLabUrl.value = value
+  }
+  get cesiumLabUrlChanged() {
+    return this._cesiumLabUrl.changed
+  }
+
+  private _esssUrl = this.dv(react<string>('')) //esss地址
+  get esssUrl() {
+    return this._esssUrl.value
+  }
+  set esssUrl(value: string) {
+    this._esssUrl.value = value
+  }
+  get esssUrlChanged() {
+    return this._esssUrl.changed
+  }
+
   constructor(initConfig: InitSceneConfigType, viewers: any[]) {
     super(...viewers)
     // 初始化配置
@@ -176,11 +179,5 @@ export class XbsjEarthUi extends ESObjectsManager {
       )
     }
 
-    {
-      //节点被销毁时 销毁
-      this.d(this._propSceneTree.toDestroyEvent.don(() => {
-        this._propSceneTree.value = undefined
-      }))
-    }
   }
 }

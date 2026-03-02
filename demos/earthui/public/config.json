@@ -14,7 +14,8 @@
     "esssSceneParamKey": "ESSSsceneid",
     "esssTokenParamKey": "token",
     "requestUrls": {
-        "images": "https://account.bjxbsj.cn/api/onlineResouces/image?desc=false"
+        "images": "https://account.bjxbsj.cn/api/onlineResouces/image?desc=false",
+        "locationKeywordsQuery": "https://restapi.amap.com/v3/place/text?key=2d3c6326ef327eecba326ac5780fcab1&keywords={keywords}"
     },
     "defaultScene": {
         "asset": {

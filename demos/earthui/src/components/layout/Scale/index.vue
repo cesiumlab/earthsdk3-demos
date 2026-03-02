@@ -39,11 +39,11 @@ const { lengthInPixel, scaleWidth } = useScale(xbsjEarthUi, scaleRef)
   font-size: 14px;
   font-weight: lighter;
   line-height: 30px;
-  color: var(--el-text-color-regular);
+  color: #fff;
 }
 
 .scale_length {
-  border: 1px solid var(--el-text-color-regular);
+  border: 1px solid #fff;
   border-top: none;
   position: absolute;
   height: 10px;

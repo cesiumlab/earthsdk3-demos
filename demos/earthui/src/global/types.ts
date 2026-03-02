@@ -32,9 +32,11 @@ export interface ConfigType {
     // Token参数键名
     esssTokenParamKey: string
     /** 请求URL配置 */
-    requestUrls?: {
+    requestUrls: {
         /** 图片资源请求地址 */
-        images?: string
+        images: string,
+        /** 地点关键词查询地址 */
+        locationKeywordsQuery: string
     }
     /** 默认场景配置*/
     defaultScene: any

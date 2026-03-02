@@ -1,9 +1,9 @@
+import { createApp } from 'vue'
 import EarthSDKUI from 'earthsdk-ui'
 import 'earthsdk-ui/lib/style.css'
 import { ESCesiumViewer } from 'earthsdk3-cesium'
 import { ESOlViewer } from 'earthsdk3-ol'
 import { ESUeViewer } from 'earthsdk3-ue'
-import { createApp } from 'vue'
 import { gget } from "./api"
 import App from './App.vue'
 import { initSceneJson } from './global'

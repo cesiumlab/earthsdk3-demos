@@ -2,7 +2,6 @@
 import CameraViews from './CameraViews.vue'
 import Interaction from './Interaction.vue'
 import CousePicking from './CousePicking.vue'
-import Search from './Search.vue'
 </script>
 <template>
   <!-- 漫游 -->

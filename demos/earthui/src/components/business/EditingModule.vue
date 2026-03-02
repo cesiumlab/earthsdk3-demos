@@ -295,24 +295,22 @@ onBeforeUnmount(() => {
   gap: 0 5px;
   align-items: center;
   box-sizing: content-box;
-  padding: 10px 10px 0 10px;
-  border-radius: 4px;
-  background-color: var(--el-popper-bg-color-light);
+  margin: 0 10px;
+  height: 30px;
 }
 
 .cell {
-  width: 40px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   font-size: 12px;
+  border-radius: 50%;
+  line-height: 30px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
-
-  background-color: var(--el-color-primary-light-9);
-  border-radius: 4px;
   transition: all 0.2s ease;
 }
 
@@ -325,7 +323,7 @@ onBeforeUnmount(() => {
 .empty-tip {
   width: 100%;
   height: 24px;
-  padding-left: 10px;
+  padding-left: 15px;
   display: flex;
   align-items: center;
   font-size: 12px;

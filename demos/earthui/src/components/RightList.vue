@@ -39,7 +39,7 @@ const developContent = ref(true)
   height: 30px;
   line-height: 30px;
   font-size: 14px;
-  background-color: var(--el-bg-color);
+  background-color: var(--el-bg-color-page);
   color: var(--el-text-color-regular);
   white-space: nowrap;
   margin-bottom: 15px;
@@ -48,6 +48,7 @@ const developContent = ref(true)
   justify-content: space-between;
   padding: 0 15px;
   box-sizing: border-box;
+  border-radius: 8px 8px 0 0;
   user-select: none;
   border-top: var(--el-border);
   cursor: pointer;

@@ -15,7 +15,7 @@
   <TimeLine v-show="animationShow"></TimeLine>
 
   <!-- 拾取面板 -->
-  <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult>
+  <!-- <CzmPickResult @close="czmPickResult = false" :list="czmPinkList" v-if="czmPickResult"></CzmPickResult> -->
 
   <!-- 状态栏 指北针 比例尺-->
   <ControlComponent />
@@ -30,7 +30,7 @@ import SceneTreePropPanel from './components/business/SceneTreePropPanel.vue'
 import HeaderMenu from './components/layout/Menu/index.vue'
 import viewersContainer from './components/layout/Viewers.vue'
 import { $g_objm } from './global'
-import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
+// import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
 import TimeLine from './pages/view/animation/TimeLine.vue'
 import ControlComponent from './components/layout/Control.vue'
 
@@ -38,8 +38,8 @@ const xbsjEarthUi = $g_objm();
 
 const sceneTree = xbsjEarthUi.sceneTree;
 
-const czmPickResult = ref(false)
-const czmPinkList: any = ref()
+// const czmPickResult = ref(false)
+// const czmPinkList: any = ref()
 
 //所有子组件都可以获取到，不用一层一层传值
 provide('sceneTree', sceneTree)
@@ -47,17 +47,17 @@ provide('sceneTree', sceneTree)
 const disposer = createVueDisposer(onBeforeUnmount);
 const animationShow = toVR<boolean>(disposer, [xbsjEarthUi, 'animationShow'])
 
-onMounted(() => {
-  xbsjEarthUi.d(
-    xbsjEarthUi.pickResultChanged.don((val) => {
-      if (!val) {
-        czmPickResult.value = false
-      } else {
-        czmPinkList.value = val
-        czmPickResult.value = true
-      }
-    })
-  )
-})
+// onMounted(() => {
+//   xbsjEarthUi.d(
+//     xbsjEarthUi.pickResultChanged.don((val) => {
+//       if (!val) {
+//         czmPickResult.value = false
+//       } else {
+//         czmPinkList.value = val
+//         czmPickResult.value = true
+//       }
+//     })
+//   )
+// })
 
 </script>

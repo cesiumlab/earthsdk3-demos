@@ -191,7 +191,7 @@ const updateView = (index: number) => {
 }
 
 .add-icon {
-  font-size: 16px;
+  font-size: 14px;
   margin-right: 8px;
   display: flex;
   align-items: center;
@@ -208,6 +208,7 @@ const updateView = (index: number) => {
 
 .play {
   width: 34px;
+  font-size: 12px;
   height: 34px;
   flex-shrink: 0;
   cursor: pointer;
@@ -258,8 +259,8 @@ const updateView = (index: number) => {
   gap: 10px;
   margin-bottom: 12px;
   cursor: pointer;
-  padding: 5px;
-  background-color: var(--el-bg-color);
+  padding: 5px 10px;
+  background-color: var(--el-bg-color-page);
   border: var(--el-border);
   border-radius: var(--el-border-radius-base);
   transition: all 0.25s ease;

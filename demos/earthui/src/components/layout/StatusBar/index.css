@@ -15,7 +15,7 @@
   justify-content: space-between;
   background: var(--el-bg-color);
   font-size: var(--el-font-size-base);
-  /* border: var(--el-border); */
+  border-top: var(--el-border);
 }
 
 /** 状态信息容器 */

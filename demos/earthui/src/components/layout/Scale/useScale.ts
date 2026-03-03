@@ -95,6 +95,11 @@ export function useScale(
       bestPixels = pixels
     }
 
+    // 限制最大像素宽度，防止极小距离时刻度尺过长
+    if (bestPixels > maxPixels) {
+      bestPixels = maxPixels
+    }
+
     // 格式化显示文本
     let text: string
     if (bestScale >= 1000) {

@@ -91,17 +91,6 @@ export class XbsjEarthUi extends ESObjectsManager {
     return this._roamMode.changed
   }
 
-  private _pickResult = this.dv(react<any>({ name: '3DTileset对象属性', value: {} })) //拾取到的信息
-  get pickResult() {
-    return this._pickResult.value
-  }
-  set pickResult(value: any) {
-    this._pickResult.value = value
-  }
-  get pickResultChanged() {
-    return this._pickResult.changed
-  }
-
   private _Interpolation = this.dv(react<number>(500)) //插值数据
   get Interpolation() {
     return this._Interpolation.value

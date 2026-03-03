@@ -297,11 +297,9 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     transition: right $transition-slow;
     right: 0;
     top: 40px;
-    background-color: var(--el-bg-color-page);
-    // backdrop-filter: blur(10px);
-    // z-index: var(--el-index-normal);
+    background-color: var(--el-bg-color);
     box-shadow: var(--el-box-shadow);
-    // border-left: 1px solid var(--el-border-color);
+    border-left:  var(--el-border);
 }
 
 // 侧边栏收起/展开按钮

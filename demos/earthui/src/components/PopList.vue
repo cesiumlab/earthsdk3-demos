@@ -41,15 +41,13 @@ const emits = defineEmits(['close', 'ok'])
 .poplist {
   width: 100%;
   height: auto;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-top: 1px solid #111111;
-  border-bottom: 1px solid #111111;
+  margin: 10px;
+  padding: 5px;
+  background-color: var(--el-bg-color-page);
+  border-radius: 8px;
 }
 
 .poplist_head {
-  /* width: 100%; */
-  /* flex: 1; */
   height: 30px;
   box-sizing: border-box;
   display: flex;
@@ -57,42 +55,41 @@ const emits = defineEmits(['close', 'ok'])
   align-items: center;
   flex-wrap: nowrap;
   overflow: hidden;
-  margin: 0 15px;
-  border-bottom: 1px solid rgba(183, 183, 183, 0.5);
+  margin: 0 10px;
+  border-bottom: var(--el-border);
   font-size: 12px;
 }
 
 .roam_custom_head_left {
   position: relative;
-  color: #fff;
+  color: var(--el-text-color);
   user-select: none;
 }
 
-.roam_custom_head_left > span {
+.roam_custom_head_left>span {
   position: absolute;
   left: 0;
   bottom: -6px;
   width: 100%;
-  height: 1px;
-  background: #fff;
+  height: 2px;
+  background: var(--el-color-primary);
 }
 
 .roam_custom_head_right {
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color);
   padding: 3px 10px;
-  /* border: 1px solid #3b3c40; */
   border-radius: 4px;
   max-width: 100px;
   overflow: hidden;
 }
 
-.roam_custom_head_right > a {
+.roam_custom_head_right>a {
   width: 100%;
   height: 100%;
   white-space: nowrap;
   cursor: pointer;
   font-size: 12px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color);
   text-decoration: none;
 }
 
@@ -107,18 +104,18 @@ const emits = defineEmits(['close', 'ok'])
   justify-content: flex-end;
 }
 
-.poplist_footer > button {
+.poplist_footer>button {
   width: 80px;
   height: 32px;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-bg-color);
   border-radius: 4px;
-  border: 1px solid #3b3c40;
+  border: var(--el-border);
   cursor: pointer;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color);
   margin-left: 20px;
 }
 
-.poplist_footer > button:hover {
-  border: 1px solid rgba(44, 104, 247, 1);
+.poplist_footer>button:hover {
+  border: 1px solid var(--el-color-primary);
 }
 </style>

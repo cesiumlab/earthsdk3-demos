@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { inject, onBeforeUnmount, ref } from 'vue'
+import { $g_objm } from '@/global'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
+import { ESJVector3D } from 'earthsdk3'
 import { ESUeViewer } from 'earthsdk3-ue'
-
+import { onBeforeUnmount } from 'vue'
 import Button from '../../components/Button.vue'
 import RightList from '../../components/RightList.vue'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
 import ViewManager from './cameraViews/ViewManager.vue'
-import { ESJVector3D } from 'earthsdk3'
-const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const d = createVueDisposer(onBeforeUnmount)
-const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
+
+const xbsjEarthUi = $g_objm();
+const d = createVueDisposer(onBeforeUnmount);
+const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType']);
 
 const changeToMap = () => {
   const viewer = xbsjEarthUi.activeViewer
@@ -55,19 +55,9 @@ const startView = () => {
 
 <template>
   <RightList :title="'视角'" :isTop="true">
-    <Button
-      v-for="item in sceneList"
-      :name="item.icon"
-      :content="item.zh"
-      :click="item.func"
-      :left-button="item.leftButton"
-    ></Button>
-    <Button
-      :name="'chushi'"
-      :content="'初始'"
-      :click="startView"
-      v-if="activeViewerType == 'ESUeViewer'"
-    ></Button>
+    <Button v-for="item in sceneList" :name="item.icon" :content="item.zh" :click="item.func"
+      :left-button="item.leftButton"></Button>
+    <Button :name="'chushi'" :content="'初始'" :click="startView" v-if="activeViewerType == 'ESUeViewer'"></Button>
     <ViewManager></ViewManager>
   </RightList>
 </template>

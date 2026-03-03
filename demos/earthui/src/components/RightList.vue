@@ -12,14 +12,10 @@ const developContent = ref(true)
 </script>
 <template>
   <div class="relative">
-    <div
-      class="relative_type"
-      @click.stop="developContent = !developContent"
-      :class="{ relative_type_top: isTop }"
-    >
+    <div class="relative_type" @click.stop="developContent = !developContent" :class="{ relative_type_top: isTop }">
       <span class="relative_type_title">{{ title }}</span>
-      <span class="develop_icon" :class="developContent ? '' : 'icon_transform'">
-        <es-icon :name="'shouqi'" :color="'#fff'" :size="12" />
+      <span class="develop_icon">
+        <es-icon :name="'shouqi'" style="transition: 0.5s;" :class="developContent ? '' : 'icon_transform'" />
       </span>
     </div>
     <es-fold :show="developContent">
@@ -43,8 +39,8 @@ const developContent = ref(true)
   height: 30px;
   line-height: 30px;
   font-size: 14px;
-  background-color: rgba(27, 27, 27, 1);
-  color: #fff;
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-regular);
   white-space: nowrap;
   margin-bottom: 15px;
   display: flex;
@@ -53,7 +49,7 @@ const developContent = ref(true)
   padding: 0 15px;
   box-sizing: border-box;
   user-select: none;
-  border-top: 1px solid rgba(183, 183, 183, 0.28);
+  border-top: var(--el-border);
   cursor: pointer;
 }
 
@@ -68,26 +64,14 @@ const developContent = ref(true)
   height: auto;
 }
 
-.relative_box_padding {
-  padding-left: 0px;
-}
-
-.relative_type_title {
-  margin-right: 5px;
-  flex: 1;
-  overflow: hidden;
-}
-
 .develop_icon {
   display: inline-block;
-  height: 100%;
   cursor: pointer;
-  transition: 0.5s;
-  width: 12px;
+  color: var(---el-text-color-regular);
+  font-size: 12px;
 }
 
 .icon_transform {
-  transform-origin: 50% 45%;
   transform: rotate(-180deg);
 }
 </style>

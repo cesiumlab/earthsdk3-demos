@@ -17,6 +17,7 @@ const { lengthInPixel, scaleWidth } = useScale(xbsjEarthUi, scaleRef)
 </script>
 <style scoped>
 .scale {
+  z-index: 2;
   position: fixed;
   cursor: pointer;
   width: 125px;

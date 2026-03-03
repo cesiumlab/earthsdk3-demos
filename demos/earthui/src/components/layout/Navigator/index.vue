@@ -37,10 +37,11 @@ onBeforeUnmount(() => {
 .navigator {
   position: fixed;
   cursor: pointer;
+  z-index: 2;
   width: 90px;
   height: 90px;
-  top: 60px;
-  right: 420px;
+  bottom: 100px;
+  right: 430px;
   transition: right 0.4s linear;
   user-select: none;
 }

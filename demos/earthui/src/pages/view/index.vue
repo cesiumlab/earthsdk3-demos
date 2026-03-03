@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { $g_config } from '@/global'
+import { $g_config, $g_objm } from '@/global'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
-import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { XbsjEarthUi } from '../../scripts/xbsjEarthUi'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import Animation from './Animation.vue'
 import Control from './Control.vue'
 import Debug from './Debug.vue'
 import EffectAdjustment from './EffectAdjustment.vue'
-const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
+const xbsjEarthUi = $g_objm();
 const d = createVueDisposer(onBeforeUnmount)
 const activeViewerType = toVR<string>(d, [xbsjEarthUi, 'activeViewerType'])
 

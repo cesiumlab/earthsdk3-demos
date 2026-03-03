@@ -1,6 +1,7 @@
 .time {
   position: fixed;
   left: 0;
+  z-index: 3;
   bottom: 32px;
   width: calc(100% - 400px);
   height: 146px;

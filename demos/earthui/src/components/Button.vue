@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 interface Props {
   title?: string
   name?: string
@@ -36,29 +36,19 @@ const xiaosanjiaoClick = () => {
 }
 </script>
 <template>
-  <div
-    class="right_button"
-    :class="{
-      active: actived,
-      disable: disabled,
-      right_button_left: leftButton
-    }"
-    @click.prevent.stop="click()"
-    @mouseover="spanIsShow = true"
-    @mouseout="spanIsShow = false"
-  >
+  <div class="right_button" :class="{
+    active: actived,
+    disable: disabled,
+    right_button_left: leftButton
+  }" @click.prevent.stop="click()" @mouseover="spanIsShow = true" @mouseout="spanIsShow = false">
     <div class="right_button_icon">
       <es-icon :name="name" :color="color" :size="size" />
     </div>
     <div class="right_button_content" :style="{ fontSize: `${fontSize}px` }">
       {{ content }}
     </div>
-    <span
-      v-show="spanIsShow && showSpan"
-      class="xiaosanjiao"
-      :class="xiaosanjiao ? '' : 'xiaosanjiao_transform'"
-      @click.stop.prevent="xiaosanjiaoClick()"
-    ></span>
+    <span v-show="spanIsShow && showSpan" class="xiaosanjiao" :class="xiaosanjiao ? '' : 'xiaosanjiao_transform'"
+      @click.stop.prevent="xiaosanjiaoClick()"></span>
   </div>
 </template>
 
@@ -66,7 +56,7 @@ const xiaosanjiaoClick = () => {
 .right_button {
   width: 120px;
   height: 36px;
-  background: rgba(28, 28, 30, 0.9);
+  background: var(--el-bg-color);
   border-radius: 8px;
   display: flex;
   padding: 0 10px;
@@ -76,20 +66,17 @@ const xiaosanjiaoClick = () => {
   justify-content: flex-start;
   cursor: pointer;
   user-select: none;
-  border: 1px solid rgba(183, 183, 183, 0.22);
+  border: var(--el-border);
   margin: 0 0 15px 10px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color);
+  transition: all 0.3s;
 }
 
-.right_button_left {
-  /* margin: 0 0 10px 15px; */
-}
-
-.right_button > .right_button_content {
+.right_button>.right_button_content {
   margin-left: 5px;
 }
 
-.right_button > .right_button_icon {
+.right_button>.right_button_icon {
   width: 20px;
   height: 20px;
   display: flex;
@@ -98,7 +85,7 @@ const xiaosanjiaoClick = () => {
 }
 
 .right_button:hover {
-  border: 1px solid #2c68f7;
+  border: 1px solid var(--el-color-primary);
 }
 
 .xiaosanjiao {
@@ -117,10 +104,10 @@ const xiaosanjiaoClick = () => {
 }
 
 .active {
-  background: #1c1c1e;
-  box-shadow: inset 0px 0px 11px 2px #2c63e4;
-  border: 1px solid #2c68f7;
-  color: rgba(255, 255, 255, 1);
+  /* box-shadow: inset 0px 0px 11px 2px #2c68f75c; */
+  box-shadow: inset 0px 0px 11px 2px var(--el-color-primary-light-7);
+  border: 1px solid var(--el-color-primary);
+  color: var(--el-text-color);
 }
 
 .disable {

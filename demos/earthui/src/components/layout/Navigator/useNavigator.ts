@@ -34,7 +34,7 @@ export function useNavigator(
     () => navigatorScaleRight.value,
     (val) => {
       if (navigatorRef.value) {
-        navigatorRef.value.style.right = val + 10 + 'px'
+        navigatorRef.value.style.right = val + 20 + 'px'
       }
     },
     { immediate: true }

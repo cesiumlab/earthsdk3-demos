@@ -1,107 +1,42 @@
 <template>
   <div class="view_panel">
-    <div class="view-header" @click.stop="addView()">
-      <span class="add-icon">+</span>
-      <span class="view-title">视点书签</span>
-      <div
-        class="play"
-        @click.stop="loopplying = !loopplying"
-        :title="loopplying ? '暂停' : '播放'"
-      >
-        <es-icon
-          :name="loopplying ? 'zanting' : 'bofang'"
-          :color="'rgba(216, 216, 216, 1)'"
-          :size="12"
-        />
+    <div class="view-header-wrapper">
+      <div class="view-header" @click.stop="addView()">
+        <span class="add-icon">
+          <es-icon name="add" />
+        </span>
+        <span class="view-title">添加视角</span>
+      </div>
+      <div class="play" :class="{ active: loopplying }" @click.stop="loopplying = !loopplying"
+        :title="loopplying ? '暂停' : '播放'">
+        <es-icon :name="loopplying ? 'zanting' : 'bofang'" />
       </div>
     </div>
+
     <div class="view-content">
-      <div
-        class="view_item"
-        :class="{ view_selected: currentViewIndex === index }"
-        v-for="(item, index) in viewsRef"
-        @click.stop="flyInByIndex(index)"
-      >
+      <div class="view_item" :class="{ view_selected: currentViewIndex === index }" v-for="(item, index) in viewsRef"
+        :key="index" @click.stop="flyInByIndex(index)">
         <img class="view_item_img" :src="item.thumbnail" alt="" :title="item.name" />
-        <input
-          v-if="editingIndex == index"
-          @click.stop=""
-          type="text"
-          v-model="item.name"
-          :title="item.name"
-          @blur="editingChange(item.name, index)"
-          @keydown.enter="handleEnterKey"
-          :ref="(el) => setInputRef(el, index)"
-        />
-        <span class="view_item_text" v-else>{{ item.name }}</span>
-        <!-- <es-icon @click.stop="updateView(index)" :name="'gengxin'" :size="16" /> -->
 
-        <span class="update-icon" @click.stop="updateView(index)">
-          <svg
-            t="1764034594044"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="10350"
-            fill="currentColor"
-            width="20"
-            height="20"
-          >
-            <path
-              d="M641.28 160a64 64 0 0 1 49.92 24L748.8 256h115.2a64 64 0 0 1 64 64v480a64 64 0 0 1-64 64h-704a64 64 0 0 1-64-64V320a64 64 0 0 1 64-64h115.2l57.6-72a64 64 0 0 1 49.92-24h258.56zM512 352a192 192 0 1 0 0 384 192 192 0 0 0 0-384z m0 64a128 128 0 1 1 0 256 128 128 0 0 1 0-256z"
-              p-id="10351"
-            ></path>
-          </svg>
-        </span>
+        <div class="view_item_info">
+          <input v-if="editingIndex == index" @click.stop="" type="text" v-model="item.name" :title="item.name"
+            @blur="editingChange(item.name, index)" @keydown.enter="handleEnterKey"
+            :ref="(el) => setInputRef(el, index)" class="view_item_input" />
+          <span class="view_item_text" v-else>{{ item.name }}</span>
+        </div>
 
-        <!-- <es-icon @click.stop="startEditing(index)" :name="'bianji'" :size="16" /> -->
-
-        <span class="update-icon" @click.stop="startEditing(index)">
-          <svg
-            t="1764035057981"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="19426"
-            fill="currentColor"
-            width="20"
-            height="20"
-          >
-            <path
-              d="M752.224 128A143.776 143.776 0 0 1 896 272.224v480A143.776 143.776 0 0 1 752.224 896h-480A143.776 143.776 0 0 1 128 752.224v-480A143.776 143.776 0 0 1 272.224 128h480z m-350.72 576H656a26.656 26.656 0 1 0 0-53.344H448l181.344-181.312-80.64-80.64-227.84 232.512V704h80.64z m295.68-307.2v-0.864a20.896 20.896 0 0 0 0.416-29.856l-48.64-48.64a20.896 20.896 0 0 0-29.856 0l-38.4 38.4 80.64 81.504 35.84-40.544z"
-              p-id="19427"
-            ></path>
-          </svg>
-        </span>
-
-        <!-- <es-icon @click.stop="deleteViewer(index)" :name="'shanchu_2'" :size="16" /> -->
-        <span class="update-icon" @click.stop="deleteViewer(index)">
-          <svg
-            t="1764034971236"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="16627"
-            fill="currentColor"
-            width="20"
-            height="20"
-          >
-            <path
-              d="M180.7 289.1v-61c0-18.4 14.9-33.2 33.2-33.2h190.6v-33.2c0-18.4 14.9-33.2 33.2-33.2h150.7c18.4 0 33.2 14.9 33.2 33.2v33.2h190.6c18.4 0 33.2 14.9 33.2 33.2v61H180.7zM752.6 861c0 18.4-14.9 33.2-33.2 33.2H307c-18.4 0-33.2-14.9-33.2-33.2l-66.5-548.6h611.8L752.6 861zM420.1 438.7c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z m124.1 0c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z m126.4 0c0-18.4-14.9-33.2-33.2-33.2-18.4 0-33.2 14.9-33.2 33.2v332.5c0 18.4 14.9 33.2 33.2 33.2 18.4 0 33.2-14.9 33.2-33.2V438.7z"
-              p-id="16628"
-            ></path>
-          </svg>
-        </span>
+        <div class="view_item_actions">
+          <es-icon @click.stop="updateView(index)" :name="'gengxin'" :size="16" title="更新视角" />
+          <es-icon @click.stop="startEditing(index)" :name="'biaohui'" :size="16" title="编辑名称" />
+          <es-icon @click.stop="deleteViewer(index)" :name="'guanbi'" :size="16" title="删除视角" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { messageBox, createVueDisposer, toVR } from 'earthsdk-ui'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { ESJViewInfo } from 'earthsdk3'
 import { inject, onBeforeUnmount, ref, nextTick } from 'vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
@@ -111,13 +46,14 @@ const { cameraViewsManager } = xbsjEarthUi
 const emits = defineEmits(['close'])
 const currentDeleteIndex = ref(-1)
 const editingIndex = ref(-1)
+
 const deleteViewer = (index: number) => {
   currentDeleteIndex.value = index
-  messageBox({ text: '确认删除视角？' })
-    .then(() => {
-      deleteViewConfirm()
-    })
-    .catch((err) => {})
+  ElMessageBox.confirm('确认删除视角？').then(() => {
+    deleteViewConfirm();
+  }).catch((err) => {
+    console.error(err)
+  })
 }
 // 添加一个标志来防止重复调用
 const isProcessingEdit = ref(false)
@@ -213,115 +149,237 @@ const updateView = (index: number) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .view_panel {
   width: 100%;
-  font-size: 14px;
-  margin: 5px 15px 15px 15px;
+  font-size: var(--el-font-size-base);
+  margin: 10px;
+}
+
+.view-header-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .view-header {
-  position: relative;
-  background: rgba(28, 28, 30, 0.9);
-  border: 1px solid #2c68f7;
-  margin-bottom: 20px;
+  flex: 1;
+  height: 34px;
+  background: var(--el-bg-color);
+  border: 1px solid var(--el-border-color);
   text-align: center;
-  padding: 6px;
-  border-radius: 5px;
+  border-radius: var(--el-border-radius-base);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all var(--el-transition-duration);
+  color: var(--el-text-color);
+
+  &:hover {
+    border-color: var(--el-color-primary);
+    color: var(--el-color-primary);
+
+    .add-icon,
+    .view-title {
+      color: var(--el-color-primary);
+    }
+
+  }
 }
 
 .add-icon {
-  font-size: 20px;
-  margin-right: 10px;
+  font-size: 16px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  color: var(--el-text-color);
 }
 
 .view-title {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
+  color: var(--el-text-color);
+  line-height: 1.5;
 }
 
 .play {
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-45%);
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: var(--el-border-radius-base);
+  transition: all var(--el-transition-duration);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--el-bg-color);
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color);
+
+  &:hover {
+    color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
+  }
+}
+
+.play.active {
+  border-color: var(--el-color-primary);
+  color: var(--el-color-primary);
 }
 
 .view-content {
   overflow-y: auto;
-}
+  max-height: 400px;
+  padding-right: 4px;
 
-.view-header:hover {
-  box-shadow: inset 0px 0px 11px 2px #2c63e4;
-  border: 1px solid #2c68f7;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: var(--el-bg-color);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--el-border-color);
+    border-radius: 2px;
+  }
 }
 
 .view_item {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 12px;
   cursor: pointer;
   padding: 5px;
-  background-color: rgba(28, 28, 30, 0.9);
-  border-radius: 5px;
+  background-color: var(--el-bg-color);
+  border: var(--el-border);
+  border-radius: var(--el-border-radius-base);
+  transition: all 0.25s ease;
+
+  &:hover {
+    // background-color: var(--el-fill-color-light);
+    border-color: var(--el-color-primary-light-3);
+    transform: translateX(2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .view_item_actions {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: translateX(2px);
+  }
 }
 
 .view_item_img {
   width: 100px;
   height: 30px;
-  border-radius: 5px;
+  border-radius: var(--el-border-radius-base);
   object-fit: cover;
-}
+  border: 1px solid var(--el-border-color-light);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
 
-.update-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-left: 10px;
-  color: #fff;
-
-  &:hover {
-    color: #2cf736;
+  .view_item:hover & {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 }
 
-.view_selected,
-.view_item:hover {
-  background-color: rgba(44, 118, 247, 0.572);
+.view_item_info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
 }
 
-.view_selected input,
-.view_item:hover input {
-  border: 1px solid #2cf736;
+.view_item_text {
+  width: 100%;
+  line-height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--el-text-color-primary);
+  font-size: var(--el-font-size-base);
 }
 
-.view_item .view_item_text,
-.view_item input {
-  width: calc(100% - 200px);
-  margin-left: 10px;
-  height: 30px;
+.view_item_input {
+  width: 100%;
+  height: 32px;
   box-sizing: border-box;
   outline: none;
-  border: none;
-  color: #fff;
-  text-indent: 10px;
-  border-radius: 5px;
+  border: 1px solid var(--el-color-primary);
+  background: var(--el-bg-color);
+  color: var(--el-text-color-primary);
+  padding: 0 10px;
+  border-radius: var(--el-border-radius-small);
+  font-size: var(--el-font-size-base);
+
+  &:focus {
+    border-color: var(--el-color-primary);
+    box-shadow: 0 0 0 2px var(--el-color-primary-light-8);
+  }
+
+  &::placeholder {
+    color: var(--el-text-color-placeholder);
+  }
 }
 
-.view_item .view_item_text {
-  line-height: 30px;
+.view_item_actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+
+  :deep(.es-icon) {
+    color: var(--el-text-color-secondary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+
+    &:hover {
+      color: var(--el-color-primary);
+      background: var(--el-fill-color-light);
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 }
 
-.view_item input {
-  border: 1px solid #2c68f7;
-  background: rgba(28, 28, 30, 0.9);
+.view_selected {
+  background-color: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary);
+  box-shadow: 0 0 12px 0 var(--el-color-primary-light-5);
+
+  &:hover {
+    background-color: var(--el-color-primary-light-8);
+  }
+
+  .view_item_text {
+    color: var(--el-color-primary);
+    font-weight: var(--el-font-weight-primary);
+  }
+
+  .view_item_actions {
+    opacity: 1;
+
+    :deep(.es-icon) {
+      color: var(--el-color-primary);
+    }
+  }
 }
 </style>

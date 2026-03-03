@@ -6,8 +6,11 @@ import CousePicking from './CousePicking.vue'
 <template>
   <!-- 漫游 -->
   <div class="roam">
+    <!-- 视角 -->
     <CameraViews></CameraViews>
+    <!-- 交互模式 -->
     <Interaction></Interaction>
+    <!-- 鼠标拾取 -->
     <CousePicking></CousePicking>
   </div>
 </template>

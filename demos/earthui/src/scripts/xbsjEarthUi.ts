@@ -1,15 +1,15 @@
 import { InitSceneConfigType } from '@/global/types'
-import { createEventsCallFunc, Destroyable, ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
+import { messageLoading } from 'earthsdk-ui'
+import { ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
 import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
-import { messageLoading } from 'earthsdk-ui'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
   get initConfig() { return this._initConfig };
 
-  private _showSceneTreeView = this.dv(react<boolean>(true)) //图层管理
+  private _showSceneTreeView = this.dv(react<boolean>(true)) //图层树面板
   get showSceneTreeView() {
     return this._showSceneTreeView.value
   }
@@ -19,6 +19,18 @@ export class XbsjEarthUi extends ESObjectsManager {
   get showSceneTreeViewChanged() {
     return this._showSceneTreeView.changed
   }
+
+  private _showPropView = this.dv(react<boolean>(false)) //属性面板管理
+  get showPropView() {
+    return this._showPropView.value
+  }
+  set showPropView(value: boolean) {
+    this._showPropView.value = value
+  }
+  get showPropViewChanged() {
+    return this._showPropView.changed
+  }
+
   private _reprocess = this.dv(new Reprocess(this)) //后处理
   get reprocess() {
     return this._reprocess
@@ -167,6 +179,15 @@ export class XbsjEarthUi extends ESObjectsManager {
           this.activeViewerType = this.activeViewer.typeName;
         })
       )
+    }
+
+    {
+      //最后一个选择的节点 设置为propSceneTree
+      this.d(this.sceneTree.selectedItems.changedEvent.don(() => {
+        const lastSelectedItem = this.sceneTree.lastSelectedItem;
+        this.propSceneTree = lastSelectedItem;
+      }));
+
     }
 
     {

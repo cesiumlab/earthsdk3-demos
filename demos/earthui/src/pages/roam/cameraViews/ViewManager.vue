@@ -239,11 +239,6 @@ const updateView = (index: number) => {
 
   &::-webkit-scrollbar {
     width: 3px;
-  }
-
-  &::-webkit-scrollbar {
-    width: 3px;
-    background-color: var(--el-bg-color);
     border-radius: 2px;
   }
 

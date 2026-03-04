@@ -79,7 +79,7 @@ const emits = defineEmits(['close', 'ok'])
   color: var(--el-text-color);
   padding: 3px 10px;
   border-radius: 4px;
-  max-width: 100px;
+  /* max-width: 100px; */
   overflow: hidden;
 }
 

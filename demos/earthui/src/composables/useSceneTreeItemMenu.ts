@@ -256,7 +256,10 @@ const getSceneObjectTreeItemMenuContent = (
     {
       text: '属性',
       keys: '',
-      func: () => { objm.propSceneTree = treeItem; }
+      func: () => {
+        objm.propSceneTree = treeItem;
+        objm.showPropView = true;
+      }
     }
   ]
 

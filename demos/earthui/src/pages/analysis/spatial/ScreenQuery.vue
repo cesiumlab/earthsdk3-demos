@@ -10,7 +10,7 @@ import {
   booleanPointInPolygon
 } from 'earthsdk3'
 import { inject, onMounted, onBeforeUnmount, ref } from 'vue'
-import { Message } from 'earthsdk-ui'
+
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import PopList from '../../../components/PopList.vue'
 import { ElMessage } from 'element-plus'
@@ -162,10 +162,6 @@ async function handleScreenRect(start: { x: number; y: number }, end: { x: numbe
 
 // 生命周期：组件挂载时创建canvas并监听事件，卸载时清理
 onMounted(() => {
-  Message.loading({
-    id: 'message',
-    content: '请按下并拖动绘制矩形，进行区域查询筛选'
-  })
   createCanvas()
   window.addEventListener('resize', updateCanvasSize)
   const container = xbsjEarthUi.activeViewer?.container
@@ -184,7 +180,6 @@ onBeforeUnmount(() => {
     container.removeEventListener('mousemove', onMouseMove)
     container.removeEventListener('mouseup', onMouseUp)
   }
-  Message.remove('message')
 })
 </script>
 

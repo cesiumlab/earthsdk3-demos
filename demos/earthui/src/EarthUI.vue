@@ -24,15 +24,15 @@
 
 <script setup lang="ts">
 import { createVueDisposer, toVR } from 'earthsdk-ui'
-import { onBeforeUnmount, onMounted, provide, ref } from 'vue'
+import { onBeforeUnmount, provide } from 'vue'
 import SceneTreePanel from './components/business/SceneTreePanel.vue'
 import SceneTreePropPanel from './components/business/SceneTreePropPanel.vue'
 import HeaderMenu from './components/layout/Menu/index.vue'
 import viewersContainer from './components/layout/Viewers.vue'
 import { $g_objm } from './global'
 // import CzmPickResult from './pages/roam/cousePicking/CzmPickResult.vue'
-import TimeLine from './pages/view/animation/TimeLine.vue'
 import ControlComponent from './components/layout/Control.vue'
+import TimeLine from './pages/view/animation/TimeLine.vue'
 
 const xbsjEarthUi = $g_objm();
 

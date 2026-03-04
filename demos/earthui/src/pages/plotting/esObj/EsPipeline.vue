@@ -3,21 +3,13 @@
   <PopList :title="'管线'">
     <div class="images_img_list">
       <div v-for="(item, index) in modes" class="images_img_lilist">
-        <div
-          class="images_imgposition"
-          @click="select(item)"
-          :class="{
-            images_checkedactive: selected && item.materialMode === selected.materialMode
-          }"
-        >
+        <div class="images_imgposition" @click="select(item)" :class="{
+          images_checkedactive: selected && item.materialMode === selected.materialMode
+        }">
           <img :src="item.img" alt="" />
           <span v-show="iconIsShow == index ? true : false">{{ item.name ?? '模式' }}</span>
         </div>
-        <div
-          class="images_onlineimageName"
-          @mouseenter="iconIsShow = index"
-          @mouseleave="iconIsShow = null"
-        >
+        <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">
           {{ item.name ?? '模式' }}
         </div>
       </div>
@@ -32,7 +24,7 @@ import PopList from '../../../components/PopList.vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
 import { createSceneObjTreeItemFromJson, executePos } from './fun'
-import { Message } from 'earthsdk-ui'
+
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const modes = [
   {
@@ -66,13 +58,10 @@ const createSceneObject = () => {
     sceneObject.materialMode = selected.value.materialMode
     //编辑状态结束后根据json创建在场景树上
     sceneObject.editing = true
-    Message.loading({
-      id: 'xxx',
-      content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-    })
+
     editingDispose = sceneObject.editingChanged.disposableOnce(() => {
       if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
+
         const json = sceneObject.json
         const pos = sceneObject.points?.length
         xbsjEarthUi.destroySceneObject(sceneObject)
@@ -101,7 +90,7 @@ const destroy = () => {
 onMounted(() => {
   createSceneObject()
   onBeforeUnmount(() => {
-    Message.remove('xxx')
+
     destroy()
   })
 })

@@ -1,8 +1,9 @@
 import { InitSceneConfigType } from '@/global/types'
-import { createEventsCallFunc, ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
+import { createEventsCallFunc, Destroyable, ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
 import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
+import { messageLoading } from 'earthsdk-ui'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
@@ -168,5 +169,47 @@ export class XbsjEarthUi extends ESObjectsManager {
       )
     }
 
+    {
+      // 编辑时提醒
+      let close: (() => void) | null = null;
+      let editingEventDispose: (() => void) | null = null;
+
+      const closeTip = () => {
+        close?.();
+        close = null;
+      }
+
+      const clearEditingEvent = () => {
+        editingEventDispose?.();
+        editingEventDispose = null;
+      }
+
+      this.d(() => {
+        clearEditingEvent();
+        closeTip();
+      });
+
+      this.d(
+        this.activeViewerChanged.don((viewer) => {
+          // 视口切换时，清理旧监听与提示
+          clearEditingEvent();
+          closeTip();
+
+          if (!viewer) return;
+
+          editingEventDispose = viewer.editingEvent.don((option) => {
+            if (option.type === 'end') {
+              closeTip();
+              return;
+            }
+
+            if (option.type === 'start') {
+              closeTip();
+              close = messageLoading('1.双击/ESC退出  2.空格切换编辑方式  3.右键点位跟随');
+            }
+          });
+        })
+      );
+    }
   }
 }

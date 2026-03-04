@@ -1,11 +1,6 @@
 <template>
-  <el-dialog
-    :model-value="props.show"
-    title="高度抬升"
-    width="400px"
-    :before-close="cancel"
-    class="object-lift-height-dialog"
-  >
+  <el-dialog :model-value="props.show" title="高度抬升" width="400px" :before-close="cancel" @opened="handleOpened"
+    class="object-lift-height-dialog">
     <div class="dialog-content">
       <!-- tip -->
       <div class="tip-text">
@@ -15,12 +10,19 @@
         <span>当前作用对象共： {{ objNumber }} 个</span>
       </div>
 
-      <el-input v-model.number="heightValue" placeholder="请输入抬升高度">
+      <!-- 高度改为 xx m 或者 高度累加 xx m-->
+      <div class="height-checkbox">
+        <el-checkbox :model-value="heightFlag" @change="heightFlag = !heightFlag">高度累加</el-checkbox>
+        <el-checkbox :model-value="!heightFlag" @change="heightFlag = !heightFlag">高度同步</el-checkbox>
+      </div>
+
+      <el-input v-model.number="heightValue" placeholder="请输入抬升高度" ref="numInputRef">
         <template #prepend>{{ '高度' }}</template>
         <template #append>
           <span>m</span>
         </template>
       </el-input>
+
     </div>
 
     <template #footer>
@@ -33,15 +35,16 @@
 </template>
 
 <script setup lang="ts">
-import { ElButton, ElDialog, ElInput, ElIcon } from 'element-plus'
+import { ElButton, ElDialog, ElInput, ElIcon, ElCheckbox } from 'element-plus'
 import { InfoFilled } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { HeightPropsValue } from '.';
 
 const props = withDefaults(
   defineProps<{
     show: boolean
     objNumber?: number
-    resolve: (value: number | undefined) => void
+    resolve: (value: HeightPropsValue | undefined) => void
   }>(),
   {
     show: true,
@@ -49,13 +52,28 @@ const props = withDefaults(
   }
 )
 
-const heightValue = ref(0)
+const heightValue = ref(0);
+
+const heightFlag = ref(true);
+/** 输入框引用 */
+const numInputRef = ref<InstanceType<typeof ElInput>>();
+/**
+* 对话框打开后的回调，自动聚焦输入框
+*/
+const handleOpened = () => {
+  numInputRef.value?.select();
+};
+
 
 const cancel = () => {
   props.resolve(undefined)
 }
 const ok = () => {
-  props.resolve(heightValue.value)
+  const options = {
+    type: heightFlag.value ? 'add' : 'set',
+    value: heightValue.value,
+  } as HeightPropsValue
+  props.resolve(options);
 }
 </script>
 

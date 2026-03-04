@@ -33,98 +33,99 @@ import EsFireParticleSystem from './esObj/EsFireParticleSystem.vue'
 import EsUnrealActor from './esObj/EsUnrealActor.vue'
 import EsUnrealActor2 from './esObj/EsUnrealActor2.vue'
 import EsPipeFence from './esObj/EsPipeFence.vue'
-import EsGaussianSplatting from './esObj/EsGaussianSplatting.vue'
+// import EsGaussianSplatting from './esObj/EsGaussianSplatting.vue'
 import EsGeoExtrudedPolygon from './esObj/EsGeoExtrudedPolygon.vue'
 import EsStaticMesh from './esObj/EsStaticMesh.vue'
+import EsCylinder from './esObj/EsCylinder.vue'
 export const textTypeList: {
   name: string
   type: { textSize: number; textColor: [number, number, number, number] }
 }[] = [
-  {
-    name: '白小文本',
-    type: {
-      textSize: 14,
-      textColor: [1, 1, 1, 1]
+    {
+      name: '白小文本',
+      type: {
+        textSize: 14,
+        textColor: [1, 1, 1, 1]
+      }
+    },
+    {
+      name: '白中文本',
+      type: {
+        textSize: 18,
+        textColor: [1, 1, 1, 1]
+      }
+    },
+    {
+      name: '白大文本',
+      type: {
+        textSize: 22,
+        textColor: [1, 1, 1, 1]
+      }
+    },
+    {
+      name: '红小文本',
+      type: {
+        textSize: 14,
+        textColor: [1, 0, 0, 1]
+      }
+    },
+    {
+      name: '红中文本',
+      type: {
+        textSize: 18,
+        textColor: [1, 0, 0, 1]
+      }
+    },
+    {
+      name: '红大文本',
+      type: {
+        textSize: 22,
+        textColor: [1, 0, 0, 1]
+      }
+    },
+    {
+      name: '绿小文本',
+      type: {
+        textSize: 14,
+        textColor: [0, 1, 0, 1]
+      }
+    },
+    {
+      name: '绿中文本',
+      type: {
+        textSize: 18,
+        textColor: [0, 1, 0, 1]
+      }
+    },
+    {
+      name: '绿大文本',
+      type: {
+        textSize: 22,
+        textColor: [0, 1, 0, 1]
+      }
+    },
+    {
+      name: '蓝小文本',
+      type: {
+        textSize: 14,
+        textColor: [0, 0, 1, 1]
+      }
+    },
+    {
+      name: '蓝中文本',
+      type: {
+        textSize: 18,
+        textColor: [0, 0, 1, 1]
+      }
+    },
+    {
+      name: '蓝大文本',
+      type: {
+        textSize: 22,
+        textColor: [0, 0, 1, 1]
+      }
     }
-  },
-  {
-    name: '白中文本',
-    type: {
-      textSize: 18,
-      textColor: [1, 1, 1, 1]
-    }
-  },
-  {
-    name: '白大文本',
-    type: {
-      textSize: 22,
-      textColor: [1, 1, 1, 1]
-    }
-  },
-  {
-    name: '红小文本',
-    type: {
-      textSize: 14,
-      textColor: [1, 0, 0, 1]
-    }
-  },
-  {
-    name: '红中文本',
-    type: {
-      textSize: 18,
-      textColor: [1, 0, 0, 1]
-    }
-  },
-  {
-    name: '红大文本',
-    type: {
-      textSize: 22,
-      textColor: [1, 0, 0, 1]
-    }
-  },
-  {
-    name: '绿小文本',
-    type: {
-      textSize: 14,
-      textColor: [0, 1, 0, 1]
-    }
-  },
-  {
-    name: '绿中文本',
-    type: {
-      textSize: 18,
-      textColor: [0, 1, 0, 1]
-    }
-  },
-  {
-    name: '绿大文本',
-    type: {
-      textSize: 22,
-      textColor: [0, 1, 0, 1]
-    }
-  },
-  {
-    name: '蓝小文本',
-    type: {
-      textSize: 14,
-      textColor: [0, 0, 1, 1]
-    }
-  },
-  {
-    name: '蓝中文本',
-    type: {
-      textSize: 18,
-      textColor: [0, 0, 1, 1]
-    }
-  },
-  {
-    name: '蓝大文本',
-    type: {
-      textSize: 22,
-      textColor: [0, 0, 1, 1]
-    }
-  }
-]
+  ]
 //图标点
 export const imageTypeList: { name: string; img: any; type: string }[] = [
   {
@@ -406,42 +407,42 @@ export const vectorObjectList: {
   leftButton: boolean
   com: any
 }[] = [
-  {
-    type: 'esGeoLineString',
-    zh: '折线',
-    icon: 'zhexian',
-    leftButton: true,
-    com: shallowRef(EsGeoLineString)
-  },
-  {
-    type: 'esGeoPolygon',
-    zh: '多边形',
-    icon: 'duobianxing',
-    leftButton: false,
-    com: shallowRef(EsGeoPolygon)
-  },
-  {
-    type: 'esLocalCircle',
-    zh: '圆',
-    icon: 'yuan',
-    leftButton: true,
-    com: shallowRef(EsLocalCircle)
-  },
-  {
-    type: 'esGeoRectangle',
-    zh: '矩形',
-    icon: 'juxing',
-    leftButton: false,
-    com: shallowRef(EsGeoRectangle)
-  },
-  {
-    type: 'esGeoExtrudedPolygon',
-    zh: '挤压多边形',
-    icon: 'duobianxing',
-    leftButton: false,
-    com: shallowRef(EsGeoExtrudedPolygon)
-  }
-]
+    {
+      type: 'esGeoLineString',
+      zh: '折线',
+      icon: 'zhexian',
+      leftButton: true,
+      com: shallowRef(EsGeoLineString)
+    },
+    {
+      type: 'esGeoPolygon',
+      zh: '多边形',
+      icon: 'duobianxing',
+      leftButton: false,
+      com: shallowRef(EsGeoPolygon)
+    },
+    {
+      type: 'esLocalCircle',
+      zh: '圆',
+      icon: 'yuan',
+      leftButton: true,
+      com: shallowRef(EsLocalCircle)
+    },
+    {
+      type: 'esGeoRectangle',
+      zh: '矩形',
+      icon: 'juxing',
+      leftButton: false,
+      com: shallowRef(EsGeoRectangle)
+    },
+    {
+      type: 'esGeoExtrudedPolygon',
+      zh: '挤压多边形',
+      icon: 'duobianxing',
+      leftButton: false,
+      com: shallowRef(EsGeoExtrudedPolygon)
+    }
+  ]
 //注记
 export const annotationObjectList: {
   type: string
@@ -450,56 +451,56 @@ export const annotationObjectList: {
   leftButton: boolean
   com: any
 }[] = [
-  {
-    type: 'esTextLabel',
-    zh: '文字标注',
-    icon: 'wenzibiaozhu',
-    leftButton: true,
-    com: shallowRef(EsTextLabel)
-  },
-  {
-    type: 'esImageLabel',
-    zh: '图标点',
-    icon: 'tubiaodian',
-    leftButton: false,
-    com: shallowRef(EsImageLabel)
-  },
-  {
-    type: 'esWidget',
-    zh: '部件',
-    icon: 'bujian',
-    leftButton: true,
-    com: shallowRef(EsWidget)
-  },
-  {
-    type: 'esGeoDiv',
-    zh: '自定义DIV',
-    icon: 'zidingyi2',
-    leftButton: false,
-    com: shallowRef(EsGeoDiv)
-  },
-  {
-    type: 'esPoi3D',
-    zh: 'Poi3D',
-    icon: 'poi3D',
-    leftButton: true,
-    com: shallowRef(EsPoi3D)
-  },
-  {
-    type: 'esPoi2D',
-    zh: 'Poi2D',
-    icon: 'poi2D',
-    leftButton: false,
-    com: shallowRef(EsPoi2D)
-  },
-  {
-    type: 'esEntityCluster',
-    zh: 'Poi聚合',
-    icon: 'juhe',
-    leftButton: true,
-    com: shallowRef(EsEntityCluster)
-  }
-]
+    {
+      type: 'esTextLabel',
+      zh: '文字标注',
+      icon: 'wenzibiaozhu',
+      leftButton: true,
+      com: shallowRef(EsTextLabel)
+    },
+    {
+      type: 'esImageLabel',
+      zh: '图标点',
+      icon: 'tubiaodian',
+      leftButton: false,
+      com: shallowRef(EsImageLabel)
+    },
+    {
+      type: 'esWidget',
+      zh: '部件',
+      icon: 'bujian',
+      leftButton: true,
+      com: shallowRef(EsWidget)
+    },
+    {
+      type: 'esGeoDiv',
+      zh: '自定义DIV',
+      icon: 'zidingyi2',
+      leftButton: false,
+      com: shallowRef(EsGeoDiv)
+    },
+    {
+      type: 'esPoi3D',
+      zh: 'Poi3D',
+      icon: 'poi3D',
+      leftButton: true,
+      com: shallowRef(EsPoi3D)
+    },
+    {
+      type: 'esPoi2D',
+      zh: 'Poi2D',
+      icon: 'poi2D',
+      leftButton: false,
+      com: shallowRef(EsPoi2D)
+    },
+    {
+      type: 'esEntityCluster',
+      zh: 'Poi聚合',
+      icon: 'juhe',
+      leftButton: true,
+      com: shallowRef(EsEntityCluster)
+    }
+  ]
 //园区
 export const parkObjectList: {
   type: string
@@ -508,35 +509,42 @@ export const parkObjectList: {
   leftButton: boolean
   com: any
 }[] = [
-  {
-    type: 'esHuman',
-    zh: '人员',
-    icon: 'renyuan',
-    leftButton: true,
-    com: shallowRef(EsHuman)
-  },
-  {
-    type: 'esCar',
-    zh: '车辆',
-    icon: 'cheliang',
-    leftButton: false,
-    com: shallowRef(EsCar)
-  },
-  {
-    type: 'esGltfModel',
-    zh: '建筑',
-    icon: 'jianzhu',
-    leftButton: true,
-    com: shallowRef(EsGltfModel)
-  },
-  {
-    type: 'esHumanPoi',
-    zh: '人员Poi',
-    icon: 'renyuanPoi',
-    leftButton: false,
-    com: shallowRef(EsHumanPoi)
-  }
-]
+    {
+      type: 'esHuman',
+      zh: '人员',
+      icon: 'renyuan',
+      leftButton: true,
+      com: shallowRef(EsHuman)
+    },
+    {
+      type: 'esCar',
+      zh: '车辆',
+      icon: 'cheliang',
+      leftButton: false,
+      com: shallowRef(EsCar)
+    },
+    {
+      type: 'esGltfModel',
+      zh: '建筑',
+      icon: 'jianzhu',
+      leftButton: true,
+      com: shallowRef(EsGltfModel)
+    },
+    {
+      type: 'esHumanPoi',
+      zh: '人员Poi',
+      icon: 'renyuanPoi',
+      leftButton: false,
+      com: shallowRef(EsHumanPoi)
+    },
+    {
+      type: 'esCylinder',
+      zh: '圆柱形围栏',
+      icon: 'yuanzhu',
+      leftButton: false,
+      com: shallowRef(EsCylinder)
+    }
+  ]
 //特效
 export const effectObjectList: {
   type: string
@@ -545,112 +553,112 @@ export const effectObjectList: {
   leftButton: boolean
   com: any
 }[] = [
-  {
-    type: 'esPath',
-    zh: '路径',
-    icon: 'lujingdonghua',
-    leftButton: true,
-    com: shallowRef(EsPath)
-  },
-  {
-    type: 'esApertureEffect',
-    zh: '光圈特效',
-    icon: 'guangquantexiao',
-    leftButton: false,
-    com: shallowRef(EsApertureEffect)
-  },
-  {
-    type: 'esPolygonFence',
-    zh: '电子围栏',
-    icon: 'dianziweilan',
-    leftButton: true,
-    com: shallowRef(EsPolygonFence)
-  },
-  {
-    type: 'esPipeFence',
-    zh: '管道围栏',
-    icon: 'weilan',
-    leftButton: false,
-    com: shallowRef(EsPipeFence)
-  },
-  {
-    type: 'esAlarm',
-    zh: '报警',
-    icon: 'baojing',
-    leftButton: true,
-    com: shallowRef(EsAlarm)
-  },
-  {
-    type: 'esCameraVisibleRange',
-    zh: '摄像头',
-    icon: 'shexiangtou',
-    leftButton: false,
-    com: shallowRef(EsCameraVisibleRange)
-  },
-  {
-    type: 'esVideoFusion',
-    zh: '视频融合',
-    icon: 'shipinronghe',
-    leftButton: true,
-    com: shallowRef(EsVideoFusion)
-  },
-  {
-    type: 'esLocalSkyBox',
-    zh: '天空盒',
-    icon: 'tiankonghe',
-    leftButton: false,
-    com: shallowRef(EsLocalSkyBox)
-  },
-  {
-    type: 'esPit',
-    zh: '坑',
-    icon: 'keng1',
-    leftButton: true,
-    com: shallowRef(EsPit)
-  },
-  {
-    type: 'esPipeline',
-    zh: '管线',
-    icon: 'guanxian',
-    leftButton: false,
-    com: shallowRef(EsPipeline)
-  },
-  {
-    type: 'esDynamicWater',
-    zh: '局部水面',
-    icon: 'jubushuimian',
-    leftButton: true,
-    com: shallowRef(EsDynamicWater)
-  },
-  {
-    type: 'esGeoWater',
-    zh: '地理水面',
-    icon: 'dilishuimian',
-    leftButton: false,
-    com: shallowRef(EsGeoWater)
-  },
-  {
-    type: 'esHole',
-    zh: '组合挖坑',
-    icon: 'zuhewakeng',
-    leftButton: true,
-    com: shallowRef(EsHole)
-  },
-  {
-    type: 'esBlastParticleSystem',
-    zh: '粒子爆炸',
-    icon: 'lizibaozha',
-    leftButton: false,
-    com: shallowRef(EsBlastParticleSystem)
-  },
-  {
-    type: 'esFireParticleSystem',
-    zh: '粒子烟火',
-    icon: 'liziyanhuo',
-    leftButton: true,
-    com: shallowRef(EsFireParticleSystem)
-  }
-]
+    {
+      type: 'esPath',
+      zh: '路径',
+      icon: 'lujingdonghua',
+      leftButton: true,
+      com: shallowRef(EsPath)
+    },
+    {
+      type: 'esApertureEffect',
+      zh: '光圈特效',
+      icon: 'guangquantexiao',
+      leftButton: false,
+      com: shallowRef(EsApertureEffect)
+    },
+    {
+      type: 'esPolygonFence',
+      zh: '电子围栏',
+      icon: 'dianziweilan',
+      leftButton: true,
+      com: shallowRef(EsPolygonFence)
+    },
+    {
+      type: 'esPipeFence',
+      zh: '管道围栏',
+      icon: 'weilan',
+      leftButton: false,
+      com: shallowRef(EsPipeFence)
+    },
+    {
+      type: 'esAlarm',
+      zh: '报警',
+      icon: 'baojing',
+      leftButton: true,
+      com: shallowRef(EsAlarm)
+    },
+    {
+      type: 'esCameraVisibleRange',
+      zh: '摄像头',
+      icon: 'shexiangtou',
+      leftButton: false,
+      com: shallowRef(EsCameraVisibleRange)
+    },
+    {
+      type: 'esVideoFusion',
+      zh: '视频融合',
+      icon: 'shipinronghe',
+      leftButton: true,
+      com: shallowRef(EsVideoFusion)
+    },
+    {
+      type: 'esLocalSkyBox',
+      zh: '天空盒',
+      icon: 'tiankonghe',
+      leftButton: false,
+      com: shallowRef(EsLocalSkyBox)
+    },
+    {
+      type: 'esPit',
+      zh: '坑',
+      icon: 'keng1',
+      leftButton: true,
+      com: shallowRef(EsPit)
+    },
+    {
+      type: 'esPipeline',
+      zh: '管线',
+      icon: 'guanxian',
+      leftButton: false,
+      com: shallowRef(EsPipeline)
+    },
+    {
+      type: 'esDynamicWater',
+      zh: '局部水面',
+      icon: 'jubushuimian',
+      leftButton: true,
+      com: shallowRef(EsDynamicWater)
+    },
+    {
+      type: 'esGeoWater',
+      zh: '地理水面',
+      icon: 'dilishuimian',
+      leftButton: false,
+      com: shallowRef(EsGeoWater)
+    },
+    {
+      type: 'esHole',
+      zh: '组合挖坑',
+      icon: 'zuhewakeng',
+      leftButton: true,
+      com: shallowRef(EsHole)
+    },
+    {
+      type: 'esBlastParticleSystem',
+      zh: '粒子爆炸',
+      icon: 'lizibaozha',
+      leftButton: false,
+      com: shallowRef(EsBlastParticleSystem)
+    },
+    {
+      type: 'esFireParticleSystem',
+      zh: '粒子烟火',
+      icon: 'liziyanhuo',
+      leftButton: true,
+      com: shallowRef(EsFireParticleSystem)
+    }
+  ]
 //actor
 export const ueObjectList: {
   type: string
@@ -660,39 +668,39 @@ export const ueObjectList: {
   com: any
   fontSize?: number
 }[] = [
-  {
-    type: 'esUnrealActor',
-    zh: '创建Actor',
-    icon: 'actor',
-    leftButton: true,
-    com: shallowRef(EsUnrealActor)
-  },
-  {
-    type: 'esUnrealActor2',
-    zh: '绑定Actor',
-    icon: 'actor',
-    leftButton: false,
-    com: shallowRef(EsUnrealActor2)
-  },
-  {
-    type: 'esDatasmithRuntimeModel',
-    zh: 'Datasmith',
-    icon: 'DataMesh',
-    leftButton: true,
-    com: shallowRef(EsDatasmithRuntimeModel)
-  },
-  {
-    type: 'esLevelRuntimeModel',
-    zh: '关卡包',
-    icon: 'guanqiabao',
-    leftButton: false,
-    com: shallowRef(EsLevelRuntimeModel)
-  },
-  {
-    type: 'eSStaticMesh',
-    zh: '静态网格体',
-    icon: 'wangluo',
-    leftButton: true,
-    com: shallowRef(EsStaticMesh)
-  }
-]
+    {
+      type: 'esUnrealActor',
+      zh: '创建Actor',
+      icon: 'actor',
+      leftButton: true,
+      com: shallowRef(EsUnrealActor)
+    },
+    {
+      type: 'esUnrealActor2',
+      zh: '绑定Actor',
+      icon: 'actor',
+      leftButton: false,
+      com: shallowRef(EsUnrealActor2)
+    },
+    {
+      type: 'esDatasmithRuntimeModel',
+      zh: 'Datasmith',
+      icon: 'DataMesh',
+      leftButton: true,
+      com: shallowRef(EsDatasmithRuntimeModel)
+    },
+    {
+      type: 'esLevelRuntimeModel',
+      zh: '关卡包',
+      icon: 'guanqiabao',
+      leftButton: false,
+      com: shallowRef(EsLevelRuntimeModel)
+    },
+    {
+      type: 'eSStaticMesh',
+      zh: '静态网格体',
+      icon: 'wangluo',
+      leftButton: true,
+      com: shallowRef(EsStaticMesh)
+    }
+  ]

@@ -1,6 +1,7 @@
 export const EARTH_UI_SCENEOBJECT_TYPE_ICON = {
-  Default: 'wenjian_weixuanzhong',
+  Default: 'wj-wj-1',
   Folder: 'wenjian_weixuanzhong',
+  ESCylinder: 'yuanzhu',
   ESImageryLayer: 'yingxiang',
   ES3DTileset: 'wapian',
   ESTerrainLayer: 'dixing',

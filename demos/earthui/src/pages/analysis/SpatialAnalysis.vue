@@ -28,56 +28,56 @@ const createlList: {
   leftButton: boolean
   hiddenFromUE?: boolean
 }[] = [
-  {
-    zh: '视阈',
-    type: 'ESViewShed',
-    icon: 'keshiyu',
-    leftButton: true
-  },
-  {
-    zh: '挖坑',
-    type: 'ESExcavate',
-    icon: 'wakeng',
-    leftButton: false
-  },
-  {
-    zh: '压平',
-    type: 'ESPolygonFlattenedPlane',
-    icon: 'yaping',
-    leftButton: true
-  },
-  {
-    zh: '裁剪',
-    type: 'ESClippingPlane',
-    icon: 'jiancai',
-    leftButton: false
-  },
-  {
-    zh: '通视分析',
-    type: 'ESVisibilityAnalysis',
-    icon: 'tongshifenxi',
-    leftButton: true
-  },
-  {
-    zh: '控高分析',
-    type: 'ESHeightLimitAnalysis',
-    icon: 'konggaofenxi',
-    leftButton: false
-  },
-  {
-    zh: '倾斜单体化',
-    type: 'ESClassification',
-    icon: 'jianzhudantihua',
-    leftButton: true
-  },
-  {
-    zh: '体剖切',
-    type: 'ESBoxClipping',
-    icon: 'tipaoqie',
-    leftButton: false,
-    hiddenFromUE: true
-  }
-]
+    {
+      zh: '视阈',
+      type: 'ESViewShed',
+      icon: 'keshiyu',
+      leftButton: true
+    },
+    {
+      zh: '挖坑',
+      type: 'ESExcavate',
+      icon: 'wakeng',
+      leftButton: false
+    },
+    {
+      zh: '压平',
+      type: 'ESPolygonFlattenedPlane',
+      icon: 'yaping',
+      leftButton: true
+    },
+    {
+      zh: '裁剪',
+      type: 'ESClippingPlane',
+      icon: 'jiancai',
+      leftButton: false
+    },
+    {
+      zh: '通视分析',
+      type: 'ESVisibilityAnalysis',
+      icon: 'tongshifenxi',
+      leftButton: true
+    },
+    {
+      zh: '控高分析',
+      type: 'ESHeightLimitAnalysis',
+      icon: 'konggaofenxi',
+      leftButton: false
+    },
+    {
+      zh: '倾斜单体化',
+      type: 'ESClassification',
+      icon: 'jianzhudantihua',
+      leftButton: true
+    },
+    {
+      zh: '体剖切',
+      type: 'ESBoxClipping',
+      icon: 'tipaoqie',
+      leftButton: false,
+      hiddenFromUE: true
+    }
+  ]
 
 let sceneObject:
   | ESViewShed
@@ -108,13 +108,9 @@ const createClippingPlane = (item: { zh: string; type: string; icon: string }) =
     switch (item.type) {
       // 有特殊性质的对象可单独处理
       default:
-        Message.loading({
-          id: 'xxx',
-          content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-        })
         editingDispose = sceneObject.editingChanged.disposableOn(() => {
           if (sceneObject && sceneObject.editing === false) {
-            Message.remove('xxx')
+
             objType.value = ''
             const json = sceneObject.json
             const flag =
@@ -148,7 +144,7 @@ const destroy = () => {
 }
 onMounted(() => {
   onBeforeUnmount(() => {
-    Message.remove('xxx')
+
     destroy()
     objType.value = ''
   })
@@ -164,18 +160,10 @@ watch(
 </script>
 <template>
   <RightList :title="'空间分析1'">
-    <Button
-      v-show="activeViewerType !== 'ESUeViewer' || !item.hiddenFromUE"
-      v-for="item in createlList"
-      :name="item.icon"
-      :content="item.zh"
-      :click="
-        () => {
-          createClippingPlane(item)
-        }
-      "
-      :actived="objType === item.type"
-      :left-button="item.leftButton"
-    ></Button>
+    <Button v-show="activeViewerType !== 'ESUeViewer' || !item.hiddenFromUE" v-for="item in createlList"
+      :name="item.icon" :content="item.zh" :click="() => {
+        createClippingPlane(item)
+      }
+        " :actived="objType === item.type" :left-button="item.leftButton"></Button>
   </RightList>
 </template>

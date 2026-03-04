@@ -17,7 +17,7 @@
   .dialog-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     font-family: var(--el-font-family);
 
     .tip-text {
@@ -35,6 +35,13 @@
         color: var(--el-color-primary);
         font-size: 16px;
       }
+    }
+
+    .height-checkbox{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
     }
   }
 

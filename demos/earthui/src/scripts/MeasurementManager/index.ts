@@ -1,4 +1,3 @@
-import { messageLoading } from 'earthsdk-ui'
 import {
   createProcessingFromAsyncFunc,
   Destroyable,
@@ -53,7 +52,6 @@ export class MeasurementManager extends Destroyable {
         }
         this._objectlist.push(esMeasurement);
         esMeasurement.editing = true;
-        const close = messageLoading("1.双击左键或 ESC 键退出编辑  2.空格键切换编辑方式");
         this._currentEditingType.value = measurementType;
 
         // 取消时需要销毁的东西
@@ -70,7 +68,6 @@ export class MeasurementManager extends Destroyable {
               esMeasurement.editingChanged.donce(() => {
                 if (!esMeasurement) return
                 if (!esMeasurement.editing) {
-                  close();
                   resolve();
                 }
               })

@@ -3,63 +3,30 @@
   <PopList :title="'文字标注'">
     <div class="roam_moveOnLineMode">
       <div>
-        <label for="">连续创建</label
-        ><span
-          class="roam_moveOnLineMode_checke"
-          :class="{ roam_moveOnLineMode_checke_active: continuousCreate }"
-          @click="changeCheckBox"
-        >
+        <label for="">连续创建</label><span class="roam_moveOnLineMode_checke"
+          :class="{ roam_moveOnLineMode_checke_active: continuousCreate }" @click="changeCheckBox">
           <es-icon :name="continuousCreate ? 'duigou' : ''" :color="'white'" :size="12" />
         </span>
       </div>
     </div>
     <div class="images_img_list">
       <div v-for="(item, index) in textType" class="images_img_lilist">
-        <div
-          class="images_imgposition"
-          @click.stop="select(item)"
-          :class="{
-            images_checkedactive: selected && item.name === selected.name
-          }"
-          @mouseenter="editingIconIsShow = index"
-          @mouseleave="editingIconIsShow = -1"
-        >
-          <div
-            class="images_imgposition_text"
-            :style="{
-              color: `rgba(${item.type.textColor[0] * 255},${item.type.textColor[1] * 255},${item.type.textColor[2] * 255},${item.type.textColor[3]})`,
-              fontSize: `${item.type.textSize}px`
-            }"
-            v-if="!(textareaIsShow === index)"
-          >
+        <div class="images_imgposition" @click.stop="select(item)" :class="{
+          images_checkedactive: selected && item.name === selected.name
+        }" @mouseenter="editingIconIsShow = index" @mouseleave="editingIconIsShow = -1">
+          <div class="images_imgposition_text" :style="{
+            color: `rgba(${item.type.textColor[0] * 255},${item.type.textColor[1] * 255},${item.type.textColor[2] * 255},${item.type.textColor[3]})`,
+            fontSize: `${item.type.textSize}px`
+          }" v-if="!(textareaIsShow === index)">
             {{ item.name }}
           </div>
-          <textarea
-            name="text"
-            class="images_imgposition_textarea"
-            v-model="item.name"
-            @click.stop
-            :style="{
-              color: `rgba(${item.type.textColor[0] * 255},${item.type.textColor[1] * 255},${item.type.textColor[2] * 255},${item.type.textColor[3]})`
-            }"
-            @blur="textareaIsShow = -1"
-            @keydown.enter="textareaIsShow = -1"
-            v-else
-          ></textarea>
-          <div
-            class="span2"
-            @click.stop.prevent="changeText(item, index)"
-            @mouseenter="currentIconIndex = index"
-            @mouseleave="currentIconIndex = -1"
-            v-show="editingIconIsShow === index"
-          >
-            <es-icon
-              :name="'bianji'"
-              :color="
-                index === currentIconIndex ? 'rgba(44, 104, 247, 1)' : 'rgba(230, 230, 230, 1)'
-              "
-              :size="12"
-            />
+          <textarea name="text" class="images_imgposition_textarea" v-model="item.name" @click.stop :style="{
+            color: `rgba(${item.type.textColor[0] * 255},${item.type.textColor[1] * 255},${item.type.textColor[2] * 255},${item.type.textColor[3]})`
+          }" @blur="textareaIsShow = -1" @keydown.enter="textareaIsShow = -1" v-else></textarea>
+          <div class="span2" @click.stop.prevent="changeText(item, index)" @mouseenter="currentIconIndex = index"
+            @mouseleave="currentIconIndex = -1" v-show="editingIconIsShow === index">
+            <es-icon :name="'bianji'" :color="index === currentIconIndex ? 'rgba(44, 104, 247, 1)' : 'rgba(230, 230, 230, 1)'
+              " :size="12" />
           </div>
         </div>
       </div>
@@ -75,7 +42,7 @@ import { createSceneObjTreeItemFromJson, executePos } from './fun'
 import { textTypeList } from '../data'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import { Message } from 'earthsdk-ui'
+
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 // const iconIsShow: any = ref()//黑色全程的显影
 const editingIconIsShow = ref(-1) //编辑的小icon显影
@@ -101,7 +68,7 @@ const pos = (position: [number, number, number]) => {
 const changeCheckBox = () => {
   //点击取消连续创建时使得人员类型为空
   continuousCreate.value = !continuousCreate.value
-  Message.remove('xxx')
+
   destroy()
   selected.value = undefined
 }
@@ -143,16 +110,12 @@ const createSceneObject = (position: [number, number, number]) => {
   setTimeout(() => {
     //@ts-ignore
     sceneObject2.editing = true
-    Message.loading({
-      id: 'xxx',
-      content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-    })
   }, 10)
   sceneObject2.name = selected.value.name + (sceneObjectIndex + 1)
   //编辑状态结束后根据json创建在场景树上
   editingDispose2 = sceneObject2.editingChanged.disposableWeakOn(() => {
     if (sceneObject2 && sceneObject2.editing === false) {
-      Message.remove('xxx')
+
       const json = sceneObject2.json
       xbsjEarthUi.destroySceneObject(sceneObject2)
       sceneObject2 = undefined
@@ -199,13 +162,9 @@ const createOneSceneObject = () => {
 
     //编辑状态结束后根据json创建在场景树上
     sceneObject.editing = true
-    Message.loading({
-      id: 'xxx',
-      content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-    })
     editingDispose = sceneObject.editingChanged.disposableWeakOn(() => {
       if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
+
         const json = sceneObject.json
         const position = sceneObject.position
         const a = position[0] === 0 && position[1] === 0
@@ -224,7 +183,7 @@ const createOneSceneObject = () => {
 onMounted(() => {
   createOneSceneObject()
   onBeforeUnmount(() => {
-    Message.remove('xxx')
+
     destroy()
   })
 })

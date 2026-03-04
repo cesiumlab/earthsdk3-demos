@@ -108,7 +108,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
       id: 14,
       title: 'Agent',
       value: 'llmchat',
-      icon: 'a-xinjianwenbenwendang',
+      icon: 'damoxing',
       iconSize: 18,
       component: defineAsyncComponent(() => import('./LLMChat/index.vue')),
       isShow: true

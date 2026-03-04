@@ -6,6 +6,8 @@ import { ESCesiumViewer, ESKml, getCzmCode } from 'earthsdk3-cesium'
 import { ESUeViewer } from 'earthsdk3-ue'
 import { ElMessage } from 'element-plus'
 import { calcFlyToParam } from './calcFlyToParam'
+import { cesiumCodeLoader } from './funcCesiumCode'
+import { materialReplaceEditor } from './funcMaterialReplace'
 import { geojsonToESObiects } from './geojsonToESObiects'
 import { kmlToESObjects } from './kmlToESObjects'
 import { getGeoJsonMenuContent } from './objectsToGeoJson'
@@ -13,8 +15,6 @@ import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
-import { cesiumCodeLoader } from './funcCesiumCode'
-import { materialReplaceEditor } from './funcMaterialReplace'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -297,18 +297,15 @@ const getSceneObjectTreeItemMenuContent = (
     text: "编辑",
     keys: "",
     func: () => {
-      if (sceneObject) {
-        if (Reflect.has(sceneObject, 'editing') && Reflect.has(sceneObject, 'editingChanged')) {
+
+      if (sceneObject && Reflect.has(sceneObject, 'editing')) {
+        try {
           (sceneObject as ESVisualObject).editing = true;
-          const close = messageLoading("1.双击左键或 ESC 键退出编辑  2.空格键切换编辑方式");
-          const dispose = (sceneObject as ESVisualObject).editingChanged.donce((res: boolean) => {
-            if (!res) {
-              close();
-              dispose();
-            }
-          });
+        } catch (error) {
+          console.error(error);
         }
       }
+
     },
   };
   if (sceneObject) {
@@ -408,7 +405,12 @@ const getSceneObjectTreeItemMenuContent = (
           initialRule = historyRules[historyRules.length - 1].code;
         }
 
-        const config = { historyRules, fields, initialRule }
+        const config = {
+          historyRules, fields, initialRule,
+          applyFunction: (rules: StyleRule[]) => {
+            sceneObject.setFeatureStyle(rules as ESJFeatureStyleType);
+          },
+        }
         const style = await getTilesetStyle(config);
         //存
         if (style) {
@@ -437,8 +439,9 @@ const getSceneObjectTreeItemMenuContent = (
               xbsjFetureStyles: newHistoryRules
             }
           }
+        } else {
+          sceneObject.resetFeatureStyle();
         }
-
       }
     },
   };
@@ -484,7 +487,7 @@ const getSceneObjectTreeItemMenuContent = (
         sceneObject && sceneObject instanceof ES3DTileset
         && objm.activeViewer instanceof ESUeViewer
       ) {
-        let close: Function | null = messageLoading('正在获取材质信息...')
+        let close: Function | null = messageLoading('正在获取材质信息...');
         try {
           const ueMaterialList = await objm.activeViewer.getTilesetMaterialIDList()
           const nameList = await sceneObject.getMaterialNameList() as string[];

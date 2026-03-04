@@ -3,34 +3,18 @@
   <PopList :title="'自定义DIV'">
     <div class="images_img_list">
       <div v-for="(item, index) in modes" class="images_img_lilist">
-        <div
-          class="images_imgposition"
-          @click="select(item)"
-          :class="{
-            images_checkedactive: selected && item.mode === selected.mode
-          }"
-        >
+        <div class="images_imgposition" @click="select(item)" :class="{
+          images_checkedactive: selected && item.mode === selected.mode
+        }">
           <img :src="item.img" alt="" />
           <span v-show="iconIsShow == index ? true : false">{{ item.name ?? '模式' }}</span>
         </div>
-        <div
-          class="images_onlineimageName"
-          @mouseenter="iconIsShow = index"
-          @mouseleave="iconIsShow = null"
-          v-if="inputIndex !== index"
-          @dblclick="inputIndex = index"
-          title="双击可编辑名称"
-        >
+        <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null"
+          v-if="inputIndex !== index" @dblclick="inputIndex = index" title="双击可编辑名称">
           {{ item.name ?? '模式' }}
         </div>
-        <input
-          class="images_onlineimageName_input"
-          type="text"
-          v-model="item.name"
-          @blur="inputIndex = -1"
-          @keydown.enter="inputIndex = -1"
-          v-else
-        />
+        <input class="images_onlineimageName_input" type="text" v-model="item.name" @blur="inputIndex = -1"
+          @keydown.enter="inputIndex = -1" v-else />
       </div>
     </div>
   </PopList>
@@ -42,7 +26,7 @@ import { inject, onMounted, ref, onBeforeUnmount } from 'vue'
 import { createSceneObjTreeItemFromJson, executePos } from './fun'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import { Message } from 'earthsdk-ui'
+
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const inputIndex = ref(-1)
 
@@ -75,13 +59,10 @@ const createSceneObject = () => {
     sceneObject.innerHTML = `<div style="width: auto; height: 50px;white-space: nowrap; background: rgba(120, 120, 0, 0.7); color: white; font-size: 30px; line-height: 50px; border: 1px solid white;">${selected.value.name}</div>`
     //编辑状态结束后根据json创建在场景树上
     sceneObject.editing = true
-    Message.loading({
-      id: 'xxx',
-      content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-    })
+
     editingDispose = sceneObject.editingChanged.disposableOnce(() => {
       if (sceneObject && sceneObject.editing === false) {
-        Message.remove('xxx')
+
         const json = sceneObject.json
         const position = sceneObject.position
         const a = position[0] === 0 && position[1] === 0
@@ -111,7 +92,7 @@ const destroy = () => {
 onMounted(() => {
   createSceneObject()
   onBeforeUnmount(() => {
-    Message.remove('xxx')
+
     destroy()
   })
 })

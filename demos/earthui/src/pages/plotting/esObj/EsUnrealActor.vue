@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from 'earthsdk-ui'
+
 import { ElMessage } from 'element-plus'
 import { ESUnrealActor } from 'earthsdk3'
 import { inject, onBeforeUnmount, ref } from 'vue'
@@ -34,14 +34,10 @@ const ok = () => {
     obj.actorClass = actorclass.value
 
     //编辑状态结束后根据json创建在场景树上
-    Message.loading({
-      id: 'xxx',
-      content: '1. 双击鼠标左键或点击ESC键退出编辑2. 点击空格键进行编辑方式的切换'
-    })
     obj.d(
       obj.editingChanged.disposableWeakOn(() => {
         if (obj && obj.editing === false) {
-          Message.remove('xxx')
+
           const json = obj.json
           const position = obj.position
           const a = position[0] === 0 && position[1] === 0
@@ -61,6 +57,6 @@ const ok = () => {
 const actorclass = ref()
 const name = ref()
 onBeforeUnmount(() => {
-  Message.remove('xxx')
+
 })
 </script>

@@ -32,13 +32,14 @@ export const getLiftHeightMenuContent = (
           ElMessage.warning('当前没有符合可抬升的对象，请重新选择')
           return
         }
-        const addHeight = await getLiftHeightValue(objNumber)
-        if (addHeight === undefined) return
+        const option = await getLiftHeightValue(objNumber)
+        if (option === undefined) return;
+        const { value, type } = option;
 
         filterSceneObjectList.forEach((sceneObject) => {
           if (sceneObject instanceof ESObjectWithLocation) {
             const sceneHeight = sceneObject.position[2]
-            const newHeight = addHeight + sceneHeight
+            const newHeight = type === 'add' ? value + sceneHeight : value;
             const position = [
               sceneObject.position[0],
               sceneObject.position[1],
@@ -50,7 +51,7 @@ export const getLiftHeightMenuContent = (
             const newPoints: ESJVector3DArray = []
             if (points && points.length > 0) {
               points.forEach((item) => {
-                const point2 = item[2] + addHeight
+                const point2 = type === 'add' ? value + item[2] : value;
                 const p = [item[0], item[1], point2] as ESJVector3D
                 newPoints.push(p)
               })
@@ -59,7 +60,7 @@ export const getLiftHeightMenuContent = (
           }
         })
 
-        ElMessage.success(`${objNumber} 个对象已经成功抬升 ${addHeight} m`)
+        ElMessage.success(`${objNumber} 个对象已经成功抬升${type === 'add' ? '了' : '至'} ${value} m`)
       } catch (error) {
         console.error('抬升失败', error)
       }

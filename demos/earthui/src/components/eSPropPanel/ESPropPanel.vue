@@ -24,7 +24,8 @@ const lonLatFormat = toReadonlyVueRef<any>(disposer, [xbsjEarthUi.activeViewer, 
 const propTreeCallback = xbsjEarthUi.propTreeCallback.bind(xbsjEarthUi)
 const treeItem = xbsjEarthUi.propSceneTree!
 
-const { basic, general, coordinate, dataSource, location, style, defaultMenu } = properties
+const { basic, general, coordinate, dataSource, location, style, defaultMenu, more } = properties;
+const allProperties = [...general, ...basic, ...coordinate, ...dataSource, ...location, ...style, ...more];
 currentMenu.value = defaultMenu ?? 'general'
 if (basic.length > 0) {
   propertiesMenu.push({
@@ -62,6 +63,13 @@ if (style.length > 0) {
     component: 'style'
   })
 }
+
+propertiesMenu.push({
+  name: '全部',
+  component: 'all'
+})
+
+
 const disabled3DTileset = ref(false)
 let urlChang: any
 const tilesetReady = (sceneObject: ES3DTileset) => {
@@ -155,6 +163,10 @@ onMounted(() => {
       <div v-if="currentMenu === 'style'">
         <CoordinateProprties :properties="style" @callback="propTreeCallback" :lonLatFormat="lonLatFormat"
           :type="treeItem.sceneObject.typeName" :panel-style="'style'">
+        </CoordinateProprties>
+      </div>
+      <div v-if="currentMenu === 'all'">
+        <CoordinateProprties :properties="allProperties" :panel-style="'all'">
         </CoordinateProprties>
       </div>
     </div>

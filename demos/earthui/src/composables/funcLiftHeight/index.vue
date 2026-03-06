@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :model-value="props.show" title="高度抬升" width="400px" :before-close="cancel" @opened="handleOpened"
+  <el-dialog :model-value="props.show" title="高度抬升" width="600px" :before-close="cancel" @opened="handleOpened"
     class="object-lift-height-dialog">
     <div class="dialog-content">
       <!-- tip -->
@@ -12,6 +12,7 @@
 
       <!-- 高度改为 xx m 或者 高度累加 xx m-->
       <div class="height-checkbox">
+        <label for="" style="margin:0 5px;"> 模式:</label>
         <el-checkbox :model-value="heightFlag" @change="heightFlag = !heightFlag">高度累加</el-checkbox>
         <el-checkbox :model-value="!heightFlag" @change="heightFlag = !heightFlag">高度同步</el-checkbox>
       </div>
@@ -61,7 +62,7 @@ const numInputRef = ref<InstanceType<typeof ElInput>>();
 * 对话框打开后的回调，自动聚焦输入框
 */
 const handleOpened = () => {
-  numInputRef.value?.select();
+  numInputRef.value?.focus();
 };
 
 

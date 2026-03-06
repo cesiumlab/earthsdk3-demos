@@ -1,5 +1,5 @@
 <template>
-  <PopList :title="'GeoServer'" :showButton="true" @ok="ok">
+  <PopList :title="'GeoServer'" :showButton="true" @ok="ok" :link="'https://geoserver.org'">
     <LabelInput v-model="geoServerUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="server_lab">

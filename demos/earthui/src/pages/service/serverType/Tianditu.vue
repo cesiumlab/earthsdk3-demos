@@ -1,18 +1,12 @@
 <template>
-  <PopList :title="'天地图'" :showButton="true" @ok="ok">
+  <PopList :title="'天地图'" :showButton="true" @ok="ok" :link="'https://www.tianditu.gov.cn'">
     <div class="images_bottom_content">
       <div class="images_servelocation">
         <label>token</label>
         <div class="server_token" v-if="!tokenInputShow" @click="tokenInputShow = true">
           {{ tiandituToken }}
         </div>
-        <input
-          v-else
-          type="text"
-          v-model="tiandituToken"
-          @blur="changeToken"
-          @keydown.enter="changeToken"
-        />
+        <input v-else type="text" v-model="tiandituToken" @blur="changeToken" @keydown.enter="changeToken" />
       </div>
     </div>
     <div class="server_lab">
@@ -23,13 +17,8 @@
         <div class="server_lab_title_type">{{ '类型' }}</div>
       </div>
       <div class="server_content">
-        <div
-          class="server_lab_content"
-          v-for="(item, index) in serverList"
-          @click="changeServerLab(item, index)"
-          :key="index"
-          :class="{ server_lab_content_active: serverActive === index }"
-        >
+        <div class="server_lab_content" v-for="(item, index) in serverList" @click="changeServerLab(item, index)"
+          :key="index" :class="{ server_lab_content_active: serverActive === index }">
           <div class="server_lab_content_index">{{ index + 1 }}</div>
           <div class="server_lab_content_name">{{ item.name }}</div>
           <div class="server_lab_content_type">{{ item.type }}</div>

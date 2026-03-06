@@ -2561,10 +2561,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.7-beta.7:
-  version "1.0.7-beta.7"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.7-beta.7.tgz#9e13fd2d80a7acf6d510fe2d4ce7850246a6978a"
-  integrity sha512-9wlhEunUApkyoTi9EEMMlsHp1ahKvMFmnxxG5FpOFtcHbunRiw2dmYIHcCU42536woc+fgpNOaNXNeNl0kS5TQ==
+earthsdk-ui@^1.0.7-beta.8:
+  version "1.0.7-beta.8"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.7-beta.8.tgz#8329219f69134e76da71776a3dd87db0b49f6866"
+  integrity sha512-nachVnTAYGSaIAUbceG89hukWmADsNl28nUbFNwI2nx9PpNuUenv5pAJoR2X+8fAZNOuUDN/yJAgao5M0trYNQ==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"

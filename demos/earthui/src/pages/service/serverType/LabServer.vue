@@ -1,6 +1,6 @@
 <template>
   <PopList :title="config.cesiumLabParamValue" :showButton="serverList.length > 0"
-    :link="config.specialModuleEnable ? 'http://bjxbsj.cn' : ''" @ok="ok">
+    :link="config.specialModuleEnable ? 'https://bjxbsj.cn/cesiumlab.html' : ''" @ok="ok">
     <LabelInput v-model="cesiumLabUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">

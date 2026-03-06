@@ -1,5 +1,5 @@
 <template>
-  <PopList :title="'CesiumIon'" :showButton="true" @ok="ok">
+  <PopList :title="'CesiumIon'" :showButton="true" @ok="ok" :link="'https://ion.cesium.com'">
     <LabelInput v-model="cesiumIonUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">
@@ -38,14 +38,14 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref, inject, onBeforeUnmount } from 'vue'
-import PopList from '../../../components/PopList.vue'
+import PopList from '@/components/PopList.vue'
 import { ElMessage } from 'element-plus'
 import { getWithCookie } from '../../../api/service'
-import LabelInput from '../../../components/LabelInput.vue'
+import LabelInput from '@/components/LabelInput.vue'
 import { createCesiumIonImage, createCesiumIonTerrain, createCesiumIonModel } from './tools'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 
-import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 const d = createVueDisposer(onBeforeUnmount)
 const tokenInputShow = ref(false)
 const serverUrl = ref('')

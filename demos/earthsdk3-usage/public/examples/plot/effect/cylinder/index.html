@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>圆柱体</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            margin-bottom: 8px;
+            grid-row-gap: 8px;
+            align-items: center;
+        }
+
+        .box label {
+            font-size: 13px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .box input[type="range"] {
+            width: 100%;
+        }
+
+        .box input[type="color"] {
+            width: 60px;
+            height: 28px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .value-display {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 12px;
+            color: #ddd6d6;
+            min-width: 40px;
+        }
+
+        .btn {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn button {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn button:hover {
+            background: #45a049;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #2196F3;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="panel">
+        <div class="section-title">基础属性</div>
+        <div class="box">
+            <label>半径 (radius):</label>
+            <div>
+                <input type="range" id="radius" min="10" max="500" value="100" step="10" oninput="updateCylinder()">
+                <span class="value-display" id="radiusValue">100</span>
+            </div>
+
+            <label>高度 (height):</label>
+            <div>
+                <input type="range" id="height" min="50" max="1000" value="300" step="10" oninput="updateCylinder()">
+                <span class="value-display" id="heightValue">300</span>
+            </div>
+
+            <label>颜色 (color):</label>
+            <div>
+                <input type="color" id="color" value="#00ffff" oninput="updateCylinder()">
+            </div>
+        </div>
+
+        <div class="section-title">材质参数 (materialParams)</div>
+        <div class="box">
+            <label>圆环速度 (ringSpeed):</label>
+            <div>
+                <input type="range" id="ringSpeed" min="0" max="10" value="2" step="0.1" oninput="updateCylinder()">
+                <span class="value-display" id="ringSpeedValue">2</span>
+            </div>
+
+            <label>圆环宽度 (ringWidth):</label>
+            <div>
+                <input type="range" id="ringWidth" min="0.01" max="0.5" value="0.1" step="0.01" oninput="updateCylinder()">
+                <span class="value-display" id="ringWidthValue">0.1</span>
+            </div>
+
+            <label>圆环颜色 (ringColor):</label>
+            <div>
+                <input type="color" id="ringColor" value="#ffffff" oninput="updateCylinder()">
+            </div>
+
+            <label>圆边数 (sides):</label>
+            <div>
+                <input type="range" id="sides" min="3" max="64" value="32" step="1" oninput="updateCylinder()">
+                <span class="value-display" id="sidesValue">32</span>
+            </div>
+        </div>
+
+        <div class="btn">
+            <button onclick="resetValues()">重置参数</button>
+            <button onclick="flyTo()">飞行定位</button>
+        </div>
+    </div>
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+
+        // Vue中引入方式：import { ESObjectsManager } from 'earthsdk3';
+        const { ESObjectsManager } = window['EarthSDK3']
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium']
+        const { ESUeViewer } = window['EarthSDK3_UE']
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+        // 监听视口状态
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([109.87431251005586, 19.479225135155424, 1126.7502711784025], [358.83685654805055, -31.800142399569175, 0.0036869980307010666], 3)
+        });
+        // 创建Cesium视口
+        const viewer = objm.createCesiumViewer(document.getElementById("app"));
+        // 通过json创建一个影像图层
+        const imageryLayer = objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 16,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------圆柱体------------------------------------**/
+        const sceneObject = objm.createSceneObject('ESCylinder')
+        sceneObject.position = [109.87399458575753, 19.495019102999088, 0]
+        
+        // 初始化圆柱体属性
+        sceneObject.radius = 100
+        sceneObject.height = 300
+        sceneObject.color = [0, 1, 0, 1]  // 绿色 RGBA
+        sceneObject.materialParams = {
+            ringSpeed: 2,
+            ringWidth: 0.1,
+            ringColor: [1, 0, 0, 1],  // 红色 RGBA
+            sides: 32
+        }
+
+        // 颜色转换函数：hex字符串转RGBA数组 [r, g, b, a]，值范围0-1
+        function hexToRGBA(hex) {
+            const r = parseInt(hex.substr(1, 2), 16) / 255
+            const g = parseInt(hex.substr(3, 2), 16) / 255
+            const b = parseInt(hex.substr(5, 2), 16) / 255
+            return [r, g, b, 1]
+        }
+
+        // 更新圆柱体属性
+        function updateCylinder() {
+            // 更新基础属性
+            const radius = parseFloat(document.getElementById('radius').value)
+            const height = parseFloat(document.getElementById('height').value)
+            const color = document.getElementById('color').value
+            
+            sceneObject.radius = radius
+            sceneObject.height = height
+            sceneObject.color = hexToRGBA(color)
+
+            // 更新材质参数
+            const ringSpeed = parseFloat(document.getElementById('ringSpeed').value)
+            const ringWidth = parseFloat(document.getElementById('ringWidth').value)
+            const ringColor = document.getElementById('ringColor').value
+            const sides = parseInt(document.getElementById('sides').value)
+
+            sceneObject.materialParams = {
+                ringSpeed: ringSpeed,
+                ringWidth: ringWidth,
+                ringColor: hexToRGBA(ringColor),
+                sides: sides
+            }
+
+            // 更新显示值
+            document.getElementById('radiusValue').textContent = radius
+            document.getElementById('heightValue').textContent = height
+            document.getElementById('ringSpeedValue').textContent = ringSpeed.toFixed(1)
+            document.getElementById('ringWidthValue').textContent = ringWidth.toFixed(2)
+            document.getElementById('sidesValue').textContent = sides
+        }
+
+        // 重置参数
+        function resetValues() {
+            document.getElementById('radius').value = 100
+            document.getElementById('height').value = 300
+            document.getElementById('color').value = '#00ff00'
+            document.getElementById('ringSpeed').value = 2
+            document.getElementById('ringWidth').value = 0.1
+            document.getElementById('ringColor').value = '#ff0000'
+            document.getElementById('sides').value = 32
+            updateCylinder()
+        }
+
+        // 初始化显示值
+        updateCylinder()
+
+        // 飞行定位
+        function flyTo() {
+            sceneObject.flyTo()
+        }
+    </script>
+
+    <!-- 切换UE和Cesium引擎的组件（Vue） -->
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <!-- Vue文件 -->
+    <script src="./js/vue.global.js"></script>
+    <!-- 切换UE和Cesium的组件 -->
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

@@ -793,6 +793,11 @@
                         "path": "plot/effect/pipefence"
                     },
                     {
+                        "name": "圆柱体",
+                        "thumbnail": "plot-effect-cylinder.webp",
+                        "path": "plot/effect/cylinder"
+                    },
+                    {
                         "name": "报警",
                         "thumbnail": "plot-effect-alarm.webp",
                         "path": "plot/effect/alarm"

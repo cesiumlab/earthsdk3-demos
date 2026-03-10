@@ -166,6 +166,7 @@
 
         const PLANE_ID = 'plane-world-tour-001';
 
+        // 创建飞机模型
         const plane = objm.createSceneObject('ESGltfModel', PLANE_ID);
         plane.position = [116.39, 39.90, ALT];
         plane.url = 'https://earthsdk.com/assets/glb/feiji.glb';
@@ -173,6 +174,7 @@
         plane.minimumPixelSize = 1;
         plane.scale = [10000, 10000, 10000];
 
+        // 创建路径（只用来计算飞机的位置和旋转，不做展示效果）
         const esPath = objm.createSceneObject('ESPath');
         esPath.points = waypoints;
         esPath.timeStamps = waypoints.map((_, i) => i * pointDuration);
@@ -185,12 +187,14 @@
             plane.rotation = esPath.currentRotation;
         });
 
+        // 创建路径（用来展示路径效果）
         const line = objm.createSceneObject('ESGeoLineString');
         line.points = waypoints;
         line.show = true;
         line.strokeColor = [0.2, 0.8, 1.0, 0.7];
         line.strokeWidth = 2;
 
+        // 创建播放器
         const esPlayer = objm.createSceneObject('ESPlayer');
         esPlayer.startTime = 0;
         esPlayer.stopTime = (waypoints.length - 1) * pointDuration;

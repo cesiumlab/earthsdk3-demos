@@ -1291,18 +1291,8 @@
                         "path": "ue/actor/dataMeshActor"
                     }
                 ]
-            },
-            {
-                "name": "高斯泼溅",
-                "details": "高斯泼溅",
-                "children": [
-                    {
-                        "name": "高斯泼溅数据示例1",
-                        "thumbnail": "ue-gaosi-data.webp",
-                        "path": "ue/gaosi/data"
-                    }
-                ]
             }
+           
         ]
     },
     {

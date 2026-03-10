@@ -1309,7 +1309,7 @@
                         "path": "function/demonstration/human"
                     }, {
                         "name": "飞行路线模拟",
-                        "thumbnail": "function-demonstration-human.webp",
+                        "thumbnail": "function-demonstration-path.webp",
                         "path": "function/demonstration/path"
                     }
                 ]

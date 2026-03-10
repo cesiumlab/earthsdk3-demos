@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="./js/earthsdk.js"></script>
+    <!-- 自定义Css样式 -->
+    <link rel="stylesheet" href="./css/example1.css">
+    <title>飞机路径动画</title>
+    <style>
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        #panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            min-width: 200px;
+        }
+
+        #panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #7ecfff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 6px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .btn {
+            padding: 5px 12px;
+            border: 1px solid rgba(126, 207, 255, 0.6);
+            border-radius: 4px;
+            background: rgba(126, 207, 255, 0.12);
+            color: #7ecfff;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(126, 207, 255, 0.28);
+        }
+
+        #status {
+            margin-top: 8px;
+            color: #aef;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <div id="panel">
+        <h3>✈ 环球飞行路径</h3>
+        <div class="btn-row">
+            <button class="btn" id="btn-play">播放</button>
+            <button class="btn" id="btn-pause">暂停</button>
+            <button class="btn" id="btn-follow">跟踪视角</button>
+            <button class="btn" id="btn-free">自由视角</button>
+        </div>
+        <div id="status">状态：等待中...</div>
+    </div>
+
+    <script>
+        /** ---------------------------------地球创建------------------------------------**/
+        const { ESObjectsManager } = window['EarthSDK3'];
+        const { ESCesiumViewer } = window['EarthSDK3_Cesium'];
+        const { ESUeViewer } = window['EarthSDK3_UE'];
+        const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer);
+        window.g_objm = objm;
+
+        objm.viewerCreatedEvent.don((viewer) => {
+            viewer.flyIn([
+                108.39917115341368,
+                26.103190132251733,
+                7998796.824806668
+            ], [
+                356.643062780585,
+                -77.68604970197883,
+                359.9577269528902
+            ], 2);
+        });
+
+        const viewer = objm.createCesiumViewer(document.getElementById('app'));
+
+        objm.createSceneObjectFromJson({
+            "id": "9812a65f-0de0-4f7b-b234-809c0c2fb8ef",
+            "type": "ESImageryLayer",
+            "maximumLevel": 16,
+            "url": "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        });
+
+        /** ---------------------------------大圆弧插值------------------------------------**/
+        function greatCirclePoints(p1, p2, steps, alt) {
+            const toRad = d => d * Math.PI / 180;
+            const toDeg = r => r * 180 / Math.PI;
+            const lat1 = toRad(p1[1]), lon1 = toRad(p1[0]);
+            const lat2 = toRad(p2[1]), lon2 = toRad(p2[0]);
+            const d = 2 * Math.asin(Math.sqrt(
+                Math.pow(Math.sin((lat2 - lat1) / 2), 2) +
+                Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin((lon2 - lon1) / 2), 2)
+            ));
+            const pts = [];
+            for (let i = 0; i <= steps; i++) {
+                const f = i / steps;
+                if (d < 1e-10) { pts.push([p1[0], p1[1], alt]); continue; }
+                const A = Math.sin((1 - f) * d) / Math.sin(d);
+                const B = Math.sin(f * d) / Math.sin(d);
+                const x = A * Math.cos(lat1) * Math.cos(lon1) + B * Math.cos(lat2) * Math.cos(lon2);
+                const y = A * Math.cos(lat1) * Math.sin(lon1) + B * Math.cos(lat2) * Math.sin(lon2);
+                const z = A * Math.sin(lat1) + B * Math.sin(lat2);
+                const lat = toDeg(Math.atan2(z, Math.sqrt(x * x + y * y)));
+                const lon = toDeg(Math.atan2(y, x));
+                pts.push([lon, lat, alt]);
+            }
+            return pts;
+        }
+
+        const ALT = 8000;
+        const STEPS = 20;
+        const cities = [
+            [116.39, 39.90],
+            [139.69, 35.68],
+            [-74.00, 40.71],
+            [-0.12,  51.51],
+            [55.27,  25.20],
+            [116.39, 39.90],
+        ];
+
+        const waypoints = [];
+        for (let i = 0; i < cities.length - 1; i++) {
+            const seg = greatCirclePoints(cities[i], cities[i + 1], STEPS, ALT);
+            if (i < cities.length - 2) seg.pop();
+            waypoints.push(...seg);
+        }
+
+        const segDuration = 20000;
+        const pointDuration = segDuration / STEPS;
+
+        const PLANE_ID = 'plane-world-tour-001';
+
+        const plane = objm.createSceneObject('ESGltfModel', PLANE_ID);
+        plane.position = [116.39, 39.90, ALT];
+        plane.url = 'https://earthsdk.com/assets/glb/feiji.glb';
+        plane.maximumScale = 2;
+        plane.minimumPixelSize = 1;
+        plane.scale = [10000, 10000, 10000];
+
+        const esPath = objm.createSceneObject('ESPath');
+        esPath.points = waypoints;
+        esPath.timeStamps = waypoints.map((_, i) => i * pointDuration);
+        esPath.show = false;
+
+        esPath.currentPositionChanged.don(() => {
+            if (!esPath.currentPosition) return;
+            plane.position = [esPath.currentPosition[0], esPath.currentPosition[1], esPath.currentPosition[2]];
+            if (!esPath.currentRotation) return;
+            plane.rotation = esPath.currentRotation;
+        });
+
+        const line = objm.createSceneObject('ESGeoLineString');
+        line.points = waypoints;
+        line.show = true;
+        line.strokeColor = [0.2, 0.8, 1.0, 0.7];
+        line.strokeWidth = 2;
+
+        const esPlayer = objm.createSceneObject('ESPlayer');
+        esPlayer.startTime = 0;
+        esPlayer.stopTime = (waypoints.length - 1) * pointDuration;
+        esPlayer.playing = true;
+        esPlayer.loop = true;
+
+        document.getElementById('status').innerText = '状态：动画运行中';
+
+        document.getElementById('btn-play').onclick = () => {
+            esPlayer.playing = true;
+            document.getElementById('status').innerText = '状态：播放中';
+        };
+        document.getElementById('btn-pause').onclick = () => {
+            esPlayer.playing = false;
+            document.getElementById('status').innerText = '状态：已暂停';
+        };
+        document.getElementById('btn-follow').onclick = () => {
+            try {
+                objm.activeViewer.changeToFollow(PLANE_ID, 2000000, 0.05381781063022, -70.19586881124883, true);
+                document.getElementById('status').innerText = '状态：跟踪视角';
+            } catch (e) { console.error('跟踪视角失败:', e); }
+        };
+        document.getElementById('btn-free').onclick = () => {
+            try {
+                objm.activeViewer.changeToMap();
+                document.getElementById('status').innerText = '状态：自由视角';
+            } catch (e) { console.error('切换自由视角失败:', e); }
+        };
+    </script>
+
+    <div id="root">
+        <switch-engine :objm="objm"></switch-engine>
+    </div>
+    <script src="./js/vue.global.js"></script>
+    <script src="./js/switchEngineCom.js"></script>
+</body>
+
+</html>

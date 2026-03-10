@@ -1300,13 +1300,17 @@
         "icon": "funcition",
         "children": [
             {
-                "name": "功能演示",
-                "details": "",
+                "name": "路径模拟",
+                "details": "路径动画、飞行路线模拟",
                 "children": [
                     {
-                        "name": "路径动画",
+                        "name": "人员行走路径",
                         "thumbnail": "function-demonstration-human.webp",
                         "path": "function/demonstration/human"
+                    }, {
+                        "name": "飞行路线模拟",
+                        "thumbnail": "function-demonstration-human.webp",
+                        "path": "function/demonstration/path"
                     }
                 ]
             }

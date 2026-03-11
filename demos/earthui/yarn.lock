@@ -27,10 +27,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.28.5"
 
-"@cesium/engine@^21.0.1":
-  version "21.0.1"
-  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-21.0.1.tgz#316edc19a84a045ee304912c3a2f7bf5d7b8e20a"
-  integrity sha512-V4MEHOcYMcg+zCxrPjPAVpUyJxmIw6K9qPz5Fd2fnYPoMSPV7FJsiZYoFns03yoPHOPIeqnXQNspZKLX5Xzgfw==
+"@cesium/engine@^23.0.1":
+  version "23.0.1"
+  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-23.0.1.tgz#dd2007a924510d4625418cc758ad8524010fc35d"
+  integrity sha512-67Wki33c2mgAH/xKVTai35ZxCTgZ7oFCW1SQAqsfLb/zCBCA24+QZKjL02n2fO6Hlpq6ds6JZRBi44DRcNP9FA==
   dependencies:
     "@cesium/wasm-splats" "^0.1.0-alpha.2"
     "@spz-loader/core" "0.3.0"
@@ -38,7 +38,7 @@
     "@zip.js/zip.js" "^2.8.1"
     autolinker "^4.0.0"
     bitmap-sdf "^1.0.3"
-    dompurify "^3.0.2"
+    dompurify "^3.3.0"
     draco3d "^1.5.1"
     earcut "^3.0.0"
     grapheme-splitter "^1.0.4"
@@ -47,9 +47,9 @@
     ktx-parse "^1.0.0"
     lerc "^2.0.0"
     mersenne-twister "^1.1.0"
-    meshoptimizer "^0.25.0"
+    meshoptimizer "^1.0.1"
     pako "^2.0.4"
-    protobufjs "^7.1.0"
+    protobufjs "^8.0.0"
     rbush "^4.0.1"
     topojson-client "^3.1.0"
     urijs "^1.19.7"
@@ -59,12 +59,12 @@
   resolved "https://registry.npmjs.org/@cesium/wasm-splats/-/wasm-splats-0.1.0-alpha.2.tgz#f2d0d717d46f5f3d6d923549e90fb5ab4d429cab"
   integrity sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==
 
-"@cesium/widgets@^13.2.1":
-  version "13.2.1"
-  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-13.2.1.tgz#4b6f4f163aa3ca2474bfbdbeedc15f82abce98ec"
-  integrity sha512-VwJvw4UmEyK9slrDUImVcz3GFs5FDITH21BOiTVMSWuSsoqVDtMV0vTsoggFpIIqdYj6usHZjKuDnD9BT3vZAQ==
+"@cesium/widgets@^14.4.1":
+  version "14.4.1"
+  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-14.4.1.tgz#72146edafc3b571546e8982f05aaa5218a37b352"
+  integrity sha512-2zT5JECBE59n4ow1RRRvhwlhjSb7a7gmo38bc6yewiKiVnTmYaavLuabA3+CnTihK71UD/HxjPzwPF0GCl2UGg==
   dependencies:
-    "@cesium/engine" "^21.0.1"
+    "@cesium/engine" "^23.0.1"
     nosleep.js "^0.12.0"
 
 "@codemirror/autocomplete@^6.0.0":
@@ -2300,13 +2300,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
-cesium@1.134.1:
-  version "1.134.1"
-  resolved "https://registry.npmjs.org/cesium/-/cesium-1.134.1.tgz#b5369211ecbb6788a0477ba43e6527b6f2a51e1b"
-  integrity sha512-5gbpwdFRV4zwujGeX/xlrItx2xbI20ZM+rKMUwdKc5dfLqt3uVEVzFewm+lOKLGLRJRBcH7XbDgqtmD63l18Yw==
+cesium@1.139:
+  version "1.139.1"
+  resolved "https://registry.npmjs.org/cesium/-/cesium-1.139.1.tgz#6905bca81344488f586be774679d7b9241f5b059"
+  integrity sha512-Wj7OGuozqHgkj+Ij0B9j+YUQxiviEKf4AKfOC8bp84UcyyY9r92EfRWXiePP4Or6MI7OaM3YkGtGSaLRXhNvLg==
   dependencies:
-    "@cesium/engine" "^21.0.1"
-    "@cesium/widgets" "^13.2.1"
+    "@cesium/engine" "^23.0.1"
+    "@cesium/widgets" "^14.4.1"
 
 chokidar@^3.5.3:
   version "3.6.0"
@@ -2522,10 +2522,10 @@ detect-libc@^2.0.3:
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz#689c5dcdc1900ef5583a4cb9f6d7b473742074ad"
   integrity sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==
 
-dompurify@^3.0.2:
-  version "3.3.1"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.3.1.tgz#c7e1ddebfe3301eacd6c0c12a4af284936dbbb86"
-  integrity sha512-qkdCKzLNtrgPFP1Vo+98FRzJnBRGe4ffyCea9IwHB1fyxPOeNTHpLKYGd4Uk9xvNoH0ZoOjwZxNptyMwqrId1Q==
+dompurify@^3.3.0:
+  version "3.3.2"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.3.2.tgz#58c515d0f8508b8749452a028aa589ad80b36325"
+  integrity sha512-6obghkliLdmKa56xdbLOpUZ43pAR6xFy1uOrxBaIDjT+yaRuuybLjGS9eVBoSR/UPU5fq3OXClEHLJNGvbxKpQ==
   optionalDependencies:
     "@types/trusted-types" "^2.0.7"
 
@@ -2561,10 +2561,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.7-beta.8:
-  version "1.0.7-beta.8"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.7-beta.8.tgz#8329219f69134e76da71776a3dd87db0b49f6866"
-  integrity sha512-nachVnTAYGSaIAUbceG89hukWmADsNl28nUbFNwI2nx9PpNuUenv5pAJoR2X+8fAZNOuUDN/yJAgao5M0trYNQ==
+earthsdk-ui@^1.0.8-beta.1:
+  version "1.0.8-beta.1"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.8-beta.1.tgz#345656e0a365991a549ccb93a451437a1741fdea"
+  integrity sha512-2Q6ildKzF5QkMvfgV4Z/9DZR7ihulhsmfhsAUBNFtRndcfIF9taRTV9rDf4QWMxKw1A4HbfN4zhCPCDh5vFSDg==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
@@ -2588,10 +2588,10 @@ earthsdk3-assets@3.0.6:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
   integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
 
-earthsdk3-cesium@^3.8.0-beta.9:
-  version "3.8.0-beta.9"
-  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.8.0-beta.9.tgz#a3f79b75c85e4d8f88476772f17b6f3537dff779"
-  integrity sha512-vIIVeKQZF8eHqJS58c5TAEhtYcy5OF4tfMskHffZtRzqdmexHuulFAHu7/dK6CJeRQeJDMSsiadj3FN+rSoEgw==
+earthsdk3-cesium@^3.8.0-beta.12:
+  version "3.8.0-beta.12"
+  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.8.0-beta.12.tgz#e2e318b973844cab5b025cb0f1dcaf30305bc04b"
+  integrity sha512-aYu+W27jzmTWiTFYH8yFidCvQIuaRezhfZwJN1vdHVtXREQXnZYT1NYxZhesLzSf1aznYq3gmwgzyi5fO+FNOA==
   dependencies:
     "@mapbox/vector-tile" "2.0.4"
     "@maplibre/maplibre-gl-style-spec" "^24.4.1"
@@ -2602,23 +2602,23 @@ earthsdk3-cesium@^3.8.0-beta.9:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@^3.8.0-beta.9:
-  version "3.8.0-beta.9"
-  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.8.0-beta.9.tgz#4b63730b297a21a2ce990e5abd081f4965ee4f9f"
-  integrity sha512-/+jdNCYNbL6OXY9q3rCiBL+7GJnOubsXz7c6Q9hNKZvR1jNNIH+07siNiBa155H7xRAkTTx9tpCdvgdVh+HNrQ==
+earthsdk3-ol@^3.8.0-beta.12:
+  version "3.8.0-beta.12"
+  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.8.0-beta.12.tgz#b2824a2a423e8ed06087c3137aed819fac0e3747"
+  integrity sha512-7A9rVlCgikXWj6QD7W0KZYWOtZ7VjrARb7L41zbSqC4bcC3p0POJ+J+MNwHiBCrFbHFbh8eS6EykxvNo/G4nhQ==
 
-earthsdk3-ue@^3.8.0-beta.11:
-  version "3.8.0-beta.11"
-  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.8.0-beta.11.tgz#0e2d424e5c428e3d2627f4350bd2b334dffdc18f"
-  integrity sha512-lLOeEGLO2MvEhwTaHLIQwj0VAfzhGo3STAIJRbv2DZG4Ll8xt6I7OZDfAgKjsG0CNOiuGAcCOkbeGX8XUx1woQ==
+earthsdk3-ue@^3.8.0-beta.14:
+  version "3.8.0-beta.14"
+  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.8.0-beta.14.tgz#f32f59d47d77b6686bb5dd63a7471a4fb177f386"
+  integrity sha512-dnooc+YWMJmHGmSkc2bdRk5HbseKP20t5AFAARkIdL54FsEUIRM06MICHn+QK6CUpmsW51l7fkg3OXqBGOn99A==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@^3.8.0-beta.13:
-  version "3.8.0-beta.13"
-  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.8.0-beta.13.tgz#539520faa0c37894aac9281ccb77d3ebe635ae12"
-  integrity sha512-HGWyCOXSy/HmSm3JN7VE2p4bxLVjW1wd0uD8xcTZpB7xMW7do8KUFs0S1wwWjXvLXwAJI1kpm1x9ZN16PSamXQ==
+earthsdk3@^3.8.0-beta.17:
+  version "3.8.0-beta.17"
+  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.8.0-beta.17.tgz#449f00bd1000974e675b2244d66d5b6d75b1d623"
+  integrity sha512-7hb6qWH3OvJEAJPHXRuoCLrpc4C2PMdlhRbiS28n66bXvBZar5ol1tpSu6ecVVuYnjACzRd2qO05TiS2kDUkgA==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -3240,10 +3240,10 @@ mersenne-twister@^1.1.0:
   resolved "https://registry.npmjs.org/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
   integrity sha512-mUYWsMKNrm4lfygPkL3OfGzOPTR2DBlTkBNHM//F6hGp8cLThY897crAlk3/Jo17LEOOjQUrNAx6DvgO77QJkA==
 
-meshoptimizer@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-0.25.0.tgz#1234446e55e50beed2b613424330ac5102130ae4"
-  integrity sha512-ewwuAo3ujPZ7T3Y2oTkEoLlXvNOqnr0cjyAxfv5djXJqwD9QlxDDO0qGtsqB4Z9QUVvhruKXg9q/xfK9I5S1xQ==
+meshoptimizer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.0.1.tgz#c3ef0d509a8b84ac562493dba5a108fd67fa76dc"
+  integrity sha512-Vix+QlA1YYT3FwmBBZ+49cE5y/b+pRrcXKqGpS5ouh33d3lSp2PoTpCw19E0cKDFWalembrHnIaZetf27a+W2g==
 
 mgrs@1.0.0:
   version "1.0.0"
@@ -3494,10 +3494,10 @@ proto-list@~1.2.1:
   resolved "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==
 
-protobufjs@^7.1.0:
-  version "7.5.4"
-  resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-7.5.4.tgz#885d31fe9c4b37f25d1bb600da30b1c5b37d286a"
-  integrity sha512-CvexbZtbov6jW2eXAvLukXjXUW1TzFaivC46BpWc/3BpcCysb5Vffu+B3XHMm8lVEuy2Mm4XGex8hBSg1yapPg==
+protobufjs@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-8.0.0.tgz#d884102c1fe8d0b1e2493789ad37bc7ea47c0893"
+  integrity sha512-jx6+sE9h/UryaCZhsJWbJtTEy47yXoGNYI4z8ZaRncM0zBKeRqjO2JEcOUYwrYGb1WLhXM1FfMzW3annvFv0rw==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"

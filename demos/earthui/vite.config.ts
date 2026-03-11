@@ -8,7 +8,7 @@ import htmlModifier from './plugins/htmlModifier'
 export default defineConfig({
   base: './', // 默认值，应用部署在根路径
   server: {
-    port: 3300
+    port: 3400
   },
   resolve: {
     alias: {

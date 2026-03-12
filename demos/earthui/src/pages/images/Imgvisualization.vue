@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { vue3Xe2Bind } from 'earthsdk-ui'
 // TODO:添加ESMVTLayer,后期可能要删掉
-import { ESImageryLayer, ESMVTLayer, SceneTree } from 'earthsdk3'
+import { ESImageryLayer, ESMediaLayer, ESMVTLayer, SceneTree } from 'earthsdk3'
 import { inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { Destroyable, ObjResettingWithEvent } from 'earthsdk3'
 import RightList from '../../components/RightList.vue'
@@ -9,14 +9,15 @@ import SliderTime from '../../components/SliderTime.vue'
 const sceneTree = inject('sceneTree') as SceneTree
 const isshow = ref(false)
 const showName = ref('请选中影像图层')
-const selectedItems = sceneTree.selectedItems
+const selectedItems = sceneTree.selectedItems;
+const typeNames = ['ESImageryLayer', 'ESMVTLayer', 'ESMediaLayer'];
 //控制显影
 const chlastSelectedItem = () => {
   isshow.value = false
   showName.value = '请选中影像图层'
   const lastSelectedItem = sceneTree.lastSelectedItem
   if (!lastSelectedItem) return
-  if (["ESImageryLayer","ESMVTLayer"].includes(lastSelectedItem?.type)) {
+  if (typeNames.includes(lastSelectedItem?.type)) {
     setTimeout(() => {
       showName.value = lastSelectedItem.name
     }, 100)
@@ -109,7 +110,7 @@ watch(czmGamma, (val) => {
   czmGammaSlider.value = val * 10
 })
 class ImageryController extends Destroyable {
-  constructor(private _esImageryLayer: ESImageryLayer|ESMVTLayer) {
+  constructor(private _esImageryLayer: ESImageryLayer | ESMVTLayer | ESMediaLayer) {
     super()
     this.d(
       vue3Xe2Bind(czmAlpha, [this._esImageryLayer, 'czmAlpha'], ESImageryLayer.defaults.czmAlpha)
@@ -154,9 +155,10 @@ onMounted(() => {
     if (!lastSelectedItem) return undefined
     const { sceneObject } = lastSelectedItem
     if (!sceneObject) return undefined
-    if (sceneObject.typeName !== 'ESImageryLayer' && sceneObject.typeName !== 'ESMVTLayer') return undefined
-    if (!(sceneObject instanceof ESImageryLayer) && !(sceneObject instanceof ESMVTLayer)) return undefined
-    return new ImageryController(sceneObject)
+    if (!typeNames.includes(sceneObject.typeName)) return undefined
+    // if (!(sceneObject instanceof ESImageryLayer) && !(sceneObject instanceof ESMVTLayer)) return undefined
+    // if (!(sceneObject instanceof ESImageryLayer)) return undefined;
+    return new ImageryController(sceneObject as ESImageryLayer | ESMVTLayer | ESMediaLayer)
   })
   onBeforeUnmount(() => objResetting.destroy())
   chlastSelectedItem()
@@ -169,68 +171,38 @@ onMounted(() => {
   <RightList :title="`可视化--${showName}`">
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmAlpha')"> {{ '透明度' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmAlphaSlider"
-        @change="czmAlphaChange"
-        :realVal="`${czmAlpha}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmAlphaSlider" @change="czmAlphaChange" :realVal="`${czmAlpha}`"
+        :disabled="!isshow" />
       <span>{{ czmAlpha }}</span>
     </div>
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmContrast')"> {{ '对比度' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmContrastSlider"
-        @change="czmContrastChange"
-        :realVal="`${czmContrast}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmContrastSlider" @change="czmContrastChange" :realVal="`${czmContrast}`"
+        :disabled="!isshow" />
       <span>{{ czmContrast }}</span>
     </div>
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmBrightness')"> {{ '亮度' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmBrightnessSlider"
-        @change="czmBrightnessChange"
-        :realVal="`${czmBrightness}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmBrightnessSlider" @change="czmBrightnessChange"
+        :realVal="`${czmBrightness}`" :disabled="!isshow" />
       <span>{{ czmBrightness }}</span>
     </div>
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmHue')"> {{ '色相' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmHueSlider"
-        @change="czmHueChange"
-        :realVal="`${czmHue}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmHueSlider" @change="czmHueChange" :realVal="`${czmHue}`"
+        :disabled="!isshow" />
       <span>{{ czmHue }}</span>
     </div>
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmSaturation')"> {{ '饱和度' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmSaturationSlider"
-        @change="czmSaturationChange"
-        :realVal="`${czmSaturation}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmSaturationSlider" @change="czmSaturationChange"
+        :realVal="`${czmSaturation}`" :disabled="!isshow" />
       <span>{{ czmSaturation }}</span>
     </div>
     <div class="images_relative_box">
       <label @dblclick="beDefault('czmGamma')"> {{ 'gamma' }}</label>
-      <SliderTime
-        :width="280"
-        v-model:value="czmGammaSlider"
-        @change="czmGammaChange"
-        :realVal="`${czmGamma}`"
-        :disabled="!isshow"
-      />
+      <SliderTime :width="280" v-model:value="czmGammaSlider" @change="czmGammaChange" :realVal="`${czmGamma}`"
+        :disabled="!isshow" />
       <span>{{ czmGamma }}</span>
     </div>
   </RightList>

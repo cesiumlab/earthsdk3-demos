@@ -280,7 +280,8 @@ onBeforeUnmount(() => {
   <div class="table" :key="supportedEditingList.length">
     <template v-if="supportedEditingList.length > 0" v-for="(item) in supportedEditingList">
       <el-tooltip :content="item.name" placement="top" effect="light">
-        <div class="cell" :title="item.name" @click="changeCurrentMode(item)">
+        <div class="cell" :class="{ 'active': currentMode === item.type }" :title="item.name"
+          @click="changeCurrentMode(item)">
           <es-icon :name="item.icon" />
         </div>
       </el-tooltip>
@@ -319,6 +320,9 @@ onBeforeUnmount(() => {
   background-color: var(--el-color-primary-light-8);
 }
 
+.cell.active {
+  color: var(--el-color-primary);
+}
 
 .empty-tip {
   width: 100%;

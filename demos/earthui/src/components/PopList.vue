@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElButton } from 'element-plus'
 interface Props {
   title?: string
   showButton?: boolean
@@ -29,10 +30,12 @@ const emits = defineEmits(['close', 'ok'])
       <slot></slot>
     </div>
     <div class="poplist_footer" v-if="showButton">
-      <button @click="emits('close')" v-if="showLeftButton">
+      <el-button @click="emits('close')" v-if="showLeftButton">
         {{ leftButton }}
-      </button>
-      <button @click="emits('ok')">{{ rightButton }}</button>
+      </el-button>
+      <el-button type="primary" @click="emits('ok')">
+        {{ rightButton }}
+      </el-button>
     </div>
   </div>
 </template>
@@ -100,11 +103,11 @@ const emits = defineEmits(['close', 'ok'])
 .poplist_footer {
   display: flex;
   align-items: center;
-  padding: 0px 20px 0px 10px;
+  padding: 5px 10px;
   justify-content: flex-end;
 }
 
-.poplist_footer>button {
+/* .poplist_footer>button {
   width: 80px;
   height: 32px;
   background: var(--el-bg-color);
@@ -113,7 +116,7 @@ const emits = defineEmits(['close', 'ok'])
   cursor: pointer;
   color: var(--el-text-color);
   margin-left: 20px;
-}
+} */
 
 .poplist_footer>button:hover {
   border: 1px solid var(--el-color-primary);

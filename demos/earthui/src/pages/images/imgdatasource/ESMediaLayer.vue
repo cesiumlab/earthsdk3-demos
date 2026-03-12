@@ -17,42 +17,45 @@
             </div>
             <div class="media_item">
                 <label>范围</label>
-                <div class="media_item_range">
-                    <el-input v-model.number="latLng[0]" :size="'small'" placeholder="最小纬度">
-                        <template #suffix>
-                            <span>°</span>
-                        </template>
-                        <template #prefix>
-                            <span>N</span>
-                        </template>
-                    </el-input>
-                    <el-input v-model.number="latLng[1]" :size="'small'" placeholder="最小经度">
-                        <template #suffix>
-                            <span>°</span>
-                        </template>
-                        <template #prefix>
-                            <span>E</span>
-                        </template>
-                    </el-input>
+                <div class="media_item_range_container">
+                    <div class="media_item_range">
+                        <el-input v-model.number="latLng[0]" :size="'small'" placeholder="最小经度">
+                            <template #suffix>
+                                <span>°</span>
+                            </template>
+                            <template #prefix>
+                                <span>W</span>
+                            </template>
+                        </el-input>
+                        <el-input v-model.number="latLng[1]" flex-grow="1" :size="'small'" placeholder="最小纬度">
+                            <template #suffix>
+                                <span>°</span>
+                            </template>
+                            <template #prefix>
+                                <span>S</span>
+                            </template>
+                        </el-input>
+                    </div>
+                    <div class="media_item_range">
+                        <el-input v-model.number="latLng[2]" flex-grow="1" :size="'small'" placeholder="最大经度">
+                            <template #suffix>
+                                <span>°</span>
+                            </template>
+                            <template #prefix>
+                                <span>E</span>
+                            </template>
+                        </el-input>
+                        <el-input v-model.number="latLng[3]" flex-grow="1" :size="'small'" placeholder="最大纬度">
+                            <template #suffix>
+                                <span>°</span>
+                            </template>
+                            <template #prefix>
+                                <span>N</span>
+                            </template>
+                        </el-input>
+                    </div>
                 </div>
-                <div class="media_item_range">
-                    <el-input v-model.number="latLng[2]" :size="'small'" placeholder="最大纬度">
-                        <template #suffix>
-                            <span>°</span>
-                        </template>
-                        <template #prefix>
-                            <span>S</span>
-                        </template>
-                    </el-input>
-                    <el-input v-model.number="latLng[3]" :size="'small'" placeholder="最大经度">
-                        <template #suffix>
-                            <span>°</span>
-                        </template>
-                        <template #prefix>
-                            <span>W</span>
-                        </template>
-                    </el-input>
-                </div>
+
 
             </div>
         </div>
@@ -137,10 +140,17 @@ const addSceneObjects = () => {
     gap: 10px;
 }
 
+.media_item_range_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
 .media_item_range {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
 }
 </style>

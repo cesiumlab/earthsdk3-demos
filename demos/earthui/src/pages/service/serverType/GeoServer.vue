@@ -35,6 +35,7 @@ import XbsjWMTSParser from '../../../scripts/XbsjWMTSParser'
 import { createGeoServerImage } from './tools'
 
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { LocalStorageKey } from '@/constants'
 const d = createVueDisposer(onBeforeUnmount)
 const serverUrl = ref('')
 const emits = defineEmits(['close'])
@@ -43,7 +44,7 @@ const serverActive = ref(-1)
 const currentItem = ref<any>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
-const geoServerUrl = ref('')
+const geoServerUrl = ref('http://localhost:8080')
 const changeServerLab = (item: any, index: number) => {
   currentItem.value = item
   serverActive.value = index
@@ -81,31 +82,26 @@ const ok = () => {
   createGeoServerImage({ url, options, name: layer, rectangle }, xbsjEarthUi)
 }
 const initNewList = async () => {
-  if (!geoServerUrl.value) return
-  window.localStorage.setItem('geoserver_url', geoServerUrl.value)
-  const url =
-    geoServerUrl.value +
-    '/geoserver/gwc/service/wmts?service=WMTS&version=1.1.1&request=GetCapabilities'
-  if (!geoServerUrl.value) return
-  if (!url.startsWith('http')) {
-    ElMessage.warning('请输入正确的地址')
+  if (!geoServerUrl.value) return;
+  if (!geoServerUrl.value.startsWith('http')) {
+    ElMessage.warning('请输入正确的服务地址')
     return
   }
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_GEOSERVER_SERVER_URL, geoServerUrl.value)
+  const url = geoServerUrl.value + '/geoserver/gwc/service/wmts?service=WMTS&version=1.1.1&request=GetCapabilities'
+
   var wmts = new XbsjWMTSParser()
-  wmts
-    .parser(url)
-    .then((layer) => {
-      console.log(layer)
-      serverList.value = layer
-    })
-    .catch((err: any) => {
-      console.log(err)
-      ElMessage.error('GetCapabilities failed:' + err.message)
-    })
+  wmts.parser(url).then((layer) => {
+    console.log(layer)
+    serverList.value = layer
+  }).catch((err: any) => {
+    console.log(err)
+    ElMessage.error('GetCapabilities failed:' + err.message)
+  })
 }
 
 onMounted(() => {
-  const url = localStorage.getItem('geoserver_url') as string | undefined
+  const url = localStorage.getItem(LocalStorageKey.Earth_UI_GEOSERVER_SERVER_URL) as string | undefined
   if (url) {
     geoServerUrl.value = url
   }

@@ -1,5 +1,8 @@
 export * from './Icon'
 
+/**
+ * EarthUI 本地存储的key
+ */
 export enum LocalStorageKey {
   /**
    * 缓存基础场景的KEY
@@ -22,4 +25,22 @@ export enum LocalStorageKey {
    * 缓存ESSS服务地址 
    */
   Earth_UI_ESSS_SERVER_URL = "Earth_UI_ESSS_SERVER_URL",
+
+  /**
+   * 缓存Cesium Ion访问令牌
+   */
+  Earth_UI_CESIUM_ION_ACCESS_TOKEN = "Earth_UI_CESIUM_ION_ACCESS_TOKEN",
+  /**
+   * 缓存Cesium Ion访问令牌的URL
+   */
+  Earth_UI_CESIUM_ION_ACCESS_URL = "Earth_UI_CESIUM_ION_ACCESS_URL",
+
+  /**
+   * 天地图token
+   */
+  Earth_UI_TIAN_DI_TU_TOKEN = "Earth_UI_TIAN_DI_TU_TOKEN",
+  /**
+   * GeoServer服务地址
+   */
+  Earth_UI_GEOSERVER_SERVER_URL = "Earth_UI_GEOSERVER_SERVER_URL",
 }

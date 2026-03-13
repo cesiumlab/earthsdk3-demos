@@ -32,10 +32,11 @@
   </PopList>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, inject } from 'vue'
+import { LocalStorageKey } from '@/constants'
+import { ElMessage } from 'element-plus'
+import { inject, onMounted, ref } from 'vue'
 import PopList from '../../../components/PopList.vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
-import { ElMessage } from 'element-plus'
 import { createTiandiImage } from './tools'
 const tiandituToken = ref('')
 const tokenInputShow = ref(false)
@@ -108,10 +109,10 @@ const ok = () => {
 }
 const changeToken = () => {
   tokenInputShow.value = false
-  window.localStorage.setItem('tianditu_token', tiandituToken.value)
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_TIAN_DI_TU_TOKEN, tiandituToken.value)
 }
 onMounted(() => {
-  const token = localStorage.getItem('tianditu_token') as string | undefined
+  const token = localStorage.getItem(LocalStorageKey.Earth_UI_TIAN_DI_TU_TOKEN) as string | undefined
   if (token) {
     tiandituToken.value = token
   }

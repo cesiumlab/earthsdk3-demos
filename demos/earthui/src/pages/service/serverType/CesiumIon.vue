@@ -1,14 +1,14 @@
 <template>
   <PopList :title="'CesiumIon'" :showButton="true" @ok="ok" :link="'https://ion.cesium.com'">
-    <LabelInput v-model="cesiumIonUrl" :label="'服务地址'" @blur="initNewList" @keydownenter="initNewList">
+    <LabelInput v-model="cesiumIonUrl" :label="'请求地址'" @blur="initNewList" @keydown.enter="initNewList">
     </LabelInput>
     <div class="images_bottom_content">
       <div class="images_servelocation">
-        <label>token</label>
+        <label>Access Token</label>
         <div class="server_token" v-if="!tokenInputShow" @click="tokenInputShow = true">
           {{ ionAccessToken }}
         </div>
-        <input v-else type="text" v-model="ionAccessToken" @blur="changeToken" @keydown.enter="changeToken" />
+        <input v-else type="text" v-model="ionAccessToken" @blur="initNewList" @keydown.enter="initNewList" />
       </div>
     </div>
     <div class="server_lab">
@@ -37,15 +37,16 @@
   </PopList>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, inject, onBeforeUnmount } from 'vue'
-import PopList from '@/components/PopList.vue'
-import { ElMessage } from 'element-plus'
-import { getWithCookie } from '../../../api/service'
+import { gget } from '@/api'
 import LabelInput from '@/components/LabelInput.vue'
-import { createCesiumIonImage, createCesiumIonTerrain, createCesiumIonModel } from './tools'
-import { createVueDisposer, toVR } from 'earthsdk-ui'
-
+import PopList from '@/components/PopList.vue'
+import { LocalStorageKey } from '@/constants'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
+import { createVueDisposer, toVR } from 'earthsdk-ui'
+import { ElMessage } from 'element-plus'
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { createCesiumIonImage, createCesiumIonModel, createCesiumIonTerrain } from './tools'
+
 const d = createVueDisposer(onBeforeUnmount)
 const tokenInputShow = ref(false)
 const serverUrl = ref('')
@@ -53,18 +54,18 @@ const emits = defineEmits(['close'])
 const serverList = ref<any[]>([])
 const serverActive = ref(-1)
 const currentItem = ref<any>()
-const accessToken = ref<string>()
 const type = ref<string>()
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const ionAccessToken = toVR<string>(d, [xbsjEarthUi.activeViewer, 'ionAccessToken']) //token
+const cesiumIonUrl = ref('https://api.cesium.com/v1/assets');
 
-const cesiumIonUrl = ref('https://api.cesium.com/v1/assets')
 const changeServerLab = async (item: any, index: number) => {
   currentItem.value = item
   serverActive.value = index
   type.value = item.type
   serverUrl.value = `ion://${item.id}`
 }
+
 const ok = () => {
   if (!serverUrl.value) {
     ElMessage.warning('未选择服务，请先选择')
@@ -89,28 +90,39 @@ const ok = () => {
 }
 const initNewList = async () => {
   if (!ionAccessToken.value) {
-    ElMessage.warning('token不存在，请先设置token')
+    ElMessage.warning('Access Token不存在,请先设置')
     return
   }
-  getWithCookie('https://api.cesium.com/v1/assets', ionAccessToken.value)
+  if (!cesiumIonUrl.value) {
+    ElMessage.warning('服务地址不存在,请先设置')
+    return
+  }
+  storeAccessToken();
+
+  const config = {
+    token: ionAccessToken.value,
+    useBearer: true,
+  }
+  gget(cesiumIonUrl.value, config)
     .then((res: any) => {
       serverList.value = res.items
     })
     .catch((error) => {
-      console.log(error)
-      ElMessage.error(`${error}`)
+      console.log(error);
     })
 }
-const changeToken = () => {
-  window.localStorage.setItem('ionAccessToken', ionAccessToken.value)
-  tokenInputShow.value = false
-  initNewList()
+
+const storeAccessToken = () => {
+  if (!cesiumIonUrl.value || !ionAccessToken.value) return;
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_CESIUM_ION_ACCESS_URL, cesiumIonUrl.value);
+  window.localStorage.setItem(LocalStorageKey.Earth_UI_CESIUM_ION_ACCESS_TOKEN, ionAccessToken.value);
 }
+
 onMounted(() => {
-  const a = window.localStorage.getItem('ionAccessToken')
-  if (a) ionAccessToken.value = a
-  const b = window.localStorage.getItem('cesiumIonUrl')
-  if (b) cesiumIonUrl.value = b
-  initNewList()
+  const token = window.localStorage.getItem(LocalStorageKey.Earth_UI_CESIUM_ION_ACCESS_TOKEN);
+  token && (ionAccessToken.value = token);
+  const url = window.localStorage.getItem(LocalStorageKey.Earth_UI_CESIUM_ION_ACCESS_URL);
+  url && (cesiumIonUrl.value = url);
+  initNewList();
 })
 </script>

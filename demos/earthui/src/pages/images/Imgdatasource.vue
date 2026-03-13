@@ -21,7 +21,7 @@
     }
       " :actived="type === 'ESMVTLayer'" :left-button="true"></Button>
 
-    <Button :name="'yingxiang'" :content="'媒体图层'" :click="() => {
+    <Button v-if="isCesium" :name="'yingxiang'" :content="'媒体图层'" :click="() => {
       type === 'ESMediaLayer' ? (type = '') : (type = 'ESMediaLayer')
     }
       " :actived="type === 'ESMediaLayer'" :left-button="true"></Button>
@@ -37,13 +37,22 @@
 <script setup lang="ts">
 import Button from '../../components/Button.vue'
 import RightList from '../../components/RightList.vue'
-import { ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import Guge from './imgdatasource/Guge.vue'
 import Wmts from './imgdatasource/Wmts.vue'
 import Wms from './imgdatasource/Wms.vue'
 import ImageChange from './imgdatasource/ImageChange.vue'
 import ESMVTLayer from './imgdatasource/ESMVTLayer.vue'
 import ESMediaLayer from './imgdatasource/ESMediaLayer.vue'
+import { createVueDisposer, toVR } from 'earthsdk-ui'
+import { $g_objm } from '@/global'
 
-const type = ref()
+const type = ref();
+
+const xbsjEarthUi = $g_objm();
+const disposer = createVueDisposer(onBeforeUnmount)
+const activeViewerType = toVR<string>(disposer, [xbsjEarthUi, 'activeViewerType']);
+
+const isCesium = computed(() => activeViewerType.value === 'ESCesiumViewer');
+
 </script>

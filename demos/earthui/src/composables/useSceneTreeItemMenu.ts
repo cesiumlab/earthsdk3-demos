@@ -1,6 +1,6 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { copyClipboard, downloadJson, getCurrentDateTime, getUuid } from '@/utils'
-import { FieldConfigItem, getCreateSceneObjectType, getEditorOption, getTilesetStyle, MenuItem, messageLoading, StyleData, StyleRule } from 'earthsdk-ui'
+import { FieldConfigItem, getCreateSceneObjectType, getEditorOption, getGeoJsonStyle, getTilesetStyle, MenuItem, messageLoading, StyleData, StyleRule } from 'earthsdk-ui'
 import { ES3DTileset, ESGeoJson, ESImageryLayer, ESJFeatureStyleType, ESJSplitDirectionType, ESTerrainLayer, ESVisualObject, SceneTree, SceneTreeItem } from 'earthsdk3'
 import { ESCesiumViewer, ESKml, getCzmCode } from 'earthsdk3-cesium'
 import { ESUeViewer } from 'earthsdk3-ue'
@@ -385,8 +385,8 @@ const getSceneObjectTreeItemMenuContent = (
   }
 
 
-  const set3DTilesetStyle = {
-    text: "3DTile 样式设置",
+  const setStyle = {
+    text: sceneObject instanceof ES3DTileset ? "3DTile 样式设置" : "GeoJson 样式设置",
     keys: "",
     func: async () => {
       if (sceneObject && sceneObject instanceof ES3DTileset) {
@@ -446,15 +446,75 @@ const getSceneObjectTreeItemMenuContent = (
           sceneObject.resetFeatureStyle();
         }
       }
+
+      if (sceneObject && sceneObject instanceof ESGeoJson) {
+
+        const featureObj = sceneObject.getFeatureTable();
+        let historyRules: any[] = [];
+        let fields: FieldConfigItem[] = [];
+        let initialRule: any[] = [];
+
+        if (featureObj) {
+          Object.keys(featureObj).forEach(key => {
+            fields.push([key, key, featureObj[key]] as FieldConfigItem);
+          });
+        }
+
+        const extras = sceneObject.extras as any;
+        if (extras && 'xbsjFetureStyles' in extras) {
+          historyRules = JSON.parse(JSON.stringify(extras.xbsjFetureStyles));
+          initialRule = historyRules[historyRules.length - 1].code;
+        }
+
+        const config = {
+          historyRules,
+          fields,
+          initialRule,
+          applyFunction: (rules: any) => {
+            sceneObject.setFeatureStyle(rules);
+          }
+        }
+        const style = await getGeoJsonStyle(config)
+        //存
+        if (style) {
+          sceneObject.setFeatureStyle(style as ESJFeatureStyleType);
+          const viewer = objm.activeViewer
+          if (!viewer) return;
+          const capture = await viewer.capture()
+          const styleData = {
+            id: getUuid(),
+            name: getCurrentDateTime(),
+            code: style,
+            thumbnail: capture ?? '' // 使用已获取的 capture
+          }
+
+          const newHistoryRules = [...historyRules, styleData];
+          if (sceneObject.extras) {
+            sceneObject.extras = {
+              //@ts-ignore
+              ...sceneObject.extras,
+              xbsjFetureStyles: newHistoryRules
+            }
+          } else {
+            //@ts-ignore
+            sceneObject.extras = {
+              xbsjFetureStyles: newHistoryRules
+            }
+          }
+        } else {
+          sceneObject.resetFeatureStyle();
+        }
+      }
     },
   };
-  if (sceneObject && sceneObject instanceof ES3DTileset) {
-    baseItems.splice(2, 0, set3DTilesetStyle);
+
+  if (sceneObject && (sceneObject instanceof ES3DTileset || sceneObject instanceof ESGeoJson)) {
+    baseItems.splice(2, 0, setStyle);
     baseItems.splice(3, 0, {
-      text: "重置 3DTile 样式",
+      text: sceneObject instanceof ES3DTileset ? "重置 3DTile 样式" : "重置 GeoJson 样式",
       keys: "",
       func: () => {
-        if (sceneObject && sceneObject instanceof ES3DTileset) {
+        if (sceneObject && (sceneObject instanceof ES3DTileset || sceneObject instanceof ESGeoJson)) {
           sceneObject.resetFeatureStyle();
         }
       }

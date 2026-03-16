@@ -82,7 +82,7 @@ const mediaType = ref('video');
 //增加影像
 const addSceneObjects = () => {
     if (!serveUrl.value) ElMessage.error('请输入地址');
-    let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer')
+    let maxZindex = searchMaxZindex(sceneTree, 'ESMediaLayer')
     if (serveUrl.value) {
         const currentTreeItem = sceneTree.lastSelectedItem
         let newTreeItem

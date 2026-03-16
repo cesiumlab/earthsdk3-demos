@@ -1,4 +1,5 @@
 export * from './Icon'
+export * from './Editing'
 
 /**
  * EarthUI 本地存储的key

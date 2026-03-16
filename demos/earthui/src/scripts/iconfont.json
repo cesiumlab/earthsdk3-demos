@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "47082556",
+      "name": "place_translation",
+      "font_class": "a-place_translation",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "47082478",
+      "name": "double_point_add_edit",
+      "font_class": "a-double_point_add_edit",
+      "unicode": "e729",
+      "unicode_decimal": 59177
+    },
+    {
       "icon_id": "22942777",
       "name": "圆柱",
       "font_class": "yuanzhu",

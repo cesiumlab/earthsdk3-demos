@@ -1,9 +1,10 @@
 import { InitSceneConfigType } from '@/global/types'
 import { messageLoading } from 'earthsdk-ui'
-import { ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
+import { ESJEditingMode, ESObjectsManager, react, SceneTreeItem } from 'earthsdk3'
 import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
+import { getEditingMsg } from '@/constants'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
@@ -194,6 +195,7 @@ export class XbsjEarthUi extends ESObjectsManager {
       // 编辑时提醒
       let close: (() => void) | null = null;
       let editingEventDispose: (() => void) | null = null;
+      let modes: ESJEditingMode[] = [];
 
       const closeTip = () => {
         close?.();
@@ -208,6 +210,7 @@ export class XbsjEarthUi extends ESObjectsManager {
       this.d(() => {
         clearEditingEvent();
         closeTip();
+        modes = [];
       });
 
       this.d(
@@ -221,12 +224,24 @@ export class XbsjEarthUi extends ESObjectsManager {
           editingEventDispose = viewer.editingEvent.don((option) => {
             if (option.type === 'end') {
               closeTip();
+              modes = [];
               return;
             }
 
             if (option.type === 'start') {
+              modes = [];
+              const addModes = option.add?.modes as ESJEditingMode[] | undefined;
+              if (!Array.isArray(addModes)) return;
+              modes = [...addModes];
+              return;
+            }
+
+            if (option.type === 'changed') {
               closeTip();
-              close = messageLoading('1.双击/ESC退出  2.空格切换编辑方式  3.右键点位跟随');
+              const cMode = option.add?.cMode as ESJEditingMode | undefined;
+              if (!cMode) return;
+              const msg = getEditingMsg(cMode, modes.length > 1);
+              close = messageLoading(msg);
             }
           });
         })

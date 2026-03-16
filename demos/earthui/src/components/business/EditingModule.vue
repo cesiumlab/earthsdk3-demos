@@ -3,6 +3,7 @@ import { $g_objm } from '@/global';
 import { ESJEditingMode, ESVisualObject, SceneTree } from 'earthsdk3';
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import { ElTooltip } from 'element-plus';
+import { EDITING_MODES } from '@/constants';
 
 /** 编辑项类型定义 */
 interface EditingItem {
@@ -10,6 +11,7 @@ interface EditingItem {
   icon: string;
   type: ESJEditingMode;
   allowEditing: boolean;
+  msg: string;
 }
 
 /** 注入场景树实例 */
@@ -18,98 +20,7 @@ const sceneTree = inject('sceneTree') as SceneTree;
 const xbsjEarthUi = $g_objm();
 
 /** 编辑模式列表配置 */
-const enditingList = ref<EditingItem[]>([
-  {
-    name: '单点放置编辑',
-    icon: 'place',
-    type: ESJEditingMode.Place,
-    allowEditing: false
-  },
-  {
-    name: '平移编辑',
-    icon: 'translation',
-    type: ESJEditingMode.Translation,
-    allowEditing: false
-  },
-  {
-    name: '旋转编辑',
-    icon: 'rotation',
-    type: ESJEditingMode.Rotation,
-    allowEditing: false
-  },
-  {
-    name: '缩放编辑',
-    icon: 'scale',
-    type: ESJEditingMode.Scale,
-    allowEditing: false
-  },
-  {
-    name: '双点追加编辑',
-    icon: 'a-Doublepointsappend',
-    type: ESJEditingMode.DoublePointsAppend,
-    allowEditing: false
-  },
-  {
-    name: '双点修改编辑',
-    icon: 'a-Doublepointsmodify',
-    type: ESJEditingMode.DoublePointsModify,
-    allowEditing: false
-  },
-  {
-    name: '折线追加点编辑',
-    icon: 'a-Linestringappend',
-    type: ESJEditingMode.LineStringAppend,
-    allowEditing: false
-  },
-  {
-    name: '折线插入点编辑',
-    icon: 'a-LinestringInsert',
-    type: ESJEditingMode.LineStringInsert,
-    allowEditing: false
-  },
-  {
-    name: '环形追加点编辑',
-    icon: 'a-Circularappend',
-    type: ESJEditingMode.CircularAppend,
-    allowEditing: false
-  },
-  {
-    name: '环形插入点编辑',
-    icon: 'a-CircularInsert',
-    type: ESJEditingMode.CircularInsert,
-    allowEditing: false
-  },
-  {
-    name: '散点追加编辑',
-    icon: 'a-Scatterappend',
-    type: ESJEditingMode.ScatterAppend,
-    allowEditing: false
-  },
-  {
-    name: '散点修改编辑',
-    icon: 'a-Scattermodify',
-    type: ESJEditingMode.ScatterModify,
-    allowEditing: false
-  },
-  {
-    name: '通视追加编辑',
-    icon: 'a-visibilityappend',
-    type: ESJEditingMode.VisibilityAppend,
-    allowEditing: false
-  },
-  {
-    name: '通视修改编辑',
-    icon: 'a-visibilitymodify',
-    type: ESJEditingMode.VisibilityModify,
-    allowEditing: false
-  },
-  {
-    name: '高度修改编辑',
-    icon: 'a-Heightmodify',
-    type: ESJEditingMode.HeightModify,
-    allowEditing: false
-  }
-]);
+const enditingList = ref<EditingItem[]>([...EDITING_MODES]);
 
 /** 当前激活的编辑模式 */
 const currentMode = ref<ESJEditingMode | ''>('');

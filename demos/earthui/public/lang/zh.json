@@ -1,0 +1,22 @@
+{
+    "earthui": {
+        "header": {
+            "name": "EarthSDK 三维地球开发包"
+        },
+        "menu": {
+            "search": "搜索",
+            "roam": "漫游",
+            "view": "视图",
+            "images": "影像",
+            "model": "瓦片",
+            "terrain": "地形",
+            "vector": "矢量",
+            "analysis": "分析",
+            "plotting": "标绘",
+            "weather": "环境",
+            "engine": "引擎",
+            "service": "服务",
+            "llmchat": "Agent"
+        }
+    }
+}

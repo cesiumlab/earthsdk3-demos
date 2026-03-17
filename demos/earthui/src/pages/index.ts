@@ -83,7 +83,7 @@ export const getNavList = (specialModuleEnable: boolean): MenuType[] => {
     {
       id: 11,
       title: '环境',
-      value: 'environment',
+      value: 'weather',
       icon: 'huanjing',
       component: defineAsyncComponent(() => import('./environment/index.vue')),
       isShow: true

@@ -1,0 +1,22 @@
+{
+    "earthui": {
+        "header": {
+            "name": "EarthSDK 3D Globe SDK"
+        },
+        "menu": {
+            "search": "Search",
+            "roam": "Roam",
+            "view": "View",
+            "images": "Imagery",
+            "model": "Tiles",
+            "terrain": "Terrain",
+            "vector": "Vector",
+            "analysis": "Analysis",
+            "plotting": "Plotting",
+            "weather": "Weather",
+            "engine": "Engine",
+            "service": "Service",
+            "llmchat": "Agent"
+        }
+    }
+}

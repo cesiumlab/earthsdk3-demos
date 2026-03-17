@@ -1,13 +1,13 @@
 <template>
-  <es-el-config-provider>
+  <es-config-provider>
     <div class="earthui-container">
       <EarthUI></EarthUI>
     </div>
-  </es-el-config-provider>
+  </es-config-provider>
 </template>
 
 <script setup lang="ts">
-import { EsElConfigProvider, useTheme } from 'earthsdk-ui';
+import { EsConfigProvider, useTheme } from 'earthsdk-ui';
 import EarthUI from './EarthUI.vue';
 // 使用主题管理
 const { setCustomThemeConfig, isDark } = useTheme();

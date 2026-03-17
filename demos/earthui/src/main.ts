@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import EarthSDKUI from 'earthsdk-ui'
+import EarthSDKUI, { i18n, mergeLocale } from 'earthsdk-ui'
 import 'earthsdk-ui/lib/style.css'
 import { ESCesiumViewer } from 'earthsdk3-cesium'
 import { ESOlViewer } from 'earthsdk3-ol'
@@ -9,9 +9,17 @@ import App from './App.vue'
 import { initSceneJson } from './global'
 import './scripts/iconfont.js'
 import { XbsjEarthUi } from './scripts/xbsjEarthUi'
+import { LangConfigType } from './types'
 
 async function main() {
   try {
+
+    //国际化
+    const zhLang = await gget('./lang/zh.json');
+    const enLang = await gget('./lang/en.json');
+    mergeLocale<LangConfigType>('zh', zhLang as LangConfigType);
+    mergeLocale<LangConfigType>('en', enLang as LangConfigType);
+
     // 先加载配置
     const earthui_config = await gget('./config.json');
     document.title = earthui_config.title;
@@ -34,6 +42,7 @@ async function main() {
 
     // 再挂载
     app.use(EarthSDKUI);
+    app.use(i18n);
     app.mount('#app');
   } catch (error) {
     console.error(error);

@@ -48,7 +48,7 @@
         </template>
       </ESLabelSlider>
 
-      <ElInput class="content_item" v-model="minHeight" type="number" placeholder="请输入最小高度">
+      <ElInput class="content_item" v-model.number="minHeight" placeholder="请输入最小高度">
         <template #prefix>
           <span>最小高度</span>
         </template>
@@ -57,7 +57,7 @@
         </template>
       </ElInput>
 
-      <ElInput class="content_item" v-model="maxHeight" type="number" placeholder="请输入最大高度">
+      <ElInput class="content_item" v-model.number="maxHeight" placeholder="请输入最大高度">
         <template #prefix>
           <span>最大高度</span>
         </template>
@@ -73,6 +73,7 @@
 import PopList from '@/components/PopList.vue'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { ESLabelSlider } from 'earthsdk-ui'
+import { ESJGeoRegion } from 'earthsdk3'
 import { ElInput } from 'element-plus'
 import { inject, onMounted, ref, watch } from 'vue'
 
@@ -110,7 +111,9 @@ watch([
   minHeight, maxHeight
 ], () => {
   if (!xbsjEarthUi.activeViewer) return;
-  xbsjEarthUi.activeViewer.cameraMovableRegion = [west.value, south.value, east.value, north.value, minHeight.value, maxHeight.value]
+  const cameraMovableRegion = [west.value, south.value, east.value, north.value, minHeight.value, maxHeight.value]
+  console.log('cameraMovableRegion', cameraMovableRegion);
+  xbsjEarthUi.activeViewer.cameraMovableRegion = [...cameraMovableRegion] as ESJGeoRegion
 })
 
 

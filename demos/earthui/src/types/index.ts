@@ -29,7 +29,7 @@ export type LangConfigType = {
       vector: string;
       analysis: string;
       plotting: string;
-      environment: string;
+      weather: string;
       engine: string;
       service: string;
       llmchat: string;

@@ -91,10 +91,6 @@
   box-sizing: border-box;
 }
 
-.poplist_content {
-  padding: 15px 15px 15px 10px;
-}
-
 .roam_custom_centent {
   display: flex;
   justify-content: flex-start;

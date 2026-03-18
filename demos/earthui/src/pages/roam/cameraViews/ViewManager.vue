@@ -153,7 +153,7 @@ const updateView = (index: number) => {
 .view_panel {
   width: 100%;
   font-size: var(--el-font-size-base);
-  margin: 10px;
+  margin: 0 10px;
 }
 
 .view-header-wrapper {
@@ -161,7 +161,7 @@ const updateView = (index: number) => {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .view-header {
@@ -234,18 +234,8 @@ const updateView = (index: number) => {
 
 .view-content {
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 250px;
   padding-right: 4px;
-
-  &::-webkit-scrollbar {
-    width: 3px;
-    border-radius: 2px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--el-border-color);
-    border-radius: 2px;
-  }
 }
 
 .view_item {

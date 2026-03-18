@@ -97,7 +97,7 @@ const emits = defineEmits(['close', 'ok'])
 }
 
 .poplist_content {
-  padding: 15px;
+  padding: 10px;
 }
 
 .poplist_footer {

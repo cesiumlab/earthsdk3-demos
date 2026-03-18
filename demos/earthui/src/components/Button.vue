@@ -67,7 +67,7 @@ const xiaosanjiaoClick = () => {
   cursor: pointer;
   user-select: none;
   border: var(--el-border);
-  margin: 0 0 15px 10px;
+  margin: 0 0 10px 10px;
   color: var(--el-text-color);
   transition: all 0.3s;
 }

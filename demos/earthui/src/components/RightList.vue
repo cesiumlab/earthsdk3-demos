@@ -42,7 +42,7 @@ const developContent = ref(true)
   background-color: var(--el-bg-color-page);
   color: var(--el-text-color-regular);
   white-space: nowrap;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;

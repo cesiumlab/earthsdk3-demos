@@ -13,7 +13,6 @@ import { LangConfigType } from './types'
 
 async function main() {
   try {
-
     //国际化
     const zhLang = await gget('./lang/zh.json');
     const enLang = await gget('./lang/en.json');

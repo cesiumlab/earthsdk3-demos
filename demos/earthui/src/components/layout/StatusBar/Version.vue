@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { getEarthuiVersion } from '@/scripts/earthuiVersion'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { ESUeViewer } from 'earthsdk3-ue'
 import { inject, onMounted, ref, Ref } from 'vue'
@@ -85,7 +84,8 @@ function processVersions(versions: any, viewer: any): VersionItem[] {
   // 添加EarthUI版本信息
   items.push({
     name: 'earth-ui',
-    version: getEarthuiVersion()
+    //@ts-ignore
+    version: __APP_VERSION__ ?? 'unknown'
   })
 
   return items
@@ -136,7 +136,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-.version_info_list > div {
+.version_info_list>div {
   width: 100%;
   height: 25px;
   line-height: 25px;

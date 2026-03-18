@@ -4,9 +4,13 @@ import cesium from 'vite-plugin-cesium'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import path from 'path'
 import htmlModifier from './plugins/htmlModifier'
+import packageJson from './package.json'
 
 export default defineConfig({
   base: './', // 默认值，应用部署在根路径
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJson.lastUpdateVersion),
+  },
   server: {
     port: 3400
   },

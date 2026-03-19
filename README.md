@@ -13,7 +13,7 @@
   <a href="https://www.earthsdk.com">快速上手</a> •
   <a href="https://www.earthsdk.com/example3/index.html">示例</a> •
   <a href="https://www.earthsdk.com/docs/guide/index.html">API 文档</a> •
-  <a href="https://github.com/cesiumlab/earthsdk3-demos">EarthUI 开源地址</a> 
+  <a href="https://github.com/cesiumlab/earthsdk3-code">EarthSDK3 源码</a> 
 </p>
 
 EarthSDK 是一套基于 JS 语言的开源免费地球可视化二次开发框架，整套框架独立于引擎之外，不依赖于特定引擎，和可视化引擎互为插件，目前自带 Cesium 引擎和 Unreal Engine 、Openlayers的三种引擎实现。本身不是为了包装而封装，是为了赋能原生引擎。实现了数字孪生项目常用的所有基础功能和效果，实现了一套接口代码多引擎之间无缝切换，未来会有更多的引擎实现，例如：mapbox、unity、godot 等。
@@ -74,7 +74,7 @@ const viewer = objm.createViewer({
 ```
 
 <p align="center">
-  <img src="resources/earthui.png" style="width: 100%; height: auto;">
+  <img src="resources/EarthUI.png" style="width: 100%; height: auto;">
 </p>
 
 ### 直接使用

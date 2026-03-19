@@ -13,7 +13,7 @@
   <a href="https://www.earthsdk.com">Quick Start</a> •
   <a href="https://www.earthsdk.com/example3/index.html">Examples</a> •
   <a href="https://www.earthsdk.com/docs/guide/index.html">API Documentation</a>  •
-  <a href="https://github.com/cesiumlab/earthsdk3-demos">EarthUI</a> 
+ <a href="https://github.com/cesiumlab/earthsdk3-code">EarthSDK3</a> 
 </p>
 
 EarthSDK is an open-source and free secondary development framework for earth visualization based on the JS language. The framework is independent of specific engines; it functions as a plugin for visualization engines rather than just a wrapper. It currently includes implementations for three engines: Cesium, Unreal Engine, and OpenLayers. EarthSDK is designed to empower native engines by providing all the basic functions and effects commonly used in Digital Twin projects. It implements a set of interface codes that allow seamless switching between multiple engines, with more engines like Mapbox, Unity, and Godot planned for the future.
@@ -77,7 +77,7 @@ const viewer = objm.createViewer({
 ```
 
 <p align="center">
-<img src="resources/earthui.png" style="width: 100%; height: auto;">
+<img src="resources/EarthUI.png" style="width: 100%; height: auto;">
 </p>
 
 ### Direct Integration (IIFE)

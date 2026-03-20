@@ -42,7 +42,7 @@ const xiaosanjiaoClick = () => {
     right_button_left: leftButton
   }" @click.prevent.stop="click()" @mouseover="spanIsShow = true" @mouseout="spanIsShow = false">
     <div class="right_button_icon">
-      <es-icon :name="name" :color="color" :size="size" />
+      <es-icon :name="name" />
     </div>
     <div class="right_button_content" :style="{ fontSize: `${fontSize}px` }">
       {{ content }}
@@ -82,6 +82,7 @@ const xiaosanjiaoClick = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--el-color-primary);
 }
 
 .right_button:hover {

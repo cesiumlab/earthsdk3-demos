@@ -7,15 +7,18 @@
 </template>
 
 <script setup lang="ts">
-import { EsConfigProvider, useTheme } from 'earthsdk-ui';
+import { EsConfigProvider, useLang, useTheme, i18n } from 'earthsdk-ui';
 import EarthUI from './EarthUI.vue';
+
 // 使用主题管理
-const { setCustomThemeConfig, isDark } = useTheme();
-// 使用语言管理
-// const { toggleLanguage, isZhCN } = useLanguage();
+const { toggleTheme, isDark, setCustomThemeConfig } = useTheme();
 //自定义样式
 setCustomThemeConfig({ colorPrimary: '#6287F7' });
 
+// 使用语言管理
+const { toggleLang, isZh, t } = useLang();
+console.log('name', i18n.global.t('earthui.header.name'));
+console.log('msg', t('earthui.msg.item', { count: 1 }));
 
 </script>
 

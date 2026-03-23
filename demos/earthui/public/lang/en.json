@@ -3,6 +3,9 @@
         "header": {
             "name": "EarthSDK 3D Globe SDK"
         },
+        "msg": {
+            "item": "You have {count} item | You have {count} items"
+        },
         "menu": {
             "search": "Search",
             "roam": "Roam",

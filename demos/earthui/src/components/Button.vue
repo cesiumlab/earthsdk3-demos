@@ -105,8 +105,7 @@ const xiaosanjiaoClick = () => {
 }
 
 .active {
-  /* box-shadow: inset 0px 0px 11px 2px #2c68f75c; */
-  box-shadow: inset 0px 0px 11px 2px var(--el-color-primary-light-7);
+  box-shadow: inset 0px 0px 11px 2px color-mix(in srgb, var(--el-color-primary), transparent 40%);
   border: 1px solid var(--el-color-primary);
   color: var(--el-text-color);
 }

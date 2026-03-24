@@ -92,11 +92,12 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "NAME": "全球范围(带挖洞)",
+                            "NAME": "中国范围(带挖洞)",
                             "hole": "都江堰市"
                         },
                         "geometry": {
                             "type": "Polygon",
+                            // 外部边界
                             "coordinates": [
                                 [
                                     [
@@ -120,6 +121,7 @@
                                         53.5
                                     ]
                                 ],
+                                // 内部区域
                                 [
                                     [
                                         103.43060043,
@@ -3539,6 +3541,7 @@
                 "ground": true
             },
             "filled": true,
+            "stroked": false,
             "imageShow": false,
             "textShow": false
         })

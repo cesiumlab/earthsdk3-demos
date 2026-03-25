@@ -9,7 +9,7 @@
     "dev:earthui": "pnpm -F earthui dev",
     "build:earthui": "pnpm -F earthui build",
     "build:usage": "pnpm -F earthsdk3-usage build",
-    "update:version": "node update-version.js",
+    "update:version": "node scripts/update-version.js",
     "clean_node_modules": "pnpm run cu & pnpm run ce & pnpm run cea & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj",
     "cnm": "rimraf node_modules",
     "cu": "rimraf demos/earthsdk3-usage/node_modules",

@@ -16,9 +16,9 @@ const { toggleTheme, isDark, setCustomThemeConfig } = useTheme();
 setCustomThemeConfig({ colorPrimary: '#6287F7' });
 
 // 使用语言管理
-const { toggleLang, isZh, t } = useLang();
-console.log('name', i18n.global.t('earthui.header.name'));
-console.log('msg', t('earthui.msg.item', { count: 1 }));
+// const { toggleLang, isZh, t } = useLang();
+// console.log('name', i18n.global.t('earthui.header.name'));
+// console.log('msg', t('earthui.msg.item', { count: 1 }));
 
 </script>
 

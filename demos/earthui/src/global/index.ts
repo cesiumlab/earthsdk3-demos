@@ -1,7 +1,7 @@
 import { gget } from '@/api'
 import { LocalStorageKey } from '@/constants'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
-import { getUuid } from '@/utils'
+import { getUuid, parseGeoServer } from '@/utils'
 import { ElMessage } from 'element-plus'
 import { inject } from 'vue'
 import { ConfigType, InitSceneConfigType } from './types'
@@ -85,6 +85,7 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
 
     const fromCesiumLab = from === cesiumLabParamValue;
     const fromEsss = from === esssParamValue;
+    const fromGeoServer = from === 'GeoServer';
 
     // 处理 CesiumLab 场景回显
     if (fromCesiumLab && labScene) {
@@ -98,6 +99,24 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
         flyToObject: undefined,
         type: "ESCesiumViewer"
       });
+    }
+
+    if (fromGeoServer && paramsUrl) {
+      const layerJson = parseGeoServer();
+      if (layerJson) {
+        const treeItemJson = {
+          "name": layerJson.name,
+          "sceneObj": layerJson,
+          "children": []
+        }
+        defaultScene.sceneTree.root.children.push(treeItemJson);
+        return createConfig({
+          scene: defaultScene,
+          lastView: undefined,
+          flyToObject: layerJson.id,
+          type: "ESCesiumViewer"
+        });
+      }
     }
 
     // 处理数据服务加载

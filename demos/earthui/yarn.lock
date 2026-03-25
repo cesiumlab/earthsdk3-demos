@@ -358,6 +358,13 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
+"@gltf-transform/core@4.3.0":
+  version "4.3.0"
+  resolved "http://192.168.0.20:4873/@gltf-transform/core/-/core-4.3.0.tgz#2490aee3d592543e4f9dd99e0a724e037a18d0cb"
+  integrity sha512-ZeaQfszGJ9LYwELszu45CuDQCsE26lJNNe36FVmN8xclaT6WDdCj7fwGpQXo0/l/YgAVAHX+uO7YNBW75/SRYw==
+  dependencies:
+    property-graph "^4.0.0"
+
 "@intlify/core-base@11.3.0":
   version "11.3.0"
   resolved "http://192.168.0.20:4873/@intlify/core-base/-/core-base-11.3.0.tgz#55e612501f08b564011cb16d9f4a08e9a05df3cb"
@@ -2596,10 +2603,10 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.8-beta.5:
-  version "1.0.8-beta.5"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.8-beta.5.tgz#f517eda23f0c600feab6552c01f0740615056231"
-  integrity sha512-NS6VVKNUNiKP+ogT5GvvBF2mxFytrm1MpP1jmox6b15dR1TiZ1LDDlrriQ74/7zToZI9T9qw2U2UwoI0n3nKPg==
+earthsdk-ui@^1.0.8-beta.6:
+  version "1.0.8-beta.6"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.8-beta.6.tgz#c94c2c45700a2ece42763b56da739b2bd0704891"
+  integrity sha512-Tluz63hLOzdMw30Vee15BBPlVKi2Czf/jDjrE8156TpKQQkF+rSh9gjt5oAGJFT2NF2H/KEQzbwP0upOEx9lfQ==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
@@ -2624,11 +2631,12 @@ earthsdk3-assets@3.0.8:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.8.tgz#905efbc8c63978bab998acfba604d836201a7e3a"
   integrity sha512-Goe1ZeNEMC0XI//onRPGPguU+dD8Otv14iKdEyKVPkdAUJe31IBgX9hKROpZcmbsI5pgPsvoxBAuZZyDstI7Vw==
 
-earthsdk3-cesium@^3.8.0-beta.19:
-  version "3.8.0-beta.19"
-  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.8.0-beta.19.tgz#27606b931faa25c6da04be3e542f1a0005570e8f"
-  integrity sha512-qt3zG/cGQpD8dwe0b+nhGlwzALAiE/Ye0c0xaUi+WPj0/W8SgojxQio6NleBPfjGr5liwQ1Xja1Edsn9q/t1AA==
+earthsdk3-cesium@^3.9.0-beta.1:
+  version "3.9.0-beta.1"
+  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.9.0-beta.1.tgz#7cabce0fce273bf15cbe7c5550ad4b198e25588f"
+  integrity sha512-QoaAsGMk8TtEKCJXPr8JMEl3WGv3XehT5MC6zgBqOOvqQKpN64u8HbZvbUCC4edVBdATKW+UUdfw84gR20ZLlQ==
   dependencies:
+    "@gltf-transform/core" "4.3.0"
     "@mapbox/vector-tile" "2.0.4"
     "@maplibre/maplibre-gl-style-spec" "^24.4.1"
     "@types/delaunator" "^5.0.2"
@@ -2638,23 +2646,23 @@ earthsdk3-cesium@^3.8.0-beta.19:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@^3.8.0-beta.19:
-  version "3.8.0-beta.19"
-  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.8.0-beta.19.tgz#e01bd21f9f3d369cbdbbf83e32a1a9308af354b5"
-  integrity sha512-DQmv//gq4d0KTe/bzCtVQJx25I3vnBWlup/BOHVyLKJD7aoCq5K5HlyMJI0t9DPDZVnRgwJAL3/SS0pJXV2nsA==
-
-earthsdk3-ue@^3.9.0-beta.1:
+earthsdk3-ol@^3.9.0-beta.1:
   version "3.9.0-beta.1"
-  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.9.0-beta.1.tgz#f122e7ce6c2c2efa6efbb2f1f239dfecba5e1e6f"
-  integrity sha512-7l2aT5C4GLRogwYY+UOMpV6i18EXd43OWQ+hdblvznmbpI594DcpaNfTZe/i0LiJD6q2tlJfjR9J4GVGx0E+Wg==
+  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.9.0-beta.1.tgz#ba4e717fce9aa9e887f9c77c89330692a0154f41"
+  integrity sha512-DMup2Wu35JrjH4JjunvEvZpijjO6AEOjYD/8S63E59uH4pYYnsKy56YLqGJbqt+JPM4UV4aIIq6jXJaopwqVmw==
+
+earthsdk3-ue@^3.9.0-beta.2:
+  version "3.9.0-beta.2"
+  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.9.0-beta.2.tgz#e366fa76432bc14ec854efbcc69e6868c0fc2c9c"
+  integrity sha512-jOTJ2A+glb9kZ8DAM7Q+0ggB94jVjELgxPe1BR7QyBKqlGKIoqeh3cpZM/Y8A9jzggYLRyhEYFhGOj0R9i2rMA==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@^3.8.0-beta.23:
-  version "3.8.0-beta.23"
-  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.8.0-beta.23.tgz#b377b26ec99e9e11eb18231e08892a0d357ae4d1"
-  integrity sha512-geUnnsUlFmd28hR+uOXbr8oTGqXNiT0tGknXHnxy+TBaD3wJX/fC1V1xwet0nAmJX7woT+7ef8qgjKBe+PZSHA==
+earthsdk3@^3.9.0-beta.1:
+  version "3.9.0-beta.1"
+  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.9.0-beta.1.tgz#6b37ccd316df1103148209b7341ae5cc7562cecc"
+  integrity sha512-NP8KtHscZVcv9hTrUDFodBUAWu5dx+pwfZtKiubrXzCAau+CZtZmCymK1MsLiiB7hLzmpXXESms45S9KGAN0lw==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -3524,6 +3532,11 @@ proj4@*, proj4@^2.8.0:
   dependencies:
     mgrs "1.0.0"
     wkt-parser "^1.5.1"
+
+property-graph@^4.0.0:
+  version "4.0.0"
+  resolved "http://192.168.0.20:4873/property-graph/-/property-graph-4.0.0.tgz#e7f4038c1cd2fab5e22fcda6764165fa481d9b64"
+  integrity sha512-I0hojAJfTbSCZy3y6xyK29eayxo14v1bj1VPiDkHjTdz33SV6RdfMz2AHnf4ai62Vng2mN5GkaKahkooBIo9gA==
 
 proto-list@~1.2.1:
   version "1.2.4"

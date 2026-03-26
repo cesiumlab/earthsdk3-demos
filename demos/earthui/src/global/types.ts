@@ -50,6 +50,8 @@ export interface ConfigType {
 export interface InitSceneConfigType {
     scene: any;
     type: string;
+    /** 是否是earthvislab附属页面 */
+    earthVisLab: boolean;
     cesiumLab: {
         cesiumLabUrl: string;
         cesiumLabToken: string | undefined;
@@ -61,6 +63,8 @@ export interface InitSceneConfigType {
     };
     lastView: any;
     flyToObject: string | undefined;
+    theme?: string;
+    lang?: string;
 }
 
 

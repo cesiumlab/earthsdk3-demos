@@ -1,4 +1,4 @@
-import { ref, Ref, watch, onMounted, onBeforeUnmount, ShallowRef } from 'vue'
+import { ref, Ref, watch, onMounted, onBeforeUnmount, ShallowRef, nextTick } from 'vue'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { createAnimateFrameWithStartValues, Processing } from 'earthsdk3'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
@@ -50,9 +50,11 @@ export function useScale(
   watch(
     navigatorScaleRight,
     (val) => {
-      if (scaleRef.value) {
-        scaleRef.value.style.right = val + 'px'
-      }
+      nextTick(() => {
+        if (scaleRef.value) {
+          scaleRef.value.style.right = val + 'px'
+        }
+      })
     },
     { immediate: true }
   )

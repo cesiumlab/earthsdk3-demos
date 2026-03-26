@@ -165,12 +165,17 @@ export class XbsjEarthUi extends ESObjectsManager {
     // 初始化配置
     this._initConfig = initConfig;
     {
+      //初始化场景树面板显示
+      this._showSceneTreeView.value = !initConfig.earthVisLab;
+      this._rightModuleShow.value = !initConfig.earthVisLab;
+      this._navigatorManager.navigatorScaleRight = initConfig.earthVisLab ? 0 : 400;
+    }
+    {
       //初始化地址
       const { cesiumLab, esss } = initConfig;
       this.cesiumLabUrl = cesiumLab.cesiumLabUrl;
       this.cesiumLabToken = cesiumLab.cesiumLabToken ?? '';
       this.esssUrl = esss.esssUrl;
-
     }
     {
       //判断视口

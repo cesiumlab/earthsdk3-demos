@@ -7,18 +7,27 @@
 </template>
 
 <script setup lang="ts">
-import { EsConfigProvider, useLang, useTheme, i18n } from 'earthsdk-ui';
+import { EsConfigProvider, ESLang, ESTheme, useLang, useTheme } from 'earthsdk-ui';
+import { onBeforeMount } from 'vue';
 import EarthUI from './EarthUI.vue';
+import { $g_objm } from './global';
+onBeforeMount(() => {
+  // 使用主题管理
+  const { setCustomThemeConfig, setTheme } = useTheme();
+  //自定义样式
+  setCustomThemeConfig({ colorPrimary: '#6287F7' });
 
-// 使用主题管理
-const { toggleTheme, isDark, setCustomThemeConfig } = useTheme();
-//自定义样式
-setCustomThemeConfig({ colorPrimary: '#6287F7' });
+  const { setLang } = useLang();
+  const xbsjEarthUi = $g_objm();
+  const { theme, lang } = xbsjEarthUi.initConfig;
+  if (theme) {
+    setTheme(theme as ESTheme);
+  }
 
-// 使用语言管理
-// const { toggleLang, isZh, t } = useLang();
-// console.log('name', i18n.global.t('earthui.header.name'));
-// console.log('msg', t('earthui.msg.item', { count: 1 }));
+  if (lang) {
+    setLang(lang as ESLang);
+  }
+})
 
 </script>
 

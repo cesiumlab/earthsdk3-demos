@@ -3,10 +3,7 @@
         <!-- Logo 区域 -->
         <div class="earthui-logo-container">
             <div class="logo_img" :style="logoStyle"></div>
-            <!-- 间隔 -->
             <span class="earthui-logo-interval"></span>
-            <!-- <a :href="config.homeLink" target="_blank">{{ config.name }}</a> -->
-            <!-- <a :href="config.homeLink" target="_blank">{{ $t('earthui.header.name') }}</a> -->
             <a :href="config.homeLink" target="_blank">{{ $t('earthui.header.name') }}</a>
         </div>
 

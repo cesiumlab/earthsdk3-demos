@@ -61,6 +61,7 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
 
   const theme = params.get('theme') ?? undefined;
   const lang = params.get('lang') ?? undefined;
+  const colorPrimary = params.get('colorPrimary') ?? undefined;
 
   // 构建基础配置对象
   const createConfig = (overrides = {}) => ({
@@ -82,6 +83,7 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     flyToObject: undefined as string | undefined,
     theme,
     lang,
+    colorPrimary,
     ...overrides
   });
 

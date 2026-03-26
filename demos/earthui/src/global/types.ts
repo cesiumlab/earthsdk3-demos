@@ -65,6 +65,7 @@ export interface InitSceneConfigType {
     flyToObject: string | undefined;
     theme?: string;
     lang?: string;
+    colorPrimary?: string;
 }
 
 

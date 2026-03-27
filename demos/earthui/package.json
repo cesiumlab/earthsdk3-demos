@@ -2,7 +2,7 @@
   "name": "earthui",
   "private": true,
   "version": "3.0.0",
-  "lastUpdateVersion": "26.03.24",
+  "lastUpdateVersion": "26.03.27",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -14,7 +14,7 @@
     "axios": "^1.4.0",
     "cesium": "1.139.1",
     "dayjs": "^1.10.3",
-    "earthsdk-ui": "1.0.8",
+    "earthsdk-ui": "1.0.81",
     "earthsdk3": "3.8.0",
     "earthsdk3-assets": "3.0.8",
     "earthsdk3-cesium": "3.8.1",

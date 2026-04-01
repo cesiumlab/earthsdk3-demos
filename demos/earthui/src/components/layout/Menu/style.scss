@@ -112,7 +112,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
 
 // ==================== 导航栏样式 ====================
 .earthui-menu-nav {
-    width: calc(100% - #{$logo-width} - 40px - 30px - 30px - 20px);
+    // width: calc(100% - #{$logo-width} - 40px - 30px - 30px - 20px);
     height: 100%;
     @include flex-align-center;
     justify-content: flex-start;
@@ -199,6 +199,14 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
 
 // ==================== 主题切换按钮样式 ====================
 // ==================== 语言切换按钮样式 ====================
+
+.earthui-menu-right{
+    width: 150px;
+    height: 100%;
+    @include flex-align-center;
+    justify-content: flex-end;
+}
+
 .earthui-neck-icon {
     width: $button-size;
     height: $button-size;
@@ -210,7 +218,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     transition: all $transition-fast;
 
     &:hover {
-        background-color: var(--el-color-primary-light-9);
+        background-color: var(--el-bg-color-page);
     }
     svg {
         @include flex-center;
@@ -221,13 +229,13 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     }
 }
 // ==================== 保存按钮样式 ====================
-.earthui-neck-save {
-    width: $button-size;
-    height: 100%;
-    @include flex-align-center;
-    padding-left: 8px;
-    position: relative;
-}
+// .earthui-neck-save {
+//     width: $button-size;
+//     height: 100%;
+//     @include flex-align-center;
+//     padding-left: 8px;
+//     position: relative;
+// }
 
 .earthui-neck-scene {
     position: relative;

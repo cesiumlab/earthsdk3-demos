@@ -14,7 +14,7 @@
     "earthsdk3-cesium": "3.8.0",
     "earthsdk3-ue": "3.8.0",
     "earthsdk3-assets": "3.0.8",
-    "ol": "^7.1.0",
+    "ol": "^10.8.0",
     "earthsdk3-ol": "3.8.0"
   },
   "devDependencies": {

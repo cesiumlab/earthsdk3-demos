@@ -21,7 +21,7 @@
     "earthsdk3-ol": "^3.9.0-beta.6",
     "earthsdk3-ue": "^3.9.0-beta.7",
     "echarts": "^5.5.1",
-    "ol": "^7.1.0",
+    "ol": "^10.8.0",
     "search-params": "^4.0.1",
     "topojson-client": "^3.1.0",
     "x2js": "^3.3.1"

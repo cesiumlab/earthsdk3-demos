@@ -27,13 +27,13 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.28.5"
 
-"@cesium/engine@^23.0.1":
-  version "23.0.1"
-  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-23.0.1.tgz#dd2007a924510d4625418cc758ad8524010fc35d"
-  integrity sha512-67Wki33c2mgAH/xKVTai35ZxCTgZ7oFCW1SQAqsfLb/zCBCA24+QZKjL02n2fO6Hlpq6ds6JZRBi44DRcNP9FA==
+"@cesium/engine@^24.0.0":
+  version "24.0.0"
+  resolved "http://192.168.0.20:4873/@cesium/engine/-/engine-24.0.0.tgz#7817f2d593106f159e38b3bd9b9638f12aa5569e"
+  integrity sha512-zJ2gl0tyw/FFhBtvp6UYw+0JQJb2J9EiTJYvVSndc6+6qPR5GHLFzFjA1msLLxucfcpc7uI9R2pXNEPluheR/g==
   dependencies:
     "@cesium/wasm-splats" "^0.1.0-alpha.2"
-    "@spz-loader/core" "0.3.0"
+    "@spz-loader/core" "0.3.1"
     "@tweenjs/tween.js" "^25.0.0"
     "@zip.js/zip.js" "^2.8.1"
     autolinker "^4.0.0"
@@ -59,18 +59,28 @@
   resolved "https://registry.npmjs.org/@cesium/wasm-splats/-/wasm-splats-0.1.0-alpha.2.tgz#f2d0d717d46f5f3d6d923549e90fb5ab4d429cab"
   integrity sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==
 
-"@cesium/widgets@^14.4.1":
-  version "14.4.1"
-  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-14.4.1.tgz#72146edafc3b571546e8982f05aaa5218a37b352"
-  integrity sha512-2zT5JECBE59n4ow1RRRvhwlhjSb7a7gmo38bc6yewiKiVnTmYaavLuabA3+CnTihK71UD/HxjPzwPF0GCl2UGg==
+"@cesium/widgets@^14.5.0":
+  version "14.5.0"
+  resolved "http://192.168.0.20:4873/@cesium/widgets/-/widgets-14.5.0.tgz#034bce2408f8755b6d07e49805fa6c8b39e0ad97"
+  integrity sha512-h/hKVooXyOtUQJUtrfyBFGMIXb+Q3RLwqE6FzXfzyC0JQuuThLXCz8nRzCPbyiRuAR/aAYT/jbbhQrUxfiWqhQ==
   dependencies:
-    "@cesium/engine" "^23.0.1"
+    "@cesium/engine" "^24.0.0"
     nosleep.js "^0.12.0"
 
 "@codemirror/autocomplete@^6.0.0":
   version "6.20.0"
   resolved "https://registry.npmjs.org/@codemirror/autocomplete/-/autocomplete-6.20.0.tgz#db818c12dce892a93fb8abadc2426febb002f8c1"
   integrity sha512-bOwvTOIJcG5FVo5gUUupiwYh8MioPLQ4UcqbcRf7UQ98X90tCa9E1kZ3Z7tqwpZxYyOvh1YTYbmZE9RTfTp5hg==
+  dependencies:
+    "@codemirror/language" "^6.0.0"
+    "@codemirror/state" "^6.0.0"
+    "@codemirror/view" "^6.17.0"
+    "@lezer/common" "^1.0.0"
+
+"@codemirror/autocomplete@^6.7.1":
+  version "6.20.1"
+  resolved "http://192.168.0.20:4873/@codemirror/autocomplete/-/autocomplete-6.20.1.tgz#4cfbc8b2e1e25f890ec34a081037e58b4e44143e"
+  integrity sha512-1cvg3Vz1dSSToCNlJfRA2WSI4ht3K+WplO0UMOgmUYPivCyy2oueZY6Lx7M9wThm7SDUBViRmuT+OG/i8+ON9A==
   dependencies:
     "@codemirror/language" "^6.0.0"
     "@codemirror/state" "^6.0.0"
@@ -98,7 +108,7 @@
     "@lezer/common" "^1.0.2"
     "@lezer/css" "^1.1.7"
 
-"@codemirror/lang-html@^6.4.11":
+"@codemirror/lang-html@^6.0.0", "@codemirror/lang-html@^6.4.11":
   version "6.4.11"
   resolved "https://registry.npmjs.org/@codemirror/lang-html/-/lang-html-6.4.11.tgz#c46ba46ae642fd567cf05c4129005d2913ac248d"
   integrity sha512-9NsXp7Nwp891pQchI7gPdTwBuSuT3K65NGTHWHNJ55HjYcHLllr0rbIZNdOzas9ztc1EUVBlHou85FFZS4BNnw==
@@ -134,10 +144,35 @@
     "@codemirror/language" "^6.0.0"
     "@lezer/json" "^1.0.0"
 
+"@codemirror/lang-markdown@^6.5.0":
+  version "6.5.0"
+  resolved "http://192.168.0.20:4873/@codemirror/lang-markdown/-/lang-markdown-6.5.0.tgz#29df87310a555b007beba8e12893363956a26e8e"
+  integrity sha512-0K40bZ35jpHya6FriukbgaleaqzBLZfOh7HuzqbMxBXkbYMJDxfF39c23xOgxFezR+3G+tR2/Mup+Xk865OMvw==
+  dependencies:
+    "@codemirror/autocomplete" "^6.7.1"
+    "@codemirror/lang-html" "^6.0.0"
+    "@codemirror/language" "^6.3.0"
+    "@codemirror/state" "^6.0.0"
+    "@codemirror/view" "^6.0.0"
+    "@lezer/common" "^1.2.1"
+    "@lezer/markdown" "^1.0.0"
+
 "@codemirror/language@^6.0.0", "@codemirror/language@^6.4.0", "@codemirror/language@^6.6.0":
   version "6.12.1"
   resolved "https://registry.npmjs.org/@codemirror/language/-/language-6.12.1.tgz#d615f7b099a39248312feaaf0bfafce4418aac1b"
   integrity sha512-Fa6xkSiuGKc8XC8Cn96T+TQHYj4ZZ7RdFmXA3i9xe/3hLHfwPZdM+dqfX0Cp0zQklBKhVD8Yzc8LS45rkqcwpQ==
+  dependencies:
+    "@codemirror/state" "^6.0.0"
+    "@codemirror/view" "^6.23.0"
+    "@lezer/common" "^1.5.0"
+    "@lezer/highlight" "^1.0.0"
+    "@lezer/lr" "^1.0.0"
+    style-mod "^4.0.0"
+
+"@codemirror/language@^6.3.0":
+  version "6.12.3"
+  resolved "http://192.168.0.20:4873/@codemirror/language/-/language-6.12.3.tgz#0b220182973a4c19850b29f7dd82aec1bbae3d7e"
+  integrity sha512-QwCZW6Tt1siP37Jet9Tb02Zs81TQt6qQrZR2H+eGMcFsL1zMrk2/b9CLC7/9ieP1fjIUMgviLWMmgiHoJrj+ZA==
   dependencies:
     "@codemirror/state" "^6.0.0"
     "@codemirror/view" "^6.23.0"
@@ -358,12 +393,20 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
-"@gltf-transform/core@4.3.0":
+"@gltf-transform/core@4.3.0", "@gltf-transform/core@^4.3.0":
   version "4.3.0"
   resolved "http://192.168.0.20:4873/@gltf-transform/core/-/core-4.3.0.tgz#2490aee3d592543e4f9dd99e0a724e037a18d0cb"
   integrity sha512-ZeaQfszGJ9LYwELszu45CuDQCsE26lJNNe36FVmN8xclaT6WDdCj7fwGpQXo0/l/YgAVAHX+uO7YNBW75/SRYw==
   dependencies:
     property-graph "^4.0.0"
+
+"@gltf-transform/extensions@4.3.0":
+  version "4.3.0"
+  resolved "http://192.168.0.20:4873/@gltf-transform/extensions/-/extensions-4.3.0.tgz#b0560a598fdacaf02c9c50db2bceadc12cb34f3b"
+  integrity sha512-XDAjQPYVMHa/VDpSbfCBwI+/1muwRJCaXhUpLgnUzAjn0D//PgvIAcbNm1EwBl3LIWBSwjDUCn2LiMAjp+aXVw==
+  dependencies:
+    "@gltf-transform/core" "^4.3.0"
+    ktx-parse "^1.0.1"
 
 "@intlify/core-base@11.3.0":
   version "11.3.0"
@@ -417,6 +460,11 @@
   resolved "https://registry.npmjs.org/@lezer/common/-/common-1.5.0.tgz#db227b596260189b67ba286387d9dc81fb07c70b"
   integrity sha512-PNGcolp9hr4PJdXR4ix7XtixDrClScvtSCYW3rQG106oVMOOI+jFb+0+J3mbeL/53g1Zd6s0kJzaw6Ri68GmAA==
 
+"@lezer/common@^1.2.1":
+  version "1.5.2"
+  resolved "http://192.168.0.20:4873/@lezer/common/-/common-1.5.2.tgz#d6840db13779e3f1b42e70c9a97c4086d12fae22"
+  integrity sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ==
+
 "@lezer/css@^1.1.0", "@lezer/css@^1.1.7":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@lezer/css/-/css-1.3.0.tgz#296f298814782c2fad42a936f3510042cdcd2034"
@@ -466,6 +514,14 @@
   integrity sha512-bPWa0Pgx69ylNlMlPvBPryqeLYQjyJjqPx+Aupm5zydLIF3NE+6MMLT8Yi23Bd9cif9VS00aUebn+6fDIGBcDA==
   dependencies:
     "@lezer/common" "^1.0.0"
+
+"@lezer/markdown@^1.0.0":
+  version "1.6.3"
+  resolved "http://192.168.0.20:4873/@lezer/markdown/-/markdown-1.6.3.tgz#04beb444f656c2319ddf23554b1e4b0edf536071"
+  integrity sha512-jpGm5Ps+XErS+xA4urw7ogEGkeZOahVQF21Z6oECF0sj+2liwZopd2+I8uH5I/vZsRuuze3OxBREIANLf6KKUw==
+  dependencies:
+    "@lezer/common" "^1.5.0"
+    "@lezer/highlight" "^1.0.0"
 
 "@mapbox/jsonlint-lines-primitives@~2.0.2":
   version "2.0.2"
@@ -849,10 +905,10 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.57.1.tgz#a03348e7b559c792b6277cc58874b89ef46e1e72"
   integrity sha512-mxRFDdHIWRxg3UfIIAwCm6NzvxG0jDX/wBN6KsQFTvKFqqg9vTrWUE68qEjHt19A5wwx5X5aUi2zuZT7YR0jrA==
 
-"@spz-loader/core@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/@spz-loader/core/-/core-0.3.0.tgz#b2c15d8b5ada53542979cce6890e89f624b13e02"
-  integrity sha512-sbStwMHb/MIE29st7rRuMYWqhX1UmLSFzdpyGtUZUXLkFNIuYKblzjQdtiet8bau8sUf21uL1DQ451zuySGmcA==
+"@spz-loader/core@0.3.1":
+  version "0.3.1"
+  resolved "http://192.168.0.20:4873/@spz-loader/core/-/core-0.3.1.tgz#3337d4753f60908c30ae94b5599020f18056a18e"
+  integrity sha512-8qJ1WIBXaJu8HjnJAjYniE0kYcr0kCe5Hp7kDzYiGVvvd7zyrOBwbF5imoW5mvwx1Qba0hxGEK5R9jEoaHKJFA==
 
 "@turf/along@^6.5.0":
   version "6.5.0"
@@ -2342,13 +2398,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
-cesium@1.139:
-  version "1.139.1"
-  resolved "https://registry.npmjs.org/cesium/-/cesium-1.139.1.tgz#6905bca81344488f586be774679d7b9241f5b059"
-  integrity sha512-Wj7OGuozqHgkj+Ij0B9j+YUQxiviEKf4AKfOC8bp84UcyyY9r92EfRWXiePP4Or6MI7OaM3YkGtGSaLRXhNvLg==
+cesium@1.140:
+  version "1.140.0"
+  resolved "http://192.168.0.20:4873/cesium/-/cesium-1.140.0.tgz#b5ebb731e95b14992fdff54890f69b08661d05fc"
+  integrity sha512-3RvW0rvZWuXiS6regtNE5u9vt0uXohgpsRBIo6Qc922IIIamkitYiEdr4fg+u4qX4EoK9xS3BosCza7iPOExEQ==
   dependencies:
-    "@cesium/engine" "^23.0.1"
-    "@cesium/widgets" "^14.4.1"
+    "@cesium/engine" "^24.0.0"
+    "@cesium/widgets" "^14.5.0"
 
 chokidar@^3.5.3:
   version "3.6.0"
@@ -2603,14 +2659,15 @@ earthsdk-icon@^0.0.10:
     core-js "^3.8.3"
     vue "^3.2.13"
 
-earthsdk-ui@^1.0.8-beta.6:
-  version "1.0.8-beta.6"
-  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.0.8-beta.6.tgz#c94c2c45700a2ece42763b56da739b2bd0704891"
-  integrity sha512-Tluz63hLOzdMw30Vee15BBPlVKi2Czf/jDjrE8156TpKQQkF+rSh9gjt5oAGJFT2NF2H/KEQzbwP0upOEx9lfQ==
+earthsdk-ui@^1.2.0-beta.1:
+  version "1.2.0-beta.1"
+  resolved "http://192.168.0.20:4873/earthsdk-ui/-/earthsdk-ui-1.2.0-beta.1.tgz#761c7177db1562a388c30dce8b5843933b10b44d"
+  integrity sha512-Ghr2A7eaD4MH4cb5mlBlF6dmikTYc9ACBtIeHYsHvrigB3EBQOGJNsRTOP9sL0l1QoKsXWUCDOCg836bwQpwEw==
   dependencies:
     "@codemirror/lang-html" "^6.4.11"
     "@codemirror/lang-javascript" "^6.2.4"
     "@codemirror/lang-json" "^6.0.2"
+    "@codemirror/lang-markdown" "^6.5.0"
     "@codemirror/state" "^6.5.2"
     "@codemirror/theme-one-dark" "^6.1.3"
     "@codemirror/view" "^6.38.6"
@@ -2631,12 +2688,13 @@ earthsdk3-assets@3.0.8:
   resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.8.tgz#905efbc8c63978bab998acfba604d836201a7e3a"
   integrity sha512-Goe1ZeNEMC0XI//onRPGPguU+dD8Otv14iKdEyKVPkdAUJe31IBgX9hKROpZcmbsI5pgPsvoxBAuZZyDstI7Vw==
 
-earthsdk3-cesium@^3.9.0-beta.1:
-  version "3.9.0-beta.1"
-  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.9.0-beta.1.tgz#7cabce0fce273bf15cbe7c5550ad4b198e25588f"
-  integrity sha512-QoaAsGMk8TtEKCJXPr8JMEl3WGv3XehT5MC6zgBqOOvqQKpN64u8HbZvbUCC4edVBdATKW+UUdfw84gR20ZLlQ==
+earthsdk3-cesium@^3.9.0-beta.8:
+  version "3.9.0-beta.8"
+  resolved "http://192.168.0.20:4873/earthsdk3-cesium/-/earthsdk3-cesium-3.9.0-beta.8.tgz#99bb66dfd6fac755f9737017f79b75637d412275"
+  integrity sha512-vf6xFDs7PpD5PexI9Ewn6ej8Em7T+2yW3qnV8wZHoHutFHGUmyySG30JAmfL/AMW99q57jr27fhaQEef7knMIw==
   dependencies:
     "@gltf-transform/core" "4.3.0"
+    "@gltf-transform/extensions" "4.3.0"
     "@mapbox/vector-tile" "2.0.4"
     "@maplibre/maplibre-gl-style-spec" "^24.4.1"
     "@types/delaunator" "^5.0.2"
@@ -2646,23 +2704,23 @@ earthsdk3-cesium@^3.9.0-beta.1:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@^3.9.0-beta.1:
-  version "3.9.0-beta.1"
-  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.9.0-beta.1.tgz#ba4e717fce9aa9e887f9c77c89330692a0154f41"
-  integrity sha512-DMup2Wu35JrjH4JjunvEvZpijjO6AEOjYD/8S63E59uH4pYYnsKy56YLqGJbqt+JPM4UV4aIIq6jXJaopwqVmw==
+earthsdk3-ol@^3.9.0-beta.6:
+  version "3.9.0-beta.6"
+  resolved "http://192.168.0.20:4873/earthsdk3-ol/-/earthsdk3-ol-3.9.0-beta.6.tgz#acec9e414fbe47536c347c95f505394cb3f412fd"
+  integrity sha512-QNRgbBosDTVk+2iW7dxs1G766csnCzoQC9EX97+AhI8G9iEc814rE+sNGFbw+uSIS8UZOood3lS4iMzgqCgYFQ==
 
-earthsdk3-ue@^3.9.0-beta.2:
-  version "3.9.0-beta.2"
-  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.9.0-beta.2.tgz#e366fa76432bc14ec854efbcc69e6868c0fc2c9c"
-  integrity sha512-jOTJ2A+glb9kZ8DAM7Q+0ggB94jVjELgxPe1BR7QyBKqlGKIoqeh3cpZM/Y8A9jzggYLRyhEYFhGOj0R9i2rMA==
+earthsdk3-ue@^3.9.0-beta.7:
+  version "3.9.0-beta.7"
+  resolved "http://192.168.0.20:4873/earthsdk3-ue/-/earthsdk3-ue-3.9.0-beta.7.tgz#40bb95e800663b62939e71d3951076792ed19145"
+  integrity sha512-h2SAVriYwMoRN0VSfmSmwbrZRYqpqtD+MKac6N/mFsdBFBdQaedBXMiFOL/ExsFg2jHxmSZiTIRI28KsEe/7iA==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@^3.9.0-beta.1:
-  version "3.9.0-beta.1"
-  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.9.0-beta.1.tgz#6b37ccd316df1103148209b7341ae5cc7562cecc"
-  integrity sha512-NP8KtHscZVcv9hTrUDFodBUAWu5dx+pwfZtKiubrXzCAau+CZtZmCymK1MsLiiB7hLzmpXXESms45S9KGAN0lw==
+earthsdk3@^3.9.0-beta.7:
+  version "3.9.0-beta.7"
+  resolved "http://192.168.0.20:4873/earthsdk3/-/earthsdk3-3.9.0-beta.7.tgz#b30f130ae742b6c8073c634cbfeacbd41b1b9dbd"
+  integrity sha512-JZOOUeGv8wJ7fMvZyHPEoEggFKwJJ0rbte153ru/p30dbNnvStJlAvw3u6fwkKoZR2zYTX9dLn2pccPgxpKCSw==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -3200,7 +3258,7 @@ kdbush@^4.0.1:
   resolved "https://registry.npmjs.org/kdbush/-/kdbush-4.0.2.tgz#2f7b7246328b4657dd122b6c7f025fbc2c868e39"
   integrity sha512-WbCVYJ27Sz8zi9Q7Q0xHC+05iwkm3Znipc2XTlrnJbsHMYktW4hPhXUE8Ys1engBrvffoSCqbil1JQAa7clRpA==
 
-ktx-parse@^1.0.0:
+ktx-parse@^1.0.0, ktx-parse@^1.0.1:
   version "1.1.0"
   resolved "https://registry.npmjs.org/ktx-parse/-/ktx-parse-1.1.0.tgz#1077c87776ddabfc32fc01f644f6ad8f8890abf8"
   integrity sha512-mKp3y+FaYgR7mXWAbyyzpa/r1zDWeaunH+INJO4fou3hb45XuNSwar+7llrRyvpMWafxSIi99RNFJ05MHedaJQ==

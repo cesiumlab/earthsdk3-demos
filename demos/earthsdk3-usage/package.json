@@ -10,7 +10,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "cesium": "1.139",
+    "cesium": "1.140",
     "earthsdk3": "3.8.0",
     "earthsdk3-cesium": "3.8.0",
     "earthsdk3-ue": "3.8.0",

@@ -12,7 +12,7 @@
 
     <PoplistHeader title="运动参数" />
 
-    <ElInput class="content_item" v-model="eyeHeight" type="number" placeholder="请输入人眼高度值">
+    <ElInput class="content_item" v-model.number="eyeHeight" type="number" placeholder="请输入人眼高度值">
       <template #prefix>
         <span>人眼高度</span>
       </template>
@@ -21,7 +21,7 @@
       </template>
     </ElInput>
 
-    <ElInput class="content_item" v-if="activeViewerType === 'ESUeViewer'" v-model="jumpZVelocity" type="number"
+    <ElInput class="content_item" v-if="activeViewerType === 'ESUeViewer'" v-model.number="jumpZVelocity" type="number"
       placeholder="请输入速度值">
       <template #prefix>
         <span>跳跃初速度</span>

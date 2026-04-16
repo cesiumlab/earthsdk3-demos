@@ -66,7 +66,7 @@ const windowShow = ref(false)
 const urlWindowShow = ref(false)
 const emits = defineEmits(['close'])
 const addSceneObjects = () => {
-  let maxZindex = searchMaxZindex(sceneTree, 'ESMVTLayer')
+  let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer')
   if (!url.value) {
     ElMessage.warning('请输入地址')
     return

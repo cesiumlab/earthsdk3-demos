@@ -10,7 +10,7 @@
 .scene_box {
   width: 119px;
   height: 35px;
-  background-color: #3d4257;
+  background-color: var(--el-bg-color-overlay);
   margin: 0 0 15px 15px;
   text-align: center;
   line-height: 35px;
@@ -41,7 +41,7 @@
   margin-top: 10px;
   font-size: 12px;
   line-height: 26px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   position: relative;
 }
 
@@ -59,24 +59,24 @@
   height: 26px;
   background: rgba(28, 28, 29, 0.6);
   border-radius: 4px;
-  border: 1px solid #3b3c40;
-  color: rgba(230, 230, 230, 1);
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color-regular);
   padding-left: 11px;
   box-sizing: border-box;
 }
 
-.images_servelocation>button {
+/* .images_servelocation>button {
   height: 26px;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-bg-color-overlay);
   border-radius: 4px;
-  border: 1px solid #3b3c40;
-  color: rgba(230, 230, 230, 1);
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color-regular);
   cursor: pointer;
 }
 
 .images_servelocation>button:hover {
   border: 1px solid #2c68f7;
-}
+} */
 
 .images_servelocation>.images_servelocation_readonly:hover {
   border: none;
@@ -119,10 +119,10 @@
 .images_servelocation>div {
   height: 26px;
   flex: 1;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-bg-color-overlay);
   border-radius: 4px;
-  border: 1px solid #3b3c40;
-  color: rgba(230, 230, 230, 1);
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color-regular);
   padding-left: 11px;
   box-sizing: border-box;
   cursor: pointer;
@@ -338,7 +338,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #fff;
+  color: var(--el-text-color-regular);
   cursor: pointer;
 }
 

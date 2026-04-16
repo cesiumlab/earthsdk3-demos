@@ -1,9 +1,10 @@
 <template>
   <PopList :title="'Czml'" :showButton="true" @ok="addSceneObjects">
-    <div class="images_bottom_content">
-      <div class="images_servelocation">
-        <label>路径</label>
-        <textarea v-model="serveUrl" rows="4"></textarea>
+    <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">路径</label>
+        <el-input v-model="serveUrl" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
       </div>
     </div>
   </PopList>

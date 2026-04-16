@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
   checkIcon: false,
   iconIschecked: false,
   minWidthHeight: () => [215, 100],
-  checkFun: () => {}
+  checkFun: () => { }
 })
 const emits = defineEmits(['close', 'ok'])
 const developContent = ref(true)
@@ -146,46 +146,20 @@ const hoverLineHeight = ref(-1)
                         <es-icon :name="'sanweizuobiao'"
                             :color="editingIschecked || hoverLineHeight2 === 0 ? '#5788FF' : '#fff'" :size="12" />
                     </span> -->
-          <span
-            class="develop_icon"
-            @click.stop="checkFun()"
-            v-if="checkIconIsShow"
-            :title="iconIschecked ? '取消全选' : '全选'"
-            @mouseover.prevent="hoverLineHeight = 0"
-            @mouseout.prevent="hoverLineHeight = -1"
-          >
-            <es-icon
-              :name="'weixuanzhong'"
-              :color="iconIschecked || hoverLineHeight === 0 ? '#5788FF' : '#fff'"
-              :size="12"
-            />
+          <span class="develop_icon" @click.stop="checkFun()" v-if="checkIconIsShow"
+            :title="iconIschecked ? '取消全选' : '全选'" @mouseover.prevent="hoverLineHeight = 0"
+            @mouseout.prevent="hoverLineHeight = -1">
+            <es-icon :name="'weixuanzhong'" :color="iconIschecked || hoverLineHeight === 0 ? '#5788FF' : '#fff'"
+              :size="12" />
           </span>
-          <span
-            class="develop_icon"
-            :class="developContent ? '' : 'icon_transform'"
-            @click.stop="developContent = !developContent"
-            :title="developContent ? '收起' : '展开'"
-            @mouseover.prevent="hoverLineHeight = 1"
-            @mouseout.prevent="hoverLineHeight = -1"
-          >
-            <es-icon
-              :name="'shouqi'"
-              :color="hoverLineHeight === 1 ? '#5788FF' : '#fff'"
-              :size="12"
-            />
+          <span class="develop_icon" :class="developContent ? '' : 'icon_transform'"
+            @click.stop="developContent = !developContent" :title="developContent ? '收起' : '展开'"
+            @mouseover.prevent="hoverLineHeight = 1" @mouseout.prevent="hoverLineHeight = -1">
+            <es-icon :name="'shouqi'" :color="hoverLineHeight === 1 ? '#5788FF' : '#fff'" :size="12" />
           </span>
-          <span
-            class="develop_icon"
-            @click="emits('close')"
-            :title="'关闭'"
-            @mouseover.prevent="hoverLineHeight = 2"
-            @mouseout.prevent="hoverLineHeight = -1"
-          >
-            <es-icon
-              :name="'guanbi'"
-              :color="hoverLineHeight === 2 ? '#5788FF' : '#fff'"
-              :size="12"
-          /></span>
+          <span class="develop_icon" @click="emits('close')" :title="'关闭'" @mouseover.prevent="hoverLineHeight = 2"
+            @mouseout.prevent="hoverLineHeight = -1">
+            <es-icon :name="'guanbi'" :color="hoverLineHeight === 2 ? '#5788FF' : '#fff'" :size="12" /></span>
         </div>
       </div>
       <div class="popup_body" ref="popupBodyDom" v-show="developContent">
@@ -195,12 +169,7 @@ const hoverLineHeight = ref(-1)
         <button @click="emits('close')">取消</button>
         <button @click="emits('ok')">{{ buttonConfirm ?? '确认' }}</button>
       </div>
-      <div
-        disabled="false"
-        class="dragMouse"
-        @pointerdown="dragPointerdown"
-        v-show="developContent"
-      ></div>
+      <div disabled="false" class="dragMouse" @pointerdown="dragPointerdown" v-show="developContent"></div>
     </div>
   </teleport>
 </template>
@@ -209,7 +178,7 @@ const hoverLineHeight = ref(-1)
 .popup_box {
   position: fixed;
   overflow: auto;
-  background-color: rgb(37, 38, 42);
+  background-color: var(--el-bg-color-page);
   border-radius: 3px;
   z-index: 8887;
 }
@@ -226,31 +195,30 @@ const hoverLineHeight = ref(-1)
   text-overflow: ellipsis;
   height: 30px;
   width: 100%;
-  /* border-bottom: 4px solid rgba(0, 0, 0, 0.51); */
-  background: rgba(27, 27, 27, 1);
+  background: var(--el-bg-color-page);
   font-size: 14px;
   text-align: center;
   user-select: none;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   line-height: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.popup_header > div > a {
+.popup_header>div>a {
   white-space: nowrap;
   cursor: pointer;
   font-size: 14px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
 }
 
-.popup_header > div > a:hover {
-  color: aqua;
+.popup_header>div>a:hover {
+  color: var(--el-color-primary);
 }
 
 .popup_title {
-  color: #fff;
+  color: var(--el-text-color-regular);
   text-align: left;
   margin-left: 10px;
   width: calc(100% - 80px);
@@ -268,7 +236,7 @@ const hoverLineHeight = ref(-1)
   margin-top: 2px;
 }
 
-.popup_icon > span {
+.popup_icon>span {
   height: 100%;
   display: inline-block;
   cursor: pointer;
@@ -291,12 +259,12 @@ const hoverLineHeight = ref(-1)
 
 .popup_body ::-webkit-scrollbar {
   width: 3px;
-  background-color: rgba(41, 42, 46, 1);
+  background-color: var(--el-fill-color-lighter);
   border-radius: 2px;
 }
 
 .popup_body ::-webkit-scrollbar-thumb {
-  background-color: rgba(183, 183, 183, 1);
+  background-color: var(--el-text-color-regular);
   border-radius: 2px;
 }
 
@@ -306,7 +274,7 @@ const hoverLineHeight = ref(-1)
 }
 
 .popup_foot {
-  border-top: 4px solid rgba(0, 0, 0, 1);
+  border-top: 4px solid var(--el-border-color);
   width: 100%;
   height: 40px;
   margin-bottom: 5px;
@@ -315,25 +283,25 @@ const hoverLineHeight = ref(-1)
   justify-content: flex-end;
 }
 
-.popup_foot > button {
+.popup_foot>button {
   width: 80px;
   height: 32px;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
   border-radius: 4px;
-  border: 2px solid #6c7184;
+  border: 2px solid var(--el-border-color);
   cursor: pointer;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   margin-right: 10px;
 }
 
-.popup_foot > button:hover {
-  border: 1px solid #2c68f7;
+.popup_foot>button:hover {
+  border: 1px solid var(--el-color-primary);
 }
 
 .dragMouse {
   width: 0;
   height: 0;
-  border: 6px solid #aeaeae;
+  border: 6px solid var(--el-border-color);
   border-top: 6px solid transparent;
   border-left: 6px solid transparent;
   position: absolute;

@@ -59,7 +59,7 @@
         <div class="earthui-menu-right">
             <!-- 主题切换按钮 -->
             <!-- TODO:暂时关闭，因为主题配置没改完 -->
-            <div class="earthui-neck-icon" @click="toggleTheme" title="切换主题">
+            <div v-if="!earthVisLab" class="earthui-neck-icon" @click="toggleTheme" title="切换主题">
                 <svg t="1767868138156" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                     fill="currentColor">
                     <path
@@ -71,7 +71,7 @@
 
             <!-- 语言切换 -->
             <!-- TODO:暂时关闭，因为语言配置没改完 -->
-            <div class="earthui-neck-icon" @click="toggleLang" title="切换语言">
+            <div v-if="!earthVisLab" class="earthui-neck-icon" @click="toggleLang" title="切换语言">
                 <svg t="1773728591085" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     p-id="19397" width="16" height="16" fill="currentColor">
                     <path
@@ -138,7 +138,7 @@
 import '@/css/General.css';
 import { $g_config, $g_objm } from '@/global';
 import { getNavList } from '@/pages';
-import { i18n, toggleLang, vClickOutside } from 'earthsdk-ui';
+import { toggleLang, vClickOutside } from 'earthsdk-ui';
 import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
 import { useMenu } from './useMenu';
 const objm = $g_objm();

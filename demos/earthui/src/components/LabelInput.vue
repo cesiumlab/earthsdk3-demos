@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   liClickFun: (item: any, index?: number) => {
     // console.log(item, index);
   },
-  checkboxFun: () => {}
+  checkboxFun: () => { }
 })
 const emit = defineEmits([
   'update:modelValue',
@@ -78,7 +78,7 @@ const onInput = (e: Event) => {
   emit('input', targetValue)
   emit('update:modelValue', targetValue)
 }
-const liClick = (item: any, index: number) => {
+const liClick = (item: any, index: any) => {
   props.liClickFun(item, index)
   ulIsShow.value = false
 }
@@ -141,40 +141,19 @@ watch(a, () => {
   <div class="label_input">
     <label class="label" for="" :title="label">{{ label }}</label>
     <div :class="inpClass">
-      <input
-        :type="inputType"
-        :min="min"
-        :max="max"
-        :placeholder="placeholder"
-        v-model="a"
-        @input="onInput"
-        :disabled="disabled"
-        @focus="onFocus"
-        @blur="onBlur"
-        @keypress="onKeypress"
-        @keyup="onKeyup"
-        @keydown.enter="onKeydownEnter($event)"
-      />
+      <input :type="inputType" :min="min" :max="max" :placeholder="placeholder" v-model="a" @input="onInput"
+        :disabled="disabled" @focus="onFocus" @blur="onBlur" @keypress="onKeypress" @keyup="onKeyup"
+        @keydown.enter="onKeydownEnter($event)" />
     </div>
     <div class="unit" v-if="unit">{{ unit }}</div>
-    <div
-      class="checkbox"
-      :class="{ checkbox_active: ulIsShow, input_disabled: readonly }"
-      v-if="checkbox"
-      @click="checkBoxChange"
-    >
-      <es-icon
-        :name="'liebiao'"
-        :color="ulIsShow ? 'rgba(255, 255, 255, 1)' : 'rgba(230, 230, 230, 1)'"
-        :size="15"
-      />
+    <div class="checkbox" :class="{ checkbox_active: ulIsShow, input_disabled: readonly }" v-if="checkbox"
+      @click="checkBoxChange">
+      <es-icon :name="'liebiao'" :color="ulIsShow ? 'var(--el-color-primary)' : 'var(--el-text-color-regular)'"
+        :size="15" />
     </div>
     <ul class="ul" v-if="ulIsShow">
-      <li
-        v-for="(item, index) in list"
-        :class="{ l_active: item[activeModeType] === activeMode }"
-        @click="liClick(item, index)"
-      >
+      <li v-for="(item, index) in list" :class="{ l_active: item[activeModeType] === activeMode }"
+        @click="liClick(item, index)">
         {{ item[listContent] }}
       </li>
     </ul>
@@ -187,30 +166,31 @@ watch(a, () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   font-size: 12px;
   position: relative;
   margin-top: 10px;
 }
 
-.label_input > .label {
+.label_input>.label {
   display: inline-block;
   width: 60px;
   height: 26px;
-  font-family: SourceHanSansCN, SourceHanSansCN;
   font-weight: 400;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   line-height: 26px;
+  color: var(--el-text-color-regular);
   font-size: 12px;
 }
 
-.label_input > .input {
+.label_input>.input {
   flex: 1;
   box-sizing: border-box;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
+  color: var(--el-text-color-regular);
 }
 
 .input_readonly,
@@ -221,36 +201,35 @@ watch(a, () => {
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
-  background: rgba(48, 48, 48, 0.6) !important;
-  color: #555;
+  background: var(--el-fill-color-lighter) !important;
+  color: var(--el-text-color-regular);
   border-radius: 5px;
 }
 
-.label_input > .input > input {
+.label_input>.input>input {
   width: 100%;
   display: inline-block;
   height: 26px;
   border-radius: 4px;
   margin-right: 0;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   padding: 0 11px;
   box-sizing: border-box;
   background: none;
-  border: 1px solid #3b3c40;
+  border: 1px solid var(--el-border-color);
 }
 
-.label_input > .input > input:hover {
-  border: 1px solid #2c68f7;
+.label_input>.input>input:hover {
+  border: 1px solid var(--el-color-primary);
 }
 
-.label_input > .input > input:focus {
-  border: 1px solid #2c68f7;
+.label_input>.input>input:focus {
+  border: 1px solid var(--el-color-primary);
 }
 
-.label_input > .unit {
+.label_input>.unit {
   width: 26px;
   height: 26px;
-  font-family: SourceHanSansCN, SourceHanSansCN;
   font-weight: 400;
   text-align: left;
   line-height: 26px;
@@ -258,11 +237,11 @@ watch(a, () => {
   margin-left: 10px;
 }
 
-.label_input > .checkbox {
+.label_input>.checkbox {
   width: 26px;
   height: 26px;
   cursor: pointer;
-  border: 1px solid #3b3c40;
+  border: 1px solid var(--el-border-color);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -271,23 +250,25 @@ watch(a, () => {
   margin-left: 10px;
 }
 
-.label_input > .checkbox:hover {
-  border: 1px solid #2c68f7;
+.label_input>.checkbox:hover {
+  border: 1px solid var(--el-color-primary);
 }
 
 .checkbox_active {
-  border: 1px solid #2c68f7 !important;
+  border: 1px solid var(--el-color-primary) !important;
 }
 
-.label_input > .ul {
+.label_input>.ul {
   width: calc(100% - 96px);
   position: absolute;
   z-index: 20;
   max-height: 100px;
+  min-height: 50px;
   left: 60px;
   top: 27px;
   overflow-y: auto;
-  background: #292a2e;
+  background: var(--el-fill-color-lighter);
+  border: 1px solid var(--el-border-color);
   box-shadow: 0px 2px 6px 0px rgba(26, 26, 28, 0.68);
   border-radius: 4px;
   overflow-x: hidden;
@@ -295,7 +276,7 @@ watch(a, () => {
   padding: 0;
 }
 
-.ul::-webkit-scrollbar-thumb {
+/* .ul::-webkit-scrollbar-thumb {
   background-color: rgba(183, 183, 183, 1);
   border-radius: 2px;
 }
@@ -304,14 +285,14 @@ watch(a, () => {
   width: 3px;
   background-color: rgba(41, 42, 46, 1);
   border-radius: 2px;
-}
+} */
 
-.ul > li {
+.ul>li {
   list-style: none;
   width: 100%;
   height: 20px;
   font-size: 12px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   line-height: 20px;
   cursor: pointer;
   text-align: left;
@@ -321,12 +302,12 @@ watch(a, () => {
   box-sizing: border-box;
 }
 
-.ul > li:hover {
-  background-color: #383838;
+.ul>li:hover {
+  background-color: var(--el-fill-color-light);
 }
 
 .l_active {
-  background: #455767 !important;
+  background: var(--el-fill-color-light) !important;
 }
 
 input::-webkit-outer-spin-button,

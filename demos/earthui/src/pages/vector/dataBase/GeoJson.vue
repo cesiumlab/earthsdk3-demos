@@ -1,9 +1,10 @@
 <template>
   <PopList :title="'GeoJson'" :showButton="true" @ok="addSceneObjects">
-    <div class="images_bottom_content">
-      <div class="images_servelocation">
-        <label>路径</label>
-        <textarea v-model="serveUrl" rows="4"></textarea>
+    <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">路径</label>
+        <el-input v-model="serveUrl" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
       </div>
     </div>
   </PopList>
@@ -15,6 +16,7 @@ import { inject, ref } from 'vue'
 import PopList from '../../../components/PopList.vue'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
+import { isJsonObjectString } from '@/utils/isJsonObjectString'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 const serveUrl = ref()
@@ -52,7 +54,8 @@ const addSceneObjects = () => {
   if (newTreeItem.sceneObject.typeName !== 'ESGeoJson') return
   const sceneObject = newTreeItem.sceneObject as ESGeoJson
   xbsjEarthUi.propSceneTree = newTreeItem
-  if (serveUrl.value.trim().startsWith('http')) {
+  const flag = isJsonObjectString(serveUrl.value.trim());
+  if (!flag) {
     sceneObject.url = serveUrl.value
   } else {
     sceneObject.url = JSON.parse(serveUrl.value)

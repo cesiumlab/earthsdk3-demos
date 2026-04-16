@@ -93,14 +93,14 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
       return createConfig();
     }
     //是否是earthvislab附属页面
-    const earthVisLab = from === 'earthVisLab';
+    const earthVisLab = ((from.toLowerCase()) === 'earthvislab');
     if (earthVisLab) {
       return createConfig({ earthVisLab: true });
     }
 
-    const fromCesiumLab = from === cesiumLabParamValue;
-    const fromEsss = from === esssParamValue;
-    const fromGeoServer = from === 'GeoServer';
+    const fromCesiumLab = ((from.toLowerCase()) === cesiumLabParamValue.toLowerCase());
+    const fromEsss = ((from.toLowerCase()) === esssParamValue.toLowerCase());
+    const fromGeoServer = ((from.toLowerCase()) === 'geoserver');
 
 
     // 处理 CesiumLab 场景回显

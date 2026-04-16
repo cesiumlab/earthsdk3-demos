@@ -10,6 +10,8 @@ import { initSceneJson } from './global'
 import './scripts/iconfont.js'
 import { XbsjEarthUi } from './scripts/xbsjEarthUi'
 import { LangConfigType } from './types'
+import ElementPlus from 'element-plus'
+import './css/item.css'
 
 async function main() {
   try {
@@ -41,6 +43,7 @@ async function main() {
 
     // 再挂载
     app.use(EarthSDKUI);
+    app.use(ElementPlus);
     app.use(i18n);
     app.mount('#app');
   } catch (error) {

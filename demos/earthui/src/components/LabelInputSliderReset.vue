@@ -112,46 +112,20 @@ const changeNewValue = (e: any) => {
 }
 </script>
 <template>
-  <div
-    class="label_input"
-    v-click-outside="clickOutside"
-    @click.stop.prevent="click"
-    @dblclick.stop.prevent="dblclick"
-  >
+  <div class="label_input" v-click-outside="clickOutside" @click.stop.prevent="click" @dblclick.stop.prevent="dblclick">
     <label class="label" for="" :title="label">{{ label }}</label>
     <div class="input1" v-if="type === 'default'">{{ newValue }}</div>
     <div class="input" v-else-if="type === 'slider'">
-      <SliderTime
-        :min="min"
-        :max="max"
-        :width="width"
-        v-model:value="newSliderValue"
-        @change="modelValueChange"
-        :realVal="`${newValue.toFixed(2)}`"
-      />
+      <SliderTime :min="min" :max="max" :width="width" v-model:value="newSliderValue" @change="modelValueChange"
+        :realVal="`${newValue.toFixed(2)}`" />
     </div>
     <div class="input" v-else-if="type === 'input'">
-      <input
-        class="input_number"
-        type="number"
-        :value="newValue"
-        @blur="changeNewValue($event)"
-        @keydown.enter="changeNewValue($event)"
-        :placeholder="placeholder"
-      />
+      <input class="input_number" type="number" :value="newValue" @blur="changeNewValue($event)"
+        @keydown.enter="changeNewValue($event)" :placeholder="placeholder" />
     </div>
-    <div
-      v-if="newValue !== defaultValue"
-      class="checkbox"
-      @click.stop.prevent="resetDefult"
-      @mouseover="mouseFlag = true"
-      @mouseout="mouseFlag = false"
-    >
-      <es-icon
-        :name="'huaban'"
-        :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'"
-        :size="15"
-      />
+    <div v-if="newValue !== defaultValue" class="checkbox" @click.stop.prevent="resetDefult"
+      @mouseover="mouseFlag = true" @mouseout="mouseFlag = false">
+      <es-icon :name="'huaban'" :color="mouseFlag ? 'rgba(230, 230, 230, 1)' : 'rgba(230, 230, 230, 0.4)'" :size="15" />
     </div>
   </div>
 </template>
@@ -165,14 +139,13 @@ const changeNewValue = (e: any) => {
   align-items: center;
   font-size: 14px;
   line-height: 26px;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
 }
 
-.label_input > .label {
+.label_input>.label {
   display: inline-block;
   width: 60px;
   height: 26px;
-  font-family: SourceHanSansCN, SourceHanSansCN;
   font-weight: 400;
   text-align: left;
   overflow: hidden;
@@ -182,17 +155,17 @@ const changeNewValue = (e: any) => {
   font-size: 14px;
 }
 
-.label_input > .input {
+.label_input>.input {
   flex: 1;
   height: 100%;
   box-sizing: border-box;
   cursor: pointer;
 }
 
-.label_input > .input1 {
+.label_input>.input1 {
   flex: 1;
   box-sizing: border-box;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
   cursor: pointer;
   padding-left: 11px;
   border: 1px solid transparent;
@@ -200,25 +173,25 @@ const changeNewValue = (e: any) => {
   border-radius: 4px;
 }
 
-.label_input > .input > input {
+.label_input>.input>input {
   width: 100%;
   display: inline-block;
   height: 26px;
   border-radius: 4px;
   margin-right: 0;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   padding-left: 11px;
   box-sizing: border-box;
   background: none;
-  border: 1px solid #3b3c40;
-  background: rgba(28, 28, 29, 0.6);
+  border: 1px solid var(--el-border-color);
+  background: var(--el-fill-color-lighter);
 }
 
-.label_input > .checkbox {
+.label_input>.checkbox {
   width: 26px;
   height: 26px;
   cursor: pointer;
-  border: 1px solid rgba(230, 230, 230, 0.4);
+  border: 1px solid var(--el-border-color);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -227,12 +200,12 @@ const changeNewValue = (e: any) => {
   margin-left: 10px;
 }
 
-.label_input > .input > input:hover {
-  border: 1px solid #2c68f7;
+.label_input>.input>input:hover {
+  border: 1px solid var(--el-color-primary);
 }
 
-.label_input > .input > input:focus {
-  border: 1px solid #2c68f7;
+.label_input>.input>input:focus {
+  border: 1px solid var(--el-color-primary);
 }
 
 .input_number::-webkit-outer-spin-button,

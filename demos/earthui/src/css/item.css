@@ -1,0 +1,39 @@
+.ei_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ei_item label {
+    width: 50px;
+    font-size: 12px;
+    color: var(--el-text-color-regular);
+}
+.ei_item .ei_label {    
+    align-self: flex-start ;
+}
+
+.ei_item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vis_content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.ei_text{
+    color: var(--el-text-color-regular)!important;
+    font-size: 12px !important;
+    background-color: transparent !important;
+}

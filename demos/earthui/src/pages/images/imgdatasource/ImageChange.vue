@@ -1,33 +1,27 @@
 <template>
   <PopList :title="'在线影像'" :showButton="true" @close="emits('close')" @ok="addSceneObjects">
-    <div class="images_bottom_content">
-      <div class="images_servelocation">
-        <label>服务地址</label>
-        <textarea v-model="serveUrl" rows="4"></textarea>
+    <div class="images_content">
+      <div class="images_item ei_item">
+        <label class="ei_label">服务地址</label>
+        <el-input v-model="serveUrl" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
       </div>
-      <LabelInput v-model="imageName" :label="'名称'"></LabelInput>
-      <div class="images_servelocation" v-show="isShowTk.length > 1">
-        <label>{{ isShowTk }}</label
-        ><input type="text" v-model="tokenValue" />
+
+      <div class="images_item">
+        <label>名称</label>
+        <el-input v-model="imageName" placeholder="请输入名称" style="flex: 1;"></el-input>
       </div>
-      <div class="images_img_list">
-        <div v-for="(item, index) in imagelist" class="images_img_lilist">
-          <div
-            class="images_imgposition"
-            :class="{ images_checkedactive: checkedactive == index }"
-            @click="changeServeUrl(item, index)"
-          >
+
+      <div class="images_item" v-show="isShowTk.length > 1">
+        <label>{{ isShowTk }}</label>
+        <el-input v-model="tokenValue" placeholder="请输入token" style="flex: 1;"></el-input>
+      </div>
+      <div class="images_list">
+        <div v-for="(item, index) in imagelist" class="images_list_item" :title="zh[item.cnname] ?? item.cnname">
+          <div class="images_list_item_img" :class="{ 'active': checkedactive == index }"
+            @click="changeServeUrl(item, index)">
             <img :src="image[item.cnname]" alt="" />
-            <span v-show="iconIsShow == index ? true : false">{{
-              zh[item.cnname] ?? item.cnname
-            }}</span>
-          </div>
-          <div
-            class="images_onlineimageName"
-            @mouseenter="iconIsShow = index"
-            @mouseleave="iconIsShow = undefined"
-          >
-            {{ zh[item.cnname] ?? item.cnname }}
+            <span>{{ zh[item.cnname] ?? item.cnname }}</span>
           </div>
         </div>
       </div>
@@ -45,10 +39,8 @@ import { searchMaxZindex } from '../../../scripts/general'
 import transform from './imageryLocale'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import LabelInput from '../../../components/LabelInput.vue'
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const iconIsShow = ref()
 const { zh, image }: any = transform
 const serveUrl = ref()
 const checkedactive = ref()
@@ -117,3 +109,82 @@ onMounted(async () => {
   imagelist.value = await getImageListurl()
 })
 </script>
+<style scoped>
+.images_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.images_item label {
+  width: 80px;
+  font-size: 12px;
+}
+
+.images_item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.images_list {
+  width: 100%;
+  height: 250px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.images_list_item {
+  width: 100px;
+  height: 100px;
+  background-color: var(--el-bg-color);
+}
+
+.images_list_item_img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  border: var(--el-border);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 5px;
+  border-radius: 8px;
+
+  &:hover {
+    border-color: var(--el-color-primary);
+  }
+
+  &.active {
+    border-color: var(--el-color-primary);
+  }
+}
+
+
+.images_list_item_img img {
+  width: 80px;
+  height: 60px;
+  border-radius: 8px;
+}
+
+.images_list_item_img span {
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 5px;
+}
+</style>

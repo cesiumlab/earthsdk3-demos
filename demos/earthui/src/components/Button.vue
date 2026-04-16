@@ -111,10 +111,10 @@ const xiaosanjiaoClick = () => {
 }
 
 .disable {
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
   box-shadow: none;
-  border: 1px solid rgba(28, 28, 29, 0.6);
-  color: #58585d;
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color-disabled);
   pointer-events: none;
 }
 </style>

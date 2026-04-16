@@ -39,7 +39,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: rgba(230, 230, 230, 1);
+  color: var(--el-text-color-regular);
   font-size: 12px;
   position: relative;
   margin-top: 10px;
@@ -49,7 +49,6 @@ onMounted(() => {
   display: inline-block;
   width: 60px;
   height: 26px;
-  font-family: SourceHanSansCN, SourceHanSansCN;
   font-weight: 400;
   text-align: left;
   overflow: hidden;
@@ -63,6 +62,6 @@ onMounted(() => {
   flex: 1;
   height: 26px;
   box-sizing: border-box;
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
 }
 </style>

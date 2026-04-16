@@ -118,7 +118,7 @@ const emits = defineEmits(['close', 'ok'])
   margin-left: 20px;
 } */
 
-.poplist_footer>button:hover {
+/* .poplist_footer>button:hover {
   border: 1px solid var(--el-color-primary);
-}
+} */
 </style>

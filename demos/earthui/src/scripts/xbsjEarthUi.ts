@@ -5,7 +5,6 @@ import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
 import { getEditingMsg } from '@/constants'
-import { nextTick } from 'vue'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
@@ -199,15 +198,27 @@ export class XbsjEarthUi extends ESObjectsManager {
 
     {
       // 编辑时提醒
-      let close: (() => void) | null = null;
-      let editingEventDispose: (() => void) | null = null;
-      let modes: ESJEditingMode[] = [];
+      const closeMap = new Map<string, () => void>();
 
-      const closeTip = () => {
-        close?.();
-        close = null;
+      const closeFunc = (key: string) => {
+        const closeFunc = closeMap.get(key);
+        if (closeFunc) {
+          closeFunc();
+          closeMap.delete(key);
+        }
       }
 
+      const closeAll = () => {
+        closeMap.forEach((func) => { func(); });
+        closeMap.clear();
+      }
+
+      const addCloseFunc = (key: string, func: () => void) => {
+        closeMap.set(key, func);
+      }
+
+      let editingEventDispose: (() => void) | null = null;
+      let modes: ESJEditingMode[] = [];
       const clearEditingEvent = () => {
         editingEventDispose?.();
         editingEventDispose = null;
@@ -215,7 +226,7 @@ export class XbsjEarthUi extends ESObjectsManager {
 
       this.d(() => {
         clearEditingEvent();
-        closeTip();
+        closeAll();
         modes = [];
       });
 
@@ -223,13 +234,13 @@ export class XbsjEarthUi extends ESObjectsManager {
         this.activeViewerChanged.don((viewer) => {
           // 视口切换时，清理旧监听与提示
           clearEditingEvent();
-          closeTip();
+          closeAll();
 
           if (!viewer) return;
 
-          editingEventDispose = viewer.editingEvent.don((option) => {
+          editingEventDispose = viewer.editingEvent.don(async (option) => {
             if (option.type === 'end') {
-              closeTip();
+              closeFunc(option.editingID);
               modes = [];
               return;
             }
@@ -243,13 +254,12 @@ export class XbsjEarthUi extends ESObjectsManager {
             }
 
             if (option.type === 'changed') {
-              closeTip();
+              closeAll();
               const cMode = option.add?.cMode as ESJEditingMode | undefined;
               if (!cMode) return;
               const msg = getEditingMsg(cMode, modes.length > 1);
-              nextTick(() => {
-                close = messageLoading(msg);
-              })
+              const close = messageLoading(msg);
+              addCloseFunc(option.editingID, close);
             }
           });
         })

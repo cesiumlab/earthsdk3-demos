@@ -5,6 +5,7 @@ import { ClassicNavigatorManager } from './ClassicNavigator'
 import { MeasurementManager } from './MeasurementManager'
 import { Reprocess } from './Reprocess'
 import { getEditingMsg } from '@/constants'
+import { nextTick } from 'vue'
 
 export class XbsjEarthUi extends ESObjectsManager {
   private _initConfig: InitSceneConfigType;
@@ -246,7 +247,9 @@ export class XbsjEarthUi extends ESObjectsManager {
               const cMode = option.add?.cMode as ESJEditingMode | undefined;
               if (!cMode) return;
               const msg = getEditingMsg(cMode, modes.length > 1);
-              close = messageLoading(msg);
+              nextTick(() => {
+                close = messageLoading(msg);
+              })
             }
           });
         })

@@ -15,7 +15,15 @@
         <label>token</label>
         <el-input v-model="ionAccessToken" placeholder="请输入官方token" style="flex: 1;"></el-input>
       </div>
-      <ul class="images_img_list">
+
+      <div class="ei_list">
+        <div class="ei_list_item" v-for="(item, index) in modellist" :key="item.cnname"
+          :class="{ 'active': checkedactive == index }" :title="item.cnname" @click="changeServeUrl(item, index)">
+          <img :src="defaultImg" alt="" />
+          <span>{{ item.cnname }}</span>
+        </div>
+      </div>
+      <!-- <ul class="images_img_list">
         <li v-for="(item, index) in modellist" @click="changeServeUrl(item, index)">
           <div class="images_imgposition" :class="{ images_checkedactive: checkedactive == index }">
             <img :src="imageUrl" alt="" />
@@ -24,7 +32,7 @@
             {{ item.cnname }}
           </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </PopList>
 </template>
@@ -39,12 +47,11 @@ import { searchMaxZindex } from '../../../scripts/general'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import LabelInput from '../../../components/LabelInput.vue'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 
 const d = createVueDisposer(onBeforeUnmount)
-const imageUrl = new URL('../../../assets/images/labimages/cesiumterrain.jpg', import.meta.url).href
+const defaultImg = new URL('../../../assets/common/terrain.png', import.meta.url).href
 const ionAccessToken = toVR<string>(d, [xbsjEarthUi.activeViewer, 'ionAccessToken']) //token
 const serveUrl = ref()
 const checkedactive = ref()

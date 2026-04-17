@@ -16,10 +16,10 @@
       type === 'WMS' ? (type = '') : (type = 'WMS')
     }
       " :actived="type === 'WMS'" :left-button="false"></Button>
-    <Button :name="'shiliangtuceng'" :content="'矢量图层'" :click="() => {
+    <!-- <Button :name="'shiliangtuceng'" :content="'矢量图层'" :click="() => {
       type === 'ESMVTLayer' ? (type = '') : (type = 'ESMVTLayer')
     }
-      " :actived="type === 'ESMVTLayer'" :left-button="true"></Button>
+      " :actived="type === 'ESMVTLayer'" :left-button="true"></Button> -->
 
     <Button v-if="isCesium" :name="'yingxiang'" :content="'媒体图层'" :click="() => {
       type === 'ESMediaLayer' ? (type = '') : (type = 'ESMediaLayer')
@@ -30,7 +30,7 @@
     <Guge v-if="type === 'guge'" @close="type = ''"></Guge>
     <Wmts v-if="type === 'WMTS'" @close="type = ''"></Wmts>
     <Wms v-if="type === 'WMS'" @close="type = ''"></Wms>
-    <ESMVTLayer v-if="type === 'ESMVTLayer'" @close="type = ''"></ESMVTLayer>
+    <!-- <ESMVTLayer v-if="type === 'ESMVTLayer'" @close="type = ''"></ESMVTLayer> -->
     <ESMediaLayer v-if="type === 'ESMediaLayer'" @close="type = ''"></ESMediaLayer>
   </RightList>
 </template>
@@ -42,7 +42,7 @@ import Guge from './imgdatasource/Guge.vue'
 import Wmts from './imgdatasource/Wmts.vue'
 import Wms from './imgdatasource/Wms.vue'
 import ImageChange from './imgdatasource/ImageChange.vue'
-import ESMVTLayer from './imgdatasource/ESMVTLayer.vue'
+// import ESMVTLayer from './imgdatasource/ESMVTLayer.vue'
 import ESMediaLayer from './imgdatasource/ESMediaLayer.vue'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { $g_objm } from '@/global'

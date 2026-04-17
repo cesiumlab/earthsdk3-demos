@@ -107,7 +107,7 @@ onMounted(() => {
 
 <template>
   <RightList :title="`可视化--${showName}`">
-    <div class="vis_content" style="padding: 20px 0; gap: 10px;">
+    <div class="ei_content" style="padding: 20px 0; gap: 10px;">
       <div class="images_relative_box" :title="'maximumScreenSpaceError'">
         <label class="ei_text" @dblclick="beDefault('maximumScreenSpaceError')"> {{ '屏幕误差' }}</label>
         <SliderTime :width="279" v-model:value="maximumScreenSpaceError" :max="256"

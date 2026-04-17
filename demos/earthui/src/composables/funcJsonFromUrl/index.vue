@@ -49,14 +49,15 @@ const urlInputRef = ref<InstanceType<typeof ElInput>>();
  * 服务类型选项列表
  */
 const typeOptions = [
-  { value: 'ESGltfModel', label: '模型服务' },
   { value: 'ES3DTileset', label: '3DTileset 服务' },
   { value: 'ESTerrainLayer', label: '地形服务' },
-  { value: 'ESImageLabel', label: '图片' },
   { value: 'ESImageryLayer', label: '影像图层' },
+  { value: 'ESMVTLayer', label: '矢量瓦片' },
   { value: 'ESGeoJson', label: 'GeoJSON 数据' },
   { value: 'ESKml', label: 'KML 数据' },
   { value: 'ESCzml', label: 'CZML 数据' },
+  { value: 'ESImageLabel', label: '图片' },
+  { value: 'ESGltfModel', label: '模型服务' },
 ];
 
 /**
@@ -86,6 +87,8 @@ const checkType = () => {
     typeRef.value = "ESKml";
   } else if (lowerUrl.endsWith('.czml')) {
     typeRef.value = "ESCzml";
+  } else if (lowerUrl.includes('.mvt') || lowerUrl.includes('.pbf') || lowerUrl.includes('style.json') || lowerUrl.includes('light.json')) {
+    typeRef.value = "ESMVTLayer";
   } else {
     typeRef.value = ''
   }

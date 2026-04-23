@@ -27,18 +27,18 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.28.5"
 
-"@cesium/engine@^21.0.1":
-  version "21.0.1"
-  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-21.0.1.tgz#316edc19a84a045ee304912c3a2f7bf5d7b8e20a"
-  integrity sha512-V4MEHOcYMcg+zCxrPjPAVpUyJxmIw6K9qPz5Fd2fnYPoMSPV7FJsiZYoFns03yoPHOPIeqnXQNspZKLX5Xzgfw==
+"@cesium/engine@^24.0.0":
+  version "24.0.0"
+  resolved "https://registry.npmjs.org/@cesium/engine/-/engine-24.0.0.tgz#7817f2d593106f159e38b3bd9b9638f12aa5569e"
+  integrity sha512-zJ2gl0tyw/FFhBtvp6UYw+0JQJb2J9EiTJYvVSndc6+6qPR5GHLFzFjA1msLLxucfcpc7uI9R2pXNEPluheR/g==
   dependencies:
     "@cesium/wasm-splats" "^0.1.0-alpha.2"
-    "@spz-loader/core" "0.3.0"
+    "@spz-loader/core" "0.3.1"
     "@tweenjs/tween.js" "^25.0.0"
     "@zip.js/zip.js" "^2.8.1"
     autolinker "^4.0.0"
     bitmap-sdf "^1.0.3"
-    dompurify "^3.0.2"
+    dompurify "^3.3.0"
     draco3d "^1.5.1"
     earcut "^3.0.0"
     grapheme-splitter "^1.0.4"
@@ -47,9 +47,9 @@
     ktx-parse "^1.0.0"
     lerc "^2.0.0"
     mersenne-twister "^1.1.0"
-    meshoptimizer "^0.25.0"
+    meshoptimizer "^1.0.1"
     pako "^2.0.4"
-    protobufjs "^7.1.0"
+    protobufjs "^8.0.0"
     rbush "^4.0.1"
     topojson-client "^3.1.0"
     urijs "^1.19.7"
@@ -59,12 +59,12 @@
   resolved "https://registry.npmjs.org/@cesium/wasm-splats/-/wasm-splats-0.1.0-alpha.2.tgz#f2d0d717d46f5f3d6d923549e90fb5ab4d429cab"
   integrity sha512-t9pMkknv31hhIbLpMa8yPvmqfpvs5UkUjgqlQv9SeO8VerCXOYnyP8/486BDaFrztM0A7FMbRjsXtNeKvqQghA==
 
-"@cesium/widgets@^13.2.1":
-  version "13.2.1"
-  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-13.2.1.tgz#4b6f4f163aa3ca2474bfbdbeedc15f82abce98ec"
-  integrity sha512-VwJvw4UmEyK9slrDUImVcz3GFs5FDITH21BOiTVMSWuSsoqVDtMV0vTsoggFpIIqdYj6usHZjKuDnD9BT3vZAQ==
+"@cesium/widgets@^14.5.0":
+  version "14.5.0"
+  resolved "https://registry.npmjs.org/@cesium/widgets/-/widgets-14.5.0.tgz#034bce2408f8755b6d07e49805fa6c8b39e0ad97"
+  integrity sha512-h/hKVooXyOtUQJUtrfyBFGMIXb+Q3RLwqE6FzXfzyC0JQuuThLXCz8nRzCPbyiRuAR/aAYT/jbbhQrUxfiWqhQ==
   dependencies:
-    "@cesium/engine" "^21.0.1"
+    "@cesium/engine" "^24.0.0"
     nosleep.js "^0.12.0"
 
 "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2@^0.5.8":
@@ -223,15 +223,15 @@
   resolved "https://registry.npmjs.org/@mapbox/point-geometry/-/point-geometry-1.1.0.tgz#3328fb54b3a1273bc619bf0a6baad8de37181749"
   integrity sha512-YGcBz1cg4ATXDCM/71L9xveh4dynfGmcLDqufR+nQQy3fKwsAZsWd/x4621/6uJaeB9mwOHE6hPeDgXz9uViUQ==
 
-"@mapbox/sphericalmercator@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@mapbox/sphericalmercator/-/sphericalmercator-2.0.1.tgz#fd0cbae7e5dc3d22fdb585ecd80cb027d65284b2"
-  integrity sha512-k1vM33y0oGIgip01EqdrWEMZLsYj9fP3jH7PZmeSCsCuubTQGjyrOANGSsqh+JtyqydYfXk9VBUVcyabvNTYXg==
-
 "@mapbox/unitbezier@^0.0.0":
   version "0.0.0"
   resolved "https://registry.npmjs.org/@mapbox/unitbezier/-/unitbezier-0.0.0.tgz#15651bd553a67b8581fb398810c98ad86a34524e"
   integrity sha512-HPnRdYO0WjFjRTSwO3frz1wKaU649OBFPX3Zo/2WZvuRi6zMiRGui8SnPQiQABgqCf8YikDe5t3HViTVw1WUzA==
+
+"@mapbox/unitbezier@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/@mapbox/unitbezier/-/unitbezier-0.0.1.tgz#d32deb66c7177e9e9dfc3bbd697083e2e657ff01"
+  integrity sha512-nMkuDXFv60aBr9soUG5q+GvZYL+2KZHVvsqFCzqnkGEf46U2fvmytHaEVc1/YZbiLn8X+eR3QzX1+dwDO1lxlw==
 
 "@mapbox/vector-tile@2.0.4":
   version "2.0.4"
@@ -241,6 +241,19 @@
     "@mapbox/point-geometry" "~1.1.0"
     "@types/geojson" "^7946.0.16"
     pbf "^4.0.1"
+
+"@maplibre/maplibre-gl-style-spec@^24.4.1":
+  version "24.8.1"
+  resolved "https://registry.npmjs.org/@maplibre/maplibre-gl-style-spec/-/maplibre-gl-style-spec-24.8.1.tgz#8d4d48591750529ce586f9ee5f836ed97870bce5"
+  integrity sha512-zxa92qF96ZNojLxeAjnaRpjVCy+swoUNJvDhtpC90k7u5F0TMr4GmvNqMKvYrMoPB8d7gRSXbMG1hBbmgESIsw==
+  dependencies:
+    "@mapbox/jsonlint-lines-primitives" "~2.0.2"
+    "@mapbox/unitbezier" "^0.0.1"
+    json-stringify-pretty-compact "^4.0.0"
+    minimist "^1.2.8"
+    quickselect "^3.0.0"
+    rw "^1.3.3"
+    tinyqueue "^3.0.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -439,10 +452,10 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.52.5.tgz#1657f56326bbe0ac80eedc9f9c18fc1ddd24e107"
   integrity sha512-TAcgQh2sSkykPRWLrdyy2AiceMckNf5loITqXxFI5VuQjS5tSuw3WlwdN8qv8vzjLAUTvYaH/mVjSFpbkFbpTg==
 
-"@spz-loader/core@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/@spz-loader/core/-/core-0.3.0.tgz#b2c15d8b5ada53542979cce6890e89f624b13e02"
-  integrity sha512-sbStwMHb/MIE29st7rRuMYWqhX1UmLSFzdpyGtUZUXLkFNIuYKblzjQdtiet8bau8sUf21uL1DQ451zuySGmcA==
+"@spz-loader/core@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/@spz-loader/core/-/core-0.3.1.tgz#3337d4753f60908c30ae94b5599020f18056a18e"
+  integrity sha512-8qJ1WIBXaJu8HjnJAjYniE0kYcr0kCe5Hp7kDzYiGVvvd7zyrOBwbF5imoW5mvwx1Qba0hxGEK5R9jEoaHKJFA==
 
 "@turf/along@^6.5.0":
   version "6.5.0"
@@ -1809,13 +1822,13 @@ call-bound@^1.0.2:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
-cesium@1.134.1:
-  version "1.134.1"
-  resolved "https://registry.npmjs.org/cesium/-/cesium-1.134.1.tgz#b5369211ecbb6788a0477ba43e6527b6f2a51e1b"
-  integrity sha512-5gbpwdFRV4zwujGeX/xlrItx2xbI20ZM+rKMUwdKc5dfLqt3uVEVzFewm+lOKLGLRJRBcH7XbDgqtmD63l18Yw==
+cesium@1.140:
+  version "1.140.0"
+  resolved "https://registry.npmjs.org/cesium/-/cesium-1.140.0.tgz#b5ebb731e95b14992fdff54890f69b08661d05fc"
+  integrity sha512-3RvW0rvZWuXiS6regtNE5u9vt0uXohgpsRBIo6Qc922IIIamkitYiEdr4fg+u4qX4EoK9xS3BosCza7iPOExEQ==
   dependencies:
-    "@cesium/engine" "^21.0.1"
-    "@cesium/widgets" "^13.2.1"
+    "@cesium/engine" "^24.0.0"
+    "@cesium/widgets" "^14.5.0"
 
 chokidar@^3.5.3:
   version "3.6.0"
@@ -1940,10 +1953,10 @@ destroy@1.2.0:
   resolved "https://registry.npmjs.org/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
-dompurify@^3.0.2:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.3.0.tgz#aaaadbb83d87e1c2fbb066452416359e5b62ec97"
-  integrity sha512-r+f6MYR1gGN1eJv0TVQbhA7if/U7P87cdPl3HN5rikqaBSBxLiCb/b9O+2eG0cxz0ghyU+mU1QkbsOwERMYlWQ==
+dompurify@^3.3.0:
+  version "3.4.1"
+  resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.4.1.tgz#521d04483ac12631b2aedf434a5f5390933b8789"
+  integrity sha512-JahakDAIg1gyOm7dlgWSDjV4n7Ip2PKR55NIT6jrMfIgLFgWo81vdr1/QGqWtFNRqXP9UV71oVePtjqS2ebnPw==
   optionalDependencies:
     "@types/trusted-types" "^2.0.7"
 
@@ -1971,18 +1984,18 @@ earcut@^3.0.0:
   resolved "https://registry.npmjs.org/earcut/-/earcut-3.0.2.tgz#d478a29aaf99acf418151493048aa197d0512248"
   integrity sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==
 
-earthsdk3-assets@3.0.6:
-  version "3.0.6"
-  resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.6.tgz#fcd3972046f3a89fefc0fcbfc3ad7738ca8f3e94"
-  integrity sha512-WFAliLcDenDMeJc9bEcYeeR5YCuXB4LD/H2eRCZDV3xVW6v+uT4ocYfEPkld7YxzCll/3jdT4c73torzF3SgHQ==
+earthsdk3-assets@3.0.8:
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/earthsdk3-assets/-/earthsdk3-assets-3.0.8.tgz#905efbc8c63978bab998acfba604d836201a7e3a"
+  integrity sha512-Goe1ZeNEMC0XI//onRPGPguU+dD8Otv14iKdEyKVPkdAUJe31IBgX9hKROpZcmbsI5pgPsvoxBAuZZyDstI7Vw==
 
-earthsdk3-cesium@3.7.0-beta.25:
-  version "3.7.0-beta.25"
-  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.7.0-beta.25.tgz#67d87596da47acfc8ae83a76aa77003904e299fc"
-  integrity sha512-mnGNJ0ovCLkpzENNbX4oGKlbpNsEfpFM/20X+piT/AVhIQr15PcX1/RNgpRkxdzFvF3SJjJOGLJ0TKlQlRyV2Q==
+earthsdk3-cesium@3.8.4:
+  version "3.8.4"
+  resolved "https://registry.npmjs.org/earthsdk3-cesium/-/earthsdk3-cesium-3.8.4.tgz#764d8804a8dbe315eaa90058cf6afa3f54934335"
+  integrity sha512-I2CRIsAB4EfeeWBKtb4RT8EMdYnhs+5aquapCR6L7sPe71nJFE8lfcfGG4HGXcBGq0t+36CQad7krkufJKc5CA==
   dependencies:
-    "@mapbox/sphericalmercator" "2.0.1"
     "@mapbox/vector-tile" "2.0.4"
+    "@maplibre/maplibre-gl-style-spec" "^24.4.1"
     "@types/delaunator" "^5.0.2"
     delaunator "^5.0.0"
     earcut "^2.2.4"
@@ -1990,23 +2003,23 @@ earthsdk3-cesium@3.7.0-beta.25:
     mvt-basic-render "^0.3.5"
     pbf "4.0.1"
 
-earthsdk3-ol@3.7.0-beta.19:
-  version "3.7.0-beta.19"
-  resolved "https://registry.npmjs.org/earthsdk3-ol/-/earthsdk3-ol-3.7.0-beta.19.tgz#bc8e2a2fe525db6394e655d996fdbd76dc9a14b9"
-  integrity sha512-Vs0cPr9kZpDpjO7qiUyamgvYCxteG+99HKNPRnwsIevrBGnX6Ddd/LC0yF0bSB/Hrmulfott+8ufcWmm8rCzqg==
+earthsdk3-ol@3.8.0:
+  version "3.8.0"
+  resolved "https://registry.npmjs.org/earthsdk3-ol/-/earthsdk3-ol-3.8.0.tgz#0982b82980f7eec851a77002ce391e96f3fa64e4"
+  integrity sha512-ZKhCS0TMlFSGGnTRgP/vP1KdO/B/ZbIktNkJKRxvh5+dLJ3rzC+U9fgZdXcSjle9g2nBIx4ablE3P113xgzOLQ==
 
-earthsdk3-ue@3.7.0-beta.18:
-  version "3.7.0-beta.18"
-  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.7.0-beta.18.tgz#d077e71188cd21c30511c84901b75412bdaa6fe8"
-  integrity sha512-ojrX5jQ1fvZsM6lPK7kfTbrqSE0fEssss+A+JUVl/9Eu3TL53qlR2tqfZfw2BwwlvlVKP1fU8OKowfpjjLdzSQ==
+earthsdk3-ue@3.8.0:
+  version "3.8.0"
+  resolved "https://registry.npmjs.org/earthsdk3-ue/-/earthsdk3-ue-3.8.0.tgz#ceb76f772ba2f3fb23672d67cdff478164cee3ae"
+  integrity sha512-LwjlHuNDcFnN9sngNN4CzQTDAp+okS6F62UBhopoxUMSULJf/rLfrU0JAdCiYFdkhTA/l1DYkadVaRfwmJ6YIw==
   dependencies:
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.2" "^0.5.8"
     html2canvas "^1.4.1"
 
-earthsdk3@3.7.0-beta.19:
-  version "3.7.0-beta.19"
-  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.7.0-beta.19.tgz#31e375e642ce51f01176a2a364fe08de0c4a58eb"
-  integrity sha512-mU4hgtsIwjcgX0UOFHGCJHgH4+p0Yf9YDxX11jbnoywAKtuKjGtKw3cwOi+NvBX9GxtocItruBJ8A6JxVLzVQQ==
+earthsdk3@3.8.0:
+  version "3.8.0"
+  resolved "https://registry.npmjs.org/earthsdk3/-/earthsdk3-3.8.0.tgz#a8642801f400bde78799815f94a63501aaa94a55"
+  integrity sha512-+uqxv++V/viKncF0weWMW5hgTqlRbWFJ7kY+IRx2pqfvz+cqQJwbRrVMGdz6WWzWY82hhd1cjXll6PpV0ukH/w==
   dependencies:
     "@turf/turf" "^6.5.0"
     "@types/proj4" "^2.5.2"
@@ -2366,6 +2379,11 @@ json-stringify-pretty-compact@^2.0.0:
   resolved "https://registry.npmjs.org/json-stringify-pretty-compact/-/json-stringify-pretty-compact-2.0.0.tgz#e77c419f52ff00c45a31f07f4c820c2433143885"
   integrity sha512-WRitRfs6BGq4q8gTgOy4ek7iPFXjbra0H3PmDLKm2xnZ+Gh1HUhiKGgCZkSPNULlP7mvfu6FV/mOLhCarspADQ==
 
+json-stringify-pretty-compact@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/json-stringify-pretty-compact/-/json-stringify-pretty-compact-4.0.0.tgz#cf4844770bddee3cb89a6170fe4b00eee5dbf1d4"
+  integrity sha512-3CNZ2DnrpByG9Nqj6Xo8vqbjT4F6N+tb4Gb28ESAZjYZ5yqvmc56J+/kuIwkaAMOyblTQhUW7PxMkUb8Q36N3Q==
+
 jsonfile@^6.0.1:
   version "6.2.0"
   resolved "https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz#7c265bd1b65de6977478300087c99f1c84383f62"
@@ -2434,10 +2452,10 @@ mersenne-twister@^1.1.0:
   resolved "https://registry.npmjs.org/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
   integrity sha512-mUYWsMKNrm4lfygPkL3OfGzOPTR2DBlTkBNHM//F6hGp8cLThY897crAlk3/Jo17LEOOjQUrNAx6DvgO77QJkA==
 
-meshoptimizer@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-0.25.0.tgz#1234446e55e50beed2b613424330ac5102130ae4"
-  integrity sha512-ewwuAo3ujPZ7T3Y2oTkEoLlXvNOqnr0cjyAxfv5djXJqwD9QlxDDO0qGtsqB4Z9QUVvhruKXg9q/xfK9I5S1xQ==
+meshoptimizer@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.1.1.tgz#20c7d050d59bdc573154814f6a37d47d89908cca"
+  integrity sha512-oRFNWJRDA/WTrVj7NWvqa5HqE1t9MYDj2VaWirQCzCCrAd2GHrqR/sQezCxiWATPNlKTcRaPRHPJwIRoPBAp5g==
 
 mgrs@1.0.0:
   version "1.0.0"
@@ -2457,7 +2475,7 @@ mime@1.6.0:
   resolved "https://registry.npmjs.org/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
 
-minimist@^1.2.6:
+minimist@^1.2.6, minimist@^1.2.8:
   version "1.2.8"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
@@ -2607,10 +2625,10 @@ proj4@*, proj4@^2.8.0:
     mgrs "1.0.0"
     wkt-parser "^1.5.1"
 
-protobufjs@^7.1.0:
-  version "7.5.4"
-  resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-7.5.4.tgz#885d31fe9c4b37f25d1bb600da30b1c5b37d286a"
-  integrity sha512-CvexbZtbov6jW2eXAvLukXjXUW1TzFaivC46BpWc/3BpcCysb5Vffu+B3XHMm8lVEuy2Mm4XGex8hBSg1yapPg==
+protobufjs@^8.0.0:
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-8.0.1.tgz#c1781abf9a73812cbd483b32138ac59948223806"
+  integrity sha512-NWWCCscLjs+cOKF/s/XVNFRW7Yih0fdH+9brffR5NZCy8k42yRdl5KlWKMVXuI1vfCoy4o1z80XR/W/QUb3V3w==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"

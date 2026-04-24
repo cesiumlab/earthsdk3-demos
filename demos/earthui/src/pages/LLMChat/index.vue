@@ -1,20 +1,10 @@
 <script setup lang="ts">
-import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
-import { inject, nextTick, useTemplateRef } from 'vue'
-import { defaultChatConfig, NewChat, NewChatProps } from 'earthsdk-ui'
-import { getCameraTools, getSceneObjectTools } from 'earthsdk3'
+import { XbsjEarthUi } from '@/scripts/xbsjEarthUi';
+import { LLMChat, NewChatProps } from 'earthsdk-ui';
+import { getCameraTools, getSceneObjectTools } from 'earthsdk3';
+import { inject } from 'vue';
 
-const objm = inject('xbsjEarthUi') as XbsjEarthUi
-
-const newChatRef = useTemplateRef('newChatRef')
-
-const cameraTools = getCameraTools(objm)
-const sceneObjectTools = getSceneObjectTools(objm)
-
-nextTick(() => {
-  newChatRef.value?.registerTools(cameraTools, 'earthsdk3_camera')
-  newChatRef.value?.registerTools(sceneObjectTools, 'earthsdk3_sceneObject')
-})
+const objm = inject('xbsjEarthUi') as XbsjEarthUi;
 
 const getSystemPrompt = () => {
   const jsonStr = JSON.stringify(objm.json)
@@ -81,8 +71,12 @@ const getSystemPrompt = () => {
   return prompt
 }
 
+const isLocalHost = () => {
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+}
+
 const config: NewChatProps = {
-  ...defaultChatConfig,
+  mcp: { enable: true },
   systemPrompt: getSystemPrompt(),
   beforeSendUpdateSystemPrompt: () => {
     const spr = getSystemPrompt()
@@ -92,13 +86,26 @@ const config: NewChatProps = {
     '介绍一下你自己',
     '飞到北京',
     '介绍一下整个场景'
-  ]
+  ],
+  availableModels: [
+    {
+      provider: 'BJXBSJ',
+      baseUrl: isLocalHost() ? 'http://192.168.0.77:3000/v1' : 'https://www.earthsdk.com/model/v1',
+      apiKey: 'sk-7a96tPdJYM3LHiHv9b19C63b27604c64Bb34B0F024832042',//限时额度，免费开放
+      models: ['gemma4:26b']
+    }
+  ],
+  registerTools: () => {
+    const cameraTools = getCameraTools(objm)
+    const sceneObjectTools = getSceneObjectTools(objm)
+    return Promise.resolve([{ group: 'earthsdk3_camera', tools: cameraTools }, { group: 'earthsdk3_sceneObject', tools: sceneObjectTools }])
+  }
 }
 </script>
 
 <template>
   <div class="xbsj-chat-container">
-    <NewChat :config="config" ref="newChatRef" />
+    <LLMChat :config="config" />
   </div>
 </template>
 

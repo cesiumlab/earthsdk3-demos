@@ -118,8 +118,8 @@
             @click="rightModuleShow = !rightModuleShow">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px"
                 height="14px" viewBox="0 0 15 14" version="1.1">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g transform="translate(-1617.000000, -67.000000)" fill="#9E9D9D">
+                <g stroke="none" stroke-width="1" fill="currentColor" fill-rule="evenodd">
+                    <g transform="translate(-1617.000000, -67.000000)">
                         <g transform="translate(1609.000000, 60.000000)">
                             <path
                                 d="M10,7 L16,14.0836305 L10,21 L8,21 L14,14.0443019 L8,7 L10,7 Z M17,7 L23,14.0836305 L17,21 L15,21 L21,14.0443019 L15,7 L17,7 Z" />

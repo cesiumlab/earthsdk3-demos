@@ -1,5 +1,14 @@
 <template>
   <PopList :title="'WMTS'" :showButton="true" @ok="addSceneObjects">
+
+    <!-- <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">服务地址</label>
+        <el-input v-model="server" @change="updateServer" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
+      </div>
+    </div> -->
+
     <LabelInput v-model="server" :label="'服务地址'" @keydownenter="updateServer" @change="updateServer"></LabelInput>
     <!-- 图层 -->
     <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :disabled="true" :placeholder="'请选择'"

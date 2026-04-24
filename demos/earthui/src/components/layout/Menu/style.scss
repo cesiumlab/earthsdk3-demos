@@ -124,7 +124,7 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     min-width: $menu-item-width;
     height: $menu-height;
     font-size: var(--el-font-size-base);
-    font-family: var(--el-font-family);
+    font-family: 600;
     font-weight: var(--el-font-weight-primary);
     color: var(--el-text-color-primary);
     cursor: pointer;
@@ -337,7 +337,6 @@ $transition-slow: 0.4s var(--el-transition-function-ease-in-out-bezier);
     }
 
     &:hover {
-        background-color: var(--el-color-primary-light-9);
         color: var(--el-color-primary);
     }
 

@@ -3,8 +3,10 @@
   <PopList :title="'文字标注'">
     <div class="roam_moveOnLineMode">
       <div>
-        <label for="">连续创建</label><span class="roam_moveOnLineMode_checke"
-          :class="{ roam_moveOnLineMode_checke_active: continuousCreate }" @click="changeCheckBox">
+        <label for="">连续创建</label>
+
+        <span class="roam_moveOnLineMode_checke" :class="{ roam_moveOnLineMode_checke_active: continuousCreate }"
+          @click="changeCheckBox">
           <es-icon :name="continuousCreate ? 'duigou' : ''" :color="'white'" :size="12" />
         </span>
       </div>

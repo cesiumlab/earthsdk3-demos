@@ -431,6 +431,7 @@
   font-family: SourceHanSansCN, SourceHanSansCN;
   font-weight: 400;
   text-align: left;
+  color: var(--el-text-color-regular);
 }
 
 .roam_moveOnLineMode > div > input {
@@ -466,9 +467,8 @@
 .roam_moveOnLineMode_checke {
   width: 12px;
   height: 12px;
-  background: rgba(28, 28, 29, 0.6);
   border-radius: 3px;
-  border: 1px solid #3b3c40;
+  border: 1px solid var(--el-border-color);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -476,11 +476,11 @@
 }
 
 .roam_moveOnLineMode_checke:hover {
-  border: 1px solid white;
+  border: 1px solid var(--el-color-primary);
 }
 
 .roam_moveOnLineMode_checke_active {
-  border: 1px solid white;
+  border: 1px solid var(--el-color-primary);
 }
 
 .roam_moveOnLineMode > ul {

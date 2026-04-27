@@ -2,7 +2,7 @@
   "name": "earthui",
   "private": true,
   "version": "3.0.0",
-  "lastUpdateVersion": "26.03.18",
+  "lastUpdateVersion": "26.04.27",
   "type": "module",
   "scripts": {
     "dev": "vite --host",

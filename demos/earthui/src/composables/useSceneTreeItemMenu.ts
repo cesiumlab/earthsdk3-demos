@@ -1,10 +1,10 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { copyClipboard, downloadJson, getCurrentDateTime, getUuid } from '@/utils'
 import { FieldConfigItem, getCreateSceneObjectType, getEditorOption, getGeoJsonStyle, getTilesetStyle, MenuItem, messageLoading, StyleData, StyleRule } from 'earthsdk-ui'
-import { ES3DTileset, ESGeoJson, ESImageryLayer, ESJFeatureStyleType, ESJSplitDirectionType, ESTerrainLayer, ESVisualObject, SceneTree, SceneTreeItem } from 'earthsdk3'
+import { ES3DTileset, ESGeoJson, ESGeoLineString, ESGeoVector, ESImageryLayer, ESJFeatureStyleType, ESJSplitDirectionType, ESObjectWithLocation, ESTerrainLayer, ESVisualObject, SceneTree, SceneTreeItem } from 'earthsdk3'
 import { ESCesiumViewer, ESKml, getCzmCode } from 'earthsdk3-cesium'
 import { ESUeViewer } from 'earthsdk3-ue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { calcFlyToParam } from './calcFlyToParam'
 import { cesiumCodeLoader } from './funcCesiumCode'
 import { materialReplaceEditor } from './funcMaterialReplace'
@@ -15,6 +15,7 @@ import { getLiftHeightMenuContent } from './useliftHeight'
 import { getSceneObjectsForMenu } from './useSceneTreeItem'
 import { getSceneTreeItemConfigMenu, getSceneTreeItemsConfigMenu } from './useSceneTreeItemConfigMenu'
 import { addNewTreeItem } from './useSceneTreeMenu'
+import { getMergeToESGeoJsonMenuContent, mergeESGeoJson } from './mergeToESGeoJson'
 
 //右键场景树节点
 export const getTreeItemMenuContent = (
@@ -31,7 +32,7 @@ export const getTreeItemMenuContent = (
     }
   } else {
     //多选
-    return getTreeItemsMenuContent(sceneTree);
+    return getTreeItemsMenuContent(objm, sceneTree);
   }
 }
 
@@ -40,10 +41,12 @@ export const getTreeItemMenuContent = (
  */
 
 const getTreeItemsMenuContent = (
+  objm: XbsjEarthUi,
   sceneTree: SceneTree
 ) => {
   const { sceneObjects, parentSceneTreeItems, tag } = getSceneObjectsForMenu(sceneTree);
   const geoJsonMenu = getGeoJsonMenuContent(sceneObjects, tag);
+  const mergeToESGeoJsonMenuContent = getMergeToESGeoJsonMenuContent(objm, sceneObjects);
   const liftHeightMenu = getLiftHeightMenuContent(sceneObjects, tag);
   const configMenu = getSceneTreeItemsConfigMenu(parentSceneTreeItems);
 
@@ -54,6 +57,9 @@ const getTreeItemsMenuContent = (
     },
     {
       ...liftHeightMenu
+    },
+    {
+      ...mergeToESGeoJsonMenuContent
     },
     {
       ...geoJsonMenu
@@ -297,7 +303,7 @@ const getSceneObjectTreeItemMenuContent = (
   }
 
   const enditingItem = {
-    text: "编辑",
+    text: "位置编辑",
     keys: "",
     func: () => {
 
@@ -318,6 +324,49 @@ const getSceneObjectTreeItemMenuContent = (
         baseItems.splice(1, 0, enditingItem);
       }
     }
+  }
+
+  const toESGeoJsonItem = {
+    text: "转换为 ESGeoJson 对象",
+    keys: "",
+    func: async () => {
+      if (!sceneObject) return;
+      const { result, sceneObjectIds } = await mergeESGeoJson([sceneObject]);
+      if (sceneObjectIds.length <= 0) {
+        ElMessage.warning('当前对象无法转换为 ESGeoJson');
+        return;
+      }
+      ElMessageBox.confirm(`转换为 ESGeoJson 后会删除原对象，确定转换?`).then(() => {
+        const treeItem = objm.sceneTree.createSceneObjectTreeItemFromJson({
+          type: 'ESGeoJson',
+          id: getUuid(),
+          url: result,
+          name: sceneObject.name,
+          textStyle: { ...ESGeoJson.defaults.textStyle, textProperty: 'name' }
+        });
+
+        if (treeItem) {
+          treeItem.uiTreeObject.selected = true;
+        }
+
+        sceneObjectIds.forEach((id) => {
+          const item = objm.sceneTree.getTreeItemFromSceneObjId(id);
+          if (item && !item.isDestroyed()) {
+            item.detachFromParent()
+          }
+        })
+
+        ElMessage.success('转换成功 ' + (treeItem?.name || ''));
+
+      }).catch((err) => {
+        console.error(err);
+        ElMessage.warning('转换失败');
+      });
+    },
+  };
+
+  if (sceneObject && (sceneObject instanceof ESObjectWithLocation || sceneObject instanceof ESGeoLineString || sceneObject instanceof ESGeoVector)) {
+    baseItems.splice(2, 0, toESGeoJsonItem);
   }
 
   const geoJsonKmlItem = {

@@ -46,6 +46,7 @@ const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 
 const geoServerUrl = ref('http://localhost:8080')
 const changeServerLab = (item: any, index: number) => {
+  console.log(item)
   currentItem.value = item
   serverActive.value = index
   serverUrl.value = item.urls[0].template

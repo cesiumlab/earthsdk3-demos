@@ -1,101 +1,59 @@
 <template>
   <PopList :title="'WMTS'" :showButton="true" @ok="addSceneObjects">
-    <LabelInput
-      v-model="server"
-      :label="'服务地址'"
-      @keydownenter="updateServer"
-      @change="updateServer"
-    ></LabelInput>
-    <!-- 图层 -->
-    <LabelInput
-      v-model="selected.currentLayer.title"
-      :label="'图层'"
-      :disabled="true"
-      :placeholder="'请选择'"
-      :checkbox="true"
-      :list="layersNameList"
-      :listContent="'title'"
-      :liClickFun="changeLayerListShow"
-      :checkboxFun="checkboxFun"
-    >
-    </LabelInput>
-    <!-- 范围飞入 -->
-    <div class="roam_moveOnLineMode" style="margin-top: 10px" v-if="rectangle">
-      <div>
-        <label for="">范围:</label
-        ><input
-          type="text"
-          placeholder="请输入"
-          v-model="rectangle"
-          :readonly="true"
-          class="input_disabled"
-        />
-        <span class="span" @click="flyTo(selected.currentLayer)" title="飞入">
-          <es-icon :name="'tubiaodian1'" :color="'#fff'" :size="15"
-        /></span>
+
+    <!-- <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">服务地址</label>
+        <el-input v-model="server" @change="updateServer" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
       </div>
-    </div>
-    <!-- 样式 -->
-    <LabelInput
-      v-if="selected.style.title"
-      v-model="selected.style.title"
-      :disabled="true"
-      :label="'样式'"
-      :placeholder="'请选择'"
-      :checkbox="true"
-      :list="selected.currentLayer.styles"
-      :listContent="'title'"
-      :liClickFun="changeCurrentStyle"
-    >
+    </div> -->
+
+    <LabelInput v-model="server" :label="'服务地址'" @keydownenter="updateServer" @change="updateServer"></LabelInput>
+    <!-- 图层 -->
+    <LabelInput v-model="selected.currentLayer.title" :label="'图层'" :disabled="true" :placeholder="'请选择'"
+      :checkbox="true" :list="layersNameList" :listContent="'title'" :liClickFun="changeLayerListShow"
+      :checkboxFun="checkboxFun">
     </LabelInput>
+
+    <!-- 样式 -->
+    <LabelInput v-if="selected.style.title" v-model="selected.style.title" :disabled="true" :label="'样式'"
+      :placeholder="'请选择'" :checkbox="true" :list="selected.currentLayer.styles" :listContent="'title'"
+      :liClickFun="changeCurrentStyle">
+    </LabelInput>
+
     <div v-if="selected.style.legend">
       <img :src="selected.style.legend.href ?? ''" alt="" />
     </div>
+
     <!-- 格式 -->
-    <LabelInput
-      v-if="selected.format.format"
-      v-model="selected.format.format"
-      :disabled="true"
-      :label="'格式'"
-      :placeholder="'请选择'"
-      :checkbox="true"
-      :list="selected.currentLayer.urls"
-      :listContent="'format'"
-      :liClickFun="changeCurrentFormat"
-    >
+    <LabelInput v-if="selected.format.format" v-model="selected.format.format" :disabled="true" :label="'格式'"
+      :placeholder="'请选择'" :checkbox="true" :list="selected.currentLayer.urls" :listContent="'format'"
+      :liClickFun="changeCurrentFormat">
     </LabelInput>
     <!-- 切片规则-->
-    <LabelInput
-      v-if="selected.tileMatrixSet.tileMatrixSetID"
-      :disabled="true"
-      v-model="selected.tileMatrixSet.tileMatrixSetID"
-      :label="'切片规则'"
-      :placeholder="'请选择'"
-      :checkbox="true"
-      :list="selected.currentLayer.tileMatrixSets"
-      :listContent="'tileMatrixSetID'"
-      :liClickFun="changeTileMatrixSetID"
-    >
+    <LabelInput v-if="selected.tileMatrixSet.tileMatrixSetID" :disabled="true"
+      v-model="selected.tileMatrixSet.tileMatrixSetID" :label="'切片规则'" :placeholder="'请选择'" :checkbox="true"
+      :list="selected.currentLayer.tileMatrixSets" :listContent="'tileMatrixSetID'" :liClickFun="changeTileMatrixSetID">
     </LabelInput>
     <!-- 最大最小级别 -->
-    <LabelInput
-      v-if="selected.tileMatrixSet.params.maximumLevel"
-      :disabled="true"
-      v-model="selected.tileMatrixSet.params.minimumLevel"
-      :inputType="'number'"
-      :label="'最小级别'"
-      :readonly="true"
-    >
+    <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel" :disabled="true"
+      v-model="selected.tileMatrixSet.params.minimumLevel" :inputType="'number'" :label="'最小级别'" :readonly="true">
     </LabelInput>
-    <LabelInput
-      v-if="selected.tileMatrixSet.params.maximumLevel"
-      :disabled="true"
-      v-model="selected.tileMatrixSet.params.maximumLevel"
-      :inputType="'number'"
-      :label="'最大级别'"
-      :readonly="true"
-    >
+    <LabelInput v-if="selected.tileMatrixSet.params.maximumLevel" :disabled="true"
+      v-model="selected.tileMatrixSet.params.maximumLevel" :inputType="'number'" :label="'最大级别'" :readonly="true">
     </LabelInput>
+
+    <!-- 范围飞入 -->
+    <div class="roam_moveOnLineMode" style="margin-top: 10px" v-if="rectangle">
+      <div>
+        <label for="" style="color: var(--el-text-color-regular);">范围:</label>
+        <el-input type="text" placeholder="请输入" v-model="rectangle" disabled style="flex: 1;">
+        </el-input>
+        <span class="span" @click="flyTo(selected.currentLayer)" title="飞入">
+          <es-icon :name="'tubiaodian1'" :color="'var(--el-text-color-regular)'" :size="15" /></span>
+      </div>
+    </div>
   </PopList>
 </template>
 

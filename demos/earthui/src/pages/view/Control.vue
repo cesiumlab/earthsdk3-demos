@@ -14,47 +14,21 @@ const showstatusBarRef = toVR<boolean>(disposer, [xbsjEarthUi.navigatorManager, 
 </script>
 <template>
   <RightList :title="'控件'" :is-top="true">
-    <Button
-      :name="'tucengguanli'"
-      :content="'图层管理'"
-      :click="
-        () => {
-          showSceneTreeViewRef = !showSceneTreeViewRef
-        }
-      "
-      :actived="showSceneTreeViewRef"
-      :left-button="true"
-    ></Button>
-    <Button
-      :name="'daohangkongjian'"
-      :content="'导航控件'"
-      :click="
-        () => {
-          showCompassRef = !showCompassRef
-        }
-      "
-      :actived="showCompassRef"
-    ></Button>
-    <Button
-      :name="'bilichi'"
-      :content="'比例尺'"
-      :click="
-        () => {
-          showDistanceLegendRef = !showDistanceLegendRef
-        }
-      "
-      :actived="showDistanceLegendRef"
-      :left-button="true"
-    ></Button>
-    <Button
-      :name="'zhuangtailan'"
-      :content="'状态栏'"
-      :click="
-        () => {
-          showstatusBarRef = !showstatusBarRef
-        }
-      "
-      :actived="showstatusBarRef"
-    ></Button>
+    <Button :name="'tucengguanli'" :content="'图层面板'" :click="() => {
+      showSceneTreeViewRef = !showSceneTreeViewRef
+    }
+      " :actived="showSceneTreeViewRef" :left-button="true"></Button>
+    <Button :name="'daohangkongjian'" :content="'指北针'" :click="() => {
+      showCompassRef = !showCompassRef
+    }
+      " :actived="showCompassRef"></Button>
+    <Button :name="'bilichi'" :content="'比例尺'" :click="() => {
+      showDistanceLegendRef = !showDistanceLegendRef
+    }
+      " :actived="showDistanceLegendRef" :left-button="true"></Button>
+    <Button :name="'zhuangtailan'" :content="'状态栏'" :click="() => {
+      showstatusBarRef = !showstatusBarRef
+    }
+      " :actived="showstatusBarRef"></Button>
   </RightList>
 </template>

@@ -1,28 +1,38 @@
 <template>
   <PopList :title="'在线地形切片服务'" :showButton="true" @ok="addSceneObjects">
-    <div class="images_bottom_content">
-      <div class="images_servelocation">
-        <label>服务地址</label>
-        <textarea v-model="serveUrl" rows="4"></textarea>
+    <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">服务地址</label>
+        <el-input v-model="serveUrl" type="textarea" size="small" :rows="3" style="flex: 1;"
+          placeholder="请输入服务地址"></el-input>
       </div>
-      <LabelInput v-model="terrainName" :label="'名称'"></LabelInput>
-      <div class="images_servelocation" v-if="cesiumTerrain">
-        <label>官方token</label><input type="text" v-model="ionAccessToken" />
+
+      <div class="ei_item">
+        <label>名称</label>
+        <el-input v-model="terrainName" placeholder="请输入名称" style="flex: 1;"></el-input>
       </div>
-      <ul class="images_img_list">
+      <div class="ei_item" v-if="cesiumTerrain">
+        <label>token</label>
+        <el-input v-model="ionAccessToken" placeholder="请输入官方token" style="flex: 1;"></el-input>
+      </div>
+
+      <div class="ei_list">
+        <div class="ei_list_item" v-for="(item, index) in modellist" :key="item.cnname"
+          :class="{ 'active': checkedactive == index }" :title="item.cnname" @click="changeServeUrl(item, index)">
+          <img :src="defaultImg" alt="" />
+          <span>{{ item.cnname }}</span>
+        </div>
+      </div>
+      <!-- <ul class="images_img_list">
         <li v-for="(item, index) in modellist" @click="changeServeUrl(item, index)">
           <div class="images_imgposition" :class="{ images_checkedactive: checkedactive == index }">
             <img :src="imageUrl" alt="" />
           </div>
-          <div
-            class="images_onlineimageName"
-            @mouseenter="iconIsShow = index"
-            @mouseleave="iconIsShow = null"
-          >
+          <div class="images_onlineimageName" @mouseenter="iconIsShow = index" @mouseleave="iconIsShow = null">
             {{ item.cnname }}
           </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </PopList>
 </template>
@@ -37,12 +47,11 @@ import { searchMaxZindex } from '../../../scripts/general'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import LabelInput from '../../../components/LabelInput.vue'
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
 const sceneTree = inject('sceneTree') as SceneTree
 
 const d = createVueDisposer(onBeforeUnmount)
-const imageUrl = new URL('../../../assets/images/labimages/cesiumterrain.jpg', import.meta.url).href
+const defaultImg = new URL('../../../assets/common/terrain.png', import.meta.url).href
 const ionAccessToken = toVR<string>(d, [xbsjEarthUi.activeViewer, 'ionAccessToken']) //token
 const serveUrl = ref()
 const checkedactive = ref()

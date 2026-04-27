@@ -400,6 +400,11 @@
                         "thumbnail": "image-param-brightnessdemo.webp",
                         "path": "image/param/brightnessdemo"
                     },
+                     {
+                        "name": "影像高亮效果2(遮罩)",
+                        "thumbnail": "image-param-brightnessdemo2.webp",
+                        "path": "image/param/brightnessdemo2"
+                    },
                     {
                         "name": "可视化参数",
                         "thumbnail": "image-param-global.webp",

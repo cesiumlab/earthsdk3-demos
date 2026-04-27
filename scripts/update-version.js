@@ -5,24 +5,24 @@ const path = require('path');
 const newVersion = {
     // "xbsj-base": "1.0.6", 3.5.0-beta.1 之后版本移除 xbsj-base
     "earthsdk3-assets": "3.0.8",
-    "earthsdk3": "3.8.0",
-    "cesium": "1.139.1",
-    "earthsdk3-cesium": "3.8.1",
-    "earthsdk3-ue": "3.8.0",
-    "ol": "^7.1.0",
-    "earthsdk3-ol": "3.8.0"
+    "earthsdk3": "3.9.0",
+    "cesium": "1.140",
+    "earthsdk3-cesium": "3.9.0",
+    "earthsdk3-ue": "3.9.0",
+    "ol": "^10.8.0",
+    "earthsdk3-ol": "3.9.0"
 }
 
 //需要更新的package.json路径
 const packageJsonPaths = [
-    'demos/earthui/package.json',
-    'demos/earthsdk3-usage/package.json',
-    'demos/vis-earth/package.json',
-    'examples/earthsdk3-vite/package.json',
-    'examples/earthsdk3-vite-js/package.json',
-    'examples/earthsdk3-wbpk/package.json',
-    'examples/earthsdk3-react-vite/package.json',
-    'examples/earthsdk3-vite-vue2-js/package.json',
+    '../demos/earthui/package.json',
+    '../demos/earthsdk3-usage/package.json',
+    '../demos/vis-earth/package.json',
+    '../examples/earthsdk3-vite/package.json',
+    '../examples/earthsdk3-vite-js/package.json',
+    '../examples/earthsdk3-wbpk/package.json',
+    '../examples/earthsdk3-react-vite/package.json',
+    '../examples/earthsdk3-vite-vue2-js/package.json',
 ]
 
 //替换package.json中的dependencies对应 newVersion 的版本号

@@ -24,7 +24,7 @@ const { lengthInPixel, scaleWidth } = useScale(xbsjEarthUi, scaleRef)
   height: 30px;
   bottom: 50px;
   right: 410px;
-  transition: right 0.4s linear;
+  /* transition: right 0.4s linear; */
   pointer-events: none;
   border-radius: 15px;
   padding: 0 5px;

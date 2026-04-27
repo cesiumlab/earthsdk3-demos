@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "cesium": "1.140",
-    "earthsdk3": "3.8.0",
+    "earthsdk3": "3.9.0",
     "earthsdk3-assets": "3.0.8",
-    "earthsdk3-cesium": "3.8.4",
-    "earthsdk3-ue": "3.8.0"
+    "earthsdk3-cesium": "3.9.0",
+    "earthsdk3-ue": "3.9.0"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.18.8",

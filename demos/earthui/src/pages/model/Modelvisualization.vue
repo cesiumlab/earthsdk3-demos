@@ -107,36 +107,40 @@ onMounted(() => {
 
 <template>
   <RightList :title="`可视化--${showName}`">
-    <div class="images_relative_box">
-      <label @dblclick="beDefault('maximumScreenSpaceError')"> {{ '显示精度' }}</label>
-      <SliderTime
-        :width="279"
-        v-model:value="maximumScreenSpaceError"
-        :max="256"
-        @change="maximumScreenSpaceErrorChange"
-        :realVal="`${maximumScreenSpaceError}`"
-        :disabled="!isshow"
-      />
-      <span>{{ maximumScreenSpaceError }}</span>
+    <div class="ei_content" style="padding: 20px 0; gap: 10px;">
+      <div class="images_relative_box" :title="'maximumScreenSpaceError'">
+        <label class="ei_text" @dblclick="beDefault('maximumScreenSpaceError')"> {{ '屏幕误差' }}</label>
+        <SliderTime :width="279" v-model:value="maximumScreenSpaceError" :max="256"
+          @change="maximumScreenSpaceErrorChange" :realVal="`${maximumScreenSpaceError}`" :disabled="!isshow" />
+        <span class="ei_text">{{ maximumScreenSpaceError }}</span>
+      </div>
+      <div class="images_relative_box" :title="'cacheBytes'">
+        <label class="ei_text" @dblclick="beDefault('cacheBytes')"> {{ '缓存大小' }}</label>
+        <SliderTime :width="279" v-model:value="newCzmCacheBytes" :min="512" :max="5120" :step="38"
+          @change="czmCacheBytesChange" :realVal="`${newCzmCacheBytes}`" :disabled="!isshow" />
+        <span class="ei_text">{{ newCzmCacheBytes }}</span>
+      </div>
     </div>
-    <div class="images_relative_box" style="margin: 0 15px 0 15px">
-      <label @dblclick="beDefault('cacheBytes')"> {{ '显存' }}</label>
-      <SliderTime
-        :width="279"
-        v-model:value="newCzmCacheBytes"
-        :min="512"
-        :max="5120"
-        :step="38"
-        @change="czmCacheBytesChange"
-        :realVal="`${newCzmCacheBytes}`"
-        :disabled="!isshow"
-      />
-      <span>{{ newCzmCacheBytes }}</span>
-    </div>
+
     <!-- <div style="margin: 0 15px 10px 15px;">
             <LabelInput v-model="lineNameMode" :label="'颜色模式'" :disabled="!isshow" :activeMode="czmColorBlendMode"
                 :checkbox="true" :list="listsModeList" :liClickFun="changeLineModeId" :placeholder="'请选择或输入'">
             </LabelInput>
         </div> -->
+
+
+    <!-- <div class="vis_content">
+      <ESLabelSlider v-model="maximumScreenSpaceError" :min="0" :max="256" :disabled="!isshow">
+        <template #prefix>
+          <span>显示精度</span>
+        </template>
+</ESLabelSlider>
+
+<ESLabelSlider v-model="cacheBytes" :min="512" :max="5120" :disabled="!isshow">
+  <template #prefix>
+          <span>显存(MB)</span>
+        </template>
+</ESLabelSlider>
+</div> -->
   </RightList>
 </template>

@@ -1,12 +1,16 @@
 <template>
   <PopList :title="'在线模型切片服务'" :showButton="true" @close="close" @ok="addSceneObjects">
-    <div class="images_bottom_content">
-      <div class="images_servelocation">
-        <label>服务地址</label>
-        <!-- <input type="text" v-model="serveUrl"> -->
-        <textarea v-model="serveUrl" rows="4"></textarea>
+    <div class="ei_content">
+      <div class="ei_item">
+        <label class="ei_label">服务地址</label>
+        <el-input type="textarea" v-model="serveUrl" rows="3" style="flex: 1;"></el-input>
       </div>
-      <LabelInput v-model="modelName" :label="'名称'"></LabelInput>
+
+      <div class="ei_item">
+        <label>名称</label>
+        <el-input v-model="modelName" placeholder="请输入名称" style="flex: 1;"></el-input>
+      </div>
+      <!-- <LabelInput v-model="modelName" :label="'名称'"></LabelInput> -->
     </div>
   </PopList>
 </template>

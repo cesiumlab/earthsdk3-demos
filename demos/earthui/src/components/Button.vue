@@ -42,7 +42,7 @@ const xiaosanjiaoClick = () => {
     right_button_left: leftButton
   }" @click.prevent.stop="click()" @mouseover="spanIsShow = true" @mouseout="spanIsShow = false">
     <div class="right_button_icon">
-      <es-icon :name="name" :color="color" :size="size" />
+      <es-icon :name="name" />
     </div>
     <div class="right_button_content" :style="{ fontSize: `${fontSize}px` }">
       {{ content }}
@@ -82,6 +82,7 @@ const xiaosanjiaoClick = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--el-color-primary);
 }
 
 .right_button:hover {
@@ -104,17 +105,16 @@ const xiaosanjiaoClick = () => {
 }
 
 .active {
-  /* box-shadow: inset 0px 0px 11px 2px #2c68f75c; */
-  box-shadow: inset 0px 0px 11px 2px var(--el-color-primary-light-7);
+  box-shadow: inset 0px 0px 11px 2px color-mix(in srgb, var(--el-color-primary), transparent 40%);
   border: 1px solid var(--el-color-primary);
   color: var(--el-text-color);
 }
 
 .disable {
-  background: rgba(28, 28, 29, 0.6);
+  background: var(--el-fill-color-lighter);
   box-shadow: none;
-  border: 1px solid rgba(28, 28, 29, 0.6);
-  color: #58585d;
+  border: 1px solid var(--el-border-color);
+  color: var(--el-text-color-disabled);
   pointer-events: none;
 }
 </style>

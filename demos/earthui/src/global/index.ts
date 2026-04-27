@@ -1,7 +1,7 @@
 import { gget } from '@/api'
 import { LocalStorageKey } from '@/constants'
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
-import { getUuid } from '@/utils'
+import { getUuid, parseGeoServer } from '@/utils'
 import { ElMessage } from 'element-plus'
 import { inject } from 'vue'
 import { ConfigType, InitSceneConfigType } from './types'
@@ -59,10 +59,17 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
   // 此 cesiumlab 服务下存的 token，当 earthui 嵌入 lab 后该页面下的接口调用需要
   const token = localStorage.getItem(LocalStorageKey.CESIUMLAB_SERVER_TOKEN) as string | undefined;
 
+  const theme = params.get('theme') ?? undefined;
+  const lang = params.get('lang') ?? undefined;
+  const colorPrimary = params.get('colorPrimary') ?? undefined;
+
   // 构建基础配置对象
   const createConfig = (overrides = {}) => ({
     scene: defaultScene,
     type: "ESCesiumViewer" as const,
+
+    //是否是earthvislab附属页面
+    earthVisLab: false,
     cesiumLab: {
       cesiumLabUrl,
       cesiumLabToken
@@ -74,6 +81,9 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     },
     lastView: undefined,
     flyToObject: undefined as string | undefined,
+    theme,
+    lang,
+    colorPrimary,
     ...overrides
   });
 
@@ -82,9 +92,16 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
     if (!from) {
       return createConfig();
     }
+    //是否是earthvislab附属页面
+    const earthVisLab = ((from.toLowerCase()) === 'earthvislab');
+    if (earthVisLab) {
+      return createConfig({ earthVisLab: true });
+    }
 
-    const fromCesiumLab = from === cesiumLabParamValue;
-    const fromEsss = from === esssParamValue;
+    const fromCesiumLab = ((from.toLowerCase()) === cesiumLabParamValue.toLowerCase());
+    const fromEsss = ((from.toLowerCase()) === esssParamValue.toLowerCase());
+    const fromGeoServer = ((from.toLowerCase()) === 'geoserver');
+
 
     // 处理 CesiumLab 场景回显
     if (fromCesiumLab && labScene) {
@@ -98,6 +115,24 @@ export async function initSceneJson(gconfig: ConfigType): Promise<InitSceneConfi
         flyToObject: undefined,
         type: "ESCesiumViewer"
       });
+    }
+
+    if (fromGeoServer && paramsUrl) {
+      const layerJson = parseGeoServer();
+      if (layerJson) {
+        const treeItemJson = {
+          "name": layerJson.name,
+          "sceneObj": layerJson,
+          "children": []
+        }
+        defaultScene.sceneTree.root.children.push(treeItemJson);
+        return createConfig({
+          scene: defaultScene,
+          lastView: undefined,
+          flyToObject: layerJson.id,
+          type: "ESCesiumViewer"
+        });
+      }
     }
 
     // 处理数据服务加载

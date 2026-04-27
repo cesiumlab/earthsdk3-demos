@@ -1,40 +1,63 @@
 <template>
   <PopList :title="'WMS'" :showButton="true" @ok="addSceneObjects">
-    <!-- 服务地址 -->
-    <LabelInput
-      v-model="serverUrl"
-      :label="'服务地址'"
-      @keyupenter="updateServer"
-      @change="updateServer"
-    ></LabelInput>
-    <!-- 地址 -->
-    <LabelInput v-model="url" :label="'地址'"></LabelInput>
-    <!-- 格式 -->
-    <LabelInput v-model="format" :label="'格式'"></LabelInput>
-    <!-- 图层 -->
-    <LabelInput v-model="layers" :label="'图层'"></LabelInput>
-    <!-- credit -->
-    <LabelInput v-model="credit" :label="'credit'"></LabelInput>
-    <!-- 样式 -->
-    <LabelInput v-model="styles" :label="'样式'"></LabelInput>
-    <!-- srs -->
-    <LabelInput v-model="srs" :label="'srs'"> </LabelInput>
-    <!-- 最小级别 -->
-    <LabelInput v-model="minimumLevel" :inputType="'number'" :label="'最小级别'"> </LabelInput>
-    <!-- 最大级别 -->
-    <LabelInput v-model="maximumLevel" :inputType="'number'" :label="'最大级别'"></LabelInput>
-    <!-- width -->
-    <LabelInput v-model="width" :inputType="'number'" :label="'width'"></LabelInput>
-    <!-- height -->
-    <LabelInput v-model="height" :inputType="'number'" :label="'height'"></LabelInput>
-    <!-- version -->
-    <LabelInput v-model="version" :label="'版本'"></LabelInput>
-    <!-- 范围飞入 -->
-    <div class="roam_moveOnLineMode" style="margin-top: 10px">
-      <div>
-        <label for="">范围:</label
-        ><input class="rectangle_input" type="text" v-model="rectangle" readonly />
-        <span class="span" @click="flyTo">定位</span>
+    <div class="content">
+      <div class="item">
+        <label>服务地址</label>
+        <el-input v-model="serverUrl" style="flex: 1;" placeholder="请输入服务地址" @change="updateServer"></el-input>
+      </div>
+      <div class="item">
+        <label>地址</label>
+        <el-input v-model="url" style="flex: 1;" placeholder="请输入地址"></el-input>
+      </div>
+
+      <div class="item">
+        <label>格式</label>
+        <el-input v-model="format" style="flex: 1;" placeholder="请输入格式"></el-input>
+      </div>
+
+      <div class="item">
+        <label>图层</label>
+        <el-input v-model="layers" style="flex: 1;" placeholder="请输入图层"></el-input>
+      </div>
+
+      <div class="item">
+        <label>credit</label>
+        <el-input v-model="credit" style="flex: 1;" placeholder="请输入credit"></el-input>
+      </div>
+      <div class="item">
+        <label>样式</label>
+        <el-input v-model="styles" style="flex: 1;" placeholder="请输入样式"></el-input>
+      </div>
+      <div class="item">
+        <label>srs</label>
+        <el-input v-model="srs" style="flex: 1;" placeholder="请输入srs"></el-input>
+      </div>
+      <div class="item">
+        <label>最小级别</label>
+        <el-input v-model="minimumLevel" type="number" style="flex: 1;" placeholder="请输入最小级别"></el-input>
+      </div>
+      <div class="item">
+        <label>最大级别</label>
+        <el-input v-model="maximumLevel" type="number" style="flex: 1;" placeholder="请输入最大级别"></el-input>
+      </div>
+
+      <div class="item">
+        <label>宽度</label>
+        <el-input v-model="width" type="number" style="flex: 1;" placeholder="请输入宽度"></el-input>
+      </div>
+      <div class="item">
+        <label>高度</label>
+        <el-input v-model="height" type="number" style="flex: 1;" placeholder="请输入高度"></el-input>
+      </div>
+      <div class="item">
+        <label>版本</label>
+        <el-input v-model="version" style="flex: 1;" placeholder="请输入版本"></el-input>
+      </div>
+
+      <div class="item">
+        <label>范围</label>
+        <el-input v-model="rectangle" :disabled="true" style="flex: 1;" placeholder="请输入范围"></el-input>
+        <el-button @click="flyTo">定位</el-button>
       </div>
     </div>
   </PopList>
@@ -47,7 +70,6 @@ import PopList from '../../../components/PopList.vue'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 import { ESImageryLayer } from 'earthsdk3'
 import { createSceneObjTreeItemFromJson } from '../../plotting/esObj/fun'
-import LabelInput from '../../../components/LabelInput.vue'
 import { parse } from 'search-params'
 import { searchMaxZindex } from '../../../scripts/general'
 import { SceneTree } from 'earthsdk3'
@@ -208,3 +230,25 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.item label {
+  width: 50px;
+  font-size: 12px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

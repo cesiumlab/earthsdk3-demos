@@ -4,6 +4,6 @@ import { getNoToken } from './service'
 const imageListurl = 'https://account.bjxbsj.cn/api/onlineResouces/image?desc=false'
 export const getImageListurl = async () => {
   const res = (await getNoToken(imageListurl)) as any
-  const result = res.result
+  const result = res.result ?? [];
   return result
 }

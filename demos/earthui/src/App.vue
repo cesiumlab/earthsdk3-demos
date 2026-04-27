@@ -7,15 +7,21 @@
 </template>
 
 <script setup lang="ts">
-import { EsConfigProvider, useTheme } from 'earthsdk-ui';
+import { EsConfigProvider, ESLang, ESTheme, useLang, useTheme } from 'earthsdk-ui';
+import { onBeforeMount } from 'vue';
 import EarthUI from './EarthUI.vue';
-// 使用主题管理
-const { setCustomThemeConfig, isDark } = useTheme();
-// 使用语言管理
-// const { toggleLanguage, isZhCN } = useLanguage();
-//自定义样式
-setCustomThemeConfig({ colorPrimary: '#6287F7' });
+import { $g_objm } from './global';
+onBeforeMount(() => {
+  const { setCustomThemeConfig, setTheme } = useTheme();
+  const { setLang } = useLang();
 
+  const xbsjEarthUi = $g_objm();
+  const { theme, lang, colorPrimary } = xbsjEarthUi.initConfig;
+
+  setCustomThemeConfig({ colorPrimary: colorPrimary ?? '#6287F7' }); //E33D30
+  theme && setTheme(theme as ESTheme);
+  lang && setLang(lang as ESLang);
+})
 
 </script>
 

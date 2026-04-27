@@ -1,6 +1,6 @@
 <template>
   <RightList :title="'调试信息'">
-    <div class="model_debug_list">
+    <div class="model_debug_list ei_text">
       <div>
         <span>遍历个数： {{ visited }}</span>
       </div>

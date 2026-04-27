@@ -3,6 +3,9 @@
         "header": {
             "name": "EarthSDK 三维地球开发包"
         },
+        "msg": {
+            "item": "你有 {count} 条消息"
+        },
         "menu": {
             "search": "搜索",
             "roam": "漫游",

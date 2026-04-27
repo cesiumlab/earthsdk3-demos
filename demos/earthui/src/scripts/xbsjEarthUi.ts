@@ -165,12 +165,17 @@ export class XbsjEarthUi extends ESObjectsManager {
     // 初始化配置
     this._initConfig = initConfig;
     {
+      //初始化场景树面板显示
+      this._showSceneTreeView.value = !initConfig.earthVisLab;
+      this._rightModuleShow.value = !initConfig.earthVisLab;
+      this._navigatorManager.navigatorScaleRight = initConfig.earthVisLab ? 0 : 400;
+    }
+    {
       //初始化地址
       const { cesiumLab, esss } = initConfig;
       this.cesiumLabUrl = cesiumLab.cesiumLabUrl;
       this.cesiumLabToken = cesiumLab.cesiumLabToken ?? '';
       this.esssUrl = esss.esssUrl;
-
     }
     {
       //判断视口
@@ -193,15 +198,27 @@ export class XbsjEarthUi extends ESObjectsManager {
 
     {
       // 编辑时提醒
-      let close: (() => void) | null = null;
-      let editingEventDispose: (() => void) | null = null;
-      let modes: ESJEditingMode[] = [];
+      const closeMap = new Map<string, () => void>();
 
-      const closeTip = () => {
-        close?.();
-        close = null;
+      const closeFunc = (key: string) => {
+        const closeFunc = closeMap.get(key);
+        if (closeFunc) {
+          closeFunc();
+          closeMap.delete(key);
+        }
       }
 
+      const closeAll = () => {
+        closeMap.forEach((func) => { func(); });
+        closeMap.clear();
+      }
+
+      const addCloseFunc = (key: string, func: () => void) => {
+        closeMap.set(key, func);
+      }
+
+      let editingEventDispose: (() => void) | null = null;
+      let modes: ESJEditingMode[] = [];
       const clearEditingEvent = () => {
         editingEventDispose?.();
         editingEventDispose = null;
@@ -209,7 +226,7 @@ export class XbsjEarthUi extends ESObjectsManager {
 
       this.d(() => {
         clearEditingEvent();
-        closeTip();
+        closeAll();
         modes = [];
       });
 
@@ -217,13 +234,13 @@ export class XbsjEarthUi extends ESObjectsManager {
         this.activeViewerChanged.don((viewer) => {
           // 视口切换时，清理旧监听与提示
           clearEditingEvent();
-          closeTip();
+          closeAll();
 
           if (!viewer) return;
 
-          editingEventDispose = viewer.editingEvent.don((option) => {
+          editingEventDispose = viewer.editingEvent.don(async (option) => {
             if (option.type === 'end') {
-              closeTip();
+              closeFunc(option.editingID);
               modes = [];
               return;
             }
@@ -237,11 +254,12 @@ export class XbsjEarthUi extends ESObjectsManager {
             }
 
             if (option.type === 'changed') {
-              closeTip();
+              closeAll();
               const cMode = option.add?.cMode as ESJEditingMode | undefined;
               if (!cMode) return;
               const msg = getEditingMsg(cMode, modes.length > 1);
-              close = messageLoading(msg);
+              const close = messageLoading(msg);
+              addCloseFunc(option.editingID, close);
             }
           });
         })

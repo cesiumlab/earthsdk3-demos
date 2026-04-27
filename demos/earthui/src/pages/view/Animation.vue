@@ -11,16 +11,7 @@ const animationShow = toVR<boolean>(d, [xbsjEarthUi, 'animationShow']) //播放�
 </script>
 <template>
   <RightList :title="'动画'">
-    <Button
-      :name="'donghua'"
-      :content="'动画'"
-      :click="
-        () => {
-          animationShow = !animationShow
-        }
-      "
-      :actived="animationShow"
-      :left-button="true"
-    ></Button>
+    <Button :name="'donghua'" :content="'动画'" :click="() => { animationShow = !animationShow }" :actived="animationShow"
+      :left-button="true"></Button>
   </RightList>
 </template>

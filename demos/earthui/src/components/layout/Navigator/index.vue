@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
   height: 90px;
   bottom: 100px;
   right: 430px;
-  transition: right 0.4s linear;
+  /* transition: right 0.4s linear; */
   user-select: none;
 }
 </style>

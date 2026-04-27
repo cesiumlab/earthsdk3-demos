@@ -220,41 +220,27 @@ function onRightSlide(source: number, place: string) {
 <template>
   <div :class="['m-slider', { disabled: disabled }]" ref="slider" :style="`width: ${totalWidth};`">
     <div class="u-slider-rail" @click.self="disabled ? () => false : onClickPoint($event)"></div>
-    <div
-      class="u-slider-track"
-      :class="{ trackTransition: transition }"
-      :style="`left: ${left}px; right: auto; width: ${right - left}px;`"
-    ></div>
-    <div
-      v-if="range"
-      tabindex="0"
-      ref="leftHandle"
-      class="u-slider-handle"
-      :class="{ handleTransition: transition }"
+    <div class="u-slider-track" :class="{ trackTransition: transition }"
+      :style="`left: ${left}px; right: auto; width: ${right - left}px;`"></div>
+    <div v-if="range" tabindex="0" ref="leftHandle" class="u-slider-handle" :class="{ handleTransition: transition }"
       :style="`left: ${left}px; right: auto; transform: translate(-50%, -50%);`"
       @keydown.left.prevent="disabled ? () => false : onLeftSlide(left, 'left')"
       @keydown.right.prevent="disabled ? () => false : onRightSlide(left, 'left')"
       @keydown.down.prevent="disabled ? () => false : onLeftSlide(left, 'left')"
       @keydown.up.prevent="disabled ? () => false : onRightSlide(left, 'left')"
-      @mousedown="disabled ? () => false : onLeftMouseDown()"
-    >
+      @mousedown="disabled ? () => false : onLeftMouseDown()">
       <div v-if="!hideTip" class="m-handle-tooltip">
         {{ leftValue }}
         <div class="m-arrow"></div>
       </div>
     </div>
-    <div
-      tabindex="0"
-      ref="rightHandle"
-      class="u-slider-handle"
-      :class="{ handleTransition: transition }"
+    <div tabindex="0" ref="rightHandle" class="u-slider-handle" :class="{ handleTransition: transition }"
       :style="`left: ${right}px; right: auto; transform: translate(-50%, -50%);`"
       @keydown.left.prevent="disabled ? () => false : onLeftSlide(right, 'right')"
       @keydown.right.prevent="disabled ? () => false : onRightSlide(right, 'right')"
       @keydown.down.prevent="disabled ? () => false : onLeftSlide(right, 'right')"
       @keydown.up.prevent="disabled ? () => false : onRightSlide(right, 'right')"
-      @mousedown="disabled ? () => false : onRightMouseDown()"
-    >
+      @mousedown="disabled ? () => false : onRightMouseDown()">
       <div v-if="!hideTip" class="m-handle-tooltip">
         {{ realVal ?? rightValue }}
         <div class="m-arrow"></div>
@@ -276,8 +262,7 @@ function onRightSlide(source: number, place: string) {
   z-index: 99;
   height: 4px;
   width: 100%;
-  /* background-color: rgba(28, 28, 29, 0.40); */
-  background-color: rgba(183, 183, 183, 0.4);
+  background-color: var(--el-border-color);
   border-radius: 2px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -289,7 +274,7 @@ function onRightSlide(source: number, place: string) {
   border-radius: 4px;
   height: 4px;
   cursor: pointer;
-  background: rgba(87, 136, 255, 1);
+  background: var(--el-color-primary);
   transition: background 0.3s;
   pointer-events: none;
 }
@@ -315,8 +300,8 @@ function onRightSlide(source: number, place: string) {
   width: 6px;
   height: 6px;
   top: 50%;
-  background: rgba(87, 136, 255, 1);
-  border: 2px solid #fff;
+  background: var(--el-color-primary);
+  border: 2px solid var(--el-border-color);
   border-radius: 50%;
   cursor: pointer;
   transition:
@@ -332,7 +317,7 @@ function onRightSlide(source: number, place: string) {
   display: inline-block;
   padding: 1px 8px;
   font-size: 14px;
-  color: #fff;
+  color: var(--el-text-color-regular);
   line-height: 20px;
   text-align: center;
   min-width: 32px;
@@ -340,7 +325,7 @@ function onRightSlide(source: number, place: string) {
   transform: translate(-50%, -50%) scale(0.8);
   top: -25px;
   left: 50%;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--el-bg-color);
   box-shadow:
     0 6px 16px 0 rgba(0, 0, 0, 0.08),
     0 3px 6px -4px rgba(0, 0, 0, 0.12),
@@ -373,10 +358,9 @@ function onRightSlide(source: number, place: string) {
   inset-inline-start: 0;
   width: 16px;
   height: 8px;
-  background-color: rgba(0, 0, 0, 0.85);
-  clip-path: path(
-    'M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z'
-  );
+  background-color: var(--el-bg-color);
+  clip-path: path('M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z'
+    );
   content: '';
 }
 
@@ -389,7 +373,7 @@ function onRightSlide(source: number, place: string) {
   margin: auto;
   border-radius: 0 0 2px 0;
   transform: translateY(50%) rotate(-135deg);
-  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 7px var(--el-bg-color);
   z-index: 0;
   background: transparent;
   content: '';
@@ -399,7 +383,7 @@ function onRightSlide(source: number, place: string) {
   width: 8px;
   height: 8px;
   border-width: 4px;
-  border-color: rgba(87, 136, 255, 1);
+  border-color: var(--el-color-primary);
   outline: none;
 }
 
@@ -429,7 +413,7 @@ function onRightSlide(source: number, place: string) {
 
 .disabled .u-slider-rail {
   cursor: not-allowed;
-  background: rgba(183, 183, 183, 0.4);
+  background: var();
 }
 
 .disabled .u-slider-track {
@@ -437,8 +421,8 @@ function onRightSlide(source: number, place: string) {
 }
 
 .disabled .u-slider-handle {
-  border-color: #fff;
-  background: rgba(88, 88, 93, 1);
+  border-color: var(--el-border-color);
+  background: var(--el-border-color);
   cursor: not-allowed;
 }
 
@@ -446,8 +430,8 @@ function onRightSlide(source: number, place: string) {
   width: 6px;
   height: 6px;
   border-width: 2px;
-  border-color: #fff;
-  background: rgba(88, 88, 93, 1);
+  border-color: var(--el-border-color);
+  background: var(--el-border-color);
 }
 
 /* .disabled .u-slider-handle:focus {

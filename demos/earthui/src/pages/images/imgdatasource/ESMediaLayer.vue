@@ -3,7 +3,7 @@
         <div class="media_content">
             <div class="media_item">
                 <label>服务地址</label>
-                <el-input v-model="serveUrl" type="textarea" size="small" :rows="5" style="flex: 1;"
+                <el-input v-model="serveUrl" type="textarea" size="small" :rows="3" style="flex: 1;"
                     placeholder="支持 video,img,flv,hls 等媒体格式"></el-input>
             </div>
             <div class="media_item">
@@ -82,7 +82,7 @@ const mediaType = ref('video');
 //增加影像
 const addSceneObjects = () => {
     if (!serveUrl.value) ElMessage.error('请输入地址');
-    let maxZindex = searchMaxZindex(sceneTree, 'ESMediaLayer')
+    let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer')
     if (serveUrl.value) {
         const currentTreeItem = sceneTree.lastSelectedItem
         let newTreeItem

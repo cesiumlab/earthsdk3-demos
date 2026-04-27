@@ -1,53 +1,25 @@
 <template>
   <PopList :title="'谷歌历史影像'" :showButton="true" @ok="addSceneObjects">
-    <LabelInput v-model="url" :label="'名称'"></LabelInput>
-    <div class="images_bottom_content">
-      <div class="images_img_list">
-        <div v-for="(item, index) in imagelist" class="images_img_lilist">
-          <div
-            class="images_imgposition"
-            :class="{ images_checkedactive: checkedactive == index }"
-            @click="changeServeUrl(item, index)"
-          >
-            <img :src="item.thumbnail ?? emptyImg" alt="" />
-            <span v-show="iconIsShow == index ? true : false">{{ item.cnname }}</span>
-          </div>
-          <div
-            class="images_onlineimageName"
-            @mouseenter="iconIsShow = index"
-            @mouseleave="iconIsShow = undefined"
-          >
-            {{ item.cnname }}
-          </div>
-        </div>
+    <div class="images_content">
+      <div class="images_item">
+        <label>名称</label>
+        <el-input v-model="url" style="flex: 1;" placeholder="请输入名称"></el-input>
       </div>
     </div>
   </PopList>
 </template>
 
 <script setup lang="ts">
-import PopList from '../../../components/PopList.vue'
-import { searchMaxZindex } from '../../../scripts/general'
-import { ElMessage } from 'element-plus'
-import { ESGeHistoryImagery } from 'earthsdk3-cesium'
-import LabelInput from '../../../components/LabelInput.vue'
-import { getsceneObjNumfromSceneTree } from '../../../scripts/general'
-import { ref, inject } from 'vue'
 import { SceneTree } from 'earthsdk3'
+import { ESGeHistoryImagery } from 'earthsdk3-cesium'
+import { ElMessage } from 'element-plus'
+import { inject, ref } from 'vue'
+import PopList from '../../../components/PopList.vue'
+import { getsceneObjNumfromSceneTree, searchMaxZindex } from '../../../scripts/general'
 import { XbsjEarthUi } from '../../../scripts/xbsjEarthUi'
 const sceneTree = inject('sceneTree') as SceneTree
 const xbsjEarthUi = inject('xbsjEarthUi') as XbsjEarthUi
-const url = ref()
-const imagelist = ref([
-  {
-    cnname: '谷歌历史影像',
-    thumbnail: undefined,
-    url: '谷歌历史影像'
-  }
-])
-const checkedactive = ref()
-const iconIsShow = ref()
-const emptyImg = new URL('../../../assets/common/images.png', import.meta.url).href
+const url = ref('谷歌历史影像')
 const emits = defineEmits(['close'])
 const addSceneObjects = () => {
   let maxZindex = searchMaxZindex(sceneTree, 'ESImageryLayer')
@@ -96,8 +68,27 @@ const addSceneObjects = () => {
   }, 500)
   emits('close')
 }
-const changeServeUrl = (item: any, index: number) => {
-  checkedactive.value = index
-  url.value = item.url
-}
+
 </script>
+<style scoped>
+.images_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.images_item label {
+  width: 50px;
+  font-size: 12px;
+}
+
+.images_item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

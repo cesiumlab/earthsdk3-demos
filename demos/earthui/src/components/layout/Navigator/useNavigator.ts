@@ -1,7 +1,7 @@
 import { XbsjEarthUi } from '@/scripts/xbsjEarthUi'
 import { createVueDisposer, toVR } from 'earthsdk-ui'
 import { createAnimateFrameWithStartValues, ESJVector3D, Processing } from 'earthsdk3'
-import { onBeforeUnmount, ref, ShallowRef, watch } from 'vue'
+import { nextTick, onBeforeUnmount, ref, ShallowRef, watch } from 'vue'
 
 // 类型定义
 interface CameraInfo {
@@ -33,9 +33,11 @@ export function useNavigator(
   watch(
     () => navigatorScaleRight.value,
     (val) => {
-      if (navigatorRef.value) {
-        navigatorRef.value.style.right = val + 20 + 'px'
-      }
+      nextTick(() => {
+        if (navigatorRef.value) {
+          navigatorRef.value.style.right = val + 20 + 'px'
+        }
+      })
     },
     { immediate: true }
   )

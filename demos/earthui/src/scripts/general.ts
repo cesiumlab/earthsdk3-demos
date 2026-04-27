@@ -2,11 +2,7 @@ import { XbsjEarthUi } from './xbsjEarthUi'
 function searchAndCollectValues(obj: { [key: string]: any }, resultArray: any[], type: string) {
   if (obj['sceneObj']) {
     if (type === 'ESImageryLayer') {
-      if (
-        (obj['sceneObj'].type && obj['sceneObj'].type === 'ESImageryLayer') ||
-        (obj['sceneObj'].type && obj['sceneObj'].type === 'ESGeHistoryImagery') ||
-        (obj['sceneObj'].type && obj['sceneObj'].type === 'ESMVTLayer')
-      ) {
+      if (["ESImageryLayer", "ESGeHistoryImagery", "ESMVTLayer", "ESMediaLayer"].includes(obj['sceneObj'].type)) {
         if (obj['sceneObj'].zIndex !== undefined) {
           resultArray.push(obj['sceneObj'].zIndex)
         }

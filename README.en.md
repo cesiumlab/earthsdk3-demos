@@ -1,97 +1,170 @@
+# EarthSDK 3
+
 <p align="center">
-  <img src="resources/EarthSDK.png" style="width: 100%; height: auto;">
+  <img src="resources/EarthSDK.png" alt="EarthSDK" style="width: 100%; max-width: 900px;">
 </p>
 
-<p align="right">
-   English | <a href="README.md">简体中文</a> 
+<p align="center">
+  <a href="https://www.earthsdk.com/earthui/index.html">Live Demo</a> •
+  <a href="https://www.earthsdk.com">Quick Start</a> •
+  <a href="https://www.earthsdk.com/example3/index.html">Examples</a> •
+  <a href="https://www.earthsdk.com/docs/index.html">API Docs</a> •
+  <a href="https://github.com/cesiumlab/earthsdk3-demos">EarthUI Source</a>
+</p>
+
+<p align="center">
+  <a href="README.md">简体中文</a> | English
 </p>
 
 ---
 
-<p align="left">
-  <a href="https://www.earthsdk.com/earthui/index.html">Live Demo</a> •
-  <a href="https://www.earthsdk.com">Quick Start</a> •
-  <a href="https://www.earthsdk.com/example3/index.html">Examples</a> •
-  <a href="https://www.earthsdk.com/docs/guide/index.html">API Documentation</a>  •
- <a href="https://github.com/cesiumlab/earthsdk3-code">EarthSDK3</a> 
-</p>
+## Introduction
 
-EarthSDK is an open-source and free secondary development framework for earth visualization based on the JS language. The framework is independent of specific engines; it functions as a plugin for visualization engines rather than just a wrapper. It currently includes implementations for three engines: Cesium, Unreal Engine, and OpenLayers. EarthSDK is designed to empower native engines by providing all the basic functions and effects commonly used in Digital Twin projects. It implements a set of interface codes that allow seamless switching between multiple engines, with more engines like Mapbox, Unity, and Godot planned for the future.
+EarthSDK is an open-source and free secondary development framework for 3D earth visualization based on **JavaScript/TypeScript**. The framework is **independent of rendering engines**, does not rely on any specific engine, and works as a plugin for visualization engines. It is not a simple wrapper layer, but **empowers native engines** by implementing all the basic functions and effects commonly used in Digital Twin projects, with **seamless switching between multiple engines using a single codebase**.
 
-- **2019**: EarthSDK 1 was released, providing extensive usability extensions based on the Cesium engine.
-- **November 2022**: Development of EarthSDK 2 began, combining Cesium and Unreal Engine implementations.
-- **October 2024**: Upgraded to EarthSDK 3, modularizing the development package to allow users to flexibly combine different engine modules.
-- EarthSDK acts as middleware, serving as the "glue" between visualization engines and spatial data visualization business logic, such as traditional 3D GIS projects, Digital Twin campuses, or Smart Cities.
+EarthSDK was first released in 2019 and has gone through major iterations:
+
+| Time          | Version    | Description                                                                     |
+| ------------- | ---------- | ------------------------------------------------------------------------------- |
+| 2019          | EarthSDK 1 | Released, providing extensive usability extensions based on the Cesium engine   |
+| November 2022 | EarthSDK 2 | Combined Cesium and Unreal Engine implementations                               |
+| October 2024  | EarthSDK 3 | Modularized packages, allowing flexible combination of different engine modules |
+
+<video src="resources/czm_ue_ol.mp4" controls width="100%">
+</video>
+
+## Key Features
+
+### Multi-Engine Support
+
+EarthSDK 3 currently supports the following rendering engines, engines switching among each， other with more planned for the future:
+
+| Engine            | Package            | Description                                             |
+| ----------------- | ------------------ | ------------------------------------------------------- |
+| **Cesium JS**     | `earthsdk3-cesium` | Browser-based WebGL earth visualization                 |
+| **Unreal Engine** | `earthsdk3-ue`     | Local/cloud high-quality rendering with pixel streaming |
+| **OpenLayers**    | `earthsdk3-ol`     | 2D map visualization                                    |
+| **H5 WebGL**      | `earthsdk3-h5`     | UE running in browser via WebGL                         |
+
+### Rich Scene Objects
+
+EarthSDK 3 comes with **100+ built-in scene objects** covering all kinds of Digital Twin application scenarios:
+
+- **Data Loading**: 3DTileset, glTF models, imagery layers, terrain layers, vector data, etc.
+- **Geographic Vectors**: GeoJSON, polygons, polylines, rectangles, extruded polygons, Bézier splines, etc.
+- **Analysis Tools**: Viewshed analysis, sunshine analysis, flooding analysis, height limit analysis, skyline analysis, volume measurement, etc.
+- **Measurement Tools**: Distance, area, height, direction, and position measurements
+- **Special Effects**: Dynamic water, explosion particles, fire particles, Gaussian splatting, etc.
+- **Visualization**: POI, text labels, image labels, heatmaps, cluster layers, etc.
+- **Terrain Editing**: Excavation, clipping planes, box clipping, etc.
+
+### Flexible Deployment Options
+
+EarthSDK 3 supports flexible deployment modes based on project requirements:
+
+| Deployment           | Tech Stack                        | Use Case                                          |
+| -------------------- | --------------------------------- | ------------------------------------------------- |
+| **WebGL Rendering**  | EarthSDK JS + Cesium JS           | Pure browser rendering, zero deployment           |
+| **Pixel Streaming**  | EarthSDK JS + UE + ESForUE + ESSS | Cloud rendering, high quality, large-scale scenes |
+| **Local Big Screen** | EarthSDK JS + UE + ESWebView      | Local deployment, low latency, high quality       |
+| **H5 Mode**          | EarthSDK JS + H5                  | UE running in browser via WebGL                   |
 
 <p align="center">
-  <img src="resources/ESObjectManager.png" style="width: 100%; height: auto; margin:20px 0">
+  <img src="resources/ESObjectManager.png" alt="ESObjectsManager" style="width: 100%; max-width: 900px; margin: 20px 0">
 </p>
 
-Choosing a 3D visualization technology stack—whether local C/S rendering, pure WebGL, or browser plugins—has long been a challenge for developers. Once a choice is made, the cost of migration is high. EarthSDK eliminates this dilemma by allowing a single set of code to adapt to various deployment needs based on hardware environments or data security requirements:
+### Reactive Architecture
 
-- **EarthSDK JS + Cesium JS**: WebGL-based earth visualization in the browser.
-- **EarthSDK JS + OpenLayers**: WebGL-based map visualization in the browser.
-- **EarthSDK JS + UE + ESForUE + Cesium For Unreal + ESSS Signaling Server**: Pixel streaming-based visualization in the browser.
-- **EarthSDK JS + UE + ESForUE + Cesium For Unreal + ESWebView**: Localized 3D rendering deployment.
-- **EarthSDK JS + H5**: Loading Unreal Engine in the browser via WebGL.
-- And more...
+- Built with TypeScript for complete type safety
+- Built-in reactive variable system supporting data binding and change notifications
+- All objects support JSON serialization/deserialization
+- Component-based design pattern with clear module responsibilities
 
-# Getting Started
+---
 
-### Installation
+## Installation
 
-- `earthsdk3` is the mandatory base package. Choose whether to install `earthsdk3-cesium`, `earthsdk3-ol`, or `earthsdk3-ue` based on your technical needs.
-- When installing `earthsdk3-cesium`, you must [configure Cesium](https://cesium.com/blog/2024/02/13/configuring-vite-or-webpack-for-cesiumjs/) manually.
-- When installing `earthsdk3-ol`, you must install OpenLayers separately (currently supported version: `ol: ^7.1.0`).
+### Requirements
+
+- Node.js >= 18
+- pnpm / npm / yarn
+
+### Install EarthSDK Core Package
 
 ```sh
+# Install core
 pnpm add earthsdk3 --save
-
-# pnpm add cesium
-pnpm add earthsdk3-ue --save
-
-# pnpm add cesium
-pnpm add earthsdk3-cesium --save
-
-# pnpm add ol
-pnpm add earthsdk3-ol --save
 
 ```
 
-After initializing the Object Manager, you can create engine viewport and scene objects. Creating a UE scene via browser pixel streaming requires support from the [ESSS Signaling Server](https://www.bjxbsj.cn/esss.html).
+### Install Engine Packages as Needed
 
-```js
+The EarthSDK core package is mandatory; engine packages can be chosen based on your requirements:
+
+```sh
+# Cesium engine (choose at least one)
+pnpm add earthsdk3-cesium --save
+
+# Unreal Engine engine
+pnpm add earthsdk3-ue --save
+
+# OpenLayers engine
+pnpm add earthsdk3-ol --save
+```
+
+> [!NOTE]
+> When installing `earthsdk3-cesium`, you need to [configure Cesium](https://cesium.com/blog/2024/02/13/configuring-vite-or-webpack-for-cesiumjs/) manually. When installing `earthsdk3-ol`, you need to install `ol` separately (currently supported version `^7.1.0`).
+
+---
+
+## Quick Start
+
+### Initialize the Object Manager
+
+Create an `ESObjectsManager` object manager and register the engines you need via generic parameters:
+
+```typescript
 import { ESObjectsManager } from "earthsdk3";
-import { ESUeViewer } from "earthsdk3-ue";
 import { ESCesiumViewer } from "earthsdk3-cesium";
+import { ESUeViewer } from "earthsdk3-ue";
 import { ESOlViewer } from "earthsdk3-ol";
 
-// Create Object Manager
-const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer, ESOlViewer);
+// Create object manager with multiple engines registered
+const objm = new ESObjectsManager(ESCesiumViewer, ESUeViewer, ESOlViewer);
 
-// Create Earth Instance
+// Create a Cesium viewport
 const viewer = objm.createViewer({
   type: "ESCesiumViewer",
-  container: "div-container-or-id",
+  container: "container-id-or-element",
+});
+
+// Create a base imagery layer
+const imageryLayer = objm.createSceneObjectFromJson({
+  id: "94f8b01b-8659-4a34-942b-15e6ece246ca",
+  type: "ESImageryLayer",
+  name: "World Imagery",
+  url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+  maximumLevel: 18,
 });
 ```
 
 <p align="center">
-<img src="resources/EarthUI.png" style="width: 100%; height: auto;">
+  <img src="resources/EarthUI.png" alt="EarthUI Demo" style="width: 100%; max-width: 900px;">
 </p>
 
-### Direct Integration (IIFE)
+### IIFE Direct Integration
+
+If build tools are not convenient, you can use the IIFE format for direct inclusion:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link
-      href="[https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css](https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css)"
+      href="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Widgets/widgets.css"
       rel="stylesheet"
     />
-    <script src="[https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js](https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js)"></script>
-
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.123/Build/Cesium/Cesium.js"></script>
     <script src="js/earthsdk3.iife.js"></script>
     <script src="js/earthsdk3-cesium.iife.js"></script>
     <script src="js/earthsdk3-ue.iife.js"></script>
@@ -105,17 +178,118 @@ const viewer = objm.createViewer({
       const { ESUeViewer } = window["EarthSDK3_UE"];
       const { ESOlViewer } = window["EarthSDK3_OL"];
 
-      // Initialize Object Manager
-      const objm = new ESObjectsManager(ESUeViewer, ESCesiumViewer, ESOlViewer);
+      // Create object manager
+      const objm = new ESObjectsManager();
 
-      // Create Viewer
+      // Create viewport
       const viewer = objm.createViewer({
         type: "ESCesiumViewer",
         container: "viewerContainer",
+      });
+
+      // Create a base imagery layer
+      const imageryLayer = objm.createSceneObjectFromJson({
+        id: "94f8b01b-8659-4a34-942b-15e6ece246ca",
+        type: "ESImageryLayer",
+        name: "World Imagery",
+        url: "https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        maximumLevel: 18,
       });
     </script>
   </body>
 </html>
 ```
 
-> This development package is owned by [Beijing Xi Bu Shi Jie Technology Co., Ltd. (XBSJ)](https://www.bjxbsj.cn).
+---
+
+## Core API
+
+### ESObjectsManager
+
+The object manager is responsible for managing all scene objects and viewport instances. Here are some key methods:
+
+| Method                                                      | Description                     |
+| ----------------------------------------------------------- | ------------------------------- |
+| `createViewer(option)`                                      | Create a viewport instance      |
+| `createSceneObject(type, id?)`                              | Create a scene object           |
+| `getSceneObject(option?)`                                   | Get scene objects by type or ID |
+| `destroySceneObject(obj)`                                   | Destroy a scene object          |
+| `switchViewer(option, viewSync?, attributeSync?, destroy?)` | Switch viewport                 |
+| `createCesiumViewer(params)`                                | Create Cesium viewport          |
+| `createOpenLayersViewer(params)`                            | Create OpenLayers viewport      |
+| `createUeViewer(params)`                                    | Create UE viewport              |
+
+### ESViewer
+
+The viewport base class defines a unified viewport operation interface. Here are some key methods:
+
+| Method                                                | Description                   |
+| ----------------------------------------------------- | ----------------------------- |
+| `flyTo(flyToParam, position, flyMode?)`               | Fly to the target position    |
+| `flyIn(position, rotation?, duration?, flyMode?)`     | Fly-in animation              |
+| `pick(screenPosition)`                                | Pick an object                |
+| `pickPosition(screenPosition)`                        | Get ground coordinates        |
+| `changeToWalk(position, jumpZVelocity?, eyeHeight?)`  | Switch to walk mode           |
+| `changeToMap()`                                       | Switch to map mode            |
+| `changeToRotateGlobe(latitude?, height?, cycleTime?)` | Switch to rotating globe mode |
+| `capture(resx?, resy?)`                               | Capture viewport image        |
+
+---
+
+## Development Guide
+
+### Setup
+
+```sh
+# Clone the repository
+git clone https://github.com/cesiumlab/earthsdk3-code.git
+
+# Install dependencies
+pnpm install
+
+# Switch debug/build mode
+node change-mode.js debug   # main points to source
+
+# Start development mode
+pnpm run dev-app1
+```
+
+### Build
+
+```sh
+# Switch debug/build mode
+node change-mode.js build  # main points to dist
+
+# Build all packages
+pnpm run build-earthsdk3
+pnpm run build-earthsdk3-cesium
+pnpm run build-earthsdk3-ue
+pnpm run build-earthsdk3-ol
+```
+
+---
+
+## License
+
+This development package is owned by [Beijing Xi Bu Shi Jie Technology Co., Ltd.](https://www.bjxbsj.cn).
+
+Open-source under the [ISC License](resources/LICENSE).
+
+---
+
+## Community & Support
+
+- 🌐 Official Website: [www.earthsdk.com](https://www.earthsdk.com)
+- 🌏 WeChat: 地球可视化实验室
+- 🌐 Company Website: [Beijing Xi Bu Shi Jie Technology Co., Ltd.](https://www.bjxbsj.cn)
+- 🌐 CesiumLab Geospatial Data Processing Platform: [CesiumLab](https://www.bjxbsj.cn/cesiumlab.html)
+- 🌐 PipeSer Pipeline Cloud Service: [PipeSer](https://www.bjxbsj.cn/pipeser.html)
+- 🌐 ModelSer 3D Reality Data Distributed Management Platform: [ModelSer](https://www.bjxbsj.cn/modelser.html)
+- 🌐 CIMRTS City Information Model Data Service Platform: [CIMRTS](https://www.bjxbsj.cn/cimrts.html)
+- 🌐 TerrainRTS Terrain Elevation Data Real-time Tile Service: [TerrainRTS](https://www.bjxbsj.cn/terrainrts.html)
+
+---
+
+<p align="center">
+  <strong>Built with ❤️ by <a href="https://www.bjxbsj.cn">Beijing Xi Bu Shi Jie Technology Co., Ltd.</a></strong>
+</p>

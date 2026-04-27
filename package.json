@@ -10,7 +10,7 @@
     "build:earthui": "pnpm -F earthui build",
     "build:usage": "pnpm -F earthsdk3-usage build",
     "update:version": "node scripts/update-version.js",
-    "clean_node_modules": "pnpm run cu & pnpm run ce & pnpm run cea & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj",
+    "clean_node_modules": "pnpm run cu & pnpm run ce & pnpm run cea & pnpm run ceo & pnpm run cev & pnpm run cew & pnpm run cevj & pnpm run cevj2",
     "cnm": "rimraf node_modules",
     "cu": "rimraf demos/earthsdk3-usage/node_modules",
     "ce": "rimraf demos/earthui/node_modules",
@@ -18,6 +18,7 @@
     "ceo": "rimraf examples/earthsdk3-react-vite/node_modules",
     "cev": "rimraf examples/earthsdk3-vite/node_modules",
     "cevj": "rimraf examples/earthsdk3-vite-js/node_modules",
+    "cevj2": "rimraf examples/earthsdk3-vite-vue2-js/node_modules",
     "cew": "rimraf examples/earthsdk3-wbpk/node_modules"
   },
   "devDependencies": {
